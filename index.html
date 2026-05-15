@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alsina — Gestión Pública, Tecnología y Territorio</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --grafito: #0e1c20;
+  --grafito2: #162429;
+  --grafito3: #1e2f35;
+  --turquesa: #00D5D8;
+  --cian: #008C9A;
+  --crema: #F3EFE7;
+  --blanco: #ffffff;
+  --concreto: #9e9992;
+  --sombra: #1C3C44;
+  --sombra2: #18303a;
+  --texto-oscuro: #1a2a30;
+  --verde: #52C78C;
+  --rojo: #E05252;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;overflow-x:hidden;}
+
+/* ── SCROLL ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .7s ease,transform .7s ease;}
+.reveal-left.visible{opacity:1;transform:none;}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .7s ease,transform .7s ease;}
+.reveal-right.visible{opacity:1;transform:none;}
+.delay-1{transition-delay:.1s!important;}
+.delay-2{transition-delay:.2s!important;}
+.delay-3{transition-delay:.3s!important;}
+.delay-4{transition-delay:.4s!important;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 56px;
+  background:rgba(14,28,32,0.0);
+  transition:background .4s,box-shadow .4s,padding .3s;
+}
+nav.scrolled{
+  background:rgba(14,28,32,0.97);
+  box-shadow:0 2px 40px rgba(0,0,0,0.4);
+  padding:12px 56px;
+  border-bottom:1px solid rgba(0,213,216,0.1);
+}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-mark svg{width:30px;height:30px;}
+.nav-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;letter-spacing:.2em;color:var(--crema);}
+.nav-tagline{font-size:.62rem;color:rgba(183,178,170,.7);letter-spacing:.12em;text-transform:uppercase;}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{color:rgba(243,239,231,.7);text-decoration:none;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;transition:color .2s;padding:4px 0;border-bottom:1px solid transparent;}
+.nav-links a:hover{color:var(--turquesa);border-bottom-color:var(--turquesa);}
+.nav-cta{background:var(--turquesa);color:var(--grafito);padding:10px 24px;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;}
+.nav-cta:hover{background:#00b8ba;transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,213,216,.3);}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;position:relative;overflow:hidden;
+  display:flex;align-items:center;
+}
+.hero-img{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9?w=1600&q=80') center/cover no-repeat;
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(110deg,rgba(14,28,32,.95) 40%,rgba(14,28,32,.65) 70%,rgba(0,140,154,.2) 100%);
+}
+.hero-grid-overlay{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,213,216,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,213,216,.04) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+/* diagonal beam */
+.hero-beam{
+  position:absolute;top:-20%;right:0;bottom:-20%;width:52%;
+  clip-path:polygon(25% 0,100% 0,100% 100%,0% 100%);
+  background:linear-gradient(135deg,rgba(0,213,216,.1) 0%,rgba(0,140,154,.04) 60%,transparent 100%);
+  border-left:1.5px solid rgba(0,213,216,.25);
+}
+/* particles canvas */
+#particles{position:absolute;inset:0;pointer-events:none;}
+/* topo */
+.hero-topo{
+  position:absolute;bottom:0;left:0;right:0;height:120px;
+  background:
+    repeating-linear-gradient(0deg,transparent,transparent 23px,rgba(0,213,216,.15) 23px,rgba(0,213,216,.15) 24px);
+  mask-image:linear-gradient(0deg,rgba(0,0,0,.6),transparent);
+}
+.hero-content{position:relative;z-index:10;padding:120px 56px 80px;max-width:700px;}
+.hero-eyebrow{
+  font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--turquesa);
+  margin-bottom:22px;display:flex;align-items:center;gap:12px;
+}
+.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--turquesa);}
+.hero-headline{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(3.4rem,6vw,5.6rem);line-height:.93;text-transform:uppercase;color:var(--crema);
+  margin-bottom:0;
+}
+.hero-headline .hl{color:var(--turquesa);}
+.hero-sub{
+  font-size:1.05rem;color:rgba(243,239,231,.75);max-width:480px;line-height:1.75;margin:26px 0 36px;
+}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-primary{background:var(--turquesa);color:var(--grafito);padding:14px 32px;font-weight:700;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;transition:all .25s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
+.btn-primary:hover{background:#00b8ba;transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,213,216,.3);}
+.btn-secondary{background:transparent;color:var(--crema);padding:14px 32px;border:1.5px solid rgba(243,239,231,.4);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .25s;text-decoration:none;display:inline-block;}
+.btn-secondary:hover{border-color:var(--turquesa);color:var(--turquesa);}
+/* floating stats */
+.hero-stats{
+  position:absolute;right:56px;bottom:100px;z-index:10;
+  display:flex;flex-direction:column;gap:2px;
+}
+.hstat{
+  background:rgba(14,28,32,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,213,216,.2);padding:16px 22px;
+  display:flex;align-items:center;gap:16px;
+  transition:border-color .3s;
+}
+.hstat:hover{border-color:var(--turquesa);}
+.hstat-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:var(--turquesa);line-height:1;}
+.hstat-label{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--concreto);}
+/* scroll indicator */
+.scroll-hint{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:10;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--concreto);
+}
+.scroll-hint-arrow{animation:bounce 2s infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+
+/* ── MARQUEE BAND ── */
+.marquee-band{
+  background:var(--turquesa);padding:14px 0;overflow:hidden;position:relative;
+}
+.marquee-track{
+  display:flex;gap:0;white-space:nowrap;animation:marquee 22s linear infinite;
+}
+.marquee-track:hover{animation-play-state:paused;}
+.marquee-item{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;
+  text-transform:uppercase;letter-spacing:.15em;color:var(--grafito);
+  padding:0 32px;display:flex;align-items:center;gap:32px;
+}
+.marquee-item::after{content:'◆';font-size:.5rem;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ── SECCIÓN BLANCA / PROBLEMA ── */
+#problema{
+  background:var(--blanco);color:var(--texto-oscuro);
+  padding:100px 56px;position:relative;overflow:hidden;
+}
+#problema::before{
+  content:'';position:absolute;top:0;right:0;bottom:0;width:40%;
+  background:linear-gradient(135deg,rgba(0,213,216,.06),rgba(0,140,154,.03));
+  clip-path:polygon(20% 0,100% 0,100% 100%,0% 100%);
+}
+.section-label-dark{font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cian);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.section-label-dark::after{content:'';flex:0 0 32px;height:1px;background:var(--cian);}
+.headline-dark{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.4rem,4vw,3.6rem);text-transform:uppercase;line-height:.95;color:var(--texto-oscuro);}
+.headline-dark span{color:var(--turquesa);}
+.body-dark{font-size:.95rem;color:#3a4a50;line-height:1.8;margin-top:20px;}
+.body-dark strong{color:var(--texto-oscuro);}
+/* imagen problema */
+.problema-img{
+  position:relative;overflow:hidden;
+  background:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80') center/cover;
+  min-height:340px;border-radius:2px;
+}
+.problema-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,140,154,.7),rgba(14,28,32,.5));
+  display:flex;align-items:flex-end;padding:28px;
+}
+.problema-img-caption{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.8);}
+/* caos → orden cards */
+.caos-cards{display:flex;flex-direction:column;gap:14px;margin-top:32px;}
+.caos-card{background:#f5f5f0;border-left:3px solid #d0cec8;padding:16px 20px;}
+.caos-card.order{background:rgba(0,213,216,.06);border-left-color:var(--turquesa);}
+.caos-card-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#888;margin-bottom:8px;}
+.caos-card.order .caos-card-label{color:var(--cian);}
+.caos-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.caos-tag{font-size:.72rem;padding:4px 12px;background:rgba(0,0,0,.06);color:#555;border-radius:1px;}
+.caos-tag.t{background:rgba(0,213,216,.12);color:var(--cian);}
+
+/* ── PROPUESTA — DARK ── */
+#propuesta{
+  background:var(--grafito2);
+  padding:100px 56px;position:relative;overflow:hidden;
+}
+/* background image subtle */
+#propuesta::before{
+  content:'';position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1600&q=80') center/cover no-repeat;
+  opacity:.07;
+}
+.prop-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;z-index:2;}
+.prop-visual{position:relative;}
+.prop-img{
+  background:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80') center/cover;
+  height:420px;position:relative;
+}
+.prop-img-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(22,36,41,.9));}
+.prop-img-data{
+  position:absolute;bottom:0;left:0;right:0;padding:24px;
+  display:grid;grid-template-columns:1fr 1fr;gap:2px;
+}
+.prop-datum{background:rgba(14,28,32,.85);backdrop-filter:blur(8px);padding:14px 16px;border-top:2px solid rgba(0,213,216,.5);}
+.prop-datum-val{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.6rem;color:var(--turquesa);}
+.prop-datum-lbl{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);}
+.section-label{font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--turquesa);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.section-label::after{content:'';flex:0 0 32px;height:1px;background:var(--turquesa);}
+.section-headline{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.2rem,3.5vw,3.2rem);text-transform:uppercase;line-height:.95;color:var(--crema);}
+.section-headline span{color:var(--turquesa);}
+.section-body{font-size:.93rem;color:var(--concreto);line-height:1.8;margin-top:18px;}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:32px;}
+.pillar{background:rgba(14,28,32,.7);padding:22px 20px;border-top:2px solid rgba(0,213,216,.2);transition:all .3s;cursor:default;}
+.pillar:hover{border-top-color:var(--turquesa);background:rgba(0,213,216,.06);}
+.pillar-icon{font-size:1.5rem;margin-bottom:10px;display:block;}
+.pillar-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;text-transform:uppercase;letter-spacing:.08em;color:var(--crema);margin-bottom:6px;}
+.pillar-desc{font-size:.78rem;color:var(--concreto);line-height:1.6;}
+
+/* ── SPLIT EXPLORE ── */
+#split-explore{
+  display:flex;height:560px;position:relative;overflow:hidden;
+}
+.split-panel{
+  flex:1;position:relative;overflow:hidden;cursor:pointer;
+  transition:flex .6s cubic-bezier(.77,0,.18,1);
+}
+.split-panel:hover{flex:1.35;}
+#split-explore:has(.split-panel:hover) .split-panel:not(:hover){flex:.65;}
+.split-bg{
+  position:absolute;inset:-6%;
+  background-size:cover;background-position:center;
+  filter:grayscale(100%) brightness(.55);
+  transition:filter .6s ease, transform .6s ease;
+}
+.split-panel:hover .split-bg{
+  filter:grayscale(0%) brightness(.6);
+  transform:scale(1.04);
+}
+/* color tint beam on hover */
+.split-panel::after{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,213,216,.18),transparent 60%);
+  opacity:0;transition:opacity .5s;
+}
+.split-panel:hover::after{opacity:1;}
+/* vertical divider */
+.split-divider{
+  position:absolute;top:0;bottom:0;left:50%;
+  width:1px;background:rgba(255,255,255,.25);z-index:10;
+  pointer-events:none;
+  transition:left .6s cubic-bezier(.77,0,.18,1), background .4s;
+}
+#split-explore:has(.split-panel:first-child:hover) .split-divider{left:57.5%;}
+#split-explore:has(.split-panel:last-child:hover) .split-divider{left:42.5%;}
+/* text box */
+.split-content{
+  position:absolute;inset:0;z-index:5;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:48px 48px 52px;
+}
+.split-tag{
+  font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;
+  transition:color .4s;
+}
+.split-panel:hover .split-tag{color:var(--turquesa);}
+.split-tag::before{content:'';width:20px;height:1px;background:currentColor;}
+.split-box{
+  background:rgba(10,18,22,.72);
+  backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.1);
+  border-left:3px solid rgba(255,255,255,.3);
+  padding:28px 32px 28px 28px;
+  transition:border-left-color .4s, background .4s;
+  max-width:480px;
+}
+.split-panel:hover .split-box{
+  border-left-color:var(--turquesa);
+  background:rgba(10,18,22,.8);
+}
+.split-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(1.6rem,2.8vw,2.4rem);text-transform:uppercase;
+  line-height:.95;color:rgba(255,255,255,.7);margin-bottom:14px;
+  transition:color .4s;
+}
+.split-panel:hover .split-title{color:var(--crema);}
+.split-title em{font-style:normal;color:rgba(0,213,216,.6);transition:color .4s;}
+.split-panel:hover .split-title em{color:var(--turquesa);}
+.split-text{
+  font-size:.84rem;color:rgba(255,255,255,.45);line-height:1.7;
+  transition:color .4s;
+  max-width:360px;
+}
+.split-panel:hover .split-text{color:rgba(243,239,231,.75);}
+.split-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:20px;font-size:.75rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;text-decoration:none;
+  color:rgba(0,213,216,.5);
+  border-bottom:1px solid transparent;
+  padding-bottom:2px;
+  transition:all .4s;
+}
+.split-panel:hover .split-cta{
+  color:var(--turquesa);
+  border-bottom-color:rgba(0,213,216,.4);
+}
+.split-cta-arrow{transition:transform .3s;}
+.split-panel:hover .split-cta-arrow{transform:translateX(5px);}
+/* numero grande decorativo */
+.split-deco-num{
+  position:absolute;top:32px;right:32px;z-index:5;
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:7rem;line-height:1;color:rgba(255,255,255,.05);
+  transition:color .4s;pointer-events:none;
+}
+.split-panel:hover .split-deco-num{color:rgba(0,213,216,.08);}
+
+/* ── METODOLOGÍA — BLANCA ── */
+#metodologia{
+  background:var(--crema);color:var(--texto-oscuro);
+  padding:100px 56px;position:relative;overflow:hidden;
+}
+.meto-header{max-width:560px;margin-bottom:64px;}
+.meto-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+.meto-step{
+  background:var(--blanco);padding:32px 24px;
+  border-bottom:3px solid transparent;
+  transition:all .3s;position:relative;overflow:hidden;
+}
+.meto-step::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:var(--turquesa);transform:scaleX(0);transform-origin:left;transition:transform .3s;
+}
+.meto-step:hover::before{transform:scaleX(1);}
+.meto-step:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.1);}
+.meto-num{
+  width:48px;height:48px;border:2px solid var(--turquesa);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;color:var(--turquesa);
+  margin-bottom:20px;
+}
+.meto-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;text-transform:uppercase;letter-spacing:.1em;color:var(--texto-oscuro);margin-bottom:10px;}
+.meto-desc{font-size:.82rem;color:#4a5a60;line-height:1.7;}
+.meto-arrow{text-align:center;color:rgba(0,140,154,.3);font-size:1.2rem;padding-top:28px;}
+
+/* ── SERVICIOS — DARK ── */
+#servicios{
+  background:var(--grafito);
+  padding:100px 56px;position:relative;
+}
+.servicios-intro{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:flex-end;margin-bottom:56px;}
+.servicios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.srv-card{
+  background:var(--sombra2);padding:32px 28px;
+  position:relative;overflow:hidden;
+  transition:all .3s;cursor:default;
+}
+.srv-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--turquesa),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.srv-card:hover{transform:translateY(-4px);background:rgba(0,213,216,.05);box-shadow:0 16px 48px rgba(0,0,0,.3);}
+.srv-card:hover::after{opacity:1;}
+.srv-num{font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;color:rgba(0,213,216,.08);position:absolute;top:12px;right:18px;line-height:1;}
+.srv-icon{font-size:1.8rem;margin-bottom:16px;display:block;}
+.srv-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;letter-spacing:.06em;color:var(--crema);margin-bottom:10px;}
+.srv-desc{font-size:.82rem;color:var(--concreto);line-height:1.7;}
+.srv-tag{display:inline-block;margin-top:14px;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--turquesa);border:1px solid rgba(0,213,216,.25);padding:3px 10px;}
+
+/* ── INFORMES — BLANCA ── */
+#informes{
+  background:var(--blanco);color:var(--texto-oscuro);
+  padding:100px 56px;position:relative;overflow:hidden;
+}
+.informes-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:56px;flex-wrap:wrap;gap:24px;}
+.informes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(min-width:961px){.informes-grid{grid-template-columns:repeat(3,1fr);}}
+.inf-card{
+  border:1px solid #e0ddd8;
+  transition:all .3s;position:relative;overflow:hidden;background:var(--blanco);
+}
+.inf-card:hover{border-color:var(--turquesa);box-shadow:0 8px 32px rgba(0,0,0,.08);transform:translateY(-4px);}
+.inf-img{height:160px;background-size:cover;background-position:center;position:relative;}
+.inf-img-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(14,28,32,.7));}
+.inf-badge{position:absolute;top:14px;left:14px;background:var(--turquesa);color:var(--grafito);font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:4px 10px;}
+.inf-body{padding:24px 22px;}
+.inf-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;letter-spacing:.06em;color:var(--texto-oscuro);margin-bottom:8px;}
+.inf-desc{font-size:.8rem;color:#4a5a60;line-height:1.65;}
+.inf-items{margin-top:14px;list-style:none;}
+.inf-items li{font-size:.75rem;color:#5a6a70;padding:5px 0;border-bottom:1px solid #f0ede8;display:flex;align-items:flex-start;gap:8px;}
+.inf-items li::before{content:'→';color:var(--turquesa);flex-shrink:0;}
+
+/* ── NÚMEROS — DARK GRADIENT ── */
+#numeros{
+  background:linear-gradient(135deg,var(--grafito2),var(--sombra));
+  padding:80px 56px;position:relative;overflow:hidden;
+}
+#numeros::before{
+  content:'';position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80') center/cover no-repeat;
+  opacity:.07;
+}
+.numeros-inner{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:2px;position:relative;z-index:2;
+}
+.numero-card{
+  padding:40px 32px;text-align:center;background:rgba(14,28,32,.6);
+  backdrop-filter:blur(6px);border-top:2px solid rgba(0,213,216,.2);
+  transition:border-top-color .3s;
+}
+.numero-card:hover{border-top-color:var(--turquesa);}
+.numero-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3.5rem;color:var(--turquesa);line-height:1;}
+.numero-label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-top:8px;}
+.numero-sub{font-size:.75rem;color:rgba(183,178,170,.6);margin-top:4px;}
+
+/* ── TESTIMONIO / QUOTE ── */
+#quote{
+  background:var(--crema);color:var(--texto-oscuro);
+  padding:80px 56px;
+}
+.quote-inner{max-width:860px;margin:0 auto;text-align:center;}
+.quote-mark{font-family:'Barlow Condensed',sans-serif;font-size:6rem;color:rgba(0,213,216,.2);line-height:.7;margin-bottom:8px;}
+.quote-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(1.6rem,3vw,2.5rem);text-transform:uppercase;line-height:1.1;color:var(--texto-oscuro);}
+.quote-text span{color:var(--turquesa);}
+.quote-sub{font-size:.88rem;color:#4a5a60;margin-top:16px;line-height:1.7;max-width:600px;margin-left:auto;margin-right:auto;}
+.quote-author{margin-top:24px;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cian);}
+
+/* ── SEÑAL ── */
+#señal{
+  background:var(--grafito2);
+  padding:100px 56px;position:relative;overflow:hidden;
+}
+.señal-bg-img{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?w=1600&q=80') center/cover no-repeat;
+  opacity:.06;
+}
+.señal-inner{max-width:1000px;margin:0 auto;text-align:center;position:relative;z-index:2;}
+.señal-svg{margin:32px auto 0;display:block;}
+.señal-badges{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:32px 0 0;}
+.señal-badge{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 18px;border:1px solid rgba(0,213,216,.3);color:var(--turquesa);transition:all .25s;cursor:default;}
+.señal-badge:hover{background:rgba(0,213,216,.1);}
+
+/* ── CTA ── */
+#contacto{
+  position:relative;overflow:hidden;padding:120px 56px;text-align:center;
+}
+.cta-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?w=1600&q=80') center/cover;
+}
+.cta-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,28,32,.92),rgba(14,28,32,.88));}
+.cta-inner{position:relative;z-index:2;max-width:700px;margin:0 auto;}
+.cta-headline{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.2rem,4.5vw,4rem);text-transform:uppercase;line-height:.95;color:var(--crema);margin-bottom:14px;}
+.cta-headline span{color:var(--turquesa);}
+.cta-sub{font-size:.95rem;color:rgba(243,239,231,.7);max-width:500px;margin:0 auto 40px;line-height:1.75;}
+.cta-divider{width:48px;height:2px;background:var(--turquesa);margin:24px auto;}
+.cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+/* email input */
+.cta-form{display:flex;gap:0;max-width:440px;margin:32px auto 0;}
+.cta-input{
+  flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(243,239,231,.3);
+  color:var(--crema);padding:14px 18px;font-family:'Barlow',sans-serif;font-size:.85rem;
+  outline:none;transition:border-color .2s;
+}
+.cta-input::placeholder{color:rgba(243,239,231,.4);}
+.cta-input:focus{border-color:var(--turquesa);}
+.cta-submit{background:var(--turquesa);border:none;color:var(--grafito);padding:14px 22px;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s;}
+.cta-submit:hover{background:#00b8ba;}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--grafito);
+  padding:48px 56px 32px;
+  border-top:1px solid rgba(0,213,216,.1);
+}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:40px;}
+.footer-brand-col{}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.footer-brandname{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;letter-spacing:.2em;color:var(--crema);}
+.footer-tagline{font-size:.72rem;color:var(--concreto);line-height:1.6;max-width:220px;}
+.footer-tagline span{color:var(--turquesa);}
+.footer-col-title{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--turquesa);margin-bottom:16px;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-links a{font-size:.8rem;color:var(--concreto);text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:var(--turquesa);}
+.footer-bottom{padding-top:24px;border-top:1px solid rgba(183,178,170,.1);display:flex;align-items:center;justify-content:space-between;}
+.footer-copy{font-size:.7rem;color:rgba(183,178,170,.5);}
+.footer-pulse{display:flex;align-items:center;gap:8px;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(0,213,216,.5);}
+
+/* ── TOOLTIP RADAR ── */
+#radar-wrap{display:flex;justify-content:center;margin:40px 0 0;}
+
+/* responsive */
+@media(max-width:960px){
+  nav{padding:14px 24px;}
+  nav.scrolled{padding:12px 24px;}
+  .nav-links{display:none;}
+  #hero .hero-content{padding:100px 24px 80px;}
+  .hero-stats{display:none;}
+  .prop-grid{grid-template-columns:1fr;gap:32px;}
+  .meto-steps{grid-template-columns:1fr 1fr;}
+  .servicios-intro{grid-template-columns:1fr;}
+  .servicios-grid{grid-template-columns:1fr 1fr;}
+  .numeros-inner{grid-template-columns:1fr 1fr;}
+  .informes-grid{grid-template-columns:1fr;}
+  #problema,#propuesta,#metodologia,#servicios,#informes,#señal,#contacto,#numeros,#quote{padding:72px 24px;}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">
+    <span class="logo-mark">
+      <svg viewBox="0 0 30 30" fill="none">
+        <path d="M15 2L2 28H8L15 14L22 28H28L15 2Z" fill="#00D5D8"/>
+        <path d="M10 22H20" stroke="#071114" stroke-width="2"/>
+      </svg>
+    </span>
+    <div>
+      <div class="nav-brand">ALSINA</div>
+      <div class="nav-tagline">Gestión Pública · Tecnología · Territorio</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#problema">Contexto</a></li>
+    <li><a href="#propuesta">Propuesta</a></li>
+    <li><a href="#metodologia">Método</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#informes">Informes</a></li>
+  </ul>
+  <a href="#contacto" class="nav-cta">Contacto →</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid-overlay"></div>
+  <canvas id="particles"></canvas>
+  <div class="hero-beam"></div>
+  <div class="hero-topo"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Señal territorial para Buenos Aires</div>
+    <h1 class="hero-headline">
+      En Buenos Aires,<br>
+      gobernar es<br>
+      <span class="hl">ordenar</span><br>
+      complejidad.
+    </h1>
+    <p class="hero-sub">
+      Alsina transforma información dispersa en decisiones, prioridades 
+      y capacidad de gobierno — para los 135 municipios que más lo necesitan.
+    </p>
+    <div class="hero-actions">
+      <a href="#servicios" class="btn-primary">Conocer servicios →</a>
+      <a href="#contacto" class="btn-secondary">Hablar con el equipo</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hstat reveal-right">
+      <div class="hstat-num" data-count="135">0</div>
+      <div><div class="hstat-label">Municipios PBA</div></div>
+    </div>
+    <div class="hstat reveal-right delay-1">
+      <div class="hstat-num" data-count="8">0</div>
+      <div><div class="hstat-label">Líneas de servicio</div></div>
+    </div>
+    <div class="hstat reveal-right delay-2">
+      <div class="hstat-num" style="font-size:1.6rem">1</div>
+      <div><div class="hstat-label">Metodología propia</div></div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Descubrí Alsina</span>
+    <span class="scroll-hint-arrow">↓</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-band">
+  <div class="marquee-track" id="marqueeTrack">
+    <div class="marquee-item">Gestión pública</div>
+    <div class="marquee-item">Tecnología territorial</div>
+    <div class="marquee-item">Señal Alsina</div>
+    <div class="marquee-item">Lectura del territorio</div>
+    <div class="marquee-item">Capacidad de gobierno</div>
+    <div class="marquee-item">Ordenar · Decidir · Ejecutar</div>
+    <div class="marquee-item">Provincia de Buenos Aires</div>
+    <div class="marquee-item">135 municipios</div>
+    <div class="marquee-item">Gestión pública</div>
+    <div class="marquee-item">Tecnología territorial</div>
+    <div class="marquee-item">Señal Alsina</div>
+    <div class="marquee-item">Lectura del territorio</div>
+    <div class="marquee-item">Capacidad de gobierno</div>
+    <div class="marquee-item">Ordenar · Decidir · Ejecutar</div>
+    <div class="marquee-item">Provincia de Buenos Aires</div>
+    <div class="marquee-item">135 municipios</div>
+  </div>
+</div>
+
+<!-- PROBLEMA — BLANCO -->
+<section id="problema">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;">
+    <div class="reveal-left">
+      <div class="section-label-dark">El diagnóstico</div>
+      <h2 class="headline-dark">
+        Un municipio no falla<br>solo por falta de<br><span>recursos.</span>
+      </h2>
+      <p class="body-dark">
+        Muchas veces falla porque no logra <strong>ordenar</strong> decisiones, 
+        equipos, datos, procesos y prioridades. La Provincia de Buenos Aires no perdona 
+        la improvisación: 135 municipios, escalas distintas, demandas urgentes, 
+        recursos limitados. Territorios que cambian más rápido que la gestión.
+      </p>
+      <p class="body-dark" style="margin-top:14px;">
+        El problema tampoco es mirar más datos. Es saber 
+        <strong style="color:var(--turquesa)">qué hacer con ellos</strong>. 
+        Transformamos información dispersa en criterios de decisión, 
+        prioridades de gestión y hoja de ruta.
+      </p>
+      <div class="caos-cards">
+        <div class="caos-card">
+          <div class="caos-card-label">Sin Alsina</div>
+          <div class="caos-tags">
+            <span class="caos-tag">Procesos lentos</span>
+            <span class="caos-tag">Agenda dispersa</span>
+            <span class="caos-tag">Comunicación fragmentada</span>
+            <span class="caos-tag">Baja trazabilidad</span>
+            <span class="caos-tag">Proyectos sin financiamiento</span>
+          </div>
+        </div>
+        <div class="caos-card order">
+          <div class="caos-card-label">Con Alsina</div>
+          <div class="caos-tags">
+            <span class="caos-tag t">Criterios de decisión</span>
+            <span class="caos-tag t">Hoja de ruta</span>
+            <span class="caos-tag t">Prioridades ordenadas</span>
+            <span class="caos-tag t">Capacidad ejecutora</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="problema-img">
+        <div class="problema-img-overlay">
+          <span class="problema-img-caption">Buenos Aires — 135 municipios · Complejidad territorial</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:2px;">
+        <div style="background:#f0ede8;padding:20px 18px;border-top:3px solid var(--turquesa)">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2rem;color:var(--cian);">135</div>
+          <div style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#4a5a60;">municipios bonaerenses</div>
+        </div>
+        <div style="background:#f0ede8;padding:20px 18px;border-top:3px solid rgba(0,140,154,.4)">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2rem;color:var(--cian);">17M</div>
+          <div style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#4a5a60;">habitantes en la PBA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPUESTA — DARK -->
+<section id="propuesta">
+  <div class="prop-grid">
+    <div class="reveal-left" style="position:relative;z-index:2;">
+      <div class="section-label">Nuestra propuesta</div>
+      <h2 class="section-headline">Ordenamos gobiernos para que las <span>ciudades funcionen mejor.</span></h2>
+      <p class="section-body">
+        No vendemos diagnósticos. Construimos capacidad de gobierno. 
+        Detectamos la señal en la complejidad y la convertimos en acción.
+        Cada intervención de Alsina parte del método, aplica tecnología territorial 
+        y termina en implementación verificable.
+      </p>
+      <div class="pillars">
+        <div class="pillar"><span class="pillar-icon">🏛️</span><div class="pillar-title">Gestión pública</div><p class="pillar-desc">Fortalecimiento institucional y procesos orientados a resultados.</p></div>
+        <div class="pillar"><span class="pillar-icon">⚡</span><div class="pillar-title">Tecnología aplicada</div><p class="pillar-desc">CRM, dashboards y automatización para municipios reales.</p></div>
+        <div class="pillar"><span class="pillar-icon">🗺️</span><div class="pillar-title">Lectura territorial</div><p class="pillar-desc">Mapeo institucional y análisis fiscal profundo del territorio PBA.</p></div>
+        <div class="pillar"><span class="pillar-icon">📡</span><div class="pillar-title">Comunicación de gobierno</div><p class="pillar-desc">Narrativa, contenidos y posicionamiento político territorial.</p></div>
+      </div>
+    </div>
+    <div class="reveal-right" style="position:relative;z-index:2;">
+      <div class="prop-img">
+        <div class="prop-img-overlay"></div>
+        <div class="prop-img-data">
+          <div class="prop-datum"><div class="prop-datum-val">+6%</div><div class="prop-datum-lbl">Rec. real PBA 1er Bim 2026</div></div>
+          <div class="prop-datum"><div class="prop-datum-val">$874B</div><div class="prop-datum-lbl">Transferencias 1er Bim</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPLIT EXPLORE -->
+<div id="split-explore">
+
+  <!-- Panel izquierdo: Diagnóstico de la Provincia -->
+  <div class="split-panel" onclick="window.location.href='alsina-radiografia-pba.html'">
+    <div class="split-bg" style="background-image:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80')"></div>
+    <div class="split-deco-num">PBA</div>
+    <div class="split-content">
+      <div class="split-tag">Análisis territorial</div>
+      <div class="split-box">
+        <div class="split-title">Un diagnóstico<br>de la <em>Provincia</em></div>
+        <p class="split-text">
+          La Provincia de Buenos Aires no es un territorio homogéneo: es un sistema de 135 realidades distintas con lógicas propias de gestión, financiamiento y demanda ciudadana.
+          Gobernarla exige leer la complejidad antes de intervenir.
+        </p>
+        <a href="alsina-radiografia-pba.html" class="split-cta">
+          Ver la radiografía completa
+          <span class="split-cta-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Divisor visual -->
+  <div class="split-divider"></div>
+
+  <!-- Panel derecho: 135 Municipios -->
+  <div class="split-panel" onclick="window.location.href='municipios-data-hub.html'">
+    <div class="split-bg" style="background-image:url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&q=80')"></div>
+    <div class="split-deco-num">135</div>
+    <div class="split-content">
+      <div class="split-tag">Datos municipales</div>
+      <div class="split-box">
+        <div class="split-title">Explorar los<br><em>135 Municipios</em></div>
+        <p class="split-text">
+          Mapa interactivo, tabla comparativa y dashboard por municipio: transferencias, coparticipación, variaciones reales y tendencias fiscales 2023–2025. Navegá los datos de los 135 partidos bonaerenses.
+        </p>
+        <a href="municipios-data-hub.html" class="split-cta">
+          Abrir el explorador de datos
+          <span class="split-cta-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- METODOLOGÍA — BLANCA -->
+<section id="metodologia">
+  <div class="meto-header reveal">
+    <div class="section-label-dark">Método Alsina</div>
+    <h2 class="headline-dark">De la complejidad <span>a la decisión.</span></h2>
+    <p style="font-size:.92rem;color:#4a5a60;margin-top:14px;max-width:480px;line-height:1.75;">
+      Cuatro pasos que convierten la opacidad institucional en hoja de ruta ejecutable.
+      No diagnóstico: intervención orientada a resultados verificables.
+    </p>
+  </div>
+  <div class="meto-steps">
+    <div class="meto-step reveal delay-1">
+      <div class="meto-num">1</div>
+      <div class="meto-title">Relevar</div>
+      <p class="meto-desc">Relevamiento de arquitectura organizacional, circuitos de decisión y sistemas de información existentes en el municipio.</p>
+    </div>
+    <div class="meto-step reveal delay-2">
+      <div class="meto-num">2</div>
+      <div class="meto-title">Ordenar</div>
+      <p class="meto-desc">Transformamos información dispersa en un mapa de capacidades real: dónde se pierde potencial, qué interdependencias generan fricción.</p>
+    </div>
+    <div class="meto-step reveal delay-3">
+      <div class="meto-num">3</div>
+      <div class="meto-title">Priorizar</div>
+      <p class="meto-desc">Matriz de impacto, urgencia y factibilidad técnica y política. Identificamos dónde actuar con mayor efectividad e impacto visible.</p>
+    </div>
+    <div class="meto-step reveal delay-4">
+      <div class="meto-num">4</div>
+      <div class="meto-title">Implementar</div>
+      <p class="meto-desc">Hoja de ruta con etapas, responsables y métricas. Cada oportunidad identificada conecta con un producto de intervención concreto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS — DARK -->
+<section id="servicios">
+  <div class="servicios-intro">
+    <div class="reveal-left">
+      <div class="section-label">Servicios de intervención</div>
+      <h2 class="section-headline">Donde la gestión se traba, <span>Alsina ordena.</span></h2>
+    </div>
+    <div class="reveal-right">
+      <p class="section-body">
+        Cada servicio está diseñado para un problema concreto de la gestión municipal bonaerense. 
+        No consultoras genéricas: intervenciones específicas para la complejidad de la Provincia.
+      </p>
+    </div>
+  </div>
+  <div class="servicios-grid">
+    <div class="srv-card reveal delay-1">
+      <div class="srv-num">01</div>
+      <div class="srv-icon">🔍</div>
+      <div class="srv-title">Diagnóstico de gestión municipal</div>
+      <p class="srv-desc">Relevamiento institucional estructurado: procesos, cuellos de botella, brechas de capacidad y hoja de ruta. Diagnóstico de potencial — no auditoría de problemas.</p>
+      <span class="srv-tag">Sprint · Integral</span>
+    </div>
+    <div class="srv-card reveal delay-2">
+      <div class="srv-num">02</div>
+      <div class="srv-icon">📱</div>
+      <div class="srv-title">CRM público para atención ciudadana</div>
+      <p class="srv-desc">Arquitectura omnicanal: WhatsApp, web y redes unificados. Automatización, trazabilidad completa y dashboards en tiempo real. Ciudades que responden y aprenden.</p>
+      <span class="srv-tag">Tecnología aplicada</span>
+    </div>
+    <div class="srv-card reveal delay-3">
+      <div class="srv-num">03</div>
+      <div class="srv-icon">🗣️</div>
+      <div class="srv-title">CICERO — Comunicación política</div>
+      <p class="srv-desc">Sistema de inteligencia comunicacional con IA. Perfil político estructurado, generación de contenidos multiplataforma, calendario editorial y analítica de posicionamiento.</p>
+      <span class="srv-tag">Comunicación de gobierno</span>
+    </div>
+    <div class="srv-card reveal delay-1">
+      <div class="srv-num">04</div>
+      <div class="srv-icon">🏗️</div>
+      <div class="srv-title">Financiamiento base suelo urbano</div>
+      <p class="srv-desc">Recuperación de plusvalías, fideicomisos urbanos y articulación con BID, FONPLATA y CFI. Los recursos que el municipio no está capturando todavía.</p>
+      <span class="srv-tag">Financiamiento territorial</span>
+    </div>
+    <div class="srv-card reveal delay-2">
+      <div class="srv-num">05</div>
+      <div class="srv-icon">📐</div>
+      <div class="srv-title">Estructuración de proyectos estratégicos</div>
+      <p class="srv-desc">De la idea al proyecto financiable. Formulación técnica y prefactibilidad bajo estándares de organismos multilaterales — BID, FONPLATA, CFI, BIRF.</p>
+      <span class="srv-tag">Desarrollo territorial</span>
+    </div>
+    <div class="srv-card reveal delay-3">
+      <div class="srv-num">06</div>
+      <div class="srv-icon">⚖️</div>
+      <div class="srv-title">Análisis de la Ley Orgánica Municipal</div>
+      <p class="srv-desc">Guía práctica del Decreto-Ley 6769/58: competencias, régimen financiero, márgenes de autonomía y obligaciones reales del ejecutivo y concejo deliberante.</p>
+      <span class="srv-tag">Marco normativo</span>
+    </div>
+  </div>
+</section>
+
+<!-- INFORMES — BLANCO -->
+<section id="informes">
+  <div class="informes-header">
+    <div class="reveal-left">
+      <div class="section-label-dark">Productos informativos</div>
+      <h2 class="headline-dark">Información que <span>reduce asimetría.</span></h2>
+    </div>
+    <div class="reveal-right" style="max-width:360px;">
+      <p style="font-size:.88rem;color:#4a5a60;line-height:1.75;">
+        Los municipios operan en desventaja porque no tienen acceso a datos procesados. 
+        Nuestros informes convierten datos públicos en herramientas de planificación y negociación.
+      </p>
+    </div>
+  </div>
+  <div class="informes-grid">
+    <div class="inf-card reveal delay-1">
+      <div class="inf-img" style="background-image:url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80')">
+        <div class="inf-img-overlay"></div>
+        <span class="inf-badge">Bimestral</span>
+      </div>
+      <div class="inf-body">
+        <div class="inf-title">Informes de recaudación PBA</div>
+        <p class="inf-desc">Monitoreo de la recaudación tributaria provincial: evolución, composición y tendencias de Ingresos Brutos, Inmobiliario, Automotores y Sellos.</p>
+        <ul class="inf-items">
+          <li>Variación nominal y real interanual</li>
+          <li>Análisis por tributo con tendencia</li>
+          <li>Factores explicativos y anomalías</li>
+          <li>Ficha resumen ejecutivo</li>
+        </ul>
+      </div>
+    </div>
+    <div class="inf-card reveal delay-2">
+      <div class="inf-img" style="background-image:url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80')">
+        <div class="inf-img-overlay"></div>
+        <span class="inf-badge">Trimestral</span>
+      </div>
+      <div class="inf-body">
+        <div class="inf-title">Informes de transferencias municipales</div>
+        <p class="inf-desc">Seguimiento sistemático de los recursos que Nación y Provincia transfieren a los 135 municipios bonaerenses. Información que no está procesada en ningún otro lado.</p>
+        <ul class="inf-items">
+          <li>Coparticipación: monto y variación real</li>
+          <li>Transferencias nacionales específicas</li>
+          <li>Fondos especiales por tramo</li>
+          <li>Alertas ante variaciones significativas</li>
+        </ul>
+      </div>
+    </div>
+    <div class="inf-card reveal delay-3">
+      <div class="inf-img" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80')">
+        <div class="inf-img-overlay"></div>
+        <span class="inf-badge">Permanente</span>
+      </div>
+      <div class="inf-body">
+        <div class="inf-title">Mapa del Estado de la PBA</div>
+        <p class="inf-desc">Arquitectura institucional completa del Estado provincial: ministerios, organismos, empresas, consorcios y todas las ventanillas disponibles para municipios.</p>
+        <ul class="inf-items">
+          <li>Catálogo de programas y fondos</li>
+          <li>Fichas individuales por organismo</li>
+          <li>ARBA, IOMA, OPDS, AUBASA y más</li>
+          <li>Índice de interlocutores reales</li>
+        </ul>
+      </div>
+    </div>
+    <div class="inf-card reveal delay-1" style="grid-column:1/-1;display:flex;flex-direction:row;gap:0;overflow:hidden;" onclick="window.location.href='alsina-nota-finanzas-pba.html'" role="link" tabindex="0" style="cursor:pointer;">
+      <div class="inf-img" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80');flex:0 0 280px;min-height:180px;">
+        <div class="inf-img-overlay"></div>
+        <span class="inf-badge">Análisis</span>
+      </div>
+      <div class="inf-body" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+        <div class="inf-title" style="font-size:1.25rem;">Finanzas de la PBA: estructura, deuda y transferencias</div>
+        <p class="inf-desc" style="margin-top:8px;max-width:700px;">
+          Una lectura profunda de los recursos tributarios provinciales, el stock de deuda, las transferencias a municipios y el colapso de los fondos nacionales.
+          Con gráficos comparativos 2018–2025 y conclusiones políticas para gestores territoriales.
+        </p>
+        <div style="margin-top:16px;">
+          <a href="alsina-nota-finanzas-pba.html" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cian);text-decoration:none;border-bottom:1px solid rgba(0,140,154,.3);padding-bottom:2px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='var(--cian)'">Leer la nota completa →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NÚMEROS -->
+<section id="numeros">
+  <div class="numeros-inner">
+    <div class="numero-card reveal delay-1">
+      <div class="numero-val" data-count="135">0</div>
+      <div class="numero-label">Municipios PBA</div>
+      <div class="numero-sub">Cobertura territorial completa</div>
+    </div>
+    <div class="numero-card reveal delay-2">
+      <div class="numero-val" data-count="8">0</div>
+      <div class="numero-label">Líneas de servicio</div>
+      <div class="numero-sub">Cobertura integral de la gestión</div>
+    </div>
+    <div class="numero-card reveal delay-3">
+      <div class="numero-val">4</div>
+      <div class="numero-label">Fases del método</div>
+      <div class="numero-sub">Relevar · Ordenar · Priorizar · Implementar</div>
+    </div>
+    <div class="numero-card reveal delay-4">
+      <div class="numero-val">1</div>
+      <div class="numero-label">Metodología propia</div>
+      <div class="numero-sub">Diseñada para el territorio bonaerense</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE — CREMA -->
+<section id="quote">
+  <div class="quote-inner reveal">
+    <div class="quote-mark">"</div>
+    <div class="quote-text">
+      No vendemos diagnósticos.<br>
+      Construimos <span>capacidad de gobierno.</span>
+    </div>
+    <p class="quote-sub">
+      Communicar no es maquillar la gestión — es hacerla comprensible. 
+      Una ciudad que no puede explicar qué hace tampoco puede construir confianza. 
+      Alsina convierte complejidad en señal, y señal en decisión.
+    </p>
+    <div class="quote-author">— Alsina · Gestión Pública, Tecnología y Territorio</div>
+  </div>
+</section>
+
+<!-- SEÑAL -->
+<section id="señal">
+  <div class="señal-bg-img"></div>
+  <div class="señal-inner">
+    <div class="section-label" style="justify-content:center">Identidad territorial</div>
+    <h2 class="section-headline" style="font-size:clamp(2.2rem,4vw,3.8rem)">
+      Detectamos la señal<br><span>en la complejidad.</span>
+    </h2>
+    <p style="font-size:.95rem;color:var(--concreto);max-width:520px;margin:16px auto 0;line-height:1.75;">
+      Alsina transforma información dispersa en decisiones, prioridades y capacidad 
+      de gobierno para la Provincia de Buenos Aires. Señal territorial aplicada al gobierno.
+    </p>
+    <div id="radar-wrap">
+      <svg viewBox="0 0 700 180" class="señal-svg" width="680" fill="none">
+        <path d="M0,90 Q60,65 120,90 Q180,115 240,85 Q300,55 360,90 Q420,125 480,90 Q540,55 600,90 Q650,115 700,90" stroke="rgba(0,213,216,0.25)" stroke-width="1" fill="none"/>
+        <path d="M0,110 Q70,80 140,110 Q210,140 280,105 Q350,70 420,110 Q490,150 560,110 Q630,70 700,110" stroke="rgba(0,213,216,0.15)" stroke-width="1" fill="none"/>
+        <circle cx="200" cy="90" r="3" fill="#00D5D8" opacity="0.9"/>
+        <circle cx="350" cy="90" r="3" fill="#00D5D8" opacity="0.9"/>
+        <circle cx="500" cy="90" r="3" fill="#00D5D8" opacity="0.9"/>
+        <circle cx="200" cy="90" r="18" stroke="rgba(0,213,216,0.3)" stroke-width="1" fill="none"/>
+        <circle cx="350" cy="90" r="28" stroke="rgba(0,213,216,0.3)" stroke-width="1" fill="none"/>
+        <circle cx="350" cy="90" r="48" stroke="rgba(0,213,216,0.12)" stroke-width="1" fill="none"/>
+        <circle cx="500" cy="90" r="18" stroke="rgba(0,213,216,0.3)" stroke-width="1" fill="none"/>
+        <line x1="200" y1="90" x2="350" y2="90" stroke="rgba(0,213,216,0.35)" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="350" y1="90" x2="500" y2="90" stroke="rgba(0,213,216,0.35)" stroke-width="1" stroke-dasharray="4 4"/>
+        <polyline points="20,90 50,90 62,72 74,108 86,80 98,100 110,90 160,90" stroke="#00D5D8" stroke-width="1.5" fill="none" opacity="0.7"/>
+        <polyline points="530,90 560,90 572,70 584,110 596,78 608,102 620,90 680,90" stroke="#00D5D8" stroke-width="1.5" fill="none" opacity="0.7"/>
+        <line x1="350" y1="42" x2="350" y2="90" stroke="rgba(0,213,216,0.6)" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div class="señal-badges">
+      <span class="señal-badge">Precisión institucional</span>
+      <span class="señal-badge">Tecnología territorial</span>
+      <span class="señal-badge">Señal de gobierno</span>
+      <span class="señal-badge">Capacidad ejecutora</span>
+      <span class="señal-badge">Inteligencia fiscal PBA</span>
+      <span class="señal-badge">Lectura territorial</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contacto">
+  <div class="cta-bg"></div>
+  <div class="cta-overlay"></div>
+  <div class="cta-inner">
+    <div class="section-label" style="justify-content:center" class="reveal">Trabajemos juntos</div>
+    <div class="cta-divider"></div>
+    <h2 class="cta-headline reveal">
+      Para gobiernos que necesitan<br>
+      <span>ordenar, decidir y ejecutar mejor.</span>
+    </h2>
+    <p class="cta-sub reveal">
+      Gobiernos que funcionan. Ciudades mejor gestionadas.
+      Contanos sobre el municipio o gestión que dirigís y encontramos juntos el punto de entrada.
+    </p>
+    <div class="cta-actions reveal">
+      <a href="mailto:contacto@alsinaconsulting.com.ar" class="btn-primary">Escribirnos →</a>
+      <a href="#servicios" class="btn-secondary">Ver todos los servicios</a>
+    </div>
+    <div class="cta-form reveal">
+      <input type="email" class="cta-input" placeholder="Tu correo electrónico...">
+      <button class="cta-submit">Enviar</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand-col">
+      <div class="footer-logo">
+        <svg viewBox="0 0 22 22" fill="none" width="22">
+          <path d="M11 1.5L1 20.5H5.5L11 10L16.5 20.5H21L11 1.5Z" fill="#00D5D8"/>
+        </svg>
+        <div class="footer-brandname">ALSINA</div>
+      </div>
+      <div class="footer-tagline">
+        Gobiernos que funcionan.<br>
+        <span>Ciudades mejor gestionadas.</span>
+      </div>
+      <div style="margin-top:16px;font-size:.7rem;color:rgba(183,178,170,.4)">
+        Gestión Pública · Tecnología · Territorio<br>
+        Provincia de Buenos Aires
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Servicios</div>
+      <ul class="footer-links">
+        <li><a href="#servicios">Diagnóstico municipal</a></li>
+        <li><a href="#servicios">CRM público</a></li>
+        <li><a href="#servicios">CICERO</a></li>
+        <li><a href="#servicios">Financiamiento urbano</a></li>
+        <li><a href="#servicios">Proyectos estratégicos</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Informes</div>
+      <ul class="footer-links">
+        <li><a href="municipios-data-hub.html">Explorador 135 Municipios</a></li>
+        <li><a href="alsina-nota-finanzas-pba.html">Finanzas PBA — Nota analítica</a></li>
+        <li><a href="#informes">Recaudación PBA</a></li>
+        <li><a href="#informes">Transferencias municipales</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contacto</div>
+      <ul class="footer-links">
+        <li><a href="mailto:contacto@alsinaconsulting.com.ar">contacto@alsina.ar</a></li>
+        <li><a href="#">Provincia de Buenos Aires</a></li>
+        <li><a href="#">Argentina</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Alsina. Gestión Pública, Tecnología y Territorio.</div>
+    <div class="footer-pulse">
+      <svg viewBox="0 0 60 14" width="60" height="14" fill="none">
+        <polyline points="0,7 10,7 15,2 20,12 25,5 30,9 35,7 60,7" stroke="#00D5D8" stroke-width="1.2" fill="none" opacity="0.6"/>
+      </svg>
+      Señal Territorial Alsina
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── NAV SCROLL ──
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── REVEAL ON SCROLL ──
+const reveals = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+reveals.forEach(el => observer.observe(el));
+
+// ── COUNTER ANIMATION ──
+function animateCounter(el, target, duration = 1400) {
+  let start = 0;
+  const step = target / (duration / 16);
+  const timer = setInterval(() => {
+    start += step;
+    if (start >= target) { el.textContent = target; clearInterval(timer); return; }
+    el.textContent = Math.floor(start);
+  }, 16);
+}
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const target = parseInt(e.target.dataset.count);
+      if (target) animateCounter(e.target, target);
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('[data-count]').forEach(el => counterObs.observe(el));
+
+// ── PARTICLE CANVAS ──
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let pts = [];
+function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+resize();
+window.addEventListener('resize', resize);
+for (let i = 0; i < 60; i++) {
+  pts.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+    vx: (Math.random()-.5)*.3, vy: (Math.random()-.5)*.3,
+    r: Math.random()*1.5+.5, o: Math.random()*.5+.2 });
+}
+function drawParticles() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  pts.forEach(p => {
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle = `rgba(0,213,216,${p.o})`; ctx.fill();
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0||p.x>canvas.width) p.vx*=-1;
+    if(p.y<0||p.y>canvas.height) p.vy*=-1;
+  });
+  // draw connections
+  pts.forEach((a,i) => {
+    pts.slice(i+1).forEach(b => {
+      const d = Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<100) {
+        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle = `rgba(0,213,216,${.15*(1-d/100)})`; ctx.stroke();
+      }
+    });
+  });
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+// ── SMOOTH NAV ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finanzas bonaerenses: anatomía de la dependencia — Alsina Consulting</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root{
+      --grafito:#0e1c20; --grafito2:#162429; --turquesa:#00D5D8;
+      --cian:#008C9A; --crema:#F3EFE7; --crema2:#E9E4DB;
+      --concreto:#9e9992; --sombra:#1C3C44; --blanco:#ffffff;
+      --rojo:rgba(255,90,60,1); --rojo-soft:rgba(255,90,60,.75);
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Barlow',sans-serif;background:var(--blanco);color:var(--grafito);line-height:1.7;}
+
+    /* NAV */
+    #top-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(14,28,32,.92);backdrop-filter:blur(12px);}
+    #top-nav a{text-decoration:none;color:rgba(255,255,255,.6);font-size:11px;letter-spacing:3px;text-transform:uppercase;transition:color .3s;}
+    #top-nav a:hover{color:var(--turquesa);}
+    .nav-tag{background:rgba(0,213,216,.12);border:1px solid rgba(0,213,216,.3);color:var(--turquesa);font-size:10px;letter-spacing:3px;text-transform:uppercase;padding:4px 12px;border-radius:20px;}
+
+    /* HERO */
+    #hero{background:var(--grafito);min-height:72vh;display:flex;align-items:flex-end;padding:100px 0 70px;position:relative;overflow:hidden;}
+    .hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&auto=format&fit=crop');background-size:cover;background-position:center;opacity:.12;}
+    .beam{position:absolute;pointer-events:none;width:2px;background:linear-gradient(180deg,transparent,rgba(0,213,216,.3),transparent);}
+    .radar-deco{position:absolute;pointer-events:none;opacity:.06;}
+
+    /* LAYOUT */
+    .container{max-width:1100px;margin:0 auto;padding:0 60px;}
+    .container-narrow{max-width:820px;margin:0 auto;padding:0 60px;}
+
+    /* SECTION STYLES */
+    .section-light{background:var(--blanco);padding:72px 0;}
+    .section-crema{background:var(--crema);padding:72px 0;}
+    .section-crema2{background:var(--crema2);padding:72px 0;}
+    .section-dark{background:var(--grafito);color:var(--blanco);padding:72px 0;}
+    .section-dark2{background:var(--grafito2);color:var(--blanco);padding:72px 0;}
+    .section-sombra{background:var(--sombra);color:var(--blanco);padding:72px 0;}
+
+    /* TYPOGRAPHY */
+    h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(48px,7vw,96px);line-height:.92;text-transform:uppercase;letter-spacing:-1px;}
+    h2{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);text-transform:uppercase;line-height:1.1;margin-bottom:20px;}
+    h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(20px,2.5vw,30px);text-transform:uppercase;margin-bottom:12px;}
+    .section-label{font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--turquesa);margin-bottom:14px;display:block;}
+    .section-label-dark{font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:rgba(14,28,32,.45);margin-bottom:14px;display:block;}
+    .lead{font-size:19px;line-height:1.75;color:rgba(14,28,32,.75);margin-bottom:28px;}
+    .body-text{font-size:16px;line-height:1.8;color:rgba(14,28,32,.7);margin-bottom:22px;}
+    .body-text-dark{font-size:16px;line-height:1.8;color:rgba(243,239,231,.7);margin-bottom:22px;}
+    strong.accent{color:var(--grafito);font-weight:700;}
+    strong.turq{color:var(--turquesa);}
+    strong.rojo{color:var(--rojo);}
+    .divider{width:52px;height:3px;background:var(--turquesa);margin:18px 0;}
+    .divider-dark{width:52px;height:3px;background:rgba(14,28,32,.2);margin:18px 0;}
+
+    /* GRID */
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+    .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+    .four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+
+    /* KPI CARDS */
+    .kpi-card{padding:28px;border-radius:3px;}
+    .kpi-card.dark{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
+    .kpi-card.turq{background:rgba(0,213,216,.07);border:1px solid rgba(0,213,216,.22);}
+    .kpi-card.light{background:var(--blanco);border:1px solid rgba(14,28,32,.1);color:var(--grafito);}
+    .kpi-card.danger{background:rgba(255,90,60,.05);border:1px solid rgba(255,90,60,.2);}
+    .kpi-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(32px,4.5vw,56px);color:var(--turquesa);line-height:1;}
+    .kpi-num.rojo{color:var(--rojo);}
+    .kpi-num.blanco{color:var(--blanco);}
+    .kpi-lbl{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--concreto);margin-top:6px;}
+    .kpi-lbl.dark-lbl{color:rgba(14,28,32,.5);}
+
+    /* CHART CONTAINERS */
+    .chart-box{background:var(--blanco);border:1px solid rgba(14,28,32,.08);border-radius:3px;padding:28px;}
+    .chart-box.dark-bg{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);}
+    .chart-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px;}
+    .chart-subtitle{font-size:12px;color:var(--concreto);margin-bottom:20px;letter-spacing:.3px;}
+    .chart-wrap{position:relative;height:300px;}
+
+    /* PULL QUOTE */
+    .pull-quote{padding:32px 36px;border-left:4px solid var(--turquesa);background:rgba(0,213,216,.04);border-radius:0 3px 3px 0;margin:28px 0;}
+    .pull-quote p{font-family:'Barlow Condensed',sans-serif;font-size:clamp(18px,2.2vw,26px);font-weight:300;font-style:italic;line-height:1.4;color:var(--grafito);}
+    .pull-quote-dark{padding:28px 32px;border-left:4px solid var(--turquesa);background:rgba(0,213,216,.06);border-radius:0 3px 3px 0;margin:24px 0;}
+    .pull-quote-dark p{font-family:'Barlow Condensed',sans-serif;font-size:clamp(16px,2vw,24px);font-weight:300;font-style:italic;line-height:1.4;color:var(--crema);}
+
+    /* FINDINGS */
+    .finding{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid rgba(14,28,32,.08);}
+    .finding:last-child{border-bottom:none;}
+    .finding-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;color:var(--turquesa);line-height:1;min-width:36px;}
+    .finding-text{font-size:15px;line-height:1.7;color:rgba(14,28,32,.7);}
+
+    /* PROPUESTAS */
+    .propuesta{padding:24px 28px;border-radius:3px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start;}
+    .propuesta.p1{background:rgba(0,213,216,.07);border:1px solid rgba(0,213,216,.2);}
+    .propuesta.p2{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);}
+    .propuesta-icon{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;color:var(--turquesa);line-height:1;min-width:32px;}
+    .propuesta-body h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--blanco);margin-bottom:6px;}
+    .propuesta-body p{font-size:14px;line-height:1.7;color:rgba(243,239,231,.65);}
+
+    /* SOURCE TAG */
+    .source{font-size:11px;letter-spacing:1px;color:rgba(14,28,32,.35);margin-top:10px;border-top:1px solid rgba(14,28,32,.06);padding-top:10px;}
+    .source-dark{font-size:11px;color:rgba(255,255,255,.3);margin-top:10px;border-top:1px solid rgba(255,255,255,.06);padding-top:10px;}
+
+    /* HIGHLIGHT BOX */
+    .highlight-box{background:rgba(0,213,216,.06);border:1px solid rgba(0,213,216,.2);border-radius:3px;padding:22px 26px;margin:20px 0;}
+    .highlight-box-danger{background:rgba(255,90,60,.05);border:1px solid rgba(255,90,60,.2);border-radius:3px;padding:22px 26px;margin:20px 0;}
+
+    /* TAGS */
+    .tag-inline{display:inline-block;background:rgba(0,213,216,.1);border:1px solid rgba(0,213,216,.25);color:var(--turquesa);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-right:6px;}
+    .tag-inline.danger{background:rgba(255,90,60,.1);border-color:rgba(255,90,60,.25);color:var(--rojo);}
+    .tag-inline.neutral{background:rgba(14,28,32,.07);border-color:rgba(14,28,32,.15);color:rgba(14,28,32,.5);}
+
+    /* TABLE */
+    .data-table{width:100%;border-collapse:collapse;font-size:14px;}
+    .data-table th{text-align:left;padding:10px 12px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid rgba(0,213,216,.3);color:var(--turquesa);}
+    .data-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06);color:rgba(243,239,231,.8);}
+    .data-table tr:last-child td{border-bottom:none;}
+    .data-table .hl{color:var(--turquesa);font-weight:700;}
+    .data-table .hl-r{color:var(--rojo);font-weight:700;}
+
+    /* FOOTER */
+    #footer{background:var(--grafito);color:var(--blanco);padding:48px 0;}
+    .footer-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;letter-spacing:3px;color:var(--turquesa);}
+
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      .two-col,.three-col,.four-col{grid-template-columns:1fr;}
+      .container,.container-narrow{padding:0 24px;}
+      #top-nav{padding:14px 24px;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── TOP NAV ──────────────────────────────────── -->
+<nav id="top-nav">
+  <a href="alsina-web.html">← Alsina Consulting</a>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <span class="nav-tag">Nota de análisis</span>
+    <span style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);">Mayo 2026</span>
+  </div>
+</nav>
+
+
+<!-- ── HERO ─────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="beam" style="top:0;left:35%;height:100%;transform:rotate(8deg);"></div>
+  <div class="beam" style="top:0;left:70%;height:100%;transform:rotate(-6deg);"></div>
+  <svg class="radar-deco" style="right:-80px;bottom:-60px;width:420px;height:420px;" viewBox="0 0 400 400">
+    <circle cx="200" cy="200" r="70" stroke="#00D5D8" stroke-width="1" fill="none"/>
+    <circle cx="200" cy="200" r="140" stroke="#00D5D8" stroke-width="1" fill="none"/>
+    <circle cx="200" cy="200" r="200" stroke="#00D5D8" stroke-width="1" fill="none"/>
+    <line x1="0" y1="200" x2="400" y2="200" stroke="#00D5D8" stroke-width=".5"/>
+    <line x1="200" y1="0" x2="200" y2="400" stroke="#00D5D8" stroke-width=".5"/>
+  </svg>
+  <div class="container" style="position:relative;z-index:2;">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;">
+      <span class="tag-inline">Finanzas públicas</span>
+      <span class="tag-inline">Recursos tributarios</span>
+      <span class="tag-inline">Deuda pública</span>
+      <span class="tag-inline">Transferencias</span>
+    </div>
+    <h1 style="color:var(--blanco);max-width:880px;">Finanzas<br><span style="color:var(--turquesa);">bonaerenses:</span><br>anatomía de<br>la dependencia</h1>
+    <div style="margin-top:24px;max-width:580px;">
+      <p style="font-size:18px;line-height:1.75;color:rgba(243,239,231,.65);">Los datos fiscales de la Provincia de Buenos Aires revelan un sistema de capas de dependencia política, una deuda pública que se multiplicó 146 veces en diez años y el colapso —casi total— de las transferencias directas de Nación a los municipios bonaerenses.</p>
+    </div>
+    <div style="margin-top:36px;display:flex;align-items:center;gap:16px;">
+      <div style="width:40px;height:2px;background:var(--turquesa);"></div>
+      <span style="font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);">Alsina Consulting · Análisis fiscal PBA 2018–2026</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── KPI BAND ─────────────────────────────────── -->
+<section style="background:var(--sombra);padding:40px 0;">
+  <div class="container">
+    <div class="four-col">
+      <div class="kpi-card turq">
+        <div class="kpi-num">$27.6T</div>
+        <div class="kpi-lbl">Recursos tributarios 2025</div>
+      </div>
+      <div class="kpi-card dark">
+        <div class="kpi-num blanco">$17.9T</div>
+        <div class="kpi-lbl">Stock de deuda T4-2025</div>
+      </div>
+      <div class="kpi-card dark">
+        <div class="kpi-num" style="color:var(--turquesa);">$4.64T</div>
+        <div class="kpi-lbl">Transferencias PBA→municipios 2025</div>
+      </div>
+      <div class="kpi-card danger">
+        <div class="kpi-num rojo">−99.4%</div>
+        <div class="kpi-lbl">Caída transferencias Nación 2023→2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── INTRO ─────────────────────────────────────── -->
+<section class="section-crema">
+  <div class="container">
+    <div class="two-col" style="gap:64px;">
+      <div>
+        <span class="section-label-dark">Introducción</span>
+        <h2 style="color:var(--grafito);">Tres capas de dependencia</h2>
+        <div class="divider-dark"></div>
+        <p class="lead">El sistema fiscal bonaerense puede describirse como un árbol de dependencias en cascada: los municipios dependen de la Provincia, la Provincia depende de Nación, y la Nación puede —a voluntad política— cortar ese flujo.</p>
+        <p class="body-text">Entre 2018 y 2025, los recursos tributarios de la PBA se multiplicaron por 56 en términos nominales, de $494 mil millones a $27.6 billones. Pero este número impresionante oculta una realidad más inquietante: gran parte de ese crecimiento es inflación. En términos reales, la expansión fue modesta, mientras que la deuda pública se volvió un problema estructural sin precedentes.</p>
+        <p class="body-text">Lo que los datos revelan con mayor claridad es la vulnerabilidad política del sistema: en 2024, bajo la administración de Javier Milei, las transferencias discrecionales directas de Nación a municipios bonaerenses cayeron un <strong class="accent">99.4%</strong>. De $114.5 mil millones a apenas $724 millones. Una guillotina fiscal que no tiene precedente en la historia reciente del federalismo argentino.</p>
+      </div>
+      <div>
+        <div style="display:flex;flex-direction:column;gap:0;">
+          <div class="finding">
+            <div class="finding-num">01</div>
+            <div class="finding-text"><strong class="accent">Los recursos propios crecen pero no alcanzan.</strong> Ingresos Brutos y Sellos explican el 44% del total tributario, pero su naturaleza distorsiva frena la actividad privada.</div>
+          </div>
+          <div class="finding">
+            <div class="finding-num">02</div>
+            <div class="finding-text"><strong class="accent">La deuda se disparó en 2023.</strong> El stock de deuda se triplicó en un solo trimestre —T4-2023— al pasar de $3.96T a $9.1T, producto de la devaluación de diciembre de ese año.</div>
+          </div>
+          <div class="finding">
+            <div class="finding-num">03</div>
+            <div class="finding-text"><strong class="accent">Las transferencias discrecionales son instrumento político.</strong> El "Resto" que la Provincia envía a municipios varía hasta 6x de un mes a otro, marcando patrones electorales evidentes.</div>
+          </div>
+          <div class="finding">
+            <div class="finding-num">04</div>
+            <div class="finding-text"><strong class="accent">Nación cortó los fondos directos.</strong> Las transferencias nacionales directas a municipios bonaerenses pasaron de $114.5B en 2023 a $724M en 2024. Una decisión política con nombre y apellido.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── SECCIÓN 1: RECURSOS TRIBUTARIOS ──────────── -->
+<section class="section-light">
+  <div class="container">
+    <span class="section-label">Sección 01</span>
+    <h2>Estructura y evolución de los<br>recursos tributarios (2018–2025)</h2>
+    <div class="divider"></div>
+
+    <div class="two-col" style="margin-bottom:44px;">
+      <div>
+        <p class="body-text">Los recursos tributarios provinciales pasaron de $494 mil millones en 2018 a $27.6 billones en 2025 —un crecimiento nominal de 56 veces en siete años—. La inflación acumulada del período fue de aproximadamente 30 veces, lo que implica un crecimiento real de alrededor del 85%.</p>
+        <p class="body-text">Los dos tributos que dominan son <strong class="accent">Ingresos Brutos</strong> ($10.6T en 2025, 38.5% del total) y la <strong class="accent">Coparticipación Federal</strong> ($8.8T, 32%). Esta estructura dual —un tributo propio altamente distorsivo más una transferencia que depende de la política nacional— es el corazón del problema fiscal bonaerense.</p>
+        <div class="pull-quote">
+          <p>"El 38.5% de los ingresos de la PBA viene de un impuesto que grava en cascada, frena la inversión y distorsiona los precios. La reforma del sistema tributario bonaerense es la deuda política más postergada."</p>
+        </div>
+      </div>
+      <div>
+        <p class="body-text">La Ley de Financiamiento Educativo aportó $2.75T en 2025 (10%), mientras que Sellos sumó $1.47T (5.3%). El tributo al Automotor y el Inmobiliario muestran dinamismo pero siguen siendo marginales en el total.</p>
+        <p class="body-text">El dato más revelador es la composición de Ingresos Brutos: es el tributo que más creció en términos reales (+87% por encima de la inflación entre 2018 y 2025), lo que indica una presión fiscal creciente sobre las empresas y personas físicas que realizan actividad económica en la Provincia.</p>
+        <div class="highlight-box">
+          <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--cian);margin-bottom:8px;">Tendencia preocupante</div>
+          <p style="font-size:15px;line-height:1.7;color:rgba(14,28,32,.7);">La participación de los recursos propios (Ingresos Brutos + tributos locales) <strong class="accent">no aumenta</strong> respecto a los fondos coparticipados. La Provincia no está reduciendo su dependencia de Nación.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 1 -->
+    <div class="chart-box">
+      <div class="chart-title">Recursos tributarios por categoría — Provincia de Buenos Aires (2018–2025)</div>
+      <div class="chart-subtitle">Miles de millones de pesos nominales | Fuente: Ministerio de Hacienda PBA</div>
+      <div class="chart-wrap" style="height:340px;"><canvas id="chart-rt"></canvas></div>
+      <p class="source">Datos: RT desagregados PBA. Valores en M$ nominales. Nota: el salto 2023→2024 refleja en parte la aceleración inflacionaria del período.</p>
+    </div>
+
+    <!-- Data table -->
+    <div style="margin-top:36px;overflow-x:auto;">
+      <table class="data-table" style="background:var(--grafito);border-radius:3px;overflow:hidden;">
+        <thead>
+          <tr>
+            <th>Concepto</th>
+            <th>2018</th><th>2019</th><th>2021</th><th>2023</th><th>2024</th><th>2025</th><th>% 2025</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Ingresos Brutos</td><td>191.6B</td><td>262.6B</td><td>579.2B</td><td>2.42T</td><td class="hl">7.41T</td><td class="hl">10.63T</td><td class="hl">38.5%</td></tr>
+          <tr><td>Copart. Federal</td><td>159.8B</td><td>234.6B</td><td>532.4B</td><td>2.25T</td><td class="hl">6.95T</td><td class="hl">8.83T</td><td class="hl">32.0%</td></tr>
+          <tr><td>Ley Fin. Educativo</td><td>43.8B</td><td>65.2B</td><td>132.8B</td><td>524.1B</td><td>1.27T</td><td>2.75T</td><td>10.0%</td></tr>
+          <tr><td>Sellos</td><td>24.9B</td><td>30.1B</td><td>67.0B</td><td>250.4B</td><td>788.6B</td><td>1.47T</td><td>5.3%</td></tr>
+          <tr><td>Automotor</td><td>22.5B</td><td>29.3B</td><td>58.7B</td><td>133.4B</td><td>465.0B</td><td>762.5B</td><td>2.8%</td></tr>
+          <tr><td>Inmobiliario</td><td>22.9B</td><td>29.6B</td><td>61.9B</td><td>156.5B</td><td>733.0B</td><td>734.4B</td><td>2.7%</td></tr>
+          <tr><td>Otros</td><td>28.3B</td><td>76.4B</td><td>165.6B</td><td>536.1B</td><td>1.34T</td><td>2.43T</td><td>8.8%</td></tr>
+          <tr style="border-top:1px solid rgba(0,213,216,.3);">
+            <td style="font-weight:700;color:var(--turquesa);">TOTAL</td>
+            <td>493.8B</td><td>727.8B</td><td>1.60T</td><td>6.28T</td>
+            <td class="hl">18.97T</td><td class="hl">27.63T</td><td class="hl">100%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── SECCIÓN 2: STOCK DE DEUDA ─────────────────── -->
+<section class="section-dark">
+  <div class="container">
+    <span class="section-label">Sección 02</span>
+    <h2 style="color:var(--blanco);">El tobogán de la deuda<br><span style="color:var(--turquesa);">pública bonaerense</span></h2>
+    <div class="divider"></div>
+
+    <div class="two-col" style="margin-bottom:44px;align-items:start;">
+      <div>
+        <p class="body-text-dark">El stock de deuda pública de la Provincia de Buenos Aires pasó de $122 mil millones en el cuarto trimestre de 2015 a $17.9 billones al cierre de 2025. En términos nominales, se multiplicó <strong class="turq">146 veces</strong> en diez años.</p>
+        <p class="body-text-dark">Pero la cifra más llamativa no es el crecimiento acumulado, sino el salto que se produjo en un solo trimestre: entre el T3-2023 ($3.95 billones) y el T4-2023 ($9.1 billones), la deuda se duplicó. La razón es la devaluación del peso decretada por el gobierno de Javier Milei en diciembre de 2023. Gran parte del stock estaba denominado en dólares o ajustado por CER: cuando el tipo de cambio saltó de $350 a $800, el peso de esa deuda en pesos se disparó instantáneamente.</p>
+        <div class="pull-quote-dark">
+          <p>"La deuda bonaerense no creció porque la Provincia gastó más de lo que tenía. Creció porque el valor del dólar se duplicó de un día para el otro y buena parte de ese pasivo estaba dolarizado."</p>
+        </div>
+        <p class="body-text-dark">Esta dinámica muestra un riesgo sistémico estructural: la exposición de la PBA a las decisiones macroeconómicas nacionales es total. Una devaluación, una suba de tasas o una cesación de pagos de Nación tiene efectos directos e inmediatos sobre el balance de la Provincia.</p>
+      </div>
+      <div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div class="kpi-card turq">
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--concreto);margin-bottom:6px;">Stock T4-2015</div>
+            <div class="kpi-num" style="font-size:44px;">$122B</div>
+          </div>
+          <div class="kpi-card dark">
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--concreto);margin-bottom:6px;">Stock T4-2019 (fin Vidal)</div>
+            <div class="kpi-num" style="font-size:44px;">$654B</div>
+          </div>
+          <div class="kpi-card dark">
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--concreto);margin-bottom:6px;">Stock T4-2023 (devaluación)</div>
+            <div class="kpi-num" style="font-size:44px;color:rgba(255,120,70,.9);">$9.1T</div>
+          </div>
+          <div class="kpi-card danger">
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,90,60,.7);margin-bottom:6px;">Stock T4-2025</div>
+            <div class="kpi-num" style="font-size:44px;" class="rojo">$17.9T</div>
+          </div>
+          <div style="padding:18px;background:rgba(0,0,0,.2);border-radius:3px;border-left:3px solid var(--turquesa);">
+            <p style="font-size:13px;color:var(--concreto);line-height:1.7;">Crecimiento de T4-2023 a T4-2025: de $9.1T a $17.9T. La deuda sigue creciendo incluso después del shock de la devaluación, a un ritmo de casi $1.5T por trimestre.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 2 -->
+    <div class="chart-box dark-bg">
+      <div class="chart-title" style="color:var(--blanco);">Stock de deuda pública — PBA (T4-2015 a T4-2025)</div>
+      <div class="chart-subtitle">Miles de millones de pesos nominales por trimestre | Fuente: Ministerio de Hacienda PBA</div>
+      <div class="chart-wrap" style="height:320px;"><canvas id="chart-deuda"></canvas></div>
+      <p class="source-dark">El salto en T4-2023 refleja el impacto de la devaluación del peso en el stock denominado en moneda extranjera y títulos CER.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── SECCIÓN 3: TRANSFERENCIAS PBA→MUNICIPIOS ──── -->
+<section class="section-crema2">
+  <div class="container">
+    <span class="section-label-dark">Sección 03</span>
+    <h2 style="color:var(--grafito);">El dinero que llega a los municipios:<br><span style="color:var(--cian);">coparticipación y discrecionalidad</span></h2>
+    <div class="divider-dark"></div>
+
+    <div class="two-col" style="margin-bottom:40px;align-items:start;">
+      <div>
+        <p class="body-text">Las transferencias totales de la Provincia a sus 135 municipios crecieron de $91.5 mil millones en 2018 a $4.64 billones en 2025 —un factor de 51x nominales—. En 2026, con datos solo de enero y febrero, ya superaron los $874 mil millones.</p>
+        <p class="body-text">La coparticipación bruta (automática, de distribución reglada) representa en promedio el <strong class="accent">77-78%</strong> del total. El 22-23% restante —el "Resto"— incluye fondos discrecionales, asignaciones específicas, transferencias por obras y otros mecanismos que la Provincia puede activar o ralentizar a voluntad política.</p>
+        <div class="highlight-box">
+          <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--cian);margin-bottom:8px;">La variabilidad como señal política</div>
+          <p style="font-size:15px;line-height:1.7;color:rgba(14,28,32,.7);">En 2024, el "Resto" mensual varió entre $41.7B (octubre) y $125.9B (julio). Esa variación —3x en el mismo año— no puede explicarse por razones técnicas. Es el margen de maniobra del gobernador con los intendentes.</p>
+        </div>
+      </div>
+      <div>
+        <p class="body-text">Este esquema genera una dinámica política bien conocida: el intendente que requiere fondos discrecionales debe negociar con el gobernador. El que ya tiene su lealtad asegurada recibe más. El que disiente, espera.</p>
+        <p class="body-text">La reforma de este sistema es urgente. No porque la discrecionalidad sea siempre mala —a veces permite responder a emergencias locales reales—, sino porque la escala que ha alcanzado ($736B en 2024, el 22% del total) la convierte en un instrumento de subordinación política sistemática de los gobiernos municipales al provincial.</p>
+        <div class="highlight-box-danger" style="border-color:rgba(14,28,32,.15);background:rgba(14,28,32,.04);">
+          <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(14,28,32,.45);margin-bottom:8px;">En perspectiva</div>
+          <p style="font-size:15px;line-height:1.7;color:rgba(14,28,32,.65);">En 2024, el "Resto" discrecional sumó $736B. Para los 135 municipios, eso equivale a un promedio de $5.5B por municipio por año. Para los más chicos, esa cifra puede ser el 40-50% de su presupuesto total.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 3 -->
+    <div class="chart-box">
+      <div class="chart-title">Transferencias PBA a municipios: coparticipación vs. discrecional (2018–2026)</div>
+      <div class="chart-subtitle">Miles de millones de pesos nominales anuales | *2026: enero–febrero únicamente</div>
+      <div class="chart-wrap" style="height:320px;"><canvas id="chart-pba-muni"></canvas></div>
+      <p class="source">La línea turquesa muestra el crecimiento total. Las barras desagregan coparticipación automática (azul) y transferencias discrecionales (gris).</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── SECCIÓN 4: TRANSFERENCIAS NACIONALES ──────── -->
+<section class="section-dark2">
+  <div class="container">
+    <span class="section-label">Sección 04</span>
+    <h2 style="color:var(--blanco);">La guillotina de 2024:<br><span style="color:var(--rojo-soft);">el corte de Nación a los municipios</span></h2>
+    <div class="divider"></div>
+
+    <div class="two-col" style="margin-bottom:40px;align-items:start;">
+      <div>
+        <p class="body-text-dark">Entre 2020 y 2023, la administración Fernández-Kicillof fue construyendo un flujo creciente de transferencias directas de la Nación a los municipios bonaerenses. En 2021 sumaron $41.6B, en 2022 $47.6B y en 2023 alcanzaron su máximo: <strong class="turq">$114.5 mil millones</strong>.</p>
+        <p class="body-text-dark">En 2024, con Milei en Casa Rosada, ese flujo se detuvo casi completamente. Las transferencias directas nacionales a municipios bonaerenses sumaron apenas <strong class="rojo">$724 millones</strong>. Una caída del <strong class="rojo">99.4%</strong>.</p>
+        <p class="body-text-dark">En 2025, tampoco se recuperaron: solo $1.984B. La cifra de 2026 es casi nula. Esto no es una cuestión de austeridad abstracta: el gobierno nacional deliberadamente redujo el flujo de recursos hacia los municipios que, en su enorme mayoría, estaban gobernados por el peronismo.</p>
+        <div class="pull-quote-dark">
+          <p>"Reducir las transferencias discrecionales a municipios opositores es una herramienta de presión política tan vieja como el federalismo argentino. Lo que Milei hizo en 2024 fue llevarla al extremo."</p>
+        </div>
+      </div>
+      <div>
+        <p class="body-text-dark">El impacto de este corte no fue catastrófico únicamente porque la Provincia compensó parte del déficit aumentando su propio "Resto" discrecional. En 2024, las transferencias no-automáticas de la PBA a municipios sumaron $736B —contra $212B en 2023—. La gobernación utilizó su propio margen político para tapar el agujero que dejó Nación.</p>
+        <p class="body-text-dark">Este episodio revela con brutalidad la fragilidad del sistema: los municipios bonaerenses pueden ser asfixiados o salvados por decisiones políticas que ocurren en La Plata o en Buenos Aires, sin que ellos puedan hacer nada al respecto.</p>
+        <div style="padding:20px;background:rgba(255,90,60,.08);border:1px solid rgba(255,90,60,.2);border-radius:3px;margin-top:4px;">
+          <table class="data-table">
+            <thead><tr><th>Año</th><th>Transf. nacionales (M$)</th><th>Variación</th></tr></thead>
+            <tbody>
+              <tr><td>2021</td><td>41.602B</td><td class="hl">+298%</td></tr>
+              <tr><td>2022</td><td>47.563B</td><td class="hl">+14%</td></tr>
+              <tr><td>2023</td><td>114.491B</td><td class="hl">+141%</td></tr>
+              <tr><td>2024</td><td class="hl-r">724M</td><td class="hl-r">−99.4%</td></tr>
+              <tr><td>2025</td><td class="hl-r">1.984B</td><td style="color:var(--concreto);">+174%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 4 -->
+    <div class="chart-box dark-bg">
+      <div class="chart-title" style="color:var(--blanco);">Transferencias nacionales directas a municipios bonaerenses (2018–2025)</div>
+      <div class="chart-subtitle">Miles de millones de pesos nominales anuales | Fuente: datos consolidados de transferencias</div>
+      <div class="chart-wrap" style="height:300px;"><canvas id="chart-nac-muni"></canvas></div>
+      <p class="source-dark">La caída de 2024 ($114.5B → $724M) es casi invisible en el gráfico por su magnitud. Incluye ATN y otros fondos de distribución directa.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── CONCLUSIONES ───────────────────────────────── -->
+<section class="section-sombra">
+  <div class="container">
+    <span class="section-label">Conclusiones</span>
+    <h2 style="color:var(--blanco);">Lo que los datos<br><span style="color:var(--turquesa);">nos dicen sobre el poder</span></h2>
+    <div class="divider"></div>
+    <div class="two-col" style="align-items:start;gap:56px;margin-top:36px;">
+      <div>
+        <p class="body-text-dark">El sistema fiscal de la Provincia de Buenos Aires no es solo un conjunto de números. Es la descripción de quién tiene poder sobre quién, y en qué condiciones.</p>
+        <p class="body-text-dark">Los 135 intendentes bonaerenses son los administradores más cercanos a la ciudadanía. Gestionan el agua, la basura, el tránsito, los centros de salud municipales, los parques. Pero el 77% de sus ingresos depende de fondos que llegan desde La Plata, y sobre una porción significativa de esos fondos —el 22% discrecional— la gobernación tiene poder de vida o muerte presupuestaria.</p>
+        <p class="body-text-dark">A su vez, la Provincia recibe el 32% de sus recursos de la Nación a través de la coparticipación federal. Un porcentaje que, como vimos, llegó a caer al 18.9% cuando los intereses nacionales así lo dictaron.</p>
+        <div class="pull-quote-dark" style="margin-top:24px;">
+          <p>"En Argentina, la autonomía municipal es un principio constitucional que la práctica fiscal convierte en aspiración. Gobiernan los que controlan el grifo, no los que ganan elecciones."</p>
+        </div>
+      </div>
+      <div>
+        <p class="body-text-dark">La deuda, por su parte, es el segundo gran elemento de dependencia. Con $17.9 billones de stock al cierre de 2025 y una estructura parcialmente dolarizada, cualquier corrección cambiaria nacional tiene efectos automáticos sobre el balance provincial. La Provincia no puede hacer política fiscal en aislamiento.</p>
+        <p class="body-text-dark">El episodio de 2024 es el más revelador: el gobierno nacional usó la herramienta fiscal para castigar a un distrito que no era aliado político. Y lo hizo de manera casi total. La respuesta provincial fue compensar con sus propios fondos discrecionales —usando el mismo instrumento que critica en Nación—.</p>
+        <p class="body-text-dark" style="margin-top:16px;">Hay tres conclusiones políticas que emergen con claridad de los datos:</p>
+        <div style="display:flex;flex-direction:column;gap:0;margin-top:12px;">
+          <div class="finding" style="border-color:rgba(255,255,255,.1);">
+            <div class="finding-num" style="color:var(--turquesa);">A</div>
+            <div class="finding-text" style="color:rgba(243,239,231,.75);">La Provincia no puede ser autónoma sin resolver su dependencia de la coparticipación federal. Una reforma del sistema es una condición de posibilidad para cualquier proyecto de desarrollo territorial serio.</div>
+          </div>
+          <div class="finding" style="border-color:rgba(255,255,255,.1);">
+            <div class="finding-num" style="color:var(--turquesa);">B</div>
+            <div class="finding-text" style="color:rgba(243,239,231,.75);">Los municipios no pueden planificar sin certeza sobre sus recursos. La discrecionalidad del "Resto" es un instrumento de control político más que de gestión pública eficiente.</div>
+          </div>
+          <div class="finding" style="border-color:rgba(255,255,255,.1);">
+            <div class="finding-num" style="color:var(--turquesa);">C</div>
+            <div class="finding-text" style="color:rgba(243,239,231,.75);">La deuda pública es una bomba de tiempo que solo puede desactivarse con crecimiento económico real, reforma tributaria y acuerdos de largo plazo con los tenedores de deuda.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── PROPUESTAS ─────────────────────────────────── -->
+<section class="section-dark">
+  <div class="container">
+    <span class="section-label">Propuestas</span>
+    <h2 style="color:var(--blanco);">Seis reformas para<br><span style="color:var(--turquesa);">salir de la dependencia</span></h2>
+    <div class="divider"></div>
+    <p class="body-text-dark" style="max-width:680px;margin-bottom:36px;">La fotografia fiscal que surge de estos datos es la de un sistema atrapado. Salir de esa trampa requiere reformas que son técnicamente conocidas pero políticamente costosas. Son reformas que solo pueden hacerse desde la gobernación, y solo si existe voluntad de ceder poder para ganar en capacidad de gestión.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div class="propuesta p1">
+        <div class="propuesta-icon">01</div>
+        <div class="propuesta-body">
+          <h4>Ley de Coparticipación Municipal Automática Plena</h4>
+          <p>Incrementar gradualmente la participación de los fondos automáticos —de libre disponibilidad— hasta representar el 90% del total transferido. Reducir el "Resto" discrecional a no más del 10%, reservado exclusivamente para emergencias con criterios objetivos y publicación mensual.</p>
+        </div>
+      </div>
+      <div class="propuesta p1">
+        <div class="propuesta-icon">02</div>
+        <div class="propuesta-body">
+          <h4>Reforma del sistema de Ingresos Brutos</h4>
+          <p>Avanzar en la eliminación de la cascada impositiva del IIBB en sectores productivos, compensando con una mayor base del Inmobiliario actualizada por valuaciones fiscales reales. La reforma del IB bonaerense es también un instrumento de desarrollo económico territorial.</p>
+        </div>
+      </div>
+      <div class="propuesta p1">
+        <div class="propuesta-icon">03</div>
+        <div class="propuesta-body">
+          <h4>Fondo de Estabilización Municipal</h4>
+          <p>Crear un fondo anticíclico financiado en los años de superávit que garantice a los municipios un piso de recursos equivalente al 80% del promedio de los últimos tres años. El episodio de 2024 no puede repetirse sin un mecanismo de amortiguación automático.</p>
+        </div>
+      </div>
+      <div class="propuesta p1">
+        <div class="propuesta-icon">04</div>
+        <div class="propuesta-body">
+          <h4>Programa de reducción activa del stock de deuda</h4>
+          <p>Definir una regla fiscal que limite el crecimiento de la deuda en términos del PBG provincial. Priorizar la sustitución de deuda dolarizada por instrumentos en pesos ajustados por actividad económica, reduciendo la exposición a devaluaciones nacionales.</p>
+        </div>
+      </div>
+      <div class="propuesta p2">
+        <div class="propuesta-icon">05</div>
+        <div class="propuesta-body">
+          <h4>Pacto Federal Bonaerense de Capacidades Fiscales</h4>
+          <p>Promover un acuerdo con los 135 intendentes para el fortalecimiento de la recaudación local: catastros actualizados, digitilización del cobro de tasas municipales, y un sistema provincial de apoyo técnico para municipios que voluntariamente adopten las herramientas. Más recursos propios locales = menos dependencia de La Plata.</p>
+        </div>
+      </div>
+      <div class="propuesta p2">
+        <div class="propuesta-icon">06</div>
+        <div class="propuesta-body">
+          <h4>Transparencia fiscal en tiempo real</h4>
+          <p>Publicar mensualmente, por municipio, el detalle de todas las transferencias recibidas (automáticas y discrecionales), con comparativos interanuales en términos reales. La opacidad es el principal habilitador de la discrecionalidad política. La luz pública es el mejor control.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── CLOSING ─────────────────────────────────────── -->
+<section class="section-crema" style="padding:56px 0;">
+  <div class="container-narrow" style="text-align:center;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;letter-spacing:3px;color:var(--cian);">ALSINA</div>
+    <div style="font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--concreto);margin-top:3px;">Consulting</div>
+    <div style="width:52px;height:2px;background:var(--cian);margin:20px auto;"></div>
+    <p style="font-size:16px;line-height:1.8;color:rgba(14,28,32,.6);max-width:560px;margin:0 auto 28px;">Las finanzas públicas son la política con los números descubiertos. Entenderlas con rigor es el primer paso para transformarlas con eficacia.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="alsina-web.html" style="display:inline-block;background:var(--cian);color:var(--blanco);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:14px 32px;text-decoration:none;border-radius:2px;">Volver al sitio</a>
+      <a href="alsina-informe-transferencias.html" style="display:inline-block;border:1px solid var(--cian);color:var(--cian);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:13px 32px;text-decoration:none;border-radius:2px;">Informe de transferencias</a>
+      <a href="alsina-radiografia-pba.html" style="display:inline-block;border:1px solid rgba(14,28,32,.2);color:rgba(14,28,32,.6);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:13px 32px;text-decoration:none;border-radius:2px;">Radiografía PBA</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────── -->
+<footer id="footer">
+  <div class="container">
+    <div class="two-col" style="align-items:center;">
+      <div>
+        <div class="footer-logo">ALSINA</div>
+        <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--concreto);margin-top:3px;">Consulting</div>
+        <p style="font-size:13px;color:var(--concreto);margin-top:16px;line-height:1.6;max-width:380px;">Consultoría en gestión pública, territorio y tecnología para los 135 municipios de la Provincia de Buenos Aires.</p>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--concreto);margin-bottom:8px;">Metodología</div>
+        <p style="font-size:12px;color:rgba(158,153,146,.6);line-height:1.7;max-width:340px;margin-left:auto;">Datos procesados desde archivos CSV del Ministerio de Hacienda de la Provincia de Buenos Aires. Todos los valores son nominales en pesos argentinos. Período de análisis: 2003–2026.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ── CHARTS JS ─────────────────────────────────── -->
+<script>
+Chart.defaults.font.family = 'Barlow';
+Chart.defaults.color = '#9e9992';
+
+// ── Chart 1: RT Desagregados ──────────────────────
+const years = ['2018','2019','2020','2021','2022','2023','2024','2025'];
+const rtData = {
+  iibb:      [191635,262604,339088,579176,1059438,2424197,7408909,10631476],
+  copa:      [159762,234598,324407,532448,1037521,2247142,6946612,8834742],
+  finEdu:    [43767, 65213, 78608,132846, 214894, 524143,1265139,2754689],
+  sellos:    [24919, 30138, 37044, 67046, 116203, 250419, 788646,1468364],
+  autom:     [22538, 29306, 37654, 58708,  90136, 133424, 465027, 762485],
+  inmob:     [22856, 29618, 41642, 61871,  96477, 156549, 732969, 734435],
+  otros:     [28310, 76307, 109930,166328, 266608, 540844,1366798,2447908],
+};
+const toB = arr => arr.map(v => +(v/1000).toFixed(1)); // M$ → B$
+
+new Chart(document.getElementById('chart-rt'), {
+  type: 'bar',
+  data: {
+    labels: years,
+    datasets: [
+      { label:'Ingresos Brutos',   data: toB(rtData.iibb),   backgroundColor:'rgba(0,213,216,.75)', stack:'a' },
+      { label:'Copart. Federal',   data: toB(rtData.copa),   backgroundColor:'rgba(0,140,154,.65)', stack:'a' },
+      { label:'Ley Fin. Educ.',    data: toB(rtData.finEdu), backgroundColor:'rgba(0,213,216,.35)', stack:'a' },
+      { label:'Sellos',            data: toB(rtData.sellos), backgroundColor:'rgba(158,153,146,.5)', stack:'a' },
+      { label:'Automotor',         data: toB(rtData.autom),  backgroundColor:'rgba(158,153,146,.35)',stack:'a' },
+      { label:'Inmobiliario',      data: toB(rtData.inmob),  backgroundColor:'rgba(243,239,231,.3)', stack:'a' },
+      { label:'Otros',             data: toB(rtData.otros),  backgroundColor:'rgba(243,239,231,.15)',stack:'a' },
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{ position:'bottom', labels:{ font:{size:11}, boxWidth:12, padding:10 }},
+      tooltip:{ callbacks:{ label: c => ` ${c.dataset.label}: $${c.parsed.y.toLocaleString('es-AR')}B` }}
+    },
+    scales:{
+      x:{ stacked:true, grid:{color:'rgba(14,28,32,.05)'}, ticks:{color:'rgba(14,28,32,.5)'} },
+      y:{ stacked:true, grid:{color:'rgba(14,28,32,.05)'}, ticks:{
+        color:'rgba(14,28,32,.5)',
+        callback: v => v >= 1000 ? '$'+Math.round(v/1000)+'T' : '$'+v+'B'
+      }}
+    }
+  }
+});
+
+// ── Chart 2: Stock de deuda ───────────────────────
+const deudaQ = ['T4-15','T1-16','T2-16','T3-16','T4-16','T1-17','T2-17','T3-17','T4-17','T1-18','T2-18','T3-18','T4-18','T1-19','T2-19','T3-19','T4-19','T1-20','T2-20','T3-20','T4-20','T1-21','T2-21','T3-21','T4-21','T1-22','T2-22','T3-22','T4-22','T1-23','T2-23','T3-23','T4-23','T1-24','T2-24','T3-24','T4-24','T1-25','T2-25','T3-25','T4-25'];
+const deudaV = [122085,153347,172372,180615,196294,218885,243060,259690,254532,271471,382710,470775,474419,518429,506315,648646,653585,668760,728069,798670,899820,949108,986113,1094814,1166381,1217651,1354158,1574702,1986219,2299243,2869712,3956290,9104979,9534856,10111067,10588458,11875070,12179462,14169986,16052843,17920935];
+const puntosRojos = deudaV.map((v,i) => i >= 32 ? 'rgba(255,90,60,.85)' : 'rgba(0,213,216,.7)');
+
+new Chart(document.getElementById('chart-deuda'), {
+  type:'line',
+  data:{
+    labels: deudaQ,
+    datasets:[{
+      label:'Stock de deuda (M$)',
+      data: deudaV.map(v => +(v/1000).toFixed(1)),
+      borderColor:'rgba(0,213,216,.8)',
+      backgroundColor:'rgba(0,213,216,.08)',
+      pointBackgroundColor: puntosRojos,
+      pointRadius: deudaQ.map((_,i)=> i===32?8:3),
+      borderWidth:2, tension:.35, fill:true
+    }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:c => ` $${c.parsed.y.toLocaleString('es-AR')}B`}},
+      annotation:{}
+    },
+    scales:{
+      x:{ grid:{color:'rgba(255,255,255,.04)'}, ticks:{color:'rgba(255,255,255,.3)', maxTicksLimit:10, maxRotation:45}},
+      y:{ grid:{color:'rgba(255,255,255,.04)'}, ticks:{
+        color:'rgba(255,255,255,.3)',
+        callback: v => v>=1000?'$'+(v/1000).toFixed(0)+'T':'$'+v+'B'
+      }}
+    }
+  }
+});
+
+// ── Chart 3: PBA → Municipios ─────────────────────
+const mYears = ['2018','2019','2020','2021','2022','2023','2024','2025','2026*'];
+const copaM  = [67851, 93997,124079,206941,384436,836737,2600803,3605036,683585];
+const restoM = [23634, 28645, 33807, 54712, 97073,212605,  736484,1034719,190918];
+const totalM = copaM.map((v,i)=>v+restoM[i]);
+
+new Chart(document.getElementById('chart-pba-muni'), {
+  type:'bar',
+  data:{
+    labels: mYears,
+    datasets:[
+      { label:'Coparticipación automática', data: copaM.map(v=>+(v/1000).toFixed(1)), backgroundColor:'rgba(0,213,216,.7)', stack:'s' },
+      { label:'Transferencias discrecionales', data: restoM.map(v=>+(v/1000).toFixed(1)), backgroundColor:'rgba(158,153,146,.5)', stack:'s' },
+      { type:'line', label:'Total transferencias', data: totalM.map(v=>+(v/1000).toFixed(1)),
+        borderColor:'rgba(0,213,216,1)', pointBackgroundColor:'rgba(0,213,216,1)',
+        borderWidth:2, pointRadius:5, tension:.3, fill:false }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{ position:'bottom', labels:{font:{size:11}, boxWidth:12, padding:10}},
+      tooltip:{callbacks:{label:c => ` ${c.dataset.label}: $${c.parsed.y.toLocaleString('es-AR')}B`}}
+    },
+    scales:{
+      x:{ stacked:true, grid:{color:'rgba(14,28,32,.05)'}, ticks:{color:'rgba(14,28,32,.5)'} },
+      y:{ stacked:true, grid:{color:'rgba(14,28,32,.05)'}, ticks:{
+        color:'rgba(14,28,32,.5)',
+        callback: v => v>=1000?'$'+(v/1000).toFixed(0)+'T':'$'+v+'B'
+      }}
+    }
+  }
+});
+
+// ── Chart 4: Nacional → Municipios ───────────────
+const nacYears = ['2018','2019','2020','2021','2022','2023','2024','2025'];
+const nacVals  = [4569,  2830, 10466, 41602, 47563,114491,   724,  1984];
+const nacColors = nacVals.map((_,i) => i===6 ? 'rgba(255,90,60,.85)' : 'rgba(0,213,216,.65)');
+
+new Chart(document.getElementById('chart-nac-muni'), {
+  type:'bar',
+  data:{
+    labels: nacYears,
+    datasets:[{
+      label:'Transferencias nacionales (M$)',
+      data: nacVals.map(v=>+(v/1000).toFixed(2)),
+      backgroundColor: nacColors,
+      borderRadius: 2,
+    }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:c => {
+        const v = c.parsed.y;
+        return v < 1 ? ` $${(v*1000).toFixed(0)}M (colapso)` : ` $${v.toFixed(1)}B`;
+      }}}
+    },
+    scales:{
+      x:{ grid:{color:'rgba(255,255,255,.04)'}, ticks:{color:'rgba(255,255,255,.4)'} },
+      y:{ grid:{color:'rgba(255,255,255,.04)'}, ticks:{
+        color:'rgba(255,255,255,.4)',
+        callback: v => '$'+v.toFixed(0)+'B'
+      }}
+    }
+  }
+});
+</script>
+</body>
+</html>
