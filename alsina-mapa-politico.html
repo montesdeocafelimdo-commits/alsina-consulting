@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa Político PBA · Alsina Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g1:#0e1c20;--g2:#162429;--g3:#1e2f35;--g4:#243840;
+  --tur:#00D5D8;--cian:#008C9A;--crema:#F3EFE7;
+  --con:#9e9992;--som:#1C3C44;--txt:#1a2a30;
+  --verde:#52C78B;--rojo:#E05252;
+  /* party colours */
+  --fp:#1a56db;--lla:#9333ea;--sos:#f59e0b;
+  --hec:#059669;--oth:#6b7280;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--g1);color:var(--crema);font-family:'Barlow',sans-serif;display:flex;flex-direction:column;}
+
+/* ── NAV ── */
+nav{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;background:var(--g2);border-bottom:1px solid rgba(0,213,216,.12);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.25rem;letter-spacing:.2em;color:var(--crema);}
+.nav-tagline{font-size:.58rem;color:rgba(183,178,170,.6);letter-spacing:.12em;text-transform:uppercase;margin-top:1px;}
+.nav-title{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.08em;color:var(--tur);text-transform:uppercase;}
+.nav-back{color:rgba(243,239,231,.6);text-decoration:none;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;transition:color .2s;}
+.nav-back:hover{color:var(--tur);}
+
+/* ── MAIN LAYOUT ── */
+.app{flex:1;display:flex;overflow:hidden;}
+
+/* ── LEFT PANEL ── */
+.left-panel{width:260px;flex:0 0 260px;background:var(--g2);border-right:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;overflow:hidden;}
+.lp-head{padding:16px;border-bottom:1px solid rgba(255,255,255,.06);}
+.lp-head h2{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tur);margin-bottom:8px;}
+.lp-head p{font-size:.72rem;color:var(--con);line-height:1.5;}
+
+/* Views */
+.view-btns{display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.06);}
+.view-label{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--con);margin-bottom:4px;}
+.vbtn{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;transition:all .18s;border:1px solid transparent;background:transparent;}
+.vbtn:hover{background:rgba(0,213,216,.06);border-color:rgba(0,213,216,.15);}
+.vbtn.active{background:rgba(0,213,216,.1);border-color:rgba(0,213,216,.3);}
+.vbtn-dot{width:10px;height:10px;border-radius:50%;flex:0 0 10px;}
+.vbtn-text{font-size:.75rem;font-weight:500;line-height:1.3;}
+
+/* Legend */
+.legend{flex:1;overflow-y:auto;padding:14px 16px;}
+.leg-title{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--con);margin-bottom:10px;}
+.leg-item{display:flex;align-items:center;gap:10px;margin-bottom:7px;cursor:pointer;transition:opacity .15s;}
+.leg-item:hover{opacity:.75;}
+.leg-item.hidden{opacity:.35;}
+.leg-dot{width:14px;height:14px;border-radius:3px;flex:0 0 14px;}
+.leg-label{font-size:.76rem;font-weight:500;flex:1;}
+.leg-count{font-size:.68rem;color:var(--con);}
+
+/* Search */
+.srch-wrap{padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.06);}
+.srch-wrap input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--crema);padding:7px 10px;font-size:.76rem;font-family:'Barlow',sans-serif;border-radius:4px;outline:none;}
+.srch-wrap input::placeholder{color:rgba(243,239,231,.35);}
+.srch-wrap input:focus{border-color:rgba(0,213,216,.4);background:rgba(0,213,216,.04);}
+
+/* ── MAP AREA ── */
+.map-area{flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative;}
+.map-top{flex:0 0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;background:rgba(14,28,32,.6);border-bottom:1px solid rgba(255,255,255,.06);}
+.map-stats{display:flex;gap:20px;}
+.stat{display:flex;flex-direction:column;}
+.stat-val{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;color:var(--tur);}
+.stat-lbl{font-size:.62rem;color:var(--con);letter-spacing:.06em;text-transform:uppercase;}
+.map-hint{font-size:.68rem;color:rgba(243,239,231,.35);font-style:italic;}
+.svg-container{flex:1;position:relative;overflow:hidden;}
+svg#pmap{width:100%;height:100%;display:block;}
+svg#pmap path{stroke:#0e1c20;stroke-width:0.5;cursor:pointer;transition:opacity .15s,filter .15s;}
+svg#pmap path:hover{opacity:.82;filter:brightness(1.18);}
+svg#pmap path.selected{stroke:var(--tur);stroke-width:2;filter:brightness(1.2);}
+svg#pmap path.dimmed{opacity:.18;}
+svg#pmap path.highlighted{opacity:1;}
+
+/* ── TOOLTIP ── */
+#tooltip{
+  position:fixed;pointer-events:none;z-index:999;
+  background:rgba(14,28,32,.97);border:1px solid rgba(0,213,216,.3);
+  padding:10px 14px;max-width:240px;min-width:180px;
+  box-shadow:0 8px 32px rgba(0,0,0,.6);
+  display:none;
+}
+.tt-name{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:var(--crema);margin-bottom:4px;}
+.tt-party{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+.tt-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;}
+.tt-k{font-size:.68rem;color:var(--con);}
+.tt-v{font-size:.7rem;color:var(--crema);text-align:right;max-width:130px;}
+
+/* ── RIGHT DETAIL PANEL ── */
+.right-panel{width:0;flex:0 0 0;background:var(--g2);border-left:1px solid rgba(255,255,255,.06);overflow:hidden;transition:all .25s ease;display:flex;flex-direction:column;}
+.right-panel.open{width:280px;flex:0 0 280px;}
+.rp-head{padding:16px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:flex-start;justify-content:space-between;}
+.rp-name{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--crema);line-height:1.1;}
+.rp-seccion{font-size:.65rem;color:var(--con);text-transform:uppercase;letter-spacing:.1em;margin-top:4px;}
+.rp-close{background:none;border:none;color:var(--con);cursor:pointer;font-size:1.1rem;padding:2px 4px;line-height:1;transition:color .15s;}
+.rp-close:hover{color:var(--crema);}
+.rp-party-badge{margin:14px 16px 10px;padding:8px 12px;border-radius:5px;display:flex;align-items:center;gap:10px;}
+.rp-party-dot{width:12px;height:12px;border-radius:50%;flex:0 0 12px;}
+.rp-party-name{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;}
+.rp-body{flex:1;overflow-y:auto;padding:0 16px 16px;}
+.rp-section{margin-bottom:16px;}
+.rp-section-title{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--con);margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.06);}
+.rp-field{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+.rp-field-k{font-size:.7rem;color:rgba(243,239,231,.55);}
+.rp-field-v{font-size:.75rem;color:var(--crema);text-align:right;max-width:160px;font-weight:500;}
+.rp-big{margin:0 0 12px;}
+.rp-big-lbl{font-size:.62rem;color:var(--con);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+.rp-big-val{font-size:1.6rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--tur);}
+.rp-badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:3px;font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-top:3px;}
+.rp-badge.si{background:rgba(52,211,153,.15);color:#34d399;}
+.rp-badge.no{background:rgba(251,191,36,.1);color:#fbbf24;}
+.rp-badge.changed{background:rgba(239,68,68,.12);color:#ef4444;}
+
+/* ── PARTY STATUS BAR ── */
+.statusbar{flex:0 0 auto;padding:8px 20px;background:rgba(14,28,32,.9);border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:8px;overflow-x:auto;}
+.sb-item{display:flex;align-items:center;gap:5px;white-space:nowrap;}
+.sb-dot{width:8px;height:8px;border-radius:50%;flex:0 0 8px;}
+.sb-label{font-size:.65rem;color:rgba(243,239,231,.7);}
+.sb-count{font-size:.65rem;font-weight:700;color:var(--crema);}
+.sb-sep{width:1px;height:14px;background:rgba(255,255,255,.1);flex:0 0 1px;}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(0,213,216,.2);border-radius:2px;}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div>
+      <div class="nav-brand">ALSINA</div>
+      <div class="nav-tagline">Gestión · Tecnología · Territorio</div>
+    </div>
+  </a>
+  <span class="nav-title">Mapa Político — 135 Municipios PBA</span>
+  <a class="nav-back" href="index.html">← Inicio</a>
+</nav>
+
+<div class="app">
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="lp-head">
+      <h2>Mapa Electoral</h2>
+      <p>Composición política de los 135 municipios de la Provincia de Buenos Aires.</p>
+    </div>
+
+    <div class="srch-wrap">
+      <input type="text" id="srch" placeholder="🔍 Buscar municipio…" autocomplete="off">
+    </div>
+
+    <div class="view-btns">
+      <div class="view-label">Vista</div>
+      <div class="vbtn active" onclick="setView('partido',this)">
+        <div class="vbtn-dot" style="background:linear-gradient(135deg,var(--fp),var(--lla),var(--sos))"></div>
+        <div class="vbtn-text">Fuerza política 2025</div>
+      </div>
+      <div class="vbtn" onclick="setView('continuidad',this)">
+        <div class="vbtn-dot" style="background:linear-gradient(135deg,#22c55e,#f97316)"></div>
+        <div class="vbtn-text">Continuidad 2019 → 2023</div>
+      </div>
+      <div class="vbtn" onclick="setView('mandato',this)">
+        <div class="vbtn-dot" style="background:linear-gradient(135deg,#22c55e,#ef4444)"></div>
+        <div class="vbtn-text">Cambios en mandato 2025</div>
+      </div>
+    </div>
+
+    <div class="legend" id="legend"></div>
+  </div>
+
+  <!-- MAP AREA -->
+  <div class="map-area">
+    <div class="map-top">
+      <div class="map-stats" id="mapStats"></div>
+      <div class="map-hint">Hover para ver datos · Click para seleccionar</div>
+    </div>
+    <div class="svg-container">
+      <svg id="pmap" viewBox="0 0 680 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      </svg>
+    </div>
+    <div class="statusbar" id="statusbar"></div>
+  </div>
+
+  <!-- RIGHT DETAIL PANEL -->
+  <div class="right-panel" id="rightPanel">
+    <div class="rp-head">
+      <div>
+        <div class="rp-name" id="rpName">—</div>
+        <div class="rp-seccion" id="rpSeccion"></div>
+      </div>
+      <button class="rp-close" onclick="closePanel()">✕</button>
+    </div>
+    <div class="rp-party-badge" id="rpPartyBadge">
+      <div class="rp-party-dot" id="rpPartyDot"></div>
+      <div class="rp-party-name" id="rpPartyName"></div>
+    </div>
+    <div class="rp-body">
+      <div class="rp-big">
+        <div class="rp-big-lbl">Electores padrón</div>
+        <div class="rp-big-val" id="rpElectores">—</div>
+      </div>
+      <div class="rp-section">
+        <div class="rp-section-title">Intendentes</div>
+        <div class="rp-field"><span class="rp-field-k">2019–2023</span><span class="rp-field-v" id="rpI19">—</span></div>
+        <div class="rp-field"><span class="rp-field-k">2023–2027 (electo)</span><span class="rp-field-v" id="rpI23">—</span></div>
+        <div class="rp-field" id="rpIaField" style="display:none"><span class="rp-field-k">Actual 2025</span><span class="rp-field-v" id="rpIa">—</span></div>
+      </div>
+      <div class="rp-section">
+        <div class="rp-section-title">Análisis</div>
+        <div class="rp-field"><span class="rp-field-k">¿Mismo intendente 2019→2023?</span><span class="rp-field-v" id="rpContinuidad">—</span></div>
+        <div class="rp-field" id="rpCambioField"><span class="rp-field-k">¿Cambio en mandato 2023→2025?</span><span class="rp-field-v" id="rpCambio">—</span></div>
+        <div class="rp-field"><span class="rp-field-k">Reelección histórica</span><span class="rp-field-v" id="rpRe">—</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="tooltip">
+  <div class="tt-name" id="ttName"></div>
+  <div class="tt-party" id="ttParty"></div>
+  <div class="tt-row"><span class="tt-k">Intendente actual</span><span class="tt-v" id="ttInten"></span></div>
+  <div class="tt-row"><span class="tt-k">Partido</span><span class="tt-v" id="ttPartido"></span></div>
+  <div class="tt-row"><span class="tt-k">Electores</span><span class="tt-v" id="ttElec"></span></div>
+  <div class="tt-row"><span class="tt-k">Sección</span><span class="tt-v" id="ttSec"></span></div>
+</div>
+
+<script>
+const PATHS = {"ALMIRANTE BROWN": "M 505.8,160.9 L 503.6,162.1 L 507.5,166.8 L 502.7,170.3 L 497.4,172.1 L 492.5,164.0 L 503.2,157.2 L 505.8,160.9 Z", "LA PLATA": "M 535.8,168.6 L 538.3,168.5 L 545.8,174.1 L 554.8,177.3 L 558.0,176.6 L 559.7,177.9 L 530.6,203.5 L 528.3,201.8 L 534.0,196.9 L 518.6,186.2 L 524.2,181.2 L 520.1,178.1 L 511.9,185.4 L 507.9,182.4 L 527.7,164.9 L 535.8,168.6 Z M 511.8,101.8 L 512.3,103.0 L 511.1,103.3 L 511.8,101.8 Z", "PRESIDENTE PERON": "M 505.6,168.7 L 509.1,172.7 L 497.6,176.8 L 498.1,177.5 L 494.2,178.7 L 490.4,181.8 L 491.0,176.1 L 488.3,173.9 L 495.8,168.6 L 497.4,172.1 L 505.6,168.7 Z", "CARLOS CASARES": "M 194.2,217.2 L 217.8,236.1 L 219.4,234.8 L 227.4,241.3 L 226.6,242.1 L 242.5,254.8 L 235.8,260.5 L 242.2,265.5 L 219.6,284.4 L 213.4,279.6 L 207.6,284.6 L 191.5,271.7 L 193.1,270.6 L 184.2,263.2 L 197.1,252.8 L 187.6,244.9 L 190.2,242.8 L 175.7,232.6 L 194.2,217.2 Z", "SALADILLO": "M 384.9,225.0 L 388.4,224.8 L 391.0,228.2 L 393.5,228.3 L 402.3,232.6 L 405.2,231.8 L 399.1,237.3 L 421.5,253.8 L 416.2,257.2 L 411.7,257.2 L 408.3,259.0 L 405.4,258.4 L 402.4,259.8 L 398.9,258.3 L 392.4,259.2 L 392.5,260.1 L 387.6,260.7 L 384.8,263.1 L 377.0,264.0 L 372.2,260.7 L 364.3,262.7 L 362.5,262.0 L 360.4,263.3 L 358.7,262.7 L 354.7,265.5 L 354.8,267.8 L 353.3,269.0 L 336.9,256.1 L 330.8,261.3 L 321.1,253.4 L 331.0,244.9 L 336.2,248.9 L 339.2,248.1 L 338.8,246.1 L 341.2,244.3 L 339.0,244.0 L 338.5,240.9 L 341.5,236.8 L 339.6,234.1 L 341.8,231.7 L 349.1,227.9 L 353.3,227.2 L 359.4,228.7 L 363.5,226.7 L 376.5,226.0 L 379.0,224.3 L 381.1,225.4 L 384.9,225.0 Z", "PEHUAJO": "M 150.1,234.0 L 158.0,227.6 L 169.8,237.3 L 175.7,232.6 L 190.2,242.8 L 187.6,244.9 L 197.1,252.8 L 184.2,263.2 L 193.1,270.6 L 191.5,271.7 L 203.5,281.4 L 202.1,282.6 L 198.1,279.4 L 187.9,288.0 L 186.0,286.5 L 179.0,291.2 L 177.7,290.2 L 173.9,293.4 L 171.0,291.0 L 154.2,303.8 L 156.5,305.7 L 151.4,310.1 L 147.5,306.9 L 144.3,309.4 L 134.9,301.5 L 131.6,304.1 L 129.1,301.8 L 141.1,292.3 L 107.2,263.8 L 139.4,237.8 L 136.4,235.3 L 144.1,229.1 L 150.1,234.0 Z", "TRENQUE LAUQUEN": "M 103.1,322.2 L 90.2,332.4 L 88.3,326.5 L 32.5,280.8 L 88.6,233.9 L 116.3,256.5 L 107.2,263.8 L 141.1,292.3 L 103.1,322.2 Z", "GENERAL BELGRANO": "M 439.3,238.3 L 441.5,237.6 L 443.2,240.4 L 445.9,240.9 L 448.4,239.2 L 448.0,238.1 L 450.5,238.0 L 449.9,240.8 L 451.0,242.6 L 454.3,243.7 L 454.2,246.6 L 459.3,248.2 L 462.3,253.9 L 466.4,250.5 L 471.8,250.8 L 471.9,252.5 L 475.0,253.4 L 476.8,252.4 L 483.5,252.9 L 483.9,250.8 L 485.2,250.6 L 487.3,253.6 L 490.7,246.9 L 493.3,249.2 L 493.6,251.7 L 492.0,252.4 L 491.9,255.2 L 495.4,257.1 L 495.7,259.6 L 502.6,262.3 L 503.2,264.2 L 508.4,263.9 L 480.4,289.3 L 463.2,276.0 L 465.2,274.4 L 449.5,262.0 L 448.7,262.7 L 443.2,258.4 L 441.5,259.7 L 425.2,244.6 L 425.2,241.1 L 433.1,239.1 L 435.3,240.0 L 436.1,237.9 L 436.9,238.9 L 439.3,238.3 Z", "LAS FLORES": "M 425.3,244.7 L 441.5,259.7 L 443.2,258.4 L 448.7,262.7 L 449.5,262.0 L 465.2,274.4 L 463.2,276.0 L 467.3,279.2 L 455.7,288.3 L 453.5,292.2 L 450.6,292.2 L 436.9,298.5 L 432.3,299.1 L 431.3,300.9 L 429.1,301.6 L 429.4,304.0 L 422.6,306.4 L 410.7,314.1 L 392.0,299.6 L 402.1,290.7 L 385.6,278.2 L 389.1,275.2 L 371.3,261.2 L 373.6,261.3 L 377.0,264.0 L 384.8,263.1 L 387.6,260.7 L 392.5,260.1 L 392.4,259.2 L 398.9,258.3 L 402.4,259.8 L 405.4,258.4 L 408.3,259.0 L 411.7,257.2 L 415.4,257.5 L 421.3,254.5 L 422.3,249.4 L 426.4,248.2 L 425.3,244.7 Z", "GENERAL GUIDO": "M 536.9,304.6 L 557.5,320.3 L 554.0,323.2 L 557.2,325.7 L 550.4,331.8 L 558.7,338.6 L 557.4,339.6 L 568.6,348.3 L 564.1,352.2 L 560.4,349.3 L 546.3,361.2 L 543.6,359.1 L 538.5,363.5 L 541.2,365.6 L 534.7,371.5 L 541.2,376.3 L 533.8,383.1 L 508.1,363.8 L 524.7,348.8 L 513.9,338.9 L 526.0,328.5 L 517.4,321.7 L 536.9,304.6 Z", "OLAVARRIA": "M 287.2,316.3 L 290.7,317.7 L 299.9,326.2 L 296.1,329.3 L 311.2,341.7 L 315.2,338.5 L 342.1,359.2 L 340.3,360.9 L 341.6,362.0 L 339.6,363.6 L 341.1,364.7 L 339.2,366.4 L 340.1,367.1 L 332.2,373.4 L 333.1,374.4 L 331.1,376.1 L 332.5,377.2 L 328.2,383.5 L 330.1,384.9 L 315.5,400.0 L 300.0,412.7 L 281.7,398.3 L 271.6,389.3 L 273.0,388.2 L 263.5,380.5 L 244.5,395.6 L 204.7,362.1 L 255.6,321.5 L 257.6,323.3 L 268.5,314.4 L 271.7,317.0 L 279.4,311.0 L 287.2,316.3 Z", "ROJAS": "M 255.2,74.0 L 274.9,88.3 L 273.9,89.1 L 278.9,94.0 L 292.1,98.6 L 296.9,104.1 L 294.8,107.3 L 290.5,109.5 L 289.3,111.4 L 290.2,118.5 L 286.4,122.5 L 288.2,123.9 L 276.9,133.7 L 255.1,116.2 L 248.8,118.1 L 239.9,110.8 L 244.3,107.1 L 249.6,111.5 L 253.6,108.1 L 233.8,91.9 L 240.7,88.0 L 255.2,74.0 Z", "SAN ANTONIO DE ARECO": "M 407.8,84.8 L 410.0,91.7 L 413.3,93.7 L 412.1,99.0 L 403.6,104.0 L 402.9,108.1 L 399.0,110.7 L 398.1,114.0 L 391.6,115.5 L 380.4,123.9 L 379.2,123.0 L 376.7,125.0 L 373.9,123.2 L 372.1,112.5 L 363.5,106.0 L 376.7,100.3 L 384.7,101.2 L 389.7,94.6 L 394.2,98.0 L 400.8,92.2 L 399.7,90.9 L 406.7,88.8 L 408.4,86.8 L 407.8,84.8 Z", "MAIPU": "M 584.7,334.4 L 587.5,333.3 L 615.5,354.3 L 610.0,354.7 L 610.9,366.6 L 601.4,366.7 L 603.0,375.9 L 584.8,377.2 L 585.4,385.9 L 577.6,385.9 L 567.2,395.5 L 534.7,371.5 L 541.2,365.6 L 538.5,363.5 L 543.6,359.1 L 546.3,361.2 L 560.4,349.3 L 564.1,352.2 L 584.7,334.4 Z", "ARRECIFES": "M 326.3,62.8 L 327.2,61.0 L 332.0,67.9 L 334.4,67.1 L 340.0,68.7 L 363.7,86.4 L 360.5,86.5 L 357.4,90.2 L 352.4,92.6 L 343.7,93.2 L 343.8,104.1 L 338.6,110.7 L 322.7,104.5 L 322.3,103.1 L 326.2,90.9 L 323.5,90.1 L 319.4,86.3 L 320.0,72.7 L 326.3,62.8 Z", "CAPITAN SARMIENTO": "M 366.9,84.9 L 366.1,86.4 L 367.3,89.6 L 370.5,93.9 L 369.1,97.6 L 373.7,101.0 L 354.5,110.3 L 352.5,107.7 L 345.2,112.5 L 338.5,110.7 L 343.8,104.1 L 343.7,93.2 L 352.4,92.6 L 357.4,90.2 L 360.5,86.5 L 362.5,87.0 L 366.9,84.9 Z", "CARMEN DE ARECO": "M 366.4,108.2 L 372.1,112.5 L 373.8,123.6 L 365.0,128.3 L 367.9,130.7 L 364.7,133.5 L 366.1,134.5 L 353.5,144.2 L 348.8,140.6 L 351.1,138.7 L 344.8,133.8 L 340.9,137.3 L 332.9,131.2 L 334.3,129.9 L 328.5,125.1 L 334.2,120.2 L 336.1,121.6 L 346.6,111.2 L 352.5,107.7 L 354.5,110.3 L 363.5,106.0 L 366.4,108.2 Z", "PINAMAR": "M 641.4,394.2 L 637.3,393.8 L 638.6,392.0 L 649.8,377.9 L 652.8,378.9 L 641.4,394.2 Z", "SALTO": "M 312.2,85.2 L 318.8,85.8 L 323.5,90.1 L 326.2,90.9 L 324.5,98.0 L 322.4,101.2 L 322.7,104.5 L 345.2,112.5 L 336.1,121.6 L 334.2,120.2 L 322.2,128.7 L 318.7,126.0 L 311.2,132.7 L 306.0,128.7 L 303.3,131.0 L 295.0,124.8 L 292.4,127.0 L 286.4,122.5 L 290.2,118.5 L 289.4,111.2 L 294.8,107.3 L 296.9,104.2 L 294.3,102.0 L 312.2,85.2 Z", "EXALTACION DE LA CRUZ": "M 408.9,100.5 L 429.1,104.2 L 430.2,106.9 L 431.5,106.5 L 433.5,108.1 L 447.0,121.6 L 446.9,124.7 L 441.0,118.6 L 439.7,119.3 L 440.6,120.3 L 439.7,121.3 L 436.3,123.0 L 429.6,129.4 L 426.5,125.3 L 412.6,114.2 L 409.1,112.7 L 410.2,110.3 L 402.6,107.8 L 403.6,104.0 L 408.9,100.5 Z", "ESCOBAR": "M 467.0,108.8 L 473.1,110.5 L 470.0,118.2 L 466.0,119.9 L 467.6,120.7 L 464.8,123.5 L 467.5,127.0 L 464.5,128.7 L 460.5,123.6 L 456.8,124.7 L 448.6,114.8 L 452.8,110.1 L 460.8,112.3 L 458.6,107.1 L 467.0,108.8 Z", "SAN MIGUEL": "M 477.2,136.1 L 466.9,142.9 L 460.7,138.4 L 466.1,134.6 L 468.0,136.0 L 473.3,133.0 L 477.2,136.1 Z", "SAN ANDRES DE GILES": "M 404.5,108.4 L 410.2,110.3 L 409.1,112.7 L 420.4,120.5 L 415.9,124.6 L 418.0,127.7 L 388.5,142.1 L 384.1,138.6 L 377.9,143.9 L 364.7,133.5 L 367.9,130.7 L 365.0,128.3 L 374.2,123.0 L 376.7,125.0 L 379.2,123.0 L 380.4,123.9 L 391.6,115.5 L 398.1,114.0 L 399.0,110.7 L 402.8,107.9 L 404.5,108.4 Z", "JUNIN": "M 241.6,112.1 L 248.8,118.1 L 255.1,116.2 L 279.7,135.9 L 268.9,145.3 L 270.5,147.0 L 273.2,146.8 L 265.4,153.6 L 268.4,155.9 L 263.4,160.5 L 260.2,158.0 L 254.9,162.6 L 240.9,151.2 L 230.9,159.3 L 224.0,153.6 L 225.7,152.1 L 212.8,141.5 L 219.1,136.7 L 211.2,130.3 L 220.3,123.2 L 222.9,123.7 L 223.5,126.7 L 226.2,125.8 L 226.8,120.0 L 228.5,120.0 L 233.9,115.6 L 233.0,114.8 L 236.1,112.2 L 238.8,114.4 L 241.6,112.1 Z", "MERCEDES": "M 406.4,133.6 L 413.6,144.2 L 411.8,144.8 L 415.6,149.8 L 414.3,150.5 L 422.6,161.5 L 420.3,162.6 L 419.2,161.2 L 412.0,164.9 L 411.1,163.6 L 408.0,165.1 L 403.0,170.4 L 399.5,165.7 L 394.0,168.6 L 388.5,164.4 L 391.5,161.8 L 388.2,158.2 L 369.8,144.3 L 374.0,140.7 L 377.9,143.9 L 384.1,138.6 L 388.5,142.1 L 406.4,133.6 Z", "GENERAL VILLEGAS": "M 63.8,121.7 L 123.0,121.7 L 115.3,147.5 L 92.4,143.4 L 91.5,147.2 L 88.8,145.5 L 90.3,180.4 L 86.9,180.5 L 89.9,182.9 L 82.3,189.0 L 85.3,191.4 L 83.4,193.0 L 80.5,190.5 L 55.6,210.8 L 41.0,199.0 L 43.5,197.0 L 38.8,193.1 L 29.4,200.8 L 31.8,202.8 L 24.6,208.6 L 22.2,206.6 L 18.6,209.7 L 20.3,211.9 L 15.0,216.3 L 15.1,121.7 L 63.8,121.7 Z", "PILAR": "M 448.6,114.8 L 456.8,124.7 L 460.5,123.6 L 464.5,128.7 L 459.9,130.5 L 456.3,128.2 L 457.3,131.3 L 456.5,133.2 L 453.0,138.4 L 450.2,140.2 L 446.0,134.4 L 442.8,136.0 L 433.6,125.9 L 439.7,121.3 L 440.6,120.3 L 439.7,119.3 L 441.0,118.6 L 446.9,124.7 L 446.7,120.5 L 448.0,119.5 L 447.1,116.1 L 448.6,114.8 Z", "LUJAN": "M 420.0,120.8 L 426.5,125.3 L 429.6,129.4 L 433.7,125.9 L 443.5,137.0 L 440.3,138.6 L 439.7,140.6 L 432.2,142.8 L 433.6,144.0 L 426.0,148.0 L 430.2,154.0 L 423.0,162.0 L 414.3,150.5 L 415.6,149.8 L 411.8,144.8 L 413.6,144.2 L 406.4,133.6 L 418.0,127.7 L 415.9,124.6 L 420.0,120.8 Z", "HURLINGHAM": "M 476.2,141.2 L 475.7,145.5 L 472.6,145.4 L 468.7,141.8 L 473.3,138.8 L 476.2,141.2 Z", "MORON": "M 482.0,145.7 L 479.5,146.5 L 473.8,152.4 L 471.2,150.6 L 472.6,145.4 L 476.0,145.3 L 476.2,141.2 L 482.0,145.7 Z", "CHACABUCO": "M 327.4,124.2 L 334.3,129.9 L 332.9,131.2 L 340.9,137.3 L 344.8,133.8 L 351.1,138.7 L 348.8,140.6 L 353.5,144.2 L 345.4,151.1 L 341.6,146.2 L 336.2,151.1 L 332.1,147.9 L 324.0,154.6 L 326.5,156.6 L 325.2,157.7 L 326.2,159.0 L 319.1,164.1 L 311.2,157.9 L 307.3,161.2 L 306.3,160.4 L 297.9,167.5 L 294.4,165.2 L 291.2,165.5 L 290.8,163.9 L 288.4,164.4 L 285.6,163.2 L 281.6,157.6 L 281.9,156.1 L 278.8,152.8 L 275.9,152.6 L 276.1,147.8 L 270.5,147.0 L 268.9,145.4 L 279.7,135.9 L 276.9,133.7 L 288.2,123.9 L 292.4,127.0 L 295.0,124.8 L 303.3,131.0 L 306.0,128.7 L 311.2,132.7 L 318.7,126.0 L 322.2,128.7 L 327.4,124.2 Z", "MALVINAS ARGENTINAS": "M 466.7,127.5 L 467.5,127.0 L 473.3,133.0 L 468.0,136.0 L 459.9,130.6 L 466.7,127.5 Z", "JOSE C. PAZ": "M 456.3,128.2 L 466.1,134.6 L 460.7,138.3 L 456.1,133.6 L 457.3,131.5 L 456.3,128.2 Z", "GENERAL SAN MARTIN": "M 486.5,139.4 L 485.2,142.1 L 481.4,141.6 L 476.0,137.3 L 477.6,134.9 L 477.7,131.9 L 483.8,137.0 L 484.5,136.4 L 486.5,139.4 Z", "MORENO": "M 456.1,133.6 L 466.8,142.9 L 465.0,146.5 L 462.7,148.1 L 456.7,150.6 L 452.4,150.5 L 450.2,149.0 L 450.2,145.1 L 452.2,144.0 L 449.6,140.5 L 453.0,138.4 L 456.1,133.6 Z", "LINCOLN": "M 195.6,142.6 L 203.3,149.1 L 212.8,141.5 L 225.7,152.1 L 224.0,153.6 L 230.9,159.3 L 227.9,161.7 L 233.2,166.0 L 205.0,189.2 L 216.6,198.6 L 169.8,237.3 L 134.5,208.1 L 127.0,201.3 L 128.5,200.1 L 122.7,195.4 L 132.8,187.2 L 130.9,185.6 L 150.4,169.7 L 158.3,176.2 L 180.5,157.8 L 170.9,149.7 L 176.9,145.0 L 183.2,150.4 L 186.4,147.8 L 187.8,148.9 L 195.6,142.6 Z", "ITUZAINGO": "M 472.6,145.4 L 471.2,150.6 L 465.3,145.7 L 466.4,143.1 L 468.6,141.8 L 472.6,145.4 Z", "FLORENTINO AMEGHINO": "M 89.9,170.1 L 88.8,145.5 L 91.5,147.2 L 92.4,143.4 L 130.7,150.3 L 123.4,156.1 L 125.7,157.9 L 119.4,162.8 L 121.3,162.9 L 121.5,166.9 L 127.4,166.8 L 127.6,170.1 L 129.0,170.1 L 138.7,179.2 L 130.9,185.6 L 132.8,187.2 L 121.3,196.5 L 103.3,181.7 L 95.9,187.9 L 86.9,180.5 L 90.3,180.4 L 89.9,170.1 Z", "LA MATANZA": "M 484.6,147.6 L 491.2,152.5 L 489.0,155.1 L 487.0,154.0 L 486.2,155.8 L 483.7,156.4 L 483.9,157.4 L 480.9,157.5 L 478.3,162.1 L 476.1,163.5 L 473.2,170.2 L 468.7,172.3 L 462.0,167.1 L 463.2,166.1 L 460.9,164.2 L 467.4,162.7 L 463.2,159.4 L 464.7,158.1 L 467.7,159.5 L 472.2,157.1 L 470.5,155.7 L 474.3,153.4 L 473.9,152.1 L 479.5,146.5 L 482.0,145.7 L 484.6,147.6 Z", "GENERAL RODRIGUEZ": "M 442.8,136.0 L 446.0,134.4 L 450.2,140.2 L 452.2,144.0 L 450.2,145.1 L 450.2,149.0 L 452.1,150.4 L 445.4,152.2 L 439.3,157.9 L 436.0,158.1 L 430.2,153.8 L 426.0,148.0 L 433.6,144.0 L 432.2,142.8 L 440.4,140.2 L 440.3,138.6 L 443.5,137.0 L 442.8,136.0 Z", "SUIPACHA": "M 366.1,134.5 L 374.0,140.7 L 369.8,144.3 L 388.2,158.2 L 391.5,161.8 L 388.5,164.4 L 394.0,168.6 L 377.9,177.0 L 371.5,170.9 L 366.5,168.7 L 363.3,165.6 L 360.7,162.2 L 362.7,160.4 L 347.7,149.3 L 366.1,134.5 Z", "TRES DE FEBRERO": "M 476.0,137.3 L 481.4,141.6 L 485.2,142.1 L 484.6,147.6 L 473.3,138.8 L 476.0,137.3 Z", "MERLO": "M 471.2,150.6 L 474.3,153.4 L 470.5,155.7 L 472.2,157.1 L 467.7,159.5 L 465.3,157.6 L 463.2,159.4 L 452.1,151.7 L 452.6,150.5 L 456.7,150.6 L 462.5,148.2 L 465.2,145.7 L 471.2,150.6 Z", "CHIVILCOY": "M 342.5,147.0 L 343.2,149.5 L 345.3,151.1 L 347.7,149.3 L 362.7,160.4 L 360.7,162.2 L 362.3,164.5 L 366.5,168.7 L 371.5,170.9 L 380.5,180.5 L 359.5,197.8 L 358.3,196.0 L 354.8,195.4 L 351.7,191.9 L 344.7,193.5 L 337.8,189.6 L 329.6,188.7 L 327.1,186.8 L 330.5,183.9 L 313.0,169.4 L 326.2,159.0 L 325.2,157.7 L 326.5,156.6 L 324.0,154.6 L 331.0,148.7 L 332.1,147.9 L 336.2,151.1 L 341.6,146.2 L 342.5,147.0 Z", "BRAGADO": "M 271.0,148.7 L 273.2,146.8 L 276.1,147.8 L 275.9,152.6 L 278.8,152.8 L 281.9,156.1 L 281.6,157.6 L 285.6,163.2 L 288.4,164.4 L 290.8,163.9 L 291.2,165.5 L 294.4,165.2 L 298.5,167.9 L 298.4,174.1 L 296.3,175.1 L 295.3,178.9 L 300.2,182.3 L 299.8,184.1 L 304.7,189.3 L 310.5,193.1 L 307.0,196.2 L 309.6,198.2 L 308.1,199.5 L 311.8,202.3 L 291.3,220.3 L 257.9,194.6 L 269.3,184.7 L 260.3,177.7 L 272.2,167.4 L 263.4,160.5 L 268.4,155.9 L 265.4,153.6 L 271.0,148.7 Z", "LANUS": "M 496.8,148.1 L 503.5,154.6 L 502.2,155.8 L 500.3,156.3 L 494.5,154.1 L 492.6,150.9 L 494.8,148.3 L 496.8,148.1 Z", "GENERAL LAS HERAS": "M 430.4,153.6 L 443.8,164.5 L 445.3,163.3 L 446.2,164.0 L 454.0,170.4 L 452.7,171.5 L 460.6,177.4 L 445.5,190.8 L 437.6,184.7 L 439.8,182.8 L 417.8,166.6 L 430.4,153.6 Z", "MARCOS PAZ": "M 452.6,150.5 L 452.2,151.8 L 467.4,162.6 L 460.9,164.2 L 463.2,166.1 L 462.0,167.1 L 468.7,172.3 L 465.5,173.4 L 461.9,176.8 L 459.2,176.4 L 452.7,171.5 L 454.0,170.4 L 445.3,163.3 L 443.8,164.5 L 435.8,158.4 L 439.3,157.9 L 445.4,152.2 L 452.6,150.5 Z", "LOMAS DE ZAMORA": "M 502.2,155.7 L 503.2,157.2 L 494.1,163.2 L 487.3,154.2 L 489.0,155.1 L 492.6,150.9 L 495.8,155.1 L 502.2,155.7 Z", "GENERAL VIAMONTE": "M 240.9,151.2 L 254.9,162.6 L 260.2,158.0 L 272.2,167.4 L 260.3,177.7 L 269.3,184.7 L 247.1,204.6 L 239.6,198.8 L 230.6,206.3 L 218.7,196.8 L 216.6,198.6 L 205.0,189.2 L 233.2,166.0 L 227.9,161.7 L 240.9,151.2 Z", "ESTEBAN ECHEVERRIA": "M 487.3,154.2 L 494.1,163.2 L 492.5,164.0 L 495.8,168.6 L 488.3,173.9 L 486.6,171.3 L 487.2,166.9 L 485.1,159.8 L 485.4,155.9 L 487.3,154.2 Z", "EZEIZA": "M 485.4,155.9 L 485.1,159.8 L 487.2,166.9 L 486.6,171.3 L 488.3,173.9 L 482.2,178.4 L 482.0,181.4 L 475.8,177.0 L 477.8,175.3 L 472.9,170.2 L 476.1,163.5 L 478.3,162.1 L 480.8,157.6 L 483.9,157.4 L 483.7,156.4 L 485.4,155.9 Z", "ALBERTI": "M 307.3,161.2 L 311.2,157.9 L 319.1,164.1 L 313.0,169.4 L 330.5,183.9 L 327.1,186.8 L 331.1,189.4 L 337.1,189.4 L 340.3,191.1 L 319.3,209.1 L 308.1,199.5 L 309.6,198.2 L 307.0,196.2 L 310.5,193.1 L 304.7,189.3 L 299.8,184.1 L 300.2,182.3 L 296.7,180.8 L 295.1,178.4 L 296.3,175.1 L 298.7,173.0 L 299.0,169.1 L 297.9,167.5 L 306.3,160.4 L 307.3,161.2 Z", "FLORENCIO VARELA": "M 509.9,159.0 L 513.0,161.8 L 516.5,162.9 L 518.4,167.9 L 511.9,173.5 L 515.4,176.1 L 509.0,181.7 L 506.7,178.1 L 508.0,177.4 L 505.2,173.6 L 509.1,172.7 L 505.1,168.1 L 507.5,166.8 L 503.6,162.1 L 505.8,160.9 L 506.4,161.7 L 506.9,160.0 L 509.9,159.0 Z", "NAVARRO": "M 423.0,162.0 L 417.8,166.6 L 432.2,177.1 L 417.7,188.9 L 415.2,187.0 L 414.7,190.2 L 385.6,205.3 L 386.5,200.4 L 383.5,197.8 L 374.9,200.9 L 374.5,202.2 L 371.4,201.0 L 369.3,202.2 L 364.1,197.5 L 359.5,197.8 L 380.5,180.5 L 377.7,176.7 L 399.5,165.7 L 403.0,170.4 L 408.0,165.1 L 411.1,163.6 L 412.0,164.9 L 419.2,161.2 L 420.3,162.6 L 423.0,162.0 Z", "CAÑUELAS": "M 482.0,181.4 L 477.8,185.6 L 479.8,187.1 L 479.9,195.0 L 490.4,203.7 L 480.5,212.4 L 485.1,216.0 L 479.5,221.4 L 471.7,215.0 L 470.6,215.5 L 467.3,213.0 L 470.1,210.3 L 463.4,205.2 L 461.2,207.2 L 449.3,197.7 L 451.7,195.6 L 445.5,190.8 L 460.6,177.4 L 459.2,176.4 L 461.9,176.8 L 465.5,173.4 L 472.7,170.3 L 477.8,175.3 L 475.8,177.0 L 482.0,181.4 Z", "SAN VICENTE": "M 505.2,173.6 L 508.0,177.4 L 506.7,178.1 L 509.0,181.7 L 507.9,182.4 L 513.0,186.2 L 503.1,194.8 L 501.7,193.8 L 495.7,198.4 L 490.4,203.7 L 479.9,195.0 L 479.8,187.1 L 477.8,185.6 L 482.2,181.7 L 482.2,178.4 L 488.3,173.9 L 491.0,176.1 L 490.5,181.8 L 494.2,178.7 L 498.1,177.5 L 497.6,176.8 L 505.2,173.6 Z", "LOBOS": "M 432.2,177.1 L 439.8,182.8 L 437.6,184.7 L 451.7,195.6 L 449.3,197.7 L 457.6,203.8 L 446.4,213.7 L 441.9,213.3 L 438.5,216.1 L 436.6,214.7 L 426.6,222.8 L 423.2,221.4 L 422.8,219.8 L 413.5,218.4 L 410.6,215.9 L 407.8,216.9 L 407.9,215.3 L 405.4,213.9 L 404.2,214.6 L 402.2,212.8 L 401.2,209.0 L 396.3,210.4 L 394.1,209.5 L 393.7,210.4 L 392.6,208.4 L 388.4,208.3 L 385.9,206.6 L 385.6,205.3 L 414.7,190.2 L 415.2,187.0 L 417.7,188.9 L 432.2,177.1 Z", "BRANDSEN": "M 538.7,196.2 L 546.4,202.2 L 532.3,213.9 L 531.4,213.0 L 522.3,221.2 L 517.6,217.6 L 514.7,220.2 L 510.5,217.1 L 511.8,215.9 L 492.6,201.2 L 501.7,193.8 L 503.1,194.8 L 506.7,191.8 L 520.1,178.1 L 524.2,181.2 L 518.6,186.2 L 534.0,196.9 L 528.3,201.8 L 530.6,203.5 L 538.7,196.2 Z", "CARLOS TEJEDOR": "M 103.3,181.7 L 121.3,196.5 L 122.7,195.4 L 128.5,200.1 L 127.0,201.3 L 158.0,227.6 L 150.1,234.0 L 144.1,229.1 L 136.4,235.3 L 139.4,237.8 L 116.3,256.5 L 73.7,220.2 L 71.2,222.2 L 64.5,216.6 L 67.1,214.6 L 62.5,210.8 L 65.3,208.6 L 61.9,205.7 L 80.5,190.5 L 83.4,193.0 L 85.3,191.4 L 82.3,189.0 L 89.9,182.9 L 95.9,187.9 L 103.3,181.7 Z", "VEINTICINCO DE MAYO": "M 342.3,192.6 L 344.8,193.5 L 352.0,192.0 L 355.2,195.7 L 358.3,196.0 L 360.3,198.1 L 364.1,197.5 L 369.3,202.2 L 371.4,201.0 L 374.5,202.2 L 374.9,200.9 L 383.5,197.8 L 386.5,200.4 L 385.9,206.6 L 390.2,208.6 L 382.5,215.4 L 376.9,211.2 L 370.1,217.2 L 366.0,214.1 L 359.2,220.0 L 364.7,224.2 L 364.1,226.9 L 359.4,228.7 L 351.2,227.2 L 341.5,231.9 L 339.6,234.1 L 341.4,236.4 L 341.3,238.3 L 338.5,240.9 L 339.0,244.0 L 341.2,244.3 L 338.8,246.1 L 339.2,248.1 L 336.2,248.9 L 331.0,244.9 L 307.7,266.2 L 305.0,266.8 L 301.8,270.5 L 297.7,272.6 L 297.7,274.8 L 294.5,277.0 L 292.2,276.1 L 290.9,277.6 L 280.6,269.8 L 275.0,274.4 L 258.4,261.9 L 299.4,226.5 L 291.3,220.3 L 311.1,202.9 L 319.3,209.1 L 340.3,191.1 L 342.3,192.6 Z", "NUEVE DE JULIO": "M 258.2,194.8 L 299.4,226.5 L 248.4,270.4 L 235.8,260.5 L 242.5,254.8 L 226.6,242.1 L 227.4,241.3 L 219.4,234.8 L 217.8,236.1 L 194.2,217.2 L 218.7,196.8 L 230.6,206.3 L 239.6,198.8 L 247.1,204.6 L 258.2,194.8 Z", "GENERAL PAZ": "M 492.9,201.5 L 511.8,215.9 L 510.5,217.1 L 514.7,220.2 L 517.6,217.6 L 520.8,220.1 L 516.9,223.3 L 521.0,226.4 L 493.6,251.5 L 493.0,248.5 L 490.7,246.9 L 488.7,249.1 L 487.4,243.1 L 480.8,238.3 L 490.3,230.1 L 479.5,221.4 L 485.1,216.0 L 480.5,212.4 L 492.9,201.5 Z", "MONTE": "M 457.3,204.2 L 461.2,207.2 L 463.4,205.2 L 470.1,210.3 L 467.5,213.2 L 470.6,215.5 L 471.7,215.0 L 490.3,230.1 L 480.8,238.3 L 487.4,243.1 L 488.7,249.7 L 487.3,253.6 L 485.2,250.6 L 483.9,250.8 L 483.5,252.9 L 476.8,252.4 L 475.0,253.4 L 471.9,252.5 L 471.8,250.8 L 466.4,250.5 L 461.9,253.8 L 459.7,248.6 L 454.2,246.6 L 454.3,243.7 L 451.0,242.6 L 449.9,240.8 L 450.5,238.0 L 448.2,238.0 L 448.4,239.2 L 444.0,240.9 L 441.5,237.6 L 436.9,238.9 L 435.7,236.4 L 432.3,236.0 L 432.4,234.4 L 435.5,235.0 L 435.6,234.0 L 434.3,234.1 L 434.5,231.8 L 435.0,230.6 L 437.0,230.4 L 438.3,227.0 L 430.9,223.9 L 428.9,221.9 L 427.3,222.3 L 436.6,214.7 L 438.5,216.1 L 441.9,213.3 L 446.4,213.7 L 457.3,204.2 Z", "ROQUE PEREZ": "M 390.2,208.6 L 392.6,208.4 L 393.7,210.4 L 394.1,209.5 L 396.3,210.4 L 401.2,209.0 L 402.2,212.8 L 404.2,214.6 L 405.4,213.9 L 407.9,215.3 L 407.8,216.9 L 410.6,215.9 L 413.5,218.4 L 422.8,219.8 L 423.2,221.4 L 426.6,222.8 L 428.9,221.9 L 431.1,224.0 L 435.8,225.1 L 436.2,226.4 L 437.3,225.9 L 438.3,227.1 L 437.0,230.4 L 435.0,230.6 L 434.2,233.0 L 435.7,234.7 L 431.9,234.8 L 433.0,236.5 L 436.0,236.6 L 436.1,239.2 L 425.2,241.1 L 426.4,248.2 L 422.2,249.5 L 421.5,253.8 L 399.1,237.3 L 405.2,231.8 L 403.0,232.8 L 393.5,228.3 L 391.2,228.3 L 388.4,224.8 L 381.1,225.4 L 379.0,224.3 L 376.5,226.0 L 364.1,226.9 L 364.7,224.2 L 359.2,220.0 L 366.0,214.1 L 370.1,217.2 L 376.9,211.2 L 382.5,215.4 L 390.2,208.6 Z", "GENERAL ALVEAR": "M 371.3,261.2 L 389.1,275.2 L 381.7,281.5 L 379.7,279.9 L 369.6,287.8 L 362.0,281.8 L 356.0,286.8 L 358.0,288.4 L 346.4,298.4 L 345.7,301.8 L 333.6,293.3 L 318.6,307.1 L 313.6,303.6 L 307.6,309.4 L 291.7,298.4 L 287.7,300.5 L 274.7,290.8 L 280.9,288.3 L 286.9,280.3 L 292.2,276.1 L 294.5,277.0 L 296.8,275.7 L 298.1,274.1 L 297.7,272.6 L 301.8,270.5 L 305.0,266.8 L 307.7,266.2 L 321.6,253.8 L 330.8,261.3 L 336.9,256.1 L 353.3,269.0 L 354.8,267.8 L 354.7,265.5 L 358.4,262.8 L 371.3,261.2 Z", "QUILMES": "M 516.9,155.4 L 506.9,160.0 L 506.4,161.7 L 502.2,155.7 L 508.7,149.9 L 516.9,155.4 Z", "PILA": "M 516.2,261.3 L 517.8,264.2 L 521.6,264.6 L 522.4,268.3 L 525.6,269.7 L 525.1,271.2 L 527.0,271.4 L 527.0,272.7 L 534.2,272.1 L 534.9,273.2 L 532.6,279.0 L 534.6,281.7 L 539.0,283.9 L 526.7,292.6 L 539.6,302.2 L 517.4,321.7 L 526.0,328.5 L 515.2,337.7 L 479.8,311.4 L 478.0,313.0 L 463.2,302.0 L 460.0,299.5 L 461.9,297.8 L 454.4,291.4 L 455.7,288.3 L 467.3,279.2 L 480.4,289.3 L 509.4,263.8 L 510.2,260.3 L 514.5,260.0 L 516.2,261.3 Z", "GENERAL LA MADRID": "M 204.7,362.1 L 256.1,405.4 L 247.8,412.1 L 257.4,420.2 L 196.4,468.8 L 187.0,461.1 L 202.8,448.4 L 193.6,440.6 L 198.4,436.9 L 187.9,428.1 L 193.7,423.4 L 173.1,405.6 L 173.6,402.4 L 177.7,397.2 L 175.5,391.1 L 176.3,389.0 L 174.0,385.9 L 204.7,362.1 Z", "BOLIVAR": "M 266.9,268.0 L 275.0,274.4 L 280.6,269.8 L 290.9,277.6 L 286.9,280.3 L 280.9,288.3 L 275.7,290.8 L 271.9,290.9 L 266.9,294.6 L 267.2,295.5 L 263.8,298.3 L 265.1,300.0 L 264.4,302.3 L 259.1,309.1 L 254.7,310.9 L 258.6,313.9 L 252.5,319.0 L 255.6,321.5 L 221.0,349.4 L 210.0,340.3 L 197.5,350.3 L 181.4,336.9 L 186.0,333.3 L 180.1,329.3 L 179.3,329.9 L 175.6,325.8 L 206.4,301.1 L 203.1,298.4 L 242.2,265.5 L 248.4,270.4 L 258.4,261.9 L 266.9,268.0 Z", "BALCARCE": "M 479.9,413.5 L 494.5,425.1 L 501.5,419.0 L 508.5,424.3 L 520.0,414.0 L 561.5,444.7 L 511.1,487.9 L 478.7,462.7 L 486.7,455.5 L 457.5,432.8 L 479.9,413.5 Z", "VICENTE LOPEZ": "M 490.8,135.2 L 486.5,139.4 L 484.5,136.4 L 482.2,135.7 L 489.2,131.7 L 490.8,135.2 Z", "TAPALQUE": "M 385.6,278.2 L 402.1,290.7 L 377.7,312.6 L 368.7,305.6 L 356.8,314.5 L 345.0,326.7 L 343.8,325.9 L 339.8,329.3 L 350.1,337.6 L 336.8,349.2 L 329.2,343.5 L 326.7,347.8 L 315.2,338.5 L 311.2,341.7 L 296.1,329.3 L 299.9,326.2 L 290.7,317.7 L 279.4,311.0 L 271.7,317.0 L 268.5,314.4 L 257.6,323.3 L 252.5,319.0 L 258.6,313.9 L 254.7,310.9 L 259.2,309.0 L 264.5,302.1 L 265.1,300.0 L 263.9,298.0 L 271.9,290.9 L 274.7,290.8 L 287.7,300.5 L 291.7,298.4 L 307.6,309.4 L 313.6,303.6 L 318.6,307.1 L 333.6,293.3 L 345.7,301.8 L 346.4,298.4 L 358.0,288.4 L 356.0,286.8 L 362.0,281.8 L 369.6,287.8 L 379.7,279.9 L 381.7,281.5 L 385.6,278.2 Z", "HIPOLITO YRIGOYEN": "M 202.1,282.6 L 203.5,281.4 L 207.6,284.6 L 213.4,279.6 L 219.6,284.4 L 203.1,298.4 L 206.4,301.1 L 171.8,328.9 L 157.3,315.1 L 153.2,317.0 L 144.3,309.4 L 147.5,306.9 L 151.4,310.1 L 154.2,308.4 L 156.5,305.7 L 154.2,303.8 L 171.0,291.0 L 173.9,293.4 L 177.7,290.2 L 179.0,291.2 L 186.0,286.5 L 187.9,288.0 L 198.1,279.4 L 202.1,282.6 Z", "DOLORES": "M 587.7,292.0 L 592.0,292.9 L 586.7,310.8 L 599.2,313.2 L 593.7,318.1 L 591.7,322.5 L 589.5,324.3 L 593.8,327.6 L 569.2,348.7 L 557.4,339.6 L 558.7,338.6 L 550.4,331.8 L 557.2,325.7 L 554.0,323.2 L 557.5,320.3 L 536.9,304.6 L 538.4,303.3 L 547.0,307.0 L 548.1,303.6 L 553.6,304.8 L 556.6,294.9 L 567.5,297.3 L 570.1,288.0 L 587.7,292.0 Z", "RAUCH": "M 454.4,291.4 L 461.9,297.8 L 460.0,299.5 L 463.2,302.0 L 478.0,313.0 L 479.8,311.4 L 493.5,321.7 L 466.1,346.0 L 471.3,350.2 L 466.2,351.2 L 459.3,354.8 L 459.0,356.4 L 454.9,359.5 L 452.1,359.6 L 451.4,361.9 L 447.7,363.4 L 445.2,369.3 L 438.8,370.1 L 436.9,371.7 L 435.2,378.0 L 430.4,381.7 L 404.3,360.2 L 405.5,357.6 L 412.0,352.4 L 414.3,340.7 L 417.1,337.8 L 417.5,333.6 L 420.2,335.3 L 425.7,330.6 L 419.5,325.7 L 420.6,324.8 L 414.9,320.3 L 416.9,318.7 L 411.0,314.1 L 418.0,308.9 L 429.4,304.0 L 429.1,301.6 L 431.3,300.9 L 432.3,299.1 L 436.9,298.5 L 454.4,291.4 Z", "AZUL": "M 392.0,299.6 L 416.9,318.7 L 414.9,320.3 L 425.7,330.6 L 420.2,335.3 L 417.5,333.6 L 417.1,337.8 L 414.3,340.7 L 412.0,352.4 L 405.0,358.3 L 403.8,360.7 L 404.3,365.4 L 400.4,372.6 L 397.2,375.3 L 396.8,377.6 L 392.3,379.3 L 388.6,383.7 L 386.6,383.5 L 384.1,385.2 L 382.3,388.7 L 374.5,393.4 L 371.4,396.9 L 361.1,400.3 L 359.1,406.4 L 353.9,410.7 L 355.8,412.2 L 346.9,419.8 L 338.7,413.1 L 343.5,409.1 L 322.3,392.5 L 330.1,384.9 L 328.2,383.5 L 332.5,377.2 L 331.1,376.1 L 333.1,374.4 L 332.2,373.4 L 340.1,367.1 L 339.2,366.4 L 341.1,364.7 L 339.6,363.6 L 341.6,362.0 L 340.3,360.9 L 342.1,359.2 L 326.7,347.8 L 329.2,343.5 L 336.8,349.2 L 350.1,337.6 L 339.8,329.3 L 343.8,325.9 L 345.0,326.7 L 356.8,314.5 L 368.7,305.6 L 377.7,312.6 L 392.0,299.6 Z", "DAIREAUX": "M 131.6,304.1 L 134.9,301.5 L 153.2,317.0 L 157.3,315.1 L 171.8,328.9 L 175.6,325.8 L 179.3,329.9 L 180.1,329.3 L 183.5,331.2 L 186.0,333.3 L 181.4,336.9 L 197.5,350.3 L 210.0,340.3 L 221.0,349.4 L 187.7,375.3 L 177.2,366.4 L 172.1,370.3 L 170.4,368.7 L 162.5,374.8 L 148.2,361.7 L 149.2,361.1 L 147.3,357.9 L 149.2,358.0 L 150.6,356.3 L 149.0,357.0 L 132.0,342.5 L 129.4,344.5 L 124.8,340.7 L 127.4,338.6 L 111.7,325.3 L 109.1,327.3 L 103.1,322.2 L 129.1,301.8 L 131.6,304.1 Z", "TRES LOMAS": "M 90.2,332.4 L 70.0,349.2 L 39.8,324.4 L 47.5,318.1 L 45.6,316.6 L 49.5,313.5 L 48.3,312.6 L 56.1,306.5 L 54.2,304.9 L 58.1,301.8 L 88.3,326.5 L 90.2,332.4 Z", "AYACUCHO": "M 493.5,321.7 L 515.2,337.7 L 513.9,338.9 L 524.7,348.8 L 508.1,363.8 L 533.8,383.1 L 541.2,376.3 L 558.1,389.0 L 526.5,418.8 L 520.0,414.0 L 508.5,424.3 L 501.5,419.0 L 494.5,425.1 L 479.9,413.5 L 476.7,416.2 L 430.4,381.7 L 435.2,378.0 L 436.9,371.7 L 438.8,370.1 L 445.2,369.3 L 447.7,363.4 L 451.4,361.9 L 452.1,359.6 L 454.9,359.5 L 459.0,356.4 L 459.3,354.8 L 466.2,351.2 L 471.3,350.2 L 466.1,346.0 L 493.5,321.7 Z", "GUAMINI": "M 107.7,410.0 L 96.8,401.0 L 99.7,398.7 L 99.5,394.9 L 91.4,385.0 L 86.3,387.7 L 55.1,362.1 L 103.1,322.2 L 109.1,327.3 L 111.7,325.3 L 127.4,338.6 L 124.8,340.7 L 129.4,344.5 L 132.0,342.5 L 149.0,357.0 L 150.6,356.3 L 149.2,358.0 L 147.3,357.9 L 149.2,361.1 L 148.2,361.7 L 162.8,375.1 L 159.4,377.7 L 161.0,379.0 L 157.0,382.1 L 151.2,377.3 L 129.3,394.0 L 128.4,393.4 L 107.7,410.0 Z", "SALLIQUELO": "M 70.0,349.2 L 55.1,362.1 L 24.9,337.0 L 39.8,324.4 L 70.0,349.2 Z", "GENERAL MADARIAGA": "M 615.5,354.3 L 622.2,359.4 L 623.9,358.6 L 632.7,362.0 L 633.3,365.0 L 631.9,366.2 L 634.5,366.1 L 633.9,370.6 L 638.1,371.4 L 636.8,374.5 L 649.8,377.9 L 633.3,399.0 L 628.4,398.4 L 632.9,400.1 L 616.3,423.3 L 611.4,427.8 L 567.2,395.5 L 577.6,385.9 L 585.4,385.9 L 584.8,377.2 L 603.0,375.9 L 601.4,366.7 L 610.9,366.6 L 610.0,354.7 L 615.5,354.3 Z", "ENSENADA": "M 542.4,171.5 L 538.3,168.5 L 536.7,169.2 L 527.7,164.9 L 534.2,159.7 L 540.9,164.7 L 547.8,164.2 L 542.4,171.5 Z", "BERAZATEGUI": "M 534.2,159.7 L 515.4,176.1 L 511.9,173.5 L 518.4,167.9 L 516.5,162.9 L 513.0,161.8 L 509.9,159.0 L 517.0,155.4 L 534.2,159.7 Z", "TANDIL": "M 403.4,366.2 L 404.6,363.6 L 404.3,360.2 L 418.7,371.2 L 417.8,372.0 L 476.7,416.2 L 428.4,457.5 L 426.2,450.8 L 423.0,448.4 L 422.7,444.3 L 424.3,441.0 L 423.0,437.7 L 421.2,436.6 L 417.2,440.0 L 363.6,399.1 L 371.4,396.9 L 374.5,393.4 L 382.3,388.7 L 384.1,385.2 L 386.6,383.5 L 388.6,383.7 L 392.3,379.3 L 396.7,377.7 L 403.4,366.2 Z", "CORONEL SUAREZ": "M 177.2,366.4 L 187.3,374.9 L 174.0,385.9 L 176.3,389.0 L 175.5,391.1 L 177.7,397.2 L 173.6,402.4 L 173.1,405.6 L 193.7,423.4 L 187.9,428.1 L 198.4,436.9 L 193.6,440.6 L 202.8,448.4 L 187.0,461.1 L 196.4,468.8 L 179.5,482.3 L 181.5,484.0 L 171.3,492.1 L 169.8,490.7 L 170.5,488.9 L 168.9,488.6 L 167.9,485.3 L 166.1,484.6 L 165.7,481.4 L 162.7,480.6 L 161.3,478.2 L 157.2,475.9 L 150.8,477.3 L 139.4,468.3 L 144.6,450.2 L 107.7,410.0 L 128.4,393.4 L 129.3,394.0 L 151.2,377.3 L 157.0,382.1 L 161.0,379.0 L 159.4,377.7 L 162.5,374.8 L 170.4,368.7 L 172.1,370.3 L 177.2,366.4 Z", "LAPRIDA": "M 244.5,395.6 L 263.5,380.5 L 273.0,388.2 L 271.6,389.3 L 281.7,398.3 L 296.8,410.1 L 293.8,412.5 L 308.5,424.7 L 297.2,433.9 L 298.6,435.1 L 286.0,445.0 L 288.6,447.0 L 280.1,453.9 L 279.1,453.1 L 259.9,468.8 L 228.4,442.9 L 257.4,420.2 L 247.8,412.1 L 256.1,405.4 L 244.5,395.6 Z", "AVELLANEDA": "M 504.3,147.2 L 508.7,149.9 L 503.5,154.6 L 496.5,148.5 L 499.6,147.9 L 502.6,145.3 L 504.3,147.2 Z", "SAN ISIDRO": "M 489.3,131.7 L 482.2,135.7 L 477.7,131.9 L 486.0,127.7 L 489.3,131.7 Z", "BENITO JUAREZ": "M 322.9,393.0 L 343.5,409.1 L 338.7,413.1 L 346.9,419.8 L 355.8,412.2 L 353.9,410.7 L 359.1,406.4 L 360.5,400.9 L 363.6,399.1 L 417.2,440.0 L 412.6,445.0 L 406.1,448.3 L 373.7,474.9 L 374.0,472.8 L 369.7,470.5 L 366.0,466.1 L 362.3,464.7 L 348.5,454.4 L 340.4,460.9 L 336.6,457.7 L 333.9,460.0 L 317.1,447.7 L 311.1,452.6 L 301.4,444.7 L 305.8,441.1 L 297.2,433.9 L 308.5,424.7 L 293.8,412.5 L 296.8,410.1 L 300.0,412.7 L 322.9,393.0 Z", "SAAVEDRA": "M 139.4,468.3 L 133.7,471.4 L 132.5,474.3 L 125.2,478.9 L 121.7,483.8 L 116.7,485.7 L 115.3,488.4 L 106.4,480.5 L 103.0,481.7 L 103.6,479.9 L 101.5,475.7 L 93.3,482.4 L 62.3,456.8 L 77.9,444.2 L 76.5,443.1 L 92.7,429.9 L 88.0,426.0 L 107.7,410.0 L 144.6,450.2 L 139.4,468.3 Z", "ADOLFO GONZALES CHAVES": "M 298.6,435.1 L 305.8,441.1 L 301.4,444.7 L 311.1,452.6 L 317.1,447.7 L 333.9,460.0 L 336.6,457.7 L 340.4,460.9 L 348.5,454.4 L 374.0,472.8 L 373.7,474.9 L 377.0,477.3 L 362.7,489.6 L 363.8,490.4 L 362.7,491.4 L 366.1,494.0 L 363.9,495.9 L 362.2,494.6 L 358.3,498.0 L 353.3,490.6 L 338.8,503.0 L 306.5,476.5 L 297.5,483.9 L 299.5,485.5 L 289.2,494.1 L 269.7,478.4 L 268.9,477.7 L 270.3,476.5 L 260.5,468.3 L 279.1,453.1 L 280.1,453.9 L 288.6,447.0 L 286.0,445.0 L 298.6,435.1 Z", "CORONEL PRINGLES": "M 228.4,442.9 L 268.4,474.8 L 270.3,476.5 L 268.9,477.7 L 276.2,483.6 L 274.5,486.4 L 272.3,486.5 L 271.8,487.7 L 272.7,497.4 L 270.1,497.7 L 271.2,507.1 L 261.0,515.6 L 246.6,506.0 L 238.3,504.3 L 232.4,505.5 L 227.4,504.0 L 214.8,514.2 L 213.7,512.5 L 200.6,523.3 L 199.8,522.6 L 195.8,525.9 L 194.7,525.1 L 188.3,529.4 L 175.1,541.1 L 172.6,536.4 L 173.2,534.7 L 170.3,533.0 L 168.7,527.9 L 169.7,526.8 L 169.8,519.0 L 173.9,515.8 L 172.4,513.4 L 172.9,511.2 L 174.2,510.6 L 176.1,503.7 L 178.1,503.3 L 174.3,496.7 L 171.0,494.4 L 172.1,494.1 L 171.4,492.2 L 181.5,484.0 L 179.5,482.3 L 228.4,442.9 Z", "TORNQUIST": "M 139.4,468.3 L 150.8,477.3 L 155.5,475.6 L 161.3,478.2 L 162.7,480.6 L 165.7,481.4 L 166.1,484.6 L 167.9,485.3 L 168.9,488.6 L 170.5,488.9 L 169.8,490.7 L 172.0,492.6 L 172.1,494.1 L 171.0,494.4 L 174.3,496.7 L 178.1,503.5 L 176.1,503.7 L 176.2,505.9 L 172.4,513.2 L 173.9,515.8 L 170.0,518.7 L 169.8,520.6 L 168.6,519.7 L 165.5,522.4 L 159.2,517.6 L 156.0,520.2 L 154.8,516.0 L 149.9,520.2 L 147.9,518.6 L 148.9,517.7 L 147.1,515.8 L 140.8,511.2 L 129.7,520.2 L 126.8,516.0 L 128.6,514.5 L 125.6,511.0 L 115.8,519.2 L 111.4,515.8 L 89.4,534.3 L 86.1,526.6 L 77.5,533.7 L 61.8,520.6 L 85.5,501.6 L 77.6,495.1 L 85.5,488.8 L 70.3,475.7 L 77.8,469.6 L 93.3,482.4 L 101.5,475.7 L 103.6,479.9 L 103.0,481.7 L 106.4,480.5 L 115.3,488.4 L 116.7,485.7 L 121.7,483.8 L 125.2,478.9 L 132.5,474.3 L 133.7,471.4 L 139.4,468.3 Z", "TIGRE": "M 486.5,114.1 L 491.8,122.2 L 490.8,120.9 L 490.7,121.9 L 489.1,121.8 L 486.3,125.1 L 486.0,127.7 L 481.7,125.6 L 478.2,127.9 L 477.2,136.1 L 470.2,130.4 L 464.8,123.5 L 467.6,120.7 L 466.0,119.9 L 470.0,118.2 L 473.1,110.5 L 486.5,114.1 Z", "GENERAL PINTO": "M 166.8,121.7 L 150.4,134.5 L 163.9,146.0 L 171.2,140.1 L 176.9,145.0 L 170.9,149.7 L 180.5,157.8 L 158.3,176.2 L 150.4,169.7 L 138.7,179.2 L 129.0,170.1 L 127.6,170.1 L 127.4,166.8 L 121.5,166.9 L 121.3,162.9 L 119.4,162.8 L 125.7,157.9 L 123.4,156.1 L 130.7,150.3 L 115.3,147.5 L 122.9,121.9 L 166.8,121.7 Z", "SAN CAYETANO": "M 378.5,479.1 L 387.0,480.5 L 389.9,482.8 L 398.8,486.2 L 404.8,486.3 L 415.4,490.3 L 409.1,495.3 L 404.8,505.3 L 406.5,507.0 L 406.1,508.6 L 408.4,513.3 L 399.8,520.7 L 406.7,525.1 L 406.2,529.6 L 395.9,534.0 L 397.3,535.5 L 399.9,534.8 L 399.4,537.5 L 403.2,541.2 L 404.2,544.7 L 407.5,548.8 L 378.4,553.9 L 377.5,551.5 L 378.5,549.5 L 376.4,548.9 L 375.6,545.0 L 373.4,544.0 L 371.0,540.5 L 372.2,538.8 L 368.1,528.5 L 368.0,523.9 L 364.8,526.6 L 359.6,522.5 L 353.3,527.9 L 348.4,524.1 L 354.5,519.0 L 349.1,514.6 L 347.8,515.6 L 343.3,512.0 L 362.2,494.6 L 363.9,495.9 L 366.1,494.0 L 362.7,491.4 L 363.8,490.4 L 362.7,489.6 L 377.0,477.3 L 378.5,479.1 Z", "TRES ARROYOS": "M 326.0,492.7 L 338.8,503.0 L 353.9,491.1 L 358.4,499.1 L 343.3,512.0 L 347.8,515.6 L 349.1,514.6 L 354.5,519.0 L 348.4,524.1 L 353.3,527.9 L 359.6,522.5 L 364.8,526.6 L 368.0,523.9 L 368.1,528.5 L 372.2,538.8 L 371.0,540.5 L 373.4,544.0 L 375.6,545.0 L 376.4,548.9 L 378.5,549.5 L 377.5,551.5 L 378.4,553.9 L 356.5,559.1 L 330.4,562.0 L 293.5,568.5 L 291.1,566.8 L 291.9,563.6 L 290.5,557.5 L 283.3,537.2 L 283.1,533.8 L 285.1,530.7 L 282.4,522.0 L 270.3,511.6 L 271.3,504.9 L 270.1,497.7 L 272.7,497.4 L 271.7,494.0 L 272.2,486.6 L 274.5,486.4 L 276.2,483.6 L 289.2,494.1 L 299.5,485.5 L 297.5,483.9 L 306.5,476.5 L 326.0,492.7 Z", "CORONEL ROSALES": "M 175.4,543.9 L 176.4,546.6 L 175.7,550.3 L 178.0,553.4 L 178.5,558.0 L 185.0,563.2 L 189.6,564.3 L 199.7,570.1 L 201.5,569.7 L 201.5,575.1 L 186.4,576.1 L 176.9,572.2 L 167.0,575.1 L 161.9,572.6 L 146.8,569.5 L 142.2,566.6 L 141.7,568.0 L 141.5,566.0 L 138.5,565.0 L 138.7,562.4 L 136.0,559.2 L 132.8,556.6 L 131.1,556.8 L 142.9,546.4 L 147.5,545.8 L 156.0,548.3 L 163.6,541.7 L 166.4,544.0 L 173.7,537.8 L 175.3,539.8 L 175.4,543.9 Z", "VILLA GESELL": "M 637.7,399.0 L 620.5,424.1 L 614.4,429.9 L 611.4,427.8 L 616.3,423.3 L 632.9,400.1 L 628.4,398.4 L 633.3,399.0 L 637.3,393.8 L 641.3,394.2 L 637.7,399.0 Z", "BAHIA BLANCA": "M 127.7,518.5 L 129.7,520.2 L 140.8,511.2 L 147.1,515.8 L 148.9,517.7 L 147.9,518.6 L 149.9,520.2 L 154.8,516.0 L 156.0,520.2 L 159.2,517.6 L 165.5,522.4 L 168.6,519.7 L 170.2,520.9 L 168.7,528.0 L 170.3,533.0 L 173.2,534.7 L 172.6,536.4 L 173.7,537.8 L 166.4,544.0 L 163.6,541.7 L 156.0,548.3 L 147.5,545.8 L 142.9,546.4 L 131.4,556.9 L 129.0,555.4 L 127.9,556.7 L 126.2,556.0 L 125.9,554.3 L 120.0,553.9 L 118.7,549.0 L 114.1,546.6 L 112.0,547.6 L 111.7,549.4 L 106.1,549.3 L 103.4,542.3 L 99.3,539.5 L 90.2,536.8 L 89.4,534.3 L 111.4,515.8 L 115.8,519.2 L 125.6,511.0 L 128.6,514.5 L 126.8,516.0 L 128.8,517.6 L 127.7,518.5 Z", "MONTE HERMOSO": "M 215.1,570.1 L 237.2,570.2 L 237.2,574.4 L 238.9,574.4 L 232.9,575.5 L 213.3,574.4 L 201.5,575.1 L 201.5,566.8 L 212.7,566.8 L 215.1,570.1 Z", "CORONEL DORREGO": "M 228.7,504.2 L 232.4,505.5 L 238.3,504.3 L 246.6,506.0 L 261.0,515.6 L 270.8,508.1 L 270.9,512.5 L 282.4,522.0 L 285.1,530.7 L 283.1,533.8 L 283.3,537.2 L 290.5,557.5 L 291.9,563.6 L 291.1,566.8 L 293.0,568.4 L 260.4,573.5 L 237.2,574.4 L 237.2,570.2 L 215.8,570.2 L 212.7,566.8 L 201.5,566.8 L 201.5,569.7 L 199.7,570.1 L 195.7,567.2 L 181.5,561.2 L 180.5,558.8 L 177.9,557.1 L 178.0,553.4 L 175.7,550.3 L 176.4,546.6 L 175.1,541.1 L 188.3,529.4 L 194.7,525.1 L 195.8,525.9 L 199.8,522.6 L 200.6,523.3 L 213.7,512.5 L 214.8,514.2 L 226.0,505.0 L 228.7,504.2 Z", "NECOCHEA": "M 422.6,445.0 L 423.1,448.7 L 426.2,450.8 L 428.6,457.7 L 423.1,462.8 L 423.0,468.9 L 426.7,472.2 L 426.9,474.4 L 433.8,479.5 L 435.3,483.6 L 443.5,490.4 L 443.7,493.2 L 446.8,494.2 L 448.5,498.0 L 448.0,499.4 L 451.9,504.1 L 456.9,506.9 L 460.1,512.7 L 459.6,515.1 L 462.5,522.2 L 464.2,523.1 L 463.1,523.7 L 464.8,525.9 L 464.2,526.7 L 467.4,524.5 L 475.9,531.3 L 466.9,532.5 L 467.8,533.1 L 437.7,543.1 L 407.5,548.8 L 404.2,544.7 L 403.2,541.2 L 399.4,537.5 L 399.9,534.8 L 397.3,535.5 L 395.9,534.0 L 406.2,529.6 L 406.7,525.1 L 399.8,520.7 L 408.4,513.3 L 406.1,508.6 L 406.5,507.0 L 404.8,505.3 L 409.1,495.3 L 415.4,490.3 L 404.8,486.3 L 398.8,486.2 L 389.9,482.8 L 387.0,480.5 L 378.9,479.3 L 373.7,474.9 L 406.1,448.3 L 412.6,445.0 L 421.2,436.6 L 423.4,438.1 L 424.3,440.6 L 422.6,445.0 Z", "LOBERIA": "M 486.7,455.5 L 478.7,462.7 L 504.0,482.3 L 502.6,490.9 L 504.5,497.4 L 503.1,500.0 L 508.3,506.4 L 509.7,510.4 L 508.2,513.5 L 510.9,518.5 L 512.9,519.6 L 488.0,528.7 L 475.9,531.3 L 467.4,524.5 L 464.2,526.7 L 464.8,525.9 L 463.1,524.0 L 464.2,523.1 L 462.5,522.2 L 460.9,518.6 L 459.6,515.1 L 460.2,513.0 L 457.2,509.0 L 457.6,507.9 L 451.9,504.1 L 448.0,499.4 L 448.5,498.0 L 446.8,494.2 L 443.7,493.2 L 443.5,490.4 L 435.3,483.6 L 431.5,476.9 L 426.9,474.4 L 426.7,472.2 L 422.8,468.5 L 422.8,463.5 L 457.5,432.8 L 486.7,455.5 Z", "GENERAL ALVARADO": "M 531.2,470.4 L 539.8,477.1 L 541.4,475.8 L 547.8,480.9 L 550.6,478.5 L 552.2,479.8 L 550.7,481.1 L 551.5,483.1 L 553.9,484.2 L 553.1,486.8 L 556.9,495.5 L 557.4,499.5 L 550.0,504.6 L 512.2,519.5 L 508.2,513.5 L 509.7,510.4 L 508.3,506.4 L 503.1,500.0 L 504.5,497.4 L 502.6,490.9 L 503.9,482.3 L 511.1,487.9 L 531.2,470.4 Z", "CHASCOMUS": "M 537.5,212.7 L 540.9,216.7 L 543.6,216.5 L 546.5,218.5 L 548.0,217.9 L 553.6,223.4 L 558.0,223.2 L 558.0,225.1 L 560.3,226.5 L 566.1,227.5 L 568.8,225.3 L 571.7,226.1 L 578.6,224.7 L 579.2,226.1 L 582.1,226.4 L 584.7,226.3 L 585.3,225.2 L 585.9,227.8 L 587.8,228.4 L 587.0,229.1 L 590.4,230.8 L 588.5,233.2 L 587.6,238.2 L 591.2,240.2 L 590.0,242.3 L 592.2,243.1 L 592.7,245.0 L 597.0,246.2 L 595.4,247.8 L 595.6,249.6 L 598.5,249.7 L 598.3,251.6 L 597.0,252.9 L 592.9,252.5 L 593.6,254.0 L 591.0,255.8 L 591.3,256.7 L 586.5,256.4 L 585.0,260.7 L 581.9,260.9 L 577.8,263.6 L 575.7,261.1 L 569.6,261.7 L 569.0,263.0 L 566.5,261.1 L 563.9,261.3 L 563.6,265.1 L 561.6,267.3 L 561.8,270.1 L 558.8,269.9 L 557.6,271.2 L 552.0,272.0 L 551.0,273.7 L 545.0,275.0 L 544.2,276.7 L 541.6,276.8 L 539.8,280.4 L 537.1,279.5 L 535.2,281.7 L 533.3,280.6 L 532.4,277.8 L 535.0,273.7 L 534.3,272.2 L 527.0,272.7 L 527.0,271.4 L 525.1,271.2 L 525.6,269.7 L 522.4,268.3 L 521.6,264.6 L 517.5,264.0 L 516.1,260.7 L 511.1,259.9 L 509.2,262.2 L 509.4,263.8 L 507.0,263.3 L 504.7,264.7 L 498.9,260.1 L 496.3,260.1 L 495.4,257.1 L 491.9,255.2 L 492.0,252.4 L 521.0,226.4 L 516.9,223.3 L 520.8,220.1 L 522.3,221.2 L 531.4,213.0 L 533.5,214.8 L 537.5,212.7 Z", "BERISSO": "M 564.0,174.1 L 559.7,177.9 L 558.0,176.6 L 554.8,177.3 L 545.8,174.1 L 542.4,171.5 L 548.0,164.0 L 557.5,171.1 L 564.0,174.1 Z", "GENERAL PUEYRREDON": "M 567.3,449.8 L 565.0,450.3 L 582.3,463.8 L 579.9,473.8 L 582.0,478.6 L 580.9,478.1 L 580.2,479.7 L 582.4,478.8 L 580.4,481.1 L 580.0,484.9 L 575.3,486.7 L 570.9,492.2 L 566.5,495.4 L 557.4,499.5 L 556.9,495.5 L 553.1,486.8 L 553.9,484.2 L 551.5,483.1 L 550.7,481.1 L 552.2,479.8 L 550.6,478.5 L 547.8,480.9 L 541.4,475.8 L 539.8,477.1 L 531.2,470.4 L 561.3,444.9 L 567.3,449.8 Z", "MAR CHIQUITA": "M 578.9,404.2 L 614.3,429.9 L 592.7,448.5 L 584.2,458.7 L 582.3,463.8 L 565.0,450.3 L 567.4,449.4 L 526.5,418.8 L 558.1,389.0 L 578.9,404.2 Z", "LA COSTA": "M 656.0,306.9 L 659.5,311.1 L 661.5,317.1 L 665.0,363.4 L 652.8,378.9 L 649.8,377.9 L 661.7,361.1 L 660.3,357.9 L 661.5,346.6 L 660.0,332.3 L 657.5,329.5 L 660.0,329.7 L 660.3,319.9 L 652.1,309.7 L 653.2,310.2 L 652.5,309.8 L 653.8,308.8 L 653.6,310.3 L 655.2,310.5 L 653.3,305.9 L 656.0,306.9 Z", "GENERAL LAVALLE": "M 600.6,342.9 L 616.5,328.4 L 615.4,327.6 L 622.9,320.7 L 624.5,321.8 L 626.8,319.5 L 628.6,319.4 L 625.8,315.2 L 631.5,309.4 L 640.4,310.2 L 640.2,313.1 L 641.9,310.2 L 652.1,309.7 L 660.3,319.9 L 660.0,329.7 L 657.5,329.5 L 660.0,332.3 L 661.5,346.6 L 660.3,357.9 L 661.7,361.1 L 649.8,377.9 L 636.8,374.5 L 638.1,371.4 L 633.9,370.6 L 634.5,366.1 L 631.9,366.2 L 633.3,365.0 L 632.7,362.0 L 623.9,358.6 L 622.2,359.4 L 600.6,342.9 Z", "TORDILLO": "M 608.6,296.2 L 612.6,296.9 L 620.1,303.1 L 620.0,304.9 L 621.3,304.0 L 620.6,306.0 L 622.0,304.5 L 626.3,307.7 L 630.9,309.1 L 629.9,310.1 L 630.7,309.5 L 631.0,310.8 L 625.8,315.2 L 628.6,319.4 L 626.8,319.5 L 624.5,321.8 L 622.9,320.7 L 615.4,327.6 L 616.5,328.4 L 600.6,342.9 L 587.5,333.3 L 593.8,327.6 L 589.5,324.3 L 591.7,322.5 L 593.7,318.1 L 599.2,313.2 L 586.7,310.8 L 592.0,292.9 L 608.6,296.2 Z", "CASTELLI": "M 604.3,291.0 L 606.6,290.9 L 610.0,294.5 L 609.7,295.5 L 612.5,296.9 L 570.1,288.0 L 567.5,297.3 L 556.6,294.9 L 553.6,304.8 L 548.1,303.6 L 547.0,307.0 L 539.2,303.9 L 538.4,303.3 L 539.6,302.2 L 526.7,292.6 L 539.0,283.9 L 535.3,281.6 L 536.9,279.6 L 539.8,280.4 L 541.6,276.8 L 544.2,276.7 L 545.0,275.0 L 562.4,269.6 L 561.6,267.3 L 563.6,265.1 L 563.9,261.3 L 566.5,261.1 L 569.0,263.0 L 569.6,261.7 L 575.7,261.1 L 577.8,263.6 L 581.9,260.9 L 585.0,260.7 L 586.5,256.4 L 591.3,256.7 L 591.0,255.8 L 593.6,254.0 L 592.8,252.6 L 594.9,252.0 L 597.6,253.1 L 595.3,261.4 L 596.3,273.6 L 598.2,279.6 L 602.5,285.2 L 602.7,287.5 L 604.1,287.3 L 605.3,289.6 L 604.3,291.0 Z", "PUNTA INDIO": "M 608.5,204.7 L 618.3,218.3 L 620.2,223.7 L 617.7,228.5 L 598.9,250.0 L 595.6,249.6 L 595.4,247.8 L 597.0,246.2 L 592.7,245.0 L 592.2,243.1 L 590.0,242.3 L 591.2,240.2 L 587.6,238.2 L 588.5,233.2 L 590.4,230.8 L 587.0,229.1 L 587.8,228.4 L 585.9,227.8 L 585.3,225.2 L 584.7,226.3 L 582.1,226.4 L 579.2,226.1 L 578.6,224.7 L 571.7,226.1 L 568.8,225.3 L 565.6,227.5 L 558.3,225.5 L 557.8,223.1 L 555.4,223.7 L 562.1,214.4 L 566.4,217.1 L 568.2,213.8 L 570.5,215.1 L 573.2,212.9 L 567.9,209.1 L 571.2,205.9 L 574.0,206.6 L 575.9,209.5 L 574.2,215.6 L 575.5,214.5 L 577.2,215.8 L 583.8,209.8 L 579.3,209.3 L 584.7,204.2 L 587.9,206.4 L 591.2,203.3 L 593.4,204.9 L 603.3,199.8 L 608.5,204.7 Z", "MAGDALENA": "M 538.7,196.2 L 564.0,174.1 L 567.9,175.1 L 575.9,180.6 L 583.4,183.1 L 603.2,199.8 L 593.4,204.9 L 591.2,203.3 L 587.9,206.4 L 584.7,204.2 L 579.3,209.3 L 583.8,209.8 L 577.2,215.8 L 575.5,214.5 L 574.2,215.6 L 575.9,209.5 L 574.0,206.6 L 571.2,205.9 L 567.9,209.1 L 573.2,212.9 L 570.5,215.1 L 568.2,213.8 L 566.4,217.1 L 562.1,214.4 L 559.0,219.8 L 554.7,223.7 L 548.1,219.1 L 548.0,217.9 L 546.5,218.5 L 543.6,216.5 L 540.9,216.7 L 537.3,212.4 L 533.5,214.8 L 532.4,214.3 L 546.4,202.2 L 538.7,196.2 Z", "SAN FERNANDO": "M 493.5,85.5 L 495.5,85.4 L 500.8,90.3 L 499.7,100.5 L 501.4,103.3 L 500.3,103.1 L 496.8,106.6 L 495.5,110.3 L 486.3,110.7 L 487.4,112.6 L 486.5,114.1 L 467.0,108.8 L 468.9,101.6 L 463.7,101.0 L 461.9,97.2 L 457.9,93.4 L 470.4,87.6 L 477.1,88.8 L 489.6,85.4 L 493.5,85.5 Z M 479.9,130.5 L 477.8,131.8 L 477.1,131.0 L 478.2,127.9 L 481.7,125.6 L 485.7,127.7 L 479.9,130.5 Z", "CAMPANA": "M 470.5,87.6 L 457.9,93.0 L 463.7,101.0 L 468.9,101.6 L 467.0,108.8 L 458.6,107.1 L 460.6,112.4 L 452.3,110.3 L 450.6,113.6 L 447.1,116.1 L 448.0,119.5 L 447.0,121.5 L 437.6,113.3 L 433.5,108.1 L 428.8,105.5 L 429.2,104.0 L 441.7,97.4 L 441.1,95.8 L 438.1,94.6 L 442.3,81.4 L 456.9,80.9 L 461.1,79.7 L 470.5,87.6 Z", "BARADERO": "M 400.4,60.1 L 414.5,58.8 L 415.9,59.6 L 414.4,65.6 L 417.2,67.4 L 411.2,68.6 L 409.8,71.2 L 415.9,75.3 L 416.9,78.1 L 414.0,79.6 L 406.1,78.1 L 405.7,80.7 L 408.3,87.1 L 406.1,89.2 L 399.7,90.9 L 400.8,92.2 L 394.2,98.0 L 389.7,94.6 L 384.7,101.2 L 378.2,100.2 L 373.6,101.0 L 369.1,97.6 L 370.5,93.9 L 367.3,89.6 L 366.1,86.4 L 366.8,84.8 L 368.5,83.8 L 370.1,79.9 L 375.9,77.3 L 377.9,74.0 L 380.6,72.5 L 380.8,68.3 L 383.6,63.9 L 389.7,64.2 L 384.7,62.3 L 391.5,51.1 L 394.9,58.5 L 400.4,60.1 Z", "ZARATE": "M 422.8,67.1 L 426.4,70.7 L 432.7,69.3 L 437.1,70.8 L 439.8,70.1 L 441.2,72.9 L 448.8,74.8 L 453.4,80.3 L 442.3,81.4 L 438.1,94.6 L 441.1,95.8 L 441.7,97.4 L 429.1,104.2 L 408.9,100.5 L 412.1,99.0 L 413.3,93.7 L 410.0,91.7 L 409.3,86.9 L 406.7,83.4 L 405.5,78.9 L 409.1,77.9 L 414.0,79.6 L 416.8,78.2 L 415.9,75.3 L 409.8,71.2 L 410.7,69.0 L 422.8,67.1 Z", "SAN PEDRO": "M 358.7,45.4 L 360.8,45.5 L 366.5,49.1 L 374.8,48.9 L 377.5,51.3 L 378.4,55.2 L 380.3,56.2 L 387.7,50.6 L 391.5,51.1 L 384.7,62.3 L 389.7,64.2 L 383.6,63.9 L 380.8,68.3 L 380.6,72.5 L 377.9,74.0 L 375.9,77.3 L 370.1,79.9 L 368.5,83.8 L 363.9,86.4 L 346.1,73.6 L 335.5,64.3 L 337.6,62.7 L 338.3,63.3 L 358.7,45.4 Z", "RAMALLO": "M 329.0,24.5 L 332.8,26.8 L 338.9,33.3 L 342.4,35.0 L 348.8,35.4 L 352.1,38.5 L 357.9,39.8 L 360.8,41.9 L 360.8,45.5 L 358.7,45.4 L 338.3,63.3 L 337.6,62.7 L 335.5,64.3 L 340.7,68.7 L 337.7,68.8 L 334.4,67.1 L 332.0,67.9 L 327.2,61.0 L 328.7,56.1 L 326.9,55.8 L 325.6,53.1 L 312.0,52.0 L 315.1,49.2 L 318.6,48.8 L 323.0,41.1 L 325.7,38.8 L 326.9,35.3 L 323.6,33.1 L 323.9,29.3 L 325.8,27.1 L 326.3,23.7 L 329.0,24.5 Z", "SAN NICOLAS": "M 316.6,15.0 L 322.9,18.2 L 326.3,23.7 L 323.5,32.5 L 326.9,35.3 L 318.9,48.5 L 314.6,49.5 L 310.7,55.1 L 298.0,46.1 L 301.9,43.4 L 301.5,38.8 L 302.7,34.7 L 309.9,29.6 L 311.0,23.5 L 315.0,20.3 L 316.6,15.0 Z", "PERGAMINO": "M 263.3,41.9 L 267.0,45.3 L 276.8,46.0 L 282.4,50.0 L 288.4,51.7 L 297.0,50.9 L 298.2,47.1 L 310.7,55.1 L 312.0,52.0 L 325.6,53.1 L 326.9,55.8 L 328.7,56.1 L 328.9,57.8 L 320.0,72.7 L 319.4,86.3 L 312.2,85.2 L 294.3,102.0 L 292.1,98.6 L 286.2,96.1 L 281.8,95.8 L 278.5,93.7 L 271.1,85.1 L 251.0,71.6 L 259.0,64.3 L 255.1,61.3 L 263.9,54.3 L 254.2,45.4 L 258.8,42.2 L 263.3,41.9 Z", "COLON": "M 239.7,88.8 L 228.1,94.5 L 225.3,97.1 L 213.5,87.5 L 252.3,52.2 L 254.3,45.4 L 263.9,54.3 L 255.1,61.3 L 259.0,64.3 L 251.0,71.6 L 254.6,74.5 L 239.7,88.8 Z", "LEANDRO N. ALEM": "M 192.5,114.0 L 196.4,117.2 L 199.8,114.4 L 207.4,120.8 L 205.4,122.6 L 213.8,128.3 L 211.2,130.3 L 219.1,136.7 L 203.3,149.1 L 195.6,142.6 L 187.8,148.9 L 186.4,147.8 L 183.2,150.4 L 171.2,140.1 L 163.9,146.0 L 150.4,134.5 L 166.7,121.7 L 176.2,121.7 L 182.9,115.6 L 186.6,118.7 L 192.5,114.0 Z", "GENERAL ARENALES": "M 216.2,89.7 L 225.3,97.1 L 233.8,92.0 L 253.6,108.1 L 249.6,111.5 L 244.3,107.1 L 239.9,110.8 L 241.6,112.1 L 238.8,114.4 L 236.1,112.2 L 233.0,114.8 L 233.9,115.6 L 228.5,120.0 L 226.8,120.0 L 226.5,125.6 L 223.5,126.7 L 222.9,123.7 L 220.3,123.2 L 213.8,128.3 L 205.4,122.6 L 207.4,120.8 L 199.8,114.4 L 196.4,117.2 L 192.5,114.0 L 186.6,118.7 L 182.9,115.6 L 213.5,87.5 L 216.2,89.7 Z", "ADOLFO ALSINA": "M 24.9,337.0 L 86.3,387.7 L 91.4,385.0 L 99.5,394.9 L 99.7,398.7 L 96.8,401.0 L 107.7,410.0 L 86.5,427.2 L 70.3,412.5 L 15.6,456.4 L 15.0,329.0 L 24.9,337.0 Z", "RIVADAVIA": "M 61.9,205.7 L 65.3,208.6 L 62.5,210.8 L 67.1,214.6 L 64.5,216.6 L 71.2,222.2 L 73.7,220.2 L 88.6,233.9 L 32.5,280.8 L 15.0,266.3 L 15.0,216.3 L 20.3,211.9 L 18.6,209.7 L 22.2,206.6 L 24.6,208.6 L 31.8,202.8 L 29.4,200.8 L 38.8,193.1 L 43.5,197.0 L 41.0,199.0 L 55.6,210.8 L 61.9,205.7 Z", "PELLEGRINI": "M 32.5,280.8 L 58.1,301.8 L 54.2,304.9 L 56.1,306.5 L 48.3,312.6 L 49.5,313.5 L 45.6,316.6 L 47.5,318.1 L 24.9,337.0 L 15.0,329.0 L 15.0,266.3 L 32.5,280.8 Z", "PUAN": "M 19.6,453.2 L 70.3,412.5 L 86.5,427.2 L 88.0,426.0 L 92.7,429.9 L 76.5,443.1 L 77.9,444.2 L 62.3,456.8 L 77.8,469.6 L 70.3,475.7 L 85.5,488.8 L 77.6,495.1 L 85.5,501.6 L 15.1,558.2 L 15.1,455.9 L 19.6,453.2 Z", "VILLARINO": "M 61.8,520.6 L 77.5,533.7 L 86.1,526.6 L 90.2,536.8 L 99.3,539.5 L 104.1,543.0 L 106.1,549.3 L 102.9,549.8 L 99.3,546.7 L 98.4,549.3 L 94.1,550.6 L 96.2,552.7 L 93.7,552.6 L 98.7,557.1 L 111.2,558.3 L 110.1,558.8 L 110.4,560.4 L 112.6,560.7 L 112.1,561.9 L 113.4,562.2 L 111.2,564.8 L 115.8,562.2 L 115.9,563.9 L 117.2,564.2 L 117.7,565.7 L 115.5,570.9 L 117.8,572.7 L 117.7,575.3 L 118.7,575.5 L 117.9,576.2 L 119.7,578.5 L 119.1,581.1 L 114.4,585.5 L 116.6,589.2 L 115.4,591.9 L 121.0,599.6 L 123.9,599.1 L 125.9,601.1 L 121.6,600.7 L 120.3,599.4 L 117.2,601.7 L 118.1,603.0 L 122.1,602.6 L 125.1,603.4 L 124.7,604.2 L 130.0,604.1 L 130.8,605.4 L 131.3,604.5 L 136.2,605.3 L 142.8,608.1 L 145.5,611.4 L 147.7,611.9 L 147.7,614.4 L 146.4,615.4 L 140.4,615.2 L 132.6,609.2 L 130.9,605.8 L 129.3,606.8 L 126.7,605.5 L 124.5,606.4 L 119.3,605.5 L 121.9,606.7 L 120.5,608.3 L 123.6,608.3 L 121.5,609.9 L 123.3,611.3 L 126.2,610.8 L 127.4,612.0 L 125.9,612.1 L 129.9,613.9 L 129.8,616.3 L 131.1,614.8 L 131.7,616.2 L 135.2,616.1 L 142.0,620.0 L 145.4,620.6 L 138.6,638.7 L 140.7,645.2 L 138.1,652.1 L 138.3,660.7 L 136.6,663.0 L 135.0,663.1 L 132.9,660.1 L 128.0,661.1 L 125.9,659.0 L 120.1,656.8 L 116.5,657.4 L 113.0,654.6 L 111.2,655.1 L 110.8,654.0 L 112.6,653.4 L 110.5,652.5 L 110.9,651.3 L 109.3,649.5 L 107.1,649.4 L 102.7,646.2 L 101.8,643.2 L 102.9,639.5 L 101.5,637.5 L 97.0,634.0 L 88.9,631.1 L 88.3,629.4 L 81.6,629.9 L 75.9,627.0 L 70.7,627.4 L 66.5,629.5 L 60.1,626.7 L 55.7,628.1 L 54.8,626.7 L 50.8,626.6 L 50.6,624.9 L 49.4,625.8 L 49.0,624.4 L 45.3,624.2 L 45.8,622.3 L 43.0,623.6 L 42.3,622.7 L 43.3,621.5 L 41.2,621.6 L 42.2,618.6 L 38.8,615.5 L 35.5,617.5 L 33.0,615.0 L 24.3,610.7 L 15.1,609.0 L 15.1,558.2 L 61.8,520.6 Z", "PATAGONES": "M 16.5,608.9 L 28.8,612.7 L 35.5,617.5 L 38.8,615.5 L 42.2,618.6 L 41.2,621.6 L 43.3,621.5 L 42.3,622.7 L 43.0,623.6 L 45.8,622.3 L 45.3,624.2 L 49.0,624.4 L 49.4,625.8 L 50.6,624.9 L 50.8,626.6 L 54.8,626.7 L 55.7,628.1 L 60.1,626.7 L 66.5,629.5 L 70.7,627.4 L 75.9,627.0 L 81.6,629.9 L 88.3,629.4 L 88.9,631.1 L 97.0,634.0 L 101.5,637.5 L 102.9,639.5 L 101.8,643.2 L 102.7,646.2 L 107.1,649.4 L 109.3,649.5 L 110.9,651.3 L 110.5,652.5 L 112.6,653.4 L 110.8,654.0 L 111.2,655.1 L 113.0,654.6 L 116.0,657.3 L 120.1,656.8 L 124.1,658.6 L 123.4,659.8 L 120.1,658.4 L 121.9,659.4 L 119.8,660.2 L 123.2,663.1 L 121.3,665.2 L 119.7,664.0 L 118.8,664.8 L 117.6,670.6 L 118.6,671.3 L 117.0,673.3 L 115.9,684.4 L 117.4,689.2 L 116.4,690.0 L 117.6,689.9 L 118.2,692.6 L 117.6,694.6 L 115.6,697.9 L 113.1,699.3 L 113.6,700.5 L 106.0,703.4 L 105.9,705.0 L 101.9,709.4 L 105.7,719.6 L 108.3,721.9 L 108.0,724.9 L 112.8,728.4 L 118.1,730.0 L 118.3,730.9 L 116.5,730.9 L 113.4,729.7 L 114.0,731.3 L 118.0,730.9 L 117.9,732.9 L 121.0,734.5 L 121.4,736.4 L 123.7,735.9 L 123.6,737.3 L 124.1,734.9 L 118.3,733.0 L 118.3,731.9 L 125.3,733.8 L 132.4,738.3 L 132.1,743.4 L 126.4,748.9 L 118.8,767.8 L 109.3,772.9 L 96.1,776.7 L 79.8,785.0 L 75.5,784.7 L 72.3,783.7 L 71.2,779.3 L 56.3,762.3 L 33.7,751.8 L 24.7,753.1 L 22.1,750.7 L 17.6,752.2 L 16.9,750.3 L 15.5,751.0 L 15.1,609.0 L 16.5,608.9 Z"};
+const ELEC = {"ALBERTI": {"s": "Cuarta", "i19": "German Lago", "i23": "German Lago", "re": "NO", "ia": "Jorge Gaute", "p": "Fuerza Patria", "e": 9964, "n": "Alberti"}, "BRAGADO": {"s": "Cuarta", "i19": "Vicente Gatica", "i23": "Sergio Juan Barenghi", "re": "SI", "ia": "Sergio Juan Barenghi", "p": "Fuerza Patria", "e": 38019, "n": "Bragado"}, "CARLOS CASARES": {"s": "Cuarta", "i19": "Walter Torchio", "i23": "Daniel Stadnik", "re": "SI", "ia": "Daniel Stadnik", "p": "Fuerza Patria", "e": 20530, "n": "Carlos Casares"}, "CARLOS TEJEDOR": {"s": "Cuarta", "i19": "Maria Celia Gianini", "i23": "Maria Celia Gianini", "re": "NO", "ia": "Maria Celia Gianini", "p": "Fuerza Patria", "e": 10185, "n": "Carlos Tejedor"}, "CHACABUCO": {"s": "Cuarta", "i19": "Víctor Aiola", "i23": "Ruben Dario Golia", "re": "SI", "ia": "Ruben Dario Golia", "p": "Fuerza Patria", "e": 44883, "n": "Chacabuco"}, "GENERAL PINTO": {"s": "Cuarta", "i19": "Freddy Zavatarelli", "i23": "Freddy Zavatarelli", "re": "NO", "ia": "\"Freddy\" Zavatarelli", "p": "Fuerza Patria", "e": 10363, "n": "General Pinto"}, "HIPOLITO YRIGOYEN": {"s": "Cuarta", "i19": "Luis Pugnaloni", "i23": "Luis Pugnaloni", "re": "NO", "ia": "Luis Pugnaloni", "p": "Fuerza Patria", "e": 8373, "n": "Hipólito Yrigoyen"}, "LEANDRO N. ALEM": {"s": "Cuarta", "i19": "Carlos Ferraris", "i23": "Carlos Ferraris", "re": "NO", "ia": "Carlos Ferraris", "p": "Fuerza Patria", "e": 15372, "n": "Leandro N. Alem"}, "PEHUAJO": {"s": "Cuarta", "i19": "Pablo Zurro", "i23": "Pablo Zurro", "re": "NO", "ia": "Pablo Zurro", "p": "Fuerza Patria", "e": 36856, "n": "Pehuajó"}, "RIVADAVIA": {"s": "Cuarta", "i19": "Javier Reynoso", "i23": "Juan Alberto Martinez", "re": "SI", "ia": "Juan Alberto Martinez", "p": "Fuerza Patria", "e": 15123, "n": "Rivadavia"}, "LA PLATA": {"s": "Octava", "i19": "Julio Garro", "i23": "Julio Alak", "re": "SI", "ia": "Julio Alak", "p": "Fuerza Patria", "e": 639839, "n": "La Plata"}, "ESCOBAR": {"s": "Primera", "i19": "Ariel Sujarchuk", "i23": "Ariel Sujarchuk", "re": "NO", "ia": "Ariel Sujarchuk", "p": "Fuerza Patria", "e": 219154, "n": "Escobar"}, "GENERAL LAS HERAS": {"s": "Primera", "i19": "Javier Osuna", "i23": "Javier Osuna", "re": "NO", "ia": "Javier Osuna", "p": "Fuerza Patria", "e": 14919, "n": "General Las Heras"}, "GENERAL RODRIGUEZ": {"s": "Primera", "i19": "Mauro García", "i23": "Mauro García", "re": "NO", "ia": "Mauro García", "p": "Fuerza Patria", "e": 112074, "n": "General Rodríguez"}, "GENERAL SAN MARTIN": {"s": "Primera", "i19": "Gabriel Katopodis", "i23": "Fernando Moreira", "re": "SI", "ia": "Fernando Moreira", "p": "Fuerza Patria", "e": 435909, "n": "General San Martín"}, "HURLINGHAM": {"s": "Primera", "i19": "Juan Zabaleta", "i23": "Damian Selci", "re": "SI", "ia": "Damian Selci", "p": "Fuerza Patria", "e": 170790, "n": "Hurlingham"}, "ITUZAINGO": {"s": "Primera", "i19": "Alberto Descalzo", "i23": "Pablo Catriel Descalzo", "re": "SI", "ia": "Pablo Catriel Descalzo", "p": "Fuerza Patria", "e": 156035, "n": "Ituzaingó"}, "JOSE C. PAZ": {"s": "Primera", "i19": "Mario Ishii", "i23": "Mario Ishii", "re": "NO", "ia": "Lorena Espina", "p": "Fuerza Patria", "e": 254085, "n": "José C. Paz"}, "LUJAN": {"s": "Primera", "i19": "Leonardo Boto", "i23": "Leonardo Boto", "re": "NO", "ia": "Leonardo Boto", "p": "Fuerza Patria", "e": 100513, "n": "Luján"}, "MALVINAS ARGENTINAS": {"s": "Primera", "i19": "Leo Nardini", "i23": "Leo Nardini", "re": "NO", "ia": "Leo Nardini", "p": "Fuerza Patria", "e": 298548, "n": "Malvinas Argentinas"}, "MARCOS PAZ": {"s": "Primera", "i19": "Ricardo Curuchet", "i23": "Ricardo Curuchet", "re": "NO", "ia": "Ricardo Curuchet", "p": "Fuerza Patria", "e": 53841, "n": "Marcos Paz"}, "MERCEDES": {"s": "Primera", "i19": "Juan Ignacio Ustarroz", "i23": "Juan Ignacio Ustarroz", "re": "NO", "ia": "Juan Ignacio Ustarroz", "p": "Fuerza Patria", "e": 59885, "n": "Mercedes"}, "MERLO": {"s": "Primera", "i19": "Gustavo Menendez", "i23": "Gustavo Menendez", "re": "NO", "ia": "Gustavo Menendez", "p": "Fuerza Patria", "e": 464736, "n": "Merlo"}, "MORENO": {"s": "Primera", "i19": "Mariel Fernandez", "i23": "Mariel Fernandez", "re": "NO", "ia": "Mariel Fernandez", "p": "Fuerza Patria", "e": 419320, "n": "Moreno"}, "MORON": {"s": "Primera", "i19": "Lucas Ghi", "i23": "Lucas Ghi", "re": "NO", "ia": "Lucas Ghi", "p": "Fuerza Patria", "e": 296279, "n": "Morón"}, "NAVARRO": {"s": "Primera", "i19": "Santiago Maggiotti", "i23": "Facundo Diz", "re": "SI", "ia": "Facundo Diz", "p": "Fuerza Patria", "e": 16189, "n": "Navarro"}, "PILAR": {"s": "Primera", "i19": "Federico De Achaval", "i23": "Federico De Achaval", "re": "NO", "ia": "Federico De Achaval", "p": "Fuerza Patria", "e": 320932, "n": "Pilar"}, "SAN FERNANDO": {"s": "Primera", "i19": "Juan Andreotti", "i23": "Juan Andreotti", "re": "NO", "ia": "Juan Andreotti", "p": "Fuerza Patria", "e": 148607, "n": "San Fernando"}, "SUIPACHA": {"s": "Primera", "i19": "Alejandro Federico", "i23": "Juan Luis Mancini", "re": "SI", "ia": "Juan Luis Mancini", "p": "Fuerza Patria", "e": 10205, "n": "Suipacha"}, "CASTELLI": {"s": "Quinta", "i19": "Francisco Jose Echarren", "i23": "Francisco Jose Echarren", "re": "NO", "ia": "Francisco Jose Echarren", "p": "Fuerza Patria", "e": 8134, "n": "Castelli"}, "CHASCOMUS": {"s": "Quinta", "i19": "Javier Chapa Gastón", "i23": "Javier Chapa Gastón", "re": "NO", "ia": "Javier Gaston", "p": "Fuerza Patria", "e": 36621, "n": "Chascomús"}, "DOLORES": {"s": "Quinta", "i19": "Camilo Etchevarren", "i23": "Juan Pablo Garcia", "re": "SI", "ia": "Juan Pablo Garcia", "p": "Fuerza Patria", "e": 26102, "n": "Dolores"}, "GENERAL ALVARADO": {"s": "Quinta", "i19": "Sebastian Ianatuony", "i23": "Sebastian Ianatuony", "re": "NO", "ia": "Sebastian Ianatuony", "p": "Fuerza Patria", "e": 41075, "n": "General Alvarado"}, "GENERAL GUIDO": {"s": "Quinta", "i19": "Carlos Rocha", "i23": "Carlos Rocha", "re": "NO", "ia": "Carlos Rocha", "p": "Fuerza Patria", "e": 3051, "n": "General Guido"}, "GENERAL PAZ": {"s": "Quinta", "i19": "Juan Manuel Alvarez", "i23": "Juan Manuel Alvarez", "re": "NO", "ia": "Juan Manuel Alvarez", "p": "Fuerza Patria", "e": 12197, "n": "General Paz"}, "LA COSTA": {"s": "Quinta", "i19": "Cristian Cardozo", "i23": "Juan De Jesús", "re": "SI", "ia": "Juan De Jesús", "p": "Fuerza Patria", "e": 88966, "n": "La Costa"}, "LAS FLORES": {"s": "Quinta", "i19": "Alberto Gelene", "i23": "Alberto Gelene", "re": "NO", "ia": "Fabian Blanstein", "p": "Fuerza Patria", "e": 22840, "n": "Las Flores"}, "MAR CHIQUITA": {"s": "Quinta", "i19": "Walter Wischnivetzky", "i23": "Walter Wischnivetzky", "re": "NO", "ia": "Walter Wischnivetzky", "p": "Fuerza Patria", "e": null, "n": "Mar Chiquita"}, "PILA": {"s": "Quinta", "i19": "Gustavo Alfredo Walker", "i23": "Gustavo Sebastian Walker", "re": "SI", "ia": "Sebastian Walker", "p": "Fuerza Patria", "e": 3724, "n": "Pila"}, "TORDILLO": {"s": "Quinta", "i19": "Hector Anibal Olivera", "i23": "Hector Anibal Olivera", "re": "NO", "ia": "Hector Anibal Olivera", "p": "Fuerza Patria", "e": 2470, "n": "Tordillo"}, "VILLA GESELL": {"s": "Quinta", "i19": "Gustavo Barrera", "i23": "Gustavo Barrera", "re": "NO", "ia": "Gustavo Barrera", "p": "Fuerza Patria", "e": 37075, "n": "Villa Gesell"}, "BARADERO": {"s": "Segunda", "i19": "Esteban Sanzio", "i23": "Esteban Sanzio", "re": "NO", "ia": "Esteban Sanzio", "p": "Fuerza Patria", "e": 32279, "n": "Baradero"}, "CARMEN DE ARECO": {"s": "Segunda", "i19": "Ivan Villagran", "i23": "Ivan Villagran", "re": "NO", "ia": "Ivan Villagran", "p": "Fuerza Patria", "e": 14129, "n": "Carmen de Areco"}, "COLON": {"s": "Segunda", "i19": "Ricardo Casi", "i23": "Waldemar Audilio Giordano", "re": "SI", "ia": "Waldemar Audilio Giordano", "p": "Fuerza Patria", "e": 22587, "n": "Colón"}, "EXALTACION DE LA CRUZ": {"s": "Segunda", "i19": "Diego Nanni", "i23": "Diego Nanni", "re": "NO", "ia": "Luis Mariano Martín", "p": "Fuerza Patria", "e": 36500, "n": "Exaltación de la Cruz"}, "RAMALLO": {"s": "Segunda", "i19": "Gustavo Perie", "i23": "Mauro David Poletti", "re": "SI", "ia": "Mauro David Poletti", "p": "Fuerza Patria", "e": 31964, "n": "Ramallo"}, "SALTO": {"s": "Segunda", "i19": "Ricardo Alessandro", "i23": "Ricardo Alessandro", "re": "NO", "ia": "Ricardo Alessandro", "p": "Fuerza Patria", "e": 31406, "n": "Salto"}, "SAN ANDRES DE GILES": {"s": "Segunda", "i19": "Carlos Puglelli", "i23": "Miguel Angel Gesualdi", "re": "SI", "ia": "Miguel Gesualdi", "p": "Fuerza Patria", "e": 21799, "n": "San Andrés de Giles"}, "SAN PEDRO": {"s": "Segunda", "i19": "Cecilio Salazar", "i23": "Cecilio Salazar", "re": "NO", "ia": "Cecilio Salazar", "p": "Fuerza Patria", "e": 56032, "n": "San Pedro"}, "AZUL": {"s": "Séptima", "i19": "Hernan Bertellys", "i23": "Nelson Sombra", "re": "SI", "ia": "Nelson Sombra", "p": "Fuerza Patria", "e": 60070, "n": "Azul"}, "BOLIVAR": {"s": "Séptima", "i19": "Marcos Pisano", "i23": "Marcos Pisano", "re": "NO", "ia": "Eduardo Bucca", "p": "Fuerza Patria", "e": 31766, "n": "Bolívar"}, "OLAVARRIA": {"s": "Séptima", "i19": "Ezequiel Galli", "i23": "Maximiliano Wesner", "re": "SI", "ia": "Maximiliano Wesner", "p": "Fuerza Patria", "e": 101087, "n": "Olavarría"}, "ROQUE PEREZ": {"s": "Séptima", "i19": "Juan Carlos Gasparini", "i23": "Maximiliano Oscar Sciaini", "re": "SI", "ia": "Maximiliano Oscar Sciaini", "p": "Fuerza Patria", "e": 11804, "n": "Roque Pérez"}, "TAPALQUE": {"s": "Séptima", "i19": "Gustavo Cocconi", "i23": "Gustavo Cocconi", "re": "NO", "ia": "Gustavo Cocconi", "p": "Fuerza Patria", "e": 9013, "n": "Tapalqué"}, "BAHIA BLANCA": {"s": "Sexta", "i19": "Héctor Gay", "i23": "Federico Susbielles", "re": "SI", "ia": "Federico Susbielles", "p": "Fuerza Patria", "e": 266033, "n": "Bahía Blanca"}, "BENITO JUAREZ": {"s": "Sexta", "i19": "Julio Cesar Marini", "i23": "Julio Cesar Marini", "re": "NO", "ia": "Juliio Cesar Marini", "p": "Fuerza Patria", "e": 18129, "n": "Benito Juárez"}, "CORONEL ROSALES": {"s": "Sexta", "i19": "Mariano Uset", "i23": "Rodrigo Lionel Aristimuño", "re": "SI", "ia": "Rodrigo Lionel Aristimuño", "p": "Fuerza Patria", "e": 52755, "n": "Coronel Rosales"}, "DAIREAUX": {"s": "Sexta", "i19": "Esteban Acerbo", "i23": "Esteban Acerbo", "re": "NO", "ia": "María Serra", "p": "Fuerza Patria", "e": 15528, "n": "Daireaux"}, "GUAMINI": {"s": "Sexta", "i19": "Jose Nobre Ferreira", "i23": "Jose Nobre Ferreira", "re": "NO", "ia": "Jose Nobre Ferreira", "p": "Fuerza Patria", "e": 10202, "n": "Guaminí"}, "LAPRIDA": {"s": "Sexta", "i19": "Pablo Torres", "i23": "Alfredo Fisher", "re": "SI", "ia": "Alfredo Fisher", "p": "Fuerza Patria", "e": 10018, "n": "Laprida"}, "MONTE HERMOSO": {"s": "Sexta", "i19": "Alejandro Dichiara", "i23": "Hernan Fabio Arranz", "re": "SI", "ia": "Hernan Fabio Arranz", "p": "Fuerza Patria", "e": 9929, "n": "Monte Hermoso"}, "PATAGONES": {"s": "Sexta", "i19": "José Luis Zara", "i23": "Ricardo Evaristo Marino", "re": "SI", "ia": "Ricardo Evaristo Marino", "p": "Fuerza Patria", "e": 15491, "n": "Patagones"}, "SALLIQUELO": {"s": "Sexta", "i19": "Juan Miguel Nosetti", "i23": "Ariel Horacio Succurro", "re": "SI", "ia": "Ariel Horacio Succurro", "p": "Fuerza Patria", "e": 7937, "n": "Salliqueló"}, "TORNQUIST": {"s": "Sexta", "i19": "Sergio Fabian Bordoni", "i23": "Sergio Fabian Bordoni", "re": "NO", "ia": "Estefania Bordoni", "p": "Fuerza Patria", "e": 16637, "n": "Tornquist"}, "TRES ARROYOS": {"s": "Sexta", "i19": "Carlos Alberto Sanchez", "i23": "Pablo Humberto Garate", "re": "SI", "ia": "Pablo Humberto Garate", "p": "Fuerza Patria", "e": 54792, "n": "Tres Arroyos"}, "ALMIRANTE BROWN": {"s": "Tercera", "i19": "Mariano Cascallares", "i23": "Mariano Cascallares", "re": "NO", "ia": "Juan Fabiani", "p": "Fuerza Patria", "e": 491268, "n": "Almirante Brown"}, "AVELLANEDA": {"s": "Tercera", "i19": "Jorge Ferraresi", "i23": "Jorge Ferraresi", "re": "NO", "ia": "Jorge Ferraresi", "p": "Fuerza Patria", "e": 325434, "n": "Avellaneda"}, "BERAZATEGUI": {"s": "Tercera", "i19": "Juan Jose Mussi", "i23": "Juan Jose Mussi", "re": "NO", "ia": "Carlos Balor", "p": "Fuerza Patria", "e": 294824, "n": "Berazategui"}, "BERISSO": {"s": "Tercera", "i19": "Fabian Cagliardi", "i23": "Fabian Cagliardi", "re": "NO", "ia": "Fabian Cagliardi", "p": "Fuerza Patria", "e": 88947, "n": "Berisso"}, "BRANDSEN": {"s": "Tercera", "i19": "Oscar Cappelletti", "i23": "Fernando Luis Raitelli", "re": "SI", "ia": "Fernando Luis Raitelli", "p": "Fuerza Patria", "e": 28865, "n": "Brandsen"}, "CAÑUELAS": {"s": "Tercera", "i19": "Marisa Fassi", "i23": "Marisa Fassi", "re": "NO", "ia": "Marisa Fassi", "p": "Fuerza Patria", "e": 58109, "n": "Cañuelas"}, "ENSENADA": {"s": "Tercera", "i19": "Mario Secco", "i23": "Mario Secco", "re": "NO", "ia": "Mario Secco", "p": "Fuerza Patria", "e": 62678, "n": "Ensenada"}, "ESTEBAN ECHEVERRIA": {"s": "Tercera", "i19": "Fernando Gray", "i23": "Fernando Gray", "re": "NO", "ia": "Fernando Gray", "p": "Fuerza Patria", "e": 279839, "n": "Esteban Echeverría"}, "EZEIZA": {"s": "Tercera", "i19": "Alejandro Granados", "i23": "Gastón Granados", "re": "SI", "ia": "Gastón Granados", "p": "Fuerza Patria", "e": 165707, "n": "Ezeiza"}, "FLORENCIO VARELA": {"s": "Tercera", "i19": "Andrés Watson", "i23": "Andrés Watson", "re": "NO", "ia": "Andrés Watson", "p": "Fuerza Patria", "e": 370008, "n": "Florencio Varela"}, "LA MATANZA": {"s": "Tercera", "i19": "Fernando Espinoza", "i23": "Fernando Espinoza", "re": "NO", "ia": "Fernando Espinoza", "p": "Fuerza Patria", "e": 1200368, "n": "La Matanza"}, "LANUS": {"s": "Tercera", "i19": "Néstor Grindetti", "i23": "Julian Alvarez", "re": "SI", "ia": "Julian Alvarez", "p": "Fuerza Patria", "e": 403721, "n": "Lanús"}, "LOMAS DE ZAMORA": {"s": "Tercera", "i19": "Martin Insaurralde", "i23": "Federico Otermin", "re": "SI", "ia": "Federico Otermin", "p": "Fuerza Patria", "e": 585956, "n": "Lomas de Zamora"}, "PRESIDENTE PERON": {"s": "Tercera", "i19": "Blanca Cantero", "i23": "Blanca Cantero", "re": "NO", "ia": "Blanca Cantero", "p": "Fuerza Patria", "e": 84687, "n": "Presidente Perón"}, "PUNTA INDIO": {"s": "Tercera", "i19": "Hérnan Zurieta", "i23": "Daniel Angueira", "re": "SI", "ia": "Daniel Angueira", "p": "Fuerza Patria", "e": 10804, "n": "Punta Indio"}, "QUILMES": {"s": "Tercera", "i19": "Mayra Mendoza", "i23": "Mayra Mendoza", "re": "NO", "ia": "Eva Mieri", "p": "Fuerza Patria", "e": 525087, "n": "Quilmes"}, "SAN VICENTE": {"s": "Tercera", "i19": "Nicolas Mantegazza", "i23": "Nicolas Mantegazza", "re": "NO", "ia": "Nicolas Mantegazza", "p": "Fuerza Patria", "e": 73914, "n": "San Vicente"}, "CAMPANA": {"s": "Primera", "i19": "Sebastián Abella", "i23": "Sebastián Abella", "re": "NO", "ia": "Sebastián Abella", "p": "LLA", "e": 92131, "n": "Campana"}, "SAN ISIDRO": {"s": "Primera", "i19": "Gustavo Posse", "i23": "Ramon Lanus", "re": "SI", "ia": "Ramon Lanus", "p": "LLA", "e": 291011, "n": "San Isidro"}, "TRES DE FEBRERO": {"s": "Primera", "i19": "Diego Valenzuela", "i23": "Diego Valenzuela", "re": "NO", "ia": "Rodrigo Aybar", "p": "LLA", "e": 314443, "n": "Tres de Febrero"}, "VICENTE LOPEZ": {"s": "Primera", "i19": "Jorge Macri", "i23": "Soledad Martinez", "re": "SI", "ia": "Soledad Martinez", "p": "LLA", "e": 250313, "n": "Vicente López"}, "ARRECIFES": {"s": "Segunda", "i19": "Javier Olaeta", "i23": "Juan Fernando Bouvier", "re": "SI", "ia": "Juan Fernando Bouvier", "p": "LLA", "e": 26590, "n": "Arrecifes"}, "CAPITAN SARMIENTO": {"s": "Segunda", "i19": "Javier Iguacel", "i23": "Fernanda Astorino", "re": "SI", "ia": "Fernanda Astorino", "p": "LLA", "e": 14199, "n": "Capitán Sarmiento"}, "SAN ANTONIO DE ARECO": {"s": "Segunda", "i19": "Francisco Ratto", "i23": "Francisco Ratto", "re": "NO", "ia": "Francisco Ratto", "p": "LLA", "e": 21747, "n": "San Antonio de Areco"}, "ZARATE": {"s": "Segunda", "i19": "Osvaldo Caffaro", "i23": "Marcelo Matzkin", "re": "SI", "ia": "Marcelo Matzkin", "p": "LLA", "e": 105872, "n": "Zárate"}, "LOBOS": {"s": "Tercera", "i19": "Jorge Etcheverry", "i23": "Jorge Etcheverry", "re": "NO", "ia": "Jorge Etcheverry", "p": "LLA", "e": 34203, "n": "Lobos"}, "GENERAL PUEYRREDON": {"s": "Quinta", "i19": "Guillermo Montenegro", "i23": "Guillermo Montenegro", "re": "NO", "ia": "Agustín Neme", "p": "LLA", "e": 596177, "n": "General Pueyrredón"}, "PINAMAR": {"s": "Quinta", "i19": "Martin Yeza", "i23": "Juan Manuel Ibarguren", "re": "SI", "ia": "Juan Manuel Ibarguren", "p": "LLA", "e": 37343, "n": "Pinamar"}, "CORONEL PRINGLES": {"s": "Sexta", "i19": "Lisandro Matzkin", "i23": "Lisandro Matzkin", "re": "NO", "ia": "Lisandro Matzkin", "p": "LLA", "e": 20651, "n": "Coronel Pringles"}, "ADOLFO ALSINA": {"s": "Sexta", "i19": "Javier Andres", "i23": "Javier Andres", "re": "NO", "ia": "Javier Andres", "p": "Somos", "e": 14552, "n": "Adolfo Alsina"}, "CORONEL DORREGO": {"s": "Sexta", "i19": "Raúl Reyes", "i23": "Juan Carlos Chalde", "re": "SI", "ia": "Juan Carlos Chalde", "p": "Somos", "e": 14099, "n": "Coronel Dorrego"}, "FLORENTINO AMEGHINO": {"s": "Cuarta", "i19": "Calixto Tellechea", "i23": "Nahuel Mittelbach", "re": "SI", "ia": "Nahuel Mittelbach", "p": "Somos", "e": 8208, "n": "Florentino Ameghino"}, "GENERAL ALVEAR": {"s": "Séptima", "i19": "Ramon Capra", "i23": "Ramon Capra", "re": "NO", "ia": "Ramon Capra", "p": "Somos", "e": 9092, "n": "General Alvear"}, "GENERAL ARENALES": {"s": "Cuarta", "i19": "Erica Revilla", "i23": "Erica Revilla", "re": "NO", "ia": "Erica Revilla", "p": "Somos", "e": 15481, "n": "General Arenales"}, "GENERAL BELGRANO": {"s": "Quinta", "i19": "Osvaldo Dinapoli", "i23": "Osvaldo Dinapoli", "re": "NO", "ia": "Osvaldo Dinapoli", "p": "Somos", "e": 17338, "n": "General Belgrano"}, "GENERAL MADARIAGA": {"s": "Quinta", "i19": "Carlos Santoro", "i23": "Carlos Santoro", "re": "NO", "ia": "Carlos Santoro", "p": "Somos", "e": 20709, "n": "General Juan Madariaga"}, "GENERAL LA MADRID": {"s": "Sexta", "i19": "Martin Randazzo", "i23": "Martin Randazzo", "re": "NO", "ia": "Martin Randazzo", "p": "Somos", "e": 9949, "n": "General La Madrid"}, "GENERAL LAVALLE": {"s": "Quinta", "i19": "José Rodriguez Ponte", "i23": "Nahuel Guardia", "re": "SI", "ia": "Nahuel Guardia", "p": "Somos", "e": 5718, "n": "General Lavalle"}, "GENERAL VIAMONTE": {"s": "Cuarta", "i19": "Franco Flexas", "i23": "Franco Flexas", "re": "NO", "ia": "Franco Flexas", "p": "Somos", "e": 15963, "n": "General Viamonte"}, "LEZAMA": {"s": "Quinta", "i19": "Arnaldo Harispe", "i23": "Arnaldo Harispe", "re": "NO", "ia": "Myriam Mongay", "p": "Somos", "e": 5140, "n": "Lezama"}, "LINCOLN": {"s": "Cuarta", "i19": "Salvador Serenal", "i23": "Salvador Serenal", "re": "NO", "ia": "Salvador Serenal", "p": "Somos", "e": 39006, "n": "Lincoln"}, "LOBERIA": {"s": "Quinta", "i19": "Juan José Fioramonti", "i23": "Pablo Javier Barrena", "re": "SI", "ia": "Pablo Javier Barrena", "p": "Somos", "e": 14947, "n": "Lobería"}, "MAGDALENA": {"s": "Tercera", "i19": "Gonzalo Peluso", "i23": "Lisandro Fabian Hourcade", "re": "SI", "ia": "Lisandro Fabian Hourcade", "p": "Somos", "e": 16758, "n": "Magdalena"}, "MAIPU": {"s": "Quinta", "i19": "Matías Rappallini", "i23": "Matías Rappallini", "re": "NO", "ia": "Matías Rappallini", "p": "Somos", "e": 10312, "n": "Maipú"}, "MONTE": {"s": "Quinta", "i19": "José Castro", "i23": "José Castro", "re": "NO", "ia": "José Castro", "p": "Somos", "e": 21554, "n": "Monte"}, "PELLEGRINI": {"s": "Sexta", "i19": "Guillermo Pacheco", "i23": "Sofia Magdalena Gambier", "re": "SI", "ia": "Sofia Magdalena Gambier", "p": "Somos", "e": 5326, "n": "Pellegrini"}, "RAUCH": {"s": "Quinta", "i19": "Maximiliano Suescun", "i23": "Maximiliano Suescun", "re": "NO", "ia": "Maximiliano Suescun", "p": "Somos", "e": 14180, "n": "Rauch"}, "SALADILLO": {"s": "Séptima", "i19": "Jose Luis Salomon", "i23": "Jose Luis Salomon", "re": "NO", "ia": "Jose Luis Salomon", "p": "Somos", "e": 30120, "n": "Saladillo"}, "SAN CAYETANO": {"s": "Quinta", "i19": "Miguel Angel Gargaglione", "i23": "Miguel Angel Gargaglione", "re": "NO", "ia": "Miguel Angel Gargaglione", "p": "Somos", "e": 7496, "n": "San Cayetano"}, "TANDIL": {"s": "Quinta", "i19": "Miguel Angel Lunghi", "i23": "Miguel Angel Lunghi", "re": "NO", "ia": "Miguel Angel Lunghi", "p": "Somos", "e": 119911, "n": "Tandil"}, "TRENQUE LAUQUEN": {"s": "Cuarta", "i19": "Miguel Fernández", "i23": "Francisco Recoulat", "re": "SI", "ia": "Francisco Recoulat", "p": "Somos", "e": 42731, "n": "Trenque Lauquen"}, "TRES LOMAS": {"s": "Sexta", "i19": "Roberto Alvarez", "i23": "Luciano Spinolo", "re": "SI", "ia": "Luciano Spinolo", "p": "Somos", "e": 7024, "n": "Tres Lomas"}, "AYACUCHO": {"s": "Quinta", "i19": "Emilio Cordonnier", "i23": "Emilio Cordonnier", "re": "NO", "ia": "Emilio Cordonnier", "p": "Somos", "e": 18768, "n": "Ayacucho"}, "BALCARCE": {"s": "Quinta", "i19": "Esteban Reino", "i23": "Esteban Reino", "re": "NO", "ia": "Esteban Reino", "p": "Somos", "e": 42058, "n": "Balcarce"}, "NUEVE DE JULIO": {"s": "Cuarta", "i19": "Mariano Barroso", "i23": "Maria Jose Gentile", "re": "SI", "ia": "Maria Jose Gentile", "p": "Somos", "e": 44069, "n": "Nueve de Julio"}, "GENERAL VILLEGAS": {"s": "Cuarta", "i19": "Eduardo Campana", "i23": "Gilberto Alegre", "re": "SI", "ia": "Gilberto Alegre", "p": "Somos", "e": 26161, "n": "General Villegas"}, "JUNIN": {"s": "Cuarta", "i19": "Pablo Petrecca", "i23": "Pablo Petrecca", "re": "NO", "ia": "Juan Fiorini", "p": "Somos", "e": 83950, "n": "Junín"}, "CHIVILCOY": {"s": "Cuarta", "i19": "Guillermo Britos", "i23": "Guillermo Britos", "re": "NO", "ia": "Guillermo Britos", "p": "Somos", "e": 62440, "n": "Chivilcoy"}, "TIGRE": {"s": "Primera", "i19": "Julio Zamora", "i23": "Julio Zamora", "re": "NO", "ia": "Julio Zamora", "p": "Somos", "e": 363425, "n": "Tigre"}, "PERGAMINO": {"s": "Segunda", "i19": "Javier Martinez", "i23": "Javier Martinez", "re": "NO", "ia": "Javier Martinez", "p": "Hechos", "e": 94181, "n": "Pergamino"}, "ROJAS": {"s": "Segunda", "i19": "Claudio Rossi", "i23": "Roman Bouvier", "re": "SI", "ia": "Roman Bouvier", "p": "Hechos", "e": 21293, "n": "Rojas"}, "SAN NICOLAS": {"s": "Segunda", "i19": "Manuel Passaglia", "i23": "Santiago Passaglia", "re": "SI", "ia": "Santiago Passaglia", "p": "Hechos", "e": 131143, "n": "San Nicolás"}, "VEINTICINCO DE MAYO": {"s": "Séptima", "i19": "Hernan Rallinqueo", "i23": "Ramiro Eguen", "re": "SI", "ia": "Ramiro Eguen", "p": "Acción Ciudadana", "e": 32095, "n": "Venticinco de Mayo"}, "VILLARINO": {"s": "Sexta", "i19": "Carlos Bevilacqua", "i23": "Carlos Bevilacqua", "re": "NO", "ia": "Carlos Bevilacqua", "p": "Acción por Villarino", "e": 28855, "n": "Villarino"}, "SAAVEDRA": {"s": "Sexta", "i19": "Gustavo Notarigo", "i23": "Matías Nebot", "re": "SI", "ia": "Matías Nebot", "p": "Todos por Saavedra", "e": 18999, "n": "Saavedra"}, "CORONEL SUAREZ": {"s": "Sexta", "i19": "Ricardo Moccero", "i23": "Ricardo Moccero", "re": "NO", "ia": "Ricardo Moccero", "p": "Movimiento para la Victoria", "e": 35587, "n": "Coronel Suárez"}, "NECOCHEA": {"s": "Quinta", "i19": "Arturo Rojas", "i23": "Arturo Rojas", "re": "NO", "ia": "Arturo Rojas", "p": "Nueva Necochea", "e": 88911, "n": "Necochea"}, "ADOLFO GONZALES CHAVES": {"s": "Sexta", "i19": "Eduardo Santillan", "i23": "Lucia Gómez", "re": "SI", "ia": "Lucia Gómez", "p": "Nuevos Aires", "e": 10923, "n": "Adolfo Gonzales Chaves"}, "PUAN": {"s": "Sexta", "i19": "Facundo Castelli", "i23": "Diego Reyes", "re": "SI", "ia": "Diego Reyes", "p": "Potencia PBA", "e": 14321, "n": "Puán"}, "SAN MIGUEL": {"s": "Primera", "i19": "Jaime Méndez", "i23": "Jaime Méndez", "re": "NO", "ia": "Jaime Méndez", "p": "Primero San Miguel", "e": 268517, "n": "San Miguel"}};
+
+const PARTY_COLORS = {
+  'Fuerza Patria':           '#1a56db',
+  'LLA':                     '#9333ea',
+  'Somos':                   '#f59e0b',
+  'Somos ':                  '#f59e0b',
+  'Somos   ':                '#f59e0b',
+  'Hechos':                  '#10b981',
+  'Acción Ciudadana':        '#06b6d4',
+  'Acción por Villarino':    '#38bdf8',
+  'Todos por Saavedra':      '#84cc16',
+  'Movimiento para la Victoria': '#1e3a8a',
+  'Nueva Necochea':          '#0891b2',
+  'Potencia PBA':            '#ec4899',
+  'Primero San Miguel':      '#8b5cf6',
+  'Nuevos Aires':            '#14b8a6',
+};
+const CONT_COLORS = { same: '#22c55e', diff: '#f97316' };
+const MAND_COLORS = { same: '#22c55e', diff: '#ef4444' };
+
+let activeView = 'partido';
+let selectedMuni = null;
+let hiddenParties = new Set();
+let searchQuery = '';
+
+function getPartyColor(p) {
+  if (!p) return '#4b5563';
+  const normalized = p.trim();
+  return PARTY_COLORS[normalized] || '#6b7280';
+}
+
+function getFillColor(key, view) {
+  const d = ELEC[key];
+  if (!d) return '#243840';
+  if (view === 'partido') {
+    const p = d.p ? d.p.trim() : '';
+    if (hiddenParties.has(p)) return '#1e2f35';
+    return getPartyColor(p);
+  }
+  if (view === 'continuidad') {
+    return d.i19 === d.i23 ? CONT_COLORS.same : CONT_COLORS.diff;
+  }
+  if (view === 'mandato') {
+    return d.i23 === d.ia ? MAND_COLORS.same : MAND_COLORS.diff;
+  }
+  return '#243840';
+}
+
+function buildSVG() {
+  const svg = document.getElementById('pmap');
+  svg.innerHTML = '';
+  for (const [key, pathStr] of Object.entries(PATHS)) {
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', pathStr);
+    path.setAttribute('data-key', key);
+    path.setAttribute('fill', getFillColor(key, activeView));
+    path.addEventListener('mouseenter', onHover);
+    path.addEventListener('mousemove', onMove);
+    path.addEventListener('mouseleave', onLeave);
+    path.addEventListener('click', onClick);
+    svg.appendChild(path);
+  }
+}
+
+function refreshColors() {
+  const paths = document.querySelectorAll('#pmap path');
+  paths.forEach(path => {
+    const key = path.getAttribute('data-key');
+    path.setAttribute('fill', getFillColor(key, activeView));
+    if (searchQuery && ELEC[key]) {
+      const n = ELEC[key].n.toLowerCase();
+      if (n.includes(searchQuery)) {
+        path.classList.add('highlighted');
+        path.classList.remove('dimmed');
+      } else {
+        path.classList.add('dimmed');
+        path.classList.remove('highlighted');
+      }
+    } else {
+      path.classList.remove('highlighted','dimmed');
+    }
+    if (selectedMuni && key !== selectedMuni) {
+      path.classList.add('dimmed');
+    } else if (selectedMuni && key === selectedMuni) {
+      path.classList.remove('dimmed');
+      path.classList.add('selected');
+    } else if (!searchQuery) {
+      path.classList.remove('dimmed','selected');
+    }
+  });
+}
+
+function onHover(e) {
+  const key = e.target.getAttribute('data-key');
+  const d = ELEC[key];
+  if (!d) return;
+  document.getElementById('ttName').textContent = d.n;
+  const p = (d.p || '').trim();
+  const pEl = document.getElementById('ttParty');
+  pEl.textContent = p;
+  pEl.style.color = getPartyColor(p);
+  document.getElementById('ttInten').textContent = d.ia || d.i23 || '—';
+  document.getElementById('ttPartido').textContent = p || '—';
+  document.getElementById('ttElec').textContent = d.e ? d.e.toLocaleString('es-AR') : '—';
+  document.getElementById('ttSec').textContent = d.s || '—';
+  const tt = document.getElementById('tooltip');
+  tt.style.display = 'block';
+  positionTooltip(e);
+}
+function onMove(e) { positionTooltip(e); }
+function onLeave() { document.getElementById('tooltip').style.display = 'none'; }
+function positionTooltip(e) {
+  const tt = document.getElementById('tooltip');
+  let x = e.clientX + 14, y = e.clientY - 10;
+  if (x + 250 > window.innerWidth) x = e.clientX - 254;
+  if (y + 200 > window.innerHeight) y = e.clientY - 180;
+  tt.style.left = x + 'px';
+  tt.style.top = y + 'px';
+}
+function onClick(e) {
+  const key = e.target.getAttribute('data-key');
+  if (selectedMuni === key) {
+    selectedMuni = null;
+    closePanel();
+  } else {
+    selectedMuni = key;
+    openPanel(key);
+  }
+  refreshColors();
+}
+
+function openPanel(key) {
+  const d = ELEC[key];
+  if (!d) return;
+  const p = (d.p || '').trim();
+  document.getElementById('rpName').textContent = d.n;
+  document.getElementById('rpSeccion').textContent = 'Sección ' + (d.s || '—');
+  document.getElementById('rpPartyDot').style.background = getPartyColor(p);
+  document.getElementById('rpPartyName').textContent = p || '—';
+  document.getElementById('rpPartyBadge').style.background = getPartyColor(p) + '22';
+  document.getElementById('rpElectores').textContent = d.e ? d.e.toLocaleString('es-AR') : 'Sin datos';
+  document.getElementById('rpI19').textContent = d.i19 || '—';
+  document.getElementById('rpI23').textContent = d.i23 || '—';
+  const iaChanged = d.ia && d.i23 && d.ia.trim() !== d.i23.trim();
+  const iaField = document.getElementById('rpIaField');
+  iaField.style.display = iaChanged ? 'flex' : 'none';
+  if (iaChanged) document.getElementById('rpIa').textContent = d.ia;
+  
+  const same19 = d.i19 && d.i23 && d.i19.trim() === d.i23.trim();
+  const c19El = document.getElementById('rpContinuidad');
+  c19El.innerHTML = same19
+    ? '<span class="rp-badge si">Sí, mismo intendente</span>'
+    : '<span class="rp-badge no">No, alternancia</span>';
+
+  const mandChanged = iaChanged;
+  const cambioEl = document.getElementById('rpCambio');
+  cambioEl.innerHTML = mandChanged
+    ? '<span class="rp-badge changed">Cambió intendente</span>'
+    : '<span class="rp-badge si">Continúa el electo</span>';
+
+  const reEl = document.getElementById('rpRe');
+  reEl.innerHTML = d.re === 'SI'
+    ? '<span class="rp-badge si">Con mandato previo histórico</span>'
+    : '<span class="rp-badge no">Sin mandato previo a 2019</span>';
+
+  document.getElementById('rightPanel').classList.add('open');
+}
+function closePanel() {
+  selectedMuni = null;
+  document.getElementById('rightPanel').classList.remove('open');
+  refreshColors();
+}
+
+function setView(view, btn) {
+  activeView = view;
+  document.querySelectorAll('.vbtn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildLegend();
+  refreshColors();
+  buildStats();
+}
+
+function buildLegend() {
+  const leg = document.getElementById('legend');
+  leg.innerHTML = '';
+  
+  if (activeView === 'partido') {
+    const title = document.createElement('div');
+    title.className = 'leg-title';
+    title.textContent = 'Fuerza política';
+    leg.appendChild(title);
+    
+    // Count by party
+    const counts = {};
+    for (const d of Object.values(ELEC)) {
+      const p = (d.p || 'Desconocido').trim();
+      counts[p] = (counts[p] || 0) + 1;
+    }
+    // Sort by count
+    const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+    for (const [p, cnt] of sorted) {
+      const item = document.createElement('div');
+      item.className = 'leg-item';
+      if (hiddenParties.has(p)) item.classList.add('hidden');
+      item.innerHTML = `<div class="leg-dot" style="background:${getPartyColor(p)}"></div><span class="leg-label">${p}</span><span class="leg-count">${cnt}</span>`;
+      item.addEventListener('click', () => {
+        if (hiddenParties.has(p)) hiddenParties.delete(p);
+        else hiddenParties.add(p);
+        item.classList.toggle('hidden');
+        refreshColors();
+        buildStats();
+      });
+      leg.appendChild(item);
+    }
+  } else if (activeView === 'continuidad') {
+    const title = document.createElement('div');
+    title.className = 'leg-title';
+    title.textContent = 'Continuidad personal 2019→2023';
+    leg.appendChild(title);
+    
+    let same = 0, diff = 0;
+    for (const d of Object.values(ELEC)) {
+      if (d.i19 && d.i23 && d.i19.trim() === d.i23.trim()) same++;
+      else diff++;
+    }
+    const items = [
+      { color: CONT_COLORS.same, label: 'Mismo intendente', count: same },
+      { color: CONT_COLORS.diff, label: 'Alternancia (cambio)', count: diff },
+    ];
+    for (const it of items) {
+      const item = document.createElement('div');
+      item.className = 'leg-item';
+      item.innerHTML = `<div class="leg-dot" style="background:${it.color}"></div><span class="leg-label">${it.label}</span><span class="leg-count">${it.count}</span>`;
+      leg.appendChild(item);
+    }
+  } else if (activeView === 'mandato') {
+    const title = document.createElement('div');
+    title.className = 'leg-title';
+    title.textContent = 'Estado del mandato 2023→2025';
+    leg.appendChild(title);
+    
+    let same = 0, diff = 0;
+    for (const d of Object.values(ELEC)) {
+      if (d.i23 && d.ia && d.i23.trim() === d.ia.trim()) same++;
+      else diff++;
+    }
+    const items = [
+      { color: MAND_COLORS.same, label: 'Continúa el electo', count: same },
+      { color: MAND_COLORS.diff, label: 'Cambió intendente', count: diff },
+    ];
+    for (const it of items) {
+      const item = document.createElement('div');
+      item.className = 'leg-item';
+      item.innerHTML = `<div class="leg-dot" style="background:${it.color}"></div><span class="leg-label">${it.label}</span><span class="leg-count">${it.count}</span>`;
+      leg.appendChild(item);
+    }
+  }
+}
+
+function buildStats() {
+  const stats = document.getElementById('mapStats');
+  const sb = document.getElementById('statusbar');
+  
+  if (activeView === 'partido') {
+    const counts = {};
+    let total = 0;
+    for (const d of Object.values(ELEC)) {
+      const p = (d.p || '').trim();
+      if (!hiddenParties.has(p)) {
+        counts[p] = (counts[p] || 0) + 1;
+        total++;
+      }
+    }
+    const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+    stats.innerHTML = sorted.slice(0,3).map(([p,c]) =>
+      `<div class="stat"><div class="stat-val">${c}</div><div class="stat-lbl">${p}</div></div>`
+    ).join('');
+    sb.innerHTML = sorted.map(([p,c]) =>
+      `<div class="sb-item"><div class="sb-dot" style="background:${getPartyColor(p)}"></div><span class="sb-label">${p}</span>&nbsp;<span class="sb-count">${c}</span></div><div class="sb-sep"></div>`
+    ).join('');
+  } else {
+    stats.innerHTML = '';
+    sb.innerHTML = '';
+  }
+}
+
+// Search
+document.getElementById('srch').addEventListener('input', function() {
+  searchQuery = this.value.trim().toLowerCase();
+  selectedMuni = null;
+  closePanel();
+  refreshColors();
+  // Also zoom/highlight – just dim
+});
+
+// Init
+buildSVG();
+buildLegend();
+buildStats();
+</script>
+</body>
+</html>

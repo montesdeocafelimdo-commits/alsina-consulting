@@ -446,6 +446,36 @@ nav.scrolled{
 .quote-sub{font-size:.88rem;color:#4a5a60;margin-top:16px;line-height:1.7;max-width:600px;margin-left:auto;margin-right:auto;}
 .quote-author{margin-top:24px;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cian);}
 
+/* ── MEDIOS ── */
+#medios{
+  background:var(--grafito2);
+  padding:80px 56px;position:relative;
+}
+.medios-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:24px;}
+.medios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+@media(max-width:960px){.medios-grid{grid-template-columns:1fr;}}
+.medio-card{
+  background:var(--grafito3);padding:28px 24px;
+  border-left:3px solid rgba(0,213,216,.15);
+  transition:all .3s;cursor:default;text-decoration:none;display:block;
+}
+.medio-card:hover{border-left-color:var(--turquesa);background:rgba(0,213,216,.04);}
+.medio-outlet{
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.35rem;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--turquesa);
+  margin-bottom:10px;display:flex;align-items:center;gap:10px;
+}
+.medio-outlet::after{content:'';flex:1;height:1px;background:rgba(0,213,216,.2);}
+.medio-headline{font-size:.88rem;color:var(--crema);line-height:1.6;font-weight:500;margin-bottom:12px;}
+.medio-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+.medio-fecha{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);}
+.medio-tag{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--turquesa);border:1px solid rgba(0,213,216,.25);padding:2px 8px;}
+.medio-placeholder{
+  border:1px dashed rgba(0,213,216,.15);padding:28px 24px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;min-height:140px;
+}
+.medio-placeholder-txt{font-size:.78rem;color:rgba(183,178,170,.35);line-height:1.6;}
+
 /* ── SEÑAL ── */
 #señal{
   background:var(--grafito2);
@@ -577,25 +607,6 @@ footer{
       Alsina transforma información dispersa en decisiones, prioridades 
       y capacidad de gobierno — para los 135 municipios que más lo necesitan.
     </p>
-    <div class="hero-actions">
-      <a href="#servicios" class="btn-primary">Conocer servicios →</a>
-      <a href="#contacto" class="btn-secondary">Hablar con el equipo</a>
-    </div>
-  </div>
-
-  <div class="hero-stats">
-    <div class="hstat reveal-right">
-      <div class="hstat-num" data-count="135">0</div>
-      <div><div class="hstat-label">Municipios PBA</div></div>
-    </div>
-    <div class="hstat reveal-right delay-1">
-      <div class="hstat-num" data-count="8">0</div>
-      <div><div class="hstat-label">Líneas de servicio</div></div>
-    </div>
-    <div class="hstat reveal-right delay-2">
-      <div class="hstat-num" style="font-size:1.6rem">1</div>
-      <div><div class="hstat-label">Metodología propia</div></div>
-    </div>
   </div>
 
   <div class="scroll-hint">
@@ -724,7 +735,7 @@ footer{
 
   <!-- Panel izquierdo: Diagnóstico de la Provincia -->
   <div class="split-panel" onclick="window.location.href='alsina-radiografia-pba.html'">
-    <div class="split-bg" style="background-image:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80')"></div>
+    <div class="split-bg" style="background-image:url('https://images.unsplash.com/photo-1561815908-bb4926a2f4eb?w=1200&q=80')"></div>
     <div class="split-deco-num">PBA</div>
     <div class="split-content">
       <div class="split-tag">Análisis territorial</div>
@@ -747,7 +758,7 @@ footer{
 
   <!-- Panel derecho: 135 Municipios -->
   <div class="split-panel" onclick="window.location.href='municipios-data-hub.html'">
-    <div class="split-bg" style="background-image:url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&q=80')"></div>
+    <div class="split-bg" style="background-image:url('https://images.unsplash.com/photo-1568153523383-a1389d3dc69a?w=1200&q=80')"></div>
     <div class="split-deco-num">135</div>
     <div class="split-content">
       <div class="split-tag">Datos municipales</div>
@@ -820,42 +831,63 @@ footer{
       <div class="srv-icon">🔍</div>
       <div class="srv-title">Diagnóstico de gestión municipal</div>
       <p class="srv-desc">Relevamiento institucional estructurado: procesos, cuellos de botella, brechas de capacidad y hoja de ruta. Diagnóstico de potencial — no auditoría de problemas.</p>
-      <span class="srv-tag">Sprint · Integral</span>
+      <div style="margin-top:14px;display:flex;flex-direction:column;gap:8px;">
+        <a href="/alsina-diagnostico-servicio.html" style="display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--turquesa);text-decoration:none;border:1px solid rgba(0,213,216,.35);border-radius:3px;padding:7px 14px;transition:background .2s,border-color .2s;" onmouseover="this.style.background='rgba(0,213,216,.08)';this.style.borderColor='rgba(0,213,216,.7)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(0,213,216,.35)'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Ver servicio
+        </a>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <a href="/alsina-diagnostico-modelo-v2.pdf" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(0,213,216,.7);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='rgba(0,213,216,.7)'">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Diagnóstico Modelo
+          </a>
+          <a href="/alsina-diagnostico-olavarria-v2.pdf" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(0,213,216,.7);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='rgba(0,213,216,.7)'">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Diagnóstico Olavarría
+          </a>
+        </div>
+      </div>
+      <span class="srv-tag" style="margin-top:10px;">Sprint · Integral</span>
     </div>
     <div class="srv-card reveal delay-2">
       <div class="srv-num">02</div>
       <div class="srv-icon">📱</div>
       <div class="srv-title">CRM público para atención ciudadana</div>
       <p class="srv-desc">Arquitectura omnicanal: WhatsApp, web y redes unificados. Automatización, trazabilidad completa y dashboards en tiempo real. Ciudades que responden y aprenden.</p>
-      <span class="srv-tag">Tecnología aplicada</span>
+      <div style="margin-top:14px;">
+        <a href="/vincular-demo.html" style="display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--turquesa);text-decoration:none;border:1px solid rgba(0,213,216,.35);border-radius:3px;padding:7px 14px;transition:background .2s,border-color .2s;" onmouseover="this.style.background='rgba(0,213,216,.08)';this.style.borderColor='rgba(0,213,216,.7)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(0,213,216,.35)'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Ver demo VinculAR
+        </a>
+      </div>
+      <span class="srv-tag" style="margin-top:10px;">Tecnología aplicada</span>
     </div>
     <div class="srv-card reveal delay-3">
       <div class="srv-num">03</div>
       <div class="srv-icon">🗣️</div>
       <div class="srv-title">CICERO — Comunicación política</div>
       <p class="srv-desc">Sistema de inteligencia comunicacional con IA. Perfil político estructurado, generación de contenidos multiplataforma, calendario editorial y analítica de posicionamiento.</p>
-      <span class="srv-tag">Comunicación de gobierno</span>
+      <div style="margin-top:14px;">
+        <a href="https://ciceroapp.vercel.app/sign-in" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--turquesa);text-decoration:none;border:1px solid rgba(0,213,216,.35);border-radius:3px;padding:7px 14px;transition:background .2s,border-color .2s;" onmouseover="this.style.background='rgba(0,213,216,.08)';this.style.borderColor='rgba(0,213,216,.7)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(0,213,216,.35)'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Acceder a CICERO
+        </a>
+      </div>
+      <span class="srv-tag" style="margin-top:10px;">Comunicación de gobierno</span>
     </div>
     <div class="srv-card reveal delay-1">
       <div class="srv-num">04</div>
-      <div class="srv-icon">🏗️</div>
-      <div class="srv-title">Financiamiento base suelo urbano</div>
-      <p class="srv-desc">Recuperación de plusvalías, fideicomisos urbanos y articulación con BID, FONPLATA y CFI. Los recursos que el municipio no está capturando todavía.</p>
-      <span class="srv-tag">Financiamiento territorial</span>
+      <div class="srv-icon">🛠️</div>
+      <div class="srv-title">Herramientas de gestión</div>
+      <p class="srv-desc">Tableros de control, métricas de gestión y sistemas de seguimiento adaptados al municipio. Transformamos datos dispersos en información accionable para el equipo de gobierno.</p>
+      <span class="srv-tag">Tecnología aplicada</span>
     </div>
     <div class="srv-card reveal delay-2">
       <div class="srv-num">05</div>
-      <div class="srv-icon">📐</div>
-      <div class="srv-title">Estructuración de proyectos estratégicos</div>
-      <p class="srv-desc">De la idea al proyecto financiable. Formulación técnica y prefactibilidad bajo estándares de organismos multilaterales — BID, FONPLATA, CFI, BIRF.</p>
+      <div class="srv-icon">🏙️</div>
+      <div class="srv-title">Planificación urbana</div>
+      <p class="srv-desc">Diagnóstico territorial, zonificación estratégica y hoja de ruta para el desarrollo urbano municipal. Desde el catastro hasta los instrumentos de captura de plusvalías y proyectos de infraestructura.</p>
       <span class="srv-tag">Desarrollo territorial</span>
-    </div>
-    <div class="srv-card reveal delay-3">
-      <div class="srv-num">06</div>
-      <div class="srv-icon">⚖️</div>
-      <div class="srv-title">Análisis de la Ley Orgánica Municipal</div>
-      <p class="srv-desc">Guía práctica del Decreto-Ley 6769/58: competencias, régimen financiero, márgenes de autonomía y obligaciones reales del ejecutivo y concejo deliberante.</p>
-      <span class="srv-tag">Marco normativo</span>
     </div>
   </div>
 </section>
@@ -923,6 +955,22 @@ footer{
         </ul>
       </div>
     </div>
+    <div class="inf-card reveal delay-2" style="grid-column:1/-1;display:flex;flex-direction:row;gap:0;overflow:hidden;" onclick="window.location.href='alsina-presupuesto-impositiva-2026.html'" role="link" tabindex="0" style="cursor:pointer;">
+      <div class="inf-img" style="background-image:url('https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9?w=900&q=80');flex:0 0 280px;min-height:180px;">
+        <div class="inf-img-overlay"></div>
+        <span class="inf-badge">Nota</span>
+      </div>
+      <div class="inf-body" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+        <div class="inf-title" style="font-size:1.25rem;">Presupuesto e Impositiva PBA 2026 — con datos de los 135 municipios</div>
+        <p class="inf-desc" style="margin-top:8px;max-width:700px;">
+          Análisis completo de las Leyes 15.557, 15.558 y 15.561. Estructura del gasto, déficit, personal, recaudación y cambios tributarios.
+          Incluye tabla interactiva con presupuesto 2026, per cápita y CUD de los 135 municipios bonaerenses.
+        </p>
+        <div style="margin-top:16px;">
+          <a href="alsina-presupuesto-impositiva-2026.html" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cian);text-decoration:none;border-bottom:1px solid rgba(0,140,154,.3);padding-bottom:2px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='var(--cian)'">Leer la nota completa →</a>
+        </div>
+      </div>
+    </div>
     <div class="inf-card reveal delay-1" style="grid-column:1/-1;display:flex;flex-direction:row;gap:0;overflow:hidden;" onclick="window.location.href='alsina-nota-finanzas-pba.html'" role="link" tabindex="0" style="cursor:pointer;">
       <div class="inf-img" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80');flex:0 0 280px;min-height:180px;">
         <div class="inf-img-overlay"></div>
@@ -936,6 +984,64 @@ footer{
         </p>
         <div style="margin-top:16px;">
           <a href="alsina-nota-finanzas-pba.html" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cian);text-decoration:none;border-bottom:1px solid rgba(0,140,154,.3);padding-bottom:2px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='var(--cian)'">Leer la nota completa →</a>
+        </div>
+      </div>
+    </div>
+    <div class="inf-card reveal delay-1" style="grid-column:1/-1;display:flex;flex-direction:row;gap:0;overflow:hidden;cursor:pointer;" onclick="window.location.href='alsina-recaudacion-tributaria-pba.html'" role="link" tabindex="0">
+      <div class="inf-img" style="background-image:url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=900&q=80');flex:0 0 280px;min-height:180px;">
+        <div class="inf-img-overlay"></div>
+        <span class="inf-badge" style="background:var(--grafito);color:var(--turquesa);border:1px solid rgba(0,213,216,.4);">Informe fiscal</span>
+      </div>
+      <div class="inf-body" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+        <div class="inf-title" style="font-size:1.25rem;">Radiografía Fiscal Bonaerense 1999–2026: más recaudación nominal, matriz más frágil</div>
+        <p class="inf-desc" style="margin-top:8px;max-width:700px;">
+          27 años de historia fiscal de la PBA: cómo Ingresos Brutos pasó de representar la mitad a tres cuartas partes de la recaudación,
+          qué implica un HHI tributario de 0,604 y por qué el 1T2026 luce fuerte en pesos pero empata en términos reales. Incluye el Laboratorio Tributario Interactivo.
+        </p>
+        <div style="margin-top:16px;display:flex;gap:16px;flex-wrap:wrap;">
+          <a href="alsina-recaudacion-tributaria-pba.html" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cian);text-decoration:none;border-bottom:1px solid rgba(0,140,154,.3);padding-bottom:2px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='var(--cian)'">Leer el informe →</a>
+          <a href="/radar-fiscal/" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);text-decoration:none;border-bottom:1px solid rgba(0,213,216,.3);padding-bottom:2px;transition:color .2s;" onmouseover="this.style.color='#00f0f4'" onmouseout="this.style.color='var(--turquesa)'">Abrir laboratorio interactivo →</a>
+        </div>
+      </div>
+    </div>
+    <div class="inf-card reveal delay-1" style="grid-column:1/-1;display:flex;flex-direction:row;gap:0;overflow:hidden;cursor:pointer;" onclick="window.location.href='alsina-mapa-politico.html'" role="link" tabindex="0">
+      <div class="inf-img" style="background:linear-gradient(135deg,#0e1c20 0%,#1a3a5c 50%,#1a2a50 100%);flex:0 0 280px;min-height:180px;display:flex;align-items:center;justify-content:center;">
+        <div class="inf-img-overlay"></div>
+        <span class="inf-badge" style="background:rgba(0,213,216,.12);color:var(--turquesa);border:1px solid rgba(0,213,216,.35);">Interactivo</span>
+        <svg viewBox="0 0 200 200" width="140" height="140" style="opacity:.65;">
+          <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(0,213,216,.2)" stroke-width="1"/>
+          <rect x="30" y="40" width="55" height="45" rx="3" fill="#1a56db" opacity=".85"/>
+          <rect x="90" y="40" width="80" height="20" rx="3" fill="#9333ea" opacity=".85"/>
+          <rect x="90" y="65" width="80" height="20" rx="3" fill="#f59e0b" opacity=".85"/>
+          <rect x="30" y="90" width="55" height="55" rx="3" fill="#1a56db" opacity=".7"/>
+          <rect x="90" y="90" width="80" height="55" rx="3" fill="#f59e0b" opacity=".7"/>
+          <rect x="30" y="150" width="140" height="15" rx="3" fill="#10b981" opacity=".6"/>
+        </svg>
+      </div>
+      <div class="inf-body" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+        <div class="inf-title" style="font-size:1.25rem;">Mapa Político PBA — 135 Municipios</div>
+        <p class="inf-desc" style="margin-top:8px;max-width:700px;">
+          Mapa interactivo de la composición política de los 135 municipios bonaerenses. Visualizá la distribución por fuerza política, analizá la continuidad de intendentes entre 2019 y 2023, y detectá los cambios en el ejercicio del mandato 2023–2025.
+          Hover para ver datos de cada municipio. Click para análisis detallado.
+        </p>
+        <div style="margin-top:16px;">
+          <a href="alsina-mapa-politico.html" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);text-decoration:none;border-bottom:1px solid rgba(0,213,216,.3);padding-bottom:2px;transition:color .2s;" onmouseover="this.style.color='#00f0f4'" onmouseout="this.style.color='var(--turquesa)'">Abrir mapa político →</a>
+        </div>
+      </div>
+    </div>
+    <div class="inf-card reveal delay-2" style="grid-column:1/-1;display:flex;flex-direction:row;gap:0;overflow:hidden;cursor:pointer;" onclick="window.location.href='alsina-informe-super-rigi.html'" role="link" tabindex="0">
+      <div class="inf-img" style="background-image:url('https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=900&q=80');flex:0 0 280px;min-height:180px;">
+        <div class="inf-img-overlay"></div>
+        <span class="inf-badge" style="background:var(--grafito);color:var(--turquesa);border:1px solid rgba(0,213,216,.4);">Nota</span>
+      </div>
+      <div class="inf-body" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+        <div class="inf-title" style="font-size:1.25rem;">Súper RIGI: el régimen de inversiones que cambia la cancha para los municipios</div>
+        <p class="inf-desc" style="margin-top:8px;max-width:700px;">
+          Análisis del Régimen de Incentivo a las Grandes Inversiones (RIGI) y su alcance provincial: cómo afecta la autonomía fiscal municipal,
+          qué proyectos aplican, y qué tiene que saber un intendente antes de negociar con el inversor.
+        </p>
+        <div style="margin-top:16px;">
+          <a href="alsina-informe-super-rigi.html" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cian);text-decoration:none;border-bottom:1px solid rgba(0,140,154,.3);padding-bottom:2px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='var(--cian)'">Leer la nota completa →</a>
         </div>
       </div>
     </div>
@@ -968,20 +1074,35 @@ footer{
   </div>
 </section>
 
-<!-- QUOTE — CREMA -->
-<section id="quote">
-  <div class="quote-inner reveal">
-    <div class="quote-mark">"</div>
-    <div class="quote-text">
-      No vendemos diagnósticos.<br>
-      Construimos <span>capacidad de gobierno.</span>
+
+<!-- MEDIOS -->
+<section id="medios">
+  <div class="medios-header">
+    <div class="reveal-left">
+      <div class="section-label">En los medios</div>
+      <h2 class="section-headline">Alsina en la <span>conversación pública.</span></h2>
     </div>
-    <p class="quote-sub">
-      Communicar no es maquillar la gestión — es hacerla comprensible. 
-      Una ciudad que no puede explicar qué hace tampoco puede construir confianza. 
-      Alsina convierte complejidad en señal, y señal en decisión.
-    </p>
-    <div class="quote-author">— Alsina · Gestión Pública, Tecnología y Territorio</div>
+    <div class="reveal-right" style="max-width:360px;">
+      <p class="section-body" style="margin-top:0;">
+        Análisis, notas y referencias sobre gestión territorial, finanzas públicas
+        y política bonaerense.
+      </p>
+    </div>
+  </div>
+  <div class="medios-grid">
+    <!-- Cuando haya menciones reales, reemplazar estos placeholders -->
+    <div class="medio-placeholder reveal delay-1">
+      <div style="font-size:1.8rem;opacity:.2;">📰</div>
+      <div class="medio-placeholder-txt">Las menciones en medios aparecerán aquí.<br>Cada card muestra el medio primero.</div>
+    </div>
+    <div class="medio-placeholder reveal delay-2">
+      <div style="font-size:1.8rem;opacity:.2;">📻</div>
+      <div class="medio-placeholder-txt">Portales, diarios, radios y revistas especializadas.</div>
+    </div>
+    <div class="medio-placeholder reveal delay-3">
+      <div style="font-size:1.8rem;opacity:.2;">🎙️</div>
+      <div class="medio-placeholder-txt">Entrevistas, notas de opinión y coberturas de análisis.</div>
+    </div>
   </div>
 </section>
 
@@ -1085,9 +1206,10 @@ footer{
       <div class="footer-col-title">Informes</div>
       <ul class="footer-links">
         <li><a href="municipios-data-hub.html">Explorador 135 Municipios</a></li>
+        <li><a href="alsina-presupuesto-impositiva-2026.html">Presupuesto e Impositiva PBA 2026</a></li>
         <li><a href="alsina-nota-finanzas-pba.html">Finanzas PBA — Nota analítica</a></li>
-        <li><a href="#informes">Recaudación PBA</a></li>
-        <li><a href="#informes">Transferencias municipales</a></li>
+        <li><a href="alsina-informe-super-rigi.html">Súper RIGI — Inversiones y municipios</a></li>
+        <li><a href="#informes">Recaudación PBA · Transferencias</a></li>
       </ul>
     </div>
     <div>
