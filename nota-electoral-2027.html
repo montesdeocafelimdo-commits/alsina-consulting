@@ -33,17 +33,50 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,17,20,.97);border-bottom
 @media(max-width:768px){.nav-links{display:none}}
 
 /* ── LAYOUT ── */
-.layout{display:flex;gap:0;max-width:1280px;margin:0 auto;padding:0 20px}
-.toc-col{width:var(--sb);flex:0 0 var(--sb);position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto;padding:28px 0 28px 0;display:flex;flex-direction:column;gap:3px}
+.layout{display:flex;gap:0;max-width:1400px;margin:0 auto}
+.toc-col{width:var(--sb);flex:0 0 var(--sb);position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto;padding:28px 16px 28px 20px;display:flex;flex-direction:column;gap:3px}
 .toc-head{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);padding:0 0 10px 0;border-bottom:1px solid var(--bd);margin-bottom:8px}
 .toc-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;text-decoration:none;color:var(--t3);font-size:.78rem;line-height:1.35;transition:color .2s;cursor:pointer;border:none;background:none;text-align:left;width:100%}
 .toc-item:hover,.toc-item.active{color:var(--teal)}
 .toc-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;color:var(--td);min-width:16px;margin-top:1px}
-.art-col{flex:1;min-width:0;padding:40px 0 80px 40px}
+
+/* ── WHITE ARTICLE COLUMN ── */
+.art-col{flex:1;min-width:0;padding:48px 56px 80px 56px;background:#ffffff;color:#111827;
+  border-left:1px solid rgba(0,0,0,.07);box-shadow:-4px 0 24px rgba(0,0,0,.08);}
+
+/* Light theme overrides inside article */
+.art-col{--t1:#111827;--t2:#374151;--t3:#6b7280;--bd:rgba(0,0,0,.1);--teal:#007b8a;--td:#007b8a;}
+.art-col .art-title,.art-col .ch-title,.art-col .cl-title,.art-col .cl-qt{color:#111827}
+.art-col .art-bajada,.art-col .ch-text,.art-col .cl-text{color:#374151}
+.art-col .art-label,.art-col .ch-label,.art-col .cl-num{color:#0891b2}
+.art-col .art-meta{color:#6b7280}
+.art-col .art-meta strong{color:#374151}
+.art-col .art-header{border-bottom-color:#e5e7eb}
+.art-col .closing{border-top-color:#e5e7eb}
+.art-col .art-footer{border-top-color:#e5e7eb;color:#9ca3af}
+.art-col .art-footer a{color:#0891b2}
+.art-col .datazo{background:rgba(0,180,200,.06);border-left-color:#0891b2}
+.art-col .datazo-text{color:#111827}
+.art-col .viz{background:#f8f9fa;border-color:#e5e7eb}
+.art-col .viz-title{color:#6b7280}
+.art-col .chart-note{color:#9ca3af}
+.art-col .data-table th{color:#6b7280;border-bottom-color:#e5e7eb}
+.art-col .data-table td{border-bottom-color:#f1f5f9}
+.art-col .data-table tr:hover td{background:#f8f9fa}
+.art-col .pp-pos{background:rgba(22,163,74,.12);color:#166534}
+.art-col .pp-mid{background:rgba(202,138,4,.12);color:#92400e}
+.art-col .pp-neg{background:rgba(220,38,38,.12);color:#991b1b}
+.art-col .map-btn{border-color:#d1d5db;color:#374151;background:#fff}
+.art-col .map-btn.active{background:rgba(0,213,216,.1);border-color:rgba(0,213,216,.5);color:#007b8a}
+.art-col .map-leg-item{color:#374151}
+.art-col .filter-sel{background:#f3f4f6;border-color:#d1d5db;color:#374151}
+.art-col .col-change span{color:#374151}
+.art-col .toc-item{color:#6b7280}
+
 @media(max-width:900px){
   .toc-col{display:none}
-  .art-col{padding:24px 0 60px}
-  .layout{padding:0 16px}
+  .art-col{padding:24px 20px 60px;box-shadow:none;border-left:none}
+  .layout{max-width:100%}
 }
 
 /* ── ARTICLE HEADER ── */
@@ -106,7 +139,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,17,20,.97);border-bottom
 /* ── SECTION FILTER ── */
 .filter-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
 .filter-label{font-size:.75rem;color:var(--t3);font-weight:600}
-.filter-sel{background:rgba(255,255,255,.06);border:1px solid var(--bd);color:var(--t1);padding:5px 10px;border-radius:5px;font-family:'Barlow',sans-serif;font-size:.78rem;outline:none;cursor:pointer}
+.filter-sel{background:rgba(0,0,0,.07);border:1px solid var(--bd);color:var(--t1);padding:5px 10px;border-radius:5px;font-family:'Barlow',sans-serif;font-size:.78rem;outline:none;cursor:pointer}
 
 /* ── SCATTER ── */
 #scatter-wrap{position:relative;height:380px}
@@ -154,7 +187,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,17,20,.97);border-bottom
   <button class="toc-item" onclick="tocGo('ch5')"><span class="toc-num">5</span><span>Intendentes con raíces</span></button>
   <button class="toc-item" onclick="tocGo('ch6')"><span class="toc-num">6</span><span>La participación que preocupa</span></button>
   <button class="toc-item" onclick="tocGo('ch7')"><span class="toc-num">7</span><span>Las 8 secciones electorales</span></button>
-  <button class="toc-item" onclick="tocGo('closing')" style="margin-top:12px;border-top:1px solid rgba(255,255,255,.06);padding-top:12px"><span class="toc-num">→</span><span>¿Qué mirar de cara a 2027?</span></button>
+  <button class="toc-item" onclick="tocGo('closing')" style="margin-top:12px;border-top:1px solid rgba(0,0,0,.07);padding-top:12px"><span class="toc-num">→</span><span>¿Qué mirar de cara a 2027?</span></button>
 </div>
 
 <!-- ARTICLE -->
@@ -431,7 +464,7 @@ const PC = {
   'Somos / Hechos':'#ec4899','Frente Renovador':'#0891b2','UCR / Progresistas':'#ea580c',
   'Izquierda / FIT':'#dc2626','Vecinal/Local':'#16a34a','Otro':'#6b7280',
 };
-const CDB = { color:'#94a3b8', grid:{ color:'rgba(255,255,255,.06)' } };
+const CDB = { ticks:{color:'#6b7280',font:{size:10}}, grid:{ color:'rgba(0,0,0,.07)' } };
 
 // ── TOC scroll
 function tocGo(id){
@@ -465,7 +498,7 @@ function buildMap() {
 }
 function getMapColor(key, view){
   const d = MAP_DATA[key];
-  if(!d) return '#1a2f35';
+  if(!d) return '#e8ecf0';
   const w = view==='2023' ? d.w23 : d.w25;
   return PC[w] || '#6b7280';
 }
@@ -507,7 +540,7 @@ function buildBisagraMap(){
     const path = document.createElementNS('http://www.w3.org/2000/svg','path');
     path.setAttribute('d',pd);
     const isBisagra = BISAGRA_MUNIS.has(key);
-    path.setAttribute('fill', isBisagra?'#f59e0b':'#1a2f35');
+    path.setAttribute('fill', isBisagra?'#f59e0b':'#e8ecf0');
     path.setAttribute('stroke','#071114');
     path.setAttribute('stroke-width','0.5');
     svg.appendChild(path);
@@ -648,7 +681,7 @@ function buildLLAChart(){
         tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.x}%`}}
       },
       scales:{
-        x:{min:0,max:100,ticks:{callback:v=>v+'%',font:{size:10}},grid:{color:'rgba(255,255,255,.06)'}},
+        x:{min:0,max:100,ticks:{callback:v=>v+'%',font:{size:10}},grid:{color:'rgba(0,0,0,.07)'}},
         y:{ticks:{font:{size:10}},grid:{display:false}}
       }
     }
@@ -680,8 +713,8 @@ function buildScatterChart(){
         }}}
       },
       scales:{
-        x:{title:{display:true,text:'Transferencia per cápita 2023 (miles de $)',color:'#94a3b8',font:{size:11}},ticks:{callback:v=>v+'k',font:{size:10}},grid:CDB.grid},
-        y:{title:{display:true,text:'% PJ en intendente 2023',color:'#94a3b8',font:{size:11}},min:0,max:100,ticks:{callback:v=>v+'%',font:{size:10}},grid:CDB.grid}
+        x:{title:{display:true,text:'Transferencia per cápita 2023 (miles de $)',color:'#6b7280',font:{size:11}},ticks:{callback:v=>v+'k',font:{size:10}},grid:CDB.grid},
+        y:{title:{display:true,text:'% PJ en intendente 2023',color:'#6b7280',font:{size:11}},min:0,max:100,ticks:{callback:v=>v+'%',font:{size:10}},grid:CDB.grid}
       }
     }
   });
@@ -710,8 +743,8 @@ function buildPartChart(){
         tooltip:{callbacks:{label:ctx=>`${ctx.parsed.y}%`,afterLabel:ctx=>INT_YRS.has(labels[ctx.dataIndex])?'Año con elección de intendente':''}}
       },
       scales:{
-        x:{ticks:{font:{size:11}},grid:{color:'rgba(255,255,255,.06)'}},
-        y:{min:50,max:82,ticks:{callback:v=>v+'%',font:{size:11}},grid:{color:'rgba(255,255,255,.06)'}}
+        x:{ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,.07)'}},
+        y:{min:50,max:82,ticks:{callback:v=>v+'%',font:{size:11}},grid:{color:'rgba(0,0,0,.07)'}}
       }
     }
   });
@@ -757,7 +790,7 @@ function setSecView(v){
       },
       scales:{
         x:{stacked:true,ticks:{font:{size:11}},grid:{display:false}},
-        y:{stacked:true,ticks:{font:{size:11},stepSize:5},grid:{color:'rgba(255,255,255,.06)'}}
+        y:{stacked:true,ticks:{font:{size:11},stepSize:5},grid:{color:'rgba(0,0,0,.07)'}}
       }
     }
   });
@@ -766,8 +799,8 @@ function setSecView(v){
 // ── INIT
 function initCharts() {
   if (typeof Chart === 'undefined') return;
-  Chart.defaults.color = '#94a3b8';
-  Chart.defaults.borderColor = 'rgba(255,255,255,.06)';
+  Chart.defaults.color = '#6b7280';
+  Chart.defaults.borderColor = 'rgba(0,0,0,.07)';
   try { buildLLAChart(); } catch(e){ console.warn(e); }
   try { buildScatterChart(); } catch(e){ console.warn(e); }
   try { buildPartChart(); } catch(e){ console.warn(e); }
