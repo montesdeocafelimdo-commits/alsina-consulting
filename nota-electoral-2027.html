@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>2027 empieza ahora — Alsina Consulting</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
 <style>
 :root{
   --g:#071114;--g2:#0d1c22;--g3:#111f2a;
@@ -147,14 +147,14 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,17,20,.97);border-bottom
 <!-- TOC -->
 <div class="toc-col">
   <div class="toc-head">Índice</div>
-  <button class="toc-item" onclick="scrollTo('ch1')"><span class="toc-num">1</span><span>El mapa que hereda 2027</span></button>
-  <button class="toc-item" onclick="scrollTo('ch2')"><span class="toc-num">2</span><span>LLA: de cero a 28 municipios</span></button>
-  <button class="toc-item" onclick="scrollTo('ch3')"><span class="toc-num">3</span><span>Dinero y urnas</span></button>
-  <button class="toc-item" onclick="scrollTo('ch4')"><span class="toc-num">4</span><span>Los 24 municipios bisagra</span></button>
-  <button class="toc-item" onclick="scrollTo('ch5')"><span class="toc-num">5</span><span>Intendentes con raíces</span></button>
-  <button class="toc-item" onclick="scrollTo('ch6')"><span class="toc-num">6</span><span>La participación que preocupa</span></button>
-  <button class="toc-item" onclick="scrollTo('ch7')"><span class="toc-num">7</span><span>Las 8 secciones electorales</span></button>
-  <button class="toc-item" onclick="scrollTo('closing')" style="margin-top:12px;border-top:1px solid rgba(255,255,255,.06);padding-top:12px"><span class="toc-num">→</span><span>¿Qué mirar de cara a 2027?</span></button>
+  <button class="toc-item" onclick="tocGo('ch1')"><span class="toc-num">1</span><span>El mapa que hereda 2027</span></button>
+  <button class="toc-item" onclick="tocGo('ch2')"><span class="toc-num">2</span><span>LLA: de cero a 28 municipios</span></button>
+  <button class="toc-item" onclick="tocGo('ch3')"><span class="toc-num">3</span><span>Dinero y urnas</span></button>
+  <button class="toc-item" onclick="tocGo('ch4')"><span class="toc-num">4</span><span>Los 24 municipios bisagra</span></button>
+  <button class="toc-item" onclick="tocGo('ch5')"><span class="toc-num">5</span><span>Intendentes con raíces</span></button>
+  <button class="toc-item" onclick="tocGo('ch6')"><span class="toc-num">6</span><span>La participación que preocupa</span></button>
+  <button class="toc-item" onclick="tocGo('ch7')"><span class="toc-num">7</span><span>Las 8 secciones electorales</span></button>
+  <button class="toc-item" onclick="tocGo('closing')" style="margin-top:12px;border-top:1px solid rgba(255,255,255,.06);padding-top:12px"><span class="toc-num">→</span><span>¿Qué mirar de cara a 2027?</span></button>
 </div>
 
 <!-- ARTICLE -->
@@ -434,7 +434,7 @@ const PC = {
 const CDB = { color:'#94a3b8', grid:{ color:'rgba(255,255,255,.06)' } };
 
 // ── TOC scroll
-function scrollTo(id){
+function tocGo(id){
   document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
@@ -616,9 +616,7 @@ function renderDropsTables(){
 
 // ── CHARTS
 
-// Chart.js dark defaults
-Chart.defaults.color = '#94a3b8';
-Chart.defaults.borderColor = 'rgba(255,255,255,.06)';
+// Chart.js dark defaults applied in initCharts()
 
 // Cap 2: LLA growth horizontal bars
 function buildLLAChart(){
@@ -766,15 +764,25 @@ function setSecView(v){
 }
 
 // ── INIT
+function initCharts() {
+  if (typeof Chart === 'undefined') return;
+  Chart.defaults.color = '#94a3b8';
+  Chart.defaults.borderColor = 'rgba(255,255,255,.06)';
+  try { buildLLAChart(); } catch(e){ console.warn(e); }
+  try { buildScatterChart(); } catch(e){ console.warn(e); }
+  try { buildPartChart(); } catch(e){ console.warn(e); }
+  try { setSecView('2023'); } catch(e){ console.warn(e); }
+}
+
+// Non-chart init (maps + tables) — runs immediately, no Chart.js needed
 buildMap();
 buildBisagraMap();
 renderBisagraTable('');
 renderPPTable();
 renderDropsTables();
-buildLLAChart();
-buildScatterChart();
-buildPartChart();
-setSecView('2023');
+
+// Charts: init after Chart.js deferred load
+window.addEventListener('load', initCharts);
 </script>
 </body>
 </html>
