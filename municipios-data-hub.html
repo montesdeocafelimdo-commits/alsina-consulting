@@ -374,24 +374,24 @@ const CALC_YEARLY_VARS = ["Coparticipación per cápita","Transferencias per cá
 const CALC_FIXED_VARS  = ["Empresas cada 1.000 hab","Índice de Dependencia Fiscal (%)"];
 const ELEC_DATA = {};
 const PARTY_NORM = {
-  'ALIANZA FRENTE PARA LA VICTORIA':  { n:'PJ / Peronismo',     c:'#2563eb' },
-  'ALIANZA UNIDAD CIUDADANA':         { n:'PJ / Peronismo',     c:'#2563eb' },
-  'FRENTE DE TODOS':                  { n:'PJ / Peronismo',     c:'#2563eb' },
-  'UNION POR LA PATRIA':              { n:'PJ / Peronismo',     c:'#2563eb' },
-  'ALIANZA FUERZA PATRIA':            { n:'PJ / Peronismo',     c:'#2563eb' },
-  'ALIANZA FRENTE JUSTICIALISTA':     { n:'PJ / Peronismo',     c:'#2563eb' },
-  'MOVIMIENTO PARA LA VICTORIA':      { n:'PJ / Peronismo',     c:'#2563eb' },
-  'ALIANZA CAMBIEMOS BUENOS AIRES':   { n:'Juntos x el Cambio', c:'#d97706' },
-  'JUNTOS POR EL CAMBIO':             { n:'Juntos x el Cambio', c:'#d97706' },
-  'ALIANZA JUNTOS':                   { n:'Juntos x el Cambio', c:'#d97706' },
-  'ALIANZA SOMOS BUENOS AIRES':       { n:'Juntos x el Cambio', c:'#d97706' },
-  'LA LIBERTAD AVANZA':               { n:'La Libertad Avanza', c:'#7c3aed' },
-  'ALIANZA LA LIBERTAD AVANZA':       { n:'La Libertad Avanza', c:'#7c3aed' },
-  'ALIANZA AVANZA LIBERTAD':          { n:'La Libertad Avanza', c:'#7c3aed' },
-  'ALIANZA POTENCIA':                 { n:'La Libertad Avanza', c:'#7c3aed' },
-  'FRENTE RENOVADOR':                 { n:'Frente Renovador',   c:'#0891b2' },
-  'FRENTE PROGRESISTA CIVICO Y SOCIAL':{ n:'UCR / Progresistas',c:'#ea580c' },
-  'ALIANZA PROGRESISTAS':             { n:'UCR / Progresistas', c:'#ea580c' },
+  'ALIANZA FRENTE PARA LA VICTORIA':    { n:'PJ / Peronismo',     c:'#2563eb' },
+  'ALIANZA UNIDAD CIUDADANA':           { n:'PJ / Peronismo',     c:'#2563eb' },
+  'FRENTE DE TODOS':                    { n:'PJ / Peronismo',     c:'#2563eb' },
+  'UNION POR LA PATRIA':                { n:'PJ / Peronismo',     c:'#2563eb' },
+  'ALIANZA FUERZA PATRIA':              { n:'PJ / Peronismo',     c:'#2563eb' },
+  'ALIANZA FRENTE JUSTICIALISTA':       { n:'PJ / Peronismo',     c:'#2563eb' },
+  'MOVIMIENTO PARA LA VICTORIA':        { n:'PJ / Peronismo',     c:'#2563eb' },
+  'ALIANZA CAMBIEMOS BUENOS AIRES':     { n:'Juntos x el Cambio', c:'#eab308' },
+  'JUNTOS POR EL CAMBIO':               { n:'Juntos x el Cambio', c:'#eab308' },
+  'ALIANZA JUNTOS':                     { n:'Juntos x el Cambio', c:'#eab308' },
+  'ALIANZA SOMOS BUENOS AIRES':         { n:'Juntos x el Cambio', c:'#eab308' },
+  'LA LIBERTAD AVANZA':                 { n:'La Libertad Avanza', c:'#7c3aed' },
+  'ALIANZA LA LIBERTAD AVANZA':         { n:'La Libertad Avanza', c:'#7c3aed' },
+  'ALIANZA AVANZA LIBERTAD':            { n:'La Libertad Avanza', c:'#7c3aed' },
+  'ALIANZA POTENCIA':                   { n:'La Libertad Avanza', c:'#7c3aed' },
+  'FRENTE RENOVADOR':                   { n:'Frente Renovador',   c:'#0891b2' },
+  'FRENTE PROGRESISTA CIVICO Y SOCIAL': { n:'UCR / Progresistas', c:'#ea580c' },
+  'ALIANZA PROGRESISTAS':               { n:'UCR / Progresistas', c:'#ea580c' },
   'FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES':    { n:'Izquierda / FIT', c:'#dc2626' },
   'ALIANZA FRENTE DE IZQUIERDA Y DE LOS':         { n:'Izquierda / FIT', c:'#dc2626' },
   'FRENTE DE IZQUIERDA Y TRABAJADORES UNIDAD':    { n:'Izquierda / FIT', c:'#dc2626' },
@@ -400,32 +400,40 @@ const PARTY_NORM = {
   'FRENTE DE IZQUIERDA Y DE TRABAJADORES':        { n:'Izquierda / FIT', c:'#dc2626' },
   'FRENTE DE IZQUIERDA Y DE TRABAJADORES -':      { n:'Izquierda / FIT', c:'#dc2626' },
 };
-const ELEC_TYPES = {
-  '2013':{ tipo:'concejales',   label:'Solo concejales', icon:'🏛️' },
-  '2015':{ tipo:'intendente',   label:'Intendente',      icon:'⭐' },
-  '2017':{ tipo:'concejales',   label:'Solo concejales', icon:'🏛️' },
-  '2019':{ tipo:'intendente',   label:'Intendente',      icon:'⭐' },
-  '2021':{ tipo:'concejales',   label:'Solo concejales', icon:'🏛️' },
-  '2023':{ tipo:'intendente',   label:'Intendente',      icon:'⭐' },
-  '2025':{ tipo:'legislativas', label:'Legislativas',    icon:'📊' },
+const ELECTION_TYPES = {
+  '2013':{ tipo:'concejales',   label:'Concejales'   },
+  '2015':{ tipo:'intendente',   label:'Intendente'   },
+  '2017':{ tipo:'concejales',   label:'Concejales'   },
+  '2019':{ tipo:'intendente',   label:'Intendente'   },
+  '2021':{ tipo:'concejales',   label:'Concejales'   },
+  '2023':{ tipo:'intendente',   label:'Intendente'   },
+  '2025':{ tipo:'legislativas', label:'Legislativas' },
+};
+const SEC_MAP = {'1':'Primera','2':'Segunda','3':'Tercera','4':'Cuarta','5':'Quinta','6':'Sexta','7':'Séptima','8':'Octava','CAPITAL':'Capital'};
+const PRES_PBA = {
+  '2015':[{n:'Juntos x el Cambio',p:51.4,c:'#eab308'},{n:'PJ / Peronismo',p:48.6,c:'#2563eb'}],
+  '2019':[{n:'PJ / Peronismo',p:52.2,c:'#2563eb'},{n:'Juntos x el Cambio',p:41.3,c:'#eab308'}],
+  '2023':[{n:'PJ / Peronismo',p:44.3,c:'#2563eb'},{n:'La Libertad Avanza',p:29.9,c:'#7c3aed'},{n:'Juntos x el Cambio',p:23.8,c:'#eab308'}],
 };
 function _normParty(name) {
   const k = name.trim().toUpperCase();
   if (PARTY_NORM[k]) return PARTY_NORM[k];
-  if (/IZQUIERDA|OBRERA|SOCIALISTA/.test(k)) return { n:'Izquierda / FIT', c:'#dc2626' };
-  if (/VECINAL|VECINOS|COMUNAL/.test(k)) return { n:'Vecinal / Local', c:'#16a34a' };
-  return { n: name.split(' ').map(w=>w.charAt(0)+w.slice(1).toLowerCase()).join(' '), c:'#6b7280' };
+  if (/IZQUIERDA|OBRERA/.test(k)) return { n:'Izquierda / FIT', c:'#dc2626' };
+  if (/VECINAL|VECINOS/.test(k)) return { n:'Vecinal/Local', c:'#16a34a' };
+  const tc = name.trim().split(' ').map(w=>w.length?w[0].toUpperCase()+w.slice(1).toLowerCase():w).join(' ');
+  return { n:tc, c:'#6b7280' };
 }
 function _parseCSV(txt) {
-  const lines = txt.split(/\r?\n/); const hdr = lines[0].split(',');
+  const lines = txt.split(/\r?\n/);
+  const hdr = lines[0].split(',');
   return lines.slice(1).filter(l=>l.trim()).map(l=>{
     const vals=[]; let cur='', inQ=false;
-    for(const c of l){ if(c==='"')inQ=!inQ; else if(c===','&&!inQ){vals.push(cur);cur='';}else cur+=c; }
+    for(const ch of l){ if(ch==='"')inQ=!inQ; else if(ch===','&&!inQ){vals.push(cur);cur='';}else cur+=ch; }
     vals.push(cur);
     const o={}; hdr.forEach((h,i)=>o[h.trim()]=(vals[i]||'').replace(/^"|"$/g,'').trim()); return o;
   });
 }
-window.electoralData = {}; window._elecDataReady = false;
+window.electoralData = {}; window.electoralSeccional = {}; window.electoralMuniSec = {}; window._elecDataReady = false;
 (async function(){
   try {
     const r = await fetch('bsas_electoral_maestro.csv');
@@ -433,13 +441,14 @@ window.electoralData = {}; window._elecDataReady = false;
     const rows = _parseCSV(txt);
     const grouped = {};
     rows.forEach(row=>{
-      const { municipio, anio, partido, porcentaje, intendente_electo, participacion_pct, total_electores } = row;
+      const { municipio, anio, partido, porcentaje, intendente_electo, participacion_pct, total_electores, seccion } = row;
       if(!municipio||!anio) return;
+      window.electoralMuniSec[municipio] = seccion;
       if(!grouped[municipio]) grouped[municipio]={};
-      const et = ELEC_TYPES[anio]||{tipo:'legislativas',label:anio,icon:'📊'};
+      const et = ELECTION_TYPES[anio]||{tipo:'legislativas',label:anio};
       if(!grouped[municipio][anio]) grouped[municipio][anio]={
-        tipo:et.tipo, label:et.label, icon:et.icon,
-        intendente:'', participacion:parseFloat(participacion_pct)||0,
+        tipo:et.tipo, label:et.label, intendente:'',
+        participacion:parseFloat(participacion_pct)||0,
         electores:parseInt(total_electores)||0, _sums:{}
       };
       const nm = _normParty(partido);
@@ -454,11 +463,29 @@ window.electoralData = {}; window._elecDataReady = false;
         const d=grouped[m][yr];
         const fuerzas=Object.entries(d._sums)
           .map(([n,v])=>({nombre:n,pct:Math.round(v.pct*10)/10,color:v.color}))
-          .sort((a,b)=>b.pct-a.pct).slice(0,4);
-        window.electoralData[m][yr]={tipo:d.tipo,label:d.label,icon:d.icon,intendente:d.intendente,participacion:d.participacion,electores:d.electores,fuerzas};
+          .sort((a,b)=>b.pct-a.pct).slice(0,5);
+        window.electoralData[m][yr]={tipo:d.tipo,label:d.label,intendente:d.intendente,participacion:d.participacion,electores:d.electores,fuerzas};
       });
     });
-    window._elecDataReady=true;
+    // Build seccional aggregates for 2023
+    const secAgg = {}; // { secNum: { partyName: [pcts] } }
+    Object.keys(window.electoralData).forEach(m=>{
+      const sec = window.electoralMuniSec[m];
+      if (!sec) return;
+      const d = window.electoralData[m]['2023'];
+      if (!d) return;
+      if (!secAgg[sec]) secAgg[sec] = {};
+      d.fuerzas.forEach(f=>{
+        if(!secAgg[sec][f.nombre]) secAgg[sec][f.nombre]={sum:0,cnt:0,color:f.color};
+        secAgg[sec][f.nombre].sum += f.pct; secAgg[sec][f.nombre].cnt++;
+      });
+    });
+    Object.keys(secAgg).forEach(sec=>{
+      window.electoralSeccional[sec] = Object.entries(secAgg[sec])
+        .map(([n,v])=>({nombre:n, pct:Math.round(v.sum/v.cnt*10)/10, color:v.color}))
+        .sort((a,b)=>b.pct-a.pct).slice(0,4);
+    });
+    window._elecDataReady = true;
   } catch(e){ console.warn('Electoral CSV load failed',e); window._elecDataReady=true; }
 })();
 
@@ -1009,233 +1036,308 @@ function renderDataTable() {
 // ── RENDER ELECTORAL TAB
 function renderElecTab(m, g) {
   if (!window._elecDataReady) {
-    let _retries=0;
-    const _wait=setInterval(()=>{ _retries++;
-      if(window._elecDataReady||_retries>50){ clearInterval(_wait);
+    let _r=0; const _w=setInterval(()=>{ _r++;
+      if(window._elecDataReady||_r>80){ clearInterval(_w);
         const el=document.getElementById('dt-elec');
-        if(el&&el.classList.contains('active')){ el.innerHTML=renderElecTab(m,g); setTimeout(_renderElecCharts,50); }
+        if(el&&el.classList.contains('active')){ el.innerHTML=renderElecTab(m,g); setTimeout(_renderElecCharts,60); }
       }
     },100);
-    return '<div style="padding:24px;color:var(--t3);font-size:12px">Cargando datos electorales…</div>';
+    return '<div style="padding:24px;color:#94a3b8;font-size:12px">Cargando datos electorales...</div>';
   }
   const mData = window.electoralData[m] || {};
   const pData = PRES_DATA[m] || {};
-  const elecYrs = ['2013','2015','2017','2019','2021','2023','2025'];
-  const intYrs  = ['2015','2019','2023'];
-  const yrsWithData = elecYrs.filter(yr => mData[yr]);
-  if (!yrsWithData.length) return '<div style="padding:24px;color:var(--t3);font-size:12px">Sin datos electorales disponibles para este municipio.</div>';
+  const ALL_YRS = ['2013','2015','2017','2019','2021','2023','2025'];
+  const INT_YRS = ['2015','2019','2023'];
 
-  // Prep chart globals
-  window._elecLineData2 = { yrs: elecYrs, mData };
-  window._elecPresData  = { pData, mData, hasData: Object.keys(pData).length>0 };
+  if (!Object.keys(mData).length) return '<div style="padding:24px;color:#94a3b8;font-size:12px">Sin datos electorales disponibles para este municipio.</div>';
 
-  // Banner
+  // ── Compute summary stats
   const forceWins={};
-  intYrs.filter(yr=>mData[yr]).forEach(yr=>{ const f=mData[yr]?.fuerzas?.[0]?.nombre; if(f) forceWins[f]=(forceWins[f]||0)+1; });
-  const top = Object.entries(forceWins).sort((a,b)=>b[1]-a[1])[0];
+  INT_YRS.filter(yr=>mData[yr]).forEach(yr=>{ const f=mData[yr]?.fuerzas?.[0]?.nombre; if(f) forceWins[f]=(forceWins[f]||0)+1; });
+  const topEntry = Object.entries(forceWins).sort((a,b)=>b[1]-a[1])[0];
   const last23 = mData['2023']?.fuerzas?.[0];
   const last19 = mData['2019']?.fuerzas?.[0];
   const changed = last23&&last19&&last23.nombre!==last19.nombre;
-  const intOnly = intYrs.filter(yr=>mData[yr]);
+  const intOnlyCount = INT_YRS.filter(yr=>mData[yr]).length;
 
-  let h = '<div class="d-sec" style="padding-top:14px">';
+  // ── Store globals for chart rendering
+  window._elecChartData = { m, mData, pData };
 
-  if (top) {
-    const bc = last23?.color||'#0ea5e9';
-    h += `<div class="elec-winner-banner" style="background:${bc}14;border:1px solid ${bc}30;margin-bottom:12px">
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-        <span>⭐</span>
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--t1)">Fuerza dominante 2015–2023: <span style="color:${bc}">${top[0]}</span></span>
-        <span style="font-size:11px;color:var(--t3)">· ganó ${top[1]} de ${intOnly.length} elecciones de intendente · Sección ${g.sec||'—'}</span>
-      </div>`;
-    if (changed) h += `<div style="margin-top:4px;font-size:11px;color:var(--t2)">🔄 Cambió de <span style="color:${last19.color}">${last19.nombre}</span> a <span style="color:${last23.color}">${last23.nombre}</span> en 2023</div>`;
-    if (mData['2023']?.intendente) h += `<div style="margin-top:3px;font-size:11px;color:var(--t2)">Intendente electo 2023: <strong>${mData['2023'].intendente}</strong></div>`;
+  // ── Section info
+  const secNum = window.electoralMuniSec[m] || '';
+  const secLabel = SEC_MAP[secNum] || g.sec || secNum;
+
+  // ─────────────────────────────────────────
+  // TYPE BADGE styles (no emojis)
+  const TBADGE = {
+    intendente:  'background:#FEF3C7;color:#92400E;',
+    concejales:  'background:#EFF6FF;color:#1D4ED8;',
+    legislativas:'background:#EDE9FE;color:#5B21B6;',
+  };
+
+  let h = '<div class="d-sec" style="padding:14px 0 0">';
+
+  // ── 1. BANNER
+  if (topEntry) {
+    const bc = last23?.color || '#64748b';
+    const firstYr = INT_YRS.find(yr=>mData[yr]) || '2015';
+    h += `<div style="background:${bc}18;border:1px solid ${bc}30;border-radius:6px;padding:10px 14px;margin-bottom:14px;font-size:12px">
+      <div style="color:#e2e8f0;font-weight:600">Fuerza dominante ${firstYr}–2023: <span style="color:${bc}">${topEntry[0]}</span> · ganó ${topEntry[1]} de ${intOnlyCount} elecciones de intendente · Sección ${secLabel}</div>`;
+    if (changed) h += `<div style="margin-top:4px;color:#94a3b8">Cambió de <span style="color:${last19.color}">${last19.nombre}</span> a <span style="color:${last23.color}">${last23.nombre}</span> en 2023</div>`;
+    if (mData['2023']?.intendente) h += `<div style="margin-top:4px;color:#94a3b8">Intendente electo 2023: <strong style="color:#e2e8f0">${mData['2023'].intendente}</strong></div>`;
     h += '</div>';
   }
 
-  // Table
-  const TB = {
-    intendente:   { bg:'#92400e22', bd:'#92400e55', txt:'#fbbf24', lbl:'⭐ Intendente' },
-    concejales:   { bg:'#1e3a8a22', bd:'#1e3a8a55', txt:'#60a5fa', lbl:'🏛️ Concejales' },
-    legislativas: { bg:'#4c1d9522', bd:'#4c1d9555', txt:'#a78bfa', lbl:'📊 Legislativas' },
-  };
+  // ── 2. TABLE
   function fCell(f) {
-    if (!f) return '<td style="padding:6px 10px;color:var(--t3)">—</td>';
-    return `<td style="padding:6px 10px"><span class="elec-dot" style="background:${f.color}"></span><span style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:var(--t1)">${f.nombre}</span><span style="color:var(--t3);font-size:10px;margin-left:4px">${f.pct}%</span></td>`;
+    if(!f) return '<td style="padding:4px 8px;color:#475569;font-size:11px">—</td>';
+    return `<td style="padding:4px 8px"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${f.color};margin-right:4px;vertical-align:middle"></span><span style="font-size:11px;font-weight:600;color:#e2e8f0">${f.nombre}</span><span style="color:#64748b;font-size:10px;margin-left:3px">${f.pct}%</span></td>`;
   }
-
-  h += '<div class="d-sec-ttl">Historia Electoral · 2013 – 2025</div>';
-  h += `<div class="elec-tbl"><table><thead><tr>
-    <th style="width:65px">Año</th>
-    <th style="width:105px">Tipo</th>
-    <th>1° Fuerza</th><th>2° Fuerza</th><th>3° Fuerza</th>
-    <th style="width:65px;text-align:right">Part.%</th>
-  </tr></thead><tbody>`;
-
-  elecYrs.forEach(yr => {
+  h += '<div style="overflow:auto"><table style="width:100%;border-collapse:collapse;font-size:12px">';
+  h += '<thead><tr style="border-bottom:1px solid rgba(255,255,255,.08)">';
+  h += '<th style="padding:5px 8px;text-align:left;color:#94a3b8;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap">Año</th>';
+  h += '<th style="padding:5px 8px;text-align:left;color:#94a3b8;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Tipo</th>';
+  h += '<th style="padding:5px 8px;text-align:left;color:#94a3b8;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em">1ª Fuerza</th>';
+  h += '<th style="padding:5px 8px;text-align:left;color:#94a3b8;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em">2ª Fuerza</th>';
+  h += '<th style="padding:5px 8px;text-align:left;color:#94a3b8;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em">3ª Fuerza</th>';
+  h += '<th style="padding:5px 8px;text-align:right;color:#94a3b8;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Part.%</th>';
+  h += '</tr></thead><tbody>';
+  ALL_YRS.forEach(yr=>{
     const d = mData[yr];
-    if (!d) { h+=`<tr style="opacity:.28"><td style="padding:5px 10px;font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--t3)">${yr}</td><td colspan="5" style="padding:5px 10px;font-size:10px;color:var(--t3)">Sin datos</td></tr>`; return; }
-    const tb = TB[d.tipo]||TB.legislativas;
-    const wc = d.fuerzas?.[0]?.color||'transparent';
-    let yn = `<span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--t1)">${yr}</span>`;
-    if (d.intendente && d.tipo==='intendente') yn += `<br><span style="font-size:9px;font-family:'Barlow',sans-serif;font-weight:400;color:var(--t3)">${d.intendente.split(' ').slice(0,3).join(' ')}</span>`;
-    h += `<tr style="border-left:3px solid ${wc}55">
-      <td style="padding:6px 10px">${yn}</td>
-      <td style="padding:5px 8px"><span style="background:${tb.bg};border:1px solid ${tb.bd};color:${tb.txt};font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;letter-spacing:.04em;white-space:nowrap">${tb.lbl}</span></td>
+    const wc = d?.fuerzas?.[0]?.color||'#334155';
+    const tipo = d?.tipo || (ELECTION_TYPES[yr]?.tipo||'');
+    const badgeStyle = TBADGE[tipo]||TBADGE.legislativas;
+    let yrCell = `<div style="font-weight:700;color:#e2e8f0;font-size:12px">${yr}</div>`;
+    if(d?.intendente && tipo==='intendente') yrCell += `<div style="font-size:9px;color:#64748b;margin-top:1px;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${d.intendente}</div>`;
+    if (!d) {
+      h += `<tr style="border-bottom:1px solid rgba(255,255,255,.04);opacity:.35"><td style="padding:4px 8px">${yrCell}</td><td colspan="5" style="padding:4px 8px;color:#475569;font-size:11px">Sin datos</td></tr>`;
+      return;
+    }
+    h += `<tr style="border-bottom:1px solid rgba(255,255,255,.04);border-left:2px solid ${wc}55">
+      <td style="padding:4px 8px">${yrCell}</td>
+      <td style="padding:4px 8px"><span style="${badgeStyle}font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;white-space:nowrap">${d.label}</span></td>
       ${fCell(d.fuerzas?.[0])}${fCell(d.fuerzas?.[1])}${fCell(d.fuerzas?.[2])}
-      <td style="padding:6px 10px;text-align:right;font-size:11px;color:var(--t3)">${d.participacion?d.participacion.toFixed(1)+'%':'—'}</td>
+      <td style="padding:4px 8px;text-align:right;font-size:11px;color:#64748b">${d.participacion?d.participacion.toFixed(1)+'%':'—'}</td>
     </tr>`;
   });
   h += '</tbody></table></div>';
 
-  // Line chart
-  h += '<div style="margin:14px 0 4px;font-family:\'Barlow Condensed\',sans-serif;font-size:12px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.04em">Evolución histórica % votos · 2013 – 2025</div>';
-  h += '<div style="position:relative;height:190px;margin-bottom:12px"><canvas id="elecLineChart"></canvas></div>';
+  // ── 3. LINE CHART
+  h += '<div style="margin:16px 0 4px;font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em">Evolución histórica % votos · 2013–2025</div>';
+  h += '<div style="position:relative;height:190px;margin-bottom:4px"><canvas id="elecLineChart"></canvas></div>';
+  h += '<div style="font-size:9px;color:#475569;margin-bottom:12px">Fuente: Junta Electoral PBA · ⭐ = año con elección de intendente</div>';
 
-  // 2025 mini-panel
+  // ── 4. PANEL 2025
   if (mData['2025']) {
     const f25 = mData['2025'].fuerzas||[];
-    const leader = f25[0];
-    h += `<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 12px;margin-bottom:12px">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--t3);margin-bottom:8px">📊 ¿Qué pasó en las legislativas 2025?
-        <span style="font-weight:400;color:var(--t3);margin-left:6px">Dato de concejales — sin elección de intendente</span>
-      </div>`;
-    if (leader?.nombre==='La Libertad Avanza') h += `<span style="display:inline-flex;align-items:center;gap:5px;background:#7c3aed22;border:1px solid #7c3aed44;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;color:#a78bfa;letter-spacing:.06em;margin-bottom:6px;text-transform:uppercase">LLA lidera en 2025</span>`;
-    if (leader?.nombre==='PJ / Peronismo') h += `<span style="display:inline-flex;align-items:center;gap:5px;background:#2563eb22;border:1px solid #2563eb44;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;color:#60a5fa;letter-spacing:.06em;margin-bottom:6px;text-transform:uppercase">PJ / Peronismo lidera en 2025</span>`;
+    const leader25 = f25[0];
+    h += `<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 14px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap">
+        <span style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em">Legislativas 2025</span>
+        <span style="font-size:10px;color:#475569">Dato de concejales — sin elección de intendente</span>`;
+    if(leader25?.nombre==='La Libertad Avanza') h+=`<span style="background:#7c3aed22;border:1px solid #7c3aed44;color:#a78bfa;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;text-transform:uppercase;letter-spacing:.04em">LLA lidera en 2025</span>`;
+    h += `</div>`;
     f25.slice(0,3).forEach(f=>{
-      const w=Math.min(Math.round(f.pct*0.75),99);
-      h+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-        <div style="width:120px;font-size:10px;color:var(--t2);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${f.nombre}</div>
-        <div style="flex:1;background:rgba(255,255,255,.06);border-radius:2px;height:10px">
-          <div style="width:${w}%;background:${f.color};height:100%;border-radius:2px;transition:width .4s"></div>
+      const w=Math.min(Math.round(f.pct*0.8),98);
+      h+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+        <div style="width:130px;text-align:right;font-size:10px;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${f.nombre}</div>
+        <div style="flex:1;background:rgba(255,255,255,.07);border-radius:2px;height:10px">
+          <div style="width:${w}%;background:${f.color};height:100%;border-radius:2px"></div>
         </div>
-        <div style="width:35px;font-size:10px;color:var(--t2);text-align:right">${f.pct}%</div>
+        <div style="width:38px;font-size:10px;color:#e2e8f0;text-align:right;font-weight:600">${f.pct}%</div>
       </div>`;
     });
     h += '</div>';
   }
 
-  // Comparison chart
-  if (Object.keys(pData).length > 0) {
-    h += '<div style="margin:4px 0;font-family:\'Barlow Condensed\',sans-serif;font-size:12px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.04em">Intendente vs Presidente (2015–2023)</div>';
-    h += '<div style="position:relative;height:180px;margin-bottom:8px"><canvas id="elecCompChart"></canvas></div>';
-    const compForcesSet = new Set();
-    ['2015','2019','2023'].forEach(yr => {
-      (mData[yr]?.fuerzas||[]).forEach(f=>{ if(f.nombre!=='Vecinal / Local') compForcesSet.add(f.nombre); });
-      (pData[yr]||[]).forEach(f=>{ if(f.f!=='Otros') compForcesSet.add(f.f); });
-    });
-    const colorMap2 = {'PJ / Peronismo':'#2563eb','Juntos x el Cambio':'#d97706','La Libertad Avanza':'#7c3aed','Frente Renovador':'#0891b2','UCR / Progresistas':'#ea580c','Izquierda / FIT':'#dc2626'};
-    const compRows=[];
-    ['2015','2019','2023'].forEach(yr=>{
-      [...compForcesSet].forEach(force=>{
-        const iv=(mData[yr]?.fuerzas||[]).find(f=>f.nombre===force)?.pct||0;
-        const pv=(pData[yr]||[]).find(f=>f.f===force)?.p||0;
-        if(iv>0||pv>0) compRows.push({yr,force,iv,pv,c:colorMap2[force]||'#94a3b8'});
-      });
-    });
-    window._elecCompRows2=compRows;
-    h += `<div style="display:flex;flex-wrap:wrap;gap:5px;padding:4px 0 8px;font-size:10px;color:var(--t2)">`;
-    [...compForcesSet].forEach(f=>{ const c=colorMap2[f]||'#94a3b8'; h+=`<span style="display:inline-flex;align-items:center;gap:3px"><span class="elec-dot" style="background:${c}"></span>${f}</span>`; });
-    h += `<span style="color:var(--t3);margin-left:8px">■ sólido = Intendente · □ semitransparente = Presidente</span></div>`;
+  // ── 5. INT vs PRES CHART
+  h += '<div style="margin:4px 0 4px;font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em">Intendente vs Presidente · 2015–2023</div>';
+  h += '<div style="position:relative;height:175px;margin-bottom:4px"><canvas id="elecCompChart"></canvas></div>';
+  h += '<div style="font-size:9px;color:#475569;margin-bottom:14px">Sólido = resultado intendente municipal · Semi-transparente = resultado presidencial PBA</div>';
+
+  // ── 6. COMPETITIVENESS
+  h += '<div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">Índice de competitividad</div>';
+  h += '<div style="display:flex;gap:10px;margin-bottom:6px">';
+  let competLabels=[];
+  INT_YRS.forEach(yr=>{
+    const d=mData[yr]; if(!d||!d.fuerzas||d.fuerzas.length<2){
+      h+=`<div style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px;text-align:center"><div style="font-size:10px;color:#475569">Margen ${yr}</div><div style="font-size:18px;font-weight:700;color:#475569;margin:4px 0">—</div></div>`;
+      return;
+    }
+    const margin = Math.round((d.fuerzas[0].pct - d.fuerzas[1].pct)*10)/10;
+    const [bg,bd,tc] = margin<10?['#dc262618','#dc262640','#f87171']:margin<=25?['#eab30818','#eab30840','#fde047']:['#16a34a18','#16a34a40','#4ade80'];
+    const word = margin<10?'Muy competido':margin<=25?'Disputado':'Bastión';
+    competLabels.push(word);
+    h+=`<div style="flex:1;background:${bg};border:1px solid ${bd};border-radius:6px;padding:10px;text-align:center">
+      <div style="font-size:10px;color:#94a3b8">Margen ${yr}</div>
+      <div style="font-size:20px;font-weight:700;color:${tc};margin:4px 0">+${margin}pts</div>
+      <div style="font-size:9px;color:${tc};text-transform:uppercase;letter-spacing:.04em">${word}</div>
+    </div>`;
+  });
+  h += '</div>';
+  if(competLabels.length){
+    const freq={}; competLabels.forEach(l=>freq[l]=(freq[l]||0)+1);
+    const dominant=Object.entries(freq).sort((a,b)=>b[1]-a[1])[0][0];
+    const [dc]={Bastión:'#4ade80','Muy competido':'#f87171',Disputado:'#fde047'}[dominant]?[{Bastión:'#4ade80','Muy competido':'#f87171',Disputado:'#fde047'}[dominant]]:['#94a3b8'];
+    h+=`<div style="font-size:11px;color:${dc};margin-bottom:14px">Municipio <strong>${dominant.toLowerCase()}</strong> históricamente</div>`;
   }
 
-  h += `<div style="padding:4px 0 12px;font-size:10px;color:var(--t3)">
-    <strong>Colores:</strong>
-    ${[['#2563eb','PJ / Peronismo'],['#d97706','Juntos x el Cambio'],['#7c3aed','La Libertad Avanza'],['#0891b2','Frente Renovador'],['#ea580c','UCR / Prog.'],['#dc2626','Izq. / FIT'],['#16a34a','Vecinal/Local']].map(([c,l])=>`<span style="display:inline-flex;align-items:center;gap:3px;margin-left:5px"><span class="elec-dot" style="background:${c}"></span>${l}</span>`).join('')}
-    <span style="display:block;margin-top:3px">Fuente: Junta Electoral PBA · ⭐ = elección de intendente · ○ punto hueco = solo concejales/legislativas</span>
-  </div>`;
+  // ── 7. SECCIONAL COMPARISON
+  const secFuerzas = window.electoralSeccional[secNum];
+  const muniF23 = mData['2023']?.fuerzas||[];
+  if(muniF23.length && secFuerzas) {
+    h += '<div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">Comparación seccional · 2023</div>';
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">';
+    function miniBar(fuerzas, title) {
+      let s=`<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px">
+        <div style="font-size:10px;font-weight:600;color:#94a3b8;margin-bottom:8px">${title}</div>`;
+      fuerzas.slice(0,3).forEach(f=>{
+        const w=Math.min(Math.round(f.pct),98);
+        s+=`<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">
+          <div style="flex:1;font-size:10px;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${f.nombre}</div>
+          <div style="width:60px;background:rgba(255,255,255,.07);border-radius:2px;height:8px">
+            <div style="width:${w}%;background:${f.color};height:100%;border-radius:2px"></div>
+          </div>
+          <div style="width:32px;font-size:10px;color:#e2e8f0;text-align:right;font-weight:600">${f.pct}%</div>
+        </div>`;
+      });
+      return s+'</div>';
+    }
+    h += miniBar(muniF23, `${g.nd||m} en 2023`);
+    h += miniBar(secFuerzas, `Promedio Sección ${secLabel} en 2023`);
+    h += '</div>';
+  }
+
+  // ── 8. PESO PROPIO
+  if(mData['2023']?.fuerzas?.length) {
+    const winner23 = mData['2023'].fuerzas[0];
+    const presRef = PRES_PBA['2023']?.find(f=>f.n===winner23.nombre);
+    if(presRef) {
+      const delta = Math.round((winner23.pct - presRef.p)*10)/10;
+      const abs = Math.abs(delta);
+      const [dc,msg] = delta>3
+        ? [winner23.color, `El intendente electo superó al resultado presidencial de su espacio por +${abs} pts → peso propio alto`]
+        : delta<-3
+        ? ['#f87171', `El intendente electo estuvo ${abs} pts por debajo del resultado presidencial de su espacio`]
+        : ['#94a3b8', 'Resultado alineado con el arrastre nacional'];
+      h += `<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:10px 14px;margin-bottom:14px">
+        <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Peso propio del intendente · 2023</div>
+        <div style="font-size:11px;color:${dc}">${msg}</div>
+        <div style="font-size:10px;color:#475569;margin-top:3px">${winner23.nombre}: ${winner23.pct}% local vs ${presRef.p}% prov. PBA</div>
+      </div>`;
+    }
+  }
+
+  // ── 9. PARTICIPATION SERIES
+  h += '<div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin:4px 0">Participación electoral · 2013–2025</div>';
+  h += '<div style="position:relative;height:150px;margin-bottom:4px"><canvas id="elecPartChart"></canvas></div>';
+  h += '<div style="font-size:9px;color:#475569;padding-bottom:16px">Fuente: padrón electoral PBA · ⭐ = año con elección de intendente</div>';
+
   h += '</div>';
   return h;
 }
 
 function _renderElecCharts() {
-  // Chart 1: Line chart
-  const ld = window._elecLineData2;
-  if (!ld) return;
-  const MAIN_FORCES = ['PJ / Peronismo','Juntos x el Cambio','La Libertad Avanza','Frente Renovador','UCR / Progresistas'];
-  const FORCE_COLORS = {'PJ / Peronismo':'#2563eb','Juntos x el Cambio':'#d97706','La Libertad Avanza':'#7c3aed','Frente Renovador':'#0891b2','UCR / Progresistas':'#ea580c'};
-  const INT_YRS = new Set(['2015','2019','2023']);
+  const cd = window._elecChartData;
+  if (!cd) return;
+  const { mData, pData } = cd;
+  const ALL_YRS = ['2013','2015','2017','2019','2021','2023','2025'];
+  const INT_YRS_SET = new Set(['2015','2019','2023']);
+  const FORCE_COLORS = {'PJ / Peronismo':'#2563eb','Juntos x el Cambio':'#eab308','La Libertad Avanza':'#7c3aed','Frente Renovador':'#0891b2','UCR / Progresistas':'#ea580c','Izquierda / FIT':'#dc2626','Vecinal/Local':'#16a34a'};
+  const CHART_DEFAULTS = { responsive:true, maintainAspectRatio:false, animation:{ duration:400 },
+    plugins:{ legend:{ position:'bottom', labels:{ color:'#94a3b8', font:{size:10}, boxWidth:12, padding:8 }} },
+    scales:{
+      x:{ ticks:{color:'#64748b',font:{size:10}}, grid:{color:'rgba(148,163,184,0.08)'} },
+      y:{ ticks:{color:'#64748b',font:{size:10}}, grid:{color:'rgba(148,163,184,0.08)'} }
+    }
+  };
 
+  // ── CHART 1: LINE (evolution)
   const lc = document.getElementById('elecLineChart');
   if (lc) {
-    if (lc._chartInst) lc._chartInst.destroy();
-    // Collect forces present, prioritize main forces
-    const allF = new Set(); ld.yrs.forEach(yr=>(ld.mData[yr]?.fuerzas||[]).forEach(f=>allF.add(f.nombre)));
-    const forces = [...MAIN_FORCES.filter(f=>allF.has(f)), ...[...allF].filter(f=>!MAIN_FORCES.includes(f)&&f!=='Vecinal / Local')].slice(0,5);
-    const datasets = forces.map(force => {
-      const data = ld.yrs.map(yr => (ld.mData[yr]?.fuerzas||[]).find(f=>f.nombre===force)?.pct ?? null);
-      const color = FORCE_COLORS[force] || '#94a3b8';
+    if (lc._ci) lc._ci.destroy();
+    // Collect forces with >10% in any year
+    const forceMax = {};
+    ALL_YRS.forEach(yr=>(mData[yr]?.fuerzas||[]).forEach(f=>{ forceMax[f.nombre]=Math.max(forceMax[f.nombre]||0, f.pct); }));
+    const forces = Object.entries(forceMax).filter(([,v])=>v>=10).sort((a,b)=>b[1]-a[1]).map(([n])=>n).slice(0,5);
+    const datasets = forces.map(force=>{
+      const color = FORCE_COLORS[force]||'#94a3b8';
+      const data = ALL_YRS.map(yr=>(mData[yr]?.fuerzas||[]).find(f=>f.nombre===force)?.pct??null);
       return {
-        label: force, data, borderColor: color,
-        backgroundColor: color + '20', borderWidth: 2,
-        pointRadius: ld.yrs.map(yr => data[ld.yrs.indexOf(yr)]!==null ? 4 : 0),
-        pointStyle: ld.yrs.map(yr => INT_YRS.has(yr) ? 'circle' : 'rectRot'),
-        pointBackgroundColor: ld.yrs.map(yr => INT_YRS.has(yr) ? color : 'transparent'),
-        pointBorderColor: color,
-        pointBorderWidth: 2,
-        tension: 0.3, spanGaps: true
+        label:force, data, borderColor:color, borderWidth:2,
+        backgroundColor: color+'18',
+        pointRadius: ALL_YRS.map(yr=>data[ALL_YRS.indexOf(yr)]!==null?4:0),
+        pointBackgroundColor: ALL_YRS.map(yr=>INT_YRS_SET.has(yr)?color:'transparent'),
+        pointBorderColor: color, pointBorderWidth:2, pointStyle:'circle',
+        tension:0.25, spanGaps:true, fill:false
       };
     });
-    lc._chartInst = new Chart(lc, {
-      type:'line',
-      data:{ labels: ld.yrs, datasets },
-      options:{
-        responsive:true, maintainAspectRatio:false,
-        plugins:{
-          legend:{ position:'bottom', labels:{ font:{size:10}, boxWidth:12, padding:8,
-            generateLabels: chart => chart.data.datasets.map((ds,i)=>({ text:ds.label, fillStyle:ds.borderColor, strokeStyle:ds.borderColor, lineWidth:2, hidden:false, index:i, datasetIndex:i }))
-          }},
-          tooltip:{ callbacks:{
-            label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y}%`,
-            afterLabel: ctx => {
-              const yr = ld.yrs[ctx.dataIndex];
-              const d = ld.mData[yr];
-              return d?.intendente ? `Intendente: ${d.intendente}` : '';
-            }
+    lc._ci = new Chart(lc, { type:'line', data:{ labels:ALL_YRS, datasets },
+      options:{ ...CHART_DEFAULTS,
+        plugins:{ ...CHART_DEFAULTS.plugins,
+          tooltip:{ callbacks:{ label: ctx=>`${ctx.dataset.label}: ${ctx.parsed.y}%`,
+            afterLabel: ctx=>{ const yr=ALL_YRS[ctx.dataIndex]; return mData[yr]?.intendente?`Intendente: ${mData[yr].intendente}`:''; }
           }}
         },
+        scales:{ x:CHART_DEFAULTS.scales.x, y:{ ...CHART_DEFAULTS.scales.y, min:0, max:100, ticks:{...CHART_DEFAULTS.scales.y.ticks, callback:v=>v+'%'} } }
+      }
+    });
+  }
+
+  // ── CHART 2: INT vs PRES grouped bars
+  const cc = document.getElementById('elecCompChart');
+  if (cc) {
+    if (cc._ci) cc._ci.destroy();
+    const CMP_YRS = ['2015','2019','2023'];
+    const allForces = new Set();
+    CMP_YRS.forEach(yr=>{
+      (mData[yr]?.fuerzas||[]).forEach(f=>allForces.add(f.nombre));
+      (PRES_PBA[yr]||[]).forEach(f=>allForces.add(f.n));
+    });
+    const forces=[...allForces].filter(f=>f!=='Vecinal/Local');
+    const intDs = forces.map(force=>({
+      label:force, stack:'I',
+      data: CMP_YRS.map(yr=>(mData[yr]?.fuerzas||[]).find(f=>f.nombre===force)?.pct||0),
+      backgroundColor:(FORCE_COLORS[force]||'#6b7280')+'cc', borderColor:FORCE_COLORS[force]||'#6b7280', borderWidth:1.5
+    }));
+    const presDs = forces.map(force=>({
+      label:force+' (Pres.)', stack:'P',
+      data: CMP_YRS.map(yr=>(PRES_PBA[yr]||[]).find(f=>f.n===force)?.p||0),
+      backgroundColor:(FORCE_COLORS[force]||'#6b7280')+'44', borderColor:FORCE_COLORS[force]||'#6b7280', borderWidth:1, borderDash:[3,3]
+    }));
+    cc._ci = new Chart(cc, { type:'bar', data:{ labels:CMP_YRS, datasets:[...intDs,...presDs] },
+      options:{ ...CHART_DEFAULTS,
+        plugins:{ legend:{display:false}, tooltip:{ callbacks:{
+          title:([ctx])=>ctx.label,
+          label:ctx=>`${ctx.dataset.stack==='I'?'Intendente':'Pres. PBA'} · ${ctx.dataset.label.replace(' (Pres.)','')}: ${ctx.parsed.y}%`
+        }}},
         scales:{
-          y:{ min:0, max:100, ticks:{ font:{size:10}, callback: v=>v+'%' }, grid:{color:'#e2e8f011'} },
-          x:{ ticks:{font:{size:10}}, grid:{display:false} }
+          x:{ ...CHART_DEFAULTS.scales.x, stacked:true },
+          y:{ ...CHART_DEFAULTS.scales.y, stacked:true, min:0, max:100, ticks:{...CHART_DEFAULTS.scales.y.ticks, callback:v=>v+'%'} }
         }
       }
     });
   }
 
-  // Chart 2: Intendente vs Presidente
-  const cc = document.getElementById('elecCompChart');
-  const rows = window._elecCompRows2 || window._elecCompRows || [];
-  if (cc && rows.length > 0) {
-    if (cc._chartInst) cc._chartInst.destroy();
-    const yrs = ['2015','2019','2023'];
-    const forces = [...new Set(rows.map(r=>r.force))];
-    const intDs = forces.map(force=>({
-      label: force, stack:'int',
-      data: yrs.map(yr=>rows.find(r=>r.yr===yr&&r.force===force)?.iv||0),
-      backgroundColor: (rows.find(r=>r.force===force)?.c||'#94a3b8')+'cc',
-      borderColor: rows.find(r=>r.force===force)?.c||'#94a3b8', borderWidth:2,
-    }));
-    const presDs = forces.map(force=>({
-      label: force+' (Pres)', stack:'pres',
-      data: yrs.map(yr=>rows.find(r=>r.yr===yr&&r.force===force)?.pv||rows.find(r=>r.yr===yr&&r.force===force)?.presVal||0),
-      backgroundColor: (rows.find(r=>r.force===force)?.c||'#94a3b8')+'44',
-      borderColor: rows.find(r=>r.force===force)?.c||'#94a3b8', borderWidth:1,
-    }));
-    cc._chartInst = new Chart(cc,{
-      type:'bar',
-      data:{ labels:yrs, datasets:[...intDs,...presDs] },
-      options:{
-        responsive:true, maintainAspectRatio:false,
+  // ── CHART 3: PARTICIPATION area
+  const pc = document.getElementById('elecPartChart');
+  if (pc) {
+    if (pc._ci) pc._ci.destroy();
+    const data = ['2013','2015','2017','2019','2021','2023','2025'].map(yr=>mData[yr]?.participacion??null);
+    pc._ci = new Chart(pc, { type:'line',
+      data:{ labels:['2013','2015','2017','2019','2021','2023','2025'],
+        datasets:[{ label:'Participación %', data, borderColor:'#94a3b8', backgroundColor:'rgba(148,163,184,0.12)',
+          fill:true, borderWidth:2, pointRadius:4, pointBackgroundColor:'#94a3b8',
+          pointBorderColor:'#0f172a', pointBorderWidth:2, tension:0.2, spanGaps:true }]
+      },
+      options:{ ...CHART_DEFAULTS,
         plugins:{ legend:{display:false},
-          tooltip:{ callbacks:{
-            title:([ctx])=>ctx.label,
-            label: ctx => `${ctx.dataset.stack==='int'?'Intendente':'Presidente'} · ${ctx.dataset.label.replace(' (Pres)','')}: ${ctx.parsed.y}%`
+          tooltip:{ callbacks:{ label:ctx=>`Participación: ${ctx.parsed.y}%`,
+            afterLabel:ctx=>{ const yr=['2013','2015','2017','2019','2021','2023','2025'][ctx.dataIndex]; return INT_YRS_SET.has(yr)?'⭐ Año con elección de intendente':''; }
           }}
         },
-        scales:{
-          x:{stacked:true,ticks:{font:{size:11}},grid:{display:false}},
-          y:{stacked:true,min:0,max:100,ticks:{font:{size:10},callback:v=>v+'%'},grid:{color:'#e2e8f011'}}
-        }
+        scales:{ x:CHART_DEFAULTS.scales.x, y:{ ...CHART_DEFAULTS.scales.y, min:0, max:100,
+          ticks:{...CHART_DEFAULTS.scales.y.ticks, callback:v=>v+'%'} } }
       }
     });
   }
