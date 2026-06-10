@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Municipal Integral — Alsina Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grafito:#0e1c20;--grafito2:#162429;--grafito3:#1e2f35;
+  --turquesa:#00D5D8;--cian:#008C9A;--crema:#F3EFE7;
+  --concreto:#9e9992;--sombra:#1C3C44;--blanco:#ffffff;
+  --verde:#52C78C;--rojo:#E05252;--amarillo:#F5C842;
+  --gris1:#f5f8f9;--gris2:#e0eaec;--text1:#1a2a30;--text2:#4a6060;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--blanco);color:var(--text1);font-family:'Barlow',sans-serif;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:14px 52px;background:rgba(14,28,32,0.97);box-shadow:0 2px 30px rgba(0,0,0,0.35);}
+.nav-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;color:var(--turquesa);letter-spacing:.08em;text-decoration:none;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{color:var(--concreto);text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.05em;transition:color .2s;}
+.nav-links a:hover{color:var(--turquesa);}
+.nav-cta{background:var(--cian);color:var(--blanco)!important;padding:8px 18px;border-radius:4px;font-weight:600!important;}
+.nav-cta:hover{background:var(--turquesa)!important;}
+
+/* ── HERO ── */
+.hero{min-height:100vh;background:var(--grafito);display:flex;align-items:center;position:relative;overflow:hidden;padding:100px 52px 60px;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0e1c20 0%,#1C3C44 50%,#0e1c20 100%);opacity:0.98;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--grafito3) 1px,transparent 1px),linear-gradient(90deg,var(--grafito3) 1px,transparent 1px);background-size:48px 48px;opacity:0.3;}
+.hero-content{position:relative;z-index:2;max-width:680px;}
+.hero-chip{display:inline-flex;align-items:center;gap:8px;background:rgba(0,213,216,.12);border:1px solid rgba(0,213,216,.3);color:var(--turquesa);padding:6px 14px;border-radius:20px;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:28px;}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.8rem,6vw,4.8rem);line-height:1.0;color:var(--blanco);margin-bottom:12px;}
+.hero h1 em{color:var(--turquesa);font-style:normal;}
+.hero-sub{font-size:1.1rem;color:var(--concreto);line-height:1.6;max-width:520px;margin-bottom:36px;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-primary{background:var(--turquesa);color:var(--grafito);padding:14px 28px;border-radius:5px;font-weight:700;font-size:.92rem;letter-spacing:.05em;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-primary:hover{background:var(--blanco);transform:translateY(-2px);}
+.btn-outline{border:1.5px solid var(--cian);color:var(--turquesa);padding:14px 28px;border-radius:5px;font-weight:600;font-size:.92rem;text-decoration:none;transition:all .2s;}
+.btn-outline:hover{background:rgba(0,213,216,.1);}
+.hero-stats{position:relative;z-index:2;display:flex;gap:40px;margin-top:52px;padding-top:36px;border-top:1px solid var(--grafito3);}
+.hstat-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;color:var(--turquesa);}
+.hstat-lbl{font-size:.78rem;color:var(--concreto);letter-spacing:.06em;text-transform:uppercase;margin-top:2px;}
+.hero-visual{position:absolute;right:0;top:0;bottom:0;width:45%;background:linear-gradient(to left,var(--grafito) 0%,transparent 100%);z-index:1;}
+.hero-mockup{position:absolute;right:52px;top:50%;transform:translateY(-50%);z-index:2;width:380px;border-radius:10px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.55);}
+.hero-mockup img{width:100%;display:block;}
+.hero-mockup-bar{background:var(--grafito2);padding:10px 14px;display:flex;align-items:center;gap:8px;}
+.hero-mockup-dot{width:10px;height:10px;border-radius:50%;}
+
+/* ── SECTION TITLES ── */
+.section{padding:80px 52px;max-width:1200px;margin:0 auto;}
+.section-chip{display:inline-block;background:var(--cian);color:var(--blanco);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:3px;margin-bottom:16px;}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2rem,4vw,3rem);color:var(--text1);line-height:1.1;margin-bottom:14px;}
+.section-title em{color:var(--cian);font-style:normal;}
+.section-sub{font-size:1rem;color:var(--text2);line-height:1.65;max-width:580px;}
+
+/* ── INCLUDES ── */
+.includes-bg{background:var(--gris1);}
+.includes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;margin-top:48px;}
+.inc-card{background:var(--blanco);border:1px solid var(--gris2);border-radius:8px;padding:24px 20px;transition:all .25s;cursor:default;}
+.inc-card:hover{border-color:var(--turquesa);box-shadow:0 6px 24px rgba(0,213,216,.12);transform:translateY(-3px);}
+.inc-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:var(--gris2);line-height:1;margin-bottom:10px;}
+.inc-icon{font-size:1.6rem;margin-bottom:10px;}
+.inc-title{font-weight:700;font-size:.95rem;color:var(--text1);margin-bottom:6px;}
+.inc-desc{font-size:.82rem;color:var(--text2);line-height:1.5;}
+.inc-tag{display:inline-block;background:rgba(0,140,154,.10);color:var(--cian);font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:3px;margin-top:10px;}
+
+/* ── PREVIEW PAGES ── */
+.preview-section{background:var(--grafito);padding:80px 52px;}
+.preview-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.6rem;color:var(--blanco);margin-bottom:10px;}
+.preview-sub{color:var(--concreto);margin-bottom:48px;}
+.preview-scroll{display:flex;gap:20px;overflow-x:auto;padding-bottom:20px;scroll-snap-type:x mandatory;}
+.preview-scroll::-webkit-scrollbar{height:5px;}
+.preview-scroll::-webkit-scrollbar-track{background:var(--grafito2);}
+.preview-scroll::-webkit-scrollbar-thumb{background:var(--cian);border-radius:3px;}
+.preview-page{flex:0 0 240px;scroll-snap-align:start;border-radius:6px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.4);border:1px solid var(--grafito3);}
+.preview-page img{width:100%;display:block;}
+.preview-label{background:var(--grafito2);padding:8px 12px;font-size:.75rem;color:var(--concreto);font-weight:600;border-top:2px solid var(--cian);}
+
+/* ── INVESTIGACIONES ESPECIALES ── */
+.especiales-bg{background:var(--blanco);}
+.especiales-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;margin-top:48px;}
+.esp-card{border:1px solid var(--gris2);border-radius:8px;padding:26px 22px;position:relative;overflow:hidden;transition:all .25s;}
+.esp-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--turquesa);}
+.esp-card:hover{border-color:var(--cian);box-shadow:0 6px 28px rgba(0,140,154,.10);transform:translateY(-3px);}
+.esp-card:nth-child(even)::before{background:var(--cian);}
+.esp-icon{font-size:1.8rem;margin-bottom:12px;}
+.esp-title{font-weight:700;font-size:.98rem;color:var(--text1);margin-bottom:8px;}
+.esp-desc{font-size:.82rem;color:var(--text2);line-height:1.55;}
+.esp-badge{display:inline-block;margin-top:12px;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:3px;}
+.esp-badge.add-on{background:rgba(82,199,140,.12);color:var(--verde);}
+.esp-badge.bundle{background:rgba(0,213,216,.12);color:var(--cian);}
+.esp-badge.premium{background:rgba(245,200,66,.12);color:#C8A000;}
+
+/* ── PROCESO ── */
+.proceso-bg{background:var(--grafito2);}
+.proceso-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:48px;}
+.step{background:var(--grafito3);padding:32px 24px;position:relative;}
+.step:first-child{border-radius:8px 0 0 8px;}
+.step:last-child{border-radius:0 8px 8px 0;}
+.step-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3.5rem;color:var(--grafito);-webkit-text-stroke:1.5px var(--cian);line-height:1;margin-bottom:14px;}
+.step-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.3rem;color:var(--turquesa);letter-spacing:.05em;margin-bottom:10px;}
+.step-desc{font-size:.84rem;color:var(--concreto);line-height:1.6;}
+.step-arrow{position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:var(--cian);font-size:1.4rem;z-index:5;}
+
+/* ── TIERS ── */
+.tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;}
+.tier-card{border-radius:10px;overflow:hidden;border:1.5px solid var(--gris2);transition:all .25s;}
+.tier-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,140,154,.12);}
+.tier-card.featured{border-color:var(--turquesa);box-shadow:0 0 0 3px rgba(0,213,216,.10);}
+.tier-header{padding:28px 24px 20px;background:var(--gris1);}
+.tier-card.featured .tier-header{background:var(--grafito);}
+.tier-badge{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cian);margin-bottom:8px;}
+.tier-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.8rem;color:var(--text1);margin-bottom:6px;}
+.tier-card.featured .tier-name{color:var(--blanco);}
+.tier-desc{font-size:.84rem;color:var(--text2);line-height:1.55;}
+.tier-card.featured .tier-desc{color:var(--concreto);}
+.tier-body{padding:24px;}
+.tier-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;font-size:.85rem;color:var(--text2);}
+.tier-item::before{content:'✓';color:var(--verde);font-weight:700;flex-shrink:0;margin-top:1px;}
+.tier-cta{display:block;text-align:center;padding:12px;margin:8px 24px 24px;border-radius:5px;font-weight:700;font-size:.88rem;text-decoration:none;transition:all .2s;}
+.tier-cta.primary{background:var(--turquesa);color:var(--grafito);}
+.tier-cta.primary:hover{background:var(--cian);color:var(--blanco);}
+.tier-cta.outline{border:1.5px solid var(--cian);color:var(--cian);}
+.tier-cta.outline:hover{background:var(--cian);color:var(--blanco);}
+
+/* ── TESTIMONIALS ── */
+.testi-bg{background:var(--gris1);}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
+.testi-card{background:var(--blanco);border:1px solid var(--gris2);border-radius:8px;padding:26px 22px;}
+.testi-quote{font-size:.95rem;color:var(--text1);line-height:1.65;margin-bottom:16px;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.testi-avatar{width:40px;height:40px;border-radius:50%;background:var(--grafito2);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;color:var(--turquesa);}
+.testi-name{font-weight:700;font-size:.88rem;color:var(--text1);}
+.testi-role{font-size:.78rem;color:var(--text2);}
+
+/* ── FAQ ── */
+.faq-list{margin-top:40px;display:flex;flex-direction:column;gap:12px;}
+.faq-item{border:1px solid var(--gris2);border-radius:6px;overflow:hidden;}
+.faq-q{padding:18px 20px;font-weight:600;font-size:.95rem;color:var(--text1);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.faq-q::after{content:'→';color:var(--cian);font-size:1rem;transform:rotate(90deg);display:inline-block;transition:transform .2s;}
+.faq-item.open .faq-q::after{transform:rotate(-90deg);}
+.faq-a{padding:0 20px 16px;font-size:.88rem;color:var(--text2);line-height:1.65;display:none;}
+.faq-item.open .faq-a{display:block;}
+
+/* ── CTA FINAL ── */
+.cta-final{background:var(--grafito);padding:80px 52px;text-align:center;position:relative;overflow:hidden;}
+.cta-final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,213,216,.08) 0%,transparent 70%);}
+.cta-final h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2rem,5vw,3.5rem);color:var(--blanco);margin-bottom:14px;position:relative;z-index:2;}
+.cta-final h2 em{color:var(--turquesa);font-style:normal;}
+.cta-final p{color:var(--concreto);font-size:1rem;max-width:560px;margin:0 auto 36px;position:relative;z-index:2;}
+.cta-final .actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;z-index:2;}
+
+/* ── FOOTER ── */
+footer{background:var(--grafito2);padding:36px 52px;display:flex;align-items:center;justify-content:space-between;}
+.footer-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;color:var(--turquesa);}
+.footer-text{font-size:.8rem;color:var(--concreto);}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.delay-1{transition-delay:.1s!important;}
+.delay-2{transition-delay:.2s!important;}
+.delay-3{transition-delay:.3s!important;}
+
+@media(max-width:900px){
+  nav{padding:12px 20px;}.hero,.section,.preview-section,.cta-final,.proceso-bg .section,.testi-bg .section{padding:60px 20px;}
+  .proceso-steps{grid-template-columns:1fr 1fr;}.tiers-grid{grid-template-columns:1fr;}
+  .testi-grid{grid-template-columns:1fr;}.hero-mockup{display:none;}
+  .hero-stats{flex-wrap:wrap;gap:24px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="alsina-web.html" class="nav-logo">ALSINA</a>
+  <ul class="nav-links">
+    <li><a href="#incluye">Qué incluye</a></li>
+    <li><a href="#especiales">Investigaciones</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#tiers">Modalidades</a></li>
+    <li><a href="mailto:contacto@alsinaconsulting.com.ar" class="nav-cta">Solicitar diagnóstico →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-chip">🏛️ Servicio de consultoría · Alsina Consulting</div>
+    <h1>Diagnóstico<br><em>Municipal Integral</em></h1>
+    <p class="hero-sub">Transformamos la complejidad de un municipio bonaerense en un mapa de decisiones, prioridades y hoja de ruta accionable. 10 páginas de análisis institucional, fiscal y territorial listos en semanas.</p>
+    <div class="hero-actions">
+      <a href="mailto:contacto@alsinaconsulting.com.ar" class="btn-primary">Solicitar diagnóstico →</a>
+      <a href="#incluye" class="btn-outline">Ver qué incluye</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hstat-val">135</div><div class="hstat-lbl">Municipios PBA</div></div>
+      <div><div class="hstat-val">10</div><div class="hstat-lbl">Secciones de análisis</div></div>
+      <div><div class="hstat-val">4</div><div class="hstat-lbl">Dimensiones clave</div></div>
+      <div><div class="hstat-val">+6</div><div class="hstat-lbl">Investigaciones especiales</div></div>
+    </div>
+  </div>
+  <!-- Mockup preview -->
+  <div class="hero-visual"></div>
+  <div class="hero-mockup">
+    <div class="hero-mockup-bar">
+      <div class="hero-mockup-dot" style="background:#FF5F57;"></div>
+      <div class="hero-mockup-dot" style="background:#FEBC2E;"></div>
+      <div class="hero-mockup-dot" style="background:#28C840;"></div>
+      <span style="color:var(--concreto);font-size:.72rem;margin-left:8px;">alsina-diagnostico-olavarria.pdf</span>
+    </div>
+    <div style="background:var(--grafito2);padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div style="background:var(--grafito3);border-radius:4px;padding:10px;text-align:center;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;color:var(--turquesa);">122k</div>
+        <div style="font-size:.65rem;color:var(--concreto);">Habitantes</div>
+      </div>
+      <div style="background:var(--grafito3);border-radius:4px;padding:10px;text-align:center;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;color:var(--cian);">5,0%</div>
+        <div style="font-size:.65rem;color:var(--concreto);">NBI</div>
+      </div>
+      <div style="background:var(--grafito3);border-radius:4px;padding:10px;text-align:center;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;color:var(--turquesa);">$46B</div>
+        <div style="font-size:.65rem;color:var(--concreto);">Transf. 2025</div>
+      </div>
+      <div style="background:var(--grafito3);border-radius:4px;padding:10px;text-align:center;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;color:var(--cian);">1.961</div>
+        <div style="font-size:.65rem;color:var(--concreto);">Empresas</div>
+      </div>
+    </div>
+    <div style="background:var(--grafito3);padding:10px 14px;border-top:1px solid var(--grafito);">
+      <div style="height:6px;background:var(--grafito);border-radius:3px;margin-bottom:5px;"><div style="width:78%;height:100%;background:var(--cian);border-radius:3px;"></div></div>
+      <div style="height:6px;background:var(--grafito);border-radius:3px;margin-bottom:5px;"><div style="width:55%;height:100%;background:var(--turquesa);border-radius:3px;"></div></div>
+      <div style="height:6px;background:var(--grafito);border-radius:3px;"><div style="width:91%;height:100%;background:var(--verde);border-radius:3px;"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUÉ INCLUYE -->
+<div class="includes-bg" id="incluye">
+<div class="section">
+  <div class="reveal">
+    <span class="section-chip">Contenido del informe</span>
+    <h2 class="section-title">Un diagnóstico completo,<br><em>no un resumen ejecutivo</em></h2>
+    <p class="section-sub">Cada informe cubre 10 secciones estructuradas con datos reales, gráficos comparativos y análisis de contexto. No genérico: aplicado a las 135 realidades distintas de la PBA.</p>
+  </div>
+  <div class="includes-grid">
+    <div class="inc-card reveal delay-1">
+      <div class="inc-num">01</div>
+      <div class="inc-icon">📋</div>
+      <div class="inc-title">Ficha técnica e indicadores clave</div>
+      <div class="inc-desc">6 KPIs prioritarios, perfil territorial completo (superficie, localidades, accesos, universidad, actividad principal) y dos mapas de localización.</div>
+      <span class="inc-tag">Mapa Argentina · Mapa PBA</span>
+    </div>
+    <div class="inc-card reveal delay-1">
+      <div class="inc-num">02</div>
+      <div class="inc-icon">👥</div>
+      <div class="inc-title">Demografía y territorio</div>
+      <div class="inc-desc">Evolución censal histórica, tasa de crecimiento, composición de migrantes y análisis comparativo de NBI con municipios de escala similar.</div>
+      <span class="inc-tag">INDEC Censo 2022</span>
+    </div>
+    <div class="inc-card reveal delay-2">
+      <div class="inc-num">03</div>
+      <div class="inc-icon">🏭</div>
+      <div class="inc-title">Contexto económico</div>
+      <div class="inc-desc">Estructura productiva por sector, empresas registradas, tasa de inserción exportadora, ITAE per cápita y análisis del tejido empresarial local.</div>
+      <span class="inc-tag">CEP · Ministerio Economía</span>
+    </div>
+    <div class="inc-card reveal delay-2">
+      <div class="inc-num">04</div>
+      <div class="inc-icon">💰</div>
+      <div class="inc-title">Finanzas municipales</div>
+      <div class="inc-desc">Transferencias provinciales 2023–2025 (nominales y variación), composición por fondo (8 rubros) y análisis de cada componente clave.</div>
+      <span class="inc-tag">Min. Economía PBA</span>
+    </div>
+    <div class="inc-card reveal delay-3">
+      <div class="inc-num">05</div>
+      <div class="inc-icon">📊</div>
+      <div class="inc-title">Capacidad fiscal propia</div>
+      <div class="inc-desc">Recaudación propia per cápita, ratio de dependencia de transferencias, palancas de mejora y comparativo de transferencias per cápita con pares regionales.</div>
+      <span class="inc-tag">Dependencia · Potencial</span>
+    </div>
+    <div class="inc-card reveal delay-3">
+      <div class="inc-num">06</div>
+      <div class="inc-icon">🏗️</div>
+      <div class="inc-title">Infraestructura y servicios</div>
+      <div class="inc-desc">Gauges de cobertura (agua, cloacas, gas, internet, educación), tabla de activos estratégicos (ferrocarril, rutas, hospital, universidad) e impacto en gestión.</div>
+      <span class="inc-tag">INDEC · Municipio</span>
+    </div>
+    <div class="inc-card reveal delay-1">
+      <div class="inc-num">07</div>
+      <div class="inc-icon">🗺️</div>
+      <div class="inc-title">Mapa del partido</div>
+      <div class="inc-desc">Localidades internas, rutas nacionales y provinciales, ferrocarril, cursos de agua, estadísticas territoriales clave y descripción geográfica completa.</div>
+      <span class="inc-tag">IGN · Catastro · Municipio</span>
+    </div>
+    <div class="inc-card reveal delay-2">
+      <div class="inc-num">08</div>
+      <div class="inc-icon">📈</div>
+      <div class="inc-title">Posicionamiento relativo</div>
+      <div class="inc-desc">Tabla comparativa con 6 municipios de escala similar y radar multidimensional de 6 ejes: tejido empresarial, cobertura fiscal, exportaciones, NBI, densidad y transferencias PC.</div>
+      <span class="inc-tag">Benchmark · Radar</span>
+    </div>
+    <div class="inc-card reveal delay-3">
+      <div class="inc-num">09</div>
+      <div class="inc-icon">⚡</div>
+      <div class="inc-title">Análisis FODA</div>
+      <div class="inc-desc">Fortalezas, Debilidades, Oportunidades y Amenazas de la capacidad de gobierno, basado en los datos del diagnóstico y el contexto del interior bonaerense.</div>
+      <span class="inc-tag">Institucional · Fiscal · Territorial</span>
+    </div>
+    <div class="inc-card reveal delay-1">
+      <div class="inc-num">10</div>
+      <div class="inc-icon">🎯</div>
+      <div class="inc-title">Hoja de ruta</div>
+      <div class="inc-desc">4 acciones priorizadas por impacto, urgencia y factibilidad política. Plazos (Sprint/Corto/Mediano/Largo) y descripción del proceso de implementación con Alsina.</div>
+      <span class="inc-tag">Accionable · Verificable</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PREVIEW PAGES -->
+<div class="preview-section" id="preview">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="reveal">
+      <div class="section-chip" style="background:var(--grafito3);color:var(--turquesa);">Páginas reales</div>
+      <div class="preview-title">Así se ve<br>el informe</div>
+      <p class="preview-sub" style="color:var(--concreto);">Cada página tiene diseño profesional en blanco con acentos de marca Alsina. Gráficos, mapas y tablas generadas con datos reales de fuentes oficiales.</p>
+    </div>
+    <div class="preview-scroll" style="margin-top:40px;">
+      <div class="preview-page">
+        <div style="background:#0e1c20;padding:6px 8px;font-size:.7rem;color:#9e9992;border-bottom:1px solid #1e2f35;">Portada</div>
+        <div style="background:#0e1c20;padding:14px;min-height:140px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="background:#1C3C44;border-radius:3px;padding:4px 8px;display:inline-block;font-size:.6rem;color:#00D5D8;font-weight:700;margin-bottom:8px;">DIAGNÓSTICO MUNICIPAL</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;color:white;">MUNICIPIO</div>
+          <div style="font-size:.65rem;color:#9e9992;margin-bottom:10px;">Diagnóstico Municipal Integral</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+            <div style="background:#162429;border-radius:3px;padding:5px;text-align:center;border-top:2px solid #00D5D8;"><div style="font-size:.75rem;color:#00D5D8;font-weight:700;">122k</div><div style="font-size:.55rem;color:#9e9992;">Hab.</div></div>
+            <div style="background:#162429;border-radius:3px;padding:5px;text-align:center;border-top:2px solid #008C9A;"><div style="font-size:.75rem;color:#00D5D8;font-weight:700;">5,0%</div><div style="font-size:.55rem;color:#9e9992;">NBI</div></div>
+          </div>
+        </div>
+        <div class="preview-label">01 · Portada</div>
+      </div>
+      <div class="preview-page">
+        <div style="background:white;padding:8px;min-height:140px;">
+          <div style="background:#f5f8f9;border-radius:4px;padding:6px;margin-bottom:6px;">
+            <div style="font-size:.6rem;color:#008C9A;font-weight:700;margin-bottom:4px;">INDICADORES CLAVE</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;">
+              <div style="background:white;border-radius:3px;padding:5px;border-top:2px solid #00D5D8;text-align:center;"><div style="font-size:.8rem;color:#00D5D8;font-weight:700;">122k</div><div style="font-size:.5rem;color:#666;">Hab.</div></div>
+              <div style="background:white;border-radius:3px;padding:5px;border-top:2px solid #008C9A;text-align:center;"><div style="font-size:.8rem;color:#008C9A;font-weight:700;">5,0%</div><div style="font-size:.5rem;color:#666;">NBI</div></div>
+              <div style="background:white;border-radius:3px;padding:5px;border-top:2px solid #00D5D8;text-align:center;"><div style="font-size:.8rem;color:#00D5D8;font-weight:700;">$46B</div><div style="font-size:.5rem;color:#666;">Transf.</div></div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+            <div style="background:#f5f8f9;border-radius:3px;padding:5px;height:60px;"></div>
+            <div style="background:#f5f8f9;border-radius:3px;padding:5px;height:60px;"></div>
+          </div>
+        </div>
+        <div class="preview-label">02 · Ficha técnica + mapas</div>
+      </div>
+      <div class="preview-page">
+        <div style="background:white;padding:8px;min-height:140px;">
+          <div style="font-size:.6rem;color:#008C9A;font-weight:700;margin-bottom:6px;">DEMOGRAFÍA Y TERRITORIO</div>
+          <div style="background:#f5f8f9;border-radius:3px;height:55px;margin-bottom:6px;display:flex;align-items:flex-end;padding:4px;gap:3px;">
+            <div style="flex:1;height:30%;background:#008C9A;border-radius:1px;"></div>
+            <div style="flex:1;height:45%;background:#008C9A;border-radius:1px;"></div>
+            <div style="flex:1;height:55%;background:#008C9A;border-radius:1px;"></div>
+            <div style="flex:1;height:65%;background:#008C9A;border-radius:1px;"></div>
+            <div style="flex:1;height:72%;background:#008C9A;border-radius:1px;"></div>
+            <div style="flex:1;height:80%;background:#008C9A;border-radius:1px;"></div>
+            <div style="flex:1;height:88%;background:#008C9A;border-radius:1px;"></div>
+            <div style="flex:1;height:100%;background:#00D5D8;border-radius:1px;"></div>
+          </div>
+          <div style="font-size:.6rem;color:#008C9A;font-weight:700;margin-bottom:4px;">NBI COMPARATIVO</div>
+          <div style="background:#f5f8f9;border-radius:3px;height:50px;padding:4px;display:flex;flex-direction:column;gap:3px;">
+            <div style="background:#008C9A;height:6px;width:55%;border-radius:2px;"></div>
+            <div style="background:#00D5D8;height:6px;width:58%;border-radius:2px;"></div>
+            <div style="background:#008C9A;height:6px;width:60%;border-radius:2px;"></div>
+            <div style="background:#3a6060;height:6px;width:100%;border-radius:2px;"></div>
+          </div>
+        </div>
+        <div class="preview-label">03 · Demografía</div>
+      </div>
+      <div class="preview-page">
+        <div style="background:white;padding:8px;min-height:140px;">
+          <div style="font-size:.6rem;color:#008C9A;font-weight:700;margin-bottom:6px;">FINANZAS MUNICIPALES</div>
+          <div style="background:#f5f8f9;border-radius:3px;height:60px;margin-bottom:6px;display:flex;align-items:flex-end;padding:4px;gap:6px;justify-content:center;">
+            <div style="display:flex;gap:2px;align-items:flex-end;">
+              <div style="width:14px;height:25%;background:#00D5D8;border-radius:1px;"></div>
+              <div style="width:14px;height:18%;background:#008C9A;border-radius:1px;"></div>
+            </div>
+            <div style="display:flex;gap:2px;align-items:flex-end;">
+              <div style="width:14px;height:65%;background:#00D5D8;border-radius:1px;"></div>
+              <div style="width:14px;height:50%;background:#008C9A;border-radius:1px;"></div>
+            </div>
+            <div style="display:flex;gap:2px;align-items:flex-end;">
+              <div style="width:14px;height:100%;background:#00D5D8;border-radius:1px;"></div>
+              <div style="width:14px;height:76%;background:#008C9A;border-radius:1px;"></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:4px;align-items:center;">
+            <div style="width:55px;height:55px;border-radius:50%;border:10px solid #00D5D8;border-left-color:#008C9A;border-bottom-color:#006070;"></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px;">
+              <div style="height:5px;background:#00D5D8;border-radius:2px;width:80%;"></div>
+              <div style="height:5px;background:#008C9A;border-radius:2px;width:55%;"></div>
+              <div style="height:5px;background:#006070;border-radius:2px;width:38%;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="preview-label">05 · Transferencias</div>
+      </div>
+      <div class="preview-page">
+        <div style="background:white;padding:8px;min-height:140px;">
+          <div style="font-size:.6rem;color:#008C9A;font-weight:700;margin-bottom:6px;">MAPA DEL PARTIDO</div>
+          <div style="background:#e8f5f6;border-radius:5px;border:1.5px solid #008C9A;height:105px;padding:6px;position:relative;">
+            <div style="position:absolute;left:40%;top:45%;width:16px;height:16px;background:#00D5D8;border-radius:50%;border:2px solid #0e1c20;"></div>
+            <div style="position:absolute;left:28%;top:38%;width:8px;height:8px;background:#008C9A;border-radius:50%;"></div>
+            <div style="position:absolute;left:55%;top:52%;width:7px;height:7px;background:#008C9A;border-radius:50%;"></div>
+            <div style="position:absolute;left:20%;top:55%;width:7px;height:7px;background:#008C9A;border-radius:50%;"></div>
+            <div style="position:absolute;left:48%;top:30%;width:6px;height:6px;background:#008C9A;border-radius:50%;"></div>
+            <div style="position:absolute;left:25%;top:72%;width:60%;height:2px;background:#D4A017;opacity:0.7;transform:rotate(-5deg);"></div>
+            <div style="position:absolute;left:15%;top:20%;width:2px;height:75%;background:#D4A017;opacity:0.5;"></div>
+          </div>
+        </div>
+        <div class="preview-label">08 · Mapa del partido</div>
+      </div>
+      <div class="preview-page">
+        <div style="background:white;padding:8px;min-height:140px;">
+          <div style="font-size:.6rem;color:#008C9A;font-weight:700;margin-bottom:6px;">SÍNTESIS Y RECOMENDACIONES</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:6px;">
+            <div style="background:#E6F6F0;border-radius:3px;padding:4px;"><div style="font-size:.55rem;color:#2E9B6E;font-weight:700;margin-bottom:2px;">FORTALEZAS</div><div style="height:30px;"></div></div>
+            <div style="background:#FCE8E8;border-radius:3px;padding:4px;"><div style="font-size:.55rem;color:#C94040;font-weight:700;margin-bottom:2px;">DEBILIDADES</div><div style="height:30px;"></div></div>
+            <div style="background:#E0F7F8;border-radius:3px;padding:4px;"><div style="font-size:.55rem;color:#008C9A;font-weight:700;margin-bottom:2px;">OPORTUNIDADES</div><div style="height:30px;"></div></div>
+            <div style="background:#FEF9EA;border-radius:3px;padding:4px;"><div style="font-size:.55rem;color:#C8A000;font-weight:700;margin-bottom:2px;">AMENAZAS</div><div style="height:30px;"></div></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div style="background:#f5f8f9;border-radius:2px;height:12px;display:flex;align-items:center;padding:0 4px;"><div style="width:10px;height:10px;background:#008C9A;border-radius:1px;margin-right:4px;"></div><div style="height:4px;background:#e0eaec;flex:1;border-radius:2px;"></div></div>
+            <div style="background:#f5f8f9;border-radius:2px;height:12px;display:flex;align-items:center;padding:0 4px;"><div style="width:10px;height:10px;background:#008C9A;border-radius:1px;margin-right:4px;"></div><div style="height:4px;background:#e0eaec;flex:1;border-radius:2px;"></div></div>
+          </div>
+        </div>
+        <div class="preview-label">10 · FODA + Hoja de ruta</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INVESTIGACIONES ESPECIALES -->
+<div class="especiales-bg" id="especiales">
+<div class="section">
+  <div class="reveal">
+    <span class="section-chip">Add-ons disponibles</span>
+    <h2 class="section-title">Investigaciones<br><em>especiales</em></h2>
+    <p class="section-sub">El diagnóstico estándar puede complementarse con módulos adicionales de análisis profundo. Cada investigación especial es contratada por separado según las prioridades del municipio.</p>
+  </div>
+  <div class="especiales-grid">
+    <div class="esp-card reveal delay-1">
+      <div class="esp-icon">📉</div>
+      <div class="esp-title">Diagnóstico de deuda y financiamiento</div>
+      <div class="esp-desc">Análisis del stock de deuda municipal con Provincia, Nación y proveedores. Estructura de vencimientos, capacidad de repago y opciones de refinanciamiento o acceso a crédito.</div>
+      <span class="esp-badge add-on">Add-on fiscal</span>
+    </div>
+    <div class="esp-card reveal delay-1">
+      <div class="esp-icon">👷</div>
+      <div class="esp-title">Análisis de planta de personal</div>
+      <div class="esp-desc">Estructura de dotación por escalafón, masa salarial como % del gasto, comparativo con municipios similares y análisis de eficiencia. Identifica sobre-dotación y cuellos de botella.</div>
+      <span class="esp-badge add-on">Add-on institucional</span>
+    </div>
+    <div class="esp-card reveal delay-2">
+      <div class="esp-icon">🏦</div>
+      <div class="esp-title">Auditoría de recaudación tributaria</div>
+      <div class="esp-desc">Análisis profundo de tasas municipales, potencial recaudatorio vs. recaudación efectiva, contribuyentes inactivos, catastro desactualizado y brechas en tasa de seguridad e higiene.</div>
+      <span class="esp-badge premium">Premium fiscal</span>
+    </div>
+    <div class="esp-card reveal delay-2">
+      <div class="esp-icon">🛣️</div>
+      <div class="esp-title">Diagnóstico de infraestructura vial</div>
+      <div class="esp-desc">Estado de la red de caminos rurales y urbanos, priorización de intervenciones, estimación de costos de mantenimiento y vinculación con fondos provinciales/nacionales disponibles.</div>
+      <span class="esp-badge add-on">Add-on territorial</span>
+    </div>
+    <div class="esp-card reveal delay-3">
+      <div class="esp-icon">🏙️</div>
+      <div class="esp-title">Captura de plusvalías urbanas</div>
+      <div class="esp-desc">Identificación de inmuebles subvaluados, zonas con potencial de reconversión y análisis de contribución por mejoras. Diseño de instrumentos para capturar incrementos de valor del suelo.</div>
+      <span class="esp-badge premium">Premium territorial</span>
+    </div>
+    <div class="esp-card reveal delay-3">
+      <div class="esp-icon">📱</div>
+      <div class="esp-title">Diagnóstico de atención ciudadana</div>
+      <div class="esp-desc">Mapeo de canales de atención existentes, volumen de consultas/reclamos, tiempo de respuesta, brechas digitales y propuesta de arquitectura omnicanal (VinculAR).</div>
+      <span class="esp-badge bundle">Bundle VinculAR</span>
+    </div>
+    <div class="esp-card reveal delay-1">
+      <div class="esp-icon">💻</div>
+      <div class="esp-title">Diagnóstico tecnológico municipal</div>
+      <div class="esp-desc">Inventario de sistemas de información, interoperabilidad entre áreas, digitalización de trámites, seguridad informática y hoja de ruta hacia municipio digital.</div>
+      <span class="esp-badge add-on">Add-on tecnológico</span>
+    </div>
+    <div class="esp-card reveal delay-2">
+      <div class="esp-icon">📡</div>
+      <div class="esp-title">Análisis político-comunicacional</div>
+      <div class="esp-desc">Perfil político del intendente y equipo de gobierno, análisis de posicionamiento en medios y redes sociales, agenda comunicacional y estrategia de narrativa territorial.</div>
+      <span class="esp-badge bundle">Bundle CICERO</span>
+    </div>
+    <div class="esp-card reveal delay-3">
+      <div class="esp-icon">📦</div>
+      <div class="esp-title">Presupuesto por programas</div>
+      <div class="esp-desc">Análisis de la estructura presupuestaria vigente, alineación con resultados de gestión, identificación de áreas sub-financiadas y propuesta de reasignación estratégica de recursos.</div>
+      <span class="esp-badge premium">Premium gestión</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PROCESO -->
+<div class="proceso-bg" id="proceso">
+<div class="section">
+  <div class="reveal">
+    <span class="section-chip" style="background:rgba(0,213,216,.15);color:var(--turquesa);">Cómo trabajamos</span>
+    <h2 class="section-title" style="color:var(--blanco);">De la complejidad<br><em>a la decisión</em></h2>
+    <p class="section-sub" style="color:var(--concreto);">Cuatro etapas que convierten datos dispersos en un informe accionable. Sprint inicial → entrega en semanas.</p>
+  </div>
+  <div class="proceso-steps reveal">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Relevamiento</div>
+      <div class="step-desc">Recopilación de datos de fuentes oficiales (INDEC, Ministerio Economía PBA, IGN), cruce con información pública del municipio y reunión inicial con el equipo de gobierno.</div>
+      <div class="step-arrow">›</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Análisis</div>
+      <div class="step-desc">Procesamiento estadístico, generación de gráficos comparativos, construcción del índice multidimensional y redacción de los análisis cualitativos por sección.</div>
+      <div class="step-arrow">›</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Diagnóstico</div>
+      <div class="step-desc">Armado del informe PDF de 10 páginas con todos los gráficos, mapas, tablas comparativas, FODA y hoja de ruta personalizada para el municipio.</div>
+      <div class="step-arrow">›</div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Presentación</div>
+      <div class="step-desc">Entrega del informe y presentación al equipo directivo. Conversación sobre prioridades y definición de próximos pasos de intervención con Alsina.</div>
+    </div>
+  </div>
+  <div class="reveal" style="margin-top:40px;background:var(--grafito);border-radius:8px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;color:var(--turquesa);">Sprint de 3 semanas</div>
+      <div style="color:var(--concreto);font-size:.9rem;margin-top:4px;">Desde el primer contacto hasta la entrega del informe.</div>
+    </div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;">
+      <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:var(--blanco);">10</div><div style="font-size:.75rem;color:var(--concreto);">secciones</div></div>
+      <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:var(--blanco);">3</div><div style="font-size:.75rem;color:var(--concreto);">mapas incluidos</div></div>
+      <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:var(--blanco);">+8</div><div style="font-size:.75rem;color:var(--concreto);">gráficos comparativos</div></div>
+    </div>
+    <a href="mailto:contacto@alsinaconsulting.com.ar" class="btn-primary">Solicitar ahora →</a>
+  </div>
+</div>
+</div>
+
+<!-- MODALIDADES -->
+<div id="tiers">
+<div class="section">
+  <div class="reveal">
+    <span class="section-chip">Modalidades de contratación</span>
+    <h2 class="section-title">Elegí el nivel<br><em>de análisis</em></h2>
+    <p class="section-sub">Tres modalidades según las necesidades del municipio. Todos incluyen el informe base. Las investigaciones especiales se agregan a medida.</p>
+  </div>
+  <div class="tiers-grid reveal">
+    <div class="tier-card">
+      <div class="tier-header">
+        <div class="tier-badge">ENTRADA</div>
+        <div class="tier-name">Informe Base</div>
+        <div class="tier-desc">El diagnóstico estándar de 10 páginas. Ideal para municipios que quieren una primera lectura profesional de su situación.</div>
+      </div>
+      <div class="tier-body">
+        <div class="tier-item">Ficha técnica + 2 mapas de localización</div>
+        <div class="tier-item">Demografía y NBI comparativo</div>
+        <div class="tier-item">Contexto económico y tejido empresarial</div>
+        <div class="tier-item">Transferencias 2023–2025 + composición</div>
+        <div class="tier-item">Capacidad fiscal propia</div>
+        <div class="tier-item">Infraestructura y servicios (gauges)</div>
+        <div class="tier-item">Mapa del partido con localidades</div>
+        <div class="tier-item">FODA + Hoja de ruta (4 acciones)</div>
+      </div>
+      <a href="mailto:contacto@alsinaconsulting.com.ar?subject=Consulta Informe Base" class="tier-cta outline">Consultar precio →</a>
+    </div>
+    <div class="tier-card featured">
+      <div class="tier-header">
+        <div class="tier-badge">MÁS POPULAR</div>
+        <div class="tier-name" style="color:var(--turquesa);">Diagnóstico Integral</div>
+        <div class="tier-desc" style="color:var(--concreto);">Informe base + 2 investigaciones especiales a elección. La opción más completa para intendentes y equipos que necesitan profundidad.</div>
+      </div>
+      <div class="tier-body">
+        <div class="tier-item" style="color:var(--crema);">Todo el Informe Base</div>
+        <div class="tier-item" style="color:var(--crema);">2 investigaciones especiales a elección</div>
+        <div class="tier-item" style="color:var(--crema);">Presentación presencial al equipo directivo</div>
+        <div class="tier-item" style="color:var(--crema);">Informe ejecutivo de 2 páginas para comunicación</div>
+        <div class="tier-item" style="color:var(--crema);">Acceso a explorador digital de datos del municipio</div>
+        <div class="tier-item" style="color:var(--crema);">Actualización trimestral de datos de transferencias</div>
+      </div>
+      <a href="mailto:contacto@alsinaconsulting.com.ar?subject=Consulta Diagnóstico Integral" class="tier-cta primary">Solicitar diagnóstico →</a>
+    </div>
+    <div class="tier-card">
+      <div class="tier-header">
+        <div class="tier-badge">ESTRATÉGICO</div>
+        <div class="tier-name">Programa Anual</div>
+        <div class="tier-desc">Diagnóstico completo más acompañamiento continuo durante un año. Para municipios que quieren implementar cambios con soporte permanente de Alsina.</div>
+      </div>
+      <div class="tier-body">
+        <div class="tier-item">Todo el Diagnóstico Integral</div>
+        <div class="tier-item">Todas las investigaciones especiales disponibles</div>
+        <div class="tier-item">Reuniones mensuales de seguimiento</div>
+        <div class="tier-item">Implementación de CRM VinculAR incluida</div>
+        <div class="tier-item">Estrategia comunicacional CICERO</div>
+        <div class="tier-item">Soporte en negociación con Provincia y Nación</div>
+        <div class="tier-item">Actualización mensual del dashboard de datos</div>
+      </div>
+      <a href="mailto:contacto@alsinaconsulting.com.ar?subject=Consulta Programa Anual" class="tier-cta outline">Consultar →</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FAQ -->
+<div style="background:var(--gris1);padding:80px 0;">
+<div class="section" style="padding-top:0;padding-bottom:0;">
+  <div class="reveal">
+    <span class="section-chip">Preguntas frecuentes</span>
+    <h2 class="section-title">Todo lo que<br><em>necesitás saber</em></h2>
+  </div>
+  <div class="faq-list reveal">
+    <div class="faq-item open">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">¿Qué información necesitan del municipio para hacer el diagnóstico?</div>
+      <div class="faq-a">La mayoría de los datos se obtienen de fuentes públicas: INDEC (Censos), Ministerio de Economía PBA (transferencias), IGN (cartografía) y datos del municipio disponibles en línea. Para algunas secciones (especialmente recaudación propia e infraestructura) pedimos una reunión inicial con el equipo municipal para completar la información.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">¿El informe es confidencial? ¿Quién lo puede ver?</div>
+      <div class="faq-a">El informe es entregado exclusivamente al municipio contratante. Alsina no publica ni distribuye los diagnósticos sin autorización expresa del cliente. Los datos usados son de fuente pública, pero el análisis y las recomendaciones son propiedad del municipio.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">¿Se puede actualizar el informe con datos más recientes?</div>
+      <div class="faq-a">Sí. Los informes se pueden actualizar periódicamente. Las transferencias municipales se actualizan mensualmente con datos del Ministerio de Economía PBA. En el Programa Anual, la actualización está incluida.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">¿Trabajan con municipios de cualquier tamaño?</div>
+      <div class="faq-a">Sí. El diagnóstico está disponible para los 135 municipios de la Provincia de Buenos Aires, desde municipios pequeños como Adolfo Alsina (~17.000 hab.) hasta grandes como La Matanza (+1,7M). El formato se adapta a la escala y disponibilidad de datos de cada partido.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">¿Cuánto tiempo tarda la entrega?</div>
+      <div class="faq-a">El Informe Base se entrega en 2–3 semanas desde la firma del acuerdo. El Diagnóstico Integral tarda 3–4 semanas. El Programa Anual comienza con la entrega del diagnóstico completo en 4 semanas y el acompañamiento continúa durante los 12 meses siguientes.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">¿Pueden hacer el diagnóstico para todos los municipios de una región?</div>
+      <div class="faq-a">Sí, y es uno de nuestros servicios más demandados. Podemos hacer diagnósticos paralelos para 5, 10 o más municipios de una misma región, permitiendo comparaciones directas e identificación de economías de escala en servicios o proyectos compartidos.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CTA FINAL -->
+<div class="cta-final">
+  <h2>Un municipio bien<br>diagnosticado<br><em>gobierna mejor</em></h2>
+  <p>Contanos sobre el partido que gobernás y te armamos una propuesta específica. Sin compromiso.</p>
+  <div class="actions">
+    <a href="mailto:contacto@alsinaconsulting.com.ar?subject=Solicitud Diagnóstico Municipal" class="btn-primary" style="font-size:1rem;padding:16px 32px;">Solicitar diagnóstico →</a>
+    <a href="alsina-web.html" class="btn-outline" style="font-size:1rem;padding:16px 32px;">Volver al sitio</a>
+  </div>
+  <div style="margin-top:40px;padding-top:30px;border-top:1px solid var(--grafito3);display:flex;gap:40px;justify-content:center;flex-wrap:wrap;">
+    <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;color:var(--turquesa);">135</div><div style="font-size:.78rem;color:var(--concreto);">municipios bonaerenses</div></div>
+    <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;color:var(--turquesa);">3</div><div style="font-size:.78rem;color:var(--concreto);">semanas de entrega</div></div>
+    <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;color:var(--turquesa);">10</div><div style="font-size:.78rem;color:var(--concreto);">secciones de análisis</div></div>
+    <div style="text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;color:var(--turquesa);">+9</div><div style="font-size:.78rem;color:var(--concreto);">investigaciones especiales</div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">ALSINA</div>
+  <div class="footer-text">Gestión Pública · Tecnología · Territorio · Provincia de Buenos Aires · 2026</div>
+  <div class="footer-text"><a href="mailto:contacto@alsinaconsulting.com.ar" style="color:var(--turquesa);text-decoration:none;">contacto@alsinaconsulting.com.ar</a></div>
+</footer>
+
+<script>
+// Reveal on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.08});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// FAQ smooth open
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    document.querySelectorAll('.faq-item').forEach(i => { if(i !== item) i.classList.remove('open'); });
+  });
+});
+</script>
+</body>
+</html>

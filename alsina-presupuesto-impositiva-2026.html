@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presupuesto e Impositiva PBA 2026 — Alsina</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --grafito:#0e1c20;--grafito2:#162429;--grafito3:#1e2f35;
+  --turquesa:#00D5D8;--cian:#008C9A;
+  --crema:#F3EFE7;--crema2:#eae6de;
+  --concreto:#9e9992;--sombra:#1C3C44;
+  --blanco:#ffffff;--texto-oscuro:#1a2a30;
+  --rojo:#E05252;--verde:#52C78C;--amarillo:#E4AB02;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;overflow-x:hidden;font-size:16px;line-height:1.7;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:14px 52px;background:rgba(14,28,32,0);transition:background .4s,padding .3s;}
+nav.scrolled{background:rgba(14,28,32,.97);box-shadow:0 2px 40px rgba(0,0,0,.4);padding:11px 52px;border-bottom:1px solid rgba(0,213,216,.1);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-mark svg{width:28px;height:28px;}
+.nav-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.2em;color:var(--crema);}
+.nav-tagline{font-size:.58rem;color:rgba(183,178,170,.65);letter-spacing:.12em;text-transform:uppercase;}
+.nav-links{display:flex;gap:24px;list-style:none;}
+.nav-links a{color:rgba(243,239,231,.65);text-decoration:none;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;transition:color .2s;padding:3px 0;border-bottom:1px solid transparent;}
+.nav-links a:hover{color:var(--turquesa);border-bottom-color:var(--turquesa);}
+.nav-back{background:transparent;color:var(--turquesa);border:1px solid rgba(0,213,216,.4);padding:8px 20px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:all .2s;}
+.nav-back:hover{background:rgba(0,213,216,.1);}
+
+/* HERO */
+#hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;}
+.hero-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9?w=1600&q=80') center/cover no-repeat;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(110deg,rgba(14,28,32,.97) 45%,rgba(14,28,32,.7) 75%,rgba(0,140,154,.15) 100%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.04) 1px,transparent 1px);background-size:55px 55px;}
+.hero-content{position:relative;z-index:10;padding:130px 52px 90px;max-width:780px;}
+.hero-ley{display:inline-flex;align-items:center;gap:8px;background:rgba(0,213,216,.12);border:1px solid rgba(0,213,216,.25);color:var(--turquesa);font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:5px 14px;margin-bottom:24px;}
+.hero-headline{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3rem,5.5vw,5.2rem);line-height:.92;text-transform:uppercase;color:var(--crema);margin-bottom:0;}
+.hero-headline .hl{color:var(--turquesa);}
+.hero-sub{font-size:1rem;color:rgba(243,239,231,.72);max-width:560px;line-height:1.75;margin:22px 0 32px;}
+.hero-leyes{display:flex;gap:10px;flex-wrap:wrap;}
+.ley-tag{background:rgba(14,28,32,.8);border:1px solid rgba(0,213,216,.25);color:var(--concreto);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;font-family:'Barlow Condensed',sans-serif;font-weight:700;}
+.ley-tag span{color:var(--turquesa);}
+
+/* KPI BAND */
+.kpi-band{background:var(--sombra);border-top:2px solid var(--turquesa);border-bottom:1px solid rgba(0,213,216,.2);padding:0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);}
+.kpi{padding:28px 24px;border-right:1px solid rgba(0,213,216,.1);text-align:center;transition:background .3s;}
+.kpi:last-child{border-right:none;}
+.kpi:hover{background:rgba(0,213,216,.05);}
+.kpi-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:var(--turquesa);line-height:1;}
+.kpi-label{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-top:6px;line-height:1.4;}
+.kpi-sub{font-size:.7rem;color:rgba(183,178,170,.5);margin-top:3px;}
+
+/* SECTIONS */
+section{padding:88px 52px;}
+.dark-section{background:var(--grafito2);}
+.light-section{background:var(--crema);color:var(--texto-oscuro);}
+.light-section2{background:var(--crema2);color:var(--texto-oscuro);}
+.white-section{background:var(--blanco);color:var(--texto-oscuro);}
+
+.section-label{font-size:.66rem;letter-spacing:.25em;text-transform:uppercase;color:var(--turquesa);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.section-label::after{content:'';flex:0 0 28px;height:1px;background:var(--turquesa);}
+.section-label-dark{font-size:.66rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cian);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.section-label-dark::after{content:'';flex:0 0 28px;height:1px;background:var(--cian);}
+
+.section-headline{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.2rem,3.8vw,3.4rem);text-transform:uppercase;line-height:.93;color:var(--crema);}
+.section-headline span{color:var(--turquesa);}
+.section-headline-dark{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.2rem,3.8vw,3.4rem);text-transform:uppercase;line-height:.93;color:var(--texto-oscuro);}
+.section-headline-dark span{color:var(--cian);}
+
+.body-text{font-size:.95rem;color:var(--concreto);line-height:1.8;margin-top:16px;}
+.body-text-dark{font-size:.95rem;color:#3a4a50;line-height:1.8;margin-top:16px;}
+strong.hl{color:var(--turquesa);}
+strong.hl-dark{color:var(--cian);}
+
+/* CHART CONTAINERS */
+.chart-box{background:rgba(14,28,32,.6);border:1px solid rgba(0,213,216,.15);padding:24px;margin-top:32px;}
+.chart-box-light{background:var(--blanco);border:1px solid #ddd8d0;padding:24px;margin-top:32px;box-shadow:0 4px 20px rgba(0,0,0,.06);}
+.chart-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;text-transform:uppercase;letter-spacing:.1em;color:var(--concreto);margin-bottom:20px;}
+.chart-title-dark{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;text-transform:uppercase;letter-spacing:.1em;color:#6a7a80;margin-bottom:20px;}
+.chart-wrap{position:relative;height:320px;}
+.chart-wrap-sm{position:relative;height:240px;}
+.chart-wrap-lg{position:relative;height:380px;}
+
+/* TWO-COL GRIDS */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+.two-col-wide{display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:start;}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+
+/* DATA CARDS */
+.data-card{background:rgba(14,28,32,.7);border-top:2px solid rgba(0,213,216,.3);padding:22px 20px;transition:border-top-color .3s;}
+.data-card:hover{border-top-color:var(--turquesa);}
+.data-card-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.8rem;color:var(--turquesa);line-height:1;}
+.data-card-label{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-top:5px;line-height:1.4;}
+.data-card-sub{font-size:.75rem;color:rgba(183,178,170,.55);margin-top:3px;}
+
+.data-card-light{background:#f5f2ec;border-top:2px solid rgba(0,140,154,.3);padding:22px 20px;transition:border-top-color .3s;}
+.data-card-light:hover{border-top-color:var(--cian);}
+.data-card-light .data-card-val{color:var(--cian);}
+.data-card-light .data-card-label{color:#4a5a60;}
+.data-card-light .data-card-sub{color:#8a9aa0;}
+
+/* TABLE */
+.alsina-table{width:100%;border-collapse:collapse;margin-top:24px;font-size:.88rem;}
+.alsina-table thead tr{background:var(--sombra);}
+.alsina-table thead th{padding:12px 16px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);border-bottom:2px solid rgba(0,213,216,.3);}
+.alsina-table tbody td{padding:10px 16px;border-bottom:1px solid rgba(0,213,216,.08);color:var(--concreto);vertical-align:top;}
+.alsina-table tbody tr:last-child td{border-bottom:none;}
+.alsina-table tbody tr:hover td{background:rgba(0,213,216,.04);}
+.alsina-table .td-val{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;color:var(--turquesa);}
+.alsina-table .td-name{font-weight:600;color:var(--crema);}
+
+.alsina-table-light{width:100%;border-collapse:collapse;margin-top:24px;font-size:.88rem;}
+.alsina-table-light thead tr{background:var(--sombra);}
+.alsina-table-light thead th{padding:12px 16px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--crema);border-bottom:2px solid rgba(0,213,216,.4);}
+.alsina-table-light tbody td{padding:10px 16px;border-bottom:1px solid #e0dbd0;color:#3a4a50;vertical-align:top;}
+.alsina-table-light tbody tr:last-child td{border-bottom:none;}
+.alsina-table-light tbody tr:hover td{background:rgba(0,140,154,.05);}
+.alsina-table-light .td-val{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;color:var(--cian);}
+.alsina-table-light .td-name{font-weight:600;color:var(--texto-oscuro);}
+.alsina-table-light .td-total{background:rgba(0,140,154,.08)!important;font-weight:700;}
+
+/* CALLOUT BOXES */
+.callout{border-left:3px solid var(--turquesa);padding:16px 20px;background:rgba(0,213,216,.05);margin:20px 0;}
+.callout-dark{border-left:3px solid var(--cian);padding:16px 20px;background:rgba(0,140,154,.06);margin:20px 0;}
+.callout p{font-size:.9rem;color:var(--concreto);line-height:1.7;margin:0;}
+.callout-dark p{font-size:.9rem;color:#4a5a60;line-height:1.7;margin:0;}
+.callout strong,.callout-dark strong{color:var(--turquesa);}
+
+/* ALERT BOX */
+.alert-box{background:rgba(228,80,80,.08);border:1px solid rgba(228,80,80,.3);border-left:3px solid #E05252;padding:18px 22px;margin:20px 0;}
+.alert-box p{font-size:.9rem;color:#e09090;line-height:1.7;margin:0;}
+.alert-box strong{color:#E05252;}
+
+.alert-box-light{background:rgba(228,80,80,.05);border:1px solid rgba(228,80,80,.2);border-left:3px solid #E05252;padding:18px 22px;margin:20px 0;}
+.alert-box-light p{font-size:.9rem;color:#a03030;line-height:1.7;margin:0;}
+.alert-box-light strong{color:#cc2222;}
+
+/* GASTO BAR */
+.gasto-bar-row{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+.gasto-bar-label{font-size:.78rem;color:var(--concreto);width:220px;flex-shrink:0;line-height:1.3;}
+.gasto-bar-track{flex:1;background:rgba(255,255,255,.06);height:10px;border-radius:2px;overflow:hidden;}
+.gasto-bar-fill{height:100%;border-radius:2px;transition:width 1.4s cubic-bezier(.22,1,.36,1);width:0;}
+.gasto-bar-val{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;color:var(--turquesa);width:65px;text-align:right;flex-shrink:0;}
+
+/* HIGHLIGHT NUMS */
+.big-stat{text-align:center;padding:28px 20px;}
+.big-stat-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.4rem,4vw,3.8rem);color:var(--turquesa);line-height:1;}
+.big-stat-label{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--concreto);margin-top:8px;line-height:1.4;}
+
+/* COMPARISON TABLE */
+.comp-table{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-top:28px;}
+.comp-cell{padding:16px 18px;background:rgba(14,28,32,.6);}
+.comp-cell.header{background:var(--sombra);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);}
+.comp-cell.row-label{color:var(--concreto);font-size:.82rem;}
+.comp-cell.caba-val{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--turquesa);font-size:.95rem;}
+.comp-cell.pba-val{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--amarillo);font-size:.95rem;}
+.comp-cell.caba-val.neg,.comp-cell.pba-val.neg{color:var(--rojo);}
+.comp-cell.caba-val.pos{color:var(--verde);}
+
+/* IMPOSITIVA CARDS */
+.impositiva-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:32px;}
+.imp-card{background:rgba(14,28,32,.7);padding:26px 22px;border-top:2px solid rgba(0,213,216,.2);transition:all .3s;}
+.imp-card:hover{border-top-color:var(--turquesa);background:rgba(0,213,216,.04);}
+.imp-card-icon{font-size:1.6rem;margin-bottom:12px;display:block;}
+.imp-card-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;text-transform:uppercase;letter-spacing:.06em;color:var(--crema);margin-bottom:10px;}
+.imp-card-body{font-size:.82rem;color:var(--concreto);line-height:1.7;}
+.imp-card-body li{margin-bottom:5px;padding-left:12px;position:relative;}
+.imp-card-body li::before{content:'→';position:absolute;left:0;color:var(--turquesa);font-size:.7rem;}
+
+/* CONCLUSION CARDS */
+.conclusion-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:32px;}
+.conclusion-card{background:rgba(14,28,32,.8);padding:32px 28px;border-left:3px solid rgba(0,213,216,.25);transition:border-left-color .3s;}
+.conclusion-card:hover{border-left-color:var(--turquesa);}
+.conc-letter{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3.5rem;color:rgba(0,213,216,.12);line-height:1;margin-bottom:8px;}
+.conc-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.15rem;text-transform:uppercase;letter-spacing:.06em;color:var(--crema);margin-bottom:12px;}
+.conc-body{font-size:.85rem;color:var(--concreto);line-height:1.75;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.v{opacity:1;transform:none;}
+.reveal-left{opacity:0;transform:translateX(-36px);transition:opacity .7s ease,transform .7s ease;}
+.reveal-left.v{opacity:1;transform:none;}
+.reveal-right{opacity:0;transform:translateX(36px);transition:opacity .7s ease,transform .7s ease;}
+.reveal-right.v{opacity:1;transform:none;}
+.d1{transition-delay:.1s!important;}
+.d2{transition-delay:.2s!important;}
+.d3{transition-delay:.3s!important;}
+.d4{transition-delay:.4s!important;}
+
+/* FOOTER */
+footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgba(0,213,216,.1);}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;}
+.footer-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:.2em;color:var(--crema);}
+.footer-copy{font-size:.72rem;color:rgba(183,178,170,.45);}
+.footer-source{font-size:.7rem;color:rgba(0,213,216,.45);font-style:italic;}
+
+/* DIVIDER */
+.section-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,213,216,.25),transparent);}
+
+@media(max-width:960px){
+  nav{padding:13px 22px;}
+  .nav-links{display:none;}
+  section{padding:64px 22px;}
+  .hero-content{padding:110px 22px 80px;}
+  .kpi-grid{grid-template-columns:repeat(3,1fr);}
+  .two-col,.two-col-wide{grid-template-columns:1fr;}
+  .three-col{grid-template-columns:1fr 1fr;}
+  .four-col{grid-template-columns:1fr 1fr;}
+  .impositiva-grid{grid-template-columns:1fr 1fr;}
+  .conclusion-grid{grid-template-columns:1fr;}
+  .comp-table{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="alsina-web.html" class="nav-logo">
+    <span class="logo-mark">
+      <svg viewBox="0 0 30 30" fill="none">
+        <path d="M15 2L2 28H8L15 14L22 28H28L15 2Z" fill="#00D5D8"/>
+        <path d="M10 22H20" stroke="#071114" stroke-width="2"/>
+      </svg>
+    </span>
+    <div>
+      <div class="nav-brand">ALSINA</div>
+      <div class="nav-tagline">Gestión Pública · PBA</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#emergencia">Emergencia</a></li>
+    <li><a href="#gasto">Gasto</a></li>
+    <li><a href="#deficit">Déficit</a></li>
+    <li><a href="#personal">Personal</a></li>
+    <li><a href="#recaudacion">Recaudación</a></li>
+    <li><a href="#impositiva">Impositiva</a></li>
+    <li><a href="#financiamiento">Financiamiento</a></li>
+    <li><a href="#municipios">135 Municipios</a></li>
+  </ul>
+  <a href="alsina-web.html" class="nav-back">← Volver al sitio</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-ley">Leyes 15.557 · 15.558 · 15.561</div>
+    <h1 class="hero-headline">
+      Presupuesto<br>
+      e <span class="hl">Impositiva</span><br>
+      PBA 2026
+    </h1>
+    <p class="hero-sub">
+      Análisis completo de la Ley de Presupuesto, la Ley Impositiva y la Ley de
+      Financiamiento de la Provincia de Buenos Aires para el ejercicio 2026.
+      Estructura del gasto, déficit, personal, recaudación y cambios tributarios.
+    </p>
+    <div class="hero-leyes">
+      <div class="ley-tag">Ley <span>15.557</span> — Presupuesto</div>
+      <div class="ley-tag">Ley <span>15.558</span> — Impositiva</div>
+      <div class="ley-tag">Ley <span>15.561</span> — Financiamiento</div>
+      <div class="ley-tag">Emergencia hasta <span>1/3/2027</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- KPI BAND -->
+<div class="kpi-band">
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-val">$43,0 B</div>
+      <div class="kpi-label">Total erogaciones<br>corrientes y capital</div>
+      <div class="kpi-sub">billones de pesos</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val" style="color:var(--rojo);">−$451,9 M</div>
+      <div class="kpi-label">Déficit primario</div>
+      <div class="kpi-sub">resultado financiero: −$1,54 B</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">548.869</div>
+      <div class="kpi-label">Cargos públicos<br>(sin horas cátedra)</div>
+      <div class="kpi-sub">+41.258 desde 2019</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">$11,3 B</div>
+      <div class="kpi-label">Recaudación<br>10 meses 2025</div>
+      <div class="kpi-sub">+3,01% real vs 2024</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">$275</div>
+      <div class="kpi-label">Unidad tributaria<br>Impositiva 2026</div>
+      <div class="kpi-sub">era $227 (+21%)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECCIÓN 1: GRANDES NÚMEROS Y EMERGENCIA ── -->
+<section id="emergencia" class="dark-section">
+  <div class="two-col">
+    <div class="reveal-left">
+      <div class="section-label">Contexto general</div>
+      <h2 class="section-headline">Una provincia en <span>emergencia económica.</span></h2>
+      <p class="body-text">
+        El presupuesto 2026 de la Provincia de Buenos Aires se sancionó en un contexto excepcional. El artículo 1° declara la <strong class="hl">emergencia económica hasta el 1° de marzo de 2027</strong>, habilitando un conjunto de mecanismos de emergencia que van desde la creación de un Fondo de Recupero hasta nuevas facultades al Ejecutivo para reasignar partidas.
+      </p>
+      <p class="body-text">
+        La provincia gobierna sobre el territorio más grande y complejo de Argentina: <strong class="hl">307.571 km²</strong>, con <strong class="hl">17.523.996 habitantes</strong> — el <strong class="hl">37,90% del país</strong>. Sin embargo, los indicadores fiscales del presupuesto 2026 reflejan el impacto acumulado de una serie de condicionantes externos que el gobierno provincial atribuye en gran medida a las políticas del Estado Nacional.
+      </p>
+      <div class="callout" style="margin-top:24px;">
+        <p>Con un presupuesto nacional que marca el <strong>10,01% del PBI</strong> como techo de gasto, una inflación 2024 del <strong>122,1%</strong> en el GBA y una inflación 2025 estimada del <strong>31,5%</strong>, el diseño presupuestario debió absorber una pérdida de poder adquisitivo del gasto histórica.</p>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="three-col" style="gap:2px;">
+        <div class="data-card">
+          <div class="data-card-val">37,9%</div>
+          <div class="data-card-label">Participación PBA<br>en el total país</div>
+        </div>
+        <div class="data-card">
+          <div class="data-card-val">307.571</div>
+          <div class="data-card-label">km² de territorio</div>
+          <div class="data-card-sub">Más que Alemania, Italia, Japón</div>
+        </div>
+        <div class="data-card">
+          <div class="data-card-val">17,5 M</div>
+          <div class="data-card-label">Habitantes<br>(Censo 2022)</div>
+        </div>
+        <div class="data-card">
+          <div class="data-card-val">122,1%</div>
+          <div class="data-card-label">Inflación GBA 2024</div>
+          <div class="data-card-sub">General: 117,8%</div>
+        </div>
+        <div class="data-card">
+          <div class="data-card-val">31,5%</div>
+          <div class="data-card-label">Inflación 2025<br>(estimado)</div>
+        </div>
+        <div class="data-card">
+          <div class="data-card-val">+2.500</div>
+          <div class="data-card-label">Cargos vs Ley 15.394<br>(Presupuesto 2023)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider" style="margin:60px 0;"></div>
+
+  <div class="reveal">
+    <div class="section-label">Los cuatro argumentos de la emergencia</div>
+    <h3 class="section-headline" style="font-size:clamp(1.6rem,2.8vw,2.4rem);">Fundamentos del proyecto</h3>
+  </div>
+  <div class="four-col" style="margin-top:32px;">
+    <div class="data-card reveal d1">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:rgba(0,213,216,.25);margin-bottom:8px;">01</div>
+      <div class="data-card-label" style="font-size:.88rem;color:var(--crema);font-weight:600;margin-bottom:8px;">Crisis y emergencia económica</div>
+      <div style="font-size:.8rem;color:var(--concreto);line-height:1.65;">Abandono del Estado Nacional. Destrucción de empresas, empleo y actividad económica. Crisis sin precedentes en el turismo.</div>
+    </div>
+    <div class="data-card reveal d2">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:rgba(0,213,216,.25);margin-bottom:8px;">02</div>
+      <div class="data-card-label" style="font-size:.88rem;color:var(--crema);font-weight:600;margin-bottom:8px;">La obra pública en peligro</div>
+      <div style="font-size:.8rem;color:var(--concreto);line-height:1.65;">Caída de la construcción en el período 2023–2025. Falta de obra pública nacional. Sin inversión federal en infraestructura bonaerense.</div>
+    </div>
+    <div class="data-card reveal d3">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:rgba(0,213,216,.25);margin-bottom:8px;">03</div>
+      <div class="data-card-label" style="font-size:.88rem;color:var(--crema);font-weight:600;margin-bottom:8px;">El impacto fiscal de la Nación</div>
+      <div style="font-size:.8rem;color:var(--concreto);line-height:1.65;">Recesión, concentración de recursos a nivel nacional. <strong style="color:var(--turquesa);">PBA aportó $4 de cada $10 y recibió $0,70.</strong> Caída de recaudación y transferencias nacionales.</div>
+    </div>
+    <div class="data-card reveal d4">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:rgba(0,213,216,.25);margin-bottom:8px;">04</div>
+      <div class="data-card-label" style="font-size:.88rem;color:var(--crema);font-weight:600;margin-bottom:8px;">Regularización — Consenso Fiscal</div>
+      <div style="font-size:.8rem;color:var(--concreto);line-height:1.65;">Regularización de deudas derivadas del Consenso Fiscal 2017. Reclamos administrativos y judiciales a la Nación, incluyendo demanda ante la Corte Suprema (MEV).</div>
+    </div>
+  </div>
+
+  <div class="section-divider" style="margin:60px 0;"></div>
+
+  <div class="reveal">
+    <div class="section-label">El reclamo histórico</div>
+    <h3 class="section-headline" style="font-size:clamp(1.5rem,2.5vw,2.2rem);">El Fondo de Fortalecimiento Fiscal y el Consenso de 2017</h3>
+    <p class="body-text" style="max-width:780px;">
+      Uno de los ejes centrales del reclamo provincial al Estado Nacional son dos hechos del pasado reciente que el gobierno de Kicillof convirtió en argumentos fiscales y políticos. El Fondo de Fortalecimiento Fiscal fue creado por <strong class="hl">Decreto 735/2020</strong>, cuando Axel Kicillof era Ministro de Economía Nacional — representaba el <strong class="hl">24,1%</strong> de un fondo federal. "De manera intempestiva e inconsulta le quitaron recursos a una jurisdicción para darle a otra, en el medio de una pandemia."
+    </p>
+    <p class="body-text" style="max-width:780px;margin-top:12px;">
+      Respecto del Consenso Fiscal 2017, el presupuesto documenta que Kicillof votó <em>en contra</em> del mismo cuando era diputado nacional, y que PBA inició la <strong class="hl">demanda MEV ante la Corte Suprema</strong> para recuperar los recursos resignados bajo ese esquema.
+    </p>
+  </div>
+</section>
+
+<!-- ── SECCIÓN 2: ESTRUCTURA DEL GASTO ── -->
+<section id="gasto" style="background:var(--grafito);padding:88px 52px;">
+  <div class="section-label reveal">Estructura presupuestaria</div>
+  <h2 class="section-headline reveal">Recursos, gastos<br><span>y composición del presupuesto.</span></h2>
+
+  <div class="two-col" style="margin-top:48px;gap:48px;">
+    <div class="reveal-left">
+      <p class="body-text">
+        El presupuesto 2026 proyecta <strong class="hl">ingresos totales de $41,48 billones de pesos</strong> y <strong class="hl" style="color:var(--rojo);">gastos totales de $43,02 billones</strong>, con el <strong class="hl">92,18% destinado a erogaciones corrientes</strong> y apenas el <strong class="hl">7,82% a erogaciones de capital</strong>. Este sesgo hacia el gasto corriente es uno de los rasgos estructurales más preocupantes de las finanzas provinciales.
+      </p>
+      <p class="body-text">
+        El peso de las remuneraciones —casi el <strong class="hl">40% del gasto total</strong>— junto con las prestaciones previsionales y las transferencias corrientes, conforman una estructura rígida que deja muy poco margen para inversión real y obra pública.
+      </p>
+
+      <!-- BARRAS MANUALES -->
+      <div class="chart-box" style="margin-top:32px;">
+        <div class="chart-title">Composición del gasto — $43.021.246 M de pesos</div>
+        <div class="gasto-bar-row">
+          <div class="gasto-bar-label">Remuneraciones</div>
+          <div class="gasto-bar-track"><div class="gasto-bar-fill" data-width="39.64" style="background:var(--turquesa);"></div></div>
+          <div class="gasto-bar-val">39,64%</div>
+        </div>
+        <div class="gasto-bar-row">
+          <div class="gasto-bar-label">Transf. corrientes</div>
+          <div class="gasto-bar-track"><div class="gasto-bar-fill" data-width="14.61" style="background:#00b0b3;"></div></div>
+          <div class="gasto-bar-val">14,61%</div>
+        </div>
+        <div class="gasto-bar-row">
+          <div class="gasto-bar-label">Previsión social</div>
+          <div class="gasto-bar-track"><div class="gasto-bar-fill" data-width="17.56" style="background:#008C9A;"></div></div>
+          <div class="gasto-bar-val">17,56%</div>
+        </div>
+        <div class="gasto-bar-row">
+          <div class="gasto-bar-label">Coparticipación municipal</div>
+          <div class="gasto-bar-track"><div class="gasto-bar-fill" data-width="12.86" style="background:#005f6b;"></div></div>
+          <div class="gasto-bar-val">12,86%</div>
+        </div>
+        <div class="gasto-bar-row">
+          <div class="gasto-bar-label">Gastos de capital</div>
+          <div class="gasto-bar-track"><div class="gasto-bar-fill" data-width="7.33" style="background:rgba(0,213,216,.4);"></div></div>
+          <div class="gasto-bar-val">7,33%</div>
+        </div>
+        <div class="gasto-bar-row">
+          <div class="gasto-bar-label">Otros</div>
+          <div class="gasto-bar-track"><div class="gasto-bar-fill" data-width="8.00" style="background:rgba(158,153,146,.4);"></div></div>
+          <div class="gasto-bar-val">8,00%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal-right">
+      <div class="chart-box">
+        <div class="chart-title">Distribución del gasto 2026 (% del total)</div>
+        <div class="chart-wrap" id="gastoDonutWrap">
+          <canvas id="gastoChart"></canvas>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:20px;">
+        <p><strong>Gastos de capital totales: $3.152.265 M (7,3%)</strong><br>
+        • Inversión real directa: $1.716.883 M (3,99%)<br>
+        • Transferencias de capital: $829.608 M (1,92%)<br>
+        • Inversión financiera: $605.774 M (1,40%)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider" style="margin:56px 0;"></div>
+
+  <!-- TABLA DETALLE GASTO -->
+  <div class="reveal">
+    <div class="section-label">Detalle por objeto</div>
+    <h3 class="section-headline" style="font-size:clamp(1.5rem,2.5vw,2.2rem);">Desglose de las principales partidas</h3>
+  </div>
+  <div class="two-col" style="margin-top:32px;gap:48px;">
+    <div class="reveal-left">
+      <table class="alsina-table">
+        <thead>
+          <tr>
+            <th>Objeto del gasto</th>
+            <th>Monto (M$)</th>
+            <th>%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-name">Remuneraciones</td><td class="td-val">$17.053.645</td><td>39,64%</td></tr>
+          <tr><td class="td-name">Previsión Social</td><td class="td-val">$7.554.706</td><td>17,56%</td></tr>
+          <tr><td class="td-name">Transferencias corrientes</td><td class="td-val">$6.285.012</td><td>14,61%</td></tr>
+          <tr><td class="td-name">Coparticipación municipal*</td><td class="td-val">$5.534.659</td><td>12,86%</td></tr>
+          <tr><td class="td-name">Inversión real directa</td><td class="td-val">$1.716.883</td><td>3,99%</td></tr>
+          <tr><td class="td-name">Transf. de capital</td><td class="td-val">$829.608</td><td>1,92%</td></tr>
+          <tr><td class="td-name">Inversión financiera</td><td class="td-val">$605.774</td><td>1,40%</td></tr>
+          <tr style="background:rgba(0,213,216,.05);"><td class="td-name" style="color:var(--turquesa);font-weight:700;">Total erogaciones</td><td class="td-val">$43.021.246</td><td style="color:var(--turquesa);font-weight:700;">100%</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:.7rem;color:rgba(158,153,146,.5);margin-top:8px;">*Incluye gastos corrientes y de capital vinculados a distribución a municipios.</div>
+    </div>
+    <div class="reveal-right">
+      <div class="section-label">Ejes de gestión 2026</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px;">
+        <div class="callout">
+          <p><strong>Rol Social del Estado:</strong> Programa Medicamentos Bonaerenses · Instituto Provincia del Cáncer · Mesa Bonaerense (2M personas) · "Un vaso de leche por día" (600.000 familias) · Juegos Bonaerenses (480.000 inscriptos) · Lotes.</p>
+        </div>
+        <div class="callout">
+          <p><strong>Infraestructura y Producción:</strong> Nuevos parques industriales · Arriba Parques · Créditos BAPRO · Intervenciones en más de 300 km · 8 CAPS.</p>
+        </div>
+        <div class="callout">
+          <p><strong>Perspectiva de género y ambiental:</strong> $154.000 M destinados a derechos de salud sexual, reproductivos y no reproductivos para mujeres y diversidades. Transversalización de la perspectiva de género.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider" style="margin:56px 0;"></div>
+
+  <!-- GASTO POR JURISDICCIÓN -->
+  <div class="reveal">
+    <div class="section-label">Concentración jurisdiccional</div>
+    <h3 class="section-headline" style="font-size:clamp(1.5rem,2.5vw,2.2rem);">El <span>95,11%</span> del gasto se concentra en 13 jurisdicciones</h3>
+    <p class="body-text" style="max-width:700px;">Las principales jurisdicciones por volumen de gasto concentran casi la totalidad del presupuesto. Cinco organismos dan cuenta de la mayor parte del empleo y el gasto.</p>
+  </div>
+  <div class="four-col" style="margin-top:32px;">
+    <div class="data-card reveal d1">
+      <div class="data-card-val">23.650</div>
+      <div class="data-card-label">Ministerio de Comunicación Pública</div>
+      <div class="data-card-sub">$59.337.766 M</div>
+    </div>
+    <div class="data-card reveal d2">
+      <div class="data-card-val">2.295</div>
+      <div class="data-card-label">Ministerio de Producción</div>
+      <div class="data-card-sub">$21.660.303 M</div>
+    </div>
+    <div class="data-card reveal d3">
+      <div class="data-card-val">970</div>
+      <div class="data-card-label">Ministerio Mujeres y Género</div>
+      <div class="data-card-sub">$42.521.493 M</div>
+    </div>
+    <div class="data-card reveal d4">
+      <div class="data-card-val">761</div>
+      <div class="data-card-label">Astillero Río Santiago</div>
+      <div class="data-card-sub">$105.175.481 M</div>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:20px;">
+    <p>La Gobernación tiene <strong>662 empleados</strong> con un gasto de <strong>$195.123.347 M</strong>. El Astillero Río Santiago, con apenas 761 empleados, insume más de $105 mil millones — uno de los organismos con mayor costo relativo por agente.</p>
+  </div>
+</section>
+
+<!-- ── SECCIÓN 3: DÉFICIT ── -->
+<section id="deficit" class="light-section">
+  <div class="section-label-dark reveal">Resultado fiscal</div>
+  <h2 class="section-headline-dark reveal">El déficit de PBA<br>versus <span>Nación y CABA.</span></h2>
+  <p class="body-text-dark reveal" style="max-width:700px;margin-top:16px;">
+    El presupuesto 2026 cierra con <strong class="hl-dark">déficit primario de $451.911 millones</strong> y un <strong class="hl-dark" style="color:var(--rojo);">déficit financiero de $1.536.724 millones</strong> (−0,8% del PBG, según estimaciones de Empiria). Los últimos resultados primarios positivos de la provincia fueron en <strong class="hl-dark">2018 y 2019</strong>.
+  </p>
+  <p class="body-text-dark reveal" style="max-width:700px;">
+    La brecha con Ciudad de Buenos Aires y con la propia Nación es notoria: mientras PBA cierra en rojo, Nación proyecta un <strong class="hl-dark">superávit financiero equivalente al 0,3% del PIB</strong> y CABA alcanza un superávit financiero de casi <strong class="hl-dark">$5.893.487 millones</strong>.
+  </p>
+
+  <!-- COMPARATIVO TRES DISTRITOS -->
+  <div class="comp-table reveal" style="margin-top:40px;">
+    <div class="comp-cell header" style="background:var(--sombra);">Indicador</div>
+    <div class="comp-cell header" style="background:var(--sombra);">CABA</div>
+    <div class="comp-cell header" style="background:var(--sombra);">PBA</div>
+    <div class="comp-cell row-label">Resultado primario</div>
+    <div class="comp-cell caba-val pos">+$259.078 M</div>
+    <div class="comp-cell pba-val neg">−$451.911 M</div>
+    <div class="comp-cell row-label">Resultado financiero</div>
+    <div class="comp-cell caba-val pos">+$5.893.487 M</div>
+    <div class="comp-cell pba-val neg">−$1.536.724 M</div>
+    <div class="comp-cell row-label">Presupuesto total</div>
+    <div class="comp-cell caba-val">$17,3 billones</div>
+    <div class="comp-cell pba-val">$43,0 billones</div>
+    <div class="comp-cell row-label">Presupuesto / habitante / mes</div>
+    <div class="comp-cell caba-val">$472.222</div>
+    <div class="comp-cell pba-val" style="color:var(--amarillo);">$210.784</div>
+    <div class="comp-cell row-label">Gastos corrientes</div>
+    <div class="comp-cell caba-val">80,20%</div>
+    <div class="comp-cell pba-val neg">92,67%</div>
+    <div class="comp-cell row-label">Gastos de capital</div>
+    <div class="comp-cell caba-val pos">19,79%</div>
+    <div class="comp-cell pba-val neg">7,33%</div>
+    <div class="comp-cell row-label">Inversión real directa</div>
+    <div class="comp-cell caba-val pos">19,1%</div>
+    <div class="comp-cell pba-val neg">3,99%</div>
+    <div class="comp-cell row-label">Remuneraciones</div>
+    <div class="comp-cell caba-val">42,40%</div>
+    <div class="comp-cell pba-val">39,64%</div>
+  </div>
+
+  <div class="alert-box-light reveal" style="margin-top:32px;">
+    <p><strong>Brecha per cápita crítica:</strong> Un habitante de CABA tiene un presupuesto de $472.222 por mes, más del doble que un habitante de PBA ($210.784/mes). Si se incluye solo a los 3 millones que ingresan diariamente a CABA desde otras jurisdicciones, la cifra sube a $236.111/mes. Esta asimetría de recursos es estructural y se profundiza con cada año de déficit bonaerense.</p>
+  </div>
+
+  <div class="chart-box-light reveal" style="margin-top:40px;">
+    <div class="chart-title-dark">Comparativo CABA vs PBA — Estructura del gasto (%)</div>
+    <div class="chart-wrap" id="compWrap">
+      <canvas id="compChart"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECCIÓN 4: PERSONAL ── -->
+<section id="personal" class="dark-section">
+  <div class="section-label reveal">El Estado empleador</div>
+  <h2 class="section-headline reveal">548.869 cargos<br><span>— casi 700.000 con horas cátedra.</span></h2>
+
+  <div class="two-col" style="margin-top:44px;">
+    <div class="reveal-left">
+      <p class="body-text">
+        El Estado provincial emplea <strong class="hl">548.869 cargos</strong> sin contabilizar horas cátedra docentes. Si se suman las <strong class="hl">3.548.056 horas cátedra</strong> —que representan puestos de trabajo reales—, el total se aproxima a <strong class="hl">700.000 personas</strong>, lo que implica <strong class="hl">1 empleado público cada 25 habitantes</strong> de la provincia.
+      </p>
+      <p class="body-text">
+        La planta creció un <strong class="hl" style="color:var(--amarillo);">8,13% desde 2019</strong>, sumando <strong class="hl" style="color:var(--amarillo);">41.258 cargos adicionales</strong>. El <strong class="hl">69,39%</strong> del personal es de Planta Permanente, lo que establece un piso de gasto de personal muy difícil de reducir en el corto plazo.
+      </p>
+
+      <div class="callout">
+        <p>El sector Educación-Salud-Seguridad concentra el <strong>78,22%</strong> de los cargos de la Administración Central: <strong>245.812</strong> en Educación y Salud (46,30%) más <strong>108.159</strong> en Seguridad (20,37%). Sumando organismos descentralizados no consolidados, representa el <strong>76% del total</strong>.</p>
+      </div>
+
+      <div class="section-divider" style="margin:32px 0;"></div>
+
+      <!-- PERSONAL POR SUBSECTOR -->
+      <div class="section-label">Distribución por subsector</div>
+      <table class="alsina-table" style="margin-top:16px;">
+        <thead><tr><th>Subsector</th><th>PP</th><th>PT</th><th>Total</th><th>%</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="td-name">Admin. Central</td>
+            <td class="td-val" style="font-size:.88rem;">253.241</td>
+            <td>10.546</td>
+            <td class="td-val">263.787</td>
+            <td>48,06%</td>
+          </tr>
+          <tr>
+            <td class="td-name">Org. Descentralizados</td>
+            <td class="td-val" style="font-size:.88rem;">110.501</td>
+            <td>155.460</td>
+            <td class="td-val">265.961</td>
+            <td>48,45%</td>
+          </tr>
+          <tr>
+            <td class="td-name">Inst. Previsión Social</td>
+            <td class="td-val" style="font-size:.88rem;">1.083</td>
+            <td>91</td>
+            <td class="td-val">1.174</td>
+            <td>0,21%</td>
+          </tr>
+          <tr>
+            <td class="td-name">Org. Desc. No Consol.</td>
+            <td class="td-val" style="font-size:.88rem;">16.058</td>
+            <td>1.889</td>
+            <td class="td-val">17.947</td>
+            <td>3,26%</td>
+          </tr>
+          <tr style="background:rgba(0,213,216,.05);">
+            <td class="td-name" style="color:var(--turquesa);font-weight:700;">Total</td>
+            <td class="td-val" style="font-size:.88rem;">380.883</td>
+            <td>167.986</td>
+            <td class="td-val">548.869</td>
+            <td style="color:var(--turquesa);font-weight:700;">100%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="reveal-right">
+      <div class="chart-box">
+        <div class="chart-title">Personal por sector (Admin. Central — 263.787 cargos)</div>
+        <div class="chart-wrap" id="personalWrap">
+          <canvas id="personalChart"></canvas>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:2px;">
+        <div class="data-card">
+          <div class="data-card-val">69,39%</div>
+          <div class="data-card-label">Planta Permanente</div>
+          <div class="data-card-sub">380.883 cargos</div>
+        </div>
+        <div class="data-card">
+          <div class="data-card-val">+8,13%</div>
+          <div class="data-card-label">Crecimiento desde 2019</div>
+          <div class="data-card-sub">+41.258 cargos</div>
+        </div>
+        <div class="data-card">
+          <div class="data-card-val">1 c/25</div>
+          <div class="data-card-label">Empleados por habitante</div>
+          <div class="data-card-sub">incl. horas cátedra</div>
+        </div>
+        <div class="data-card">
+          <div class="data-card-val">~700.000</div>
+          <div class="data-card-label">Total estimado con<br>horas cátedra</div>
+        </div>
+      </div>
+
+      <div class="section-divider" style="margin:20px 0;"></div>
+      <div class="section-label">Org. Desc. No Consolidados — detalle</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:12px;">
+        <div class="data-card" style="padding:14px 16px;">
+          <div class="data-card-val" style="font-size:1.3rem;">10.597</div>
+          <div class="data-card-label">IOMA</div>
+        </div>
+        <div class="data-card" style="padding:14px 16px;">
+          <div class="data-card-val" style="font-size:1.3rem;">4.428</div>
+          <div class="data-card-label">Banco Provincia</div>
+        </div>
+        <div class="data-card" style="padding:14px 16px;">
+          <div class="data-card-val" style="font-size:1.3rem;">2.858</div>
+          <div class="data-card-label">ARBA</div>
+        </div>
+        <div class="data-card" style="padding:14px 16px;">
+          <div class="data-card-val" style="font-size:1.3rem;">64</div>
+          <div class="data-card-label">Caja Banco PBA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECCIÓN 5: RECAUDACIÓN ── -->
+<section id="recaudacion" style="background:var(--grafito);padding:88px 52px;">
+  <div class="section-label reveal">Ingresos tributarios</div>
+  <h2 class="section-headline reveal">Recaudación 2021–2025:<br><span>la distorsión del IIBB.</span></h2>
+
+  <div class="two-col" style="margin-top:44px;gap:48px;">
+    <div class="reveal-left">
+      <p class="body-text">
+        La recaudación provincial creció de manera espectacular en términos nominales — de <strong class="hl">$791.479 millones en 2021</strong> a una proyección de más de <strong class="hl">$13 billones para 2025</strong> — pero la evolución en términos reales es mucho más modesta y, en algunos años, negativa.
+      </p>
+      <p class="body-text">
+        En 2022 la variación real fue de <strong class="hl" style="color:var(--rojo);">−6,67%</strong>, y en 2024 de <strong class="hl" style="color:var(--rojo);">−0,85%</strong>. Los primeros 9 meses de 2025 muestran una recuperación real del <strong class="hl">+3,01%</strong>, pero la estructura sigue mostrando una dependencia creciente del Impuesto a los Ingresos Brutos (IIBB).
+      </p>
+      <div class="alert-box">
+        <p><strong>Distorsión estructural:</strong> La incidencia de impuestos distorsivos (IIBB) crece de manera sostenida, mientras que la incidencia de impuestos patrimoniales (Inmobiliario y Automotor) sigue siendo baja. El IIBB representa ya el <strong>76,49% de la recaudación provincial</strong>, generando carga sobre la cadena de valor en lugar de sobre la riqueza acumulada.</p>
+      </div>
+
+      <table class="alsina-table" style="margin-top:24px;">
+        <thead><tr><th>Año</th><th>Recaudación (M$)</th><th>Var. real</th></tr></thead>
+        <tbody>
+          <tr><td class="td-name">2021</td><td class="td-val">$791.479</td><td style="color:var(--verde);">+3,47%</td></tr>
+          <tr><td class="td-name">2022</td><td class="td-val">$1.408.769</td><td style="color:var(--rojo);">−6,67%</td></tr>
+          <tr><td class="td-name">2023</td><td class="td-val">$3.040.409</td><td style="color:var(--concreto);">s/d</td></tr>
+          <tr><td class="td-name">2024</td><td class="td-val">$9.649.255</td><td style="color:var(--rojo);">−0,85%</td></tr>
+          <tr><td class="td-name">2025 (10 meses)</td><td class="td-val">$11.310.376</td><td style="color:var(--verde);">+3,01% (9m)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="reveal-right">
+      <div class="chart-box">
+        <div class="chart-title">Recaudación provincial nominal (M de pesos) · 2021–2025</div>
+        <div class="chart-wrap" id="recaudWrap">
+          <canvas id="recaudChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider" style="margin:56px 0;"></div>
+
+  <!-- COMPOSICIÓN 2025 -->
+  <div class="two-col" style="gap:48px;">
+    <div class="reveal-left">
+      <div class="section-label">Composición — Primeros 10 meses 2025</div>
+      <h3 class="section-headline" style="font-size:clamp(1.5rem,2.5vw,2.2rem);"><span>$11.310.376 M</span> en recaudación</h3>
+
+      <div class="chart-box" style="margin-top:28px;">
+        <div class="chart-title">Recaudación por tributo — 10 meses 2025 (M$)</div>
+        <div class="chart-wrap-sm" id="compRecWrap">
+          <canvas id="compRecChart"></canvas>
+        </div>
+      </div>
+
+      <table class="alsina-table" style="margin-top:20px;">
+        <thead><tr><th>Tributo</th><th>Monto (M$)</th><th>%</th></tr></thead>
+        <tbody>
+          <tr><td class="td-name">Ingresos Brutos</td><td class="td-val">$8.651.571</td><td style="color:var(--turquesa);">76,49%</td></tr>
+          <tr><td class="td-name">Sellos</td><td class="td-val">$1.194.713</td><td>10,56%</td></tr>
+          <tr><td class="td-name">Automotor</td><td class="td-val">$606.105</td><td>5,36%</td></tr>
+          <tr><td class="td-name">Inmobiliario</td><td class="td-val">$571.784</td><td>5,06%</td></tr>
+          <tr><td class="td-name">Otros</td><td class="td-val">$286.203</td><td>2,53%</td></tr>
+          <tr style="background:rgba(0,213,216,.05);"><td class="td-name" style="color:var(--turquesa);font-weight:700;">Total</td><td class="td-val">$11.310.376</td><td style="color:var(--turquesa);font-weight:700;">100%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="reveal-right">
+      <div class="section-label">Variaciones reales — 2025 vs 2024</div>
+      <h3 class="section-headline" style="font-size:clamp(1.5rem,2.5vw,2.2rem);">Recuperación heterogénea<br>entre <span>tributos.</span></h3>
+      <p class="body-text" style="margin-top:16px;">La variación real de los primeros 10 meses de 2025 respecto de 2024 muestra una recuperación general, con el Automotor liderando (+16,79%) y Sellos con un salto de +37,83%. El IIBB, en cambio, apenas crece +1,63% en términos reales — señal de que la actividad económica no despega con fuerza.</p>
+
+      <div class="chart-box" style="margin-top:24px;">
+        <div class="chart-title">Var. real acumulada 10 meses 2025 vs 2024 (%)</div>
+        <div class="chart-wrap-sm" id="varRealWrap">
+          <canvas id="varRealChart"></canvas>
+        </div>
+      </div>
+
+      <div class="section-divider" style="margin:24px 0;"></div>
+      <div class="section-label">Octubre 2025 vs Octubre 2024</div>
+      <table class="alsina-table" style="margin-top:12px;">
+        <thead><tr><th>Tributo</th><th>Var. nominal</th><th>Var. real</th></tr></thead>
+        <tbody>
+          <tr><td class="td-name">IIBB</td><td>+35,49%</td><td style="color:var(--verde);">+8,56%</td></tr>
+          <tr><td class="td-name">Inmobiliario</td><td>+80,66%</td><td style="color:var(--rojo);">−75,8%</td></tr>
+          <tr><td class="td-name">Automotor</td><td>+111,8%</td><td style="color:var(--verde);">+69,71%</td></tr>
+          <tr><td class="td-name">Sellos</td><td>+53,53%</td><td style="color:var(--verde);">+27,03%</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:.72rem;color:rgba(158,153,146,.5);margin-top:8px;">*La caída real del Inmobiliario en octubre refleja la concentración de pagos en meses previos.</div>
+    </div>
+  </div>
+
+  <!-- RECAUDACIÓN AÑO 2024 - DETALLE -->
+  <div class="section-divider" style="margin:56px 0;"></div>
+  <div class="reveal">
+    <div class="section-label">Cierre 2024 en detalle</div>
+    <h3 class="section-headline" style="font-size:clamp(1.5rem,2.5vw,2.2rem);">Año 2024: <span>$9.649.255 M</span> con variación real negativa</h3>
+  </div>
+  <div class="four-col" style="margin-top:32px;">
+    <div class="data-card reveal d1">
+      <div class="data-card-val">42,22%</div>
+      <div class="data-card-label">IIBB — variación nominal</div>
+      <div class="data-card-sub">var. real: +3,19%</div>
+    </div>
+    <div class="data-card reveal d2">
+      <div class="data-card-val">4,48%</div>
+      <div class="data-card-label">Inmobiliario — nominal</div>
+      <div class="data-card-sub">var. real: −0,85%</div>
+    </div>
+    <div class="data-card reveal d3">
+      <div class="data-card-val">0,36%</div>
+      <div class="data-card-label">Automotor — nominal</div>
+    </div>
+    <div class="data-card reveal d4">
+      <div class="data-card-val">−0,85%</div>
+      <div class="data-card-label">Variación real total 2024</div>
+      <div class="data-card-sub" style="color:var(--rojo);">Segunda caída en 4 años</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECCIÓN 6: LEY IMPOSITIVA 2026 ── -->
+<section id="impositiva" class="light-section">
+  <div class="section-label-dark reveal">Ley 15.558</div>
+  <h2 class="section-headline-dark reveal">Ley Impositiva <span>2026:</span><br>cambios clave por tributo.</h2>
+  <p class="body-text-dark reveal" style="max-width:720px;margin-top:16px;">
+    La Ley Impositiva 2026 no introduce una reforma estructural del sistema tributario, pero sí introduce ajustes significativos en la Unidad Tributaria, el Inmobiliario, el Automotor y el IIBB. También habilita indexación por IPC bajo ciertas condiciones y amplía las facultades de ARBA como agente de recaudación.
+  </p>
+
+  <div class="impositiva-grid" style="background:inherit;">
+    <div class="imp-card" style="background:#f5f2ec;border-color:#d0ccc2;" class="reveal d1">
+      <span class="imp-card-icon">🏠</span>
+      <div class="imp-card-title" style="color:var(--texto-oscuro);">Impuesto Inmobiliario</div>
+      <ul class="imp-card-body" style="color:#4a5a60;list-style:none;padding:0;">
+        <li>Sin modificaciones en estructura, tramos ni coeficientes patrimoniales</li>
+        <li>Excepción: coeficiente para <strong>tierra urbana sin edificar</strong></li>
+        <li>No hay cuota adicional urbana ni rural</li>
+        <li>Tope de aumento: inflación feb 2024 – nov 2025 (<strong>125%</strong>)</li>
+        <li>Indexación permitida vía Art. 167 por IPC si hay revalúo</li>
+        <li>Art. 133 habilita actualización de valuación fiscal (Catastro Territorial)</li>
+      </ul>
+    </div>
+    <div class="imp-card" style="background:#f5f2ec;border-color:#d0ccc2;" class="reveal d2">
+      <span class="imp-card-icon">🚗</span>
+      <div class="imp-card-title" style="color:var(--texto-oscuro);">Impuesto Automotor</div>
+      <ul class="imp-card-body" style="color:#4a5a60;list-style:none;padding:0;">
+        <li><strong>Se simplifica y se reducen los tramos</strong></li>
+        <li>Reducción real en el <strong>75% de los vehículos</strong></li>
+        <li>Indexación vía Art. 167 por IPC si corresponde</li>
+        <li>Transferencia a municipios: vehículos <strong>1990 a 2014</strong></li>
+        <li>Exención a empresas de transporte regular de pasajeros (Art. 183)</li>
+        <li>ARBA podrá designar agentes de retención: concesionarios, seguros, agencias</li>
+      </ul>
+    </div>
+    <div class="imp-card" style="background:#f5f2ec;border-color:#d0ccc2;" class="reveal d3">
+      <span class="imp-card-icon">📊</span>
+      <div class="imp-card-title" style="color:var(--texto-oscuro);">Ingresos Brutos (IIBB)</div>
+      <ul class="imp-card-body" style="color:#4a5a60;list-style:none;padding:0;">
+        <li><strong>Suben alícuotas</strong> en algunos tramos (no en todos)</li>
+        <li>Eliminación del régimen de facilidades (Art. 87)</li>
+        <li>Nueva alícuota: <strong>9% a la renta</strong> de entidades financieras por compra de títulos públicos nacionales</li>
+        <li>Piso de bonificaciones especiales — Art. 19 aprobado</li>
+        <li>Bonificaciones Art. 19 y 37 se mantienen — condiciones las define Min. Economía</li>
+      </ul>
+    </div>
+    <div class="imp-card" style="background:#f5f2ec;border-color:#d0ccc2;" class="reveal d1">
+      <span class="imp-card-icon">📋</span>
+      <div class="imp-card-title" style="color:var(--texto-oscuro);">Sellos y Otros</div>
+      <ul class="imp-card-body" style="color:#4a5a60;list-style:none;padding:0;">
+        <li><strong>No se modifica</strong> el impuesto a los Sellos</li>
+        <li><strong>No se modifica</strong> el Impuesto a la Transmisión Gratuita de Bienes</li>
+        <li>Se mantienen bonificaciones especiales Art. 37</li>
+      </ul>
+    </div>
+    <div class="imp-card" style="background:#f5f2ec;border-color:#d0ccc2;" class="reveal d2">
+      <span class="imp-card-icon">💰</span>
+      <div class="imp-card-title" style="color:var(--texto-oscuro);">Unidad Tributaria</div>
+      <ul class="imp-card-body" style="color:#4a5a60;list-style:none;padding:0;">
+        <li>Fijada en <strong>$275 para 2026</strong> (era $227 en 2025)</li>
+        <li>Incremento del <strong>+21%</strong></li>
+        <li>Ministerio de Economía puede incrementarla por IPC</li>
+        <li>Tope: variación acumulada del IPC INDEC desde la entrada en vigencia</li>
+      </ul>
+    </div>
+    <div class="imp-card" style="background:#f5f2ec;border-color:#d0ccc2;" class="reveal d3">
+      <span class="imp-card-icon">🏛️</span>
+      <div class="imp-card-title" style="color:var(--texto-oscuro);">Contrib. Seguridad Social</div>
+      <ul class="imp-card-body" style="color:#4a5a60;list-style:none;padding:0;">
+        <li><strong>Empleadores</strong> — Jubilaciones: 10,77% · Asignaciones: 4,44% · Salud: 6% · Desempleo: 1,5%</li>
+        <li>Total empleador: <strong>24–26%</strong> del salario bruto</li>
+        <li><strong>Empleados</strong> — Jubilaciones: 11% · Obras sociales: 3% · PAMI: 3%</li>
+        <li>Total empleado: <strong>17%</strong> del salario bruto</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout-dark reveal" style="margin-top:32px;">
+    <p><strong>Artículo 133 — Revalúo (genera incertidumbre):</strong> La Ley habilita la actualización de la valuación fiscal conforme a la Ley 10.707 (Catastro Territorial de la Provincia de Buenos Aires). Si se aplica el revalúo, puede haber indexación adicional vía Art. 167 del Código Fiscal por IPC, lo que abre la puerta a un aumento significativo del Inmobiliario para propietarios con inmuebles con valuaciones rezagadas.</p>
+  </div>
+</section>
+
+<!-- ── SECCIÓN 7: FINANCIAMIENTO Y FONDO MUNICIPAL ── -->
+<section id="financiamiento" class="dark-section">
+  <div class="section-label reveal">Ley 15.561 — Financiamiento</div>
+  <h2 class="section-headline reveal">Endeudamiento, deuda<br>y <span>Fondo de Inversión Municipal.</span></h2>
+
+  <div class="two-col" style="margin-top:44px;gap:48px;">
+    <div class="reveal-left">
+      <p class="body-text">
+        La Ley de Financiamiento 2026 autoriza nuevo endeudamiento y establece el <strong class="hl">Fondo de Fortalecimiento de la Inversión Municipal (FFM)</strong>, uno de los mecanismos más relevantes para los 135 municipios bonaerenses. El perfil de vencimiento de deuda al 30/6/25 y la composición por moneda son factores críticos para evaluar la sostenibilidad fiscal de mediano plazo.
+      </p>
+      <p class="body-text">
+        El stock de deuda pública provincial viene creciendo de manera sostenida desde 2016. El período 2016–2025 muestra una escalada con aceleración en los años de mayor déficit y refinanciaciones. El remanente de autorización de deuda bajo la Ley 15.480 es un dato clave para entender el margen de maniobra del Ejecutivo.
+      </p>
+      <div class="alert-box" style="margin-top:20px;">
+        <p><strong>Deuda por moneda:</strong> La composición de la deuda pública provincial al 30/6/25 incluye instrumentos en pesos y en moneda extranjera. La exposición cambiaria es uno de los principales factores de riesgo en un contexto de volatilidad del tipo de cambio. El perfil de vencimientos concentra pagos en el corto y mediano plazo.</p>
+      </div>
+    </div>
+
+    <div class="reveal-right">
+      <!-- FFM BOX -->
+      <div style="background:rgba(0,213,216,.07);border:1px solid rgba(0,213,216,.25);border-top:3px solid var(--turquesa);padding:28px 24px;">
+        <div class="section-label" style="margin-bottom:12px;">Fondo de Fortalecimiento de la Inversión Municipal</div>
+        <div class="big-stat-val" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.8rem;color:var(--turquesa);line-height:1;">$364.000 M</div>
+        <div style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-top:8px;">billones de pesos · equiv. USD 242.200 M</div>
+        <div class="section-divider" style="margin:20px 0;"></div>
+        <div class="body-text" style="font-size:.85rem;">
+          El FFM para 2026 es <strong class="hl">tres veces mayor que en 2024</strong> ($116.000 M). Representa el <strong class="hl">8% de lo autorizado para endeudamiento</strong> (Arts. 1 y 2 de la ley). Los fondos solo pueden destinarse a <strong class="hl">inversión</strong> — no a gastos corrientes.
+        </div>
+        <div class="section-divider" style="margin:20px 0;"></div>
+        <div class="body-text" style="font-size:.85rem;">
+          <strong class="hl" style="display:block;margin-bottom:8px;">Distribución:</strong>
+          • <strong>70%</strong> conforme al Coeficiente Único de Distribución (CUD)<br>
+          • <strong>30%</strong> a programas provinciales de infraestructura, ambiente y/o transporte (tres ministerios competentes)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider" style="margin:48px 0;"></div>
+
+  <!-- FONDO GARANTIZADO -->
+  <div class="reveal">
+    <div class="section-label">Fondo garantizado</div>
+    <h3 class="section-headline" style="font-size:clamp(1.5rem,2.5vw,2.2rem);">Piso de <span>$250.000 M</span> asegurado a municipios</h3>
+  </div>
+  <div class="three-col" style="margin-top:32px;">
+    <div class="data-card reveal d1">
+      <div class="data-card-val">$250.000 M</div>
+      <div class="data-card-label">Fondo garantizado mínimo<br>para municipios</div>
+    </div>
+    <div class="data-card reveal d2">
+      <div class="data-card-val">$175.000 M</div>
+      <div class="data-card-label">Vía CUD (70%)</div>
+      <div class="data-card-sub">Distribución automática</div>
+    </div>
+    <div class="data-card reveal d3">
+      <div class="data-card-val">$75.000 M</div>
+      <div class="data-card-label">Comisión Bicameral de Emergencia</div>
+      <div class="data-card-sub">30% restante</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:24px;">
+    <p>En ningún caso los municipios podrán utilizar los fondos percibidos del FFM para financiar gastos corrientes. Los fondos están destinados exclusivamente a <strong>financiar inversión</strong>. Esta restricción es un cambio de diseño respecto de años anteriores y busca preservar el carácter de inversión productiva del instrumento.</p>
+  </div>
+
+  <div class="section-divider" style="margin:48px 0;"></div>
+
+  <!-- EMERGENCIA — MEDIDAS ESPECÍFICAS -->
+  <div class="reveal">
+    <div class="section-label">Marco de emergencia</div>
+    <h3 class="section-headline" style="font-size:clamp(1.5rem,2.5vw,2.2rem);">Medidas habilitadas por la <span>declaración de emergencia</span></h3>
+  </div>
+  <div class="three-col" style="margin-top:28px;">
+    <div class="data-card reveal d1">
+      <div class="data-card-label" style="font-size:.9rem;color:var(--crema);font-weight:600;margin-bottom:8px;">Fondo de Recupero (Art. 2)</div>
+      <div style="font-size:.8rem;color:var(--concreto);line-height:1.65;">Creación de un Fondo especial para absorber impactos de la emergencia. Permite reasignaciones y refuerzos de crédito dentro del ejercicio sin necesidad de modificación legislativa ordinaria.</div>
+    </div>
+    <div class="data-card reveal d2">
+      <div class="data-card-label" style="font-size:.9rem;color:var(--crema);font-weight:600;margin-bottom:8px;">Contribución policía adicional</div>
+      <div style="font-size:.8rem;color:var(--concreto);line-height:1.65;">Incorporada a la Ley Complementaria (Art. 68). El esquema de adicionales policiales se formaliza en el presupuesto como mecanismo de financiamiento de seguridad complementario.</div>
+    </div>
+    <div class="data-card reveal d3">
+      <div class="data-card-label" style="font-size:.9rem;color:var(--crema);font-weight:600;margin-bottom:8px;">Universidades — cofinanciamiento</div>
+      <div style="font-size:.8rem;color:var(--concreto);line-height:1.65;">La emergencia habilita mecanismos de cofinanciamiento con universidades nacionales radicadas en el territorio bonaerense, ante la reducción de transferencias nacionales a estos organismos.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECCIÓN 8: CONCLUSIONES ── -->
+<section style="background:var(--grafito2);padding:88px 52px;">
+  <div class="section-label reveal">Conclusiones</div>
+  <h2 class="section-headline reveal">Cuatro lecturas<br><span>para la gestión municipal.</span></h2>
+  <p class="body-text reveal" style="max-width:680px;margin-top:16px;">
+    El presupuesto 2026 de la Provincia de Buenos Aires condensa tensiones estructurales que tienen consecuencias directas para los 135 municipios bonaerenses. Estas son las cuatro conclusiones políticas centrales.
+  </p>
+
+  <div class="conclusion-grid" style="margin-top:40px;">
+    <div class="conclusion-card reveal d1">
+      <div class="conc-letter">A</div>
+      <div class="conc-title">El gasto corriente consume el margen de inversión</div>
+      <div class="conc-body">Con el 92,67% del gasto destinado a erogaciones corrientes y apenas el 3,99% a inversión real directa, la provincia tiene uno de los presupuestos más rígidos de su historia. El remanente para obra pública, infraestructura y equipamiento es marginal comparado con CABA (19,1%) o cualquier estándar de gestión pública provincial. Cada municipio que recibe fondos provinciales enfrenta el mismo dilema: el grueso va a salarios y transferencias, no a transformación territorial.</div>
+    </div>
+    <div class="conclusion-card reveal d2">
+      <div class="conc-letter">B</div>
+      <div class="conc-title">La brecha per cápita con CABA es un problema político de primer orden</div>
+      <div class="conc-body">Un bonaerense recibe $210.784/mes en presupuesto público contra $472.222 de un porteño — más del doble. Esta asimetría no es nueva pero se profundiza cuando CABA cierra con superávit y PBA con déficit. El argumento fiscal de que PBA aportó $4 y recibió $0,70 tiene sustento en los datos y es el núcleo del reclamo político provincial. Los municipios necesitan conocer y comunicar esta brecha como herramienta de negociación presupuestaria.</div>
+    </div>
+    <div class="conclusion-card reveal d3">
+      <div class="conc-letter">C</div>
+      <div class="conc-title">El Fondo Municipal es una oportunidad, pero tiene reglas</div>
+      <div class="conc-body">El Fondo de Fortalecimiento de la Inversión Municipal crece de $116.000 M en 2024 a $364.000 M en 2026 — un incremento de más del triple. Sin embargo, la restricción de no poder aplicarlo a gastos corrientes es vinculante. Los municipios que logren formular proyectos de inversión verificables tendrán acceso a recursos que sus pares más lentos no captarán. La gestión del 30% discrecional (vía Comisión Bicameral) es territorio de negociación política.</div>
+    </div>
+    <div class="conclusion-card reveal d4">
+      <div class="conc-letter">D</div>
+      <div class="conc-title">La estructura tributaria se vuelve más distorsiva</div>
+      <div class="conc-body">Con el IIBB representando el 76,49% de la recaudación y creciendo, la Provincia depende cada vez más de un impuesto en cascada que penaliza la producción. La baja participación de impuestos patrimoniales (Inmobiliario + Automotor) refleja tanto el rezago de las valuaciones fiscales como la dificultad política de actualizarlas. La habilitación del revalúo catastral (Art. 133) puede ser el primer paso hacia una recomposición — pero también genera incertidumbre en los contribuyentes que no se esperan el salto.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECCIÓN 9: 135 MUNICIPIOS — PRESUPUESTO 2026 ── -->
+<section id="municipios" style="background:var(--grafito);padding:88px 52px;">
+  <div class="section-label reveal">Datos por municipio</div>
+  <h2 class="section-headline reveal">135 municipios bonaerenses:<br><span>presupuesto, per cápita y CUD.</span></h2>
+  <p class="body-text reveal" style="max-width:720px;margin-top:16px;">
+    Datos del Presupuesto 2026 para los 135 municipios de la Provincia de Buenos Aires,
+    con información de población, fuerza política, coeficiente CUD e intendente electo.
+    64 municipios publicaron su presupuesto; 71 aún no tienen datos oficiales disponibles.
+  </p>
+
+  <!-- KPI CARDS -->
+  <div class="four-col" style="margin-top:40px;">
+    <div class="data-card reveal d1">
+      <div class="data-card-val">$10,9 B</div>
+      <div class="data-card-label">Total presupuesto<br>64 municipios con datos</div>
+      <div class="data-card-sub">billones de pesos</div>
+    </div>
+    <div class="data-card reveal d2">
+      <div class="data-card-val">$751.197</div>
+      <div class="data-card-label">Promedio per cápita<br>(municipios con datos)</div>
+      <div class="data-card-sub">pesos por habitante</div>
+    </div>
+    <div class="data-card reveal d3">
+      <div class="data-card-val">$2.127.971</div>
+      <div class="data-card-label">Máximo per cápita</div>
+      <div class="data-card-sub">Tornquist (14.810 hab.)</div>
+    </div>
+    <div class="data-card reveal d4">
+      <div class="data-card-val">$249.921</div>
+      <div class="data-card-label">Mínimo per cápita</div>
+      <div class="data-card-sub">La Matanza (1,84 M hab.)</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:32px;">
+    <p>La brecha entre el municipio con mayor y menor presupuesto per cápita es de <strong>8,5x</strong>. Tornquist recibe $2.127.971 por habitante mientras La Matanza recibe $249.921. Esta asimetría refleja la estructura del CUD, que no pondera únicamente por población sino por múltiples variables territoriales y fiscales.</p>
+  </div>
+
+  <!-- FILTROS -->
+  <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:40px;margin-bottom:8px;">
+    <input id="mun-search" type="text" placeholder="Buscar municipio..." style="background:rgba(14,28,32,.8);border:1px solid rgba(0,213,216,.25);color:var(--crema);padding:10px 16px;font-size:.85rem;font-family:'Barlow',sans-serif;outline:none;flex:1;min-width:200px;max-width:320px;">
+    <select id="mun-seccion" style="background:rgba(14,28,32,.8);border:1px solid rgba(0,213,216,.25);color:var(--concreto);padding:10px 16px;font-size:.82rem;font-family:'Barlow',sans-serif;outline:none;cursor:pointer;">
+      <option value="">Todas las secciones</option>
+      <option>Primera</option><option>Segunda</option><option>Tercera</option>
+      <option>Cuarta</option><option>Quinta</option><option>Sexta</option>
+      <option>Séptima</option><option>Octava</option>
+    </select>
+    <select id="mun-fuerza" style="background:rgba(14,28,32,.8);border:1px solid rgba(0,213,216,.25);color:var(--concreto);padding:10px 16px;font-size:.82rem;font-family:'Barlow',sans-serif;outline:none;cursor:pointer;">
+      <option value="">Todas las fuerzas</option>
+      <option>Fuerza Patria</option><option>LLA</option><option>Somos</option><option>Hechos</option>
+    </select>
+    <select id="mun-datos" style="background:rgba(14,28,32,.8);border:1px solid rgba(0,213,216,.25);color:var(--concreto);padding:10px 16px;font-size:.82rem;font-family:'Barlow',sans-serif;outline:none;cursor:pointer;">
+      <option value="">Con y sin datos</option>
+      <option value="con">Con presupuesto</option>
+      <option value="sin">Sin presupuesto</option>
+    </select>
+    <span id="mun-count" style="font-size:.78rem;color:var(--concreto);letter-spacing:.06em;">135 municipios</span>
+  </div>
+
+  <!-- TABLA -->
+  <div style="overflow-x:auto;margin-top:4px;">
+  <table class="alsina-table" id="mun-table" style="font-size:.8rem;">
+    <thead>
+      <tr>
+        <th style="cursor:pointer;" onclick="sortTable(0)">Municipio ↕</th>
+        <th style="cursor:pointer;" onclick="sortTable(1)">Sección ↕</th>
+        <th style="cursor:pointer;text-align:right;" onclick="sortTable(2)">Hab. ↕</th>
+        <th style="cursor:pointer;text-align:right;" onclick="sortTable(3)">Presupuesto 2026 ↕</th>
+        <th style="cursor:pointer;text-align:right;" onclick="sortTable(4)">Per cápita ↕</th>
+        <th style="cursor:pointer;text-align:right;" onclick="sortTable(5)">CUD ↕</th>
+        <th>Fuerza 2025</th>
+        <th>Intendente electo</th>
+      </tr>
+    </thead>
+    <tbody id="mun-tbody"></tbody>
+  </table>
+  </div>
+
+  <div style="font-size:.7rem;color:rgba(158,153,146,.45);margin-top:12px;">
+    Fuente: Ley 15.557 — Presupuesto PBA 2026 · Excel 135 municipios · Elaboración propia Alsina.
+    (*) Municipios sin dato de presupuesto aún no presentaron o publicaron su información oficial.
+  </div>
+</section>
+
+<script>
+// ── DATA MUNICIPIOS ──
+const MUNICIPIOS = [{"n":"Tornquist","h":14810,"s":"Sexta","ie":"Sergio Fabian Bordoni","f":"Fuerza Patria","p":31515252000,"pc":2127971,"c":0.0045831},{"n":"Benito Juárez","h":22292,"s":"Sexta","ie":"Juliio Cesar Marini","f":"Fuerza Patria","p":45237562993,"pc":2029318,"c":0.0046948},{"n":"Pinamar","h":39449,"s":"Quinta","ie":"Juan Manuel Ibarguren","f":"LLA","p":75951000000,"pc":1925296,"c":0.0039153},{"n":"Trenque Lauquen","h":49309,"s":"Cuarta","ie":"Francisco Recoulat","f":"Somos","p":86704835294,"pc":1758398,"c":0.0075942},{"n":"Ayacucho","h":21977,"s":"Quinta","ie":"Emilio Cordonnier","f":"Somos","p":37919278802,"pc":1725407,"c":0.0041972},{"n":"Villa Gesell","h":37463,"s":"Quinta","ie":"Gustavo Barrera","f":"Fuerza Patria","p":61609288751,"pc":1644537,"c":0.004682},{"n":"Bolívar","h":37594,"s":"Séptima","ie":"Marcos Pisano","f":"Fuerza Patria","p":57640929444,"pc":1533248,"c":0.0060707},{"n":"San Fernando","h":171616,"s":"Primera","ie":"Juan Andreotti","f":"Fuerza Patria","p":244138924674,"pc":1422588,"c":0.0089792},{"n":"Chascomús","h":42452,"s":"Quinta","ie":"Javier Gaston","f":"Fuerza Patria","p":59405821072,"pc":1399364,"c":0.0049547},{"n":"Coronel Suárez","h":42110,"s":"Sexta","ie":"Ricardo Moccero","f":"Movimiento para la Victoria","p":56260015943,"pc":1336025,"c":0.006706},{"n":"Tigre","h":446949,"s":"Primera","ie":"Julio Zamora","f":"Somos","p":578906001955,"pc":1295240,"c":0.017895},{"n":"Vicente López","h":282281,"s":"Primera","ie":"Soledad Martinez","f":"LLA","p":362143765971,"pc":1282919,"c":0.0152525},{"n":"Tres Arroyos","h":62426,"s":"Sexta","ie":"Pablo Humberto Garate","f":"Fuerza Patria","p":79890154574,"pc":1279758,"c":0.0064268},{"n":"Pilar","h":394754,"s":"Primera","ie":"Federico De Achaval","f":"Fuerza Patria","p":488609779242,"pc":1237758,"c":0.0241838},{"n":"Balcarce","h":48982,"s":"Quinta","ie":"Esteban Reino","f":"Somos","p":60423675037,"pc":1233589,"c":0.0051257},{"n":"Coronel Pringles","h":24420,"s":"Sexta","ie":"Lisandro Matzkin","f":"LLA","p":29808657086,"pc":1220666,"c":0.0040655},{"n":"Malvinas Argentinas","h":350674,"s":"Primera","ie":"Leo Nardini","f":"Fuerza Patria","p":422127315214,"pc":1203760,"c":0.0317276},{"n":"Ramallo","h":39730,"s":"Segunda","ie":"Mauro David Poletti","f":"Fuerza Patria","p":47603204249,"pc":1198168,"c":0.0022533},{"n":"Escobar","h":256268,"s":"Primera","ie":"Ariel Sujarchuk","f":"Fuerza Patria","p":299462800000,"pc":1168553,"c":0.017861},{"n":"Azul","h":75905,"s":"Séptima","ie":"Nelson Sombra","f":"Fuerza Patria","p":85881974216,"pc":1131440,"c":0.0070491},{"n":"Venticinco de Mayo","h":35563,"s":"Séptima","ie":"Ramiro Eguen","f":"Acción Ciudadana","p":39900000000,"pc":1121953,"c":0.0046231},{"n":"Campana","h":110566,"s":"Primera","ie":"Sebastián Abella","f":"LLA","p":123948228198,"pc":1121034,"c":0.0078458},{"n":"San Isidro","h":297282,"s":"Primera","ie":"Ramon Lanus","f":"LLA","p":333052543695,"pc":1120325,"c":0.0178688},{"n":"Capitán Sarmiento","h":15965,"s":"Segunda","ie":"Fernanda Astorino","f":"LLA","p":17724215198,"pc":1110192,"c":0.0015052},{"n":"Olavarría","h":125751,"s":"Séptima","ie":"Maximiliano Wesner","f":"Fuerza Patria","p":138287923000,"pc":1099696,"c":0.0101347},{"n":"Tandil","h":145575,"s":"Quinta","ie":"Miguel Angel Lunghi","f":"Somos","p":152650000000,"pc":1048600,"c":0.0101156},{"n":"Villarino","h":32717,"s":"Sexta","ie":"Carlos Bevilacqua","f":"Acción por Villarino","p":34236305302,"pc":1046438,"c":0.0053047},{"n":"Bahía Blanca","h":336574,"s":"Sexta","ie":"Federico Susbielles","f":"Fuerza Patria","p":344461123616,"pc":1023434,"c":0.0132772},{"n":"Bragado","h":46504,"s":"Cuarta","ie":"Sergio Juan Barenghi","f":"Fuerza Patria","p":47000000000,"pc":1010666,"c":0.00552},{"n":"Avellaneda","h":367554,"s":"Tercera","ie":"Jorge Ferraresi","f":"Fuerza Patria","p":361000000000,"pc":982169,"c":0.0119838},{"n":"Luján","h":111008,"s":"Primera","ie":"Leonardo Boto","f":"Fuerza Patria","p":106500000000,"pc":959390,"c":0.0075184},{"n":"Chivilcoy","h":70839,"s":"Cuarta","ie":"Guillermo Britos","f":"Somos","p":64539711923,"pc":911076,"c":0.0069307},{"n":"Marcos Paz","h":67011,"s":"Primera","ie":"Ricardo Curuchet","f":"Fuerza Patria","p":60000000000,"pc":895375,"c":0.0049056},{"n":"Baradero","h":40002,"s":"Segunda","ie":"Esteban Sanzio","f":"Fuerza Patria","p":35334342102,"pc":883314,"c":0.0028912},{"n":"Saladillo","h":35656,"s":"Séptima","ie":"Jose Luis Salomon","f":"Somos","p":29814329611,"pc":836166,"c":0.0029818},{"n":"Moreno","h":576632,"s":"Primera","ie":"Mariel Fernandez","f":"Fuerza Patria","p":481595000000,"pc":835186,"c":0.0219588},{"n":"San Pedro","h":68613,"s":"Segunda","ie":"Cecilio Salazar","f":"Fuerza Patria","p":57000000000,"pc":830746,"c":0.0060954},{"n":"Morón","h":331183,"s":"Primera","ie":"Lucas Ghi","f":"Fuerza Patria","p":272000000000,"pc":821298,"c":0.0108322},{"n":"Quilmes","h":633391,"s":"Tercera","ie":"Mayra Mendoza","f":"Fuerza Patria","p":504890000000,"pc":797122,"c":0.0199122},{"n":"San Nicolás","h":167824,"s":"Segunda","ie":"Santiago Passaglia","f":"Hechos","p":132625134533,"pc":790263,"c":0.0058987},{"n":"General Pueyrredón","h":667082,"s":"Quinta","ie":"Guillermo Montenegro","f":"LLA","p":521996792000,"pc":782508,"c":0.0213342},{"n":"Arrecifes","h":32215,"s":"Segunda","ie":"Juan Fernando Bouvier","f":"LLA","p":24994858270,"pc":775876,"c":0.0026331},{"n":"Zárate","h":132221,"s":"Segunda","ie":"Marcelo Matzkin","f":"LLA","p":101500000000,"pc":767654,"c":0.0054929},{"n":"Carmen de Areco","h":17499,"s":"Segunda","ie":"Ivan Villagran","f":"Fuerza Patria","p":13352400000,"pc":763038,"c":0.0010709},{"n":"General San Martín","h":450575,"s":"Primera","ie":"Fernando Moreira","f":"Fuerza Patria","p":333000000000,"pc":739056,"c":0.0224351},{"n":"Berisso","h":100930,"s":"Tercera","ie":"Fabian Cagliardi","f":"Fuerza Patria","p":73070950000,"pc":723977,"c":0.0072468},{"n":"Nuevo de Mayo","h":52607,"s":"Cuarta","ie":"Maria Jose Gentile","f":"Somos","p":37542000000,"pc":713631,"c":0.003534},{"n":"San Andrés de Giles","h":26510,"s":"Segunda","ie":"Miguel Gesualdi","f":"Fuerza Patria","p":18600000000,"pc":701622,"c":0.0035301},{"n":"Lomas de Zamora","h":690323,"s":"Tercera","ie":"Federico Otermin","f":"Fuerza Patria","p":480834988472,"pc":696536,"c":0.030485},{"n":"San Miguel","h":328835,"s":"Primera","ie":"Jaime Méndez","f":"Primero San Miguel","p":221558017532,"pc":673767,"c":0.0186998},{"n":"Mercedes","h":72980,"s":"Primera","ie":"Juan Ignacio Ustarroz","f":"Fuerza Patria","p":49000000000,"pc":671417,"c":0.0065572},{"n":"Coronel Rosales","h":67503,"s":"Sexta","ie":"Rodrigo Lionel Aristimuño","f":"Fuerza Patria","p":44468531919,"pc":658764,"c":0.00344},{"n":"Pergamino","h":115340,"s":"Segunda","ie":"Javier Martinez","f":"Hechos","p":74718307000,"pc":647809,"c":0.0043329},{"n":"Cañuelas","h":70684,"s":"Tercera","ie":"Marisa Fassi","f":"Fuerza Patria","p":44000000000,"pc":622489,"c":0.0030402},{"n":"La Plata","h":768470,"s":"Octava","ie":"Julio Alak","f":"Fuerza Patria","p":462290471915,"pc":601573,"c":0.0316983},{"n":"Junín","h":103787,"s":"Cuarta","ie":"Pablo Petrecca","f":"Somos","p":60160520000,"pc":579654,"c":0.003902},{"n":"Lanús","h":461267,"s":"Tercera","ie":"Julian Alvarez","f":"Fuerza Patria","p":259797588554,"pc":563226,"c":0.0163819},{"n":"Tres de Febrero","h":364176,"s":"Primera","ie":"Diego Valenzuela","f":"LLA","p":189429000000,"pc":520158,"c":0.0099991},{"n":"José C. Paz","h":326992,"s":"Primera","ie":"Mario Ishii","f":"Fuerza Patria","p":170000000000,"pc":519890,"c":0.018771},{"n":"Almirante Brown","h":584827,"s":"Tercera","ie":"Mariano Cascallares","f":"Fuerza Patria","p":281014462000,"pc":480509,"c":0.0201042},{"n":"Esteban Echeverría","h":338480,"s":"Tercera","ie":"Fernando Gray","f":"Fuerza Patria","p":151756000000,"pc":448346,"c":0.0156854},{"n":"Berazategui","h":358712,"s":"Tercera","ie":"Juan Jose Mussi","f":"Fuerza Patria","p":147306205436,"pc":410653,"c":0.0167827},{"n":"Florencio Varela","h":496433,"s":"Tercera","ie":"Andrés Watson","f":"Fuerza Patria","p":159582501241,"pc":321458,"c":0.0199},{"n":"La Matanza","h":1841247,"s":"Tercera","ie":"Fernando Espinoza","f":"Fuerza Patria","p":460165913347,"pc":249921,"c":0.0658306},{"n":"Adolfo Alsina","h":17552,"s":"Sexta","ie":"Javier Andres","f":"Somos","p":null,"pc":null,"c":0.0045859},{"n":"Adolfo Gonzales Chaves","h":12914,"s":"Sexta","ie":"Lucia Gómez","f":"Nuevos Aires","p":null,"pc":null,"c":0.0024058},{"n":"Alberti","h":12982,"s":"Cuarta","ie":"German Lago","f":"Fuerza Patria","p":null,"pc":null,"c":0.0025526},{"n":"Brandsen","h":32448,"s":"Tercera","ie":"Fernando Luis Raitelli","f":"Fuerza Patria","p":null,"pc":null,"c":0.0018008},{"n":"Carlos Casares","h":23100,"s":"Cuarta","ie":"Daniel Stadnik","f":"Fuerza Patria","p":null,"pc":null,"c":0.0052467},{"n":"Carlos Tejedor","h":14079,"s":"Cuarta","ie":"Maria Celia Gianini","f":"Fuerza Patria","p":null,"pc":null,"c":0.0029304},{"n":"Castelli","h":9594,"s":"Quinta","ie":"Francisco Jose Echarren","f":"Fuerza Patria","p":null,"pc":null,"c":0.0017619},{"n":"Chacabuco","h":52731,"s":"Cuarta","ie":"Ruben Dario Golia","f":"Fuerza Patria","p":null,"pc":null,"c":0.0095241},{"n":"Colón","h":27504,"s":"Segunda","ie":"Waldemar Audilio Giordano","f":"Fuerza Patria","p":null,"pc":null,"c":0.0035068},{"n":"Coronel Dorrego","h":15968,"s":"Sexta","ie":"Juan Carlos Chalde","f":"Somos","p":null,"pc":null,"c":0.0039807},{"n":"Daireaux","h":18422,"s":"Sexta","ie":"Esteban Acerbo","f":"Fuerza Patria","p":null,"pc":null,"c":0.004387},{"n":"Dolores","h":32032,"s":"Quinta","ie":"Juan Pablo Garcia","f":"Fuerza Patria","p":null,"pc":null,"c":0.0049045},{"n":"Ensenada","h":63997,"s":"Tercera","ie":"Mario Secco","f":"Fuerza Patria","p":null,"pc":null,"c":0.0028041},{"n":"Exaltación de la Cruz","h":40159,"s":"Segunda","ie":"Diego Nanni","f":"Fuerza Patria","p":null,"pc":null,"c":0.0045705},{"n":"Ezeiza","h":201511,"s":"Tercera","ie":"Gastón Granados","f":"Fuerza Patria","p":null,"pc":null,"c":0.0062144},{"n":"Florentino Ameghino","h":10790,"s":"Cuarta","ie":"Nahuel Mittelbach","f":"Somos","p":null,"pc":null,"c":0.0018284},{"n":"General Alvarado","h":45526,"s":"Quinta","ie":"Sebastian Ianatuony","f":"Fuerza Patria","p":null,"pc":null,"c":0.0037807},{"n":"General Alvear","h":13031,"s":"Séptima","ie":"Ramon Capra","f":"Somos","p":null,"pc":null,"c":0.0022943},{"n":"General Arenales","h":16350,"s":"Cuarta","ie":"Erica Revilla","f":"Somos","p":null,"pc":null,"c":0.0022683},{"n":"General Belgrano","h":20791,"s":"Quinta","ie":"Osvaldo Dinapoli","f":"Somos","p":null,"pc":null,"c":0.0026931},{"n":"General Guido","h":3174,"s":"Quinta","ie":"Carlos Rocha","f":"Fuerza Patria","p":null,"pc":null,"c":0.0009319},{"n":"General Juan Madariaga","h":22624,"s":"Quinta","ie":"Carlos Santoro","f":"Somos","p":null,"pc":null,"c":0.0029744},{"n":"General La Madrid","h":11618,"s":"Sexta","ie":"Martin Randazzo","f":"Somos","p":null,"pc":null,"c":0.0035992},{"n":"General Las Heras","h":18022,"s":"Primera","ie":"Javier Osuna","f":"Fuerza Patria","p":null,"pc":null,"c":0.0016448},{"n":"General Lavalle","h":4870,"s":"Quinta","ie":"Nahuel Guardia","f":"Somos","p":null,"pc":null,"c":0.0012741},{"n":"General Paz","h":14207,"s":"Quinta","ie":"Juan Manuel Alvarez","f":"Fuerza Patria","p":null,"pc":null,"c":0.0030088},{"n":"General Pinto","h":12941,"s":"Cuarta","ie":"Freddy Zavatarelli","f":"Fuerza Patria","p":null,"pc":null,"c":0.0029531},{"n":"General Rodríguez","h":142709,"s":"Primera","ie":"Mauro García","f":"Fuerza Patria","p":null,"pc":null,"c":0.0053529},{"n":"General Viamonte","h":22649,"s":"Cuarta","ie":"Franco Flexas","f":"Somos","p":null,"pc":null,"c":0.0039628},{"n":"General Villegas","h":35251,"s":"Cuarta","ie":"Gilberto Alegre","f":"Somos","p":null,"pc":null,"c":0.0066304},{"n":"Guaminí","h":11801,"s":"Sexta","ie":"Jose Nobre Ferreira","f":"Fuerza Patria","p":null,"pc":null,"c":0.0034023},{"n":"Hipólito Yrigoyen","h":10661,"s":"Cuarta","ie":"Luis Pugnaloni","f":"Fuerza Patria","p":null,"pc":null,"c":0.0018059},{"n":"Hurlingham","h":185641,"s":"Primera","ie":"Damian Selci","f":"Fuerza Patria","p":null,"pc":null,"c":0.0083248},{"n":"Ituzaingó","h":180232,"s":"Primera","ie":"Pablo Catriel Descalzo","f":"Fuerza Patria","p":null,"pc":null,"c":0.0052523},{"n":"La Costa","h":100689,"s":"Quinta","ie":"Juan De Jesús","f":"Fuerza Patria","p":null,"pc":null,"c":0.0152219},{"n":"Laprida","h":11646,"s":"Sexta","ie":"Alfredo Fisher","f":"Fuerza Patria","p":null,"pc":null,"c":0.0028502},{"n":"Las Flores","h":27239,"s":"Quinta","ie":"Alberto Gelene","f":"Fuerza Patria","p":null,"pc":null,"c":0.0027626},{"n":"Leandro N. Alem","h":17266,"s":"Cuarta","ie":"Carlos Ferraris","f":"Fuerza Patria","p":null,"pc":null,"c":0.0029463},{"n":"Lezama","h":6221,"s":"Quinta","ie":"Arnaldo Harispe","f":"Somos","p":null,"pc":null,"c":0.0011622},{"n":"Lincoln","h":45506,"s":"Cuarta","ie":"Salvador Serenal","f":"Somos","p":null,"pc":null,"c":0.0060342},{"n":"Lobería","h":18243,"s":"Quinta","ie":"Pablo Javier Barrena","f":"Somos","p":null,"pc":null,"c":0.003312},{"n":"Lobos","h":41760,"s":"Tercera","ie":"Jorge Etcheverry","f":"LLA","p":null,"pc":null,"c":0.0018414},{"n":"Magdalena","h":26830,"s":"Tercera","ie":"Lisandro Fabian Hourcade","f":"Somos","p":null,"pc":null,"c":0.0032864},{"n":"Maipú","h":11323,"s":"Quinta","ie":"Matías Rappallini","f":"Somos","p":null,"pc":null,"c":0.0024649},{"n":"Mar Chiquita","h":33110,"s":"Quinta","ie":"Walter Wischnivetzky","f":"Fuerza Patria","p":null,"pc":null,"c":0.0051108},{"n":"Merlo","h":582486,"s":"Primera","ie":"Gustavo Menendez","f":"Fuerza Patria","p":null,"pc":null,"c":0.0296058},{"n":"Monte","h":24868,"s":"Quinta","ie":"José Castro","f":"Somos","p":null,"pc":null,"c":0.001393},{"n":"Monte Hermoso","h":8465,"s":"Sexta","ie":"Hernan Fabio Arranz","f":"Fuerza Patria","p":null,"pc":null,"c":0.0018718},{"n":"Navarro","h":19899,"s":"Primera","ie":"Facundo Diz","f":"Fuerza Patria","p":null,"pc":null,"c":0.0021962},{"n":"Necochea","h":102110,"s":"Quinta","ie":"Arturo Rojas","f":"Nueva Necochea","p":null,"pc":null,"c":0.0071164},{"n":"Patagones","h":37646,"s":"Sexta","ie":"Ricardo Evaristo Marino","f":"Fuerza Patria","p":null,"pc":null,"c":0.0072998},{"n":"Pehuajó","h":44783,"s":"Cuarta","ie":"Pablo Zurro","f":"Fuerza Patria","p":null,"pc":null,"c":0.0074124},{"n":"Pellegrini","h":7143,"s":"Sexta","ie":"Sofia Magdalena Gambier","f":"Somos","p":null,"pc":null,"c":0.0015865},{"n":"Pila","h":4642,"s":"Quinta","ie":"Gustavo Walker","f":"Fuerza Patria","p":null,"pc":null,"c":0.0015236},{"n":"Presidente Perón","h":102106,"s":"Tercera","ie":"Blanca Cantero","f":"Fuerza Patria","p":null,"pc":null,"c":0.0044498},{"n":"Puán","h":16613,"s":"Sexta","ie":"Diego Reyes","f":"Potencia PBA","p":null,"pc":null,"c":0.0058771},{"n":"Punta Indio","h":12297,"s":"Tercera","ie":"Daniel Angueira","f":"Fuerza Patria","p":null,"pc":null,"c":0.0021996},{"n":"Rauch","h":16635,"s":"Quinta","ie":"Maximiliano Suescun","f":"Somos","p":null,"pc":null,"c":0.0027562},{"n":"Rivadavia","h":19849,"s":"Cuarta","ie":"Juan Alberto Martinez","f":"Fuerza Patria","p":null,"pc":null,"c":0.0039294},{"n":"Rojas","h":25627,"s":"Segunda","ie":"Roman Bouvier","f":"Hechos","p":null,"pc":null,"c":0.0031636},{"n":"Roque Pérez","h":13977,"s":"Séptima","ie":"Maximiliano Oscar Sciaini","f":"Fuerza Patria","p":null,"pc":null,"c":0.0019553},{"n":"Saavedra","h":22537,"s":"Sexta","ie":"Matías Nebot","f":"Todos por Saavedra","p":null,"pc":null,"c":0.0046034},{"n":"Salliqueló","h":9427,"s":"Sexta","ie":"Ariel Horacio Succurro","f":"Fuerza Patria","p":null,"pc":null,"c":0.0016346},{"n":"Salto","h":39425,"s":"Segunda","ie":"Ricardo Alessandro","f":"Fuerza Patria","p":null,"pc":null,"c":0.0027067},{"n":"San Antonio de Areco","h":26897,"s":"Segunda","ie":"Francisco Ratto","f":"LLA","p":null,"pc":null,"c":0.0021658},{"n":"San Cayetano","h":8994,"s":"Quinta","ie":"Miguel Angel Gargaglione","f":"Somos","p":null,"pc":null,"c":0.0027905},{"n":"San Vicente","h":98215,"s":"Tercera","ie":"Nicolas Mantegazza","f":"Fuerza Patria","p":null,"pc":null,"c":0.0037209},{"n":"Suipacha","h":11786,"s":"Primera","ie":"Juan Luis Mancini","f":"Fuerza Patria","p":null,"pc":null,"c":0.0016673},{"n":"Tapalqué","h":10783,"s":"Séptima","ie":"Gustavo Cocconi","f":"Fuerza Patria","p":null,"pc":null,"c":0.0028079},{"n":"Tordillo","h":2542,"s":"Quinta","ie":"Hector Anibal Olivera","f":"Fuerza Patria","p":null,"pc":null,"c":0.0006327},{"n":"Tres Lomas","h":9164,"s":"Sexta","ie":"Luciano Spinolo","f":"Somos","p":null,"pc":null,"c":0.0015733}];
+
+const FUERZA_COLOR = {
+  'Fuerza Patria':'#3a78c9',
+  'LLA':'#c47a00',
+  'Somos':'#52C78C',
+  'Hechos':'#9b6ec8',
+  'Movimiento para la Victoria':'#3a78c9',
+  'Acción Ciudadana':'#777',
+  'Acción por Villarino':'#777',
+  'Primero San Miguel':'#777',
+  'Nuevos Aires':'#777',
+  'Nueva Necochea':'#777',
+  'Potencia PBA':'#777',
+  'Todos por Saavedra':'#777',
+};
+
+function fmtB(v) {
+  if (!v) return '<span style="color:rgba(158,153,146,.35);">S/D</span>';
+  if (v >= 1e12) return '$' + (v/1e12).toFixed(2) + ' B';
+  if (v >= 1e9) return '$' + (v/1e9).toFixed(1) + ' M';
+  return '$' + v.toLocaleString('es-AR');
+}
+function fmtPC(v) {
+  if (!v) return '<span style="color:rgba(158,153,146,.35);">S/D</span>';
+  return '$' + v.toLocaleString('es-AR');
+}
+function fmtN(v) { return v ? v.toLocaleString('es-AR') : '—'; }
+
+let sortCol = 4, sortAsc = false, filtered = [...MUNICIPIOS];
+
+function sortTable(col) {
+  if (sortCol === col) sortAsc = !sortAsc;
+  else { sortCol = col; sortAsc = col === 0 || col === 1; }
+  renderTable();
+}
+
+function applyFilters() {
+  const q = document.getElementById('mun-search').value.toLowerCase();
+  const sec = document.getElementById('mun-seccion').value;
+  const fuerza = document.getElementById('mun-fuerza').value;
+  const datos = document.getElementById('mun-datos').value;
+  filtered = MUNICIPIOS.filter(m => {
+    if (q && !m.n.toLowerCase().includes(q) && !m.ie.toLowerCase().includes(q)) return false;
+    if (sec && m.s !== sec) return false;
+    if (fuerza && m.f !== fuerza) return false;
+    if (datos === 'con' && !m.p) return false;
+    if (datos === 'sin' && m.p) return false;
+    return true;
+  });
+  renderTable();
+}
+
+function renderTable() {
+  const keys = ['n','s','h','p','pc','c','f','ie'];
+  const sorted = [...filtered].sort((a, b) => {
+    const k = keys[sortCol];
+    const av = a[k], bv = b[k];
+    if (av === null && bv === null) return 0;
+    if (av === null) return sortAsc ? 1 : -1;
+    if (bv === null) return sortAsc ? -1 : 1;
+    if (typeof av === 'string') return sortAsc ? av.localeCompare(bv, 'es') : bv.localeCompare(av, 'es');
+    return sortAsc ? av - bv : bv - av;
+  });
+
+  const tbody = document.getElementById('mun-tbody');
+  tbody.innerHTML = sorted.map(m => {
+    const fc = FUERZA_COLOR[m.f] || '#777';
+    const pcBar = m.pc ? Math.round((m.pc / 2200000) * 100) : 0;
+    return `<tr>
+      <td class="td-name">${m.n}</td>
+      <td style="font-size:.76rem;color:var(--concreto);">${m.s}</td>
+      <td style="text-align:right;color:var(--concreto);font-size:.82rem;">${fmtN(m.h)}</td>
+      <td style="text-align:right;" class="td-val" style="font-size:.88rem;">${fmtB(m.p)}</td>
+      <td style="text-align:right;">
+        ${m.pc ? `<div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--turquesa);">$${m.pc.toLocaleString('es-AR')}</div><div style="background:rgba(255,255,255,.06);height:4px;border-radius:2px;margin-top:4px;"><div style="width:${pcBar}%;height:100%;background:var(--turquesa);border-radius:2px;"></div></div>` : '<span style="color:rgba(158,153,146,.35);">S/D</span>'}
+      </td>
+      <td style="text-align:right;font-family:\'Barlow Condensed\',sans-serif;font-weight:700;font-size:.88rem;color:var(--concreto);">${(m.c*100).toFixed(4)}%</td>
+      <td><span style="font-size:.72rem;color:${fc};background:${fc}22;padding:2px 8px;border-radius:2px;white-space:nowrap;">${m.f}</span></td>
+      <td style="font-size:.78rem;color:var(--concreto);">${m.ie}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('mun-count').textContent = sorted.length + ' municipios';
+}
+
+document.getElementById('mun-search').addEventListener('input', applyFilters);
+document.getElementById('mun-seccion').addEventListener('change', applyFilters);
+document.getElementById('mun-fuerza').addEventListener('change', applyFilters);
+document.getElementById('mun-datos').addEventListener('change', applyFilters);
+
+renderTable();
+</script>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <svg viewBox="0 0 22 22" fill="none" width="20">
+          <path d="M11 1.5L1 20.5H5.5L11 10L16.5 20.5H21L11 1.5Z" fill="#00D5D8"/>
+        </svg>
+        <div class="footer-brand">ALSINA</div>
+      </div>
+      <div class="footer-source">Fuente: Leyes 15.557, 15.558 y 15.561 — Presupuesto, Impositiva y Financiamiento PBA 2026</div>
+    </div>
+    <div style="text-align:right;">
+      <div class="footer-copy">© 2026 Alsina · Gestión Pública, Tecnología y Territorio</div>
+      <div class="footer-copy" style="margin-top:4px;">Provincia de Buenos Aires · 135 municipios</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── NAV SCROLL ──
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+
+// ── REVEAL ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('v'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => obs.observe(el));
+
+// ── BAR ANIMATIONS ──
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.querySelectorAll('.gasto-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+      barObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.chart-box').forEach(el => barObs.observe(el));
+
+// ── CHART.JS DEFAULTS ──
+Chart.defaults.font.family = "'Barlow', sans-serif";
+Chart.defaults.color = '#9e9992';
+
+const chartsDone = {};
+
+function lazyChart(wrapId, buildFn) {
+  const wrap = document.getElementById(wrapId);
+  if (!wrap) return;
+  const co = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting && !chartsDone[wrapId]) {
+        chartsDone[wrapId] = true;
+        setTimeout(buildFn, 300);
+        co.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  co.observe(wrap);
+}
+
+// ── CHART 1: Donut gasto ──
+lazyChart('gastoDonutWrap', () => {
+  const ctx = document.getElementById('gastoChart');
+  if(!ctx) return;
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Remuneraciones','Previsión Social','Transf. corrientes','Copart. Municipal','Capital','Otros'],
+      datasets: [{
+        data: [39.64, 17.56, 14.61, 12.86, 7.33, 8.00],
+        backgroundColor: ['#00D5D8','#008C9A','#006070','#004a55','rgba(0,213,216,.35)','rgba(158,153,146,.35)'],
+        borderWidth: 0,
+        hoverOffset: 8,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      cutout: '62%',
+      plugins: {
+        legend: { position: 'right', labels: { font: { size: 11, family: "'Barlow Condensed'" }, color: '#9e9992', boxWidth: 12, padding: 14 } },
+        tooltip: {
+          callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` }
+        }
+      }
+    }
+  });
+});
+
+// ── CHART 2: Comparativo CABA vs PBA ──
+lazyChart('compWrap', () => {
+  const ctx = document.getElementById('compChart');
+  if(!ctx) return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Gastos corrientes','Gastos de capital','Inv. real directa','Remuneraciones'],
+      datasets: [
+        {
+          label: 'CABA',
+          data: [80.20, 19.79, 19.1, 42.40],
+          backgroundColor: 'rgba(0,213,216,.75)',
+          borderRadius: 2,
+        },
+        {
+          label: 'PBA',
+          data: [92.67, 7.33, 3.99, 39.64],
+          backgroundColor: 'rgba(228,171,2,.75)',
+          borderRadius: 2,
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', labels: { font: { size: 12, family: "'Barlow Condensed'" }, color: '#4a5a60', padding: 16 } },
+        tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${c.parsed.y}%` } }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(0,0,0,.06)' }, ticks: { color: '#4a5a60', font: { size: 11 } } },
+        y: { grid: { color: 'rgba(0,0,0,.06)' }, ticks: { color: '#4a5a60', font: { size: 11 }, callback: v => v + '%' }, max: 100 }
+      }
+    }
+  });
+});
+
+// ── CHART 3: Personal por sector (% del total 548.869) ──
+lazyChart('personalWrap', () => {
+  const ctx = document.getElementById('personalChart');
+  if(!ctx) return;
+  // Percentages of full provincial workforce: Educación+Salud 46.30%, Seguridad 20.37%, Otros 11.55%, Resto 21.78%
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Educación y Salud (46,30%)','Seguridad (20,37%)','Otro sector (11,55%)','Resto (21,78%)'],
+      datasets: [{
+        data: [46.30, 20.37, 11.55, 21.78],
+        backgroundColor: ['#00D5D8','#008C9A','rgba(0,96,107,.7)','rgba(158,153,146,.35)'],
+        borderWidth: 0,
+        hoverOffset: 8,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      cutout: '58%',
+      plugins: {
+        legend: { position: 'right', labels: { font: { size: 11, family: "'Barlow Condensed'" }, color: '#9e9992', boxWidth: 12, padding: 10 } },
+        tooltip: {
+          callbacks: { label: c => ` ${c.label}: ${c.parsed}% (~${Math.round(c.parsed/100*548869).toLocaleString('es-AR')} cargos)` }
+        }
+      }
+    }
+  });
+});
+
+// ── CHART 4: Recaudación histórica ──
+lazyChart('recaudWrap', () => {
+  const ctx = document.getElementById('recaudChart');
+  if(!ctx) return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['2021','2022','2023','2024','2025\n(10 meses)'],
+      datasets: [{
+        label: 'Recaudación (M de pesos)',
+        data: [791479, 1408769, 3040409, 9649255, 11310376],
+        backgroundColor: ['rgba(0,213,216,.65)','rgba(0,213,216,.65)','rgba(0,213,216,.65)','rgba(0,213,216,.65)','rgba(0,213,216,.9)'],
+        borderRadius: 2,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: c => ` $${(c.parsed.y/1000).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,'.')} B` } }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(0,213,216,.06)' }, ticks: { color: '#9e9992', font: { size: 12, family: "'Barlow Condensed'" } } },
+        y: { grid: { color: 'rgba(0,213,216,.06)' }, ticks: { color: '#9e9992', font: { size: 11 }, callback: v => '$' + (v/1000).toFixed(0) + 'B' } }
+      }
+    }
+  });
+});
+
+// ── CHART 5: Composición recaudación 2025 ──
+lazyChart('compRecWrap', () => {
+  const ctx = document.getElementById('compRecChart');
+  if(!ctx) return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['IIBB','Sellos','Automotor','Inmobiliario','Otros'],
+      datasets: [{
+        label: 'M de pesos',
+        data: [8651571, 1194713, 606105, 571784, 286203],
+        backgroundColor: ['rgba(0,213,216,.85)','rgba(0,140,154,.7)','rgba(0,96,107,.7)','rgba(0,74,85,.7)','rgba(158,153,146,.4)'],
+        borderRadius: 2,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: c => ` $${(c.parsed.x/1000).toFixed(0)}B` } }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(0,213,216,.06)' }, ticks: { color: '#6a7a80', font: { size: 10 }, callback: v => '$' + (v/1000).toFixed(0) + 'B' } },
+        y: { grid: { display: false }, ticks: { color: '#4a5a60', font: { size: 12, family: "'Barlow Condensed'" } } }
+      }
+    }
+  });
+});
+
+// ── CHART 6: Variaciones reales ──
+lazyChart('varRealWrap', () => {
+  const ctx = document.getElementById('varRealChart');
+  if(!ctx) return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['IIBB','Inmobiliario','Automotor','Sellos'],
+      datasets: [{
+        label: 'Var. real % (10 meses 2025 vs 2024)',
+        data: [1.63, 2.72, 16.79, 37.83],
+        backgroundColor: [
+          'rgba(0,213,216,.6)',
+          'rgba(0,213,216,.65)',
+          'rgba(0,213,216,.8)',
+          'rgba(0,213,216,.95)',
+        ],
+        borderRadius: 2,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: c => ` ${c.parsed.y > 0 ? '+' : ''}${c.parsed.y}%` } }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#4a5a60', font: { size: 12, family: "'Barlow Condensed'" } } },
+        y: { grid: { color: 'rgba(0,0,0,.06)' }, ticks: { color: '#6a7a80', font: { size: 11 }, callback: v => v + '%' } }
+      }
+    }
+  });
+});
+
+</script>
+</body>
+</html>

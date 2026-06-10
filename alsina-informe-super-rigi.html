@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe: Súper RIGI — Alsina</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --grafito:#0e1c20;--grafito2:#162429;--grafito3:#1e2f35;
+  --turquesa:#00D5D8;--cian:#008C9A;
+  --crema:#F3EFE7;--crema2:#eae6de;
+  --concreto:#9e9992;--sombra:#1C3C44;
+  --blanco:#ffffff;--texto-oscuro:#1a2a30;
+  --rojo:#E05252;--verde:#52C78C;--amarillo:#E4AB02;
+  --azul:#3b82f6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;overflow-x:hidden;line-height:1.75;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:14px 52px;background:rgba(14,28,32,0);transition:background .4s,padding .3s;}
+nav.scrolled{background:rgba(14,28,32,.97);box-shadow:0 2px 40px rgba(0,0,0,.4);padding:11px 52px;border-bottom:1px solid rgba(0,213,216,.1);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-mark svg{width:28px;height:28px;}
+.nav-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.2em;color:var(--crema);}
+.nav-tagline{font-size:.58rem;color:rgba(183,178,170,.65);letter-spacing:.12em;text-transform:uppercase;}
+.nav-links{display:flex;gap:22px;list-style:none;}
+.nav-links a{color:rgba(243,239,231,.65);text-decoration:none;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;transition:color .2s;padding:3px 0;border-bottom:1px solid transparent;}
+.nav-links a:hover{color:var(--turquesa);border-bottom-color:var(--turquesa);}
+.nav-back{background:transparent;color:var(--turquesa);border:1px solid rgba(0,213,216,.35);padding:7px 18px;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all .2s;}
+.nav-back:hover{background:rgba(0,213,216,.08);}
+
+/* HERO */
+#hero{min-height:85vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding-bottom:0;}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&q=80') center/cover no-repeat;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(14,28,32,.97) 50%,rgba(14,28,32,.75) 80%,rgba(0,140,154,.18) 100%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.04) 1px,transparent 1px);background-size:52px 52px;}
+.hero-inner{position:relative;z-index:10;padding:130px 52px 72px;width:100%;}
+.informe-tag{display:inline-flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--concreto);margin-bottom:20px;}
+.informe-tag::before{content:'';width:28px;height:1px;background:var(--concreto);}
+.hero-headline{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.2rem,6vw,5.5rem);line-height:.9;text-transform:uppercase;color:var(--crema);max-width:860px;}
+.hero-headline .hl{color:var(--turquesa);}
+.hero-sub{font-size:.95rem;color:rgba(243,239,231,.68);max-width:640px;line-height:1.75;margin:20px 0 32px;}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;}
+.meta-chip{background:rgba(14,28,32,.85);border:1px solid rgba(0,213,216,.2);color:var(--concreto);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;font-family:'Barlow Condensed',sans-serif;}
+.meta-chip span{color:var(--turquesa);font-weight:700;}
+
+/* FICHA TÉCNICA BAND */
+.ficha-band{background:var(--sombra);border-top:2px solid var(--turquesa);border-bottom:1px solid rgba(0,213,216,.15);}
+.ficha-grid{display:grid;grid-template-columns:repeat(6,1fr);}
+.ficha-cell{padding:22px 18px;border-right:1px solid rgba(0,213,216,.08);text-align:center;}
+.ficha-cell:last-child{border-right:none;}
+.ficha-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;color:var(--turquesa);line-height:1.2;}
+.ficha-label{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-top:5px;line-height:1.4;}
+
+/* LAYOUT */
+section{padding:80px 52px;}
+.dark-sec{background:var(--grafito2);}
+.light-sec{background:var(--crema);color:var(--texto-oscuro);}
+.white-sec{background:var(--blanco);color:var(--texto-oscuro);}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;}
+.two-col-wide{display:grid;grid-template-columns:1.5fr 1fr;gap:52px;align-items:start;}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+
+/* LABELS & HEADLINES */
+.sec-label{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--turquesa);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.sec-label::after{content:'';flex:0 0 26px;height:1px;background:var(--turquesa);}
+.sec-label-dark{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cian);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.sec-label-dark::after{content:'';flex:0 0 26px;height:1px;background:var(--cian);}
+
+.sec-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2rem,3.5vw,3.2rem);text-transform:uppercase;line-height:.93;color:var(--crema);}
+.sec-h span{color:var(--turquesa);}
+.sec-h-dark{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2rem,3.5vw,3.2rem);text-transform:uppercase;line-height:.93;color:var(--texto-oscuro);}
+.sec-h-dark span{color:var(--cian);}
+
+.body-t{font-size:.92rem;color:var(--concreto);line-height:1.82;margin-top:14px;}
+.body-t-dark{font-size:.92rem;color:#3a4a50;line-height:1.82;margin-top:14px;}
+strong.t{color:var(--turquesa);}
+strong.td{color:var(--cian);}
+
+/* CALLOUTS */
+.callout{border-left:3px solid var(--turquesa);background:rgba(0,213,216,.05);padding:16px 20px;margin:18px 0;}
+.callout p{font-size:.88rem;color:var(--concreto);line-height:1.72;margin:0;}
+.callout strong{color:var(--turquesa);}
+.callout-dark{border-left:3px solid var(--cian);background:rgba(0,140,154,.06);padding:16px 20px;margin:18px 0;}
+.callout-dark p{font-size:.88rem;color:#4a5a60;line-height:1.72;margin:0;}
+.callout-dark strong{color:var(--cian);}
+.alert{border-left:3px solid var(--rojo);background:rgba(224,82,82,.07);padding:16px 20px;margin:18px 0;}
+.alert p{font-size:.88rem;color:#e09090;line-height:1.72;margin:0;}
+.alert strong{color:var(--rojo);}
+.alert-light{border-left:3px solid var(--rojo);background:rgba(224,82,82,.05);padding:16px 20px;margin:18px 0;}
+.alert-light p{font-size:.88rem;color:#a03030;line-height:1.72;margin:0;}
+.alert-light strong{color:#cc2222;}
+
+/* DATA CARDS */
+.d-card{background:rgba(14,28,32,.7);border-top:2px solid rgba(0,213,216,.25);padding:20px 18px;transition:border-top-color .3s;}
+.d-card:hover{border-top-color:var(--turquesa);}
+.d-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.75rem;color:var(--turquesa);line-height:1;}
+.d-label{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-top:5px;line-height:1.35;}
+.d-sub{font-size:.72rem;color:rgba(183,178,170,.5);margin-top:3px;}
+
+.d-card-light{background:#f5f2ec;border-top:2px solid rgba(0,140,154,.25);padding:20px 18px;}
+.d-card-light .d-val{color:var(--cian);}
+.d-card-light .d-label{color:#4a5a60;}
+
+/* TABLES — DARK */
+.tbl{width:100%;border-collapse:collapse;margin-top:22px;font-size:.83rem;}
+.tbl thead tr{background:var(--sombra);}
+.tbl thead th{padding:10px 14px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);border-bottom:2px solid rgba(0,213,216,.25);}
+.tbl tbody td{padding:9px 14px;border-bottom:1px solid rgba(0,213,216,.07);color:var(--concreto);vertical-align:top;line-height:1.55;}
+.tbl tbody tr:hover td{background:rgba(0,213,216,.03);}
+.tbl .n{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--turquesa);font-size:.95rem;white-space:nowrap;}
+.tbl .strong{font-weight:600;color:var(--crema);}
+.tbl .verde{color:var(--verde);}
+.tbl .rojo{color:var(--rojo);}
+.tbl .amarillo{color:var(--amarillo);}
+
+/* TABLES — LIGHT */
+.tbl-light{width:100%;border-collapse:collapse;margin-top:22px;font-size:.83rem;}
+.tbl-light thead tr{background:var(--sombra);}
+.tbl-light thead th{padding:10px 14px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--crema);border-bottom:2px solid rgba(0,213,216,.35);}
+.tbl-light tbody td{padding:9px 14px;border-bottom:1px solid #ddd8d0;color:#3a4a50;vertical-align:top;line-height:1.55;}
+.tbl-light tbody tr:hover td{background:rgba(0,140,154,.04);}
+.tbl-light .n{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--cian);font-size:.92rem;white-space:nowrap;}
+.tbl-light .strong{font-weight:600;color:var(--texto-oscuro);}
+.tbl-light .verde{color:#1a7a4a;}
+.tbl-light .rojo{color:#cc2222;}
+.tbl-light .neutral{color:#5a6a70;}
+.tbl-light tr.total{background:rgba(0,140,154,.07)!important;font-weight:700;}
+
+/* STATUS CHIPS */
+.chip{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;}
+.chip-ok{background:rgba(82,199,140,.15);color:var(--verde);border:1px solid rgba(82,199,140,.3);}
+.chip-warn{background:rgba(228,171,2,.12);color:var(--amarillo);border:1px solid rgba(228,171,2,.3);}
+.chip-no{background:rgba(224,82,82,.12);color:var(--rojo);border:1px solid rgba(224,82,82,.3);}
+.chip-neu{background:rgba(158,153,146,.12);color:var(--concreto);border:1px solid rgba(158,153,146,.25);}
+
+/* CHART */
+.chart-box{background:rgba(14,28,32,.65);border:1px solid rgba(0,213,216,.14);padding:24px;margin-top:28px;}
+.chart-box-light{background:var(--blanco);border:1px solid #ddd8d0;padding:24px;margin-top:28px;box-shadow:0 3px 16px rgba(0,0,0,.06);}
+.chart-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.1em;color:var(--concreto);margin-bottom:18px;}
+.chart-title-dark{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.1em;color:#6a7a80;margin-bottom:18px;}
+.chart-wrap{position:relative;height:300px;}
+.chart-wrap-lg{position:relative;height:360px;}
+.chart-wrap-sm{position:relative;height:220px;}
+
+/* DIVISOR */
+.div-line{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,213,216,.22),transparent);margin:52px 0;}
+.div-line-dark{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,0,0,.15),transparent);margin:52px 0;}
+
+/* CAPÍTULOS */
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:28px;}
+.cap-card{background:rgba(14,28,32,.65);padding:18px 16px;border-left:2px solid rgba(0,213,216,.2);transition:border-left-color .3s;}
+.cap-card:hover{border-left-color:var(--turquesa);}
+.cap-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;color:rgba(0,213,216,.2);line-height:1;}
+.cap-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;text-transform:uppercase;color:var(--crema);margin-top:4px;margin-bottom:6px;}
+.cap-body{font-size:.76rem;color:var(--concreto);line-height:1.6;}
+
+/* CAMBIARIO TIMELINE */
+.fx-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:24px;}
+.fx-cell{background:rgba(14,28,32,.7);padding:20px 16px;text-align:center;border-top:2px solid rgba(0,213,216,.2);}
+.fx-pct{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;color:var(--turquesa);line-height:1;}
+.fx-label{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-top:6px;line-height:1.4;}
+
+/* SECTOR CARDS */
+.sector-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:28px;}
+.s-card{background:rgba(14,28,32,.65);padding:18px 16px;border-left:3px solid transparent;transition:border-left-color .3s;}
+.s-card.ganador{border-left-color:var(--verde);}
+.s-card.perdedor{border-left-color:var(--rojo);}
+.s-card.mixto{border-left-color:var(--amarillo);}
+.s-card-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.92rem;text-transform:uppercase;color:var(--crema);margin-bottom:6px;}
+.s-card-body{font-size:.78rem;color:var(--concreto);line-height:1.65;}
+
+/* FUENTES */
+.fuente-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(0,213,216,.07);}
+.fuente-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;color:var(--turquesa);flex-shrink:0;width:28px;}
+.fuente-text{font-size:.78rem;color:var(--concreto);line-height:1.6;}
+.fuente-text a{color:rgba(0,213,216,.6);text-decoration:none;}
+.fuente-text a:hover{color:var(--turquesa);}
+
+/* CTA MODULES */
+.cta-hero{display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:12px 26px;background:var(--turquesa);color:#071114;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:background .2s,transform .15s;}
+.cta-hero:hover{background:#00f0f4;transform:translateY(-1px);}
+.cta-hero svg{flex-shrink:0;}
+
+.modules-band{background:var(--grafito3);padding:64px 52px;border-top:1px solid rgba(0,213,216,.1);border-bottom:1px solid rgba(0,213,216,.1);}
+.modules-band-inner{max-width:860px;margin:0 auto;}
+.modules-band-label{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--turquesa);margin-bottom:10px;}
+.modules-band-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.7rem,2.8vw,2.6rem);text-transform:uppercase;color:var(--crema);line-height:.95;margin-bottom:8px;}
+.modules-band-sub{font-size:.88rem;color:var(--concreto);max-width:580px;line-height:1.7;margin-bottom:32px;}
+.modules-cards{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.mod-card{background:rgba(14,28,32,.75);border-top:2px solid rgba(0,213,216,.2);padding:24px 22px;text-decoration:none;display:block;transition:border-top-color .25s,background .25s;}
+.mod-card:hover{border-top-color:var(--turquesa);background:rgba(0,213,216,.04);}
+.mod-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:rgba(0,213,216,.18);line-height:1;margin-bottom:6px;}
+.mod-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;text-transform:uppercase;color:var(--crema);margin-bottom:8px;letter-spacing:.05em;}
+.mod-desc{font-size:.8rem;color:var(--concreto);line-height:1.65;}
+.mod-link{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);}
+@media(max-width:960px){.modules-cards{grid-template-columns:1fr;}.modules-band{padding:48px 20px;}}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.v{opacity:1;transform:none;}
+.rl{opacity:0;transform:translateX(-32px);transition:opacity .65s ease,transform .65s ease;}
+.rl.v{opacity:1;transform:none;}
+.rr{opacity:0;transform:translateX(32px);transition:opacity .65s ease,transform .65s ease;}
+.rr.v{opacity:1;transform:none;}
+.d1{transition-delay:.1s!important;}.d2{transition-delay:.2s!important;}.d3{transition-delay:.3s!important;}.d4{transition-delay:.4s!important;}
+
+/* FOOTER */
+footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgba(0,213,216,.1);}
+.foot-inner{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:28px;}
+.foot-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:.2em;color:var(--crema);}
+.foot-copy{font-size:.7rem;color:rgba(183,178,170,.45);line-height:1.65;max-width:420px;}
+.foot-disclaimer{font-size:.7rem;color:rgba(183,178,170,.4);line-height:1.65;max-width:480px;font-style:italic;}
+
+@media(max-width:960px){
+  nav{padding:13px 20px;}nav.scrolled{padding:11px 20px;}.nav-links{display:none;}
+  section{padding:60px 20px;}.hero-inner{padding:100px 20px 56px;}
+  .ficha-grid{grid-template-columns:repeat(3,1fr);}.ficha-cell:nth-child(3){border-right:none;}
+  .two-col,.two-col-wide{grid-template-columns:1fr;}
+  .three-col,.cap-grid{grid-template-columns:1fr 1fr;}
+  .four-col,.fx-timeline{grid-template-columns:1fr 1fr;}
+  .sector-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="alsina-web.html" class="nav-logo">
+    <span class="logo-mark">
+      <svg viewBox="0 0 30 30" fill="none">
+        <path d="M15 2L2 28H8L15 14L22 28H28L15 2Z" fill="#00D5D8"/>
+        <path d="M10 22H20" stroke="#071114" stroke-width="2"/>
+      </svg>
+    </span>
+    <div>
+      <div class="nav-brand">ALSINA</div>
+      <div class="nav-tagline">Análisis legislativo</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#resumen">Resumen</a></li>
+    <li><a href="#estado">Estado</a></li>
+    <li><a href="#arquitectura">Arquitectura</a></li>
+    <li><a href="#escenarios">Escenarios</a></li>
+    <li><a href="#sectorial">Sectorial</a></li>
+    <li><a href="#debate">Debate</a></li>
+    <li><a href="#fuentes">Fuentes</a></li>
+  </ul>
+  <a href="alsina-web.html" class="nav-back">← Volver al sitio</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="informe-tag">Informe legislativo · Alsina Consulting</div>
+    <h1 class="hero-headline">
+      <span class="hl">Súper RIGI</span><br>
+      Régimen de Incentivo<br>
+      para Grandes Inversiones<br>
+      en Nuevas Industrias
+    </h1>
+    <p class="hero-sub">
+      Análisis del proyecto de ley remitido por el Poder Ejecutivo Nacional mediante Mensaje N.º 81/2026.
+      Arquitectura normativa, escenarios cuantitativos, lectura sectorial y estado legislativo al 26 de mayo de 2026.
+    </p>
+    <div class="hero-meta">
+      <div class="meta-chip">Expediente <span>P.E. 187-26</span></div>
+      <div class="meta-chip">Mensaje <span>N.º 81/2026</span></div>
+      <div class="meta-chip">Ingreso Senado <span>26/05/2026</span></div>
+      <div class="meta-chip">Estado <span>Iniciativa parlamentaria</span></div>
+      <div class="meta-chip">Leyes <span>15.557 · 15.558 · 15.561</span></div>
+    </div>
+    <a href="/super-rigi/" class="cta-hero">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Explorá los módulos interactivos
+    </a>
+  </div>
+</section>
+
+<!-- FICHA TÉCNICA -->
+<div class="ficha-band">
+  <div class="ficha-grid">
+    <div class="ficha-cell">
+      <div class="ficha-val">USD 1.000 M</div>
+      <div class="ficha-label">Inversión mínima por proyecto</div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-val">15%</div>
+      <div class="ficha-label">Alícuota Ganancias (VPU)</div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-val">5 + 1 años</div>
+      <div class="ficha-label">Ventana de adhesión</div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-val">30 años</div>
+      <div class="ficha-label">Estabilidad normativa garantizada</div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-val">13</div>
+      <div class="ficha-label">Capítulos · 114 artículos</div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-val">90 días</div>
+      <div class="ficha-label">Plazo de reglamentación<br>tras eventual sanción</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── RESUMEN EJECUTIVO ── -->
+<section id="resumen" class="dark-sec">
+  <div class="two-col-wide">
+    <div class="rl">
+      <div class="sec-label">Resumen ejecutivo</div>
+      <h2 class="sec-h">Un régimen nuevo,<br>no una <span>extensión del RIGI.</span></h2>
+      <p class="body-t">
+        El proyecto de ley ingresado al Senado el 26 de mayo de 2026 no es una mera extensión del RIGI vigente. Crea un <strong class="t">régimen autónomo y más agresivo</strong> orientado exclusivamente a <strong class="t">"nuevas actividades económicas"</strong> de gran escala, con un umbral mínimo extraordinariamente alto de <strong class="t">USD 1.000 millones por proyecto</strong> y un horizonte de estabilidad normativa de <strong class="t">30 años</strong>.
+      </p>
+      <p class="body-t">
+        El paquete de incentivos incluye una <strong class="t">alícuota de Ganancias del 15%</strong>, devolución acelerada del IVA mediante Certificados de Crédito Fiscal, <strong class="t">exención de derechos de importación</strong> y tasas estadísticas para bienes de capital e insumos del plan aprobado, contribuciones patronales reducidas, <strong class="t">libertades cambiarias escalonadas</strong> (20%–40%–100% en 3 años) y un paquete robusto de estabilidad normativa, protección frente a cambios tributarios y arbitraje internacional.
+      </p>
+      <p class="body-t">
+        La memoria explicativa es explícita sobre el objetivo sectorial: el mensaje menciona como industrias de frontera a la <strong class="t">inteligencia artificial, los semiconductores, la biotecnología avanzada y la infraestructura digital</strong>, y presenta el proyecto como una respuesta a la baja participación argentina en cadenas globales de valor de alta tecnología.
+      </p>
+      <div class="callout" style="margin-top:24px;">
+        <p><strong>Lectura dual:</strong> El proyecto mejora de manera muy marcada el atractivo regulatorio para proyectos de frontera intensivos en capital. Al mismo tiempo, traslada costos y riesgos hacia el fisco nacional, las provincias y municipios, los proveedores locales no adheridos, y los marcos de control ambiental y laboral, porque limita herramientas de política tributaria, compras locales, administración del comercio y litigio soberano.</p>
+      </div>
+    </div>
+    <div class="rr">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;">
+        <div class="d-card">
+          <div class="d-val">USD 1,5B</div>
+          <div class="d-label">Inversión estimada<br>movilizada — año 1</div>
+          <div class="d-sub">escenario base propio</div>
+        </div>
+        <div class="d-card">
+          <div class="d-val">USD 4,5B</div>
+          <div class="d-label">Inversión acumulada<br>3–5 años</div>
+          <div class="d-sub">escenario base propio</div>
+        </div>
+        <div class="d-card">
+          <div class="d-val">5.500</div>
+          <div class="d-label">Empleos formales<br>directos + indirectos (año 1)</div>
+        </div>
+        <div class="d-card">
+          <div class="d-val">11.500</div>
+          <div class="d-label">Empleos estimados<br>3–5 años</div>
+        </div>
+        <div class="d-card">
+          <div class="d-val">USD 60–220M</div>
+          <div class="d-label">Costo fiscal anualizado<br>(rango estimado)</div>
+          <div class="d-sub">baja a media confianza</div>
+        </div>
+        <div class="d-card">
+          <div class="d-val">USD 15,7B</div>
+          <div class="d-label">RIGI anterior — compromisos<br>aprobados (sept. 2025)</div>
+          <div class="d-sub">benchmark de referencia</div>
+        </div>
+      </div>
+      <div class="alert" style="margin-top:16px;">
+        <p><strong>Nota metodológica:</strong> Los escenarios cuantitativos son estimaciones propias con confianza baja a media. No existen proyectos Súper RIGI aprobados ni un anexo estadístico oficial específico. La base normativa es el texto del proyecto; la plausibilidad macro se apoya en la experiencia del RIGI previo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ESTADO DOCUMENTAL Y LEGISLATIVO ── -->
+<section id="estado" class="light-sec">
+  <div class="sec-label-dark reveal">Estado documental y legislativo</div>
+  <h2 class="sec-h-dark reveal">Expediente ingresado.<br><span>Bases parlamentarias aún no consolidadas.</span></h2>
+  <p class="body-t-dark reveal" style="max-width:720px;">
+    El núcleo documental oficial está compuesto por el expediente escaneado remitido por el Poder Ejecutivo, que contiene la nota de cortesía al Senado, el mensaje de elevación, las firmas del Presidente y los ministros, y el texto articulado completo del proyecto. El sello de ingreso al Senado confirma la recepción del expediente como <strong class="td">P.E. 187-26</strong>.
+  </p>
+
+  <table class="tbl-light reveal" style="margin-top:32px;">
+    <thead>
+      <tr>
+        <th>Documento / hito</th>
+        <th>Estado al 26/05/2026</th>
+        <th>Hallazgo principal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="strong">Proyecto de ley + mensaje presidencial</td>
+        <td><span class="chip chip-ok">Localizado</span></td>
+        <td>Texto oficial completo, mensaje explicativo, firmas y sellos de ingreso al Senado.</td>
+      </tr>
+      <tr>
+        <td class="strong">Nota de remisión y cortesía al Senado</td>
+        <td><span class="chip chip-ok">Localizada</span></td>
+        <td>Confirma el envío del mensaje y su ingreso parlamentario.</td>
+      </tr>
+      <tr>
+        <td class="strong">Legajo público consolidado en buscadores parlamentarios</td>
+        <td><span class="chip chip-warn">Parcial / no consolidado</span></td>
+        <td>Las bases abiertas no mostraban actualización visible del expediente reciente al momento del relevamiento. El último DAE normal era el 38/2026 (mesa de entradas 21/05/2026).</td>
+      </tr>
+      <tr>
+        <td class="strong">Dictámenes de comisión</td>
+        <td><span class="chip chip-no">No localizados</span></td>
+        <td>No hay evidencia pública de giro sustantivo dictaminado al cierre del relevamiento.</td>
+      </tr>
+      <tr>
+        <td class="strong">Reglamentación / borradores oficiales</td>
+        <td><span class="chip chip-no">No localizados</span></td>
+        <td>Lógico: el proyecto todavía no es ley. El PEN deberá reglamentarlo dentro de 90 días de su publicación en el Boletín Oficial.</td>
+      </tr>
+      <tr>
+        <td class="strong">Publicación en Boletín Oficial</td>
+        <td><span class="chip chip-no">No localizada</span></td>
+        <td>El expediente sigue en etapa legislativa inicial. La ley entrará en vigencia al día siguiente de la publicación.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout-dark reveal" style="margin-top:28px;">
+    <p><strong>Zona de transición administrativa:</strong> Al momento del relevamiento, el expediente estaba presentado pero aún no plenamente volcado a todas las bases públicas consolidadas. La base de Diputados llegaba hasta el expte. 2366-D-2026 (21/05/2026) y la de Senado hasta 0687-S-2026 (05/05/2026). El Súper RIGI, ingresado el 26/05/2026, estaba fuera de ambas ventanas de actualización pública.</p>
+  </div>
+</section>
+
+<!-- ── ARQUITECTURA NORMATIVA ── -->
+<section id="arquitectura" style="background:var(--grafito);padding:80px 52px;">
+  <div class="sec-label reveal">Arquitectura normativa</div>
+  <h2 class="sec-h reveal">13 capítulos, 114 artículos.<br><span>Un régimen autónomo.</span></h2>
+
+  <div class="two-col-wide" style="margin-top:40px;gap:48px;">
+    <div class="rl">
+      <p class="body-t">
+        La estructura jurídica del Súper RIGI está organizada en <strong class="t">13 capítulos</strong>. El texto crea un régimen para proyectos dedicados exclusivamente a <strong class="t">nuevas actividades económicas</strong>, exige <strong class="t">Vehículos de Proyecto Único (VPU)</strong>, fija un piso de inversión extraordinariamente alto y monta un marco robusto de incentivos tributarios, aduaneros, cambiarios y de estabilidad normativa.
+      </p>
+      <p class="body-t">
+        Dos rasgos centrales distinguen al Súper RIGI. Primero, la definición de "nuevas actividades económicas" es <strong class="t">muy exigente</strong>: la actividad no debe haberse desarrollado al momento de entrada en vigencia ni en el país ni en la jurisdicción que corresponda. Esto excluye la mayoría de la industria instalada y privilegia proyectos de frontera. Segundo, la <strong class="t">federalización condicionada</strong>: el acceso a los incentivos requiere que el proyecto esté en una jurisdicción que adhiera, y esas jurisdicciones quedan obligadas a no imponer nuevas cargas incompatibles y a mantener topes bajos de Ingresos Brutos y Sellos.
+      </p>
+      <div class="callout">
+        <p><strong>Art. 112 — Restricción subnacional:</strong> Provincias, CABA y municipios adherentes deben fijar un tope de <strong>0,5%</strong> de Ingresos Brutos para los VPU, sin impuesto de sellos, con fuertes restricciones a otras cargas. En la práctica, el proyecto combina promoción a la inversión con una <strong>armonización tributaria forzada hacia abajo</strong>.</p>
+      </div>
+    </div>
+    <div class="rr">
+      <div class="cap-grid">
+        <div class="cap-card">
+          <div class="cap-num">I</div>
+          <div class="cap-title">Creación del régimen</div>
+          <div class="cap-body">Arts. 1–3. Declaración de interés nacional, condición de adhesión jurisdiccional y fines del régimen.</div>
+        </div>
+        <div class="cap-card">
+          <div class="cap-num">II</div>
+          <div class="cap-title">Nuevas actividades y VPU</div>
+          <div class="cap-body">Arts. 4–8. Define "nuevas actividades económicas", exige vehículo de proyecto único, objeto exclusivo.</div>
+        </div>
+        <div class="cap-card">
+          <div class="cap-num">III</div>
+          <div class="cap-title">Cadena de proveedores</div>
+          <div class="cap-body">Arts. 9–11. Extensión de beneficios a ciertos proveedores y reconocimiento de su demanda de divisas.</div>
+        </div>
+        <div class="cap-card">
+          <div class="cap-num">IV</div>
+          <div class="cap-title">Elegibilidad e inversión mínima</div>
+          <div class="cap-body">Arts. 12–15. USD 1.000M mínimo. Obligación de completar el 15% en los primeros 24 meses.</div>
+        </div>
+        <div class="cap-card">
+          <div class="cap-num">V</div>
+          <div class="cap-title">Procedimiento de adhesión</div>
+          <div class="cap-body">Arts. 16–23. Autoridad decide en 90 días, rechazo solo por causales tasadas. Notificación a ARCA y BCRA.</div>
+        </div>
+        <div class="cap-card">
+          <div class="cap-num">VI</div>
+          <div class="cap-title">Implementación y continuidad</div>
+          <div class="cap-body">Arts. 24–31. Seguimiento, modificaciones, suspensiones por fuerza mayor, permanencia y rescisión.</div>
+        </div>
+        <div class="cap-card">
+          <div class="cap-num">VII</div>
+          <div class="cap-title">Incentivos fiscales</div>
+          <div class="cap-body">Arts. 33–59. Ganancias 15%, amortización acelerada, IVA acelerado, exenciones aduaneras, contrib. patronales.</div>
+        </div>
+        <div class="cap-card">
+          <div class="cap-num">VIII</div>
+          <div class="cap-title">Régimen cambiario</div>
+          <div class="cap-body">Arts. 60–72. Libre disponibilidad escalonada: 20% / 40% / 100%. Financiamiento externo y garantías.</div>
+        </div>
+        <div class="cap-card">
+          <div class="cap-num">IX</div>
+          <div class="cap-title">Estabilidad normativa</div>
+          <div class="cap-body">Arts. 73–88. No expropiación, estabilidad 30 años, defensa frente a tributos nuevos, cesión de derechos.</div>
+        </div>
+        <div class="cap-card">
+          <div class="cap-num">X</div>
+          <div class="cap-title">Enforcement y salida</div>
+          <div class="cap-body">Arts. 89–103. Terminación de incentivos, bajas voluntarias, infracciones, multas y recursos.</div>
+        </div>
+        <div class="cap-card">
+          <div class="cap-num">XI</div>
+          <div class="cap-title">Gobernanza y autoridad</div>
+          <div class="cap-body">Arts. 104–107. Designación de autoridad de aplicación y cooperación con ARCA/BCRA.</div>
+        </div>
+        <div class="cap-card">
+          <div class="cap-num">XII–XIII</div>
+          <div class="cap-title">Controversias y disposiciones finales</div>
+          <div class="cap-body">Arts. 108–114. Arbitraje (CCI, CIADI/UNCITRAL). Restricciones subnacionales. Reglamentación en 90 días.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="div-line"></div>
+
+  <!-- TABLA DE ARTÍCULOS RELEVANTES -->
+  <div class="sec-label reveal">Tabla de disposiciones económicamente relevantes</div>
+  <h3 class="sec-h reveal" style="font-size:clamp(1.6rem,2.6vw,2.4rem);">Los artículos clave<br><span>y su objetivo aparente.</span></h3>
+  <p class="body-t reveal" style="max-width:680px;">Los extractos textuales fueron normalizados desde OCR del expediente escaneado. Para trabajo de cita jurídica fina, verificar sobre la imagen original del PDF oficial.</p>
+
+  <div class="reveal" style="margin-top:28px;overflow-x:auto;">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Art.</th>
+          <th>Texto operativo relevante</th>
+          <th>Objetivo aparente</th>
+          <th>Cronograma / gatillo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="n">1</td><td>"Créase el Régimen de Incentivo para Grandes Inversiones en Nuevas Industrias..."</td><td>Crear el régimen especial</td><td>Rige desde la entrada en vigencia</td></tr>
+        <tr><td class="n">2</td><td>Declara de interés nacional y condiciona incentivos a adhesión jurisdiccional</td><td>Blindar fundamento federal y exigir adhesión provincial/local</td><td>Inmediato</td></tr>
+        <tr><td class="n">4</td><td>Define "nuevas actividades económicas" — la actividad no debe haber existido en el país ni en la jurisdicción</td><td>Focalizar en frontier industries</td><td>Desde la vigencia</td></tr>
+        <tr><td class="n">5</td><td>Plazo de adhesión de <strong class="strong">5 años</strong>, prorrogable <strong class="strong">1 año</strong> por el PEN</td><td>Crear ventana de entrada acotada</td><td>Desde la reglamentación</td></tr>
+        <tr><td class="n">6</td><td>Adhesión solo vía <strong class="strong">VPU</strong> con objeto único</td><td>Aislar el proyecto y facilitar control legal</td><td>Al presentar la solicitud</td></tr>
+        <tr><td class="n">9–11</td><td>Extiende beneficios a ciertos proveedores y permite reconocer su demanda de divisas</td><td>Expandir la cadena de incentivos aguas arriba</td><td>Durante ejecución del proyecto</td></tr>
+        <tr><td class="n">12</td><td>Considera grandes inversiones las de al menos <strong class="strong">USD 1.000 millones</strong></td><td>Limitar el régimen a megaproyectos</td><td>Al evaluar elegibilidad</td></tr>
+        <tr><td class="n">14</td><td>Exige completar al menos <strong class="strong">15%</strong> de inversión mínima en los dos primeros años</td><td>Evitar proyectos meramente declarativos</td><td>Dentro de 24 meses de la adhesión</td></tr>
+        <tr><td class="n">16–19</td><td>La autoridad decide en <strong class="strong">90 días</strong>; rechazo solo por causales tasadas</td><td>Dar previsibilidad administrativa</td><td>Desde la presentación completa</td></tr>
+        <tr><td class="n">33</td><td>"El VPU adherido... tributará el Impuesto a las Ganancias a la alícuota del <strong class="strong">QUINCE POR CIENTO (15%)</strong>"</td><td>Reducir carga fiscal corporativa</td><td>Desde la adhesión</td></tr>
+        <tr><td class="n">34–45</td><td>Amortización acelerada, quebrantos transferibles, dividendos con retención reducida, precios de transferencia menos gravosos, deducciones financieras</td><td>Aumentar rentabilidad after-tax</td><td>Durante vida útil y operación</td></tr>
+        <tr><td class="n">47–50</td><td>Régimen especial de IVA y devolución/transferencia mediante <strong class="strong">Certificados de Crédito Fiscal</strong></td><td>Mejorar caja del proyecto</td><td>Desde la inversión inicial</td></tr>
+        <tr><td class="n">51</td><td>Cómputo del <strong class="strong">100%</strong> del impuesto sobre créditos y débitos como pago a cuenta de Ganancias</td><td>Alivio financiero adicional</td><td>Durante vigencia del régimen</td></tr>
+        <tr><td class="n">52</td><td>Exime importaciones del plan aprobado de derechos, tasas estadísticas y otros tributos vinculados a la importación</td><td>Bajar costo de equipamiento e insumos</td><td>Hasta la puesta en marcha</td></tr>
+        <tr><td class="n">53–55</td><td>Derecho a exportar libremente; prohibición de restricciones directas o indirectas; protección contra licencias, cupos y medidas similares</td><td>Blindar comercio exterior del proyecto</td><td>Durante operación</td></tr>
+        <tr><td class="n">56–59</td><td>Reduce carga de seguridad social y evita nuevas contribuciones patronales sectoriales</td><td>Bajar costo laboral formal</td><td>Para nuevas relaciones laborales del proyecto</td></tr>
+        <tr><td class="n">60–72</td><td>Esquema escalonado de libre disponibilidad de divisas: <strong class="strong">20%</strong> tras 1 año · <strong class="strong">40%</strong> tras 2 años · <strong class="strong">100%</strong> tras 3 años, más acceso a financiamiento externo y garantías</td><td>Dar salida cambiaria y facilitar fondeo externo</td><td>Según antigüedad del proyecto</td></tr>
+        <tr><td class="n">73–88</td><td>Garantías de no expropiación, estabilidad normativa por <strong class="strong">30 años</strong>, defensa frente a tributos nuevos, estabilidad cambiaria y cesión de derechos del VPU</td><td>Maximizar seguridad jurídica</td><td>Desde la fecha de adhesión</td></tr>
+        <tr><td class="n">89–103</td><td>Terminación de incentivos, bajas voluntarias, infracciones, procedimiento, multas y recursos</td><td>Mecanismo de enforcement y salida</td><td>Durante todo el régimen</td></tr>
+        <tr><td class="n">108–111</td><td>Controversias: negociación previa y luego arbitraje (incluye CCI, CIADI/UNCITRAL según caso)</td><td>Internacionalizar resolución de disputas</td><td>Si hay "disputa" bajo el régimen</td></tr>
+        <tr><td class="n">112</td><td>Provincias/CABA/municipios adherentes: tope de <strong class="strong">0,5% de IIBB</strong>, sin impuesto de Sellos y fuertes restricciones a otras cargas</td><td>Homogeneizar a la baja la tributación subnacional</td><td>Desde la adhesión local</td></tr>
+        <tr><td class="n">113–114</td><td>Reglamentación dentro de <strong class="strong">90 días</strong> y vigencia al día siguiente de publicación en BO</td><td>Ordenar implementación</td><td>Tras eventual sanción/publicación</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="div-line"></div>
+
+  <!-- LIBERALIZACIÓN CAMBIARIA -->
+  <div class="sec-label reveal">Régimen cambiario — Arts. 60–72</div>
+  <h3 class="sec-h reveal" style="font-size:clamp(1.6rem,2.6vw,2.4rem);">Libre disponibilidad<br><span>escalonada de divisas.</span></h3>
+  <div class="fx-timeline reveal" style="margin-top:24px;">
+    <div class="fx-cell">
+      <div class="fx-pct">0%</div>
+      <div class="fx-label">Al inicio<br>Fecha de Adhesión</div>
+    </div>
+    <div class="fx-cell" style="border-top-color:rgba(0,213,216,.4);">
+      <div class="fx-pct">20%</div>
+      <div class="fx-label">Libre disponibilidad<br>tras 1 año</div>
+    </div>
+    <div class="fx-cell" style="border-top-color:rgba(0,213,216,.65);">
+      <div class="fx-pct">40%</div>
+      <div class="fx-label">Libre disponibilidad<br>tras 2 años</div>
+    </div>
+    <div class="fx-cell" style="border-top-color:var(--turquesa);">
+      <div class="fx-pct">100%</div>
+      <div class="fx-label">Libre disponibilidad<br>plena tras 3 años</div>
+    </div>
+  </div>
+  <p class="body-t" style="max-width:680px;margin-top:16px;">Adicionalmente, el esquema incluye acceso a financiamiento externo y garantías desde la fecha de adhesión. El artículo 73 garantiza la estabilidad cambiaria durante los 30 años de vigencia del régimen.</p>
+</section>
+
+<!-- ── ESCENARIOS CUANTITATIVOS ── -->
+<section id="escenarios" class="light-sec">
+  <div class="sec-label-dark reveal">Escenarios cuantitativos</div>
+  <h2 class="sec-h-dark reveal">Modelización estilizada.<br><span>Confianza baja a media.</span></h2>
+  <p class="body-t-dark reveal" style="max-width:720px;">
+    Dado que el proyecto recién ingresó y no existe todavía un anexo estadístico oficial, se utilizó una <strong class="td">modelización estilizada de proyecto-marginal</strong>. El supuesto clave: sin Súper RIGI, los proyectos de frontera por encima de USD 1.000 millones enfrentan baja probabilidad de decisión final de inversión; con Súper RIGI, esa probabilidad sube por cuatro canales: menor costo fiscal, menor costo de importación, mayor previsibilidad cambiaria y menor riesgo regulatorio/judicial.
+  </p>
+  <p class="body-t-dark reveal" style="max-width:720px;">
+    El <strong class="td">escenario base</strong> supone un proyecto de USD 1.500 millones en el primer año y USD 4.500 millones acumulados en 3–5 años. El supuesto sectorial: infraestructura digital / IA 35%, biotecnología avanzada 30%, semiconductores / electrónica avanzada 25%, servicios de ingeniería y soporte 10%.
+  </p>
+  <div class="alert-light reveal">
+    <p><strong>Aviso metodológico:</strong> Estas cifras son estimaciones propias para trabajo colaborativo, no proyecciones oficiales. Las bandas de confianza nacen de tres incertidumbres: ausencia de reglamentación, inexistencia de precedentes Súper RIGI y alta intensidad importada de los sectores objetivo.</p>
+  </div>
+
+  <!-- TABLA ESCENARIOS -->
+  <div class="reveal" style="overflow-x:auto;margin-top:32px;">
+    <table class="tbl-light">
+      <thead>
+        <tr>
+          <th>Indicador</th>
+          <th>Sin Súper RIGI</th>
+          <th>Con Súper RIGI — Año 1</th>
+          <th>Con Súper RIGI — 3–5 años</th>
+          <th>Rango de confianza</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="strong">Inversión movilizada</td>
+          <td>0,5–1,0 MM USD</td>
+          <td class="verde"><strong>1,5 MM USD</strong></td>
+          <td class="verde"><strong>4,5 MM USD acumulados</strong></td>
+          <td class="neutral">Baja</td>
+        </tr>
+        <tr>
+          <td class="strong">Valor agregado doméstico incremental</td>
+          <td>—</td>
+          <td class="verde"><strong>USD 0,42 MM</strong></td>
+          <td class="verde"><strong>USD 1,35 MM anuales</strong></td>
+          <td class="neutral">0,22–0,68 / 0,70–2,30</td>
+        </tr>
+        <tr>
+          <td class="strong">Empleo formal directo + indirecto equiv.</td>
+          <td>—</td>
+          <td class="verde"><strong>5.500</strong></td>
+          <td class="verde"><strong>11.500</strong></td>
+          <td class="neutral">3.500–7.800 / 6.500–17.000</td>
+        </tr>
+        <tr>
+          <td class="strong">Efecto cambiario neto</td>
+          <td>—</td>
+          <td class="rojo"><strong>−USD 0,70 MM</strong></td>
+          <td class="verde"><strong>+USD 0,55 MM anuales</strong></td>
+          <td class="neutral">Baja</td>
+        </tr>
+        <tr>
+          <td class="strong">Exportaciones o ahorro de importaciones</td>
+          <td>—</td>
+          <td>USD 0,40 MM</td>
+          <td class="verde"><strong>USD 1,15 MM anuales</strong></td>
+          <td class="neutral">0,10–0,60 / 0,50–2,00</td>
+        </tr>
+        <tr class="total">
+          <td class="strong">Costo fiscal anualizado</td>
+          <td>—</td>
+          <td class="rojo"><strong>USD 0,06 MM</strong></td>
+          <td class="rojo"><strong>USD 0,22 MM anuales</strong></td>
+          <td class="neutral">0,03–0,12 / 0,10–0,45</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two-col" style="margin-top:40px;gap:40px;">
+    <div class="reveal">
+      <div class="chart-box-light">
+        <div class="chart-title-dark">Escenario base — Inversión y empleo proyectados</div>
+        <div class="chart-wrap" id="escWrap">
+          <canvas id="escChart"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="chart-box-light">
+        <div class="chart-title-dark">Efecto cambiario neto (J-curve) — MM USD</div>
+        <div class="chart-wrap" id="jcurveWrap">
+          <canvas id="jcurveChart"></canvas>
+        </div>
+      </div>
+      <div class="callout-dark" style="margin-top:16px;">
+        <p><strong>Perfil J-curve:</strong> En el año 1 predominan las importaciones de equipamiento, obra civil e ingeniería, generando un efecto cambiario neto negativo (−USD 0,70 MM). Recién en el horizonte de 3–5 años, cuando entren producción exportable o sustitución de importaciones, el saldo podría volverse netamente favorable (+USD 0,55 MM anuales).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="div-line-dark"></div>
+
+  <!-- RIGI PREDECESOR COMO BENCHMARK -->
+  <div class="sec-label-dark reveal">Benchmark — RIGI predecesor</div>
+  <h3 class="sec-h-dark reveal" style="font-size:clamp(1.5rem,2.4vw,2.2rem);">El RIGI anterior:<br><span>USD 15.700 M aprobados</span> en sept. 2025.</h3>
+  <p class="body-t-dark reveal" style="max-width:700px;">
+    La plausibilidad de que el Súper RIGI efectivamente mueva decisiones de inversión se apoya en la experiencia del RIGI previo. Según Reuters, el régimen había llegado a USD 12.800 millones de compromisos aprobados en julio de 2025 y a USD 15.700 millones con ocho proyectos en septiembre de 2025, principalmente en minería y energía. La cartera total bajo análisis llegó a ubicarse cerca de USD 100.000 millones.
+  </p>
+  <div class="four-col" style="margin-top:28px;">
+    <div class="d-card-light reveal d1">
+      <div class="d-val">USD 12,8B</div>
+      <div class="d-label">RIGI — compromisos aprobados<br>julio 2025</div>
+    </div>
+    <div class="d-card-light reveal d2">
+      <div class="d-val">USD 15,7B</div>
+      <div class="d-label">RIGI — compromisos aprobados<br>septiembre 2025</div>
+    </div>
+    <div class="d-card-light reveal d3">
+      <div class="d-val">8</div>
+      <div class="d-label">Proyectos aprobados bajo<br>RIGI a sept. 2025</div>
+    </div>
+    <div class="d-card-light reveal d4">
+      <div class="d-val">~USD 100B</div>
+      <div class="d-label">Cartera total bajo análisis<br>(estimación Gobierno)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LECTURA SECTORIAL ── -->
+<section id="sectorial" class="dark-sec">
+  <div class="sec-label reveal">Lectura sectorial comparada</div>
+  <h2 class="sec-h reveal">Ganadores, perdedores<br><span>y actores ambivalentes.</span></h2>
+  <p class="body-t reveal" style="max-width:720px;">El Súper RIGI no impacta de manera homogénea sobre todos los sectores. La siguiente lectura identifica los canales dominantes y el balance preliminar para cada actor clave.</p>
+
+  <!-- TABLA SECTORIAL -->
+  <div class="reveal" style="overflow-x:auto;margin-top:32px;">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Sector / actor</th>
+          <th>Canal dominante</th>
+          <th>Efecto año 1</th>
+          <th>Efecto 3–5 años</th>
+          <th>Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="strong">Infraestructura digital, centros de datos, IA</td>
+          <td>Importación de equipos + contrato de energía + estabilidad cambiaria</td>
+          <td class="verde">Alto</td>
+          <td class="verde">Muy alto</td>
+          <td><span class="chip chip-ok">Ganador claro</span></td>
+        </tr>
+        <tr>
+          <td class="strong">Biotecnología avanzada</td>
+          <td>Menor costo de equipamiento, estabilidad fiscal, posibilidad exportadora</td>
+          <td class="verde">Medio</td>
+          <td class="verde">Alto</td>
+          <td><span class="chip chip-ok">Ganador probable</span></td>
+        </tr>
+        <tr>
+          <td class="strong">Semiconductores / electrónica avanzada</td>
+          <td>Subsidio impositivo, apertura importadora y arbitraje</td>
+          <td class="amarillo">Bajo/medio</td>
+          <td class="amarillo">Alto, pero incierto</td>
+          <td><span class="chip chip-warn">Ganador potencial</span></td>
+        </tr>
+        <tr>
+          <td class="strong">Construcción, ingeniería y servicios profesionales locales</td>
+          <td>Obra civil, montaje, ingeniería, mantenimiento</td>
+          <td class="verde">Alto</td>
+          <td class="amarillo">Medio</td>
+          <td><span class="chip chip-ok">Ganador corto plazo</span></td>
+        </tr>
+        <tr>
+          <td class="strong">Proveedores locales tradicionales</td>
+          <td>Competencia con bienes importados y prohibición de trabas locales al input importado</td>
+          <td class="rojo">Bajo o negativo</td>
+          <td class="rojo">Negativo si no se integran</td>
+          <td><span class="chip chip-no">Perdedor relativo</span></td>
+        </tr>
+        <tr>
+          <td class="strong">Provincias y municipios adherentes</td>
+          <td>Tope tributario y pérdida de margen regulatorio</td>
+          <td class="rojo">Negativo</td>
+          <td class="rojo">Negativo persistente</td>
+          <td><span class="chip chip-no">Perdedor fiscal</span></td>
+        </tr>
+        <tr>
+          <td class="strong">Fisco nacional</td>
+          <td>Renuncia tributaria a cambio de base futura</td>
+          <td class="rojo">Negativo</td>
+          <td class="amarillo">Mixto</td>
+          <td><span class="chip chip-warn">Apuesta largo plazo</span></td>
+        </tr>
+        <tr>
+          <td class="strong">Trabajadores y sindicatos</td>
+          <td>Más empleo potencial, pero menor carga patronal y menos palancas locales</td>
+          <td class="amarillo">Mixto</td>
+          <td class="amarillo">Mixto</td>
+          <td><span class="chip chip-warn">Ambivalente</span></td>
+        </tr>
+        <tr>
+          <td class="strong">Ambiente y comunidades locales</td>
+          <td>No se fortalecen controles en el texto; fuerte blindaje del inversor</td>
+          <td class="rojo">Riesgo</td>
+          <td class="rojo">Riesgo</td>
+          <td><span class="chip chip-no">Vulnerabilidad regulatoria</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="div-line"></div>
+
+  <!-- GRÁFICO SECTORIAL -->
+  <div class="two-col" style="gap:48px;">
+    <div class="reveal">
+      <div class="sec-label">Distribución sectorial supuesta — escenario base</div>
+      <h3 class="sec-h" style="font-size:clamp(1.5rem,2.4vw,2.2rem);">Mezcla de proyectos<br><span>en el escenario base.</span></h3>
+      <p class="body-t" style="margin-top:14px;">El supuesto sectorial de mezcla para la modelización del escenario base es: Infraestructura digital / IA 35%, Biotecnología avanzada 30%, Semiconductores / electrónica avanzada 25%, Servicios de ingeniería y soporte 10%.</p>
+      <div class="callout" style="margin-top:20px;">
+        <p>El régimen es mucho más atractivo para <strong>plataformas tecnológicas y plantas de frontera</strong> que para manufacturas medianas o ramas tradicionales. El costo de esa selectividad es que puede <strong>ensanchar la brecha</strong> entre un enclave de nueva economía hiperprotegido y el resto del aparato productivo nacional bajo reglas comunes.</p>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="chart-box">
+        <div class="chart-title">Mezcla sectorial asumida — escenario base (%)</div>
+        <div class="chart-wrap" id="sectorWrap">
+          <canvas id="sectorChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MÓDULOS INTERACTIVOS ── -->
+<div class="modules-band">
+  <div class="modules-band-inner">
+    <div class="modules-band-label">Herramientas interactivas</div>
+    <h2 class="modules-band-title">Analizá vos mismo<br>cualquier proyecto Super RIGI</h2>
+    <p class="modules-band-sub">Dos módulos para explorar el régimen en profundidad: simulá el perfil de desarrollo real de una inversión concreta y comparás sectores entre sí.</p>
+    <div class="modules-cards">
+      <a href="/super-rigi/" class="mod-card">
+        <div class="mod-num">01</div>
+        <div class="mod-title">¿Inversión o Enclave?</div>
+        <div class="mod-desc">Ingresá los parámetros de cualquier proyecto — sector, monto, empleo local, contenido nacional, exportaciones, I+D — y calculá su Índice de Desarrollo Real en 5 dimensiones.</div>
+        <div class="mod-link">Abrir simulador <span>→</span></div>
+      </a>
+      <a href="/super-rigi/" class="mod-card">
+        <div class="mod-num">03</div>
+        <div class="mod-title">Comparador Sectorial</div>
+        <div class="mod-desc">Seleccioná hasta 4 sectores — hidrocarburos, tecnología, biotecnología, minería y más — y compará su perfil de derrame, empleo, divisas y valor estratégico en radar y tabla.</div>
+        <div class="mod-link">Abrir comparador <span>→</span></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ── DEBATE PÚBLICO ── -->
+<section id="debate" style="background:var(--grafito);padding:80px 52px;">
+  <div class="sec-label reveal">Debate público y lecturas expertas</div>
+  <h2 class="sec-h reveal">Debate incipiente.<br><span>Precedentes del RIGI como espejo.</span></h2>
+  <p class="body-t reveal" style="max-width:700px;">El debate público específico sobre Súper RIGI es incipiente por la novedad del expediente. La referencia más visible en prensa internacional es Reuters (mayo 2026), que al analizar la baja del riesgo país argentino señaló el anuncio del "Super RIGI" para ampliar el esquema de incentivos a nuevos sectores.</p>
+
+  <div class="three-col" style="margin-top:36px;">
+    <div class="d-card reveal d1">
+      <div class="d-label" style="font-size:.9rem;color:var(--crema);font-weight:600;margin-bottom:10px;">Posición empresaria — patrón consistente</div>
+      <div class="cap-body" style="color:var(--concreto);">Los actores corporativos que se pronunciaron sobre el RIGI previo valoran sobre todo la <strong style="color:var(--turquesa);">seguridad jurídica</strong>, la estabilidad normativa y la facilidad para financiarse. El argumento pro-empresa previsible es: "sin blindaje extremo, estas inversiones no ocurren." Cobertura Reuters de Pampa Energía y Gualcamayo confirma ese patrón.</div>
+    </div>
+    <div class="d-card reveal d2">
+      <div class="d-label" style="font-size:.9rem;color:var(--crema);font-weight:600;margin-bottom:10px;">Lecturas críticas — trasladables del RIGI al Súper RIGI</div>
+      <div class="cap-body" style="color:var(--concreto);">Las críticas ya presentes en el debate sobre el RIGI previo: beneficios fiscales muy generosos, débil anclaje en estrategia de desarrollo, impacto laboral discutible, tensiones de soberanía jurídica, y dudas ambientales y comunitarias. En el Súper RIGI estos puntos probablemente se agudizen porque el proyecto endurece el blindaje y amplía la extraterritorialidad arbitral.</div>
+    </div>
+    <div class="d-card reveal d3">
+      <div class="d-label" style="font-size:.9rem;color:var(--crema);font-weight:600;margin-bottom:10px;">Ausencias documentales significativas</div>
+      <div class="cap-body" style="color:var(--concreto);">No se localizaron al cierre del relevamiento: papers académicos específicamente dedicados al Súper RIGI, comunicados sindicales o empresariales formales, dictámenes o posiciones de gobernadores, y análisis de la UIA o cámaras tecnológicas. El expediente está en fase demasiado temprana para haber generado bibliografía o documentos de posición.</div>
+    </div>
+  </div>
+
+  <div class="div-line"></div>
+
+  <div class="sec-label reveal">Cuatro conclusiones jurídicas y económicas</div>
+  <div class="two-col" style="gap:2px;margin-top:24px;">
+    <div class="cap-card reveal d1" style="padding:24px;">
+      <div class="cap-num">I</div>
+      <div class="cap-title">Incentivos clásicos + no clásicos</div>
+      <div class="cap-body">El proyecto combina incentivos clásicos —menos Ganancias, menos IVA financiero, menos aranceles— con incentivos no clásicos como la clausura parcial de potestades fiscales subnacionales y la protección arbitral transnacional. Ese diseño dual es novedoso en la historia de los regímenes de promoción argentinos.</div>
+    </div>
+    <div class="cap-card reveal d2" style="padding:24px;">
+      <div class="cap-num">II</div>
+      <div class="cap-title">Beneficio que irradia a proveedores</div>
+      <div class="cap-body">El beneficio no se limita al VPU: también puede irradiar a ciertos proveedores del proyecto adherido (arts. 9–11). Esto amplía la base de actores con incentivo a apoyar el régimen y puede crear una cadena de intereses que dificulta eventuales modificaciones.</div>
+    </div>
+    <div class="cap-card reveal d3" style="padding:24px;">
+      <div class="cap-num">III</div>
+      <div class="cap-title">Diseño agresivamente importador</div>
+      <div class="cap-body">El régimen es agresivamente importador en su diseño: elimina o neutraliza varias herramientas que podrían usarse para forzar contenido local. Esa opción es coherente con el objetivo de bajar costos de capital, pero implica resignar encadenamientos productivos domésticos en el corto plazo.</div>
+    </div>
+    <div class="cap-card reveal d4" style="padding:24px;">
+      <div class="cap-num">IV</div>
+      <div class="cap-title">Estabilidad extraordinaria: 30 años</div>
+      <div class="cap-body">La promesa de estabilidad es extraordinaria: 30 años en materia tributaria, aduanera, de seguridad social y cambiaria. Un horizonte de esa magnitud no tiene precedentes en el derecho tributario argentino moderno y genera tanto un incentivo inversor muy fuerte como una restricción estructural muy significativa para el margen de política futura.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LIMITACIONES Y PRÓXIMOS PASOS ── -->
+<section class="dark-sec">
+  <div class="sec-label reveal">Limitaciones y próximos pasos</div>
+  <h2 class="sec-h reveal">Dossier inicial.<br><span>Hoja de ruta para la siguiente iteración.</span></h2>
+
+  <div class="two-col" style="margin-top:40px;gap:48px;">
+    <div class="reveal">
+      <p class="body-t">La principal limitación de este informe es la <strong class="t">falta de un repositorio parlamentario plenamente consolidado</strong> para el expediente y la ausencia de reglamentación, dictámenes, bases de proyectos adherentes y una matriz oficial de impacto fiscal/sectorial. También existe una limitación técnica: el texto fue extraído desde un escaneo y requiere revisión artículo por artículo sobre las imágenes originales para uso jurídico-legislativo de alta precisión.</p>
+      <div class="alert" style="margin-top:20px;">
+        <p><strong>Preguntas abiertas clave:</strong> ¿Qué comisiones recibirán el expediente? ¿Habrá mensajes complementarios del Ministerio de Economía? ¿Las provincias anticiparán adhesiones o rechazos? ¿Cuál será la posición de UIA, cámaras tecnológicas, sindicatos industriales y gobernadores? ¿Qué sectores intentará capturar el Ejecutivo en la primera ola de proyectos?</p>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="sec-label">Orden de profundización sugerido</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px;">
+        <div class="callout">
+          <p><strong>1° — Base artículo por artículo:</strong> Consolidar el texto completo con validación visual sobre el PDF oficial escaneado. Especialmente capítulos VII (fiscal), VIII (cambiario) y IX (estabilidad).</p>
+        </div>
+        <div class="callout">
+          <p><strong>2° — Matriz de incidencia sectorial:</strong> Construcción más fina con subsectores candidatos: data centers, IA, biotech, semiconductores, electrónica de precisión, nube e infraestructura digital.</p>
+        </div>
+        <div class="callout">
+          <p><strong>3° — Series oficiales:</strong> Anexar series de empleo, salarios, crédito y comercio exterior (INDEC, BCRA, Min. Economía) para pasar del modelo estilizado a un modelo con cuentas sectoriales robustas.</p>
+        </div>
+        <div class="callout">
+          <p><strong>4° — Memo conflictos estructurales:</strong> Separar en documento específico el análisis de los dos conflictos clave: federalismo tributario (art. 112) y blindaje arbitral/regulatorio (arts. 73–88 y 108–111).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FUENTES ── -->
+<section id="fuentes" style="background:var(--grafito3);padding:72px 52px;">
+  <div class="sec-label reveal">Fuentes y referencias</div>
+  <h2 class="sec-h reveal" style="font-size:clamp(1.6rem,2.6vw,2.4rem);">Fuentes primarias<br><span>y bibliografía de referencia.</span></h2>
+
+  <div class="two-col" style="margin-top:36px;gap:48px;">
+    <div class="reveal">
+      <div class="sec-label">Fuentes primarias oficiales</div>
+      <div class="fuente-item">
+        <div class="fuente-num">[1]</div>
+        <div class="fuente-text">Poder Ejecutivo Nacional. <em>Mensaje N.º 81/2026 — Proyecto de Ley "Régimen de Incentivo para Grandes Inversiones en Nuevas Industrias"</em>. Expediente P.E. 187-26. Ingreso al Senado: 26/05/2026. Texto articulado completo (114 artículos, 13 capítulos).</div>
+      </div>
+      <div class="fuente-item">
+        <div class="fuente-num">[2]</div>
+        <div class="fuente-text">Honorable Senado de la Nación Argentina. DAE Digital — Diario de Asuntos Entrados. Último normal al relevamiento: 38/2026 (mesa de entradas 21/05/2026). <a href="https://www.senado.gob.ar/parlamentario/DAEDIGITAL/" target="_blank">senado.gob.ar/parlamentario/DAEDIGITAL/</a></div>
+      </div>
+      <div class="fuente-item">
+        <div class="fuente-num">[3]</div>
+        <div class="fuente-text">Honorable Cámara de Diputados de la Nación. Base pública de proyectos al 21/05/2026: hasta expte. 2366-D-2026. Base de Senado al 05/05/2026: hasta 0687-S-2026.</div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="sec-label">Prensa internacional y contexto</div>
+      <div class="fuente-item">
+        <div class="fuente-num">[4]</div>
+        <div class="fuente-text">Reuters. "Argentina's country risk falls steadily, fueling debate on return to capital markets." 12/05/2026. <a href="https://www.reuters.com/world/americas/argentinas-country-risk-falls-steadily-fueling-debate-return-capital-markets-2026-05-12/" target="_blank">reuters.com</a></div>
+      </div>
+      <div class="fuente-item">
+        <div class="fuente-num">[5]</div>
+        <div class="fuente-text">Reuters. RIGI predecesor — compromisos aprobados: USD 12.800 M (julio 2025) y USD 15.700 M con 8 proyectos (septiembre 2025). <a href="https://www.reuters.com/latam/negocio/E3AZBUJIW5PODNI65LEBUQK5BQ-2025-07-23/" target="_blank">reuters.com (julio 2025)</a></div>
+      </div>
+      <div class="fuente-item">
+        <div class="fuente-num">[6]</div>
+        <div class="fuente-text">Reuters. Cobertura sobre recepción empresaria del RIGI (Pampa Energía, Gualcamayo). <a href="https://www.reuters.com/latam/negocio/PQ6AD6ITKZICRNANSB3ZMKSQQY-2025-07-01/" target="_blank">reuters.com (julio 2025)</a></div>
+      </div>
+      <div class="fuente-item">
+        <div class="fuente-num">[7]</div>
+        <div class="fuente-text">Reuters. "BHP's return to Argentina marks new hope for untapped copper mines." 23/08/2024. <a href="https://www.reuters.com/markets/commodities/bhps-return-argentina-marks-new-hope-untapped-copper-mines-2024-08-23/" target="_blank">reuters.com</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <svg viewBox="0 0 22 22" fill="none" width="20"><path d="M11 1.5L1 20.5H5.5L11 10L16.5 20.5H21L11 1.5Z" fill="#00D5D8"/></svg>
+        <div class="foot-brand">ALSINA</div>
+      </div>
+      <div class="foot-copy">
+        Gestión Pública · Tecnología · Territorio<br>
+        Provincia de Buenos Aires · 135 municipios<br>
+        © 2026 Alsina Consulting
+      </div>
+    </div>
+    <div style="max-width:520px;">
+      <div class="foot-disclaimer">
+        Este informe es un dossier de análisis inicial basado en el texto del proyecto de ley P.E. 187-26 y fuentes parlamentarias y periodísticas públicas relevadas al 26/05/2026. Los escenarios cuantitativos son estimaciones propias con confianza baja a media. No constituyen proyecciones oficiales ni asesoramiento legal o financiero. Las cifras deberán ser actualizadas conforme avance el trámite legislativo y se publique la reglamentación.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── NAV ──
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+
+// ── REVEAL ──
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v');});},{threshold:.1});
+document.querySelectorAll('.reveal,.rl,.rr').forEach(el=>io.observe(el));
+
+// ── CHART DEFAULTS ──
+Chart.defaults.font.family="'Barlow',sans-serif";
+Chart.defaults.color='#9e9992';
+const done={};
+function lazy(id,fn){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const o=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting&&!done[id]){done[id]=1;setTimeout(fn,280);o.unobserve(e.target);}});
+  },{threshold:.2});
+  o.observe(el);
+}
+
+// ── ESCENARIOS ──
+lazy('escWrap',()=>{
+  const ctx=document.getElementById('escChart');
+  if(!ctx)return;
+  new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:['Inversión\n(MM USD)','Valor Agregado\n(MM USD)','Empleo\n(miles)'],
+      datasets:[
+        {label:'Año 1',data:[1.5,0.42,5.5],backgroundColor:'rgba(0,213,216,.7)',borderRadius:2},
+        {label:'3–5 años',data:[4.5,1.35,11.5],backgroundColor:'rgba(0,140,154,.7)',borderRadius:2},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{position:'top',labels:{font:{size:12,family:"'Barlow Condensed'"},color:'#4a5a60',padding:16}},
+        tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y}`}},
+      },
+      scales:{
+        x:{grid:{color:'rgba(0,0,0,.05)'},ticks:{color:'#4a5a60',font:{size:11}}},
+        y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{color:'#4a5a60',font:{size:11}}},
+      }
+    }
+  });
+});
+
+// ── J-CURVE CAMBIARIO ──
+lazy('jcurveWrap',()=>{
+  const ctx=document.getElementById('jcurveChart');
+  if(!ctx)return;
+  new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:['Año 1','Año 2','Año 3','Año 4–5'],
+      datasets:[{
+        label:'Efecto cambiario neto (MM USD)',
+        data:[-0.70,-0.20,0.30,0.55],
+        backgroundColor:[-0.70,-0.20,0.30,0.55].map(v=>v<0?'rgba(224,82,82,.7)':'rgba(82,199,140,.7)'),
+        borderRadius:2,
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:c=>` ${c.parsed.y>0?'+':''}${c.parsed.y} MM USD`}},
+      },
+      scales:{
+        x:{grid:{color:'rgba(0,0,0,.05)'},ticks:{color:'#4a5a60',font:{size:12,family:"'Barlow Condensed'"}}},
+        y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{color:'#4a5a60',font:{size:11},callback:v=>(v>=0?'+':'')+v+' MM'},},
+      }
+    }
+  });
+});
+
+// ── SECTORIAL DONUT ──
+lazy('sectorWrap',()=>{
+  const ctx=document.getElementById('sectorChart');
+  if(!ctx)return;
+  new Chart(ctx,{
+    type:'doughnut',
+    data:{
+      labels:['Infraestructura digital / IA','Biotecnología avanzada','Semiconductores / electrónica','Servicios de ing. y soporte'],
+      datasets:[{
+        data:[35,30,25,10],
+        backgroundColor:['#00D5D8','#008C9A','rgba(0,80,90,.8)','rgba(158,153,146,.5)'],
+        borderWidth:0,hoverOffset:8,
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      cutout:'58%',
+      plugins:{
+        legend:{position:'right',labels:{font:{size:11,family:"'Barlow Condensed'"},color:'#9e9992',boxWidth:12,padding:10}},
+        tooltip:{callbacks:{label:c=>` ${c.label}: ${c.parsed}%`}},
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radiografía Fiscal Bonaerense 1999–2026 — Alsina</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grafito:#0e1c20;--grafito2:#162429;--grafito3:#1e2f35;
+  --turquesa:#00D5D8;--cian:#008C9A;
+  --crema:#F3EFE7;--crema2:#eae6de;
+  --concreto:#9e9992;--sombra:#1C3C44;
+  --blanco:#ffffff;--texto-oscuro:#1a2a30;
+  --rojo:#E05252;--verde:#52C78C;--amarillo:#E4AB02;
+  --azul:#3b82f6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;overflow-x:hidden;line-height:1.75;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:14px 52px;background:rgba(14,28,32,0);transition:background .4s,padding .3s;}
+nav.scrolled{background:rgba(14,28,32,.97);box-shadow:0 2px 40px rgba(0,0,0,.4);padding:11px 52px;border-bottom:1px solid rgba(0,213,216,.1);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-mark svg{width:28px;height:28px;}
+.nav-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.2em;color:var(--crema);}
+.nav-tagline{font-size:.58rem;color:rgba(183,178,170,.65);letter-spacing:.12em;text-transform:uppercase;}
+.nav-links{display:flex;gap:22px;list-style:none;}
+.nav-links a{color:rgba(243,239,231,.65);text-decoration:none;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;transition:color .2s;padding:3px 0;border-bottom:1px solid transparent;}
+.nav-links a:hover{color:var(--turquesa);border-bottom-color:var(--turquesa);}
+.nav-back{background:transparent;color:var(--turquesa);border:1px solid rgba(0,213,216,.35);padding:7px 18px;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all .2s;}
+.nav-back:hover{background:rgba(0,213,216,.08);}
+
+#hero{min-height:85vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding-bottom:0;}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1600&q=80') center/cover no-repeat;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(14,28,32,.97) 55%,rgba(14,28,32,.78) 80%,rgba(0,140,154,.15) 100%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.04) 1px,transparent 1px);background-size:52px 52px;}
+.hero-inner{position:relative;z-index:10;padding:130px 52px 72px;width:100%;}
+.informe-tag{display:inline-flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--concreto);margin-bottom:20px;}
+.informe-tag::before{content:'';width:28px;height:1px;background:var(--concreto);}
+.hero-headline{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.2rem,6vw,5.5rem);line-height:.9;text-transform:uppercase;color:var(--crema);max-width:900px;}
+.hero-headline .hl{color:var(--turquesa);}
+.hero-sub{font-size:.95rem;color:rgba(243,239,231,.68);max-width:640px;line-height:1.75;margin:20px 0 32px;}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;}
+.meta-chip{background:rgba(14,28,32,.85);border:1px solid rgba(0,213,216,.2);color:var(--concreto);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;font-family:'Barlow Condensed',sans-serif;}
+.meta-chip span{color:var(--turquesa);font-weight:700;}
+.cta-hero{display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:12px 26px;background:var(--turquesa);color:#071114;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:background .2s,transform .15s;}
+.cta-hero:hover{background:#00f0f4;transform:translateY(-1px);}
+
+.ficha-band{background:var(--sombra);border-top:2px solid var(--turquesa);border-bottom:1px solid rgba(0,213,216,.15);}
+.ficha-grid{display:grid;grid-template-columns:repeat(6,1fr);}
+.ficha-cell{padding:22px 18px;border-right:1px solid rgba(0,213,216,.08);text-align:center;}
+.ficha-cell:last-child{border-right:none;}
+.ficha-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;color:var(--turquesa);line-height:1.2;}
+.ficha-label{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-top:5px;line-height:1.4;}
+
+section{padding:80px 52px;}
+.dark-sec{background:var(--grafito2);}
+.light-sec{background:var(--crema);color:var(--texto-oscuro);}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;}
+.two-col-wide{display:grid;grid-template-columns:1.5fr 1fr;gap:52px;align-items:start;}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+
+.sec-label{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--turquesa);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.sec-label::after{content:'';flex:0 0 26px;height:1px;background:var(--turquesa);}
+.sec-label-dark{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cian);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.sec-label-dark::after{content:'';flex:0 0 26px;height:1px;background:var(--cian);}
+
+.sec-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2rem,3.5vw,3.2rem);text-transform:uppercase;line-height:.93;color:var(--crema);}
+.sec-h span{color:var(--turquesa);}
+.sec-h-dark{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2rem,3.5vw,3.2rem);text-transform:uppercase;line-height:.93;color:var(--texto-oscuro);}
+.sec-h-dark span{color:var(--cian);}
+
+.body-t{font-size:.92rem;color:var(--concreto);line-height:1.82;margin-top:14px;}
+.body-t-dark{font-size:.92rem;color:#3a4a50;line-height:1.82;margin-top:14px;}
+strong.t{color:var(--turquesa);}
+strong.td{color:var(--cian);}
+
+.callout{border-left:3px solid var(--turquesa);background:rgba(0,213,216,.05);padding:16px 20px;margin:18px 0;}
+.callout p{font-size:.88rem;color:var(--concreto);line-height:1.72;margin:0;}
+.callout strong{color:var(--turquesa);}
+.callout-dark{border-left:3px solid var(--cian);background:rgba(0,140,154,.06);padding:16px 20px;margin:18px 0;}
+.callout-dark p{font-size:.88rem;color:#4a5a60;line-height:1.72;margin:0;}
+.callout-dark strong{color:var(--cian);}
+.alert{border-left:3px solid var(--rojo);background:rgba(224,82,82,.07);padding:16px 20px;margin:18px 0;}
+.alert p{font-size:.88rem;color:#e09090;line-height:1.72;margin:0;}
+.alert strong{color:var(--rojo);}
+.alert-light{border-left:3px solid var(--rojo);background:rgba(224,82,82,.05);padding:16px 20px;margin:18px 0;}
+.alert-light p{font-size:.88rem;color:#a03030;line-height:1.72;margin:0;}
+.alert-light strong{color:#cc2222;}
+
+.d-card{background:rgba(14,28,32,.7);border-top:2px solid rgba(0,213,216,.25);padding:20px 18px;transition:border-top-color .3s;}
+.d-card:hover{border-top-color:var(--turquesa);}
+.d-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.75rem;color:var(--turquesa);line-height:1;}
+.d-label{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-top:5px;line-height:1.35;}
+.d-sub{font-size:.72rem;color:rgba(183,178,170,.5);margin-top:3px;}
+
+.d-card-light{background:#f5f2ec;border-top:2px solid rgba(0,140,154,.25);padding:20px 18px;}
+.d-card-light .d-val{color:var(--cian);}
+.d-card-light .d-label{color:#4a5a60;}
+
+.tbl{width:100%;border-collapse:collapse;margin-top:22px;font-size:.83rem;}
+.tbl thead tr{background:var(--sombra);}
+.tbl thead th{padding:10px 14px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);border-bottom:2px solid rgba(0,213,216,.25);}
+.tbl tbody td{padding:9px 14px;border-bottom:1px solid rgba(0,213,216,.07);color:var(--concreto);vertical-align:top;line-height:1.55;}
+.tbl tbody tr:hover td{background:rgba(0,213,216,.03);}
+.tbl .n{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--turquesa);font-size:.95rem;}
+.tbl .strong{font-weight:600;color:var(--crema);}
+.tbl .verde{color:var(--verde);}
+.tbl .rojo{color:var(--rojo);}
+.tbl .amarillo{color:var(--amarillo);}
+
+.tbl-light{width:100%;border-collapse:collapse;margin-top:22px;font-size:.83rem;}
+.tbl-light thead tr{background:var(--sombra);}
+.tbl-light thead th{padding:10px 14px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--crema);border-bottom:2px solid rgba(0,213,216,.35);}
+.tbl-light tbody td{padding:9px 14px;border-bottom:1px solid #ddd8d0;color:#3a4a50;vertical-align:top;line-height:1.55;}
+.tbl-light tbody tr:hover td{background:rgba(0,140,154,.04);}
+.tbl-light .n{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--cian);font-size:.92rem;}
+.tbl-light .strong{font-weight:600;color:var(--texto-oscuro);}
+.tbl-light .verde{color:#1a7a4a;}
+.tbl-light .rojo{color:#cc2222;}
+.tbl-light .neutral{color:#5a6a70;}
+.tbl-light tr.highlight{background:rgba(0,140,154,.07)!important;font-weight:600;}
+
+.chip{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;}
+.chip-ok{background:rgba(82,199,140,.15);color:var(--verde);border:1px solid rgba(82,199,140,.3);}
+.chip-warn{background:rgba(228,171,2,.12);color:var(--amarillo);border:1px solid rgba(228,171,2,.3);}
+.chip-no{background:rgba(224,82,82,.12);color:var(--rojo);border:1px solid rgba(224,82,82,.3);}
+
+.cap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:24px;}
+.cap-card{background:rgba(14,28,32,.65);padding:18px 16px;border-left:2px solid rgba(0,213,216,.2);transition:border-left-color .3s;}
+.cap-card:hover{border-left-color:var(--turquesa);}
+.cap-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;color:rgba(0,213,216,.2);line-height:1;}
+.cap-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;text-transform:uppercase;color:var(--crema);margin-top:4px;margin-bottom:6px;}
+.cap-body{font-size:.76rem;color:var(--concreto);line-height:1.6;}
+
+.progress-bar-wrap{margin-top:8px;background:rgba(0,213,216,.08);height:6px;border-radius:3px;}
+.progress-bar{height:6px;border-radius:3px;background:var(--turquesa);transition:width 1s ease;}
+
+/* MÓDULOS BAND */
+.modules-band{background:var(--grafito3);padding:64px 52px;border-top:1px solid rgba(0,213,216,.1);border-bottom:1px solid rgba(0,213,216,.1);}
+.modules-band-inner{max-width:900px;margin:0 auto;}
+.modules-band-label{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--turquesa);margin-bottom:10px;}
+.modules-band-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.7rem,2.8vw,2.6rem);text-transform:uppercase;color:var(--crema);line-height:.95;margin-bottom:8px;}
+.modules-band-sub{font-size:.88rem;color:var(--concreto);max-width:600px;line-height:1.7;margin-bottom:32px;}
+.modules-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.mod-card{background:rgba(14,28,32,.75);border-top:2px solid rgba(0,213,216,.2);padding:22px 20px;text-decoration:none;display:block;transition:border-top-color .25s,background .25s;}
+.mod-card:hover{border-top-color:var(--turquesa);background:rgba(0,213,216,.04);}
+.mod-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.8rem;color:rgba(0,213,216,.18);line-height:1;margin-bottom:5px;}
+.mod-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.98rem;text-transform:uppercase;color:var(--crema);margin-bottom:7px;letter-spacing:.04em;}
+.mod-desc{font-size:.78rem;color:var(--concreto);line-height:1.6;}
+.mod-link{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);}
+
+.div-line{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,213,216,.22),transparent);margin:52px 0;}
+.div-line-dark{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,0,0,.15),transparent);margin:52px 0;}
+
+.fuente-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(0,213,216,.07);}
+.fuente-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;color:var(--turquesa);flex-shrink:0;width:28px;}
+.fuente-text{font-size:.78rem;color:var(--concreto);line-height:1.6;}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.v{opacity:1;transform:none;}
+.rl{opacity:0;transform:translateX(-32px);transition:opacity .65s ease,transform .65s ease;}
+.rl.v{opacity:1;transform:none;}
+.rr{opacity:0;transform:translateX(32px);transition:opacity .65s ease,transform .65s ease;}
+.rr.v{opacity:1;transform:none;}
+.d1{transition-delay:.1s!important;}.d2{transition-delay:.2s!important;}.d3{transition-delay:.3s!important;}.d4{transition-delay:.4s!important;}
+
+footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgba(0,213,216,.1);}
+.foot-inner{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:28px;}
+.foot-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:.2em;color:var(--crema);}
+.foot-copy{font-size:.7rem;color:rgba(183,178,170,.45);line-height:1.65;max-width:420px;}
+.foot-disclaimer{font-size:.7rem;color:rgba(183,178,170,.4);line-height:1.65;max-width:480px;font-style:italic;}
+
+/* BAR VISUAL */
+.bar-row{display:flex;align-items:center;gap:12px;margin:6px 0;}
+.bar-label{font-size:.72rem;color:var(--concreto);width:130px;flex-shrink:0;text-align:right;}
+.bar-track{flex:1;background:rgba(0,213,216,.08);height:8px;border-radius:4px;}
+.bar-fill{height:8px;border-radius:4px;background:var(--turquesa);}
+.bar-val{font-size:.72rem;font-weight:700;color:var(--turquesa);width:50px;text-align:right;}
+
+/* REGIMEN CARDS */
+.reg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:28px;}
+.reg-card{background:rgba(14,28,32,.6);padding:20px 18px;border-top:2px solid rgba(0,213,216,.15);}
+.reg-period{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--turquesa);margin-bottom:6px;}
+.reg-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;text-transform:uppercase;color:var(--crema);margin-bottom:8px;}
+.reg-body{font-size:.77rem;color:var(--concreto);line-height:1.65;}
+
+@media(max-width:960px){
+  nav{padding:13px 20px;}nav.scrolled{padding:11px 20px;}.nav-links{display:none;}
+  section{padding:60px 20px;}.hero-inner{padding:100px 20px 56px;}
+  .ficha-grid{grid-template-columns:repeat(3,1fr);}.ficha-cell:nth-child(3){border-right:none;}
+  .two-col,.two-col-wide{grid-template-columns:1fr;}
+  .three-col,.cap-grid,.reg-grid{grid-template-columns:1fr 1fr;}
+  .four-col{grid-template-columns:1fr 1fr;}
+  .modules-cards{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">
+    <span class="logo-mark">
+      <svg viewBox="0 0 30 30" fill="none">
+        <path d="M15 2L2 28H8L15 14L22 28H28L15 2Z" fill="#00D5D8"/>
+        <path d="M10 22H20" stroke="#071114" stroke-width="2"/>
+      </svg>
+    </span>
+    <div>
+      <div class="nav-brand">ALSINA</div>
+      <div class="nav-tagline">Análisis legislativo</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#resumen">Resumen</a></li>
+    <li><a href="#regimenes">Regímenes</a></li>
+    <li><a href="#anatomia">Anatomía</a></li>
+    <li><a href="#tributos">Por tributo</a></li>
+    <li><a href="#trimestre">1T2026</a></li>
+    <li><a href="#hipotesis">Hipótesis</a></li>
+  </ul>
+  <a href="index.html" class="nav-back">← Volver al sitio</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="informe-tag">Informe de análisis fiscal · Alsina Consulting</div>
+    <h1 class="hero-headline">
+      <span class="hl">Radiografía</span><br>
+      Fiscal<br>
+      Bonaerense<br>
+      <span style="font-size:55%;color:rgba(243,239,231,.5);">1999 — 2026</span>
+    </h1>
+    <p class="hero-sub">
+      Historia, concentración y fragilidad real de la recaudación tributaria
+      de la Provincia de Buenos Aires. 327 meses de datos, seis regímenes
+      fiscales y una tesis: la Provincia recauda más nominalmente, pero
+      depende de menos.
+    </p>
+    <div class="hero-meta">
+      <div class="meta-chip">Serie <span>ene 1999 – mar 2026</span></div>
+      <div class="meta-chip">Registros <span>327 meses</span></div>
+      <div class="meta-chip">Fuente <span>ARBA · Min. Economía PBA</span></div>
+      <div class="meta-chip">Base <span>Precios corrientes + real mar-2026</span></div>
+    </div>
+    <a href="/radar-fiscal/" class="cta-hero">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Abrir el Laboratorio Tributario Interactivo
+    </a>
+  </div>
+</section>
+
+<!-- FICHA TÉCNICA -->
+<div class="ficha-band">
+  <div class="ficha-grid">
+    <div class="ficha-cell">
+      <div class="ficha-val">$13.926.304 M</div>
+      <div class="ficha-label">Recaudación total 2025<br>(millones corrientes)</div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-val">76,6%</div>
+      <div class="ficha-label">Participación de IIBB<br>en el total 2025</div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-val">0,604</div>
+      <div class="ficha-label">HHI concentración<br>tributaria 2025</div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-val">+44,3%</div>
+      <div class="ficha-label">Variación nominal<br>2025 vs. 2024</div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-val">−19,5%</div>
+      <div class="ficha-label">Caída real acumulada<br>2017–2025</div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-val">+0,68%</div>
+      <div class="ficha-label">Crecimiento real<br>1T2026 vs 1T2025</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── RESUMEN EJECUTIVO ── -->
+<section id="resumen" class="dark-sec">
+  <div class="two-col-wide">
+    <div class="rl">
+      <div class="sec-label">Resumen ejecutivo</div>
+      <h2 class="sec-h">Más recaudación nominal.<br><span>Matriz más frágil.</span></h2>
+      <p class="body-t">
+        La recaudación tributaria de origen provincial de la PBA pasó de <strong class="t">$4.129 M en 1999</strong> a <strong class="t">$13.926.304 M en 2025</strong>. El multiplicador nominal es de <strong class="t">3.373 veces</strong>, equivalente a una tasa compuesta nominal de +36,7% anual durante 26 años. El número impresiona. El análisis en términos reales obliga a leerlo con mucho más cuidado.
+      </p>
+      <p class="body-t">
+        Desde que es posible deflactar con el IPC Nacional oficial homogéneo, el poder de compra de la recaudación no solo no creció de forma continua: <strong class="t">entre 2017 y 2025 cayó −19,5% en términos reales</strong>, con un máximo en 2017 ($21.328.709 M a precios de marzo 2026) y un piso en 2020 ($15.631.394 M). La nominalidad camufla deterioro real.
+      </p>
+      <p class="body-t">
+        El rasgo estructural central de la serie es la concentración creciente en <strong class="t">Ingresos Brutos</strong>: pasó de representar 50,8% del total en 1999 a 76,6% en 2025, con un pico histórico de 79,7% en 2023. El índice de concentración HHI tributario subió de 0,322 a 0,604. En paralelo, el peso conjunto de los tributos patrimoniales (Inmobiliario + Automotor) cayó de 23,8% a 10,3%.
+      </p>
+      <div class="callout" style="margin-top:24px;">
+        <p><strong>Tesis central:</strong> La recaudación bonaerense se volvió nominalmente gigantesca pero estructuralmente más frágil: está más concentrada, más expuesta al ciclo de actividad y más dependiente de pocos tributos. El problema no es cuánto recauda la Provincia, sino qué tan estable, diversificada y defendible es esa recaudación frente a inflación, recesión y cambios normativos.</p>
+      </div>
+    </div>
+    <div class="rr">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;">
+        <div class="d-card">
+          <div class="d-val">3.373×</div>
+          <div class="d-label">Multiplicador nominal<br>1999–2025</div>
+        </div>
+        <div class="d-card">
+          <div class="d-val">+36,7%</div>
+          <div class="d-label">CAGR nominal anual<br>1999–2025</div>
+        </div>
+        <div class="d-card">
+          <div class="d-val">−19,5%</div>
+          <div class="d-label">Caída real acumulada<br>2017–2025</div>
+          <div class="d-sub">a precios mar-2026</div>
+        </div>
+        <div class="d-card">
+          <div class="d-val">0,648</div>
+          <div class="d-label">HHI máximo histórico<br>2023</div>
+        </div>
+        <div class="d-card">
+          <div class="d-val">87,2%</div>
+          <div class="d-label">IIBB + Sellos<br>sobre total 2025</div>
+        </div>
+        <div class="d-card">
+          <div class="d-val">10,3%</div>
+          <div class="d-label">Inmob + Automotor<br>sobre total 2025</div>
+          <div class="d-sub">vs. 23,8% en 1999</div>
+        </div>
+      </div>
+      <div class="alert" style="margin-top:16px;">
+        <p><strong>Nota metodológica:</strong> Los montos nominales se expresan en millones de pesos corrientes. La serie real usa IPC Nacional INDEC, llevando valores a precios de marzo 2026. El IPC homogéneo está disponible desde diciembre 2016; el análisis real anual parte de 2017. Se corrigieron dos anomalías de escala en la carga original del CSV: octubre 2024 y febrero 2025 estaban registrados 1.000 veces por debajo del patrón de la serie.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARTICIPACIONES 2025 -->
+  <div class="div-line" style="margin:48px 0 32px;"></div>
+  <div class="sec-label reveal">Composición tributaria · 2025</div>
+  <h3 class="sec-h reveal" style="font-size:clamp(1.5rem,2.4vw,2.2rem);">Dónde está<br><span>cada peso.</span></h3>
+  <div style="margin-top:28px;max-width:600px;" class="reveal">
+    <div class="bar-row">
+      <div class="bar-label">Ingresos Brutos</div>
+      <div class="bar-track"><div class="bar-fill" style="width:76.6%"></div></div>
+      <div class="bar-val">76,6%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Sellos</div>
+      <div class="bar-track"><div class="bar-fill" style="width:10.5%;background:var(--amarillo)"></div></div>
+      <div class="bar-val" style="color:var(--amarillo)">10,5%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Inmobiliario</div>
+      <div class="bar-track"><div class="bar-fill" style="width:5.3%;background:var(--verde)"></div></div>
+      <div class="bar-val" style="color:var(--verde)">5,3%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Automotor</div>
+      <div class="bar-track"><div class="bar-fill" style="width:5.0%;background:#3b82f6"></div></div>
+      <div class="bar-val" style="color:#3b82f6">5,0%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Otros</div>
+      <div class="bar-track"><div class="bar-fill" style="width:2.5%;background:rgba(158,153,146,.6)"></div></div>
+      <div class="bar-val" style="color:var(--concreto)">2,5%</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SEIS REGÍMENES FISCALES ── -->
+<section id="regimenes" class="light-sec">
+  <div class="sec-label-dark reveal">Historia en seis actos</div>
+  <h2 class="sec-h-dark reveal">Los regímenes fiscales<br><span>de la Provincia de Buenos Aires.</span></h2>
+  <p class="body-t-dark reveal" style="max-width:700px;">La serie 1999–2026 puede organizarse en seis regímenes. Esta clasificación no es una historia normativa: es una lectura cuantitativa de cambios de pendiente, composición y volatilidad de la recaudación.</p>
+
+  <div class="reg-grid reveal" style="margin-top:32px;">
+    <div class="reg-card">
+      <div class="reg-period">1999 – 2001</div>
+      <div class="reg-name">Final de convertibilidad</div>
+      <div class="reg-body">Único tramo de la serie donde la nominalidad no alcanza para ocultar el deterioro. La recaudación cae −18,8% entre 1999 y 2001. IIBB representa 53% del total.</div>
+    </div>
+    <div class="reg-card">
+      <div class="reg-period">2002 – 2007</div>
+      <div class="reg-name">Rebote nominal poscrisis</div>
+      <div class="reg-body">El total nominal se multiplica por 3,2. Tasa compuesta anual: +26,1%. Inicio de la tendencia de concentración en IIBB: sube de 51% a 66%.</div>
+    </div>
+    <div class="reg-card">
+      <div class="reg-period">2008 – 2015</div>
+      <div class="reg-name">Inflación, expansión y presión tributaria</div>
+      <div class="reg-body">El total nominal crece 6,8 veces. La estructura consolida la centralidad de IIBB (llega a 74%). Los tributos patrimoniales pierden peso relativo sistemáticamente.</div>
+    </div>
+    <div class="reg-card">
+      <div class="reg-period">2016 – 2019</div>
+      <div class="reg-name">Recomposición patrimonial parcial</div>
+      <div class="reg-body">IIBB baja a mínimos relativos en 2017–2018 (≈70%). Inmobiliario y Automotor recuperan peso. La serie real tiene su máximo en 2017: $21.328.709 M.</div>
+    </div>
+    <div class="reg-card">
+      <div class="reg-period">2020 – 2023</div>
+      <div class="reg-name">Pandemia, rebote y concentración máxima</div>
+      <div class="reg-body">2020 es el piso real. Recuperación 2021–2022. Pero 2023 lleva IIBB al récord histórico de 79,7% y el HHI a 0,648, máximo de toda la serie.</div>
+    </div>
+    <div class="reg-card" style="border-top-color:rgba(0,213,216,.45);">
+      <div class="reg-period">2024 – 2026</div>
+      <div class="reg-name">Normalización nominal y fragilidad real</div>
+      <div class="reg-body">2024 cae −2,6% real; 2025 sube +1,7%. El 1T26 apenas crece +0,68% real, sostenido por Inmobiliario. El núcleo del sistema (IIBB) retrocede en términos reales.</div>
+    </div>
+  </div>
+
+  <div class="div-line-dark"></div>
+
+  <!-- TABLA HITOS -->
+  <div class="sec-label-dark reveal">Tabla de hitos</div>
+  <div class="reveal" style="overflow-x:auto;margin-top:16px;">
+    <table class="tbl-light">
+      <thead>
+        <tr>
+          <th>Año</th>
+          <th>Total nominal</th>
+          <th>Var. nominal</th>
+          <th>Total real (mar-2026)</th>
+          <th>IIBB %</th>
+          <th>Actividad corriente %</th>
+          <th>HHI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="n">1999</td><td>$4.129 M</td><td class="neutral">—</td><td class="neutral">—</td><td>50,8%</td><td>60,2%</td><td>0,322</td></tr>
+        <tr><td class="n">2001</td><td>$3.355 M</td><td class="rojo">−12,6%</td><td class="neutral">—</td><td>53,3%</td><td>62,3%</td><td>0,342</td></tr>
+        <tr><td class="n">2007</td><td>$12.946 M</td><td class="verde">+25,0%</td><td class="neutral">—</td><td>65,7%</td><td>74,6%</td><td>0,462</td></tr>
+        <tr><td class="n">2015</td><td>$117.907 M</td><td class="verde">+32,9%</td><td class="neutral">—</td><td>74,2%</td><td>82,1%</td><td>0,568</td></tr>
+        <tr class="highlight"><td class="n">2017</td><td>$217.184 M</td><td class="verde">+37,4%</td><td class="verde">$21.328.709 M</td><td>69,9%</td><td>79,8%</td><td>0,513</td></tr>
+        <tr><td class="n">2020</td><td>$467.017 M</td><td class="verde">+27,6%</td><td class="rojo">$15.631.394 M</td><td>72,6%</td><td>80,5%</td><td>0,549</td></tr>
+        <tr><td class="n">2023</td><td>$3.040.410 M</td><td class="verde">+115,8%</td><td class="rojo">$17.346.135 M</td><td>79,7%</td><td>88,0%</td><td class="rojo">0,648</td></tr>
+        <tr><td class="n">2024</td><td>$9.649.255 M</td><td class="verde">+217,4%</td><td class="neutral">$16.898.848 M</td><td>77,2%</td><td>85,4%</td><td>0,611</td></tr>
+        <tr class="highlight"><td class="n">2025</td><td>$13.926.304 M</td><td class="verde">+44,3%</td><td class="neutral">$17.178.149 M</td><td>76,6%</td><td>87,2%</td><td>0,604</td></tr>
+        <tr><td class="n">2026 (1T)</td><td>$3.999.701 M</td><td class="neutral">—</td><td class="neutral">$4.128.111 M</td><td>74,8%</td><td>84,8%</td><td>0,579</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="body-t-dark reveal" style="font-size:.8rem;margin-top:10px;">Nota: "Actividad corriente" = Ingresos Brutos + Sellos. Real a precios de marzo de 2026.</p>
+</section>
+
+<!-- ── ANATOMÍA TRIBUTARIA ── -->
+<section id="anatomia" class="dark-sec">
+  <div class="sec-label reveal">Anatomía tributaria</div>
+  <h2 class="sec-h reveal">La concentración<br><span>que nadie discute.</span></h2>
+
+  <div class="two-col-wide" style="margin-top:40px;gap:48px;">
+    <div class="rl">
+      <p class="body-t">El cambio más importante de toda la serie no es cuantitativo sino estructural. La Provincia fue desplazándose desde una canasta relativamente diversificada hacia una matriz dominada por un solo impuesto. En 1999, IIBB representaba poco más de la mitad; en los últimos años se mueve sistemáticamente por encima de tres cuartas partes de la recaudación.</p>
+      <p class="body-t">Esta transformación tiene consecuencias fiscales concretas. Una provincia que depende de IIBB <strong class="t">recauda muy bien cuando suben precios, transacciones nominales y actividad formalizada</strong>. Pero queda más expuesta a caídas de consumo, cambios en alícuotas, litigiosidad tributaria y presión política de sectores productivos.</p>
+      <div class="callout" style="margin-top:22px;">
+        <p><strong>Índice HHI:</strong> Un HHI tributario de 0,604 en 2025 (sobre un máximo teórico de 1) implica baja diversificación. En 1999 era 0,322. El pico fue 0,648 en 2023. La tendencia de largo plazo es inequívoca: la matriz fiscal bonaerense se concentra en menos fuentes, aunque desde 2023 hay una leve corrección.</p>
+      </div>
+      <div class="callout" style="margin-top:12px;">
+        <p><strong>Correlación real IIBB–total:</strong> La correlación entre los valores reales mensuales del total y de IIBB desde 2017 es 0,72. La correlación entre las variaciones reales interanuales es 0,84. En lenguaje fiscal: cuando IIBB se mueve, mueve el sistema.</p>
+      </div>
+    </div>
+    <div class="rr">
+      <!-- Participación IIBB: evolución de hitos -->
+      <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-bottom:20px;">Participación de IIBB · selección de años</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:.78rem;">
+            <span style="color:var(--concreto);">1999</span>
+            <span style="color:var(--turquesa);font-weight:700;">50,8%</span>
+          </div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:50.8%"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:.78rem;">
+            <span style="color:var(--concreto);">2007</span>
+            <span style="color:var(--turquesa);font-weight:700;">65,7%</span>
+          </div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:65.7%"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:.78rem;">
+            <span style="color:var(--concreto);">2015</span>
+            <span style="color:var(--turquesa);font-weight:700;">74,2%</span>
+          </div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:74.2%"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:.78rem;">
+            <span style="color:var(--concreto);">2020</span>
+            <span style="color:var(--turquesa);font-weight:700;">72,6%</span>
+          </div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:72.6%"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:.78rem;">
+            <span style="color:var(--concreto);">2023</span>
+            <span style="color:var(--rojo);font-weight:700;">79,7% ← máximo</span>
+          </div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:79.7%;background:var(--rojo)"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:.78rem;">
+            <span style="color:var(--concreto);">2025</span>
+            <span style="color:var(--turquesa);font-weight:700;">76,6%</span>
+          </div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:76.6%"></div></div>
+        </div>
+      </div>
+      <div style="margin-top:28px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-bottom:14px;">Tributos patrimoniales (Inmob + Auto)</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(0,213,216,.1);border-bottom:1px solid rgba(0,213,216,.1);padding:14px 0;">
+        <div style="text-align:center;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;color:var(--verde);">23,8%</div>
+          <div style="font-size:.65rem;color:var(--concreto);letter-spacing:.1em;text-transform:uppercase;">1999</div>
+        </div>
+        <div style="font-size:1.5rem;color:rgba(0,213,216,.3);">→</div>
+        <div style="text-align:center;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;color:var(--rojo);">10,3%</div>
+          <div style="font-size:.65rem;color:var(--concreto);letter-spacing:.1em;text-transform:uppercase;">2025</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;color:var(--rojo);">−13,5 pp</div>
+          <div style="font-size:.65rem;color:var(--concreto);letter-spacing:.1em;text-transform:uppercase;">pérdida de peso</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── POR TRIBUTO ── -->
+<section id="tributos" class="light-sec">
+  <div class="sec-label-dark reveal">Lectura por familia tributaria</div>
+  <h2 class="sec-h-dark reveal">Cinco tributos.<br><span>Cinco lógicas distintas.</span></h2>
+
+  <div class="cap-grid reveal" style="grid-template-columns:repeat(3,1fr);margin-top:32px;">
+    <div class="cap-card" style="border-left-color:var(--cian);">
+      <div class="cap-num" style="color:rgba(0,140,154,.35);">IIBB</div>
+      <div class="cap-title">Ingresos Brutos</div>
+      <div class="cap-body">76,6% del total en 2025. Correlación 0,84 con la variación real del sistema. En el 1T26 creció +27,9% nominal pero <strong style="color:#cc2222;">cayó −3,6% real</strong>. Alta sensibilidad al ciclo económico, a la nominalidad y a la base formal de transacciones. Principal riesgo sistémico por concentración.</div>
+    </div>
+    <div class="cap-card" style="border-left-color:#27ae60;">
+      <div class="cap-num" style="color:rgba(39,174,96,.2);">INMOB</div>
+      <div class="cap-title">Inmobiliario</div>
+      <div class="cap-body">5,3% en 2025, pero 8,3% en 1T26. Creció +113,6% nominal y <strong style="color:#1a7a4a;">+63,1% real</strong> en el primer trimestre. Más estable ante el ciclo pero altamente estacional. Tributación patrimonial: sube en vencimientos clave, difícil de leer como tendencia sin ajuste de calendario.</div>
+    </div>
+    <div class="cap-card" style="border-left-color:#3b82f6;">
+      <div class="cap-num" style="color:rgba(59,130,246,.2);">AUTO</div>
+      <div class="cap-title">Automotor</div>
+      <div class="cap-body">5,0% en 2025. Coeficiente de variación real anual 2017–2025 superior al de IIBB: muy dependiente de vencimientos, valuaciones y calendario. Enero concentra vencimientos y genera picos estadísticos. Tributo patrimonial, menor base y más visible para el contribuyente individual.</div>
+    </div>
+    <div class="cap-card" style="border-left-color:var(--amarillo);">
+      <div class="cap-num" style="color:rgba(228,171,2,.2);">SELL</div>
+      <div class="cap-title">Sellos</div>
+      <div class="cap-body">10,5% en 2025, uno de los niveles más altos de la serie reciente. En 1T26, sin embargo, <strong style="color:#a03030;">cae −0,4% real</strong>. Funciona como termómetro transaccional: cuando se desacelera puede anticipar menor dinamismo de contratos, escrituras y operaciones formalizadas.</div>
+    </div>
+    <div class="cap-card" style="border-left-color:rgba(158,153,146,.5);">
+      <div class="cap-num" style="color:rgba(158,153,146,.2);">OTRO</div>
+      <div class="cap-title">Otros</div>
+      <div class="cap-body">2,5% en 2025. Incluye Planes de Regularización, Fondo de la Vivienda, Contribución de Energía y Transmisión Gratuita de Bienes. Su valor analítico está en mostrar políticas de regularización, moratorias y cambios administrativos más que en el monto agregado.</div>
+    </div>
+    <div class="cap-card" style="border-left-color:rgba(0,213,216,.5);background:rgba(0,213,216,.04);">
+      <div class="cap-num" style="color:rgba(0,213,216,.25);">→</div>
+      <div class="cap-title">La clave estructural</div>
+      <div class="cap-body">La contribución por covarianza a la varianza mensual real del total (2017–2026): IIBB explica 41,9%, Automotor 28,1%, Sellos 10,0%, Inmobiliario 12,4%, Otros 7,6%. El sistema es tan sensible a IIBB que cualquier reforma tributaria debe empezar por entender esa palanca.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 1T 2026 ── -->
+<section id="trimestre" class="dark-sec">
+  <div class="sec-label reveal">Primer trimestre 2026</div>
+  <h2 class="sec-h reveal">Crecimiento nominal fuerte.<br><span>Empate real. Señal de alerta en marzo.</span></h2>
+  <p class="body-t reveal" style="max-width:700px;">El primer trimestre de 2026 recauda $3.999.701 M frente a $2.996.061 M en el primer trimestre de 2025. La suba nominal es de +33,5%. Ajustado por IPC, la expansión real es de apenas +0,68%: prácticamente un empate en poder de compra. Pero el dato clave está en la composición de ese crecimiento.</p>
+
+  <div class="reveal" style="overflow-x:auto;margin-top:28px;">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Familia tributaria</th>
+          <th>1T 2025</th>
+          <th>1T 2026</th>
+          <th>Var. nominal</th>
+          <th>Var. real</th>
+          <th>Share 1T26</th>
+          <th>Contrib. al crec. real</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="strong">Ingresos Brutos</td>
+          <td>$2.339.303 M</td>
+          <td>$2.992.067 M</td>
+          <td class="verde">+27,9%</td>
+          <td class="rojo">−3,6%</td>
+          <td>74,8%</td>
+          <td class="rojo">−2,82 pp</td>
+        </tr>
+        <tr>
+          <td class="strong">Inmobiliario</td>
+          <td>$156.234 M</td>
+          <td>$333.673 M</td>
+          <td class="verde">+113,6%</td>
+          <td class="verde">+63,1%</td>
+          <td>8,3%</td>
+          <td class="verde">+3,22 pp</td>
+        </tr>
+        <tr>
+          <td class="strong">Automotor</td>
+          <td>$124.588 M</td>
+          <td>$166.259 M</td>
+          <td class="verde">+33,4%</td>
+          <td class="amarillo">+1,1%</td>
+          <td>4,2%</td>
+          <td class="amarillo">+0,04 pp</td>
+        </tr>
+        <tr>
+          <td class="strong">Sellos</td>
+          <td>$303.758 M</td>
+          <td>$400.936 M</td>
+          <td class="verde">+32,0%</td>
+          <td class="rojo">−0,4%</td>
+          <td>10,0%</td>
+          <td class="rojo">−0,04 pp</td>
+        </tr>
+        <tr>
+          <td class="strong">Otros</td>
+          <td>$72.179 M</td>
+          <td>$106.765 M</td>
+          <td class="verde">+47,9%</td>
+          <td class="verde">+11,4%</td>
+          <td>2,7%</td>
+          <td class="verde">+0,28 pp</td>
+        </tr>
+        <tr style="background:rgba(0,213,216,.06);">
+          <td class="strong" style="color:var(--crema);">TOTAL</td>
+          <td style="color:var(--crema);">$2.996.061 M</td>
+          <td style="color:var(--crema);">$3.999.701 M</td>
+          <td class="verde">+33,5%</td>
+          <td class="amarillo">+0,68%</td>
+          <td style="color:var(--crema);">100%</td>
+          <td class="amarillo">+0,68 pp</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two-col" style="margin-top:32px;gap:32px;">
+    <div class="callout reveal">
+      <p><strong>Lectura técnica:</strong> El crecimiento real del 1T26 no proviene del núcleo estructural del sistema. IIBB cae en términos reales, Sellos queda neutro, Automotor aporta mínimo. Es Inmobiliario el que explica el resultado positivo (+3,22 pp de los +0,68% totales). Una lectura de coyuntura que no considere la estacionalidad del Inmobiliario sobreestima la solidez del arranque de año.</p>
+    </div>
+    <div class="alert reveal">
+      <p><strong>Señal de marzo 2026:</strong> La variación real interanual del total en marzo fue −4,9%, con IIBB en −2,6% y Sellos en −2,8%. Esto sugiere que el rebote de febrero estuvo condicionado por vencimientos y no necesariamente por una mejora orgánica de la base imponible. La lectura prudente es que el año empieza sin una recuperación robusta del núcleo recaudatorio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── ESTACIONALIDAD ── -->
+<section class="light-sec">
+  <div class="sec-label-dark reveal">Estacionalidad</div>
+  <h2 class="sec-h-dark reveal">La caja provincial no recauda<br><span>igual todos los meses.</span></h2>
+  <p class="body-t-dark reveal" style="max-width:680px;">La recaudación tributaria tiene patrones estacionales marcados. Comparar meses sin ajustar por estacionalidad puede inducir errores de diagnóstico. Noviembre, diciembre y septiembre tienden a pesar más; febrero, abril y marzo tienden a pesar menos.</p>
+
+  <div class="reveal" style="overflow-x:auto;margin-top:28px;">
+    <table class="tbl-light">
+      <thead>
+        <tr>
+          <th>Mes</th>
+          <th>Total promedio</th>
+          <th>IIBB</th>
+          <th>Inmobiliario</th>
+          <th>Automotor</th>
+          <th>Sellos</th>
+          <th>Interpretación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="strong">Enero</td><td>8,15%</td><td>7,91%</td><td>2,90%</td><td class="verde"><strong>19,21%</strong></td><td>7,82%</td><td class="neutral">Pico Automotor (vencimientos)</td></tr>
+        <tr><td class="strong">Febrero</td><td>7,67%</td><td>6,85%</td><td class="verde"><strong>18,45%</strong></td><td>4,25%</td><td>6,40%</td><td class="neutral">Pico Inmobiliario (vencimientos)</td></tr>
+        <tr><td class="strong">Marzo</td><td>7,68%</td><td>7,26%</td><td>12,69%</td><td>7,33%</td><td>6,83%</td><td class="neutral">Inmob. alto. IIBB bajo</td></tr>
+        <tr><td class="strong">Abril</td><td class="rojo">6,94%</td><td>7,57%</td><td>5,09%</td><td>3,39%</td><td>7,38%</td><td class="rojo">Mes más bajo del total</td></tr>
+        <tr><td class="strong">Mayo</td><td>7,90%</td><td>8,04%</td><td>2,74%</td><td class="verde">13,72%</td><td>8,11%</td><td class="neutral">Segundo pico Automotor</td></tr>
+        <tr><td class="strong">Junio</td><td>8,19%</td><td>8,11%</td><td>10,62%</td><td>4,05%</td><td>8,34%</td><td class="neutral">IIBB recupera</td></tr>
+        <tr><td class="strong">Julio</td><td>8,68%</td><td>8,52%</td><td>8,56%</td><td>11,27%</td><td>8,48%</td><td class="neutral">Tercer pico Automotor</td></tr>
+        <tr><td class="strong">Agosto</td><td>8,39%</td><td>8,55%</td><td>9,04%</td><td>4,13%</td><td>8,98%</td><td class="neutral">Equilibrado</td></tr>
+        <tr><td class="strong">Septiembre</td><td>9,00%</td><td>8,99%</td><td>4,92%</td><td>14,55%</td><td>9,15%</td><td class="verde">Cuarto pico Automotor</td></tr>
+        <tr><td class="strong">Octubre</td><td>8,76%</td><td>9,10%</td><td>8,04%</td><td>4,34%</td><td>9,26%</td><td class="neutral">IIBB y Sellos altos</td></tr>
+        <tr class="highlight"><td class="strong">Noviembre</td><td class="verde"><strong>9,57%</strong></td><td class="verde"><strong>9,65%</strong></td><td>10,27%</td><td>9,16%</td><td>9,44%</td><td class="verde">Mes más alto del total</td></tr>
+        <tr><td class="strong">Diciembre</td><td>9,07%</td><td>9,45%</td><td>6,67%</td><td>4,60%</td><td>9,81%</td><td class="neutral">IIBB y Sellos altos</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="body-t-dark reveal" style="font-size:.8rem;margin-top:10px;">Participación mensual promedio dentro de cada año/concepto, calculada sobre años completos 1999–2025.</p>
+</section>
+
+<!-- ── MÓDULOS INTERACTIVOS ── -->
+<div class="modules-band">
+  <div class="modules-band-inner">
+    <div class="modules-band-label">Herramienta interactiva</div>
+    <h2 class="modules-band-title">Laboratorio Tributario<br>Bonaerense</h2>
+    <p class="modules-band-sub">Explorá la historia completa de la recaudación, jugá escenarios de reforma tributaria y medí las consecuencias fiscales, políticas y estructurales de cada decisión.</p>
+    <div class="modules-cards">
+      <a href="/radar-fiscal/" class="mod-card">
+        <div class="mod-num">01</div>
+        <div class="mod-title">Explorador Histórico</div>
+        <div class="mod-desc">Serie completa 1999–2026. Líneas, áreas apiladas, composición por año, métricas de concentración y tabla exportable.</div>
+        <div class="mod-link">Explorar datos <span>→</span></div>
+      </a>
+      <a href="/radar-fiscal/" class="mod-card">
+        <div class="mod-num">02</div>
+        <div class="mod-title">Simulador de Reforma</div>
+        <div class="mod-desc">Modificá el peso de cada tributo, la inflación esperada y el crecimiento real. Calculá en tiempo real el impacto sobre recaudación, diversificación y viabilidad fiscal.</div>
+        <div class="mod-link">Abrir laboratorio <span>→</span></div>
+      </a>
+      <a href="/radar-fiscal/" class="mod-card">
+        <div class="mod-num">03</div>
+        <div class="mod-title">Comparador de Escenarios</div>
+        <div class="mod-desc">Guardá hasta 3 escenarios y comparalos en radar, tabla y barras. Descargá el resumen ejecutivo automático.</div>
+        <div class="mod-link">Comparar escenarios <span>→</span></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ── HIPÓTESIS DE TRABAJO ── -->
+<section id="hipotesis" style="background:var(--grafito);padding:80px 52px;">
+  <div class="sec-label reveal">Hipótesis de trabajo</div>
+  <h2 class="sec-h reveal">Cuatro lecturas<br><span>sobre la estructura fiscal.</span></h2>
+
+  <div class="cap-grid reveal" style="margin-top:32px;">
+    <div class="cap-card" style="padding:24px;">
+      <div class="cap-num">I</div>
+      <div class="cap-title">Sistema procíclico</div>
+      <div class="cap-body">IIBB y Sellos explican más del 87% del total en 2025. Esto vincula la caja provincial al volumen de transacciones, precios y actividad. Si la economía real se enfría, la nominalidad puede crecer pero el poder de compra fiscal se erosiona. La serie 2017–2025 lo confirma con una caída real acumulada de −19,5%.</div>
+    </div>
+    <div class="cap-card" style="padding:24px;">
+      <div class="cap-num">II</div>
+      <div class="cap-title">Diversificación baja</div>
+      <div class="cap-body">El HHI y la participación de IIBB muestran concentración persistente. Una estructura así puede ser eficiente para recaudar rápido, pero es vulnerable ante shocks sectoriales, litigiosidad tributaria o reformas. La comparación internacional ubica a la PBA entre las estructuras subnacionales más concentradas de la región.</div>
+    </div>
+    <div class="cap-card" style="padding:24px;">
+      <div class="cap-num">III</div>
+      <div class="cap-title">Patrimoniales como estabilizadores imperfectos</div>
+      <div class="cap-body">Inmobiliario y Automotor pueden compensar trimestres débiles de IIBB, pero su calendario de vencimientos introduce ruido estadístico. Son útiles para caja, pero difíciles para lectura de tendencia si no se ajusta por estacionalidad. El 1T26 es el caso paradigmático: Inmobiliario salva el número pero no refleja mejora estructural.</div>
+    </div>
+    <div class="cap-card" style="padding:24px;">
+      <div class="cap-num">IV</div>
+      <div class="cap-title">Inflación vs. administración tributaria</div>
+      <div class="cap-body">En alta inflación, la recaudación nominal puede crecer por arrastre de precios. La pregunta relevante no es cuánto crece el número sino si la administración tributaria, las bases imponibles y los vencimientos le ganan al índice de precios. La historia reciente muestra que en varios años no lo lograron.</div>
+    </div>
+  </div>
+
+  <div class="div-line"></div>
+
+  <!-- RECOMENDACIONES -->
+  <div class="sec-label reveal">Cómo usar este análisis</div>
+  <div class="two-col reveal" style="gap:32px;margin-top:20px;">
+    <div>
+      <div class="callout">
+        <p><strong>Capa 1 — Datos duros:</strong> Total anual, evolución real 2017–2025, 1T26 y composición por impuesto. Evitar leer solo nominalidad. La inflación distorsiona cualquier comparación interanual sin deflactar.</p>
+      </div>
+      <div class="callout" style="margin-top:12px;">
+        <p><strong>Capa 2 — Riesgo estructural:</strong> Concentración en IIBB, HHI y dependencia de impuestos de actividad. Esta es la dimensión experta del diagnóstico. La matriz fiscal es eficiente a corto plazo pero vulnerable a largo plazo.</p>
+      </div>
+    </div>
+    <div>
+      <div class="callout">
+        <p><strong>Capa 3 — Implicancias municipales:</strong> Conectar recaudación provincial con transferencias, previsibilidad de caja, coparticipación y necesidad de planificación financiera municipal. Una Provincia que depende de IIBB transfiere ese riesgo cíclico a sus municipios.</p>
+      </div>
+      <div class="callout" style="margin-top:12px;">
+        <p><strong>Próximo paso:</strong> Usá el Laboratorio Tributario para simular escenarios concretos y evaluar qué combinación de cambios de alícuotas, valuaciones y mejoras de cobrabilidad genera mayor estabilidad y diversificación sin sacrificar viabilidad fiscal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FUENTES ── -->
+<section id="fuentes" style="background:var(--grafito3);padding:72px 52px;">
+  <div class="sec-label reveal">Fuentes y metodología</div>
+  <h2 class="sec-h reveal" style="font-size:clamp(1.6rem,2.6vw,2.4rem);">Datos, métodos<br><span>y advertencias.</span></h2>
+
+  <div class="two-col" style="margin-top:36px;gap:48px;">
+    <div class="reveal">
+      <div class="sec-label">Fuentes primarias</div>
+      <div class="fuente-item">
+        <div class="fuente-num">[1]</div>
+        <div class="fuente-text">Agencia de Recaudación de la Provincia de Buenos Aires (ARBA). Serie de recaudación tributaria mensual por concepto. Enero 1999 – Marzo 2026. Archivo CSV de elaboración propia sobre datos oficiales.</div>
+      </div>
+      <div class="fuente-item">
+        <div class="fuente-num">[2]</div>
+        <div class="fuente-text">Ministerio de Economía de la Provincia de Buenos Aires. Métricas anuales de recaudación y composición tributaria. Archivo CSV con HHI y participaciones anuales por familia tributaria.</div>
+      </div>
+      <div class="fuente-item">
+        <div class="fuente-num">[3]</div>
+        <div class="fuente-text">INDEC. Índice de Precios al Consumidor (IPC) Nacional. Serie oficial desde diciembre 2016. Deflactor utilizado para construir series reales a precios de marzo de 2026.</div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="sec-label">Notas metodológicas</div>
+      <div class="fuente-item">
+        <div class="fuente-num">M1</div>
+        <div class="fuente-text">Los montos del CSV original están expresados en miles de pesos y se transformaron a millones dividiendo por 1.000. La unidad analítica del informe es el millón de pesos corrientes.</div>
+      </div>
+      <div class="fuente-item">
+        <div class="fuente-num">M2</div>
+        <div class="fuente-text">Se detectaron y corrigieron dos anomalías de escala en la carga mensual del CSV: octubre 2024 y febrero 2025 aparecían registradas 1.000 veces por debajo del patrón de la serie. Sin corrección se generan falsos colapsos y rebotes artificiales.</div>
+      </div>
+      <div class="fuente-item">
+        <div class="fuente-num">M3</div>
+        <div class="fuente-text">El HHI tributario se calcula como la suma de los cuadrados de las participaciones de cada familia tributaria (expresadas entre 0 y 1). Un HHI cercano a 1 indica máxima concentración. La suma de las cinco familias siempre es 1 por construcción.</div>
+      </div>
+      <div class="fuente-item">
+        <div class="fuente-num">M4</div>
+        <div class="fuente-text">La actividad corriente se define como Ingresos Brutos + Sellos, los dos tributos con mayor sensibilidad al ciclo económico y a los precios nominales.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <svg viewBox="0 0 22 22" fill="none" width="20"><path d="M11 1.5L1 20.5H5.5L11 10L16.5 20.5H21L11 1.5Z" fill="#00D5D8"/></svg>
+        <div class="foot-brand">ALSINA</div>
+      </div>
+      <div class="foot-copy">
+        Gestión Pública · Tecnología · Territorio<br>
+        Provincia de Buenos Aires · 135 municipios<br>
+        © 2026 Alsina Consulting
+      </div>
+    </div>
+    <div style="max-width:520px;">
+      <div class="foot-disclaimer">
+        Este informe es un análisis de la serie histórica de recaudación tributaria de la Provincia de Buenos Aires. Los datos provienen de fuentes oficiales. Las interpretaciones y lecturas son de elaboración propia. El simulador interactivo disponible en el Laboratorio Tributario Bonaerense es una herramienta exploratoria; sus proyecciones son escenarios bajo supuestos y no constituyen predicciones ni asesoramiento financiero o fiscal.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v');});
+},{threshold:.08});
+document.querySelectorAll('.reveal,.rl,.rr').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
