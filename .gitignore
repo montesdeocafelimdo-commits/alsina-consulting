@@ -4,10 +4,10 @@ radar-fiscal-app/
 super-rigi-app/
 Datos electorales/
 Info_Municipios_nueva/
-informes/
 *.pdf
 *.csv
 *.xlsx
 *.docx
 prompt_*.md
 electoral_data_normalized.json
+informes/alsina-*.html
