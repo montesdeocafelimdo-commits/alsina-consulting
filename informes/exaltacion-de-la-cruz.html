@@ -209,13 +209,13 @@
     /* MAP */
     #map-container{height:460px;border-radius:8px;overflow:hidden;border:1px solid var(--line);margin:20px 0}
 
-    /* SIDEBAR TOC */
-    .toc-sidebar{position:fixed;left:max(12px,calc(50vw - 620px));top:90px;width:148px;z-index:150}
+    /* SIDEBAR TOC — only visible when viewport is wide enough to clear content */
+    .toc-sidebar{position:fixed;left:calc(50vw - 660px);top:90px;width:136px;z-index:150}
     .toc-sidebar ul{list-style:none;border-left:2px solid var(--line)}
-    .toc-sidebar li a{display:block;padding:5px 0 5px 12px;font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink4);text-decoration:none;transition:color .15s,border-color .15s;border-left:2px solid transparent;margin-left:-2px}
+    .toc-sidebar li a{display:block;padding:5px 0 5px 12px;font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink4);text-decoration:none;transition:color .15s,border-color .15s;border-left:2px solid transparent;margin-left:-2px}
     .toc-sidebar li a:hover,.toc-sidebar li a.active{color:var(--tq);border-left-color:var(--tq)}
-    .toc-sidebar .toc-head{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);padding-left:12px;margin-bottom:6px}
-    @media(max-width:1280px){.toc-sidebar{display:none}}
+    .toc-sidebar .toc-head{font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);padding-left:12px;margin-bottom:6px}
+    @media(max-width:1450px){.toc-sidebar{display:none}}
 
     /* COVER */
     .cover-section{position:relative;height:420px;overflow:hidden;background:var(--g)}
@@ -764,7 +764,7 @@
     <div style="margin-top:32px">
       <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Peso relativo en la sección — % de la población total (Censo 2022)</div>
       <div class="chart-wrap"><canvas id="chartPesoSec" style="max-height:160px"></canvas></div>
-      <p class="chart-src">Exaltación representa el 4,9% de la población de la 2ª Sección. Los 3 municipios más grandes (San Nicolás, Zárate, Pergamino) concentran el 51% del electorado.</p>
+      <p class="chart-src">Exaltación representa el 5,5% del padrón de la 2ª Sección (36.500 sobre 661.721 electores). Los 3 municipios más grandes (San Nicolás, Zárate, Pergamino) concentran el 50% del padrón. Fuente: bsas_electoral_maestro.csv 2025.</p>
     </div>
 
     <div class="alert alert-tq" style="margin-top:16px">
@@ -1252,98 +1252,121 @@ const C = {
   ink3:'#64748b', ink4:'#94a3b8', line:'#e2e8f0', bg3:'#f1f5f9'
 };
 
-// ── HEMICICLO HCD ──────────────────────────────────────────────────────────
+// ── HEMICICLO HCD — Sector algorithm ──────────────────────────────────────
 (function(){
   const svg = document.getElementById('hemiciclo-svg');
   if(!svg) return;
   const ns='http://www.w3.org/2000/svg';
-  const cx=260, cy=275;
-  const radii=[108,150,194]; // inner, mid, outer
-  const pc={FP:'#2563eb',LLA:'#7c3aed',JxC:'#eab308'};
+  const CX=260, CY=278;
+  const RADII=[108,150,193]; // inner, mid, outer
+  const SR=12.5; // seat radius
   const d2r=d=>d*Math.PI/180;
+  // Arc span: left(172°) → right(8°)
+  const A0=d2r(172), A1=d2r(8), SPAN=A0-A1; // ~164°
 
-  // Explicit seat positions: angle in degrees (left=180°, right=0°), row (0=inner)
-  // LLA seats: ALL > 90° (left side), JxC: ~90° (center), FP: ALL < 90° (right side)
-  const SEATS=[
-    // Outer row (r=194, 6 seats)
-    {row:2,a:168,p:'LLA',n:'Saraví, Exequiel A.',     b:'Alianza LLA'},
-    {row:2,a:152,p:'LLA',n:'Bucarey Fuentealba, Elías',b:'Alianza LLA'},
-    {row:2,a:128,p:'LLA',n:'Sánchez, Silvia A.',       b:'Alianza LLA'},
-    {row:2,a:66, p:'FP', n:'González, Ricardo S.',     b:'Fuerza Patria'},
-    {row:2,a:42, p:'FP', n:'Pereyra, Eduardo',         b:'Fuerza Patria'},
-    {row:2,a:12, p:'FP', n:'Nanni, Mariela A.',        b:'Fuerza Patria'},
-    // Middle row (r=150, 5 seats)
-    {row:1,a:158,p:'LLA',n:'Verón, Denisa S.',         b:'La Libertad Avanza'},
-    {row:1,a:103,p:'JxC',n:'Herling, Ariel A.',        b:'Juntos por el Cambio'},
-    {row:1,a:77, p:'JxC',n:'Sánchez, Andrea F.',       b:'Juntos por el Cambio'},
-    {row:1,a:55, p:'FP', n:'Klug, Lucía L.',           b:'Fuerza Patria'},
-    {row:1,a:23, p:'FP', n:'Alonso, Christian D.',     b:'Unión x la Patria'},
-    // Inner row (r=108, 3 seats)
-    {row:0,a:142,p:'LLA',n:'Lizaso, Esteban A.',       b:'La Libertad Avanza'},
-    {row:0,a:36, p:'FP', n:'Santillán, Norma B.',      b:'Unión x la Patria'},
-    {row:0,a:9,  p:'FP', n:'Prandi, María V.',         b:'Unión x la Patria'},
+  // Seats per row (inner→outer): 3, 5, 6 = 14 total
+  const ROWS=[3,5,6], TOTAL=14;
+
+  // Parties left→right: LLA(5), JxC(2), FP(7)
+  const PARTIES=[
+    {n:'LLA', count:5, c:'#7c3aed', members:[
+      'Saraví, Exequiel A. — Alianza LLA','Bucarey Fuentealba, Elías — Alianza LLA',
+      'Sánchez, Silvia A. — Alianza LLA','Verón, Denisa S. — La Libertad Avanza',
+      'Lizaso, Esteban A. — La Libertad Avanza']},
+    {n:'JxC', count:2, c:'#eab308', members:[
+      'Herling, Ariel A. — Juntos por el Cambio','Sánchez, Andrea F. — Juntos por el Cambio']},
+    {n:'FP',  count:7, c:'#2563eb', members:[
+      'Nanni, Mariela A. — Fuerza Patria (Pte. HCD)','González, Ricardo S. — Fuerza Patria',
+      'Klug, Lucía L. — Fuerza Patria','Pereyra, Eduardo — Fuerza Patria',
+      'Alonso, Christian D. — Unión x la Patria','Santillán, Norma B. — Unión x la Patria',
+      'Prandi, María V. — Unión x la Patria']},
   ];
 
+  // Largest-remainder distribution of party seats across rows
+  function distribute(count, rowSeats) {
+    const exact = rowSeats.map(r=>count*r/TOTAL);
+    const floors = exact.map(Math.floor);
+    const rem = floors.reduce((a,b)=>a+b,0);
+    const idx = exact.map((v,i)=>[v-Math.floor(v),i]).sort((a,b)=>b[0]-a[0]);
+    for(let i=0;i<count-rem;i++) floors[idx[i][1]]++;
+    return floors;
+  }
+
   // Draw arc guides
-  [0,1,2].forEach(ri=>{
-    const r=radii[ri];
-    const d=`M ${cx+r*Math.cos(d2r(172))} ${cy-r*Math.sin(d2r(172))} A ${r} ${r} 0 0 1 ${cx+r*Math.cos(d2r(8))} ${cy-r*Math.sin(d2r(8))}`;
+  RADII.forEach(r=>{
     const path=document.createElementNS(ns,'path');
-    path.setAttribute('d',d); path.setAttribute('fill','none');
-    path.setAttribute('stroke','#e2e8f0'); path.setAttribute('stroke-width','1');
-    path.setAttribute('stroke-dasharray','3 3');
+    path.setAttribute('d',`M ${CX+r*Math.cos(A0)} ${CY-r*Math.sin(A0)} A ${r} ${r} 0 0 1 ${CX+r*Math.cos(A1)} ${CY-r*Math.sin(A1)}`);
+    path.setAttribute('fill','none'); path.setAttribute('stroke','#dde6ef');
+    path.setAttribute('stroke-width','1.2');
     svg.insertBefore(path,svg.firstChild);
   });
 
-  // Quorum line (at 90° — between LLA territory and FP territory)
+  // Quorum line at 90° (top center)
   const qLine=document.getElementById('hc-quorum');
   const qLbl=document.getElementById('hc-quorum-lbl');
-  const outerR=radii[2]+26;
-  qLine.setAttribute('x1',cx); qLine.setAttribute('y1',cy);
-  qLine.setAttribute('x2',cx); qLine.setAttribute('y2',cy-outerR);
-  qLbl.setAttribute('x',cx+7); qLbl.setAttribute('y',cy-outerR-8);
+  const outerR=RADII[2]+28;
+  qLine.setAttribute('x1',CX); qLine.setAttribute('y1',CY);
+  qLine.setAttribute('x2',CX); qLine.setAttribute('y2',CY-outerR);
+  qLbl.setAttribute('x',CX+7); qLbl.setAttribute('y',CY-outerR-10);
 
-  // Draw seats
-  const SR=13;
-  SEATS.forEach(s=>{
-    const r=radii[s.row];
-    const ang=d2r(s.a);
-    const x=cx+r*Math.cos(ang);
-    const y=cy-r*Math.sin(ang);
-    const g=document.createElementNS(ns,'g');
-    const title=document.createElementNS(ns,'title');
-    title.textContent=`${s.n} — ${s.b}`;
-    const c=document.createElementNS(ns,'circle');
-    c.setAttribute('cx',x.toFixed(1)); c.setAttribute('cy',y.toFixed(1));
-    c.setAttribute('r',SR); c.setAttribute('fill',pc[s.p]);
-    c.setAttribute('stroke','#fff'); c.setAttribute('stroke-width','2.5');
-    c.style.cursor='pointer';
-    g.appendChild(title); g.appendChild(c);
-    svg.appendChild(g);
+  // Place seats using sector algorithm
+  const allSeats=[];
+  let curAngle=A0;
+  PARTIES.forEach(party=>{
+    const partySpan=(party.count/TOTAL)*SPAN;
+    const partyEnd=curAngle-partySpan;
+    const rowDist=distribute(party.count,ROWS);
+    let mi=0;
+    rowDist.forEach((n,ri)=>{
+      if(!n) return;
+      const r=RADII[ri];
+      for(let i=0;i<n;i++){
+        // Centered positions within party's span for this row
+        const t=(i+0.5)/n;
+        const angle=curAngle-t*partySpan;
+        allSeats.push({
+          x:CX+r*Math.cos(angle), y:CY-r*Math.sin(angle),
+          color:party.c, name:party.members[mi++]||party.n
+        });
+      }
+    });
+    curAngle=partyEnd;
   });
 
-  // Party labels (outside outer arc)
-  const LBLR=radii[2]+28;
-  [{t:'LLA',a:148,c:'#7c3aed'},{t:'JxC',a:90,c:'#eab308'},{t:'FP · UxP',a:37,c:'#2563eb'}].forEach(l=>{
-    const lx=cx+LBLR*Math.cos(d2r(l.a)), ly=cy-LBLR*Math.sin(d2r(l.a));
+  // Draw seats
+  allSeats.forEach(s=>{
+    const g=document.createElementNS(ns,'g');
+    const tt=document.createElementNS(ns,'title'); tt.textContent=s.name;
+    const c=document.createElementNS(ns,'circle');
+    c.setAttribute('cx',s.x.toFixed(1)); c.setAttribute('cy',s.y.toFixed(1));
+    c.setAttribute('r',SR); c.setAttribute('fill',s.color);
+    c.setAttribute('stroke','#fff'); c.setAttribute('stroke-width','2.5');
+    c.style.cursor='pointer';
+    g.appendChild(tt); g.appendChild(c); svg.appendChild(g);
+  });
+
+  // Party labels
+  [{t:'LLA',ang:d2r(148),c:'#7c3aed'},{t:'JxC',ang:d2r(90),c:'#d4a000'},{t:'FP · UxP',ang:d2r(37),c:'#1d4ed8'}].forEach(l=>{
+    const r=RADII[2]+30;
     const t=document.createElementNS(ns,'text');
-    t.setAttribute('x',lx.toFixed(1)); t.setAttribute('y',ly.toFixed(1));
+    t.setAttribute('x',(CX+r*Math.cos(l.ang)).toFixed(1));
+    t.setAttribute('y',(CY-r*Math.sin(l.ang)).toFixed(1));
     t.setAttribute('fill',l.c); t.setAttribute('font-size','11');
     t.setAttribute('font-family','Barlow Condensed,sans-serif');
-    t.setAttribute('font-weight','800'); t.setAttribute('text-anchor','middle');
+    t.setAttribute('font-weight','900'); t.setAttribute('text-anchor','middle');
     t.setAttribute('dominant-baseline','middle'); t.textContent=l.t;
     svg.appendChild(t);
   });
 
   // Floor line
   const fl=document.createElementNS(ns,'line');
-  fl.setAttribute('x1',cx-radii[2]-30); fl.setAttribute('y1',cy);
-  fl.setAttribute('x2',cx+radii[2]+30); fl.setAttribute('y2',cy);
+  fl.setAttribute('x1',CX-RADII[2]-26); fl.setAttribute('y1',CY);
+  fl.setAttribute('x2',CX+RADII[2]+26); fl.setAttribute('y2',CY);
   fl.setAttribute('stroke','#cbd5e1'); fl.setAttribute('stroke-width','2');
   svg.appendChild(fl);
 
   // Count badges
-  [{t:'5',x:cx-178,y:cy-50,c:'#7c3aed'},{t:'2',x:cx,y:cy-230,c:'#eab308'},{t:'7',x:cx+178,y:cy-50,c:'#2563eb'}].forEach(b=>{
+  [{t:'5',x:CX-178,y:CY-44,c:'#7c3aed'},{t:'2',x:CX,y:CY-233,c:'#d4a000'},{t:'7',x:CX+178,y:CY-44,c:'#1d4ed8'}].forEach(b=>{
     const bg=document.createElementNS(ns,'rect');
     bg.setAttribute('x',b.x-14); bg.setAttribute('y',b.y-12);
     bg.setAttribute('width',28); bg.setAttribute('height',22);
@@ -1355,6 +1378,7 @@ const C = {
     t.setAttribute('font-weight','900'); t.setAttribute('text-anchor','middle');
     t.textContent=b.t; svg.appendChild(bg); svg.appendChild(t);
   });
+
 })();
 Chart.defaults.font.family="'Barlow',sans-serif";
 Chart.defaults.color=C.ink3;
@@ -1519,8 +1543,8 @@ new Chart('chartLLA2025',{type:'bar',data:{
   scales:{y:{min:0,max:55,grid:{color:C.line},ticks:{callback:v=>v+'%'}},
     x:{grid:{display:false},ticks:{font:{size:9},maxRotation:45}}}}});
 
-// Peso relativo en la sección (población 2022)
-const POP_SEC2 = [40002,17499,27504,40159,39730,39425,26510,68613,32215,15965,115340,25627,26897,167824,132221];
+// Peso relativo en la sección (padrón 2025 — electores habilitados)
+const POP_SEC2 = [32279,14129,22587,36500,31964,31406,21799,56032,26590,14199,94181,21293,21747,131143,105872];
 const POP_TOTAL = POP_SEC2.reduce((a,b)=>a+b,0);
 const pesoData = SEC2_FULL.map((l,i)=>({l,pct:+(POP_SEC2[i]/POP_TOTAL*100).toFixed(1),ec:l==='Exaltación de la Cruz'}))
   .sort((a,b)=>b.pct-a.pct);
