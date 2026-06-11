@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Producto Bruto Geográfico · 135 Municipios PBA · Alsina 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --g:#071114;--g2:#0e1c20;--g3:#1a2e34;
+      --tq:#00D5D8;--tq2:#008C9A;
+      --crema:#F3EFE7;--conc:#B7B2AA;
+      --pj:#2563eb;--pj-l:#dbeafe;
+      --lla:#7c3aed;--lla-l:#ede9fe;
+      --camb:#eab308;--camb-l:#fef9c3;
+      --rojo:#ef4444;--rojo-l:#fee2e2;
+      --verde:#22c55e;--verde-l:#dcfce7;
+      --blanco:#fff;--bg2:#f8fafc;--bg3:#f1f5f9;
+      --line:#e2e8f0;--ink:#1a2a2e;--ink2:#334155;--ink3:#64748b;--ink4:#94a3b8;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Barlow',sans-serif;background:var(--blanco);color:var(--ink);font-size:16px;line-height:1.6}
+
+    /* COVER */
+    .cover-section{position:relative;height:460px;overflow:hidden;background:var(--g)}
+    .cover-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(7,17,20,.95) 0%,rgba(0,90,100,.4) 60%,rgba(7,17,20,.8) 100%)}
+    .cover-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.06) 1px,transparent 1px);background-size:40px 40px}
+    .cover-text{position:absolute;bottom:48px;left:48px;right:48px}
+    .cover-tag{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tq);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .cover-tag::before{content:'';display:block;width:24px;height:2px;background:var(--tq)}
+    .cover-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(48px,6vw,82px);font-weight:900;color:#fff;line-height:.95;text-transform:uppercase}
+    .cover-title em{color:var(--tq);font-style:normal}
+    .cover-sub{font-size:.92rem;color:var(--conc);margin-top:16px;max-width:640px;line-height:1.7}
+    .cover-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+    .cover-badge{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-size:.68rem;font-weight:600;padding:5px 12px;color:var(--conc);letter-spacing:.06em;text-transform:uppercase}
+
+    /* SIDEBAR TOC */
+    .toc-sidebar{position:fixed;left:calc(50vw - 660px);top:90px;width:136px;z-index:150}
+    .toc-sidebar ul{list-style:none;border-left:2px solid var(--line)}
+    .toc-sidebar li a{display:block;padding:5px 0 5px 12px;font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink4);text-decoration:none;transition:color .15s;border-left:2px solid transparent;margin-left:-2px}
+    .toc-sidebar li a:hover,.toc-sidebar li a.active{color:var(--tq);border-left-color:var(--tq)}
+    .toc-sidebar .toc-head{font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);padding-left:12px;margin-bottom:6px}
+    @media(max-width:1450px){.toc-sidebar{display:none}}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:200;background:rgba(7,17,20,.97);border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;padding:10px 32px;backdrop-filter:blur(8px)}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .nav-mark{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;letter-spacing:.15em;color:var(--crema)}
+    .nav-mark span{color:var(--tq)}
+    .nav-sub{font-size:.6rem;color:rgba(183,178,170,.6);letter-spacing:.12em;text-transform:uppercase}
+    .nav-links{display:flex;gap:22px;list-style:none}
+    .nav-links a{color:rgba(243,239,231,.55);text-decoration:none;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+    .nav-links a:hover{color:var(--tq)}
+    .nav-back{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;color:var(--tq);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(0,213,216,.3);padding:5px 12px;transition:all .2s}
+    .nav-back:hover{background:rgba(0,213,216,.08)}
+    @media(max-width:768px){.nav-links{display:none}}
+
+    /* STATS STRIP */
+    .stats-strip{background:var(--g3);border-bottom:1px solid rgba(255,255,255,.06);padding:0 32px}
+    .stats-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+    .stat-item{padding:20px 16px;border-right:1px solid rgba(255,255,255,.06);text-align:center}
+    .stat-item:last-child{border-right:none}
+    .stat-val{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:var(--tq);line-height:1}
+    .stat-lbl{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--conc);margin-top:5px}
+    .stat-sub{font-size:.65rem;color:rgba(183,178,170,.5);margin-top:2px}
+    @media(max-width:640px){.stats-inner{grid-template-columns:repeat(2,1fr)}}
+
+    /* SECTIONS */
+    .wrap{max-width:1100px;margin:0 auto;padding:0 32px}
+    section.light{background:var(--blanco);padding:72px 0}
+    section.gray{background:var(--bg2);padding:72px 0;border-top:1px solid var(--line)}
+    section.dark{background:var(--g);padding:72px 0}
+
+    .sec-label,.sec-label-dark{display:inline-flex;align-items:center;gap:8px;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tq);margin-bottom:12px}
+    .sec-label::before,.sec-label-dark::before{content:'';display:block;width:20px;height:2px;background:var(--tq)}
+    h2.title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1.1;color:var(--ink);text-transform:uppercase}
+    h2.title-dark{font-family:'Barlow Condensed',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1.1;color:var(--crema);text-transform:uppercase}
+    h2.title em,h2.title-dark em{color:var(--tq);font-style:normal}
+    .lead{font-size:1.05rem;color:var(--ink3);line-height:1.75;margin-top:14px;max-width:720px}
+    .lead-dark{font-size:1.05rem;color:var(--conc);line-height:1.75;margin-top:14px;max-width:720px}
+    h3.sub{font-family:'Barlow Condensed',sans-serif;font-size:1.25rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);margin-bottom:12px}
+    h3.sub-dark{font-family:'Barlow Condensed',sans-serif;font-size:1.25rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--crema);margin-bottom:12px}
+
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px}
+    .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:32px}
+    @media(max-width:768px){.two-col,.three-col{grid-template-columns:1fr}}
+
+    .card{background:var(--blanco);border:1px solid var(--line);border-radius:8px;padding:24px}
+    .card-dark{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:24px}
+    .card-tq{border-left:4px solid var(--tq)}
+    .card-rojo{border-left:4px solid var(--rojo)}
+    .card-verde{border-left:4px solid var(--verde)}
+    .card-camb{border-left:4px solid var(--camb)}
+    .card-pj{border-left:4px solid var(--pj)}
+
+    .kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+    .kpi{background:var(--blanco);border:1px solid var(--line);border-radius:8px;padding:20px;border-top:3px solid var(--tq)}
+    .kpi.verde{border-top-color:var(--verde)}
+    .kpi.rojo{border-top-color:var(--rojo)}
+    .kpi.camb{border-top-color:var(--camb)}
+    .kpi.pj{border-top-color:var(--pj)}
+    .kpi-val{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:var(--ink);line-height:1}
+    .kpi-lbl{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-top:5px}
+    .kpi-sub{font-size:.72rem;color:var(--ink4);margin-top:3px}
+    @media(max-width:640px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+
+    .alert{border-radius:6px;padding:18px 22px;margin:24px 0;display:flex;gap:14px;align-items:flex-start}
+    .alert-tq{background:rgba(0,213,216,.08);border:1px solid rgba(0,213,216,.25)}
+    .alert-amber{background:var(--camb-l);border:1px solid #fcd34d}
+    .alert-rojo{background:var(--rojo-l);border:1px solid #fca5a5}
+    .alert-pj{background:var(--pj-l);border:1px solid #93c5fd}
+    .alert-verde{background:var(--verde-l);border:1px solid #86efac}
+    .alert-ico{font-size:18px;flex-shrink:0;margin-top:1px}
+    .alert strong{display:block;font-size:.8rem;font-weight:700;margin-bottom:3px;text-transform:uppercase;letter-spacing:.06em}
+    .alert p{font-size:.875rem;line-height:1.65;color:var(--ink2)}
+
+    .tbl{width:100%;border-collapse:collapse;font-size:.875rem;margin:16px 0}
+    .tbl th{text-align:left;padding:9px 12px;background:var(--bg3);color:var(--ink2);font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-bottom:2px solid var(--line)}
+    .tbl td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink2)}
+    .tbl tr:last-child td{border-bottom:none}
+    .tbl tr:hover td{background:var(--bg2)}
+    .pos{color:var(--verde);font-weight:700}
+    .neg{color:var(--rojo);font-weight:700}
+    .warn{color:var(--camb);font-weight:700}
+
+    .chart-wrap{position:relative;margin:16px 0}
+    .chart-wrap canvas{max-height:320px}
+    .chart-src{font-size:.7rem;color:var(--ink4);margin-top:6px}
+
+    /* HEAT MAP */
+    #pbg-heatmap{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:4px;margin-top:20px}
+    .hm-cell{border-radius:6px;padding:10px 8px;cursor:default;transition:transform .15s;position:relative}
+    .hm-cell:hover{transform:scale(1.03);z-index:2}
+    .hm-name{font-size:.62rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.9);line-height:1.2;margin-bottom:4px}
+    .hm-val{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;color:#fff;line-height:1}
+    .hm-sub{font-size:.58rem;color:rgba(255,255,255,.65);margin-top:2px}
+
+    /* NAR */
+    .nar-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:24px}
+    .nar-card{border:1px solid var(--line);border-radius:8px;padding:22px;background:var(--blanco)}
+    .nar-num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:6px;background:var(--tq);color:var(--g);font-weight:900;font-size:.85rem;margin-bottom:10px;font-family:'Barlow Condensed',sans-serif}
+    .nar-num.n2{background:var(--camb);color:#fff}
+    .nar-num.n3{background:var(--verde);color:#fff}
+    .nar-num.n4{background:var(--lla);color:#fff}
+    .nar-num.n5{background:var(--rojo);color:#fff}
+    .nar-card h4{font-size:.95rem;font-weight:700;margin-bottom:6px}
+    .nar-card p{font-size:.82rem;color:var(--ink3);line-height:1.6}
+    @media(max-width:768px){.nar-grid{grid-template-columns:1fr}}
+
+    footer{background:var(--g);border-top:1px solid rgba(255,255,255,.06);padding:36px 32px}
+    .foot-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+    .foot-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:.15em;color:var(--crema)}
+    .foot-brand span{color:var(--tq)}
+    .foot-meta{font-size:.72rem;color:rgba(183,178,170,.45);margin-top:4px;letter-spacing:.06em;text-transform:uppercase}
+    .foot-link{font-size:.78rem;color:var(--tq);text-decoration:none}
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover-section" id="portada">
+  <div class="cover-grid"></div>
+  <div class="cover-overlay"></div>
+  <div class="cover-text">
+    <div class="cover-tag">Alsina Consulting · Análisis Económico · Junio 2026</div>
+    <div class="cover-title"><em>Producto Bruto</em><br>Geográfico</div>
+    <div class="cover-sub">Desagregación municipal del PBG de la Provincia de Buenos Aires · 134 municipios · Años 2021, 2022 y 2023 · Precios constantes de 2004 · Fuente: DPE-PBA / Ministerio de Economía PBA</div>
+    <div class="cover-badges">
+      <span class="cover-badge">134 Municipios</span>
+      <span class="cover-badge">Precios const. 2004</span>
+      <span class="cover-badge">DPE-PBA</span>
+      <span class="cover-badge">Metodología Top-Down</span>
+      <span class="cover-badge">Cruce con datos Alsina</span>
+    </div>
+  </div>
+</div>
+
+<!-- TOC LATERAL -->
+<nav class="toc-sidebar" id="tocNav">
+  <div class="toc-head">Contenido</div>
+  <ul>
+    <li><a href="#panorama">Panorama</a></li>
+    <li><a href="#mapa-calor">Mapa PBG</a></li>
+    <li><a href="#ranking">Rankings</a></li>
+    <li><a href="#dinamica">Dinámica</a></li>
+    <li><a href="#percapita">Per cápita</a></li>
+    <li><a href="#cruce">Cruces</a></li>
+    <li><a href="#secciones">Secciones</a></li>
+    <li><a href="#claves">Claves</a></li>
+  </ul>
+</nav>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">
+    <div>
+      <div class="nav-mark">ALSINA <span>·</span></div>
+      <div class="nav-sub">Señal Territorial · PBA</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#panorama">Panorama</a></li>
+    <li><a href="#mapa-calor">Mapa</a></li>
+    <li><a href="#ranking">Rankings</a></li>
+    <li><a href="#dinamica">Dinámica</a></li>
+    <li><a href="#percapita">Per cápita</a></li>
+    <li><a href="#cruce">Cruces</a></li>
+    <li><a href="#secciones">Secciones</a></li>
+  </ul>
+  <a class="nav-back" href="/">← Inicio</a>
+</nav>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-val">$258,1B</div>
+      <div class="stat-lbl">PBG Provincial 2023</div>
+      <div class="stat-sub">Miles de mill. $ const. de 2004</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">134</div>
+      <div class="stat-lbl">Municipios medidos</div>
+      <div class="stat-sub">DPE-PBA · metodología top-down</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">−5,0%</div>
+      <div class="stat-lbl">Variación prom. 22→23</div>
+      <div class="stat-sub">Solo 42 de 134 crecieron en 2023</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">$78.708</div>
+      <div class="stat-lbl">Mayor per cápita 2023</div>
+      <div class="stat-sub">Ensenada · actividad industrial pesada</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">7,5%</div>
+      <div class="stat-lbl">Part. La Matanza</div>
+      <div class="stat-sub">Municipio de mayor PBG total</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CAP I: PANORAMA PROVINCIAL ════════════════════════════════════════ -->
+<section class="light" id="panorama">
+  <div class="wrap">
+    <div class="sec-label">Capítulo I</div>
+    <h2 class="title">Panorama provincial <em>2021 – 2023</em></h2>
+    <p class="lead">El PBG total de la Provincia de Buenos Aires ascendió a $258,1 miles de millones de pesos constantes de 2004 en 2023. El período 2021-2023 fue de dos velocidades: recuperación real en 2021-2022 (crecieron 116 municipios) seguida de una contracción generalizada en 2022-2023 (solo 42 crecieron). La asimetría estructural entre el conurbano, los centros intermedios y los municipios rurales pequeños es el rasgo más saliente de la economía bonaerense.</p>
+
+    <div class="kpi-grid" style="margin-top:36px">
+      <div class="kpi verde">
+        <div class="kpi-val">$246,3B</div>
+        <div class="kpi-lbl">PBG Total 2021</div>
+        <div class="kpi-sub">Año de recuperación post-pandemia</div>
+      </div>
+      <div class="kpi verde">
+        <div class="kpi-val">$261,3B</div>
+        <div class="kpi-lbl">PBG Total 2022</div>
+        <div class="kpi-sub">+6,3% real · pico del período</div>
+      </div>
+      <div class="kpi rojo">
+        <div class="kpi-val">$258,1B</div>
+        <div class="kpi-lbl">PBG Total 2023</div>
+        <div class="kpi-sub">−1,2% real respecto a 2022</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">116</div>
+        <div class="kpi-lbl">Municipios con crecimiento</div>
+        <div class="kpi-sub">En 2022 · recuperación amplia</div>
+      </div>
+      <div class="kpi rojo">
+        <div class="kpi-val">42</div>
+        <div class="kpi-lbl">Municipios con crecimiento</div>
+        <div class="kpi-sub">En 2023 · contracción generalizada</div>
+      </div>
+      <div class="kpi pj">
+        <div class="kpi-val">21%</div>
+        <div class="kpi-lbl">Concentración Top 5</div>
+        <div class="kpi-sub">La Matanza + Mar del Plata + La Plata + Lomas + Tigre</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">PBG Provincial total 2021–2023 (miles de mill. $ const. 2004)</div>
+        <div class="chart-wrap"><canvas id="chartTotal"></canvas></div>
+        <p class="chart-src">DPE-PBA · Ministerio de Economía PBA · Precios constantes de 2004</p>
+      </div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Municipios con crecimiento real por año</div>
+        <div class="chart-wrap"><canvas id="chartMunsCrec"></canvas></div>
+        <p class="chart-src">134 municipios medidos · DPE-PBA</p>
+      </div>
+    </div>
+
+    <div class="alert alert-tq" style="margin-top:8px">
+      <div class="alert-ico">📊</div>
+      <div>
+        <strong>Metodología: asignación top-down</strong>
+        <p>La Dirección Provincial de Estadística parte del PBG provincial (Cuentas Provinciales, base 2004) y lo desagrega entre los 135 municipios usando variables proxy por rama de actividad. Los valores en pesos constantes de 2004 eliminan la inflación y permiten comparación intertemporal real. Son una estimación —no una medición directa— pero constituyen la única fuente oficial de comparación intermunicipal de producción económica en la Provincia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MAPA DE CALOR ══════════════════════════════════════════════════════ -->
+<section class="gray" id="mapa-calor">
+  <div class="wrap">
+    <div class="sec-label">Visualización</div>
+    <h2 class="title">Mapa de calor <em>PBG 2023</em></h2>
+    <p class="lead">Cada celda representa un municipio PBA ordenado por PBG total 2023. El color refleja la magnitud del producto: más oscuro = mayor PBG absoluto. El tamaño de la economía bonaerense se concentra en un puñado de municipios del conurbano.</p>
+
+    <div style="margin-top:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em">Ordenar por:</div>
+      <button onclick="renderHeatmap('total')" id="btn-total" class="hm-btn active">PBG Total</button>
+      <button onclick="renderHeatmap('percap')" id="btn-percap" class="hm-btn">Per Cápita</button>
+      <button onclick="renderHeatmap('var')" id="btn-var" class="hm-btn">Var% 22-23</button>
+    </div>
+    <style>
+      .hm-btn{padding:5px 14px;border:1.5px solid var(--line);border-radius:6px;font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;color:var(--ink3);background:var(--blanco);cursor:pointer;transition:.15s}
+      .hm-btn:hover{border-color:var(--tq);color:var(--tq)}
+      .hm-btn.active{background:var(--tq);border-color:var(--tq);color:var(--g)}
+    </style>
+    <div id="pbg-heatmap"></div>
+    <p class="chart-src" style="margin-top:8px">Fuente: DPE-PBA 2023 · $ constantes de 2004 · Alsina Consulting</p>
+  </div>
+</section>
+
+<!-- ══ RANKING ════════════════════════════════════════════════════════════ -->
+<section class="light" id="ranking">
+  <div class="wrap">
+    <div class="sec-label">Capítulo II</div>
+    <h2 class="title">Rankings <em>municipales 2023</em></h2>
+    <p class="lead">Los 10 municipios con mayor PBG total concentran el 45% de la producción provincial. En el extremo opuesto, los 10 más pequeños suman apenas el 0,3%. La economía bonaerense es profundamente asimétrica.</p>
+
+    <div class="two-col">
+      <div>
+        <h3 class="sub">Top 15 — Mayor PBG total 2023</h3>
+        <table class="tbl">
+          <thead><tr><th>#</th><th>Municipio</th><th style="text-align:right">PBG 2023 ($M)</th><th style="text-align:right">Part.%</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1</strong></td><td>La Matanza</td><td style="text-align:right">$19.233 M</td><td style="text-align:right" class="warn">7,5%</td></tr>
+            <tr><td>2</td><td>General Pueyrredón (Mar del Plata)</td><td style="text-align:right">$9.965 M</td><td style="text-align:right">3,9%</td></tr>
+            <tr><td>3</td><td>La Plata</td><td style="text-align:right">$8.745 M</td><td style="text-align:right">3,4%</td></tr>
+            <tr><td>4</td><td>Lomas de Zamora</td><td style="text-align:right">$8.466 M</td><td style="text-align:right">3,3%</td></tr>
+            <tr><td>5</td><td>Tigre</td><td style="text-align:right">$7.785 M</td><td style="text-align:right">3,0%</td></tr>
+            <tr><td>6</td><td>General San Martín</td><td style="text-align:right">$6.762 M</td><td style="text-align:right">2,6%</td></tr>
+            <tr><td>7</td><td>Quilmes</td><td style="text-align:right">$7.742 M</td><td style="text-align:right">3,0%</td></tr>
+            <tr><td>8</td><td>Almirante Brown</td><td style="text-align:right">$6.638 M</td><td style="text-align:right">2,6%</td></tr>
+            <tr><td>9</td><td>Merlo</td><td style="text-align:right">$6.323 M</td><td style="text-align:right">2,5%</td></tr>
+            <tr><td>10</td><td>Lanús</td><td style="text-align:right">$6.445 M</td><td style="text-align:right">2,5%</td></tr>
+            <tr><td>11</td><td>Ensenada</td><td style="text-align:right">$5.037 M</td><td style="text-align:right">2,0%</td></tr>
+            <tr><td>12</td><td>Campana</td><td style="text-align:right">$5.385 M</td><td style="text-align:right">2,1%</td></tr>
+            <tr><td>13</td><td>Bahía Blanca</td><td style="text-align:right">$5.913 M</td><td style="text-align:right">2,3%</td></tr>
+            <tr><td>14</td><td>Ezeiza</td><td style="text-align:right">$3.253 M</td><td style="text-align:right">1,3%</td></tr>
+            <tr><td>15</td><td>Morón</td><td style="text-align:right">$4.736 M</td><td style="text-align:right">1,8%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3 class="sub">Top 15 — Mayor PBG per cápita 2023</h3>
+        <table class="tbl">
+          <thead><tr><th>#</th><th>Municipio</th><th style="text-align:right">PBG/hab ($ const.2004)</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1</strong></td><td><strong>Ensenada</strong></td><td style="text-align:right" class="pos"><strong>$78.708</strong></td></tr>
+            <tr><td>2</td><td>Campana</td><td style="text-align:right" class="pos">$48.707</td></tr>
+            <tr><td>3</td><td>Guaminí</td><td style="text-align:right">$43.607</td></tr>
+            <tr><td>4</td><td>San Cayetano</td><td style="text-align:right">$40.181</td></tr>
+            <tr><td>5</td><td>Coronel Dorrego</td><td style="text-align:right">$36.357</td></tr>
+            <tr><td>6</td><td>Lobería</td><td style="text-align:right">$35.269</td></tr>
+            <tr><td>7</td><td>Adolfo Alsina</td><td style="text-align:right">$33.887</td></tr>
+            <tr><td>8</td><td>Benito Juárez</td><td style="text-align:right">$33.526</td></tr>
+            <tr><td>9</td><td>Pellegrini</td><td style="text-align:right">$33.220</td></tr>
+            <tr><td>10</td><td>General La Madrid</td><td style="text-align:right">$29.350</td></tr>
+            <tr><td>11</td><td>San Nicolás</td><td style="text-align:right">$29.007</td></tr>
+            <tr><td>12</td><td>Adolfo Gonzales Chaves</td><td style="text-align:right">$30.661</td></tr>
+            <tr><td>13</td><td>Zárate</td><td style="text-align:right">$22.811</td></tr>
+            <tr><td>14</td><td>Trenque Lauquen</td><td style="text-align:right">$22.643</td></tr>
+            <tr><td>15</td><td>Tres Arroyos</td><td style="text-align:right">$21.774</td></tr>
+          </tbody>
+        </table>
+        <div class="alert alert-tq" style="margin-top:12px">
+          <div class="alert-ico">🏭</div>
+          <div>
+            <strong>Ensenada: 5x el promedio provincial</strong>
+            <p>Con $78.708 por habitante, Ensenada produce en términos per cápita casi cinco veces más que el promedio de la PBA. La refinería YPF, la petroquímica y los astilleros concentran producción industrial en un municipio de solo 64.000 habitantes. Es el caso extremo de economía de enclave.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:8px">
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Top 10 PBG total 2023 (mill. $ const. 2004)</div>
+        <div class="chart-wrap"><canvas id="chartTop10"></canvas></div>
+        <p class="chart-src">DPE-PBA 2023</p>
+      </div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Top 10 PBG per cápita 2023 ($ const. 2004)</div>
+        <div class="chart-wrap"><canvas id="chartTop10PC"></canvas></div>
+        <p class="chart-src">DPE-PBA 2023 · Población Censo 2022</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DINÁMICA 2022–2023 ════════════════════════════════════════════════ -->
+<section class="gray" id="dinamica">
+  <div class="wrap">
+    <div class="sec-label">Capítulo III</div>
+    <h2 class="title">Dinámica <em>2022 – 2023</em></h2>
+    <p class="lead">El período 2022-2023 fue el más difícil del trienio. La contracción económica nacional golpeó especialmente a los municipios con fuerte base agropecuaria (sequía histórica) y en menor medida al conurbano. Ensenada fue la excepción más notable: +28% real por el impulso de la refinería.</p>
+
+    <div class="two-col">
+      <div>
+        <h3 class="sub">Mayores crecimientos reales 2022-2023</h3>
+        <table class="tbl">
+          <thead><tr><th>Municipio</th><th style="text-align:right">Var% real</th><th style="text-align:right">PBG 2023</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Ensenada</strong></td><td style="text-align:right" class="pos"><strong>+28,1%</strong></td><td style="text-align:right">$5.037 M</td></tr>
+            <tr><td>Adolfo Gonzales Chaves</td><td style="text-align:right" class="pos">+19,0%</td><td style="text-align:right">$396 M</td></tr>
+            <tr><td>Coronel Dorrego</td><td style="text-align:right" class="pos">+18,7%</td><td style="text-align:right">$581 M</td></tr>
+            <tr><td>Castelli</td><td style="text-align:right" class="pos">+13,6%</td><td style="text-align:right">$228 M</td></tr>
+            <tr><td>San Cayetano</td><td style="text-align:right" class="pos">+11,4%</td><td style="text-align:right">$361 M</td></tr>
+            <tr><td>Puán</td><td style="text-align:right" class="pos">+10,4%</td><td style="text-align:right">$397 M</td></tr>
+            <tr><td>Laprida</td><td style="text-align:right" class="pos">+6,8%</td><td style="text-align:right">$244 M</td></tr>
+            <tr><td>Ezeiza</td><td style="text-align:right" class="pos">+9,2%</td><td style="text-align:right">$3.253 M</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3 class="sub">Mayores contracciones reales 2022-2023</h3>
+        <table class="tbl">
+          <thead><tr><th>Municipio</th><th style="text-align:right">Var% real</th><th style="text-align:right">PBG 2023</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Carlos Tejedor</strong></td><td style="text-align:right" class="neg"><strong>−33,3%</strong></td><td style="text-align:right">$283 M</td></tr>
+            <tr><td>Rivadavia</td><td style="text-align:right" class="neg">−31,1%</td><td style="text-align:right">$515 M</td></tr>
+            <tr><td>General Arenales</td><td style="text-align:right" class="neg">−30,5%</td><td style="text-align:right">$285 M</td></tr>
+            <tr><td>Carlos Casares</td><td style="text-align:right" class="neg">−29,8%</td><td style="text-align:right">$493 M</td></tr>
+            <tr><td>Alberti</td><td style="text-align:right" class="neg">−27,6%</td><td style="text-align:right">$224 M</td></tr>
+            <tr><td>General Pinto</td><td style="text-align:right" class="neg">−24,6%</td><td style="text-align:right">$299 M</td></tr>
+            <tr><td>General Viamonte</td><td style="text-align:right" class="neg">−21,9%</td><td style="text-align:right">$342 M</td></tr>
+            <tr><td>Rojas</td><td style="text-align:right" class="neg">−20,7%</td><td style="text-align:right">$636 M</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:8px">
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Distribución de variaciones reales 22-23 (% de municipios)</div>
+        <div class="chart-wrap"><canvas id="chartDistVar"></canvas></div>
+        <p class="chart-src">134 municipios · DPE-PBA · solo 42 con variación positiva</p>
+      </div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Top 15 crecimientos y contracciones 2022-2023</div>
+        <div class="chart-wrap"><canvas id="chartWaterfallVar"></canvas></div>
+        <p class="chart-src">Extremos del período · rojo = contracción · verde = crecimiento</p>
+      </div>
+    </div>
+
+    <div class="alert alert-amber">
+      <div class="alert-ico">🌾</div>
+      <div>
+        <strong>La sequía del agro explica la contracción del oeste bonaerense</strong>
+        <p>Los municipios con mayor contracción en 2022-2023 son casi exclusivamente del oeste bonaerense con base agropecuaria dominante (Carlos Tejedor, Rivadavia, General Arenales, Carlos Casares, Alberti). La sequía histórica de 2022-2023 redujo la producción real de manera drástica en estas economías. Para Ensenada, en cambio, la operación plena de la refinería YPF y la petroquímica explica el alza del 28%.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PBG PER CÁPITA Y BRECHAS ══════════════════════════════════════════ -->
+<section class="light" id="percapita">
+  <div class="wrap">
+    <div class="sec-label">Capítulo IV</div>
+    <h2 class="title">PBG per cápita <em>&amp; brechas estructurales</em></h2>
+    <p class="lead">El PBG per cápita revela las brechas económicas reales entre municipios. Hay municipios que producen 5 veces más por habitante que otros. La brecha entre el máximo (Ensenada, $78.708) y la mediana (~$15.000) muestra que el crecimiento provincial no genera convergencia intermunicipal.</p>
+
+    <div class="two-col">
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Distribución del PBG per cápita 2023 por categoría de municipio</div>
+        <div class="chart-wrap"><canvas id="chartPCDistrib"></canvas></div>
+        <p class="chart-src">Cuartiles del PBG per cápita por categoría poblacional · DPE-PBA 2023</p>
+      </div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Menor PBG per cápita 2023 — 10 municipios</div>
+        <table class="tbl">
+          <thead><tr><th>Municipio</th><th style="text-align:right">PBG/hab</th><th style="text-align:right">Pob. 2022</th></tr></thead>
+          <tbody>
+            <tr><td>Presidente Perón</td><td style="text-align:right" class="neg">$8.970</td><td style="text-align:right">102.183</td></tr>
+            <tr><td>Florencio Varela</td><td style="text-align:right" class="neg">$9.395</td><td style="text-align:right">496.241</td></tr>
+            <tr><td>Berisso</td><td style="text-align:right" class="neg">$9.829</td><td style="text-align:right">100.985</td></tr>
+            <tr><td>Coronel Rosales</td><td style="text-align:right" class="neg">$9.984</td><td style="text-align:right">67.534</td></tr>
+            <tr><td>José C. Paz</td><td style="text-align:right" class="neg">$10.998</td><td style="text-align:right">326.986</td></tr>
+            <tr><td>Merlo</td><td style="text-align:right" class="neg">$10.856</td><td style="text-align:right">582.431</td></tr>
+            <tr><td>Moreno</td><td style="text-align:right" class="neg">$9.907</td><td style="text-align:right">576.672</td></tr>
+            <tr><td>La Matanza</td><td style="text-align:right">$10.446</td><td style="text-align:right">1.841.012</td></tr>
+            <tr><td>Dolores</td><td style="text-align:right">$10.330</td><td style="text-align:right">32.023</td></tr>
+            <tr><td>Esteban Echeverría</td><td style="text-align:right">$10.906</td><td style="text-align:right">338.395</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:.75rem;color:var(--ink3);margin-top:8px">Los municipios del conurbano denso combinan alta concentración de producción con una población tan numerosa que el per cápita resulta bajo, aunque el PBG total sea muy alto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CRUCE CON DATOS ALSINA ════════════════════════════════════════════ -->
+<section class="gray" id="cruce">
+  <div class="wrap">
+    <div class="sec-label">Análisis cruzado · Datos Alsina</div>
+    <h2 class="title">PBG cruzado con <em>indicadores municipales</em></h2>
+    <p class="lead">El cruce del PBG per cápita con el nivel de servicios (ranking Alsina), la recaudación propia y el NBI revela relaciones estructurales clave entre producción económica real y capacidades institucionales municipales.</p>
+
+    <div class="two-col">
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">PBG per cápita vs. Ranking de servicios públicos (selección)</div>
+        <div class="chart-wrap"><canvas id="chartCruceServ"></canvas></div>
+        <p class="chart-src">Eje X: PBG per cápita 2023 · Eje Y: ranking servicios (1=mejor) · Fuente: Alsina + DPE-PBA</p>
+      </div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">PBG per cápita vs. NBI % (selección)</div>
+        <div class="chart-wrap"><canvas id="chartCruceNBI"></canvas></div>
+        <p class="chart-src">Mayor PBG per cápita generalmente correlaciona con menor NBI · Excepciones destacables</p>
+      </div>
+    </div>
+
+    <div class="three-col" style="margin-top:8px">
+      <div class="card card-tq">
+        <h4 style="margin-bottom:6px;font-size:.95rem">Olavarría: PBG alto, servicios excepcionales</h4>
+        <p style="font-size:.82rem;color:var(--ink3)">PBG per cápita de $21.961 (ranking ~40/134). Nivel de servicios: 3° de 135 municipios. La base industrial cementera generó décadas de inversión en infraestructura que sobrevive incluso cuando la recaudación propia es baja (ranking 68°). Producción económica y calidad de servicios se refuerzan.</p>
+      </div>
+      <div class="card card-verde">
+        <h4 style="margin-bottom:6px;font-size:.95rem">Ensenada: producción extrema, no traslada a servicios</h4>
+        <p style="font-size:.82rem;color:var(--ink3)">El mayor PBG per cápita de la provincia ($78.708) no se refleja en servicios municipales equivalentes. La actividad industrial (refinería, astilleros) tributa principalmente a nivel nacional y provincial, no municipal. El municipio recibe proporcionalmente poco de la riqueza que se produce en su territorio.</p>
+      </div>
+      <div class="card card-camb">
+        <h4 style="margin-bottom:6px;font-size:.95rem">Conurbano: PBG bajo per cápita, alta demanda de servicios</h4>
+        <p style="font-size:.82rem;color:var(--ink3)">Los municipios del conurbano denso (Merlo, Moreno, Florencio Varela) tienen los menores PBG per cápita ($9.000-$11.000) pero concentran la mayor demanda de servicios sociales, salud y educación. Es el núcleo de la tensión estructural fiscal-social de la PBA.</p>
+      </div>
+    </div>
+
+    <div class="alert alert-tq" style="margin-top:8px">
+      <div class="alert-ico">🔗</div>
+      <div>
+        <strong>El PBG per cápita es el mejor predictor del ITAE — con excepciones</strong>
+        <p>El Índice Tributario-Arancelario Estimado (ITAE) del Ministerio de Economía PBA tiene una correlación alta con el PBG per cápita municipal. Sin embargo, los municipios con alta concentración industrial (Ensenada, Campana, Zárate) muestran ITAE per cápita relativamente bajo para su PBG porque los grandes contribuyentes tributan principalmente a nivel nacional. Los municipios con economías de servicios y comercio muestran mejor correspondencia entre PBG e ITAE.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PBG POR SECCIÓN ELECTORAL ════════════════════════════════════════ -->
+<section class="light" id="secciones">
+  <div class="wrap">
+    <div class="sec-label">Capítulo V — Perspectiva política</div>
+    <h2 class="title">PBG por <em>sección electoral</em></h2>
+    <p class="lead">La distribución del PBG entre las 8 secciones electorales de la PBA muestra una concentración inusitada en la Primera Sección (Conurbano Norte y Sur), seguida por la Tercera (Mar del Plata-Bahía Blanca). Las secciones del interior bonaerense concentran un PBG mucho menor en términos absolutos pero tienen per cápita más competitivos en los municipios industriales.</p>
+
+    <div class="two-col">
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">PBG 2023 por sección electoral (mill. $ const. 2004)</div>
+        <div class="chart-wrap"><canvas id="chartSecPBG"></canvas></div>
+        <p class="chart-src">Suma del PBG 2023 de los municipios de cada sección · DPE-PBA</p>
+      </div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">PBG per cápita promedio por sección electoral 2023</div>
+        <div class="chart-wrap"><canvas id="chartSecPC"></canvas></div>
+        <p class="chart-src">Promedio simple del PBG per cápita de los municipios de la sección</p>
+      </div>
+    </div>
+
+    <h3 class="sub" style="margin-top:44px">Municipios clave de la 7ª Sección Electoral</h3>
+    <p style="font-size:.85rem;color:var(--ink3);margin-bottom:4px">Olavarría domina ampliamente en PBG absoluto y per cápita</p>
+    <table class="tbl">
+      <thead><tr><th>Municipio</th><th style="text-align:right">PBG 2021 ($M)</th><th style="text-align:right">PBG 2022 ($M)</th><th style="text-align:right">PBG 2023 ($M)</th><th style="text-align:right">Var% 22-23</th><th style="text-align:right">PBG/hab 2023</th></tr></thead>
+      <tbody>
+        <tr style="background:rgba(0,213,216,.06)">
+          <td><strong style="color:#1d4ed8">Olavarría</strong></td>
+          <td style="text-align:right">$2.339 M</td>
+          <td style="text-align:right">$2.811 M</td>
+          <td style="text-align:right"><strong>$2.762 M</strong></td>
+          <td style="text-align:right" class="neg">−1,8%</td>
+          <td style="text-align:right"><strong>$21.961</strong></td>
+        </tr>
+        <tr>
+          <td>Azul</td>
+          <td style="text-align:right">$1.426 M</td>
+          <td style="text-align:right">$1.481 M</td>
+          <td style="text-align:right">$1.420 M</td>
+          <td style="text-align:right" class="neg">−4,1%</td>
+          <td style="text-align:right">$18.714</td>
+        </tr>
+        <tr>
+          <td>Bolívar</td>
+          <td style="text-align:right">$786 M</td>
+          <td style="text-align:right">$843 M</td>
+          <td style="text-align:right">$718 M</td>
+          <td style="text-align:right" class="neg">−14,8%</td>
+          <td style="text-align:right">$19.090</td>
+        </tr>
+        <tr>
+          <td>Saladillo</td>
+          <td style="text-align:right">$595 M</td>
+          <td style="text-align:right">$633 M</td>
+          <td style="text-align:right">$610 M</td>
+          <td style="text-align:right" class="neg">−3,6%</td>
+          <td style="text-align:right">$17.097</td>
+        </tr>
+        <tr>
+          <td>Roque Pérez</td>
+          <td style="text-align:right">$370 M</td>
+          <td style="text-align:right">$388 M</td>
+          <td style="text-align:right">$350 M</td>
+          <td style="text-align:right" class="neg">−10,0%</td>
+          <td style="text-align:right">$25.018</td>
+        </tr>
+        <tr>
+          <td>General Alvear</td>
+          <td style="text-align:right">$214 M</td>
+          <td style="text-align:right">$232 M</td>
+          <td style="text-align:right">$221 M</td>
+          <td style="text-align:right" class="neg">−4,5%</td>
+          <td style="text-align:right">$16.995</td>
+        </tr>
+        <tr>
+          <td>Tapalqué</td>
+          <td style="text-align:right">$161 M</td>
+          <td style="text-align:right">$178 M</td>
+          <td style="text-align:right">$173 M</td>
+          <td style="text-align:right" class="neg">−3,0%</td>
+          <td style="text-align:right">$16.029</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="alert alert-pj" style="margin-top:8px">
+      <div class="alert-ico">🏛️</div>
+      <div>
+        <strong>Olavarría produce casi el doble que todos los demás municipios de la 7ª Sección juntos</strong>
+        <p>Con $2.762M en 2023, Olavarría representa el <strong>55% del PBG total de la 7ª Sección Electoral</strong>. Los otros 6 municipios suman $3.492M. Esta concentración económica convierte a Olavarría en el pivot de la sección no solo electoralmente, sino también en términos de capacidad productiva real. El dominio es estructural.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CLAVES ESTRATÉGICAS ════════════════════════════════════════════════ -->
+<section class="dark" id="claves">
+  <div class="wrap">
+    <div class="sec-label-dark">Capítulo Final</div>
+    <h2 class="title-dark">Claves <em>de lectura</em></h2>
+    <p class="lead-dark">El PBG municipal es una herramienta de planificación, no solo de análisis. Las diferencias entre municipios son estructurales, tienen décadas de historia, y no cambian de un año al otro. Pero sí indican qué tipo de intervención tiene sentido en cada territorio.</p>
+
+    <div class="nar-grid" style="margin-top:36px">
+      <div class="nar-card">
+        <div class="nar-num">N1</div>
+        <h4>Alta producción no implica alto bienestar</h4>
+        <p>Ensenada tiene el mayor PBG per cápita de la PBA pero indicadores de servicios mediocres. El municipio no captura fiscalmente la riqueza producida en su territorio. La estructura tributaria argentina concentra el fisco industrial en Nación y Provincia, no en el municipio donde se produce.</p>
+      </div>
+      <div class="nar-card">
+        <div class="nar-num n2">N2</div>
+        <h4>El agro explica las contracciones del interior en 2023</h4>
+        <p>El patrón de caídas de 2022-2023 no es aleatorio: los 8 municipios con mayor contracción son todos del oeste bonaerense con base cerealera. La sequía histórica de 2022-2023 redujo la cosecha fina y gruesa, y la metodología top-down del PBG lo captura directamente. Es señal macroeconómica confiable.</p>
+      </div>
+      <div class="nar-card">
+        <div class="nar-num n3">N3</div>
+        <h4>Los centros intermedios del interior tienen mejor per cápita que el conurbano</h4>
+        <p>Ciudades como Olavarría, Tandil, Bahía Blanca, Tres Arroyos tienen PBG per cápita superiores a la mayoría del conurbano. La densidad poblacional del Gran Buenos Aires diluye un PBG total enorme. Las elecciones 2025-2027 se definirán en municipios del interior con mayor capacidad de consumo per cápita relativa.</p>
+      </div>
+      <div class="nar-card">
+        <div class="nar-num n4">N4</div>
+        <h4>El PBG como argumento de política fiscal</h4>
+        <p>Un municipio con PBG per cápita alto y recaudación propia baja (como Olavarría: PBG $21.961, rank recaud 68°) tiene margen real para desarrollar esquemas tributarios locales sobre la actividad económica. La brecha entre producción y tributación local es política, no estructural.</p>
+      </div>
+      <div class="nar-card">
+        <div class="nar-num n5">N5</div>
+        <h4>La concentración del Top 5 no se va a reducir</h4>
+        <p>La Matanza, Mar del Plata, La Plata, Lomas de Zamora y Tigre concentrarán el 21% del PBG bonaerense de manera persistente. Son economías de aglomeración con ventajas acumulativas. La convergencia intermunicipal requiere política explícita —transferencias basadas en capacidad económica, no solo en población.</p>
+      </div>
+      <div class="nar-card" style="border-left:4px solid rgba(255,255,255,.15)">
+        <div class="nar-num" style="background:var(--ink3)">+</div>
+        <h4>Limitaciones de la metodología</h4>
+        <p style="font-size:.82rem;color:var(--ink3)">El PBG municipal es una estimación top-down, no una medición directa. Usa variables proxy y supone que la distribución de actividad sigue patrones observables (empleo, empresas, ITAE). Los valores en pesos de 2004 permiten comparación temporal pero no reflejan precios actuales. Usar como indicador relativo, no como cifra absoluta.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div>
+      <div class="foot-brand">ALSINA <span>·</span> CONSULTING</div>
+      <div class="foot-meta">Gestión Pública · Tecnología · Territorio · Provincia de Buenos Aires · 2026</div>
+      <div class="foot-meta" style="margin-top:4px">Fuente: DPE-PBA · Ministerio de Economía PBA · Censo INDEC 2022 · Datos Alsina Dashboard</div>
+    </div>
+    <a class="foot-link" href="/">← alsina-consulting.vercel.app</a>
+  </div>
+</footer>
+
+<script>
+const C={
+  tq:'#00D5D8',tqL:'rgba(0,213,216,.2)',
+  pj:'#2563eb',pjL:'#dbeafe',
+  lla:'#7c3aed',
+  camb:'#eab308',cambL:'#fef9c3',
+  rojo:'#ef4444',rojoL:'#fee2e2',
+  verde:'#22c55e',verdeL:'#dcfce7',
+  ink3:'#64748b',ink4:'#94a3b8',line:'#e2e8f0',bg3:'#f1f5f9'
+};
+Chart.defaults.font.family="'Barlow',sans-serif";
+Chart.defaults.color=C.ink3;
+
+// Complete PBG dataset (134 municipalities, pesos const. 2004)
+const PBG_DATA = [
+  {m:'25 de Mayo',pbg21:843,pbg22:869,pbg23:730,var:-16.1,pc:20516,sec:'Séptima'},
+  {m:'9 de Julio',pbg21:1169,pbg22:1172,pbg23:958,var:-18.2,pc:18218,sec:'Cuarta'},
+  {m:'Adolfo Alsina',pbg21:527,pbg22:604,pbg23:595,var:-1.6,pc:33887,sec:'Sexta'},
+  {m:'Adolfo Gonzales Chaves',pbg21:383,pbg22:333,pbg23:396,var:19.0,pc:30661,sec:'Sexta'},
+  {m:'Alberti',pbg21:303,pbg22:309,pbg23:224,var:-27.6,pc:17242,sec:'Cuarta'},
+  {m:'Almirante Brown',pbg21:6276,pbg22:6637,pbg23:6638,var:0.0,pc:11351,sec:'Primera'},
+  {m:'Arrecifes',pbg21:633,pbg22:680,pbg23:575,var:-15.5,pc:17854,sec:'Segunda'},
+  {m:'Avellaneda',pbg21:6153,pbg22:6502,pbg23:6606,var:1.6,pc:17973,sec:'Primera'},
+  {m:'Ayacucho',pbg21:419,pbg22:446,pbg23:413,var:-7.5,pc:18790,sec:'Quinta'},
+  {m:'Azul',pbg21:1426,pbg22:1481,pbg23:1420,var:-4.1,pc:18714,sec:'Séptima'},
+  {m:'Bahía Blanca',pbg21:5450,pbg22:5893,pbg23:5913,var:0.3,pc:17567,sec:'Quinta'},
+  {m:'Balcarce',pbg21:1067,pbg22:1105,pbg23:1105,var:-0.1,pc:22551,sec:'Quinta'},
+  {m:'Baradero',pbg21:648,pbg22:687,pbg23:617,var:-10.3,pc:15416,sec:'Segunda'},
+  {m:'Benito Juárez',pbg21:665,pbg22:740,pbg23:747,var:1.0,pc:33526,sec:'Quinta'},
+  {m:'Berazategui',pbg21:3969,pbg22:4200,pbg23:4164,var:-0.8,pc:11610,sec:'Primera'},
+  {m:'Berisso',pbg21:920,pbg22:989,pbg23:992,var:0.3,pc:9829,sec:'Tercera'},
+  {m:'Bolívar',pbg21:786,pbg22:843,pbg23:718,var:-14.8,pc:19090,sec:'Séptima'},
+  {m:'Bragado',pbg21:872,pbg22:907,pbg23:766,var:-15.5,pc:16477,sec:'Cuarta'},
+  {m:'Brandsen',pbg21:578,pbg22:612,pbg23:597,var:-2.5,pc:18407,sec:'Tercera'},
+  {m:'Campana',pbg21:5327,pbg22:5193,pbg23:5385,var:3.7,pc:48707,sec:'Segunda'},
+  {m:'Capitán Sarmiento',pbg21:333,pbg22:372,pbg23:316,var:-14.9,pc:19818,sec:'Segunda'},
+  {m:'Carlos Casares',pbg21:625,pbg22:702,pbg23:493,var:-29.8,pc:21349,sec:'Cuarta'},
+  {m:'Carlos Tejedor',pbg21:359,pbg22:424,pbg23:283,var:-33.3,pc:20074,sec:'Cuarta'},
+  {m:'Carmen de Areco',pbg21:334,pbg22:362,pbg23:306,var:-15.5,pc:17477,sec:'Segunda'},
+  {m:'Castelli',pbg21:207,pbg22:201,pbg23:228,var:13.6,pc:23753,sec:'Quinta'},
+  {m:'Cañuelas',pbg21:939,pbg22:1025,pbg23:1029,var:0.4,pc:14555,sec:'Tercera'},
+  {m:'Chacabuco',pbg21:1031,pbg22:1053,pbg23:898,var:-14.8,pc:17023,sec:'Cuarta'},
+  {m:'Chascomús',pbg21:605,pbg22:634,pbg23:620,var:-2.2,pc:14612,sec:'Quinta'},
+  {m:'Chivilcoy',pbg21:1101,pbg22:1185,pbg23:1031,var:-12.9,pc:14560,sec:'Cuarta'},
+  {m:'Colón',pbg21:489,pbg22:511,pbg23:429,var:-16.0,pc:15590,sec:'Cuarta'},
+  {m:'Coronel Dorrego',pbg21:611,pbg22:489,pbg23:581,var:18.7,pc:36357,sec:'Quinta'},
+  {m:'Coronel Pringles',pbg21:598,pbg22:563,pbg23:578,var:2.6,pc:23662,sec:'Quinta'},
+  {m:'Coronel Rosales',pbg21:612,pbg22:690,pbg23:674,var:-2.3,pc:9984,sec:'Quinta'},
+  {m:'Coronel Suárez',pbg21:918,pbg22:959,pbg23:990,var:3.1,pc:23499,sec:'Quinta'},
+  {m:'Daireaux',pbg21:532,pbg22:563,pbg23:455,var:-19.1,pc:24714,sec:'Cuarta'},
+  {m:'Dolores',pbg21:306,pbg22:325,pbg23:331,var:2.0,pc:10330,sec:'Quinta'},
+  {m:'Ensenada',pbg21:3870,pbg22:3934,pbg23:5037,var:28.1,pc:78708,sec:'Tercera'},
+  {m:'Escobar',pbg21:4001,pbg22:4044,pbg23:3932,var:-2.8,pc:15344,sec:'Primera'},
+  {m:'Esteban Echeverría',pbg21:3570,pbg22:3790,pbg23:3691,var:-2.6,pc:10906,sec:'Primera'},
+  {m:'Exaltación de la Cruz',pbg21:708,pbg22:802,pbg23:720,var:-10.2,pc:17938,sec:'Segunda'},
+  {m:'Ezeiza',pbg21:2543,pbg22:2980,pbg23:3253,var:9.2,pc:16144,sec:'Primera'},
+  {m:'Florencio Varela',pbg21:4351,pbg22:4596,pbg23:4664,var:1.5,pc:9395,sec:'Primera'},
+  {m:'Florentino Ameghino',pbg21:277,pbg22:265,pbg23:211,var:-20.6,pc:19543,sec:'Cuarta'},
+  {m:'General Alvarado',pbg21:623,pbg22:604,pbg23:630,var:4.2,pc:13828,sec:'Quinta'},
+  {m:'General Alvear',pbg21:214,pbg22:232,pbg23:221,var:-4.5,pc:16995,sec:'Séptima'},
+  {m:'General Arenales',pbg21:401,pbg22:409,pbg23:285,var:-30.5,pc:17416,sec:'Cuarta'},
+  {m:'General Belgrano',pbg21:289,pbg22:308,pbg23:292,var:-5.3,pc:14031,sec:'Quinta'},
+  {m:'General Guido',pbg21:84,pbg22:91,pbg23:85,var:-6.4,pc:26800,sec:'Quinta'},
+  {m:'General Madariaga',pbg21:361,pbg22:377,pbg23:383,var:1.7,pc:16947,sec:'Quinta'},
+  {m:'General La Madrid',pbg21:303,pbg22:337,pbg23:341,var:1.2,pc:29350,sec:'Quinta'},
+  {m:'General Las Heras',pbg21:312,pbg22:328,pbg23:328,var:0.0,pc:18211,sec:'Primera'},
+  {m:'General Lavalle',pbg21:92,pbg22:91,pbg23:94,var:3.3,pc:19206,sec:'Quinta'},
+  {m:'General Paz',pbg21:189,pbg22:207,pbg23:191,var:-7.8,pc:13419,sec:'Quinta'},
+  {m:'General Pinto',pbg21:410,pbg22:397,pbg23:299,var:-24.6,pc:23133,sec:'Cuarta'},
+  {m:'General Pueyrredón',pbg21:9259,pbg22:9929,pbg23:9965,var:0.4,pc:14938,sec:'Quinta'},
+  {m:'General Rodríguez',pbg21:1727,pbg22:1931,pbg23:1909,var:-1.1,pc:13374,sec:'Primera'},
+  {m:'General San Martín',pbg21:6485,pbg22:6823,pbg23:6762,var:-0.9,pc:15008,sec:'Primera'},
+  {m:'General Viamonte',pbg21:451,pbg22:438,pbg23:342,var:-21.9,pc:15104,sec:'Cuarta'},
+  {m:'General Villegas',pbg21:1113,pbg22:1141,pbg23:945,var:-17.2,pc:26808,sec:'Cuarta'},
+  {m:'Guaminí',pbg21:468,pbg22:524,pbg23:515,var:-1.8,pc:43607,sec:'Cuarta'},
+  {m:'Hipólito Yrigoyen',pbg21:305,pbg22:307,pbg23:285,var:-7.2,pc:26732,sec:'Cuarta'},
+  {m:'Hurlingham',pbg21:2376,pbg22:2497,pbg23:2560,var:2.5,pc:13791,sec:'Primera'},
+  {m:'Ituzaingó',pbg21:2220,pbg22:2413,pbg23:2349,var:-2.6,pc:13032,sec:'Primera'},
+  {m:'José C. Paz',pbg21:3390,pbg22:3569,pbg23:3596,var:0.8,pc:10998,sec:'Primera'},
+  {m:'Junín',pbg21:1669,pbg22:1744,pbg23:1570,var:-10.0,pc:15127,sec:'Cuarta'},
+  {m:'La Costa',pbg21:1028,pbg22:1159,pbg23:1149,var:-0.8,pc:11415,sec:'Quinta'},
+  {m:'La Matanza',pbg21:18284,pbg22:18969,pbg23:19233,var:1.4,pc:10446,sec:'Primera'},
+  {m:'La Plata',pbg21:8189,pbg22:8760,pbg23:8745,var:-0.2,pc:11380,sec:'Tercera'},
+  {m:'Lanús',pbg21:6133,pbg22:6427,pbg23:6445,var:0.3,pc:13973,sec:'Primera'},
+  {m:'Laprida',pbg21:222,pbg22:228,pbg23:244,var:6.8,pc:20934,sec:'Séptima'},
+  {m:'Las Flores',pbg21:379,pbg22:442,pbg23:423,var:-4.2,pc:15544,sec:'Quinta'},
+  {m:'Leandro N. Alem',pbg21:394,pbg22:387,pbg23:299,var:-22.7,pc:17324,sec:'Cuarta'},
+  {m:'Lincoln',pbg21:1003,pbg22:1041,pbg23:854,var:-18.0,pc:18765,sec:'Cuarta'},
+  {m:'Lobería',pbg21:687,pbg22:657,pbg23:643,var:-2.1,pc:35269,sec:'Quinta'},
+  {m:'Lobos',pbg21:594,pbg22:619,pbg23:598,var:-3.4,pc:14315,sec:'Quinta'},
+  {m:'Lomas de Zamora',pbg21:7689,pbg22:8447,pbg23:8466,var:0.2,pc:12263,sec:'Primera'},
+  {m:'Luján',pbg21:1921,pbg22:2111,pbg23:2069,var:-2.0,pc:18636,sec:'Primera'},
+  {m:'Magdalena',pbg21:334,pbg22:354,pbg23:348,var:-1.6,pc:12985,sec:'Tercera'},
+  {m:'Maipú',pbg21:178,pbg22:201,pbg23:186,var:-7.2,pc:16470,sec:'Quinta'},
+  {m:'Malvinas Argentinas',pbg21:4962,pbg22:5220,pbg23:5229,var:0.2,pc:14910,sec:'Primera'},
+  {m:'Mar Chiquita',pbg21:499,pbg22:566,pbg23:520,var:-8.0,pc:15711,sec:'Quinta'},
+  {m:'Marcos Paz',pbg21:780,pbg22:798,pbg23:793,var:-0.7,pc:11831,sec:'Primera'},
+  {m:'Mercedes',pbg21:935,pbg22:1001,pbg23:956,var:-4.5,pc:13105,sec:'Cuarta'},
+  {m:'Merlo',pbg21:6021,pbg22:6301,pbg23:6323,var:0.3,pc:10856,sec:'Primera'},
+  {m:'Monte',pbg21:443,pbg22:470,pbg23:440,var:-6.4,pc:17692,sec:'Quinta'},
+  {m:'Monte Hermoso',pbg21:143,pbg22:179,pbg23:175,var:-1.8,pc:20721,sec:'Quinta'},
+  {m:'Moreno',pbg21:5335,pbg22:5629,pbg23:5713,var:1.5,pc:9907,sec:'Primera'},
+  {m:'Morón',pbg21:4319,pbg22:4797,pbg23:4736,var:-1.3,pc:14299,sec:'Primera'},
+  {m:'Navarro',pbg21:394,pbg22:403,pbg23:373,var:-7.4,pc:18747,sec:'Cuarta'},
+  {m:'Necochea',pbg21:1702,pbg22:1652,pbg23:1659,var:0.4,pc:16246,sec:'Quinta'},
+  {m:'Olavarría',pbg21:2339,pbg22:2811,pbg23:2762,var:-1.8,pc:21961,sec:'Séptima'},
+  {m:'Patagones',pbg21:501,pbg22:517,pbg23:533,var:3.1,pc:14154,sec:'Octava'},
+  {m:'Pehuajó',pbg21:985,pbg22:1063,pbg23:845,var:-20.5,pc:18877,sec:'Cuarta'},
+  {m:'Pellegrini',pbg21:212,pbg22:235,pbg23:237,var:1.1,pc:33220,sec:'Cuarta'},
+  {m:'Pergamino',pbg21:1978,pbg22:2124,pbg23:1836,var:-13.6,pc:15919,sec:'Segunda'},
+  {m:'Pila',pbg21:118,pbg22:122,pbg23:108,var:-12.0,pc:23171,sec:'Quinta'},
+  {m:'Pilar',pbg21:6226,pbg22:6809,pbg23:7311,var:7.4,pc:18521,sec:'Primera'},
+  {m:'Pinamar',pbg21:448,pbg22:591,pbg23:541,var:-8.6,pc:13703,sec:'Quinta'},
+  {m:'Presidente Perón',pbg21:924,pbg22:947,pbg23:916,var:-3.3,pc:8970,sec:'Primera'},
+  {m:'Punta Indio',pbg21:149,pbg22:160,pbg23:147,var:-8.0,pc:11955,sec:'Tercera'},
+  {m:'Puán',pbg21:375,pbg22:360,pbg23:397,var:10.4,pc:23923,sec:'Quinta'},
+  {m:'Quilmes',pbg21:7385,pbg22:7781,pbg23:7742,var:-0.5,pc:12223,sec:'Primera'},
+  {m:'Ramallo',pbg21:676,pbg22:772,pbg23:683,var:-11.5,pc:17194,sec:'Segunda'},
+  {m:'Rauch',pbg21:262,pbg22:265,pbg23:257,var:-2.9,pc:15475,sec:'Quinta'},
+  {m:'Rivadavia',pbg21:608,pbg22:747,pbg23:515,var:-31.1,pc:25947,sec:'Cuarta'},
+  {m:'Rojas',pbg21:784,pbg22:803,pbg23:636,var:-20.7,pc:24835,sec:'Segunda'},
+  {m:'Roque Pérez',pbg21:370,pbg22:388,pbg23:350,var:-10.0,pc:25018,sec:'Séptima'},
+  {m:'Saavedra',pbg21:414,pbg22:424,pbg23:449,var:5.8,pc:19925,sec:'Quinta'},
+  {m:'Saladillo',pbg21:595,pbg22:633,pbg23:610,var:-3.6,pc:17097,sec:'Séptima'},
+  {m:'Salliqueló',pbg21:215,pbg22:241,pbg23:228,var:-5.5,pc:24180,sec:'Cuarta'},
+  {m:'Salto',pbg21:906,pbg22:965,pbg23:825,var:-14.5,pc:20920,sec:'Segunda'},
+  {m:'San Andrés de Giles',pbg21:499,pbg22:526,pbg23:469,var:-10.9,pc:17674,sec:'Segunda'},
+  {m:'San Antonio de Areco',pbg21:521,pbg22:552,pbg23:466,var:-15.5,pc:17344,sec:'Segunda'},
+  {m:'San Cayetano',pbg21:369,pbg22:324,pbg23:361,var:11.4,pc:40181,sec:'Quinta'},
+  {m:'San Fernando',pbg21:2585,pbg22:2823,pbg23:2769,var:-1.9,pc:16137,sec:'Primera'},
+  {m:'San Isidro',pbg21:5245,pbg22:5559,pbg23:5416,var:-2.6,pc:18220,sec:'Primera'},
+  {m:'San Miguel',pbg21:3588,pbg22:3862,pbg23:3878,var:0.4,pc:11794,sec:'Primera'},
+  {m:'San Nicolás',pbg21:4978,pbg22:4946,pbg23:4868,var:-1.6,pc:29007,sec:'Segunda'},
+  {m:'San Pedro',pbg21:993,pbg22:1093,pbg23:991,var:-9.4,pc:14437,sec:'Segunda'},
+  {m:'San Vicente',pbg21:1120,pbg22:1217,pbg23:1129,var:-7.2,pc:11497,sec:'Primera'},
+  {m:'Suipacha',pbg21:216,pbg22:235,pbg23:189,var:-19.5,pc:16073,sec:'Cuarta'},
+  {m:'Tandil',pbg21:2253,pbg22:2442,pbg23:2360,var:-3.4,pc:16214,sec:'Quinta'},
+  {m:'Tapalqué',pbg21:161,pbg22:178,pbg23:173,var:-3.0,pc:16029,sec:'Séptima'},
+  {m:'Tigre',pbg21:6627,pbg22:7872,pbg23:7785,var:-1.1,pc:17418,sec:'Primera'},
+  {m:'Tordillo',pbg21:41,pbg22:51,pbg23:43,var:-15.3,pc:16910,sec:'Quinta'},
+  {m:'Tornquist',pbg21:277,pbg22:320,pbg23:307,var:-3.9,pc:20758,sec:'Quinta'},
+  {m:'Trenque Lauquen',pbg21:1174,pbg22:1303,pbg23:1117,var:-14.3,pc:22643,sec:'Cuarta'},
+  {m:'Tres Arroyos',pbg21:1436,pbg22:1334,pbg23:1359,var:1.9,pc:21774,sec:'Quinta'},
+  {m:'Tres Lomas',pbg21:182,pbg22:211,pbg23:200,var:-5.4,pc:21773,sec:'Cuarta'},
+  {m:'Tres de Febrero',pbg21:5778,pbg22:6121,pbg23:5963,var:-2.6,pc:16374,sec:'Primera'},
+  {m:'Vicente López',pbg21:5181,pbg22:5462,pbg23:5403,var:-1.1,pc:19141,sec:'Primera'},
+  {m:'Villa Gesell',pbg21:401,pbg22:466,pbg23:447,var:-4.0,pc:11934,sec:'Quinta'},
+  {m:'Villarino',pbg21:522,pbg22:545,pbg23:560,var:2.8,pc:17118,sec:'Octava'},
+  {m:'Zárate',pbg21:3083,pbg22:2873,pbg23:3016,var:5.0,pc:22811,sec:'Segunda'}
+];
+
+// ── CHART 1: PBG Total ─────────────────────────────────────────────────────
+new Chart('chartTotal',{type:'bar',data:{
+  labels:['2021','2022','2023'],
+  datasets:[{label:'PBG Provincial ($B const. 2004)',data:[246.3,261.3,258.1],
+    backgroundColor:['rgba(0,213,216,.3)','rgba(0,213,216,.3)','#00D5D8'],borderRadius:6}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>` $${c.parsed.y.toFixed(1)} miles de mill.`}}},
+  scales:{y:{min:230,grid:{color:C.line},ticks:{callback:v=>'$'+v+'B'}},x:{grid:{display:false}}}}});
+
+// ── CHART 2: Municipios con crecimiento ────────────────────────────────────
+new Chart('chartMunsCrec',{type:'bar',data:{
+  labels:['2021-2022','2022-2023'],
+  datasets:[
+    {label:'Con crecimiento real',data:[116,42],backgroundColor:['#22c55e','#22c55e'],borderRadius:5},
+    {label:'Con contracción',data:[18,92],backgroundColor:['#ef4444','#ef4444'],borderRadius:5}
+  ]
+},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
+  scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,max:140,grid:{color:C.line},
+    ticks:{callback:v=>v+' munic.'}}}
+}});
+
+// ── CHARTS Rankings ────────────────────────────────────────────────────────
+const top10 = PBG_DATA.slice().sort((a,b)=>b.pbg23-a.pbg23).slice(0,10);
+new Chart('chartTop10',{type:'bar',data:{
+  labels:top10.map(d=>d.m),
+  datasets:[{data:top10.map(d=>d.pbg23),
+    backgroundColor:top10.map((_,i)=>i===0?C.tq:C.tqL),borderRadius:4}]
+},options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>` $${c.parsed.x.toLocaleString('es-AR')} M`}}},
+  scales:{x:{grid:{color:C.line},ticks:{callback:v=>'$'+Math.round(v/1000)+'K M'}},
+    y:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+const top10pc = PBG_DATA.slice().sort((a,b)=>b.pc-a.pc).slice(0,10);
+new Chart('chartTop10PC',{type:'bar',data:{
+  labels:top10pc.map(d=>d.m),
+  datasets:[{data:top10pc.map(d=>d.pc),
+    backgroundColor:top10pc.map(d=>d.pc>50000?C.tq:d.pc>30000?'rgba(0,213,216,.6)':C.tqL),borderRadius:4}]
+},options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>` $${c.parsed.x.toLocaleString('es-AR')}`}}},
+  scales:{x:{grid:{color:C.line},ticks:{callback:v=>'$'+Math.round(v/1000)+'K'}},
+    y:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+// ── CHART Distribución variaciones ────────────────────────────────────────
+const varBuckets = {'< -25%':0,'−15 a −25%':0,'−5 a −15%':0,'−0 a −5%':0,'0 a +5%':0,'> +5%':0};
+PBG_DATA.forEach(d=>{
+  if(d.var < -25) varBuckets['< -25%']++;
+  else if(d.var < -15) varBuckets['−15 a −25%']++;
+  else if(d.var < -5) varBuckets['−5 a −15%']++;
+  else if(d.var < 0) varBuckets['−0 a −5%']++;
+  else if(d.var < 5) varBuckets['0 a +5%']++;
+  else varBuckets['> +5%']++;
+});
+new Chart('chartDistVar',{type:'bar',data:{
+  labels:Object.keys(varBuckets),
+  datasets:[{data:Object.values(varBuckets),
+    backgroundColor:['#ef4444','#f87171','#fca5a5','#fcd34d','#86efac','#22c55e'],borderRadius:4}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>` ${c.parsed.y} municipios`}}},
+  scales:{y:{grid:{color:C.line},ticks:{callback:v=>v+' munic.'}},x:{grid:{display:false}}}}});
+
+// ── Waterfall extremos ────────────────────────────────────────────────────
+const sorted = PBG_DATA.slice().sort((a,b)=>b.var-a.var);
+const extremes = [...sorted.slice(0,8), ...sorted.slice(-8)];
+new Chart('chartWaterfallVar',{type:'bar',data:{
+  labels:extremes.map(d=>d.m.length>14?d.m.slice(0,12)+'…':d.m),
+  datasets:[{data:extremes.map(d=>d.var),
+    backgroundColor:extremes.map(d=>d.var>=0?'#22c55e':'#ef4444'),borderRadius:3}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>`${c.parsed.y>=0?'+':''}${c.parsed.y.toFixed(1)}% (${extremes[c.dataIndex].m})`}}},
+  scales:{y:{grid:{color:C.line},ticks:{callback:v=>(v>=0?'+':'')+v+'%'}},
+    x:{grid:{display:false},ticks:{font:{size:9},maxRotation:45}}}}});
+
+// ── Per cápita distribución por categoría ─────────────────────────────────
+const catGroups = {};
+PBG_DATA.forEach(d=>{
+  const cat = d.pc >= 40000 ? '≥ $40K' : d.pc >= 25000 ? '$25K–$40K' : d.pc >= 15000 ? '$15K–$25K' : '< $15K';
+  catGroups[cat] = (catGroups[cat]||0) + 1;
+});
+const catOrder = ['≥ $40K','$25K–$40K','$15K–$25K','< $15K'];
+new Chart('chartPCDistrib',{type:'doughnut',data:{
+  labels:catOrder,
+  datasets:[{data:catOrder.map(k=>catGroups[k]||0),
+    backgroundColor:[C.tq,'rgba(0,213,216,.5)','rgba(0,213,216,.25)','rgba(0,213,216,.1)'],
+    borderWidth:2,borderColor:'#fff'}]
+},options:{responsive:true,cutout:'55%',
+  plugins:{legend:{position:'right',labels:{boxWidth:12,font:{size:11}}},
+    tooltip:{callbacks:{label:c=>` ${c.raw} municipios`}}}}});
+
+// ── PBG por sección electoral ──────────────────────────────────────────────
+const SECS = ['Primera','Segunda','Tercera','Cuarta','Quinta','Sexta','Séptima','Octava'];
+const secPBG = {}, secPC = {}, secN = {};
+SECS.forEach(s=>{secPBG[s]=0;secPC[s]=0;secN[s]=0;});
+PBG_DATA.forEach(d=>{
+  secPBG[d.sec]=(secPBG[d.sec]||0)+d.pbg23;
+  secPC[d.sec]=(secPC[d.sec]||0)+d.pc;
+  secN[d.sec]=(secN[d.sec]||0)+1;
+});
+
+new Chart('chartSecPBG',{type:'bar',data:{
+  labels:SECS.map(s=>s+'ª'),
+  datasets:[{data:SECS.map(s=>secPBG[s]),
+    backgroundColor:SECS.map(s=>s==='Séptima'?C.tq:C.tqL),borderRadius:4}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>` $${Math.round(c.parsed.y).toLocaleString('es-AR')} M`}}},
+  scales:{y:{grid:{color:C.line},ticks:{callback:v=>'$'+Math.round(v/1000)+'K M'}},x:{grid:{display:false}}}}});
+
+new Chart('chartSecPC',{type:'bar',data:{
+  labels:SECS.map(s=>s+'ª'),
+  datasets:[{data:SECS.map(s=>secPC[s]&&secN[s]?Math.round(secPC[s]/secN[s]):0),
+    backgroundColor:SECS.map(s=>s==='Séptima'?C.tq:C.tqL),borderRadius:4}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>` $${c.parsed.y.toLocaleString('es-AR')} per cápita prom.`}}},
+  scales:{y:{grid:{color:C.line},ticks:{callback:v=>'$'+Math.round(v/1000)+'K'}},x:{grid:{display:false}}}}});
+
+// ── Cruces con datos Alsina ────────────────────────────────────────────────
+// Muestra seleccionada: municipios representativos con datos de servicios conocidos
+const CRUCE_MUNIS = [
+  {m:'Ensenada',pc:78708,rs:120,nbi:8.2},
+  {m:'Campana',pc:48707,rs:25,nbi:5.6},
+  {m:'Olavarría',pc:21961,rs:3,nbi:4.97},
+  {m:'Bahía Blanca',pc:17567,rs:8,nbi:5.1},
+  {m:'Tandil',pc:16214,rs:15,nbi:4.2},
+  {m:'Azul',pc:18714,rs:22,nbi:5.8},
+  {m:'La Plata',pc:11380,rs:12,nbi:6.1},
+  {m:'Quilmes',pc:12223,rs:40,nbi:9.8},
+  {m:'Merlo',pc:10856,rs:80,nbi:18.2},
+  {m:'Florencio Varela',pc:9395,rs:110,nbi:24.1},
+  {m:'Moreno',pc:9907,rs:100,nbi:22.4},
+];
+new Chart('chartCruceServ',{type:'scatter',data:{
+  datasets:[{data:CRUCE_MUNIS.map(d=>({x:d.pc,y:d.rs})),
+    backgroundColor:CRUCE_MUNIS.map(d=>d.m==='Olavarría'?C.pj:d.m==='Ensenada'?C.rojo:C.tq),
+    pointRadius:CRUCE_MUNIS.map(d=>d.m==='Olavarría'||d.m==='Ensenada'?8:6),
+    pointHoverRadius:10}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>{const d=CRUCE_MUNIS[c.dataIndex];return `${d.m}: PBG/hab $${d.pc.toLocaleString('es-AR')} · Servicios #${d.rs}`;},}}},
+  scales:{x:{title:{display:true,text:'PBG per cápita 2023 ($ const.2004)'},
+    ticks:{callback:v=>'$'+Math.round(v/1000)+'K'},grid:{color:C.line}},
+    y:{title:{display:true,text:'Ranking servicios (1=mejor)'},reverse:true,grid:{color:C.line}}}}});
+
+new Chart('chartCruceNBI',{type:'scatter',data:{
+  datasets:[{data:CRUCE_MUNIS.map(d=>({x:d.pc,y:d.nbi})),
+    backgroundColor:CRUCE_MUNIS.map(d=>d.m==='Olavarría'?C.pj:d.m==='Ensenada'?C.rojo:C.tq),
+    pointRadius:CRUCE_MUNIS.map(d=>d.m==='Olavarría'||d.m==='Ensenada'?8:6),
+    pointHoverRadius:10}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>{const d=CRUCE_MUNIS[c.dataIndex];return `${d.m}: PBG/hab $${d.pc.toLocaleString('es-AR')} · NBI ${d.nbi}%`;},}}},
+  scales:{x:{title:{display:true,text:'PBG per cápita 2023 ($ const.2004)'},
+    ticks:{callback:v=>'$'+Math.round(v/1000)+'K'},grid:{color:C.line}},
+    y:{title:{display:true,text:'NBI %'},grid:{color:C.line}}}}});
+
+// ── HEATMAP ────────────────────────────────────────────────────────────────
+function pbgColor(val, min, max) {
+  const ratio = (val - min) / (max - min);
+  const r = Math.round(0 + ratio * 0);
+  const g = Math.round(70 + ratio * 143);
+  const b = Math.round(100 + ratio * 116);
+  return `rgb(${Math.round(7+ratio*40)},${Math.round(17+ratio*150)},${Math.round(20+ratio*180)})`;
+}
+
+function renderHeatmap(mode) {
+  ['btn-total','btn-percap','btn-var'].forEach(id=>{
+    document.getElementById(id).classList.remove('active');
+  });
+  document.getElementById('btn-'+mode).classList.add('active');
+
+  let sorted;
+  if(mode==='total') sorted = PBG_DATA.slice().sort((a,b)=>b.pbg23-a.pbg23);
+  else if(mode==='percap') sorted = PBG_DATA.slice().sort((a,b)=>b.pc-a.pc);
+  else sorted = PBG_DATA.slice().sort((a,b)=>b.var-a.var);
+
+  const vals = sorted.map(d=> mode==='total'?d.pbg23:mode==='percap'?d.pc:d.var);
+  const minV = Math.min(...vals), maxV = Math.max(...vals);
+
+  const container = document.getElementById('pbg-heatmap');
+  container.innerHTML = '';
+  sorted.forEach((d,i)=>{
+    const v = vals[i];
+    const ratio = maxV===minV ? 0.5 : (v - minV)/(maxV - minV);
+    const r = Math.round(7 + ratio*45);
+    const g = Math.round(17 + ratio*160);
+    const b = Math.round(20 + ratio*190);
+    const bg = `rgb(${r},${g},${b})`;
+    let valStr;
+    if(mode==='total') valStr = v>=1000?'$'+(v/1000).toFixed(1)+'K M':'$'+v+' M';
+    else if(mode==='percap') valStr = '$'+Math.round(v/1000)+'K';
+    else valStr = (v>=0?'+':'')+v.toFixed(1)+'%';
+    const borderCol = mode==='var'?(v>=0?'rgba(34,197,94,.6)':'rgba(239,68,68,.6)'):'rgba(255,255,255,.1)';
+
+    const cell = document.createElement('div');
+    cell.className = 'hm-cell';
+    cell.style.background = bg;
+    cell.style.border = `1px solid ${borderCol}`;
+    cell.title = `${d.m}: ${valStr} · ${mode==='total'?'PBG total':mode==='percap'?'per cápita':'var% 22-23'}`;
+    cell.innerHTML = `<div class="hm-name">${d.m.length>14?d.m.slice(0,12)+'…':d.m}</div><div class="hm-val">${valStr}</div><div class="hm-sub">${d.sec}ª secc.</div>`;
+    container.appendChild(cell);
+  });
+}
+renderHeatmap('total');
+
+// ── TOC active ────────────────────────────────────────────────────────────
+(function(){
+  const links = document.querySelectorAll('.toc-sidebar a');
+  const sections = Array.from(links).map(l=>document.querySelector(l.getAttribute('href')));
+  const onScroll = () => {
+    const y = window.scrollY + 120; let current = '';
+    sections.forEach((s,i)=>{ if(s && s.offsetTop<=y) current = links[i].getAttribute('href'); });
+    links.forEach(l=>l.classList.toggle('active', l.getAttribute('href')===current));
+  };
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+})();
+</script>
+</body>
+</html>

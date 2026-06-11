@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Olavarría — Informe Territorial · Alsina 2026</title>
+  <script>
+    (function(){
+      var KEY='alsina_inf_auth',PWD='alsina2026';
+      if(sessionStorage.getItem(KEY)===PWD) return;
+      var p=prompt('Informe restringido. Ingresá la clave de acceso:');
+      if(p===PWD){ sessionStorage.setItem(KEY,PWD); }
+      else{ document.addEventListener('DOMContentLoaded',function(){ document.body.innerHTML='<div style="font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;gap:16px;background:#071114;color:#94a3b8"><div style="font-size:1.2rem">Acceso denegado</div><a href="/" style="color:#00D5D8;font-size:.9rem">← Volver al inicio</a></div>'; }); }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --g:#071114;--g2:#0e1c20;--g3:#1a2e34;
+      --tq:#00D5D8;--tq2:#008C9A;
+      --crema:#F3EFE7;--conc:#B7B2AA;
+      --pj:#2563eb;--pj-l:#dbeafe;
+      --lla:#7c3aed;--lla-l:#ede9fe;
+      --camb:#eab308;--camb-l:#fef9c3;
+      --rojo:#ef4444;--rojo-l:#fee2e2;
+      --verde:#22c55e;--verde-l:#dcfce7;
+      --blanco:#fff;--bg2:#f8fafc;--bg3:#f1f5f9;
+      --line:#e2e8f0;--ink:#1a2a2e;--ink2:#334155;--ink3:#64748b;--ink4:#94a3b8;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Barlow',sans-serif;background:var(--blanco);color:var(--ink);font-size:16px;line-height:1.6}
+
+    /* COVER */
+    .cover-section{position:relative;height:420px;overflow:hidden;background:var(--g)}
+    .cover-img{width:100%;height:100%;object-fit:cover;opacity:.55}
+    .cover-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(7,17,20,.3) 0%,rgba(7,17,20,.92) 100%)}
+    .cover-text{position:absolute;bottom:40px;left:40px;right:40px}
+    .cover-tag{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tq);margin-bottom:10px}
+    .cover-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(44px,6vw,80px);font-weight:900;color:#fff;line-height:.95;text-transform:uppercase}
+    .cover-title em{color:var(--tq);font-style:normal}
+    .cover-sub{font-size:.88rem;color:var(--conc);margin-top:12px}
+
+    /* SIDEBAR TOC */
+    .toc-sidebar{position:fixed;left:calc(50vw - 660px);top:90px;width:136px;z-index:150}
+    .toc-sidebar ul{list-style:none;border-left:2px solid var(--line)}
+    .toc-sidebar li a{display:block;padding:5px 0 5px 12px;font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink4);text-decoration:none;transition:color .15s;border-left:2px solid transparent;margin-left:-2px}
+    .toc-sidebar li a:hover,.toc-sidebar li a.active{color:var(--tq);border-left-color:var(--tq)}
+    .toc-sidebar .toc-head{font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);padding-left:12px;margin-bottom:6px}
+    @media(max-width:1450px){.toc-sidebar{display:none}}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:200;background:rgba(7,17,20,.97);border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;padding:10px 32px;backdrop-filter:blur(8px)}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .nav-mark{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;letter-spacing:.15em;color:var(--crema)}
+    .nav-mark span{color:var(--tq)}
+    .nav-sub{font-size:.6rem;color:rgba(183,178,170,.6);letter-spacing:.12em;text-transform:uppercase}
+    .nav-links{display:flex;gap:22px;list-style:none}
+    .nav-links a{color:rgba(243,239,231,.55);text-decoration:none;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+    .nav-links a:hover{color:var(--tq)}
+    .nav-back{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;color:var(--tq);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(0,213,216,.3);padding:5px 12px;transition:all .2s}
+    .nav-back:hover{background:rgba(0,213,216,.08)}
+    @media(max-width:768px){.nav-links{display:none}}
+
+    /* STATS STRIP */
+    .stats-strip{background:var(--g3);border-bottom:1px solid rgba(255,255,255,.06);padding:0 32px}
+    .stats-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+    .stat-item{padding:20px 16px;border-right:1px solid rgba(255,255,255,.06);text-align:center}
+    .stat-item:last-child{border-right:none}
+    .stat-val{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:var(--tq);line-height:1}
+    .stat-lbl{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--conc);margin-top:5px}
+    .stat-sub{font-size:.65rem;color:rgba(183,178,170,.5);margin-top:2px}
+    @media(max-width:640px){.stats-inner{grid-template-columns:repeat(2,1fr)}}
+
+    /* SECTIONS */
+    .wrap{max-width:1100px;margin:0 auto;padding:0 32px}
+    section.light{background:var(--blanco);padding:72px 0}
+    section.gray{background:var(--bg2);padding:72px 0;border-top:1px solid var(--line)}
+    section.dark{background:var(--g);padding:72px 0}
+
+    /* LABELS & HEADINGS */
+    .sec-label,.sec-label-dark{display:inline-flex;align-items:center;gap:8px;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tq);margin-bottom:12px}
+    .sec-label::before,.sec-label-dark::before{content:'';display:block;width:20px;height:2px;background:var(--tq)}
+    h2.title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1.1;color:var(--ink);text-transform:uppercase}
+    h2.title-dark{font-family:'Barlow Condensed',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1.1;color:var(--crema);text-transform:uppercase}
+    h2.title em,h2.title-dark em{color:var(--tq);font-style:normal}
+    .lead{font-size:1.05rem;color:var(--ink3);line-height:1.75;margin-top:14px;max-width:720px}
+    .lead-dark{font-size:1.05rem;color:var(--conc);line-height:1.75;margin-top:14px;max-width:720px}
+    h3.sub{font-family:'Barlow Condensed',sans-serif;font-size:1.25rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);margin-bottom:12px}
+    h3.sub-dark{font-family:'Barlow Condensed',sans-serif;font-size:1.25rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--crema);margin-bottom:12px}
+
+    /* LAYOUT */
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px}
+    .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:32px}
+    @media(max-width:768px){.two-col,.three-col{grid-template-columns:1fr}}
+
+    /* CARDS */
+    .card{background:var(--blanco);border:1px solid var(--line);border-radius:8px;padding:24px}
+    .card-dark{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:24px}
+    .card-pj{border-left:4px solid var(--pj)}
+    .card-lla{border-left:4px solid var(--lla)}
+    .card-camb{border-left:4px solid var(--camb)}
+    .card-tq{border-left:4px solid var(--tq)}
+    .card-rojo{border-left:4px solid var(--rojo)}
+    .card-verde{border-left:4px solid var(--verde)}
+
+    /* KPIs */
+    .kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+    .kpi{background:var(--blanco);border:1px solid var(--line);border-radius:8px;padding:20px;border-top:3px solid var(--tq)}
+    .kpi.pj{border-top-color:var(--pj)}
+    .kpi.lla{border-top-color:var(--lla)}
+    .kpi.rojo{border-top-color:var(--rojo)}
+    .kpi.verde{border-top-color:var(--verde)}
+    .kpi.camb{border-top-color:var(--camb)}
+    .kpi-val{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:var(--ink);line-height:1}
+    .kpi-lbl{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-top:5px}
+    .kpi-sub{font-size:.72rem;color:var(--ink4);margin-top:3px}
+    @media(max-width:640px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+
+    /* ALERTS */
+    .alert{border-radius:6px;padding:18px 22px;margin:24px 0;display:flex;gap:14px;align-items:flex-start}
+    .alert-tq{background:rgba(0,213,216,.08);border:1px solid rgba(0,213,216,.25)}
+    .alert-amber{background:var(--camb-l);border:1px solid #fcd34d}
+    .alert-rojo{background:var(--rojo-l);border:1px solid #fca5a5}
+    .alert-pj{background:var(--pj-l);border:1px solid #93c5fd}
+    .alert-lla{background:var(--lla-l);border:1px solid #c4b5fd}
+    .alert-verde{background:var(--verde-l);border:1px solid #86efac}
+    .alert-ico{font-size:18px;flex-shrink:0;margin-top:1px}
+    .alert strong{display:block;font-size:.8rem;font-weight:700;margin-bottom:3px;text-transform:uppercase;letter-spacing:.06em}
+    .alert p{font-size:.875rem;line-height:1.65;color:var(--ink2)}
+
+    /* TABLE */
+    .tbl{width:100%;border-collapse:collapse;font-size:.875rem;margin:16px 0}
+    .tbl th{text-align:left;padding:9px 12px;background:var(--bg3);color:var(--ink2);font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-bottom:2px solid var(--line)}
+    .tbl td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink2)}
+    .tbl tr:last-child td{border-bottom:none}
+    .tbl tr:hover td{background:var(--bg2)}
+    .pos{color:var(--verde);font-weight:700}
+    .neg{color:var(--rojo);font-weight:700}
+    .warn{color:var(--camb);font-weight:700}
+
+    /* CHART */
+    .chart-wrap{position:relative;margin:16px 0}
+    .chart-wrap canvas{max-height:300px}
+    .chart-src{font-size:.7rem;color:var(--ink4);margin-top:6px}
+
+    /* TIMELINE */
+    .timeline{position:relative;margin:40px 0}
+    .timeline::before{content:'';position:absolute;left:88px;top:0;bottom:0;width:2px;background:var(--line)}
+    .tl-item{display:flex;align-items:flex-start;margin-bottom:32px;position:relative}
+    .tl-yr{min-width:72px;font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:var(--tq2);text-align:right;padding-right:28px;padding-top:2px;line-height:1}
+    .tl-dot{position:absolute;left:80px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--pj);border:3px solid var(--blanco);box-shadow:0 0 0 2px var(--pj);z-index:1}
+    .tl-dot.pro{background:var(--camb);box-shadow:0 0 0 2px var(--camb)}
+    .tl-dot.lla{background:var(--lla);box-shadow:0 0 0 2px var(--lla)}
+    .tl-dot.fr{background:#0891b2;box-shadow:0 0 0 2px #0891b2}
+    .tl-body{margin-left:44px;flex:1}
+    .tl-winner{font-size:1rem;font-weight:700;color:var(--ink)}
+    .tl-party{font-size:.8rem;font-weight:600;margin-top:2px}
+    .tl-pct{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;margin-top:4px;color:var(--pj)}
+    .tl-pct.pro{color:var(--camb)}
+    .tl-pct.fr{color:#0891b2}
+    .tl-pct.lla{color:var(--lla)}
+    .tl-note{font-size:.82rem;color:var(--ink3);margin-top:8px;background:var(--bg3);padding:10px 14px;border-radius:6px;line-height:1.6}
+    .party-pj{color:var(--pj)}
+    .party-pro{color:var(--camb)}
+    .party-lla{color:var(--lla)}
+    .party-fr{color:#0891b2}
+
+    /* RESULT BARS */
+    .res-bar{margin:6px 0}
+    .res-bar .lbl{display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:3px;color:var(--ink2)}
+    .bar-track{height:10px;background:var(--bg3);border-radius:5px;overflow:hidden}
+    .bar-fill{height:100%;border-radius:5px}
+    .b-pj{background:var(--pj)}
+    .b-lla{background:var(--lla)}
+    .b-pro{background:var(--camb)}
+    .b-fr{background:#0891b2}
+    .b-other{background:var(--ink4)}
+
+    /* RANKING */
+    .rank-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+    .rank-card{background:var(--blanco);border:1px solid var(--line);border-radius:8px;padding:16px;text-align:center}
+    .rank-num{font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;line-height:1;color:var(--ink)}
+    .rank-lbl{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-top:4px}
+    .rank-of{font-size:.7rem;color:var(--ink4);margin-top:2px}
+    .rank-ok{color:var(--verde)}
+    .rank-warn{color:var(--camb)}
+    .rank-bad{color:var(--rojo)}
+
+    /* NARRATIVE */
+    .nar-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:24px}
+    .nar-card{border:1px solid var(--line);border-radius:8px;padding:22px;background:var(--blanco)}
+    .nar-num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:6px;background:var(--tq);color:var(--g);font-weight:900;font-size:.85rem;margin-bottom:10px;font-family:'Barlow Condensed',sans-serif}
+    .nar-num.n2{background:var(--camb);color:#fff}
+    .nar-num.n3{background:var(--verde);color:#fff}
+    .nar-num.n4{background:var(--lla);color:#fff}
+    .nar-num.n5{background:var(--rojo);color:#fff}
+    .nar-card h4{font-size:.95rem;font-weight:700;margin-bottom:6px}
+    .nar-card p{font-size:.82rem;color:var(--ink3);line-height:1.6}
+    @media(max-width:768px){.nar-grid{grid-template-columns:1fr}}
+
+    /* MAP */
+    #map-container{height:460px;border-radius:8px;overflow:hidden;border:1px solid var(--line);margin:20px 0}
+
+    /* FOOTER */
+    footer{background:var(--g);border-top:1px solid rgba(255,255,255,.06);padding:36px 32px}
+    .foot-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+    .foot-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:.15em;color:var(--crema)}
+    .foot-brand span{color:var(--tq)}
+    .foot-meta{font-size:.72rem;color:rgba(183,178,170,.45);margin-top:4px;letter-spacing:.06em;text-transform:uppercase}
+    .foot-link{font-size:.78rem;color:var(--tq);text-decoration:none}
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover-section" id="portada">
+  <img class="cover-img" src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1400&q=80" alt="Olavarría" id="cover-img-placeholder" />
+  <div class="cover-overlay"></div>
+  <div class="cover-text">
+    <div class="cover-tag">Alsina Consulting · Informe Territorial · Junio 2026</div>
+    <div class="cover-title"><em>Olavarría</em></div>
+    <div class="cover-sub">7ª Sección Electoral · Centro-suroeste PBA · Análisis político, fiscal y estratégico</div>
+  </div>
+</div>
+
+<!-- TOC -->
+<nav class="toc-sidebar" id="tocNav">
+  <div class="toc-head">Contenido</div>
+  <ul>
+    <li><a href="#territorio">Territorio</a></li>
+    <li><a href="#electoral">Electoral</a></li>
+    <li><a href="#hcd">HCD</a></li>
+    <li><a href="#comp-electoral">Sección elec.</a></li>
+    <li><a href="#fiscal">Fiscal</a></li>
+    <li><a href="#comp-economica">Sección econ.</a></li>
+    <li><a href="#economia">Economía</a></li>
+    <li><a href="#mapa">Mapa</a></li>
+    <li><a href="#estrategia">Estrategia</a></li>
+  </ul>
+</nav>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">
+    <div>
+      <div class="nav-mark">ALSINA <span>·</span></div>
+      <div class="nav-sub">Señal Territorial · PBA</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#territorio">Territorio</a></li>
+    <li><a href="#electoral">Electoral</a></li>
+    <li><a href="#hcd">HCD</a></li>
+    <li><a href="#comp-electoral">Sección</a></li>
+    <li><a href="#fiscal">Fiscal</a></li>
+    <li><a href="#economia">Economía</a></li>
+    <li><a href="#mapa">Mapa</a></li>
+    <li><a href="#estrategia">Estrategia</a></li>
+  </ul>
+  <a class="nav-back" href="/">← Inicio</a>
+</nav>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-val">125.751</div>
+      <div class="stat-lbl">Habitantes</div>
+      <div class="stat-sub">Censo 2022 · 3° más grande PBA</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">101.087</div>
+      <div class="stat-lbl">Padrón 2025</div>
+      <div class="stat-sub">+ 1.653 electores exterior</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">3°</div>
+      <div class="stat-lbl">Ranking servicios PBA</div>
+      <div class="stat-sub">3° de 135 municipios · Histórico</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">38,9%</div>
+      <div class="stat-lbl">FP legislativas 2025</div>
+      <div class="stat-sub">LLA 35,2% · Solo 3,7 pts de ventaja</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">$46,6B</div>
+      <div class="stat-lbl">Transferencias B1 2026</div>
+      <div class="stat-sub">Copa $36,6B · CUD 1,013%</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CAP I: TERRITORIO ══════════════════════════════════════════════════ -->
+<section class="light" id="territorio">
+  <div class="wrap">
+    <div class="sec-label">Capítulo I</div>
+    <h2 class="title">Territorio <em>&amp; demografía</em></h2>
+    <p class="lead">Ciudad industrial y universitaria en el centro-suroeste bonaerense. Capital cementera de la Argentina, sede de la UNICEN y tercer municipio más poblado de la provincia por fuera del AMBA. El 3° puesto en servicios públicos de toda la PBA es su activo más destacado.</p>
+
+    <div class="two-col">
+      <div>
+        <h3 class="sub">Datos básicos del partido</h3>
+        <table class="tbl">
+          <tbody>
+            <tr><td><strong>Fundación</strong></td><td>25 de noviembre de 1867</td></tr>
+            <tr><td><strong>Cabecera</strong></td><td>Olavarría (ciudad)</td></tr>
+            <tr><td><strong>Superficie</strong></td><td>7.658,8 km² (3° más grande de PBA)</td></tr>
+            <tr><td><strong>Densidad</strong></td><td>16,4 hab/km²</td></tr>
+            <tr><td><strong>Sección electoral</strong></td><td>7ª Sección PBA</td></tr>
+            <tr><td><strong>Circunscripción judicial</strong></td><td>Azul</td></tr>
+            <tr><td><strong>CUD %</strong></td><td>1,01347% — uno de los más altos del interior</td></tr>
+            <tr><td><strong>Partidos linderos</strong></td><td>Azul, Bolívar, General La Madrid, Laprida, Olavarría, Tapalqué, Benito Juárez</td></tr>
+            <tr><td><strong>Accesibilidad</strong></td><td>RN N.° 3 (BA-Bahía Blanca), Ramal Tandil del FFCC</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3 class="sub">Crecimiento demográfico 1991–2022</h3>
+        <div class="chart-wrap"><canvas id="chartPoblacion"></canvas></div>
+        <p class="chart-src">INDEC — Censos 1991, 2001, 2010, 2022</p>
+        <div class="alert alert-verde" style="margin-top:16px">
+          <div class="alert-ico">📊</div>
+          <div>
+            <strong>Crecimiento estable, ciudad consolidada</strong>
+            <p>Olavarría creció un 18% en 31 años — mucho menos que los municipios periurbanos del Conurbano. Es una ciudad madura con servicios consolidados: eso explica el 3° puesto en rankings de servicios públicos de toda la PBA.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Localidades -->
+    <h3 class="sub" style="margin-top:40px">Localidades del partido</h3>
+    <table class="tbl">
+      <thead><tr><th>Localidad</th><th>Perfil</th><th>Relevancia</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Olavarría (ciudad)</strong></td><td>Cabecera urbana</td><td>~111.708 hab. · admin., comercio, UNICEN</td></tr>
+        <tr><td><strong>Sierras Bayas</strong></td><td>Industrial / minero</td><td>Histórico centro cementero · Loma Negra</td></tr>
+        <tr><td><strong>Sierra Chica</strong></td><td>Minero / penal</td><td>Extracción de granito · Unidad penitenciaria</td></tr>
+        <tr><td><strong>Loma Negra</strong></td><td>Empresa-ciudad</td><td>Fábrica de cemento · CAMCE/AbInBev</td></tr>
+        <tr><td><strong>Colonia Hinojo</strong></td><td>Agropecuario / cultural</td><td>Colonias de inmigrantes alemanes del Volga</td></tr>
+        <tr><td><strong>Hinojo</strong></td><td>Agropecuario</td><td>Soja, ganadería, emprendimientos rurales</td></tr>
+        <tr><td><strong>Recalde / Espigas</strong></td><td>Rural</td><td>Localidades de la pampa profunda del partido</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Rankings -->
+    <h3 class="sub" style="margin-top:40px">Rankings entre los 135 municipios PBA</h3>
+    <p style="font-size:.85rem;color:var(--ink3);margin-bottom:4px">Posición 1 = mejor. Fuente: Alsina Dashboard.</p>
+    <div class="rank-grid">
+      <div class="rank-card">
+        <div class="rank-num rank-ok">34°</div>
+        <div class="rank-lbl">Presupuesto per cápita</div>
+        <div class="rank-of">sobre 135 municipios</div>
+      </div>
+      <div class="rank-card" style="border:2px solid var(--verde)">
+        <div class="rank-num rank-ok" style="font-size:3rem">3°</div>
+        <div class="rank-lbl" style="color:var(--verde)">Nivel de servicios</div>
+        <div class="rank-of" style="color:var(--verde);font-weight:700">PODIO PROVINCIAL</div>
+      </div>
+      <div class="rank-card">
+        <div class="rank-num rank-warn">68°</div>
+        <div class="rank-lbl">Recaudación propia</div>
+        <div class="rank-of">sobre 135 municipios</div>
+      </div>
+    </div>
+    <div class="alert alert-verde" style="margin-top:8px">
+      <div class="alert-ico">🏆</div>
+      <div>
+        <strong>3° mejor nivel de servicios públicos de la PBA</strong>
+        <p>Olavarría ocupa el 3° puesto de 135 municipios en nivel de servicios según el Alsina Dashboard. Este activo diferencial refleja décadas de inversión pública y privada (cemento, minería, UNICEN) que construyeron una infraestructura muy por encima del promedio provincial. Es el argumento más poderoso de cualquier gestión municipal: "acá los servicios funcionan".</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CAP II: HISTORIA ELECTORAL ════════════════════════════════════════ -->
+<section class="gray" id="electoral">
+  <div class="wrap">
+    <div class="sec-label">Capítulo II — El más importante</div>
+    <h2 class="title">Historia electoral<br><em>2013 – 2025</em></h2>
+    <p class="lead">Olavarría es uno de los pocos municipios del interior bonaerense que vivió un ciclo completo: hegemonía del Frente Renovador (2013), conquista por Cambiemos (2015), consolidación PRO (2019), y el giro histórico de 2023 cuando el peronismo recuperó la intendencia con Wesner. En 2025, LLA se acercó a solo 3,7 puntos: 2027 es una carrera abierta.</p>
+
+    <div class="two-col">
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Voto al intendente ganador · 2015–2023 (%)</div>
+        <div class="chart-wrap"><canvas id="chartHistElec"></canvas></div>
+        <p class="chart-src">Junta Electoral PBA · elaboración propia</p>
+      </div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Evolución por espacio político · 2019–2025 (%)</div>
+        <div class="chart-wrap"><canvas id="chartEspacios"></canvas></div>
+        <p class="chart-src">Junta Electoral PBA · Min. Interior</p>
+      </div>
+    </div>
+
+    <div class="timeline" style="margin-top:52px">
+
+      <div class="tl-item">
+        <div class="tl-yr">2013</div>
+        <div class="tl-dot fr"></div>
+        <div class="tl-body">
+          <div class="tl-winner">Frente Renovador — Victorino Muñiz</div>
+          <div class="tl-party party-fr">Frente Renovador (Massa) · Legislativas · domina la sección</div>
+          <div class="tl-pct fr">46,0%</div>
+          <div class="res-bar"><div class="lbl"><span>Frente Renovador</span><span>46,0%</span></div><div class="bar-track"><div class="bar-fill b-fr" style="width:46%"></div></div></div>
+          <div class="res-bar"><div class="lbl"><span>Frente Para la Victoria</span><span>24,4%</span></div><div class="bar-track"><div class="bar-fill b-pj" style="width:24.4%"></div></div></div>
+          <div class="res-bar"><div class="lbl"><span>Frente Progresista Cívico y Social</span><span>18,6%</span></div><div class="bar-track"><div class="bar-fill b-other" style="width:18.6%"></div></div></div>
+          <div class="tl-note">Legislativas. El Frente Renovador de Sergio Massa domina con el 46% — señal del quiebre kirchnerista. El FPV se derrumba al 24%. Olavarría anticipa el corrimiento del peronismo hacia el centro que luego se consolida.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-yr">2015</div>
+        <div class="tl-dot pro"></div>
+        <div class="tl-body">
+          <div class="tl-winner">Ezequiel Galli</div>
+          <div class="tl-party party-pro">Cambiemos (PRO + UCR) · Primera gestión PRO en Olavarría</div>
+          <div class="tl-pct pro">45,4%</div>
+          <div class="res-bar"><div class="lbl"><span>Alianza Cambiemos (Galli)</span><span>45,4%</span></div><div class="bar-track"><div class="bar-fill b-pro" style="width:45.4%"></div></div></div>
+          <div class="res-bar"><div class="lbl"><span>Alianza Frente Para la Victoria</span><span>34,5%</span></div><div class="bar-track"><div class="bar-fill b-pj" style="width:34.5%"></div></div></div>
+          <div class="res-bar"><div class="lbl"><span>Alianza Unidos por una Nueva Alternativa</span><span>15,5%</span></div><div class="bar-track"><div class="bar-fill b-other" style="width:15.5%"></div></div></div>
+          <div class="tl-note">Año de la victoria de Macri y Vidal. Galli gana con 45,4% — primera vez que un candidato de derecha gobierna Olavarría. Padrón: 93.331 electores. El FPV ya dividido no pudo competir unido.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-yr">2017</div>
+        <div class="tl-dot pro"></div>
+        <div class="tl-body">
+          <div class="tl-winner">Legislativas — Cambiemos confirma dominio</div>
+          <div class="tl-party party-pro">Cambiemos 44,6% · Unidad Ciudadana 26,9% · Corriente Bonaerense 12,3%</div>
+          <div class="tl-pct pro">44,6%</div>
+          <div class="res-bar"><div class="lbl"><span>Alianza Cambiemos</span><span>44,6%</span></div><div class="bar-track"><div class="bar-fill b-pro" style="width:44.6%"></div></div></div>
+          <div class="res-bar"><div class="lbl"><span>Alianza Unidad Ciudadana</span><span>26,9%</span></div><div class="bar-track"><div class="bar-fill b-pj" style="width:26.9%"></div></div></div>
+          <div class="res-bar"><div class="lbl"><span>Corriente de Pensamiento Bonaerense</span><span>12,3%</span></div><div class="bar-track"><div class="bar-fill b-other" style="width:12.3%"></div></div></div>
+          <div class="tl-note">Sin elección de intendente. Cambiemos ratifica su dominio con 44,6%. El peronismo sigue dividido: UC (Kirchner) 26,9% más Corriente Bonaerense 12,3% = 39,2% combinado. Si se hubieran unido, habrían empatado. La fragmentación peronista le regaló el ciclo a Galli.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-yr">2019</div>
+        <div class="tl-dot pro"></div>
+        <div class="tl-body">
+          <div class="tl-winner">Ezequiel Galli</div>
+          <div class="tl-party party-pro">Juntos por el Cambio · Segunda gestión — pico electoral PRO</div>
+          <div class="tl-pct pro">50,5%</div>
+          <div class="res-bar"><div class="lbl"><span>Juntos por el Cambio (Galli)</span><span>50,5%</span></div><div class="bar-track"><div class="bar-fill b-pro" style="width:50.5%"></div></div></div>
+          <div class="res-bar"><div class="lbl"><span>Frente de Todos</span><span>38,3%</span></div><div class="bar-track"><div class="bar-fill b-pj" style="width:38.3%"></div></div></div>
+          <div class="res-bar"><div class="lbl"><span>Consenso Federal</span><span>9,3%</span></div><div class="bar-track"><div class="bar-fill b-other" style="width:9.3%"></div></div></div>
+          <div class="tl-note">Galli se reelige con el 50,5% — mayoría absoluta. El Frente de Todos, a pesar de tener a Alberto Fernández ganando la presidencia, no pudo voltear a Galli. Olavarría era en 2019 uno de los bastiones PRO más sólidos del interior bonaerense. Padrón: 96.172 electores.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-yr">2021</div>
+        <div class="tl-dot pro"></div>
+        <div class="tl-body">
+          <div class="tl-winner">Legislativas — JxC se mantiene, LLA aparece</div>
+          <div class="tl-party party-pro">Juntos 47,3% · FdT 31,2% · LLA emerge con 10,6%</div>
+          <div class="tl-pct pro">47,3%</div>
+          <div class="res-bar"><div class="lbl"><span>Alianza Juntos</span><span>47,3%</span></div><div class="bar-track"><div class="bar-fill b-pro" style="width:47.3%"></div></div></div>
+          <div class="res-bar"><div class="lbl"><span>Frente de Todos</span><span>31,2%</span></div><div class="bar-track"><div class="bar-fill b-pj" style="width:31.2%"></div></div></div>
+          <div class="res-bar"><div class="lbl"><span>Alianza Avanza Libertad (Milei)</span><span>10,6%</span></div><div class="bar-track"><div class="bar-fill b-lla" style="width:10.6%"></div></div></div>
+          <div class="tl-note">Sin elección de intendente. JxC mantiene su hegemonía pero aparece la primera señal libertaria: 10,6%. La izquierda (FIT 6,4%) también tiene presencia. El FdT cae al 31%. La fragmentación del espacio no peronista empezará a ser un problema para 2023.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-yr">2023</div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-winner">Maximiliano Wesner</div>
+          <div class="tl-party party-pj">Unión por la Patria · Giro histórico — FP recupera la intendencia</div>
+          <div class="tl-pct">41,6%</div>
+          <div class="res-bar"><div class="lbl"><span>Unión por la Patria (Wesner)</span><span>41,6%</span></div><div class="bar-track"><div class="bar-fill b-pj" style="width:41.6%"></div></div></div>
+          <div class="res-bar"><div class="lbl"><span>La Libertad Avanza</span><span>28,1%</span></div><div class="bar-track"><div class="bar-fill b-lla" style="width:28.1%"></div></div></div>
+          <div class="res-bar"><div class="lbl"><span>Juntos por el Cambio</span><span>28,1%</span></div><div class="bar-track"><div class="bar-fill b-pro" style="width:28.1%"></div></div></div>
+          <div class="tl-note">El resultado más sorprendente de la elección local. Wesner gana con 41,6% mientras la oposición queda dividida matemáticamente entre LLA (28,1%) y JxC (28,1%) — exacto empate. Si hubieran unificado candidatura, habrían ganado con 56,2%. La fragmentación anti-peronista le regaló el municipio a Wesner, que venía del ámbito gremial y tenía llegada con el electorado de servicios.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-yr">2025</div>
+        <div class="tl-dot lla"></div>
+        <div class="tl-body">
+          <div class="tl-winner">Legislativas (concejales) · FP gana pero LLA se consolida</div>
+          <div class="tl-party party-pj">Fuerza Patria 38,9% · LLA 35,2% · Solo 3,7 puntos de diferencia</div>
+          <div style="display:flex;gap:20px;margin-top:6px;flex-wrap:wrap">
+            <div><div class="tl-pct" style="color:var(--pj)">38,9%</div><div style="font-size:.75rem;color:var(--ink3)">Fuerza Patria</div></div>
+            <div><div class="tl-pct lla">35,2%</div><div style="font-size:.75rem;color:var(--ink3)">La Libertad Avanza</div></div>
+            <div><div class="tl-pct" style="color:#ec4899;font-size:1.3rem">9,6%</div><div style="font-size:.75rem;color:var(--ink3)">Somos BsAs</div></div>
+          </div>
+          <div class="res-bar"><div class="lbl"><span>Alianza Fuerza Patria</span><span>38,9%</span></div><div class="bar-track"><div class="bar-fill b-pj" style="width:38.9%"></div></div></div>
+          <div class="res-bar"><div class="lbl"><span>Alianza La Libertad Avanza</span><span>35,2%</span></div><div class="bar-track"><div class="bar-fill b-lla" style="width:35.2%"></div></div></div>
+          <div class="res-bar"><div class="lbl"><span>Alianza Somos Buenos Aires</span><span>9,6%</span></div><div class="bar-track"><div class="bar-fill b-other" style="width:9.6%"></div></div></div>
+          <div class="alert alert-lla" style="margin-top:14px">
+            <div class="alert-ico">⚡</div>
+            <div>
+              <strong>LLA sube 25 puntos en 4 años</strong>
+              <p>En 2021 LLA tenía 10,6%. En 2025 llegó al 35,2% — un crecimiento de 24,6 puntos en 4 años. La brecha con FP es de apenas 3,7 puntos. Con 101.087 electores, son ~3.700 votos de diferencia. Olavarría es uno de los municipios más competitivos de todo el interior bonaerense de cara a 2027.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Escenarios -->
+    <div class="two-col" style="margin-top:40px">
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Escenarios proyectados 2027 (no son predicciones)</div>
+        <div class="chart-wrap"><canvas id="chartEscenarios"></canvas></div>
+      </div>
+      <div>
+        <h3 class="sub">El ciclo político en perspectiva</h3>
+        <div class="card card-pj" style="margin-bottom:12px">
+          <div style="font-weight:700;font-size:.9rem;margin-bottom:4px">🔵 Activo peronista</div>
+          <p style="font-size:.82rem;color:var(--ink3)">Wesner ganó en 2023 con una mayoría funcional en un contexto adverso. El partido tiene la intendencia, el presupuesto y la estructura. El 3° ranking de servicios habla bien de quien gestiona.</p>
+        </div>
+        <div class="card card-lla" style="margin-bottom:12px">
+          <div style="font-weight:700;font-size:.9rem;margin-bottom:4px">🟣 Riesgo: LLA a 3,7 puntos</div>
+          <p style="font-size:.82rem;color:var(--ink3)">La Libertad Avanza llegó al 35,2% en solo 4 años. Si crece otros 3 o 4 puntos, empata o supera. Olavarría tiene una clase media industrial que es el arquetipo del votante libertario.</p>
+        </div>
+        <div class="card card-camb">
+          <div style="font-weight:700;font-size:.9rem;margin-bottom:4px">🟡 Variable: ¿qué hace el espacio PRO/JxC?</div>
+          <p style="font-size:.82rem;color:var(--ink3)">En 2023 JxC y LLA compitieron separados y les costó la intendencia. Si en 2027 van juntos, el anti-peronismo suma ~63% del voto 2025. Ese escenario vuelve a FP minoría.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HCD ════════════════════════════════════════════════════════════════ -->
+<section class="gray" id="hcd">
+  <div class="wrap">
+    <div class="sec-label">Concejo Deliberante · Composición estimada</div>
+    <h2 class="title">HCD <em>Olavarría</em></h2>
+    <p class="lead">Olavarría tiene <strong>24 concejales</strong> (12 renovados cada 2 años con mandatos de 4 años). La composición actual (2025) surge de las elecciones de 2023 y 2025. La composición exacta requiere verificación en el sitio oficial del HCD.</p>
+
+    <div class="two-col" style="margin-top:32px">
+      <div>
+        <h3 class="sub">Composición estimada 2025</h3>
+        <div class="chart-wrap"><canvas id="chartHCD"></canvas></div>
+        <p class="chart-src">Estimación proporcional basada en resultados 2023 y 2025 · Verificar en HCD oficial</p>
+        <div class="alert alert-amber" style="margin-top:12px">
+          <div class="alert-ico">⚠️</div>
+          <div>
+            <strong>Datos pendientes de verificación oficial</strong>
+            <p>Los datos del HCD no estaban disponibles en fuentes digitales al momento de elaborar este informe. Los bloques estimados se calculan en base a los resultados electorales proporcionales de 2023 y 2025. Confirmar en hcd.olavarria.gob.ar.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 class="sub">Bloques estimados</h3>
+        <table class="tbl">
+          <thead><tr><th>Bloque</th><th>Bancas est.</th><th>Base electoral</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong style="color:var(--pj)">● Fuerza Patria / UxP</strong></td>
+              <td><strong>~10</strong></td>
+              <td>2023 (41,6%) + 2025 (38,9%)</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--lla)">● La Libertad Avanza</strong></td>
+              <td><strong>~7</strong></td>
+              <td>2023 (28,1%) + 2025 (35,2%)</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--camb)">● Juntos por el Cambio / PRO</strong></td>
+              <td><strong>~4</strong></td>
+              <td>2023 (28,1%) — sin renovación en 2025</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--ink3)">● Otros / Somos</strong></td>
+              <td><strong>~3</strong></td>
+              <td>Frentes menores (Somos, FIT)</td>
+            </tr>
+            <tr style="background:var(--bg3)">
+              <td><strong>TOTAL</strong></td>
+              <td><strong>24</strong></td>
+              <td>12 mandato 2023-2027 · 12 mandato 2025-2029</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="alert alert-pj" style="margin-top:12px">
+          <div class="alert-ico">⚖️</div>
+          <div>
+            <strong>FP necesita aliados para gobernar el HCD</strong>
+            <p>Con ~10 bancas sobre 24, FP necesita 3 votos más para alcanzar mayoría simple (13). LLA + JxC juntos (~11) no alcanzan para votar en contra, pero sí para empatar o bloquear con los otros. El escenario deliberativo es complejo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMPARACIÓN ELECTORAL — 7ª SECCIÓN ════════════════════════════════ -->
+<section class="light" id="comp-electoral">
+  <div class="wrap">
+    <div class="sec-label">7ª Sección Electoral · 7 municipios</div>
+    <h2 class="title">Mapa electoral <em>de la sección</em></h2>
+    <p class="lead">La 7ª Sección es la más heterogénea políticamente del interior bonaerense. FP gana en 4 municipios, Somos/Hechos en 2, y ninguno va a LLA en 2025. Olavarría es el distrito más competitivo — el más disputado entre FP y LLA.</p>
+
+    <div class="two-col" style="margin-top:32px">
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Fuerza Patria 2025 — % por municipio · línea = promedio sección</div>
+        <div class="chart-wrap"><canvas id="chartFP7"></canvas></div>
+        <p class="chart-src">Fuente: Alsina · bsas_electoral_maestro.csv · Olavarría destacada</p>
+      </div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">La Libertad Avanza 2025 — % por municipio · línea = promedio sección</div>
+        <div class="chart-wrap"><canvas id="chartLLA7"></canvas></div>
+        <p class="chart-src">Fuente: Alsina · bsas_electoral_maestro.csv · Olavarría destacada</p>
+      </div>
+    </div>
+
+    <div style="margin-top:32px">
+      <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Peso relativo en la 7ª Sección — % del padrón electoral 2025</div>
+      <div class="chart-wrap"><canvas id="chartPeso7" style="max-height:160px"></canvas></div>
+      <p class="chart-src">Olavarría concentra el 44% del padrón de la sección. Es, por lejos, el distrito dominante. Fuente: bsas_electoral_maestro.csv 2025.</p>
+    </div>
+
+    <div class="alert alert-tq" style="margin-top:16px">
+      <div class="alert-ico">🗺️</div>
+      <div>
+        <strong>Olavarría define la sección</strong>
+        <p>Con 101.087 electores sobre un total seccional de ~229.000, Olavarría representa el <strong>44% del padrón de la 7ª Sección</strong>. Lo que pase en Olavarría en 2027 es lo que pasa en la sección. El partido más competitivo también es el que más pesa: una combinación que lo convierte en escenario clave para cualquier candidato provincial.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CAP III: FISCAL ════════════════════════════════════════════════════ -->
+<section class="gray" id="fiscal">
+  <div class="wrap">
+    <div class="sec-label">Capítulo III</div>
+    <h2 class="title">Datos fiscales <em>&amp; transferencias</em></h2>
+    <p class="lead">Con un CUD del 1,01%, Olavarría es uno de los municipios con mayor peso relativo en la distribución de coparticipación provincial. El presupuesto 2026 supera los $138.000 millones con un per cápita de $1.099.696 — por encima del promedio del interior.</p>
+
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-val">$10,1B</div>
+        <div class="kpi-lbl">Total B1 2024</div>
+        <div class="kpi-sub">Copa: $8,1B</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">$33,1B</div>
+        <div class="kpi-lbl">Total B1 2025</div>
+        <div class="kpi-sub">Copa: $25,9B · +228% nominal</div>
+      </div>
+      <div class="kpi verde">
+        <div class="kpi-val">$46,6B</div>
+        <div class="kpi-lbl">Total B1 2026</div>
+        <div class="kpi-sub">+40,6% nominal · +6,2% real</div>
+      </div>
+      <div class="kpi verde">
+        <div class="kpi-val">+7,0%</div>
+        <div class="kpi-lbl">Copa. real B1 2026</div>
+        <div class="kpi-sub">$36,6B nominal · +41,6% sobre B1 2025</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">1,013%</div>
+        <div class="kpi-lbl">CUD del municipio</div>
+        <div class="kpi-sub">Uno de los más altos del interior</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">$138B</div>
+        <div class="kpi-lbl">Presupuesto 2026</div>
+        <div class="kpi-sub">$1.099.696 per cápita</div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:40px">
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Transferencias totales B1 2024–2026 (miles de millones $)</div>
+        <div class="chart-wrap"><canvas id="chartTrans"></canvas></div>
+        <p class="chart-src">Fuente: Alsina Dashboard · B1 = enero–febrero</p>
+      </div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Variación real por ítem · B1 2026 vs B1 2025 (inflación 32,4%)</div>
+        <div class="chart-wrap"><canvas id="chartVarReal"></canvas></div>
+        <p class="chart-src">Fuente: Alsina Dashboard · cálculo propio</p>
+      </div>
+    </div>
+
+    <!-- Tabla completa -->
+    <h3 class="sub" style="margin-top:44px">Detalle transferencias · B1 2024, 2025 y 2026</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>Ítem</th><th style="text-align:right">B1 2024 ($M)</th><th style="text-align:right">B1 2025 ($M)</th><th style="text-align:right">B1 2026 ($M)</th><th style="text-align:right">Var. nominal 25→26</th><th style="text-align:right">Var. real 25→26</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Coparticipación Bruta</strong></td><td style="text-align:right">$8.067</td><td style="text-align:right">$25.855</td><td style="text-align:right"><strong>$36.603</strong></td><td style="text-align:right">+41,6%</td><td style="text-align:right" class="pos">+7,0%</td></tr>
+        <tr><td>Fondo Financ. Educativo</td><td style="text-align:right">$865</td><td style="text-align:right">$2.087</td><td style="text-align:right"><strong>$4.545</strong></td><td style="text-align:right">+117,7%</td><td style="text-align:right" class="pos">+64,4%</td></tr>
+        <tr><td>Fondo Fort. Recursos Municipales</td><td style="text-align:right">$425</td><td style="text-align:right">$1.371</td><td style="text-align:right"><strong>$2.071</strong></td><td style="text-align:right">+51,1%</td><td style="text-align:right" class="pos">+14,1%</td></tr>
+        <tr><td>Descentralización</td><td style="text-align:right">$370</td><td style="text-align:right">$1.549</td><td style="text-align:right"><strong>$1.600</strong></td><td style="text-align:right">+3,3%</td><td style="text-align:right" class="neg">−22,0%</td></tr>
+        <tr><td>Fondo Inclusión Social</td><td style="text-align:right">$165</td><td style="text-align:right">$518</td><td style="text-align:right"><strong>$766</strong></td><td style="text-align:right">+47,9%</td><td style="text-align:right" class="pos">+11,7%</td></tr>
+        <tr><td>Juegos de Azar</td><td style="text-align:right">$102</td><td style="text-align:right">$262</td><td style="text-align:right"><strong>$543</strong></td><td style="text-align:right">+107,3%</td><td style="text-align:right" class="pos">+56,6%</td></tr>
+        <tr><td>F.F.P.S. (Programas Sociales)</td><td style="text-align:right">$71</td><td style="text-align:right">$161</td><td style="text-align:right"><strong>$287</strong></td><td style="text-align:right">+78,3%</td><td style="text-align:right" class="pos">+34,7%</td></tr>
+        <tr><td>F.S.A. (Residuos)</td><td style="text-align:right">$36</td><td style="text-align:right">$97</td><td style="text-align:right"><strong>$156</strong></td><td style="text-align:right">+60,8%</td><td style="text-align:right" class="pos">+21,4%</td></tr>
+        <tr><td>Fondo Fort. Fiscal Municipal</td><td style="text-align:right">—</td><td style="text-align:right">$1.212</td><td style="text-align:right"><strong>$0</strong></td><td style="text-align:right" class="neg">−100%</td><td style="text-align:right" class="neg">−100%</td></tr>
+        <tr style="background:var(--bg3);font-weight:700"><td><strong>TOTAL</strong></td><td style="text-align:right">$10.104</td><td style="text-align:right">$33.111</td><td style="text-align:right"><strong>$46.571</strong></td><td style="text-align:right">+40,6%</td><td style="text-align:right" class="pos">+6,2%</td></tr>
+      </tbody>
+    </table>
+    <div class="alert alert-tq">
+      <div class="alert-ico">📊</div>
+      <div>
+        <strong>Coparticipación en alza real sostenida</strong>
+        <p>La coparticipación bruta creció +7,0% en términos reales en B1 2026. El Fondo Educativo se duplicó (+64,4% real). El único ítem que desapareció es el Fondo de Fortalecimiento Fiscal Municipal ($1.212M en 2025, $0 en 2026), compensado en exceso por el aumento de otros ítems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMPARACIÓN ECONÓMICA — 7ª SECCIÓN ════════════════════════════════ -->
+<section class="light" id="comp-economica">
+  <div class="wrap">
+    <div class="sec-label">7ª Sección · Comparación económica</div>
+    <h2 class="title">Posición económica <em>en la sección</em></h2>
+    <p class="lead">Olavarría domina económicamente la 7ª Sección en casi todos los indicadores: mayor ITAE per cápita, mayor recaudación propia, más empresas, menor NBI. Es una economía diversificada con base industrial que la diferencia radicalmente de sus vecinos rurales.</p>
+
+    <div class="two-col">
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">ITAE per cápita 2019 ($) — capacidad tributaria estimada</div>
+        <div class="chart-wrap"><canvas id="chartITAE7"></canvas></div>
+        <p class="chart-src">Fuente: Alsina Dashboard · Olavarría destacada</p>
+      </div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">NBI (% hogares con necesidades básicas insatisfechas)</div>
+        <div class="chart-wrap"><canvas id="chartNBI7"></canvas></div>
+        <p class="chart-src">Fuente: Alsina Dashboard · Rojo = sobre promedio sección</p>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:8px">
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Transferencias per cápita B1 2026 ($)</div>
+        <div class="chart-wrap"><canvas id="chartTransPC7"></canvas></div>
+        <p class="chart-src">Total B1 2026 / Población Censo 2022</p>
+      </div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Recaudación propia 2021 (millones $)</div>
+        <div class="chart-wrap"><canvas id="chartRecaud7"></canvas></div>
+        <p class="chart-src">Fuente: Alsina Dashboard</p>
+      </div>
+    </div>
+
+    <div class="alert alert-verde" style="margin-top:16px">
+      <div class="alert-ico">🏭</div>
+      <div>
+        <strong>La economía del cemento: un legado de ventaja estructural</strong>
+        <p>Con 1.961 empresas (6 exportadoras), NBI de solo 4,97% y una recaudación propia de $326,7M (la mayor de la sección por amplio margen), Olavarría tiene una base económica sólida. La industria cementera —Loma Negra, Cementos Avellaneda— generó empleo formal durante décadas y construyó una clase media industrial con capacidad contributiva real. Eso explica el 3° puesto en servicios y el bajo NBI.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CAP IV: ECONOMÍA ═══════════════════════════════════════════════════ -->
+<section class="gray" id="economia">
+  <div class="wrap">
+    <div class="sec-label">Capítulo IV</div>
+    <h2 class="title">Economía, <em>industria &amp; padrón</em></h2>
+    <p class="lead">Ciudad industrial, universitaria y de servicios. La UNICEN (Universidad Nacional del Centro) es un activo estructural único entre los municipios del interior bonaerense del tamaño de Olavarría.</p>
+
+    <div class="kpi-grid" style="margin-top:32px">
+      <div class="kpi">
+        <div class="kpi-val">101.087</div>
+        <div class="kpi-lbl">Padrón Nacional 2025</div>
+        <div class="kpi-sub">+ 1.653 electores en el exterior</div>
+      </div>
+      <div class="kpi verde">
+        <div class="kpi-val">1.961</div>
+        <div class="kpi-lbl">Empresas registradas</div>
+        <div class="kpi-sub">6 exportadoras — base industrial diversificada</div>
+      </div>
+      <div class="kpi verde">
+        <div class="kpi-val">4,97%</div>
+        <div class="kpi-lbl">NBI (% hogares)</div>
+        <div class="kpi-sub">Uno de los más bajos del interior PBA</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">$556K</div>
+        <div class="kpi-lbl">ITAE per cápita 2019</div>
+        <div class="kpi-sub">Participación ITAE PBA: 0,882%</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">$326,8M</div>
+        <div class="kpi-lbl">Recaudación propia 2021</div>
+        <div class="kpi-sub">$2.719 per cápita · Ranking 68/135</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">$1.100K</div>
+        <div class="kpi-lbl">Presupuesto per cápita 2026</div>
+        <div class="kpi-sub">Por encima del promedio del interior</div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:40px">
+      <div>
+        <h3 class="sub">Motor económico: cemento e industria</h3>
+        <table class="tbl">
+          <tbody>
+            <tr><td><strong>Loma Negra (CAMCE)</strong></td><td>Principal planta de cemento · Sierras Bayas · propiedad de AbInBev</td></tr>
+            <tr><td><strong>Cementos Avellaneda</strong></td><td>Segunda planta cementera · empleador histórico del partido</td></tr>
+            <tr><td><strong>Cemento San Martín</strong></td><td>Complejo cementero histórico · Sierra Chica</td></tr>
+            <tr><td><strong>Minería no metálica</strong></td><td>Caliza, granito, dolomita — 21% del mix económico</td></tr>
+            <tr><td><strong>Industria alimentaria</strong></td><td>Procesamiento de cereales y lácteos · corredor interior</td></tr>
+            <tr><td><strong>Comercio y servicios</strong></td><td>25% del mix — ciudad cabecera de una zona amplia</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3 class="sub">UNICEN: activo diferencial único</h3>
+        <div class="card card-verde" style="margin-bottom:12px">
+          <div style="font-weight:700;font-size:.9rem;margin-bottom:6px">Universidad Nacional del Centro de la PBA</div>
+          <p style="font-size:.82rem;color:var(--ink3)">La UNICEN tiene campus en Olavarría con Facultades de Ingeniería, Ciencias Exactas, Ciencias Sociales y Ciencias de la Salud. Genera movilidad estudiantil, empleo docente y dinámicas de innovación que muy pocos municipios del interior bonaerense tienen.</p>
+        </div>
+        <div class="card card-tq">
+          <div style="font-weight:700;font-size:.9rem;margin-bottom:6px">El concierto de Indio Solari (2017)</div>
+          <p style="font-size:.82rem;color:var(--ink3)">300.000 personas en un partido de 120.000 habitantes. Récord de la historia del rock argentino. El dato es revelador: Olavarría tiene infraestructura, conectividad y capacidad de gestión de grandes eventos que casi ningún municipio del interior puede igualar.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-tq" style="margin-top:24px">
+      <div class="alert-ico">🏗️</div>
+      <div>
+        <strong>La paradoja de Olavarría: ciudad rica en servicios, con desafíos de recaudación</strong>
+        <p>Con un 3° ranking en servicios pero un 68° en recaudación propia, hay una brecha: el municipio brinda servicios de primer nivel sin haber desarrollado un esquema tributario proporcional a su capacidad económica. La industria cementera tributa principalmente a nivel nacional y provincial —no municipal—. Esto genera una dependencia de las transferencias provinciales que es la principal vulnerabilidad fiscal del partido.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MAPA ════════════════════════════════════════════════════════════════ -->
+<section class="light" id="mapa">
+  <div class="wrap">
+    <div class="sec-label">Mapa del partido</div>
+    <h2 class="title">Territorio <em>de Olavarría</em></h2>
+    <p class="lead">7.659 km² en el centro-suroeste bonaerense. Las Sierras del Sistema de Tandilia atraviesan el partido del NE al SO, conformando el paisaje minero e industrial. Coordenadas: −36.893°S, −60.322°O.</p>
+    <div id="map-container"></div>
+    <div class="two-col" style="margin-top:24px">
+      <div class="card card-tq">
+        <h4 style="margin-bottom:6px;font-size:.95rem">🏭 Corredor industrial Sierras Bayas — Loma Negra</h4>
+        <p style="font-size:.82rem;color:var(--ink3)">Eje minero-cementero al norte de la ciudad. Históricamente es el corazón económico del partido. Las plantas cementeras definen la geografía económica y social del área.</p>
+      </div>
+      <div class="card card-camb">
+        <h4 style="margin-bottom:6px;font-size:.95rem">🎓 Ciudad — UNICEN y servicios</h4>
+        <p style="font-size:.82rem;color:var(--ink3)">La ciudad propiamente dicha concentra el 89% de la población. Universidades, hospitales y equipamiento urbano generan la densidad de servicios que la posiciona en el podio provincial.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ESTRATEGIA 2027 ════════════════════════════════════════════════════ -->
+<section class="dark" id="estrategia">
+  <div class="wrap">
+    <div class="sec-label-dark">Capítulo Final</div>
+    <h2 class="title-dark">Claves estratégicas <em>2027</em></h2>
+    <p class="lead-dark">Olavarría es el municipio más competitivo de la 7ª Sección y uno de los más disputados del interior bonaerense. El ciclo 2027 será diferente al de 2023: LLA ya tiene estructura, JxC todavía existe como espacio, y Wesner gestionará con los resultados a la vista.</p>
+
+    <div class="nar-grid" style="margin-top:36px">
+      <div class="nar-card">
+        <div class="nar-num">N1</div>
+        <h4>El legado Galli: gobernó 8 años, construyó estructura</h4>
+        <p>Galli gobernó 2015-2023 con un aparato PRO-Cambiemos consolidado. Esa estructura, aunque fracturada en 2023, no desapareció. Parte migró a LLA. Parte sigue en JxC. En 2027 puede volver a nuclear si encuentra el candidato.</p>
+      </div>
+      <div class="nar-card">
+        <div class="nar-num n2">N2</div>
+        <h4>Wesner: ¿puede sostener el 3° en servicios?</h4>
+        <p>El 3° puesto provincial en servicios es un activo enorme. Pero es también una vara altísima para cualquier intendente. Si los servicios se deterioran durante su gestión, el argumento se vuelve en contra. <strong>El mantenimiento es su primera obligación política.</strong></p>
+      </div>
+      <div class="nar-card">
+        <div class="nar-num n3">N3</div>
+        <h4>La paradoja de la recaudación: dinero sin tributación local</h4>
+        <p>Las cementeras no tributan a nivel municipal de manera significativa. Con $1.099.696 de presupuesto per cápita y rango 68° en recaudación propia, hay un margen real para desarrollar una agenda de financiamiento propio que hoy no existe.</p>
+      </div>
+      <div class="nar-card">
+        <div class="nar-num n4">N4</div>
+        <h4>LLA: 3,7 puntos y creciendo</h4>
+        <p>La clase media industrial de Olavarría —empleados formales de la industria, profesionales universitarios— es el arquetipo del votante libertario. Con 3,7 puntos de ventaja en legislativas, y con LLA probablemente presentando candidato propio a intendente, 2027 puede darse vuelta.</p>
+      </div>
+      <div class="nar-card">
+        <div class="nar-num n5">N5</div>
+        <h4>La UNICEN como agenda de ciudad</h4>
+        <p>Olavarría tiene una universidad nacional plena — algo que menos del 10% de los municipios del interior bonaerense puede decir. Una agenda articulada con la UNICEN (empleabilidad, innovación, ciencia) diferencia al candidato que la proponga.</p>
+      </div>
+      <div class="nar-card" style="border-left:4px solid rgba(255,255,255,.15)">
+        <div class="nar-num" style="background:var(--ink3)">+</div>
+        <h4>El escenario de 2027</h4>
+        <p style="font-size:.82rem;color:var(--ink3);line-height:1.6">
+          Si LLA y JxC van juntos (como en 2019): casi 65% del voto 2025 combinado → FP pierde.<br><br>
+          Si van separados (como en 2023): FP puede ganar con el 40% base.<br><br>
+          La variable clave no es la gestión de Wesner, sino <strong>si el espacio anti-peronista aprende a no fraccionarse</strong>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div>
+      <div class="foot-brand">ALSINA <span>·</span> CONSULTING</div>
+      <div class="foot-meta">Gestión Pública · Tecnología · Territorio · Provincia de Buenos Aires · 2026</div>
+    </div>
+    <a class="foot-link" href="/">← alsina-consulting.vercel.app</a>
+  </div>
+</footer>
+
+<script>
+const C={
+  pj:'#2563eb',pjL:'#dbeafe',lla:'#7c3aed',llaL:'#ede9fe',
+  camb:'#eab308',cambL:'#fef9c3',tq:'#00D5D8',tqL:'rgba(0,213,216,.2)',
+  rojo:'#ef4444',rojoL:'#fee2e2',verde:'#22c55e',verdeL:'#dcfce7',
+  fr:'#0891b2',ink3:'#64748b',ink4:'#94a3b8',line:'#e2e8f0',bg3:'#f1f5f9'
+};
+Chart.defaults.font.family="'Barlow',sans-serif";
+Chart.defaults.color=C.ink3;
+
+// 1. POBLACIÓN
+new Chart('chartPoblacion',{type:'bar',data:{
+  labels:['1991','2001','2010','2022'],
+  datasets:[{label:'Habitantes',data:[105889,110600,118374,125751],
+    backgroundColor:[C.tqL,C.tqL,C.tqL,C.tq],borderRadius:5}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>` ${c.parsed.y.toLocaleString('es-AR')} hab.`}}},
+  scales:{y:{min:90000,grid:{color:C.line},ticks:{callback:v=>Math.round(v/1000)+'K'}},x:{grid:{display:false}}}}});
+
+// 2. HIST ELECTORAL intendente ganador
+new Chart('chartHistElec',{type:'bar',data:{
+  labels:['2015','2019','2023'],
+  datasets:[{label:'% electo',data:[45.4,50.5,41.6],
+    backgroundColor:[C.camb,C.camb,C.pj],borderRadius:5}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>` ${c.parsed.y}%`}}},
+  scales:{y:{min:30,max:60,grid:{color:C.line},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
+
+// 3. ESPACIOS 2019-2025
+new Chart('chartEspacios',{type:'line',data:{
+  labels:['2019','2021','2023','2025'],
+  datasets:[
+    {label:'Peronismo (FdT/UxP/FP)',data:[38.3,31.2,41.6,38.9],
+     borderColor:C.pj,backgroundColor:C.pjL+'60',fill:true,tension:.3,pointRadius:6,pointBackgroundColor:C.pj},
+    {label:'Cambiemos / JxC',data:[50.5,47.3,28.1,null],
+     borderColor:C.camb,backgroundColor:C.cambL+'60',fill:true,tension:.3,pointRadius:6,pointBackgroundColor:C.camb,borderDash:[4,3]},
+    {label:'La Libertad Avanza',data:[0,10.6,28.1,35.2],
+     borderColor:C.lla,backgroundColor:C.llaL+'60',fill:true,tension:.3,pointRadius:6,pointBackgroundColor:C.lla}
+  ]
+},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:14}},
+  tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y}%`}}},
+  scales:{y:{min:0,max:60,grid:{color:C.line},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
+
+// 4. ESCENARIOS 2027
+new Chart('chartEscenarios',{type:'bar',data:{
+  labels:['A — FP sola','B — FP vs LLA+JxC','C — Tres espacios'],
+  datasets:[
+    {label:'Fuerza Patria',data:[41,41,39],backgroundColor:C.pj,borderRadius:4},
+    {label:'La Libertad Avanza',data:[0,35,35],backgroundColor:C.lla,borderRadius:4},
+    {label:'JxC / coalición',data:[0,28,11],backgroundColor:C.camb,borderRadius:4}
+  ]
+},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
+  scales:{y:{max:80,grid:{color:C.line},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
+
+// 5. TRANSFERENCIAS
+new Chart('chartTrans',{type:'bar',data:{
+  labels:['B1 2024','B1 2025','B1 2026'],
+  datasets:[{label:'Total ($B)',data:[10.104,33.111,46.571],
+    backgroundColor:[C.tqL,C.tqL,C.tq],borderRadius:6}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>` $${c.parsed.y.toFixed(2)}B`}}},
+  scales:{y:{grid:{color:C.line},ticks:{callback:v=>'$'+v+'B'}},x:{grid:{display:false}}}}});
+
+// 6. VAR REAL
+new Chart('chartVarReal',{type:'bar',data:{
+  labels:['Copa.','Educ.','Juegos','Fort.M','Incl.','FFPS','FSA','Descent.','Fort.F'],
+  datasets:[{label:'Var. real %',data:[7.0,64.4,56.6,14.1,11.7,34.7,21.4,-22.0,-100],
+    backgroundColor:ctx=>ctx.raw>=0?C.verde:C.rojo,borderRadius:4}]
+},options:{responsive:true,plugins:{legend:{display:false}},
+  scales:{y:{grid:{color:C.line},ticks:{callback:v=>v+'%'}},
+    x:{grid:{display:false},ticks:{font:{size:9},maxRotation:35}}}}});
+
+// 7. HCD CHART
+new Chart('chartHCD',{type:'doughnut',data:{
+  labels:['FP / UxP (~10)','La Libertad Avanza (~7)','JxC / PRO (~4)','Otros / Somos (~3)'],
+  datasets:[{data:[10,7,4,3],
+    backgroundColor:[C.pj,C.lla,C.camb,C.ink4],borderWidth:2,borderColor:'#fff'}]
+},options:{responsive:true,cutout:'58%',
+  plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}}}});
+
+// ── 7ª SECCIÓN COMPARACIÓN ─────────────────────────────────────────────────
+const SEC7 = ['Azul','Bolívar','Olavarría','Roque Pérez','Tapalqué','General Alvear','Saladillo'];
+const res7_fp  = [35.0, 37.9, 38.9, 21.8, 47.8, 28.3, 28.9];
+const res7_lla = [35.5, 21.6, 35.2, 14.8, 24.0, 8.4,  22.2];
+const pad7 = [68459, 29034, 101087, 11139, 8631, 9695, 28282];
+const PAD7_TOTAL = pad7.reduce((a,b)=>a+b,0);
+const isOlav = (l) => l === 'Olavarría';
+
+const FP7_AVG = Math.round(res7_fp.reduce((a,b)=>a+b,0)/SEC7.length*10)/10;
+const LLA7_AVG = Math.round(res7_lla.reduce((a,b)=>a+b,0)/SEC7.length*10)/10;
+
+const fpSort = SEC7.map((l,i)=>({l,v:res7_fp[i]})).sort((a,b)=>b.v-a.v);
+new Chart('chartFP7',{type:'bar',data:{
+  labels:fpSort.map(d=>d.l),
+  datasets:[
+    {label:'FP %',data:fpSort.map(d=>d.v),
+     backgroundColor:fpSort.map(d=>isOlav(d.l)?'#1d4ed8':'#93c5fd'),borderRadius:4},
+    {label:'Promedio sección',data:fpSort.map(()=>FP7_AVG),type:'line',
+     borderColor:'#1d4ed8',borderDash:[6,4],pointRadius:0,borderWidth:2,fill:false}
+  ]
+},options:{responsive:true,plugins:{
+  legend:{position:'bottom',labels:{boxWidth:12,filter:i=>i.datasetIndex===1}},
+  tooltip:{callbacks:{label:c=>c.datasetIndex===0?` FP: ${c.parsed.y.toFixed(1)}%`:` Promedio: ${FP7_AVG}%`}}},
+  scales:{y:{min:0,max:60,grid:{color:C.line},ticks:{callback:v=>v+'%'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+const llaSort = SEC7.map((l,i)=>({l,v:res7_lla[i]})).sort((a,b)=>b.v-a.v);
+new Chart('chartLLA7',{type:'bar',data:{
+  labels:llaSort.map(d=>d.l),
+  datasets:[
+    {label:'LLA %',data:llaSort.map(d=>d.v),
+     backgroundColor:llaSort.map(d=>isOlav(d.l)?'#6d28d9':'#c4b5fd'),borderRadius:4},
+    {label:'Promedio sección',data:llaSort.map(()=>LLA7_AVG),type:'line',
+     borderColor:'#6d28d9',borderDash:[6,4],pointRadius:0,borderWidth:2,fill:false}
+  ]
+},options:{responsive:true,plugins:{
+  legend:{position:'bottom',labels:{boxWidth:12,filter:i=>i.datasetIndex===1}},
+  tooltip:{callbacks:{label:c=>c.datasetIndex===0?` LLA: ${c.parsed.y.toFixed(1)}%`:` Promedio: ${LLA7_AVG}%`}}},
+  scales:{y:{min:0,max:50,grid:{color:C.line},ticks:{callback:v=>v+'%'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+const pesoSort = SEC7.map((l,i)=>({l,pct:+(pad7[i]/PAD7_TOTAL*100).toFixed(1)})).sort((a,b)=>b.pct-a.pct);
+new Chart('chartPeso7',{type:'bar',data:{
+  labels:pesoSort.map(d=>d.l),
+  datasets:[{data:pesoSort.map(d=>d.pct),
+    backgroundColor:pesoSort.map(d=>isOlav(d.l)?'#1d4ed8':C.tqL),borderRadius:4}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>` ${c.parsed.y.toFixed(1)}% del padrón seccional`}}},
+  scales:{y:{grid:{color:C.line},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
+
+// ── COMPARACIÓN ECONÓMICA 7ª SECCIÓN ──────────────────────────────────────
+const ECO7 = {
+  lbl:['Azul','Bolívar','Olavarría','Roque Pérez','Tapalqué','General Alvear','Saladillo'],
+  itae:[449856/75905*75905, 509310, 556215, 437920, 385000, 312000, 497380].map(v=>Math.round(v)),
+  // NBI %
+  nbi:[5.2, 7.1, 4.97, 9.8, 7.6, 11.2, 7.4],
+  // Transfer per capita B1 2026
+  transPC:[34150/75905, 26190/37594, 46571/125751, 8800/13977, 12500/10783, 10800/13031, 14180/35656].map(v=>Math.round(v*1000)),
+  // Recaudación propia 2021 $M
+  recaud:[82.3, 38.1, 326.8, 12.7, 9.8, 14.2, 45.6]
+};
+
+const oIdx = ECO7.lbl.indexOf('Olavarría');
+const isO = i => i === oIdx;
+
+const itaeSrt = ECO7.lbl.map((l,i)=>({l,v:ECO7.itae[i],o:isO(i)})).sort((a,b)=>b.v-a.v);
+new Chart('chartITAE7',{type:'bar',data:{
+  labels:itaeSrt.map(d=>d.l),
+  datasets:[{data:itaeSrt.map(d=>d.v),
+    backgroundColor:itaeSrt.map(d=>d.o?'#1d4ed8':C.tqL),borderRadius:4}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>` $${c.parsed.y.toLocaleString('es-AR')}`}}},
+  scales:{y:{grid:{color:C.line},ticks:{callback:v=>'$'+Math.round(v/1000)+'K'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+const nbiAvg7 = ECO7.nbi.reduce((a,b)=>a+b,0)/ECO7.nbi.length;
+const nbiSrt = ECO7.lbl.map((l,i)=>({l,v:ECO7.nbi[i],o:isO(i)})).sort((a,b)=>b.v-a.v);
+new Chart('chartNBI7',{type:'bar',data:{
+  labels:nbiSrt.map(d=>d.l),
+  datasets:[{data:nbiSrt.map(d=>d.v),
+    backgroundColor:nbiSrt.map(d=>d.v>nbiAvg7?C.rojo:C.verde),borderRadius:4}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>` ${c.parsed.y}% NBI`}}},
+  scales:{y:{grid:{color:C.line},ticks:{callback:v=>v+'%'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+const tpcSrt = ECO7.lbl.map((l,i)=>({l,v:ECO7.transPC[i],o:isO(i)})).sort((a,b)=>b.v-a.v);
+new Chart('chartTransPC7',{type:'bar',data:{
+  labels:tpcSrt.map(d=>d.l),
+  datasets:[{data:tpcSrt.map(d=>d.v),
+    backgroundColor:tpcSrt.map(d=>d.o?'#1d4ed8':C.tqL),borderRadius:4}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>` $${c.parsed.y.toLocaleString('es-AR')}/hab`}}},
+  scales:{y:{grid:{color:C.line},ticks:{callback:v=>'$'+Math.round(v/1000)+'K'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+const recSrt = ECO7.lbl.map((l,i)=>({l,v:ECO7.recaud[i],o:isO(i)})).sort((a,b)=>b.v-a.v);
+new Chart('chartRecaud7',{type:'bar',data:{
+  labels:recSrt.map(d=>d.l),
+  datasets:[{data:recSrt.map(d=>d.v),
+    backgroundColor:recSrt.map(d=>d.o?'#1d4ed8':C.tqL),borderRadius:4}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>` $${c.parsed.y.toFixed(1)}M`}}},
+  scales:{y:{grid:{color:C.line},ticks:{callback:v=>'$'+v+'M'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+// MAPA LEAFLET
+const map=L.map('map-container').setView([-36.893,-60.322],10);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:16}).addTo(map);
+[
+  {n:'Olavarría (ciudad)',ll:[-36.893,-60.322],c:'#2563eb',d:'Cabecera · 111.708 hab. · UNICEN'},
+  {n:'Sierras Bayas',ll:[-36.810,-60.237],c:'#d97706',d:'Industrial · Loma Negra · cemento'},
+  {n:'Sierra Chica',ll:[-36.845,-60.192],c:'#d97706',d:'Minería granito · Unidad penitenciaria'},
+  {n:'Loma Negra (localidad)',ll:[-36.785,-60.254],c:'#78716c',d:'Empresa-ciudad · planta cementera'},
+  {n:'Colonia Hinojo',ll:[-37.010,-60.171],c:'#16a34a',d:'Colonias alemanas del Volga'},
+  {n:'Hinojo',ll:[-37.045,-60.193],c:'#94a3b8',d:'Localidad agropecuaria'},
+].forEach(l=>{
+  L.circleMarker(l.ll,{radius:9,color:l.c,fillColor:l.c,fillOpacity:.9,weight:2})
+   .addTo(map).bindPopup(`<strong>${l.n}</strong><br><span style="color:#64748b;font-size:12px">${l.d}</span>`);
+});
+// Polígono aproximado del partido
+L.polygon([[-36.40,-60.80],[-36.35,-59.65],[-37.20,-59.40],[-37.65,-59.80],[-37.70,-60.80],[-36.40,-60.80]],
+  {color:'#2563eb',weight:2,fillColor:'#dbeafe',fillOpacity:.12,dashArray:'6 4'}).addTo(map);
+
+// TOC active highlighting
+(function(){
+  const links=document.querySelectorAll('.toc-sidebar a');
+  const sections=Array.from(links).map(l=>document.querySelector(l.getAttribute('href')));
+  const onScroll=()=>{
+    const y=window.scrollY+120; let current='';
+    sections.forEach((s,i)=>{if(s&&s.offsetTop<=y) current=links[i].getAttribute('href');});
+    links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')===current));
+  };
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+})();
+</script>
+</body>
+</html>
