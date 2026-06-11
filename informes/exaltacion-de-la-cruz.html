@@ -209,6 +209,23 @@
     /* MAP */
     #map-container{height:460px;border-radius:8px;overflow:hidden;border:1px solid var(--line);margin:20px 0}
 
+    /* SIDEBAR TOC */
+    .toc-sidebar{position:fixed;left:max(12px,calc(50vw - 620px));top:90px;width:148px;z-index:150}
+    .toc-sidebar ul{list-style:none;border-left:2px solid var(--line)}
+    .toc-sidebar li a{display:block;padding:5px 0 5px 12px;font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink4);text-decoration:none;transition:color .15s,border-color .15s;border-left:2px solid transparent;margin-left:-2px}
+    .toc-sidebar li a:hover,.toc-sidebar li a.active{color:var(--tq);border-left-color:var(--tq)}
+    .toc-sidebar .toc-head{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);padding-left:12px;margin-bottom:6px}
+    @media(max-width:1280px){.toc-sidebar{display:none}}
+
+    /* COVER */
+    .cover-section{position:relative;height:420px;overflow:hidden;background:var(--g)}
+    .cover-img{width:100%;height:100%;object-fit:cover;opacity:.7}
+    .cover-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(7,17,20,.9))}
+    .cover-text{position:absolute;bottom:40px;left:40px;right:40px}
+    .cover-tag{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tq);margin-bottom:10px}
+    .cover-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(36px,5vw,64px);font-weight:900;color:#fff;line-height:.95;text-transform:uppercase}
+    .cover-sub{font-size:.88rem;color:var(--conc);margin-top:12px}
+
     /* FOOTER */
     footer{background:var(--g);border-top:1px solid rgba(255,255,255,.06);padding:36px 32px}
     .foot-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
@@ -220,6 +237,35 @@
   </style>
 </head>
 <body>
+
+<!-- COVER / CARÁTULA -->
+<div class="cover-section" id="portada">
+  <!-- REEMPLAZAR src con la imagen de portada que el cliente provea -->
+  <img class="cover-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80" alt="Exaltación de la Cruz" id="cover-img-placeholder" />
+  <div class="cover-overlay"></div>
+  <div class="cover-text">
+    <div class="cover-tag">Alsina Consulting · Informe Territorial · Junio 2026</div>
+    <div class="cover-title">Exaltación<br>de la Cruz</div>
+    <div class="cover-sub">2ª Sección Electoral · Provincia de Buenos Aires · Análisis político, fiscal y estratégico</div>
+  </div>
+</div>
+
+<!-- TOC LATERAL -->
+<nav class="toc-sidebar" id="tocNav">
+  <div class="toc-head">Contenido</div>
+  <ul>
+    <li><a href="#territorio">Territorio</a></li>
+    <li><a href="#electoral">Electoral</a></li>
+    <li><a href="#hcd">HCD</a></li>
+    <li><a href="#comp-electoral">Sección elec.</a></li>
+    <li><a href="#fiscal">Fiscal</a></li>
+    <li><a href="#comp-economica">Sección econ.</a></li>
+    <li><a href="#economia">Economía</a></li>
+    <li><a href="#mapa">Mapa</a></li>
+    <li><a href="#encuesta">Encuesta</a></li>
+    <li><a href="#estrategia">Estrategia</a></li>
+  </ul>
+</nav>
 
 <!-- NAV -->
 <nav>
@@ -625,6 +671,73 @@
         </div>
       </div>
     </div>
+
+    <!-- COMISIONES -->
+    <div style="margin-top:48px">
+      <h3 class="sub" style="margin-bottom:14px">Comisiones Permanentes · 2026</h3>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+        <div class="card" style="padding:16px">
+          <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);margin-bottom:10px">Hacienda y Presupuesto</div>
+          <ul style="list-style:none;font-size:.78rem;line-height:2">
+            <li><span style="color:#2563eb;font-weight:700">●</span> Alonso, Christian D. <span style="color:#94a3b8;font-size:.7rem">(UxP)</span></li>
+            <li><span style="color:#7c3aed;font-weight:700">●</span> Verón, Denisa S. <span style="color:#94a3b8;font-size:.7rem">(LLA)</span></li>
+            <li><span style="color:#7c3aed;font-weight:700">●</span> Bucarey F., Elías <span style="color:#94a3b8;font-size:.7rem">(A.LLA)</span></li>
+            <li><span style="color:#2563eb;font-weight:700">●</span> González, Ricardo S. <span style="color:#94a3b8;font-size:.7rem">(FP)</span></li>
+            <li><span style="color:#eab308;font-weight:700">●</span> Herling, Ariel A. <span style="color:#94a3b8;font-size:.7rem">(JxC)</span></li>
+          </ul>
+        </div>
+        <div class="card" style="padding:16px">
+          <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);margin-bottom:10px">Legislación e Interpretación</div>
+          <ul style="list-style:none;font-size:.78rem;line-height:2">
+            <li><span style="color:#2563eb;font-weight:700">●</span> Alonso, Christian D. <span style="color:#94a3b8;font-size:.7rem">(UxP)</span></li>
+            <li><span style="color:#2563eb;font-weight:700">●</span> Pereyra, Eduardo <span style="color:#94a3b8;font-size:.7rem">(FP)</span></li>
+            <li><span style="color:#7c3aed;font-weight:700">●</span> Lizaso, Esteban A. <span style="color:#94a3b8;font-size:.7rem">(LLA)</span></li>
+            <li><span style="color:#7c3aed;font-weight:700">●</span> Saraví, Exequiel A. <span style="color:#94a3b8;font-size:.7rem">(A.LLA)</span></li>
+            <li><span style="color:#eab308;font-weight:700">●</span> Herling, Ariel A. <span style="color:#94a3b8;font-size:.7rem">(JxC)</span></li>
+          </ul>
+        </div>
+        <div class="card" style="padding:16px">
+          <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);margin-bottom:10px">Obras Públicas y Seguridad</div>
+          <ul style="list-style:none;font-size:.78rem;line-height:2">
+            <li><span style="color:#2563eb;font-weight:700">●</span> Santillán, Norma B. <span style="color:#94a3b8;font-size:.7rem">(UxP)</span></li>
+            <li><span style="color:#2563eb;font-weight:700">●</span> Pereyra, Eduardo <span style="color:#94a3b8;font-size:.7rem">(FP)</span></li>
+            <li><span style="color:#7c3aed;font-weight:700">●</span> Lizaso, Esteban A. <span style="color:#94a3b8;font-size:.7rem">(LLA)</span></li>
+            <li><span style="color:#7c3aed;font-weight:700">●</span> Sánchez, Silvia A. <span style="color:#94a3b8;font-size:.7rem">(A.LLA)</span></li>
+            <li><span style="color:#eab308;font-weight:700">●</span> Herling, Ariel A. <span style="color:#94a3b8;font-size:.7rem">(JxC)</span></li>
+          </ul>
+        </div>
+        <div class="card" style="padding:16px">
+          <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);margin-bottom:10px">Cuestiones Vecinales</div>
+          <ul style="list-style:none;font-size:.78rem;line-height:2">
+            <li><span style="color:#7c3aed;font-weight:700">●</span> Saraví, Exequiel A. <span style="color:#94a3b8;font-size:.7rem">(A.LLA)</span></li>
+            <li><span style="color:#7c3aed;font-weight:700">●</span> Verón, Denisa S. <span style="color:#94a3b8;font-size:.7rem">(LLA)</span></li>
+            <li><span style="color:#2563eb;font-weight:700">●</span> Prandi, María V. <span style="color:#94a3b8;font-size:.7rem">(UxP)</span></li>
+            <li><span style="color:#2563eb;font-weight:700">●</span> González, Ricardo S. <span style="color:#94a3b8;font-size:.7rem">(FP)</span></li>
+            <li><span style="color:#eab308;font-weight:700">●</span> Sánchez, Andrea F. <span style="color:#94a3b8;font-size:.7rem">(JxC)</span></li>
+          </ul>
+        </div>
+        <div class="card" style="padding:16px">
+          <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);margin-bottom:10px">Educación, Salud, Producción</div>
+          <ul style="list-style:none;font-size:.78rem;line-height:2">
+            <li><span style="color:#7c3aed;font-weight:700">●</span> Lizaso, Esteban A. <span style="color:#94a3b8;font-size:.7rem">(LLA)</span></li>
+            <li><span style="color:#7c3aed;font-weight:700">●</span> Saraví, Exequiel A. <span style="color:#94a3b8;font-size:.7rem">(A.LLA)</span></li>
+            <li><span style="color:#2563eb;font-weight:700">●</span> Prandi, María V. <span style="color:#94a3b8;font-size:.7rem">(UxP)</span></li>
+            <li><span style="color:#2563eb;font-weight:700">●</span> Klug, Lucía L. <span style="color:#94a3b8;font-size:.7rem">(FP)</span></li>
+            <li><span style="color:#eab308;font-weight:700">●</span> Sánchez, Andrea F. <span style="color:#94a3b8;font-size:.7rem">(JxC)</span></li>
+          </ul>
+        </div>
+        <div class="card" style="padding:16px">
+          <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);margin-bottom:10px">Comisión de Becas</div>
+          <ul style="list-style:none;font-size:.78rem;line-height:2">
+            <li><span style="color:#7c3aed;font-weight:700">●</span> Verón, Denisa S. <span style="color:#94a3b8;font-size:.7rem">(LLA)</span></li>
+            <li><span style="color:#7c3aed;font-weight:700">●</span> Bucarey F., Elías <span style="color:#94a3b8;font-size:.7rem">(A.LLA)</span></li>
+            <li><span style="color:#2563eb;font-weight:700">●</span> Prandi, María V. <span style="color:#94a3b8;font-size:.7rem">(UxP)</span></li>
+            <li><span style="color:#2563eb;font-weight:700">●</span> Klug, Lucía L. <span style="color:#94a3b8;font-size:.7rem">(FP)</span></li>
+            <li><span style="color:#eab308;font-weight:700">●</span> Sánchez, Andrea F. <span style="color:#94a3b8;font-size:.7rem">(JxC)</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -635,23 +748,23 @@
     <h2 class="title">Mapa electoral <em>de la sección</em></h2>
     <p class="lead">Resultados de las legislativas 2025 para los 15 municipios de la 2ª Sección Electoral. Exaltación es uno de los distritos donde FP tiene un margen más sólido sobre LLA. La sección está dividida: FP gana en 9, LLA en 4, Somos/Hechos en 2.</p>
 
-    <div style="margin-top:32px">
-      <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">Resultados 2025 por municipio — FP, LLA, Somos, Otro (%)</div>
-      <div class="chart-wrap" style="height:420px"><canvas id="chartComp2025" style="max-height:420px"></canvas></div>
-      <p class="chart-src">Fuente: Alsina · bsas_electoral_maestro.csv · B=Baradero, CA=Carmen de Areco, CO=Colón, EC=Exaltación de la Cruz, RA=Ramallo, SA=Salto, SAG=San Andrés de Giles, SP=San Pedro, AR=Arrecifes, CS=Capitán Sarmiento, PE=Pergamino, RO=Rojas, SAA=San Antonio de Areco, SN=San Nicolás, ZA=Zárate</p>
+    <div class="two-col" style="margin-top:32px">
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Fuerza Patria 2025 — % por municipio · línea = promedio sección</div>
+        <div class="chart-wrap"><canvas id="chartFP2025"></canvas></div>
+        <p class="chart-src">Fuente: Alsina · bsas_electoral_maestro.csv · Exaltación de la Cruz destacado</p>
+      </div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">La Libertad Avanza 2025 — % por municipio · línea = promedio sección</div>
+        <div class="chart-wrap"><canvas id="chartLLA2025"></canvas></div>
+        <p class="chart-src">Fuente: Alsina · bsas_electoral_maestro.csv · Exaltación de la Cruz destacado</p>
+      </div>
     </div>
 
-    <div class="two-col" style="margin-top:40px">
-      <div>
-        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">% Fuerza Patria 2025 por municipio (ordenado)</div>
-        <div class="chart-wrap"><canvas id="chartFP2025"></canvas></div>
-        <p class="chart-src">Exaltación marcada en azul oscuro · Media sección ~38%</p>
-      </div>
-      <div>
-        <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">% La Libertad Avanza 2025 por municipio (ordenado)</div>
-        <div class="chart-wrap"><canvas id="chartLLA2025"></canvas></div>
-        <p class="chart-src">Exaltación marcada en azul · Media sección ~33%</p>
-      </div>
+    <div style="margin-top:32px">
+      <div style="font-size:.75rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Peso relativo en la sección — % de la población total (Censo 2022)</div>
+      <div class="chart-wrap"><canvas id="chartPesoSec" style="max-height:160px"></canvas></div>
+      <p class="chart-src">Exaltación representa el 4,9% de la población de la 2ª Sección. Los 3 municipios más grandes (San Nicolás, Zárate, Pergamino) concentran el 51% del electorado.</p>
     </div>
 
     <div class="alert alert-tq" style="margin-top:16px">
@@ -1142,131 +1255,105 @@ const C = {
 // ── HEMICICLO HCD ──────────────────────────────────────────────────────────
 (function(){
   const svg = document.getElementById('hemiciclo-svg');
-  if (!svg) return;
-  const ns = 'http://www.w3.org/2000/svg';
-  const cx = 260, cy = 270;
-  // Seats ordered left→right: LLA(5), JxC(2), FP/UxP(7)
-  // 3 rows: inner r=110 (4 seats), mid r=150 (5 seats), outer r=190 (5 seats)
-  const rows = [
-    { r: 110, seats: ['LLA','LLA','JxC','FP'] },
-    { r: 152, seats: ['LLA','LLA','JxC','FP','FP'] },
-    { r: 194, seats: ['LLA','FP','FP','FP','FP'] },
+  if(!svg) return;
+  const ns='http://www.w3.org/2000/svg';
+  const cx=260, cy=275;
+  const radii=[108,150,194]; // inner, mid, outer
+  const pc={FP:'#2563eb',LLA:'#7c3aed',JxC:'#eab308'};
+  const d2r=d=>d*Math.PI/180;
+
+  // Explicit seat positions: angle in degrees (left=180°, right=0°), row (0=inner)
+  // LLA seats: ALL > 90° (left side), JxC: ~90° (center), FP: ALL < 90° (right side)
+  const SEATS=[
+    // Outer row (r=194, 6 seats)
+    {row:2,a:168,p:'LLA',n:'Saraví, Exequiel A.',     b:'Alianza LLA'},
+    {row:2,a:152,p:'LLA',n:'Bucarey Fuentealba, Elías',b:'Alianza LLA'},
+    {row:2,a:128,p:'LLA',n:'Sánchez, Silvia A.',       b:'Alianza LLA'},
+    {row:2,a:66, p:'FP', n:'González, Ricardo S.',     b:'Fuerza Patria'},
+    {row:2,a:42, p:'FP', n:'Pereyra, Eduardo',         b:'Fuerza Patria'},
+    {row:2,a:12, p:'FP', n:'Nanni, Mariela A.',        b:'Fuerza Patria'},
+    // Middle row (r=150, 5 seats)
+    {row:1,a:158,p:'LLA',n:'Verón, Denisa S.',         b:'La Libertad Avanza'},
+    {row:1,a:103,p:'JxC',n:'Herling, Ariel A.',        b:'Juntos por el Cambio'},
+    {row:1,a:77, p:'JxC',n:'Sánchez, Andrea F.',       b:'Juntos por el Cambio'},
+    {row:1,a:55, p:'FP', n:'Klug, Lucía L.',           b:'Fuerza Patria'},
+    {row:1,a:23, p:'FP', n:'Alonso, Christian D.',     b:'Unión x la Patria'},
+    // Inner row (r=108, 3 seats)
+    {row:0,a:142,p:'LLA',n:'Lizaso, Esteban A.',       b:'La Libertad Avanza'},
+    {row:0,a:36, p:'FP', n:'Santillán, Norma B.',      b:'Unión x la Patria'},
+    {row:0,a:9,  p:'FP', n:'Prandi, María V.',         b:'Unión x la Patria'},
   ];
-  const pc = { FP:'#2563eb', LLA:'#7c3aed', JxC:'#eab308' };
-  const MARGIN = Math.PI * 0.08; // margin from pure left/right edges
-  const SPREAD = Math.PI - 2 * MARGIN;
 
   // Draw arc guides
-  rows.forEach(row => {
-    const d = `M ${cx + row.r * Math.cos(Math.PI - MARGIN)} ${cy - row.r * Math.sin(Math.PI - MARGIN)} A ${row.r} ${row.r} 0 0 1 ${cx + row.r * Math.cos(MARGIN)} ${cy - row.r * Math.sin(MARGIN)}`;
-    const path = document.createElementNS(ns,'path');
-    path.setAttribute('d', d);
-    path.setAttribute('fill','none');
-    path.setAttribute('stroke','#e2e8f0');
-    path.setAttribute('stroke-width','1');
+  [0,1,2].forEach(ri=>{
+    const r=radii[ri];
+    const d=`M ${cx+r*Math.cos(d2r(172))} ${cy-r*Math.sin(d2r(172))} A ${r} ${r} 0 0 1 ${cx+r*Math.cos(d2r(8))} ${cy-r*Math.sin(d2r(8))}`;
+    const path=document.createElementNS(ns,'path');
+    path.setAttribute('d',d); path.setAttribute('fill','none');
+    path.setAttribute('stroke','#e2e8f0'); path.setAttribute('stroke-width','1');
     path.setAttribute('stroke-dasharray','3 3');
-    svg.insertBefore(path, svg.firstChild);
+    svg.insertBefore(path,svg.firstChild);
   });
 
-  // Quorum line: between 7th and 8th seat (at top center, 90°)
-  // With 14 seats total arranged symmetrically, 7 left + 7 right → midline is straight up
-  const qLine = document.getElementById('hc-quorum');
-  const qLbl  = document.getElementById('hc-quorum-lbl');
-  const qAngle = Math.PI / 2; // 90° = straight up
-  const outerR = rows[rows.length-1].r + 22;
-  qLine.setAttribute('x1', cx);
-  qLine.setAttribute('y1', cy);
-  qLine.setAttribute('x2', cx + outerR * Math.cos(qAngle));
-  qLine.setAttribute('y2', cy - outerR * Math.sin(qAngle));
-  qLbl.setAttribute('x', cx + 6);
-  qLbl.setAttribute('y', cy - outerR + 4);
+  // Quorum line (at 90° — between LLA territory and FP territory)
+  const qLine=document.getElementById('hc-quorum');
+  const qLbl=document.getElementById('hc-quorum-lbl');
+  const outerR=radii[2]+26;
+  qLine.setAttribute('x1',cx); qLine.setAttribute('y1',cy);
+  qLine.setAttribute('x2',cx); qLine.setAttribute('y2',cy-outerR);
+  qLbl.setAttribute('x',cx+7); qLbl.setAttribute('y',cy-outerR-8);
 
   // Draw seats
-  const seatR = 13;
-  const tooltipData = {
-    // row 0
-    0: [{n:'Verón, D.',b:'LLA'},{n:'Lizaso, E.',b:'LLA'},{n:'Herling, A.',b:'JxC'},{n:'Nanni, M.',b:'FP'}],
-    // row 1
-    1: [{n:'Bucarey, E.',b:'LLA'},{n:'Sánchez S.',b:'LLA'},{n:'Sánchez A.',b:'JxC'},{n:'González, R.',b:'FP'},{n:'Klug, L.',b:'FP'}],
-    // row 2
-    2: [{n:'Saraví, E.',b:'LLA'},{n:'Alonso, C.',b:'FP'},{n:'Santillán, N.',b:'FP'},{n:'Prandi, V.',b:'FP'},{n:'Pereyra, E.',b:'FP'}],
-  };
-
-  rows.forEach((row, ri) => {
-    const n = row.seats.length;
-    row.seats.forEach((party, i) => {
-      const angle = (Math.PI - MARGIN) - (i / (n-1)) * SPREAD;
-      const x = cx + row.r * Math.cos(angle);
-      const y = cy - row.r * Math.sin(angle);
-
-      const g = document.createElementNS(ns,'g');
-      g.setAttribute('class','hc-seat');
-
-      const circle = document.createElementNS(ns,'circle');
-      circle.setAttribute('cx', x.toFixed(1));
-      circle.setAttribute('cy', y.toFixed(1));
-      circle.setAttribute('r', seatR);
-      circle.setAttribute('fill', pc[party]);
-      circle.setAttribute('stroke', '#fff');
-      circle.setAttribute('stroke-width', '2.5');
-      circle.style.cursor = 'pointer';
-      circle.style.transition = 'opacity .15s';
-
-      // tooltip
-      const td = tooltipData[ri]?.[i];
-      if (td) {
-        const title = document.createElementNS(ns,'title');
-        title.textContent = `${td.n} — ${td.b}`;
-        g.appendChild(title);
-      }
-
-      g.appendChild(circle);
-      svg.appendChild(g);
-    });
+  const SR=13;
+  SEATS.forEach(s=>{
+    const r=radii[s.row];
+    const ang=d2r(s.a);
+    const x=cx+r*Math.cos(ang);
+    const y=cy-r*Math.sin(ang);
+    const g=document.createElementNS(ns,'g');
+    const title=document.createElementNS(ns,'title');
+    title.textContent=`${s.n} — ${s.b}`;
+    const c=document.createElementNS(ns,'circle');
+    c.setAttribute('cx',x.toFixed(1)); c.setAttribute('cy',y.toFixed(1));
+    c.setAttribute('r',SR); c.setAttribute('fill',pc[s.p]);
+    c.setAttribute('stroke','#fff'); c.setAttribute('stroke-width','2.5');
+    c.style.cursor='pointer';
+    g.appendChild(title); g.appendChild(c);
+    svg.appendChild(g);
   });
 
-  // Party label arcs
-  const labels = [
-    {t:'LLA', angle: Math.PI * 0.82, r: rows[2].r + 22, fill:'#7c3aed'},
-    {t:'JxC', angle: Math.PI * 0.5,  r: rows[2].r + 22, fill:'#d97706'},
-    {t:'FP · UxP', angle: Math.PI * 0.18, r: rows[2].r + 22, fill:'#2563eb'},
-  ];
-  labels.forEach(l => {
-    const lx = cx + l.r * Math.cos(l.angle);
-    const ly = cy - l.r * Math.sin(l.angle);
-    const t = document.createElementNS(ns,'text');
-    t.setAttribute('x', lx.toFixed(1));
-    t.setAttribute('y', ly.toFixed(1));
-    t.setAttribute('fill', l.fill);
-    t.setAttribute('font-size', '11');
-    t.setAttribute('font-family', 'Barlow Condensed, sans-serif');
-    t.setAttribute('font-weight', '800');
-    t.setAttribute('text-anchor', 'middle');
-    t.setAttribute('dominant-baseline', 'middle');
-    t.textContent = l.t;
+  // Party labels (outside outer arc)
+  const LBLR=radii[2]+28;
+  [{t:'LLA',a:148,c:'#7c3aed'},{t:'JxC',a:90,c:'#eab308'},{t:'FP · UxP',a:37,c:'#2563eb'}].forEach(l=>{
+    const lx=cx+LBLR*Math.cos(d2r(l.a)), ly=cy-LBLR*Math.sin(d2r(l.a));
+    const t=document.createElementNS(ns,'text');
+    t.setAttribute('x',lx.toFixed(1)); t.setAttribute('y',ly.toFixed(1));
+    t.setAttribute('fill',l.c); t.setAttribute('font-size','11');
+    t.setAttribute('font-family','Barlow Condensed,sans-serif');
+    t.setAttribute('font-weight','800'); t.setAttribute('text-anchor','middle');
+    t.setAttribute('dominant-baseline','middle'); t.textContent=l.t;
     svg.appendChild(t);
   });
 
   // Floor line
-  const floor = document.createElementNS(ns,'line');
-  floor.setAttribute('x1', cx - rows[2].r - 28); floor.setAttribute('y1', cy);
-  floor.setAttribute('x2', cx + rows[2].r + 28); floor.setAttribute('y2', cy);
-  floor.setAttribute('stroke','#cbd5e1'); floor.setAttribute('stroke-width','2');
-  svg.appendChild(floor);
+  const fl=document.createElementNS(ns,'line');
+  fl.setAttribute('x1',cx-radii[2]-30); fl.setAttribute('y1',cy);
+  fl.setAttribute('x2',cx+radii[2]+30); fl.setAttribute('y2',cy);
+  fl.setAttribute('stroke','#cbd5e1'); fl.setAttribute('stroke-width','2');
+  svg.appendChild(fl);
 
-  // Seat count badges
-  [{t:'5',x:cx-180,y:cy-40,c:'#7c3aed'},{t:'2',x:cx,y:cy-220,c:'#d97706'},{t:'7',x:cx+180,y:cy-40,c:'#2563eb'}].forEach(b=>{
-    const bg = document.createElementNS(ns,'rect');
+  // Count badges
+  [{t:'5',x:cx-178,y:cy-50,c:'#7c3aed'},{t:'2',x:cx,y:cy-230,c:'#eab308'},{t:'7',x:cx+178,y:cy-50,c:'#2563eb'}].forEach(b=>{
+    const bg=document.createElementNS(ns,'rect');
     bg.setAttribute('x',b.x-14); bg.setAttribute('y',b.y-12);
     bg.setAttribute('width',28); bg.setAttribute('height',22);
     bg.setAttribute('rx',4); bg.setAttribute('fill',b.c); bg.setAttribute('opacity','.15');
-    const t = document.createElementNS(ns,'text');
+    const t=document.createElementNS(ns,'text');
     t.setAttribute('x',b.x); t.setAttribute('y',b.y+3);
     t.setAttribute('fill',b.c); t.setAttribute('font-size','13');
     t.setAttribute('font-family','Barlow Condensed,sans-serif');
     t.setAttribute('font-weight','900'); t.setAttribute('text-anchor','middle');
-    t.textContent = b.t;
-    svg.appendChild(bg); svg.appendChild(t);
+    t.textContent=b.t; svg.appendChild(bg); svg.appendChild(t);
   });
 })();
 Chart.defaults.font.family="'Barlow',sans-serif";
@@ -1398,50 +1485,53 @@ const res2025 = {
 const bgComp = SEC2.map(k => k==='EC' ? 'rgba(37,99,235,.95)' : 'rgba(37,99,235,.22)');
 const bgLLA  = SEC2.map(k => k==='EC' ? 'rgba(124,58,237,.95)' : 'rgba(124,58,237,.22)');
 
-// Stacked horizontal bar - 2025 section
-new Chart('chartComp2025', {
-  type:'bar',
-  data:{
-    labels: SEC2,
-    datasets:[
-      {label:'Fuerza Patria',  data:SEC2.map(k=>res2025[k][0]), backgroundColor:'#2563eb', stack:'s'},
-      {label:'La Libertad Avanza', data:SEC2.map(k=>res2025[k][1]), backgroundColor:'#7c3aed', stack:'s'},
-      {label:'Somos / Hechos', data:SEC2.map(k=>res2025[k][2]), backgroundColor:'#ec4899', stack:'s'},
-      {label:'Otro / Local',   data:SEC2.map(k=>res2025[k][3]), backgroundColor:'#94a3b8', stack:'s'},
-    ]
-  },
-  options:{
-    indexAxis:'y', responsive:true,
-    plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:12}},
-      tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.x.toFixed(1)}%`}}},
-    scales:{
-      x:{stacked:true,max:100,grid:{color:C.line},ticks:{callback:v=>v+'%'}},
-      y:{stacked:true,grid:{display:false},ticks:{font:{size:11}}}
-    }
-  }
-});
-
-// FP bar chart sorted
-const fpData = SEC2.map((k,i)=>({k,lbl:SEC2_FULL[i].split(' ')[0],v:res2025[k][0]}))
-  .sort((a,b)=>b.v-a.v);
+// FP bar chart with section average annotation — full names, sorted
+const FP_AVG = Math.round(SEC2.map(k=>res2025[k][0]).reduce((a,b)=>a+b,0)/SEC2.length*10)/10;
+const fpData = SEC2.map((k,i)=>({k,lbl:SEC2_FULL[i],v:res2025[k][0]})).sort((a,b)=>b.v-a.v);
 new Chart('chartFP2025',{type:'bar',data:{
   labels:fpData.map(d=>d.lbl),
-  datasets:[{label:'FP %',data:fpData.map(d=>d.v),
-    backgroundColor:fpData.map(d=>d.k==='EC'?'#1d4ed8':'#93c5fd'),borderRadius:4}]
-},options:{responsive:true,plugins:{legend:{display:false},
-  tooltip:{callbacks:{label:c=>` FP: ${c.parsed.y.toFixed(1)}%`}}},
-  scales:{y:{min:0,max:55,grid:{color:C.line},ticks:{callback:v=>v+'%'}},x:{grid:{display:false},ticks:{font:{size:9},maxRotation:40}}}}});
+  datasets:[
+    {label:'FP %',data:fpData.map(d=>d.v),
+     backgroundColor:fpData.map(d=>d.k==='EC'?'#1d4ed8':'#93c5fd'),borderRadius:4},
+    {label:'Promedio sección',data:fpData.map(()=>FP_AVG),type:'line',
+     borderColor:'#1d4ed8',borderDash:[6,4],pointRadius:0,borderWidth:2,fill:false}
+  ]
+},options:{responsive:true,plugins:{
+  legend:{position:'bottom',labels:{boxWidth:12,filter:i=>i.datasetIndex===1}},
+  tooltip:{callbacks:{label:c=>c.datasetIndex===0?` FP: ${c.parsed.y.toFixed(1)}%`:` Promedio: ${FP_AVG}%`}}},
+  scales:{y:{min:0,max:55,grid:{color:C.line},ticks:{callback:v=>v+'%'}},
+    x:{grid:{display:false},ticks:{font:{size:9},maxRotation:45}}}}});
 
-// LLA bar chart sorted
-const llaData = SEC2.map((k,i)=>({k,lbl:SEC2_FULL[i].split(' ')[0],v:res2025[k][1]}))
-  .sort((a,b)=>b.v-a.v);
+// LLA bar chart with section average — full names, sorted
+const LLA_AVG = Math.round(SEC2.map(k=>res2025[k][1]).reduce((a,b)=>a+b,0)/SEC2.length*10)/10;
+const llaData = SEC2.map((k,i)=>({k,lbl:SEC2_FULL[i],v:res2025[k][1]})).sort((a,b)=>b.v-a.v);
 new Chart('chartLLA2025',{type:'bar',data:{
   labels:llaData.map(d=>d.lbl),
-  datasets:[{label:'LLA %',data:llaData.map(d=>d.v),
-    backgroundColor:llaData.map(d=>d.k==='EC'?'#6d28d9':'#c4b5fd'),borderRadius:4}]
-},options:{responsive:true,plugins:{legend:{display:false},
-  tooltip:{callbacks:{label:c=>` LLA: ${c.parsed.y.toFixed(1)}%`}}},
-  scales:{y:{min:0,max:55,grid:{color:C.line},ticks:{callback:v=>v+'%'}},x:{grid:{display:false},ticks:{font:{size:9},maxRotation:40}}}}});
+  datasets:[
+    {label:'LLA %',data:llaData.map(d=>d.v),
+     backgroundColor:llaData.map(d=>d.k==='EC'?'#6d28d9':'#c4b5fd'),borderRadius:4},
+    {label:'Promedio sección',data:llaData.map(()=>LLA_AVG),type:'line',
+     borderColor:'#6d28d9',borderDash:[6,4],pointRadius:0,borderWidth:2,fill:false}
+  ]
+},options:{responsive:true,plugins:{
+  legend:{position:'bottom',labels:{boxWidth:12,filter:i=>i.datasetIndex===1}},
+  tooltip:{callbacks:{label:c=>c.datasetIndex===0?` LLA: ${c.parsed.y.toFixed(1)}%`:` Promedio: ${LLA_AVG}%`}}},
+  scales:{y:{min:0,max:55,grid:{color:C.line},ticks:{callback:v=>v+'%'}},
+    x:{grid:{display:false},ticks:{font:{size:9},maxRotation:45}}}}});
+
+// Peso relativo en la sección (población 2022)
+const POP_SEC2 = [40002,17499,27504,40159,39730,39425,26510,68613,32215,15965,115340,25627,26897,167824,132221];
+const POP_TOTAL = POP_SEC2.reduce((a,b)=>a+b,0);
+const pesoData = SEC2_FULL.map((l,i)=>({l,pct:+(POP_SEC2[i]/POP_TOTAL*100).toFixed(1),ec:l==='Exaltación de la Cruz'}))
+  .sort((a,b)=>b.pct-a.pct);
+new Chart('chartPesoSec',{type:'bar',data:{
+  labels:pesoData.map(d=>d.l),
+  datasets:[{data:pesoData.map(d=>d.pct),
+    backgroundColor:pesoData.map(d=>d.ec?'#1d4ed8':C.tqL),borderRadius:4}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+  tooltip:{callbacks:{label:c=>` ${c.parsed.y.toFixed(1)}% del electorado de la sección`}}},
+  scales:{y:{grid:{color:C.line},ticks:{callback:v=>v+'%'}},
+    x:{grid:{display:false},ticks:{font:{size:9},maxRotation:45}}}}});
 
 // ── COMPARACIÓN ECONÓMICA ──────────────────────────────────────────────────
 const ECO = {
@@ -1527,6 +1617,19 @@ fetch(GEOJSON_PATH)
                [-34.48,-58.90],[-34.52,-59.25],[-34.38,-59.42],[-34.10,-59.30]],
       {color:'#2563eb',weight:2,fillColor:'#dbeafe',fillOpacity:.15,dashArray:'6 4'}).addTo(map);
   });
+// TOC sidebar active highlighting
+(function(){
+  const links = document.querySelectorAll('.toc-sidebar a');
+  const sections = Array.from(links).map(l=>document.querySelector(l.getAttribute('href')));
+  const onScroll=()=>{
+    const y=window.scrollY+120;
+    let current='';
+    sections.forEach((s,i)=>{ if(s&&s.offsetTop<=y) current=links[i].getAttribute('href'); });
+    links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')===current));
+  };
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
 </script>
 </body>
 </html>
