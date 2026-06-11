@@ -232,6 +232,7 @@
   <ul class="nav-links">
     <li><a href="#territorio">Territorio</a></li>
     <li><a href="#electoral">Electoral</a></li>
+    <li><a href="#hcd">HCD</a></li>
     <li><a href="#fiscal">Fiscal</a></li>
     <li><a href="#economia">Economía</a></li>
     <li><a href="#mapa">Mapa</a></li>
@@ -529,6 +530,82 @@
         <div class="card card-camb">
           <div style="font-weight:700;font-size:.9rem;margin-bottom:4px">🟡 Variable clave 2027</div>
           <p style="font-size:.82rem;color:var(--ink3)">¿Puede LLA presentar candidato a intendente con peso propio? Si sí: municipio competitivo. Si no: FP gana por defecto.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HCD: HEMICICLO ═════════════════════════════════════════════════════ -->
+<section class="light" id="hcd">
+  <div class="wrap">
+    <div class="sec-label">Concejo Deliberante · 2025–2029</div>
+    <h2 class="title">Composición del <em>HCD</em></h2>
+    <p class="lead">14 concejales. El peronismo (FP + UxP) es la fuerza mayoritaria con 7 bancas pero le falta <strong>1 voto para la mayoría absoluta</strong>. Necesita el apoyo de JxC o una defección de LLA para aprobar ordenanzas por mayoría especial.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 320px;gap:40px;margin-top:36px;align-items:start">
+
+      <!-- HEMICICLO SVG -->
+      <div>
+        <svg id="hemiciclo-svg" viewBox="0 0 520 300" style="width:100%;max-width:520px;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+          <!-- arcos de fondo -->
+          <path id="hc-arc-outer" d="" fill="none" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4 3"/>
+          <path id="hc-arc-inner" d="" fill="none" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4 3"/>
+          <!-- línea de quórum -->
+          <line id="hc-quorum" x1="260" y1="270" x2="260" y2="80" stroke="#475569" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text id="hc-quorum-lbl" x="265" y="90" fill="#475569" font-size="10" font-family="Barlow,sans-serif" font-weight="700" letter-spacing=".04em">MAYORÍA (8)</text>
+          <!-- seats se dibujan con JS -->
+        </svg>
+
+        <!-- leyenda -->
+        <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:8px">
+          <div style="display:flex;align-items:center;gap:7px;font-size:.78rem">
+            <div style="width:14px;height:14px;border-radius:50%;background:#2563eb"></div>
+            <span><strong>Peronismo (FP + UxP)</strong> — 7 bancas</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:.78rem">
+            <div style="width:14px;height:14px;border-radius:50%;background:#7c3aed"></div>
+            <span><strong>La Libertad Avanza</strong> — 5 bancas</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:.78rem">
+            <div style="width:14px;height:14px;border-radius:50%;background:#d97706"></div>
+            <span><strong>Juntos por el Cambio</strong> — 2 bancas</span>
+          </div>
+        </div>
+        <p style="font-size:.7rem;color:#94a3b8;text-align:center;margin-top:8px">— — Línea de mayoría absoluta (8 de 14) · Fuente: HCD Exaltación de la Cruz 2026</p>
+      </div>
+
+      <!-- TABLA CONCEJALES -->
+      <div>
+        <h3 class="sub" style="margin-bottom:12px">Concejales</h3>
+        <table class="tbl" style="font-size:.78rem">
+          <thead>
+            <tr><th>Nombre</th><th>Bloque</th><th>Cargo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Nanni, Mariela A.</td><td style="color:#2563eb;font-weight:700">Fuerza Patria</td><td style="font-size:.7rem;color:#94a3b8">Pte. HCD</td></tr>
+            <tr><td>Alonso, Christian D.</td><td style="color:#2563eb;font-weight:700">Unión x la Patria</td><td style="font-size:.7rem;color:#94a3b8">VP 1°</td></tr>
+            <tr><td>Lizaso, Esteban A.</td><td style="color:#7c3aed;font-weight:700">La Libertad Avanza</td><td style="font-size:.7rem;color:#94a3b8">VP 2°</td></tr>
+            <tr><td>Santillán, Norma B.</td><td style="color:#2563eb;font-weight:700">Unión x la Patria</td><td style="font-size:.7rem;color:#94a3b8">VP 3°</td></tr>
+            <tr><td>González, Ricardo S.</td><td style="color:#2563eb;font-weight:700">Fuerza Patria</td><td></td></tr>
+            <tr><td>Klug, Lucía L.</td><td style="color:#2563eb;font-weight:700">Fuerza Patria</td><td></td></tr>
+            <tr><td>Pereyra, Eduardo</td><td style="color:#2563eb;font-weight:700">Fuerza Patria</td><td></td></tr>
+            <tr><td>Prandi, María V.</td><td style="color:#2563eb;font-weight:700">Unión x la Patria</td><td></td></tr>
+            <tr><td>Bucarey Fuentealba, E.</td><td style="color:#7c3aed;font-weight:700">Alianza LLA</td><td></td></tr>
+            <tr><td>Sánchez, Silvia A.</td><td style="color:#7c3aed;font-weight:700">Alianza LLA</td><td></td></tr>
+            <tr><td>Saraví, Exequiel A.</td><td style="color:#7c3aed;font-weight:700">Alianza LLA</td><td></td></tr>
+            <tr><td>Verón, Denisa S.</td><td style="color:#7c3aed;font-weight:700">La Libertad Avanza</td><td></td></tr>
+            <tr><td>Herling, Ariel A.</td><td style="color:#d97706;font-weight:700">Juntos x el Cambio</td><td></td></tr>
+            <tr><td>Sánchez, Andrea F.</td><td style="color:#d97706;font-weight:700">Juntos x el Cambio</td><td></td></tr>
+          </tbody>
+        </table>
+
+        <div class="alert alert-pj" style="margin-top:16px">
+          <div class="alert-ico">⚖️</div>
+          <div>
+            <strong>1 banca de distancia</strong>
+            <p>FP+UxP necesita solo 1 voto de la oposición para tener mayoría absoluta. JxC (2 bancas) es el árbitro del cuerpo. LLA + JxC sumados (7) empatan con el peronismo.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -966,6 +1043,137 @@ const C = {
   verde:'#22c55e', verdeL:'#dcfce7',
   ink3:'#64748b', ink4:'#94a3b8', line:'#e2e8f0', bg3:'#f1f5f9'
 };
+
+// ── HEMICICLO HCD ──────────────────────────────────────────────────────────
+(function(){
+  const svg = document.getElementById('hemiciclo-svg');
+  if (!svg) return;
+  const ns = 'http://www.w3.org/2000/svg';
+  const cx = 260, cy = 270;
+  // Seats ordered left→right: LLA(5), JxC(2), FP/UxP(7)
+  // 3 rows: inner r=110 (4 seats), mid r=150 (5 seats), outer r=190 (5 seats)
+  const rows = [
+    { r: 110, seats: ['LLA','LLA','JxC','FP'] },
+    { r: 152, seats: ['LLA','LLA','JxC','FP','FP'] },
+    { r: 194, seats: ['LLA','FP','FP','FP','FP'] },
+  ];
+  const pc = { FP:'#2563eb', LLA:'#7c3aed', JxC:'#d97706' };
+  const MARGIN = Math.PI * 0.08; // margin from pure left/right edges
+  const SPREAD = Math.PI - 2 * MARGIN;
+
+  // Draw arc guides
+  rows.forEach(row => {
+    const d = `M ${cx + row.r * Math.cos(Math.PI - MARGIN)} ${cy - row.r * Math.sin(Math.PI - MARGIN)} A ${row.r} ${row.r} 0 0 1 ${cx + row.r * Math.cos(MARGIN)} ${cy - row.r * Math.sin(MARGIN)}`;
+    const path = document.createElementNS(ns,'path');
+    path.setAttribute('d', d);
+    path.setAttribute('fill','none');
+    path.setAttribute('stroke','#e2e8f0');
+    path.setAttribute('stroke-width','1');
+    path.setAttribute('stroke-dasharray','3 3');
+    svg.insertBefore(path, svg.firstChild);
+  });
+
+  // Quorum line: between 7th and 8th seat (at top center, 90°)
+  // With 14 seats total arranged symmetrically, 7 left + 7 right → midline is straight up
+  const qLine = document.getElementById('hc-quorum');
+  const qLbl  = document.getElementById('hc-quorum-lbl');
+  const qAngle = Math.PI / 2; // 90° = straight up
+  const outerR = rows[rows.length-1].r + 22;
+  qLine.setAttribute('x1', cx);
+  qLine.setAttribute('y1', cy);
+  qLine.setAttribute('x2', cx + outerR * Math.cos(qAngle));
+  qLine.setAttribute('y2', cy - outerR * Math.sin(qAngle));
+  qLbl.setAttribute('x', cx + 6);
+  qLbl.setAttribute('y', cy - outerR + 4);
+
+  // Draw seats
+  const seatR = 13;
+  const tooltipData = {
+    // row 0
+    0: [{n:'Verón, D.',b:'LLA'},{n:'Lizaso, E.',b:'LLA'},{n:'Herling, A.',b:'JxC'},{n:'Nanni, M.',b:'FP'}],
+    // row 1
+    1: [{n:'Bucarey, E.',b:'LLA'},{n:'Sánchez S.',b:'LLA'},{n:'Sánchez A.',b:'JxC'},{n:'González, R.',b:'FP'},{n:'Klug, L.',b:'FP'}],
+    // row 2
+    2: [{n:'Saraví, E.',b:'LLA'},{n:'Alonso, C.',b:'FP'},{n:'Santillán, N.',b:'FP'},{n:'Prandi, V.',b:'FP'},{n:'Pereyra, E.',b:'FP'}],
+  };
+
+  rows.forEach((row, ri) => {
+    const n = row.seats.length;
+    row.seats.forEach((party, i) => {
+      const angle = (Math.PI - MARGIN) - (i / (n-1)) * SPREAD;
+      const x = cx + row.r * Math.cos(angle);
+      const y = cy - row.r * Math.sin(angle);
+
+      const g = document.createElementNS(ns,'g');
+      g.setAttribute('class','hc-seat');
+
+      const circle = document.createElementNS(ns,'circle');
+      circle.setAttribute('cx', x.toFixed(1));
+      circle.setAttribute('cy', y.toFixed(1));
+      circle.setAttribute('r', seatR);
+      circle.setAttribute('fill', pc[party]);
+      circle.setAttribute('stroke', '#fff');
+      circle.setAttribute('stroke-width', '2.5');
+      circle.style.cursor = 'pointer';
+      circle.style.transition = 'opacity .15s';
+
+      // tooltip
+      const td = tooltipData[ri]?.[i];
+      if (td) {
+        const title = document.createElementNS(ns,'title');
+        title.textContent = `${td.n} — ${td.b}`;
+        g.appendChild(title);
+      }
+
+      g.appendChild(circle);
+      svg.appendChild(g);
+    });
+  });
+
+  // Party label arcs
+  const labels = [
+    {t:'LLA', angle: Math.PI * 0.82, r: rows[2].r + 22, fill:'#7c3aed'},
+    {t:'JxC', angle: Math.PI * 0.5,  r: rows[2].r + 22, fill:'#d97706'},
+    {t:'FP · UxP', angle: Math.PI * 0.18, r: rows[2].r + 22, fill:'#2563eb'},
+  ];
+  labels.forEach(l => {
+    const lx = cx + l.r * Math.cos(l.angle);
+    const ly = cy - l.r * Math.sin(l.angle);
+    const t = document.createElementNS(ns,'text');
+    t.setAttribute('x', lx.toFixed(1));
+    t.setAttribute('y', ly.toFixed(1));
+    t.setAttribute('fill', l.fill);
+    t.setAttribute('font-size', '11');
+    t.setAttribute('font-family', 'Barlow Condensed, sans-serif');
+    t.setAttribute('font-weight', '800');
+    t.setAttribute('text-anchor', 'middle');
+    t.setAttribute('dominant-baseline', 'middle');
+    t.textContent = l.t;
+    svg.appendChild(t);
+  });
+
+  // Floor line
+  const floor = document.createElementNS(ns,'line');
+  floor.setAttribute('x1', cx - rows[2].r - 28); floor.setAttribute('y1', cy);
+  floor.setAttribute('x2', cx + rows[2].r + 28); floor.setAttribute('y2', cy);
+  floor.setAttribute('stroke','#cbd5e1'); floor.setAttribute('stroke-width','2');
+  svg.appendChild(floor);
+
+  // Seat count badges
+  [{t:'5',x:cx-180,y:cy-40,c:'#7c3aed'},{t:'2',x:cx,y:cy-220,c:'#d97706'},{t:'7',x:cx+180,y:cy-40,c:'#2563eb'}].forEach(b=>{
+    const bg = document.createElementNS(ns,'rect');
+    bg.setAttribute('x',b.x-14); bg.setAttribute('y',b.y-12);
+    bg.setAttribute('width',28); bg.setAttribute('height',22);
+    bg.setAttribute('rx',4); bg.setAttribute('fill',b.c); bg.setAttribute('opacity','.15');
+    const t = document.createElementNS(ns,'text');
+    t.setAttribute('x',b.x); t.setAttribute('y',b.y+3);
+    t.setAttribute('fill',b.c); t.setAttribute('font-size','13');
+    t.setAttribute('font-family','Barlow Condensed,sans-serif');
+    t.setAttribute('font-weight','900'); t.setAttribute('text-anchor','middle');
+    t.textContent = b.t;
+    svg.appendChild(bg); svg.appendChild(t);
+  });
+})();
 Chart.defaults.font.family="'Barlow',sans-serif";
 Chart.defaults.color=C.ink3;
 
