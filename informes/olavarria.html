@@ -538,61 +538,92 @@
 <!-- ══ HCD ════════════════════════════════════════════════════════════════ -->
 <section class="gray" id="hcd">
   <div class="wrap">
-    <div class="sec-label">Concejo Deliberante · Composición estimada</div>
+    <div class="sec-label">Concejo Deliberante · 2025–2029 · Datos oficiales</div>
     <h2 class="title">HCD <em>Olavarría</em></h2>
-    <p class="lead">Olavarría tiene <strong>24 concejales</strong> (12 renovados cada 2 años con mandatos de 4 años). La composición actual (2025) surge de las elecciones de 2023 y 2025. La composición exacta requiere verificación en el sitio oficial del HCD.</p>
+    <p class="lead">20 concejales (10 renovados en 2023, 10 en 2025 con mandatos de 4 años). Fuerza Patria obtuvo exactamente 10 — la mitad exacta del cuerpo — y necesita <strong>1 voto de la oposición</strong> para alcanzar mayoría absoluta. El espacio libertario se fragmentó en tres bloques distintos. Fuente: <a href="https://hcd.olavarria.gov.ar/hcd-olavarria/concejales/" style="color:var(--tq2);text-decoration:underline" target="_blank">HCD Olavarría oficial</a>.</p>
 
-    <div class="two-col" style="margin-top:32px">
+    <div style="display:grid;grid-template-columns:1fr 320px;gap:40px;margin-top:36px;align-items:start">
+
+      <!-- HEMICICLO SVG -->
       <div>
-        <h3 class="sub">Composición estimada 2025</h3>
-        <div class="chart-wrap"><canvas id="chartHCD"></canvas></div>
-        <p class="chart-src">Estimación proporcional basada en resultados 2023 y 2025 · Verificar en HCD oficial</p>
-        <div class="alert alert-amber" style="margin-top:12px">
-          <div class="alert-ico">⚠️</div>
-          <div>
-            <strong>Datos pendientes de verificación oficial</strong>
-            <p>Los datos del HCD no estaban disponibles en fuentes digitales al momento de elaborar este informe. Los bloques estimados se calculan en base a los resultados electorales proporcionales de 2023 y 2025. Confirmar en hcd.olavarria.gob.ar.</p>
+        <svg id="hemiciclo-svg" viewBox="0 0 520 300" style="width:100%;max-width:520px;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+          <path id="hc-arc-outer" d="" fill="none" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4 3"/>
+          <path id="hc-arc-inner" d="" fill="none" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4 3"/>
+          <line id="hc-quorum" x1="260" y1="270" x2="260" y2="80" stroke="#475569" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text id="hc-quorum-lbl" x="265" y="90" fill="#475569" font-size="10" font-family="Barlow,sans-serif" font-weight="700" letter-spacing=".04em">MAYORÍA (11)</text>
+        </svg>
+
+        <!-- leyenda -->
+        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:8px">
+          <div style="display:flex;align-items:center;gap:6px;font-size:.78rem">
+            <div style="width:12px;height:12px;border-radius:50%;background:#2563eb"></div>
+            <span><strong>Fuerza Patria</strong> — 10</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.78rem">
+            <div style="width:12px;height:12px;border-radius:50%;background:#7c3aed"></div>
+            <span><strong>La Libertad Avanza</strong> — 4</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.78rem">
+            <div style="width:12px;height:12px;border-radius:50%;background:#eab308"></div>
+            <span><strong>PRO</strong> — 2</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.78rem">
+            <div style="width:12px;height:12px;border-radius:50%;background:#06b6d4"></div>
+            <span><strong>UCR</strong> — 1</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.78rem">
+            <div style="width:12px;height:12px;border-radius:50%;background:#94a3b8"></div>
+            <span><strong>Otros lib.</strong> — 3</span>
           </div>
         </div>
+        <p style="font-size:.7rem;color:#94a3b8;text-align:center;margin-top:6px">— — Línea de mayoría absoluta (11 de 20) · Fuente: HCD Olavarría 2026</p>
       </div>
+
+      <!-- TABLA CONCEJALES -->
       <div>
-        <h3 class="sub">Bloques estimados</h3>
-        <table class="tbl">
-          <thead><tr><th>Bloque</th><th>Bancas est.</th><th>Base electoral</th></tr></thead>
+        <h3 class="sub" style="margin-bottom:12px">Concejales</h3>
+        <table class="tbl" style="font-size:.78rem">
+          <thead><tr><th>Nombre</th><th>Bloque</th><th style="font-size:.65rem;color:var(--ink4)">Mandato</th></tr></thead>
           <tbody>
-            <tr>
-              <td><strong style="color:var(--pj)">● Fuerza Patria / UxP</strong></td>
-              <td><strong>~10</strong></td>
-              <td>2023 (41,6%) + 2025 (38,9%)</td>
-            </tr>
-            <tr>
-              <td><strong style="color:var(--lla)">● La Libertad Avanza</strong></td>
-              <td><strong>~7</strong></td>
-              <td>2023 (28,1%) + 2025 (35,2%)</td>
-            </tr>
-            <tr>
-              <td><strong style="color:var(--camb)">● Juntos por el Cambio / PRO</strong></td>
-              <td><strong>~4</strong></td>
-              <td>2023 (28,1%) — sin renovación en 2025</td>
-            </tr>
-            <tr>
-              <td><strong style="color:var(--ink3)">● Otros / Somos</strong></td>
-              <td><strong>~3</strong></td>
-              <td>Frentes menores (Somos, FIT)</td>
-            </tr>
-            <tr style="background:var(--bg3)">
-              <td><strong>TOTAL</strong></td>
-              <td><strong>24</strong></td>
-              <td>12 mandato 2023-2027 · 12 mandato 2025-2029</td>
-            </tr>
+            <tr><td>Guillermo Santellán</td><td style="color:#2563eb;font-weight:700">Fuerza Patria</td><td style="font-size:.7rem;color:#94a3b8">Pte. HCD · 23-27</td></tr>
+            <tr><td>Federico Aguilera</td><td style="color:#2563eb;font-weight:700">Fuerza Patria</td><td style="font-size:.7rem;color:#94a3b8">Pte. bloque · 23-27</td></tr>
+            <tr><td>Belén Abraham</td><td style="color:#2563eb;font-weight:700">Fuerza Patria</td><td style="font-size:.7rem;color:#94a3b8">23-27</td></tr>
+            <tr><td>Liliana Schwindt</td><td style="color:#2563eb;font-weight:700">Fuerza Patria</td><td style="font-size:.7rem;color:#94a3b8">23-27</td></tr>
+            <tr><td>Lucía Palacios</td><td style="color:#2563eb;font-weight:700">Fuerza Patria</td><td style="font-size:.7rem;color:#94a3b8">25-29</td></tr>
+            <tr><td>Natalia Álvarez</td><td style="color:#2563eb;font-weight:700">Fuerza Patria</td><td style="font-size:.7rem;color:#94a3b8">25-29</td></tr>
+            <tr><td>Juan Ignacio Moreno</td><td style="color:#2563eb;font-weight:700">Fuerza Patria</td><td style="font-size:.7rem;color:#94a3b8">25-29</td></tr>
+            <tr><td>Nicolás Bruno</td><td style="color:#2563eb;font-weight:700">Fuerza Patria</td><td style="font-size:.7rem;color:#94a3b8">25-29</td></tr>
+            <tr><td>Gastón Sarachu</td><td style="color:#2563eb;font-weight:700">Fuerza Patria</td><td style="font-size:.7rem;color:#94a3b8">25-29</td></tr>
+            <tr><td>Telma Cazot</td><td style="color:#2563eb;font-weight:700">Fuerza Patria</td><td style="font-size:.7rem;color:#94a3b8">25-29</td></tr>
+            <tr><td>Guillermo Lascano</td><td style="color:#7c3aed;font-weight:700">La Libertad Avanza</td><td style="font-size:.7rem;color:#94a3b8">Pte. bloque · 23-27</td></tr>
+            <tr><td>Nicolás Zampini</td><td style="color:#7c3aed;font-weight:700">La Libertad Avanza</td><td style="font-size:.7rem;color:#94a3b8">25-29</td></tr>
+            <tr><td>María E. Dumerauf</td><td style="color:#7c3aed;font-weight:700">La Libertad Avanza</td><td style="font-size:.7rem;color:#94a3b8">25-29</td></tr>
+            <tr><td>Luciana Islas</td><td style="color:#7c3aed;font-weight:700">La Libertad Avanza</td><td style="font-size:.7rem;color:#94a3b8">25-29</td></tr>
+            <tr><td>Hilario Galli</td><td style="color:#eab308;font-weight:700">PRO</td><td style="font-size:.7rem;color:#94a3b8">Pte. bloque · 23-27</td></tr>
+            <tr><td>Marcelino Quinteros Videla</td><td style="color:#eab308;font-weight:700">PRO</td><td style="font-size:.7rem;color:#94a3b8">25-29</td></tr>
+            <tr><td>Francisco González</td><td style="color:#06b6d4;font-weight:700">UCR</td><td style="font-size:.7rem;color:#94a3b8">Pte. bloque · 23-27</td></tr>
+            <tr><td>Guillermina Amespil</td><td style="color:#94a3b8;font-weight:700">Juntos por Olavarría</td><td style="font-size:.7rem;color:#94a3b8">23-27</td></tr>
+            <tr><td>Marcelo Petehs</td><td style="color:#94a3b8;font-weight:700">Por Más Libertad</td><td style="font-size:.7rem;color:#94a3b8">23-27</td></tr>
+            <tr><td>María Adela Casamayor</td><td style="color:#94a3b8;font-weight:700">Partido Libertario</td><td style="font-size:.7rem;color:#94a3b8">23-27</td></tr>
           </tbody>
         </table>
-        <div class="alert alert-pj" style="margin-top:12px">
-          <div class="alert-ico">⚖️</div>
-          <div>
-            <strong>FP necesita aliados para gobernar el HCD</strong>
-            <p>Con ~10 bancas sobre 24, FP necesita 3 votos más para alcanzar mayoría simple (13). LLA + JxC juntos (~11) no alcanzan para votar en contra, pero sí para empatar o bloquear con los otros. El escenario deliberativo es complejo.</p>
-          </div>
+      </div>
+    </div>
+
+    <!-- ANÁLISIS DELIBERATIVO -->
+    <div class="two-col" style="margin-top:32px">
+      <div class="alert alert-pj" style="margin:0">
+        <div class="alert-ico">⚖️</div>
+        <div>
+          <strong>FP: exactamente la mitad — necesita 1 voto</strong>
+          <p>Con 10 bancas sobre 20, Fuerza Patria es la mitad exacta del cuerpo. Para mayoría absoluta (11) necesita atraer al menos 1 concejal de la oposición. El UCR (González) o el PRO tienen poder de árbitro. Si los 10 de oposición votan juntos, pueden bloquear cualquier iniciativa oficialista.</p>
+        </div>
+      </div>
+      <div class="alert alert-lla" style="margin:0">
+        <div class="alert-ico">🔀</div>
+        <div>
+          <strong>El espacio libertario: 7 bancas en 3 bloques distintos</strong>
+          <p>LLA (4) + Por Más Libertad (1) + Partido Libertario (1) = 6 bancas libertarias, más Juntos por Olavarría (1) que puede orbitar ese espacio. El peronismo electoral era 1 bloque unido; el libertarismo llegó al HCD fragmentado, lo que complica la disciplina de voto opositora en 2027.</p>
         </div>
       </div>
     </div>
@@ -986,13 +1017,60 @@ new Chart('chartVarReal',{type:'bar',data:{
   scales:{y:{grid:{color:C.line},ticks:{callback:v=>v+'%'}},
     x:{grid:{display:false},ticks:{font:{size:9},maxRotation:35}}}}});
 
-// 7. HCD CHART
+// 7. HCD CHART — datos reales HCD Olavarría 2026
 new Chart('chartHCD',{type:'doughnut',data:{
-  labels:['FP / UxP (~10)','La Libertad Avanza (~7)','JxC / PRO (~4)','Otros / Somos (~3)'],
-  datasets:[{data:[10,7,4,3],
-    backgroundColor:[C.pj,C.lla,C.camb,C.ink4],borderWidth:2,borderColor:'#fff'}]
-},options:{responsive:true,cutout:'58%',
-  plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}}}});
+  labels:['Fuerza Patria (10)','La Libertad Avanza (4)','PRO (2)','UCR (1)','Juntos x Olavarría (1)','Por Más Libertad (1)','Partido Libertario (1)'],
+  datasets:[{data:[10,4,2,1,1,1,1],
+    backgroundColor:[C.pj,C.lla,C.camb,'#06b6d4','#64748b','#a78bfa','#c084fc'],borderWidth:2,borderColor:'#fff'}]
+},options:{responsive:true,cutout:'55%',
+  plugins:{legend:{position:'bottom',labels:{boxWidth:11,font:{size:10},padding:8}}}}});
+
+// Hemiciclo SVG
+(function(){
+  const svg = document.getElementById('hemiciclo-svg');
+  if(!svg) return;
+  const cx=260, cy=270, rOuter=180, rInner=110;
+  const seats = [
+    {n:10,color:'#2563eb',label:'FP'},
+    {n:4,color:'#7c3aed',label:'LLA'},
+    {n:2,color:'#eab308',label:'PRO'},
+    {n:1,color:'#06b6d4',label:'UCR'},
+    {n:1,color:'#94a3b8',label:'JxO'},
+    {n:1,color:'#a78bfa',label:'PML'},
+    {n:1,color:'#c084fc',label:'PL'},
+  ];
+  const total=20, startAngle=Math.PI, endAngle=2*Math.PI;
+  const range=endAngle-startAngle;
+  const gap=0.04;
+  const rMid=(rOuter+rInner)/2;
+
+  // draw arcs
+  function arcPath(r,a1,a2){
+    const x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1);
+    const x2=cx+r*Math.cos(a2),y2=cy+r*Math.sin(a2);
+    return `M${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2}`;
+  }
+  document.getElementById('hc-arc-outer').setAttribute('d',arcPath(rOuter,Math.PI,2*Math.PI));
+  document.getElementById('hc-arc-inner').setAttribute('d',arcPath(rInner,Math.PI,2*Math.PI));
+
+  // draw seat dots
+  let angle=startAngle;
+  const anglePerSeat=range/total;
+  seats.forEach(blk=>{
+    for(let i=0;i<blk.n;i++){
+      const a=angle+i*anglePerSeat+anglePerSeat/2;
+      const x=cx+rMid*Math.cos(a), y=cy+rMid*Math.sin(a);
+      const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx',x.toFixed(1)); c.setAttribute('cy',y.toFixed(1));
+      c.setAttribute('r','11'); c.setAttribute('fill',blk.color);
+      c.setAttribute('stroke','#fff'); c.setAttribute('stroke-width','2');
+      const t=document.createElementNS('http://www.w3.org/2000/svg','title');
+      t.textContent=blk.label; c.appendChild(t);
+      svg.appendChild(c);
+    }
+    angle+=blk.n*anglePerSeat;
+  });
+})();
 
 // ── 7ª SECCIÓN COMPARACIÓN ─────────────────────────────────────────────────
 const SEC7 = ['Azul','Bolívar','Olavarría','Roque Pérez','Tapalqué','General Alvear','Saladillo'];
