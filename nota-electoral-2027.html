@@ -337,26 +337,30 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,17,20,.97);border-bottom
 <!-- ─── CAP 5 ─── -->
 <section class="chapter" id="ch5">
   <div class="ch-label">Capítulo 5</div>
-  <h2 class="ch-title">Los intendentes con raíces: peso propio vs. arrastre nacional</h2>
+  <h2 class="ch-title">Los intendentes con raíces: peso propio y tendencia histórica</h2>
   <div class="ch-text">
-    <p>89 intendentes bonaerenses ganaron en al menos 2 de las 3 elecciones entre 2015 y 2023. Son los líderes territoriales más consolidados de la provincia. Pero no todos son iguales: algunos superan ampliamente a su partido nacional, mientras otros dependen del arrastre de la boleta. En 2027, esa diferencia va a importar más que nunca.</p>
+    <p>29 intendentes bonaerenses ganaron las tres elecciones consecutivas de 2015, 2019 y 2023. Son los líderes territoriales más consolidados de la provincia — los que demostraron que pueden ganar en ciclos adversos a su espacio nacional. La tabla muestra su porcentaje en cada elección y cuánto superaron (o no) al resultado presidencial de su partido en 2023. La columna de tendencia dice si su voto personal creció o cayó entre 2015 y 2023.</p>
   </div>
 
   <div class="viz">
-    <div class="viz-title">Peso propio 2023 — intendentes con 3 victorias consecutivas (2015–2019–2023)</div>
+    <div class="viz-title">Intendentes con 3 victorias consecutivas · evolución 2015–2019–2023</div>
     <div class="table-wrap">
       <table class="data-table" id="pp-table">
         <thead><tr>
           <th>Municipio</th><th>Intendente</th><th>Partido</th><th>Secc.</th>
-          <th style="text-align:right">Peso propio 2023</th>
+          <th style="text-align:right">2015%</th>
+          <th style="text-align:right">2019%</th>
+          <th style="text-align:right">2023%</th>
+          <th style="text-align:center">Tend.</th>
+          <th style="text-align:right">PP 2023</th>
         </tr></thead>
         <tbody id="pp-tbody"></tbody>
       </table>
     </div>
-    <div class="chart-note">Peso propio = % local obtenido (2023) − % presidencial PBA de su espacio. Datos presidenciales PBA 2023: PJ 44.3%, LLA 29.9%, JxC 23.8%.</div>
+    <div class="chart-note">PP 2023 = % local 2023 − % presidencial PBA de su espacio (PJ 44.3% · JxC 23.8%). Tendencia = variación de voto propio 2015→2023. Vecinales: sin referencia nacional, se muestra solo %. Fuente: Junta Electoral PBA.</div>
   </div>
 
-  <div class="datazo"><div class="datazo-text">El intendente de General Madariaga (JxC) superó al resultado presidencial de su partido por 43 puntos en 2023. En ese municipio, el voto es a la persona — no al partido.</div></div>
+  <div class="datazo"><div class="datazo-text">Gral. Madariaga y San Cayetano son los casos extremos de peso propio JxC: superan al resultado presidencial de su espacio por más de 30 puntos. En el otro extremo, San Pedro y Marcos Paz están por debajo del promedio PJ — su continuidad depende del contexto nacional, no de su marca personal.</div></div>
 </section>
 
 <!-- ─── CAP 6 ─── -->
@@ -649,38 +653,69 @@ function filterBisagra(){
 }
 
 // ── PESO PROPIO TABLE
+// p: 'PJ','JxC','Vec' | pp: null = vecinal/sin referencia nacional
 const PP_DATA = [
-  {m:'Almirante Brown',i:'CASCALLARES Mariano',p:'PJ / Peronismo',s:'3ª',pp:9.8},
-  {m:'Balcarce',i:'REINO Esteban',p:'Juntos x el Cambio',s:'5ª',pp:32.6},
-  {m:'Campana',i:'ABELLA Sebastián',p:'Juntos x el Cambio',s:'1ª',pp:33.3},
-  {m:'Ensenada',i:'SECCO Mario',p:'PJ / Peronismo',s:'3ª',pp:18.6},
-  {m:'Gral. Arenales',i:'REVILLA Erica',p:'Juntos x el Cambio',s:'4ª',pp:24.7},
-  {m:'Gral. Belgrano',i:'DINAPOLI Osvaldo',p:'Juntos x el Cambio',s:'5ª',pp:26.4},
-  {m:'Gral. La Madrid',i:'RANDAZZO Martín',p:'Juntos x el Cambio',s:'6ª',pp:31.5},
-  {m:'Gral. Madariaga',i:'SANTORO Carlos',p:'Juntos x el Cambio',s:'5ª',pp:43.4},
-  {m:'Gral. Viamonte',i:'FLEXAS Franco',p:'Juntos x el Cambio',s:'4ª',pp:26.4},
-  {m:'José C. Paz',i:'ISHII Mario',p:'PJ / Peronismo',s:'1ª',pp:8.7},
-  {m:'Junín',i:'PETRECCA Pablo',p:'Juntos x el Cambio',s:'4ª',pp:20.6},
-  {m:'Lincoln',i:'SERENAL Salvador',p:'Juntos x el Cambio',s:'4ª',pp:24.2},
-  {m:'Lobos',i:'ETCHEVERRY Jorge',p:'Juntos x el Cambio',s:'3ª',pp:19.7},
-  {m:'Maipú',i:'RAPPALLINI Matías',p:'Juntos x el Cambio',s:'5ª',pp:23.6},
-  {m:'Marcos Paz',i:'CURUCHET Ricardo',p:'PJ / Peronismo',s:'1ª',pp:-1.3},
-  {m:'Pehuajó',i:'ZURRO Pablo',p:'PJ / Peronismo',s:'4ª',pp:4.6},
-  {m:'Rauch',i:'SUESCUN Maximiliano',p:'Juntos x el Cambio',s:'5ª',pp:25.2},
-  {m:'San Cayetano',i:'GARGAGLIONE Miguel',p:'Juntos x el Cambio',s:'5ª',pp:33.9},
-  {m:'San Pedro',i:'SALAZAR Cecilio',p:'PJ / Peronismo',s:'2ª',pp:-7.1},
-].sort((a,b)=>b.pp-a.pp);
+  {m:'Almirante Brown',    i:'CASCALLARES Mariano', p:'PJ',  s:'3ª', p15:43.5, p19:61.3, p23:54.1, pp:9.8},
+  {m:'Balcarce',           i:'REINO Esteban',        p:'JxC', s:'5ª', p15:55.4, p19:58.6, p23:56.4, pp:32.6},
+  {m:'Campana',            i:'ABELLA Sebastián',     p:'JxC', s:'1ª', p15:45.9, p19:54.0, p23:57.1, pp:33.3},
+  {m:'Castelli',           i:'ECHARREN Francisco',   p:'PJ',  s:'5ª', p15:61.6, p19:65.1, p23:59.0, pp:14.7},
+  {m:'Chivilcoy',          i:'BRITOS Guillermo',     p:'Vec', s:'4ª', p15:47.9, p19:48.1, p23:37.0, pp:null},
+  {m:'Ensenada',           i:'SECCO Mario',          p:'PJ',  s:'3ª', p15:55.8, p19:70.9, p23:62.9, pp:18.6},
+  {m:'Gral. Arenales',     i:'REVILLA Erica',        p:'JxC', s:'4ª', p15:51.4, p19:58.2, p23:48.5, pp:24.7},
+  {m:'Gral. Belgrano',     i:'DINAPOLI Osvaldo',     p:'JxC', s:'5ª', p15:46.2, p19:57.5, p23:50.2, pp:26.4},
+  {m:'Gral. La Madrid',    i:'RANDAZZO Martín',      p:'JxC', s:'6ª', p15:53.1, p19:62.4, p23:55.3, pp:31.5},
+  {m:'Gral. Madariaga',    i:'SANTORO Carlos',       p:'JxC', s:'5ª', p15:42.8, p19:58.5, p23:67.2, pp:43.4},
+  {m:'Gral. Viamonte',     i:'FLEXAS Franco',        p:'JxC', s:'4ª', p15:47.7, p19:53.6, p23:50.2, pp:26.4},
+  {m:'José C. Paz',        i:'ISHII Mario',          p:'PJ',  s:'1ª', p15:47.9, p19:59.8, p23:53.0, pp:8.7},
+  {m:'Junín',              i:'PETRECCA Pablo',       p:'JxC', s:'4ª', p15:41.9, p19:52.1, p23:44.4, pp:20.6},
+  {m:'Lincoln',            i:'SERENAL Salvador',     p:'JxC', s:'4ª', p15:49.8, p19:51.9, p23:48.0, pp:24.2},
+  {m:'Lobos',              i:'ETCHEVERRY Jorge',     p:'JxC', s:'3ª', p15:49.3, p19:53.6, p23:43.5, pp:19.7},
+  {m:'Maipú',              i:'RAPPALLINI Matías',    p:'JxC', s:'5ª', p15:57.7, p19:50.3, p23:47.4, pp:23.6},
+  {m:'Marcos Paz',         i:'CURUTCHET Ricardo',    p:'PJ',  s:'1ª', p15:43.5, p19:58.3, p23:43.0, pp:-1.3},
+  {m:'Pehuajó',            i:'ZURRO Pablo',          p:'PJ',  s:'4ª', p15:51.5, p19:57.4, p23:48.9, pp:4.6},
+  {m:'Pergamino',          i:'MARTINEZ Javier',      p:'JxC', s:'2ª', p15:50.8, p19:58.7, p23:40.6, pp:16.8},
+  {m:'Rauch',              i:'SUESCUN Maximiliano',  p:'JxC', s:'5ª', p15:51.4, p19:55.3, p23:49.0, pp:25.2},
+  {m:'Saladillo',          i:'SALOMON José Luis',    p:'JxC', s:'7ª', p15:64.1, p19:54.0, p23:46.3, pp:22.5},
+  {m:'San Antonio de Areco',i:'RATTO Francisco',     p:'JxC', s:'2ª', p15:47.9, p19:52.5, p23:47.3, pp:23.5},
+  {m:'San Cayetano',       i:'GARGAGLIONE Miguel',   p:'JxC', s:'5ª', p15:68.6, p19:73.4, p23:57.7, pp:33.9},
+  {m:'San Pedro',          i:'SALAZAR Cecilio',      p:'PJ',  s:'2ª', p15:52.6, p19:56.0, p23:37.2, pp:-7.1},
+  {m:'Tandil',             i:'LUNGHI Miguel',        p:'JxC', s:'5ª', p15:56.9, p19:54.8, p23:44.0, pp:20.2},
+  {m:'Tigre',              i:'ZAMORA Julio',         p:'PJ',  s:'1ª', p15:44.1, p19:55.5, p23:50.3, pp:6.0},
+  {m:'Tornquist',          i:'BORDONI Sergio',       p:'Vec', s:'6ª', p15:47.0, p19:53.1, p23:42.7, pp:null},
+  {m:'Tres de Febrero',    i:'VALENZUELA Diego',     p:'JxC', s:'1ª', p15:43.5, p19:46.9, p23:47.0, pp:23.2},
+  {m:'Villarino',          i:'BEVILACQUA Carlos',    p:'Vec', s:'6ª', p15:35.4, p19:49.7, p23:32.9, pp:null},
+].sort((a,b)=>{
+  if(a.pp===null && b.pp!==null) return 1;
+  if(b.pp===null && a.pp!==null) return -1;
+  if(a.pp===null && b.pp===null) return b.p23-a.p23;
+  return b.pp-a.pp;
+});
 
 function renderPPTable(){
+  const PC_PP = {PJ:'#3b82f6', JxC:'#f59e0b', Vec:'#94a3b8'};
+  const PLABEL = {PJ:'PJ', JxC:'JxC', Vec:'Vecinal'};
   document.getElementById('pp-tbody').innerHTML = PP_DATA.map(r=>{
-    const [cls,sign] = r.pp>20?['pp-pos','+']:r.pp>0?['pp-mid','+']:['pp-neg',''];
-    const c = PC[r.p]||'#6b7280';
+    const [cls,sign] = r.pp>20?['pp-pos','+']:r.pp!==null&&r.pp>0?['pp-mid','+']:r.pp!==null?['pp-neg','']:['',''];
+    const c = PC_PP[r.p]||'#6b7280';
+    const diff = r.p23-r.p15;
+    const trend = diff > 2
+      ? `<span style="color:#4ade80;font-weight:700">↑${diff.toFixed(1)}</span>`
+      : diff < -2
+      ? `<span style="color:#f87171;font-weight:700">↓${Math.abs(diff).toFixed(1)}</span>`
+      : `<span style="color:#94a3b8">→</span>`;
+    const ppCell = r.pp!==null
+      ? `<span class="pp-val ${cls}">${sign}${r.pp.toFixed(1)}pts</span>`
+      : `<span style="color:var(--t3);font-size:.75rem">—</span>`;
     return `<tr>
       <td style="font-weight:600;color:#e2e8f0">${r.m}</td>
       <td style="color:var(--t2);font-size:.8rem">${r.i}</td>
-      <td><span class="party-dot" style="background:${c}"></span><span style="font-size:.78rem;color:${c}">${r.p.replace('Juntos x el Cambio','JxC').replace('PJ / Peronismo','PJ')}</span></td>
+      <td><span class="party-dot" style="background:${c}"></span><span style="font-size:.78rem;color:${c}">${PLABEL[r.p]}</span></td>
       <td style="color:var(--t3);text-align:center">${r.s}</td>
-      <td style="text-align:right"><span class="pp-val ${cls}">${sign}${r.pp}pts</span></td>
+      <td style="text-align:right;color:var(--t2);font-size:.82rem">${r.p15.toFixed(1)}%</td>
+      <td style="text-align:right;color:var(--t2);font-size:.82rem">${r.p19.toFixed(1)}%</td>
+      <td style="text-align:right;font-weight:600;color:#e2e8f0;font-size:.82rem">${r.p23.toFixed(1)}%</td>
+      <td style="text-align:center;font-size:.82rem">${trend}</td>
+      <td style="text-align:right">${ppCell}</td>
     </tr>`;
   }).join('');
 }
