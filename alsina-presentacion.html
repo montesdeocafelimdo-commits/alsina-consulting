@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presentación Institucional — Alsina</title>
+<meta name="description" content="Alsina: Gestión pública, tecnología territorial e inteligencia fiscal para los 135 municipios de la Provincia de Buenos Aires.">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+/* ─── DESIGN TOKENS (idénticos al sistema Alsina) ─── */
+:root {
+  --grafito:      #0e1c20;
+  --grafito2:     #162429;
+  --grafito3:     #1e2f35;
+  --sombra:       #1C3C44;
+  --sombra2:      #18303a;
+  --turquesa:     #00D5D8;
+  --cian:         #008C9A;
+  --crema:        #F3EFE7;
+  --blanco:       #ffffff;
+  --concreto:     #9e9992;
+  --texto-oscuro: #1a2a30;
+  --verde:        #52C78C;
+  --rojo:         #E05252;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;font-family:'Barlow',sans-serif;background:var(--grafito);color:var(--crema);}
+
+/* ─── DECK ─── */
+#deck{height:100vh;height:100dvh;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+#deck::-webkit-scrollbar{display:none;}
+
+/* ─── SLIDE BASE ─── */
+.slide{height:100vh;height:100dvh;width:100vw;scroll-snap-align:start;scroll-snap-stop:always;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+
+/* ─── GRID TEXTURE ─── */
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.03) 1px,transparent 1px);background-size:60px 60px;animation:gridPulse 6s ease-in-out infinite;pointer-events:none;}
+@keyframes gridPulse{0%,100%{opacity:.5;}50%{opacity:1;}}
+
+/* ─── FIXED UI ─── */
+#progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--turquesa);transition:width .4s ease;z-index:1000;box-shadow:0 0 8px rgba(0,213,216,.4);}
+#ui-top{position:fixed;top:0;left:0;right:0;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;z-index:999;pointer-events:none;}
+#ui-logo{display:flex;align-items:center;gap:9px;text-decoration:none;pointer-events:all;opacity:.65;transition:opacity .3s;}
+#ui-logo:hover{opacity:1;}
+.ui-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1rem;letter-spacing:.22em;color:var(--crema);}
+#slide-counter{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.82rem;letter-spacing:.12em;color:rgba(243,239,231,.35);pointer-events:none;}
+#slide-counter em{font-style:normal;color:var(--turquesa);}
+#dot-nav{position:fixed;right:16px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px;z-index:999;}
+.dot{width:5px;height:5px;border-radius:50%;background:rgba(243,239,231,.2);cursor:pointer;transition:all .3s;}
+.dot.active{background:var(--turquesa);transform:scale(1.6);box-shadow:0 0 5px rgba(0,213,216,.5);}
+.dot:hover{background:rgba(0,213,216,.6);}
+#nav-hint{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,239,231,.2);z-index:999;pointer-events:none;white-space:nowrap;}
+
+/* ─── ANIMATIONS ─── */
+.an-up,.an-left,.an-right,.an-fade,.an-scale{opacity:0;transition:opacity .7s cubic-bezier(.25,.46,.45,.94),transform .7s cubic-bezier(.25,.46,.45,.94);}
+.an-up{transform:translateY(38px);}
+.an-left{transform:translateX(-38px);}
+.an-right{transform:translateX(38px);}
+.an-scale{transform:scale(.92);}
+.slide.is-active .an-up,.slide.is-active .an-left,.slide.is-active .an-right,.slide.is-active .an-fade,.slide.is-active .an-scale{opacity:1;transform:none;}
+.d1{transition-delay:.05s!important;}.d2{transition-delay:.15s!important;}.d3{transition-delay:.25s!important;}
+.d4{transition-delay:.35s!important;}.d5{transition-delay:.45s!important;}.d6{transition-delay:.55s!important;}
+.d7{transition-delay:.65s!important;}.d8{transition-delay:.75s!important;}.d9{transition-delay:.85s!important;}
+
+/* ─── SLIDE INNER ─── */
+.si{position:relative;z-index:10;width:100%;max-width:1180px;padding:72px 72px;}
+
+/* ─── COMMON ELEMENTS ─── */
+.ey{font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--turquesa);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.ey::before{content:'';width:22px;height:1px;background:var(--turquesa);flex-shrink:0;}
+.st{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.4rem,4.8vw,4.4rem);text-transform:uppercase;line-height:.91;color:var(--crema);}
+.st .hl{color:var(--turquesa);}
+.sb{font-size:clamp(.86rem,1.15vw,1rem);color:var(--concreto);line-height:1.75;max-width:520px;margin-top:16px;}
+.divl{width:40px;height:2px;background:var(--turquesa);margin:18px 0;}
+.num-big{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(4rem,10vw,8.5rem);line-height:.88;color:var(--turquesa);text-shadow:0 0 40px rgba(0,213,216,.28);font-variant-numeric:tabular-nums;}
+.num-unit{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:clamp(1.4rem,2.8vw,2.6rem);color:rgba(0,213,216,.55);margin-left:3px;}
+.num-lbl{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--concreto);margin-top:7px;}
+.chip{display:inline-flex;align-items:center;padding:8px 15px;font-size:.8rem;letter-spacing:.05em;border-radius:2px;font-weight:500;}
+.chip-muted{background:rgba(243,239,231,.05);border:1px solid rgba(243,239,231,.12);color:var(--concreto);}
+.chip-accent{background:rgba(0,213,216,.1);border:1px solid rgba(0,213,216,.28);color:var(--turquesa);}
+.tag{display:inline-block;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--turquesa);border:1px solid rgba(0,213,216,.22);padding:3px 9px;margin:3px 3px 0 0;}
+.card-base{background:var(--grafito2);border:1px solid rgba(0,213,216,.09);padding:26px 22px;transition:all .3s;}
+.card-base:hover{border-color:rgba(0,213,216,.32);background:var(--grafito3);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.28),0 0 18px rgba(0,213,216,.04);}
+.card-icon{font-size:1.75rem;margin-bottom:13px;display:block;}
+.card-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.08rem;text-transform:uppercase;letter-spacing:.07em;color:var(--crema);margin-bottom:9px;}
+.card-desc{font-size:.8rem;color:var(--concreto);line-height:1.65;}
+/* beam decoration */
+.beam{position:absolute;top:-20%;right:0;bottom:-20%;width:42%;clip-path:polygon(18% 0,100% 0,100% 100%,0 100%);background:linear-gradient(135deg,rgba(0,213,216,.07) 0%,rgba(0,140,154,.03) 60%,transparent 100%);border-left:1.5px solid rgba(0,213,216,.18);pointer-events:none;}
+
+/* ─── SLIDE 01 — HERO ─── */
+#s1{background:var(--grafito);}
+.hero-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.4rem,7.5vw,7rem);text-transform:uppercase;line-height:.87;color:var(--crema);margin:18px 0 24px;}
+.hero-h .hl{color:var(--turquesa);}
+.hero-sub{font-size:clamp(.9rem,1.3vw,1.05rem);color:rgba(243,239,231,.68);max-width:500px;line-height:1.72;margin-bottom:36px;}
+.hero-hint{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(243,239,231,.28);display:flex;align-items:center;gap:14px;}
+.deco-bg{position:absolute;right:6%;top:50%;transform:translateY(-50%);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(7rem,18vw,17rem);color:rgba(0,213,216,.035);line-height:1;user-select:none;pointer-events:none;letter-spacing:-.02em;}
+
+/* ─── SLIDE 02 — PROBLEMA ─── */
+#s2{background:var(--grafito);}
+.chips-flow{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+
+/* ─── SLIDE 03 — INSIGHT ─── */
+#s3{background:var(--grafito2);}
+.insight-vis{display:grid;grid-template-columns:1fr 48px 1fr;align-items:center;gap:20px;margin-top:36px;}
+.dots-panel{min-height:140px;position:relative;border:1px solid rgba(243,239,231,.07);padding:16px;}
+.dots-panel-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--concreto);margin-bottom:12px;}
+.chaos-wrap{position:relative;height:100px;}
+.chaos-dot{position:absolute;width:7px;height:7px;border-radius:50%;background:rgba(0,213,216,.3);}
+.order-wrap{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;padding:8px;}
+.order-dot{width:8px;height:8px;background:var(--turquesa);opacity:.75;}
+.insight-arrow{font-size:2rem;color:rgba(0,213,216,.35);text-align:center;}
+
+/* ─── SLIDE 04 — SIN/CON ─── */
+#s4{background:var(--grafito);}
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:32px;}
+.comp-col{padding:28px 26px;}
+.comp-col.sin{background:rgba(243,239,231,.03);border:1px solid rgba(243,239,231,.07);}
+.comp-col.con{background:rgba(0,213,216,.05);border:1px solid rgba(0,213,216,.18);box-shadow:0 0 30px rgba(0,213,216,.04);}
+.comp-lbl{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid currentColor;display:flex;align-items:center;gap:8px;}
+.comp-lbl.sin{color:rgba(243,239,231,.28);}
+.comp-lbl.con{color:var(--turquesa);}
+.comp-item{display:flex;align-items:center;gap:10px;padding:10px 0;font-size:.88rem;border-bottom:1px solid rgba(243,239,231,.04);}
+.comp-item:last-child{border-bottom:none;}
+.ci-sin{color:rgba(183,178,170,.55);}
+.ci-con{color:var(--crema);font-weight:500;}
+.icon-sin{color:rgba(183,178,170,.28);width:16px;text-align:center;font-size:.78rem;flex-shrink:0;}
+.icon-con{color:var(--turquesa);width:16px;text-align:center;font-size:.78rem;flex-shrink:0;}
+
+/* ─── SLIDE 05 — ESCALA ─── */
+#s5{background:var(--grafito2);}
+.nums-row{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:36px;}
+.num-block{border-top:2px solid rgba(0,213,216,.15);padding-top:20px;}
+.mini-grid{display:grid;grid-template-columns:repeat(15,1fr);gap:3px;margin-top:24px;}
+.mini-cell{height:14px;background:rgba(0,213,216,.07);transition:background .4s,opacity .4s;}
+.mini-cell.lit{background:rgba(0,213,216,.5);}
+.mini-cell.lit-hi{background:var(--turquesa);opacity:.9;}
+
+/* ─── SLIDE 06 — QUÉ ES ─── */
+#s6{background:var(--grafito);}
+
+/* ─── SLIDE 07 — 4 LÍNEAS ─── */
+#s7{background:var(--grafito2);}
+.pillars-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:28px;}
+.pillar-card{background:var(--grafito3);padding:30px 26px;border-top:2px solid rgba(0,213,216,.12);transition:all .3s;cursor:default;}
+.pillar-card:hover{border-top-color:var(--turquesa);background:rgba(0,213,216,.04);}
+.pillar-card-icon{font-size:1.9rem;margin-bottom:14px;display:block;}
+.pillar-card-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.12rem;text-transform:uppercase;letter-spacing:.07em;color:var(--crema);margin-bottom:9px;}
+.pillar-card-desc{font-size:.8rem;color:var(--concreto);line-height:1.65;}
+
+/* ─── SLIDE 08 — MÉTODO ─── */
+#s8{background:var(--grafito);}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:44px;position:relative;}
+.timeline::before{content:'';position:absolute;top:31px;left:32px;right:32px;height:1px;background:linear-gradient(90deg,var(--turquesa),rgba(0,213,216,.15));z-index:0;}
+.tl-step{text-align:center;position:relative;z-index:1;padding:0 12px;}
+.tl-num{width:62px;height:62px;border:2px solid var(--turquesa);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.55rem;color:var(--turquesa);background:var(--grafito);margin:0 auto 16px;transition:all .4s;}
+.slide.is-active .tl-num{box-shadow:0 0 22px rgba(0,213,216,.3);}
+.tl-verb{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.15rem;text-transform:uppercase;letter-spacing:.1em;color:var(--crema);margin-bottom:8px;}
+.tl-desc{font-size:.77rem;color:var(--concreto);line-height:1.6;}
+
+/* ─── SLIDE 09 — MÉTODO DETALLE ─── */
+#s9{background:var(--grafito2);}
+.method-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:28px;}
+.method-card{background:var(--grafito3);padding:26px 20px;border-bottom:2px solid rgba(0,213,216,.12);transition:all .3s;}
+.method-card:hover{border-bottom-color:var(--turquesa);transform:translateY(-4px);}
+.method-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.8rem;color:rgba(0,213,216,.1);line-height:1;margin-bottom:10px;}
+.method-verb{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;text-transform:uppercase;letter-spacing:.1em;color:var(--turquesa);margin-bottom:9px;}
+.method-desc{font-size:.78rem;color:var(--concreto);line-height:1.65;}
+
+/* ─── SLIDE 10 — SERVICIOS INTRO ─── */
+#s10{background:var(--grafito);}
+.srv-list{list-style:none;margin-top:24px;}
+.srv-item{display:flex;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid rgba(243,239,231,.06);cursor:default;transition:padding-left .25s;}
+.srv-item:hover{padding-left:6px;}
+.srv-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.7rem;color:rgba(0,213,216,.18);width:38px;flex-shrink:0;text-align:right;}
+.srv-icon{font-size:1.2rem;flex-shrink:0;}
+.srv-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;letter-spacing:.06em;color:var(--crema);flex:1;}
+.srv-arr{color:rgba(0,213,216,.4);font-size:.85rem;}
+
+/* ─── SLIDES 11–13 — SINGLE SERVICE ─── */
+#s11{background:var(--grafito);}
+#s12{background:var(--grafito2);}
+#s13{background:var(--grafito);}
+.srv-split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.srv-icon-big{font-size:3.2rem;margin-bottom:16px;display:block;}
+.srv-title-big{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2rem,4vw,3.6rem);text-transform:uppercase;line-height:.91;color:var(--crema);margin-bottom:16px;}
+.srv-body{font-size:clamp(.86rem,1.1vw,.98rem);color:var(--concreto);line-height:1.75;margin-bottom:18px;}
+/* mini dashboard */
+.dash-mock{background:var(--grafito3);border:1px solid rgba(0,213,216,.14);padding:18px;border-radius:3px;}
+.dash-header-m{display:flex;align-items:center;gap:7px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(0,213,216,.09);}
+.dash-dot-m{width:7px;height:7px;border-radius:50%;}
+.dash-title-m{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(243,239,231,.5);}
+.dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px;}
+.dash-kpi{background:var(--grafito2);padding:10px 8px;border-top:1px solid rgba(0,213,216,.18);}
+.dash-kpi-val{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.3rem;color:var(--turquesa);}
+.dash-kpi-lbl{font-size:.57rem;letter-spacing:.08em;text-transform:uppercase;color:var(--concreto);}
+.dash-bar-row{margin-bottom:5px;}
+.dash-bar-track{background:var(--grafito2);height:5px;border-radius:3px;overflow:hidden;}
+.dash-bar-fill{height:100%;background:linear-gradient(90deg,var(--turquesa),var(--cian));border-radius:3px;}
+.dash-bar-lbl{font-size:.6rem;color:var(--concreto);margin-bottom:2px;display:flex;justify-content:space-between;}
+/* CICERO features */
+.cicero-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
+.cicero-feat{background:var(--grafito3);padding:14px 16px;border-left:2px solid rgba(0,213,216,.2);}
+.cicero-feat-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.92rem;text-transform:uppercase;color:var(--crema);margin-bottom:4px;}
+.cicero-feat-desc{font-size:.75rem;color:var(--concreto);}
+
+/* ─── SLIDE 14 — DOS SERVICIOS ─── */
+#s14{background:var(--grafito2);}
+.two-srv{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:32px;}
+.two-srv-card{background:var(--grafito3);padding:36px 30px;border-top:2px solid rgba(0,213,216,.12);transition:all .3s;}
+.two-srv-card:hover{border-top-color:var(--turquesa);background:rgba(0,213,216,.04);}
+
+/* ─── SLIDE 15 — FISCAL ─── */
+#s15{background:var(--grafito);}
+.fiscal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:28px;}
+.fiscal-card{background:var(--grafito2);padding:30px 24px;border-left:2px solid rgba(0,213,216,.12);transition:all .3s;}
+.fiscal-card:hover{border-left-color:var(--turquesa);background:rgba(0,213,216,.04);}
+.fiscal-period{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--turquesa);margin-bottom:12px;}
+.fiscal-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.12rem;text-transform:uppercase;letter-spacing:.06em;color:var(--crema);margin-bottom:9px;}
+.fiscal-desc{font-size:.8rem;color:var(--concreto);line-height:1.6;}
+
+/* ─── SLIDE 16 — DATO EN VIVO ─── */
+#s16{background:var(--grafito2);}
+.s16-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:36px;align-items:start;}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:20px;}
+.kpi-card{background:var(--grafito3);padding:14px 12px;border-top:2px solid rgba(0,213,216,.18);}
+.kpi-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.5rem,2.5vw,2.2rem);color:var(--turquesa);line-height:1;}
+.kpi-lbl{font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;color:var(--concreto);margin-top:3px;}
+.chart-wrap{background:var(--grafito3);border:1px solid rgba(0,213,216,.09);padding:16px;margin-bottom:8px;}
+.chart-wrap-title{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--concreto);margin-bottom:10px;}
+.chart-source{font-size:.58rem;color:rgba(183,178,170,.35);letter-spacing:.05em;margin-top:4px;text-align:right;}
+
+/* ─── SLIDE 17 — HEATMAP ─── */
+#s17{background:var(--grafito);}
+.hmap-layout{display:grid;grid-template-columns:2fr 1fr;gap:44px;align-items:center;}
+.hmap-wrap{position:relative;}
+#hmap{width:100%;display:block;}
+.hmap-cell{cursor:pointer;transition:opacity .2s;}
+.hmap-tooltip{position:absolute;background:rgba(14,28,32,.96);border:1px solid rgba(0,213,216,.28);padding:7px 12px;font-size:.72rem;color:var(--crema);pointer-events:none;z-index:100;opacity:0;transition:opacity .15s;white-space:nowrap;}
+.hmap-legend{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:.62rem;color:var(--concreto);}
+.legend-bar{height:6px;flex:1;background:linear-gradient(90deg,rgba(0,213,216,.1),var(--turquesa));border-radius:3px;}
+
+/* ─── SLIDE 18 — INFORMES ─── */
+#s18{background:var(--grafito2);}
+.rep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:22px;}
+.rep-card{background:var(--grafito3);padding:18px 16px;border-left:2px solid rgba(0,213,216,.1);transition:all .3s;}
+.rep-card:hover{border-left-color:var(--turquesa);background:rgba(0,213,216,.04);}
+.rep-badge{display:inline-block;font-size:.57rem;letter-spacing:.14em;text-transform:uppercase;color:var(--turquesa);border:1px solid rgba(0,213,216,.22);padding:2px 8px;margin-bottom:9px;}
+.rep-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.98rem;text-transform:uppercase;letter-spacing:.05em;color:var(--crema);line-height:1.2;margin-bottom:6px;}
+.rep-desc{font-size:.74rem;color:var(--concreto);line-height:1.55;}
+
+/* ─── SLIDE 19 — MÉTRICAS ─── */
+#s19{background:var(--grafito);}
+.met-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:32px;}
+.met-card{background:var(--grafito2);padding:34px 22px;text-align:center;border-top:2px solid rgba(0,213,216,.12);transition:border-top-color .3s;}
+.met-card:hover{border-top-color:var(--turquesa);}
+.met-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.8rem,5.5vw,5rem);color:var(--turquesa);line-height:.88;text-shadow:0 0 28px rgba(0,213,216,.22);}
+.met-unit{font-family:'Barlow Condensed',sans-serif;font-size:clamp(.9rem,1.8vw,1.5rem);color:rgba(0,213,216,.45);}
+.met-lbl{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-top:10px;}
+
+/* ─── SLIDE 20 — CIERRE ─── */
+#s20{background:var(--grafito);}
+.close-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.6rem,6.5vw,6rem);text-transform:uppercase;line-height:.87;color:var(--crema);margin:18px 0 22px;}
+.close-h .hl{color:var(--turquesa);}
+.close-sub{font-size:clamp(.86rem,1.2vw,1rem);color:rgba(243,239,231,.6);max-width:460px;line-height:1.7;margin-bottom:30px;}
+.cta-email{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(1.1rem,1.9vw,1.7rem);letter-spacing:.07em;color:var(--turquesa);text-decoration:none;border-bottom:1px solid rgba(0,213,216,.28);padding-bottom:3px;transition:all .2s;}
+.cta-email:hover{color:var(--crema);border-bottom-color:var(--crema);}
+.close-loc{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--concreto);margin-top:14px;}
+.close-wm{position:absolute;right:4%;bottom:4%;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(5rem,13vw,11rem);letter-spacing:.18em;color:rgba(0,213,216,.05);line-height:1;user-select:none;pointer-events:none;}
+.close-pulse{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,213,216,.35);}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  .si{padding:60px 28px;}
+  .pillars-grid,.comp-grid,.method-grid,.two-srv,.s16-layout,.srv-split,.hmap-layout{grid-template-columns:1fr;}
+  .timeline{grid-template-columns:1fr 1fr;}.timeline::before{display:none;}
+  .kpi-grid,.met-grid{grid-template-columns:1fr 1fr;}
+  .fiscal-grid,.rep-grid{grid-template-columns:1fr 1fr;}
+  #dot-nav{display:none;}
+  .nums-row{grid-template-columns:1fr;}
+  .hmap-layout{grid-template-columns:1fr;}
+  .deco-bg{display:none;}
+}
+@media(max-width:560px){
+  .si{padding:56px 20px;}
+  .kpi-grid,.met-grid,.method-grid,.fiscal-grid,.rep-grid{grid-template-columns:1fr;}
+  .cicero-features{grid-template-columns:1fr;}
+  .timeline{grid-template-columns:1fr;}
+  .hero-h{font-size:3rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ─── FIXED UI ─── -->
+<div id="progress-bar"></div>
+<div id="ui-top">
+  <a href="index.html" id="ui-logo">
+    <svg viewBox="0 0 22 22" fill="none" width="20" height="20">
+      <path d="M11 1.5L1 20.5H5.5L11 10L16.5 20.5H21L11 1.5Z" fill="#00D5D8"/>
+    </svg>
+    <span class="ui-brand">ALSINA</span>
+  </a>
+  <div id="slide-counter"><em>01</em> / 20</div>
+</div>
+<nav id="dot-nav"></nav>
+<div id="nav-hint">← → Flechas · Espacio · Swipe · F Pantalla completa</div>
+
+<!-- ─── DECK ─── -->
+<div id="deck">
+
+<!-- ═══════════════════════════════════════
+     SLIDE 01 — HERO / PORTADA
+═══════════════════════════════════════ -->
+<section class="slide" id="s1" data-slide="1">
+  <div class="grid-bg"></div>
+  <div class="beam"></div>
+  <div class="deco-bg an-fade d5">ALSINA</div>
+  <div class="si">
+    <div class="ey an-up d1">Señal territorial para Buenos Aires</div>
+    <h1 class="hero-h an-up d2">
+      Gobernar es<br>
+      <span class="hl">ordenar</span><br>
+      complejidad.
+    </h1>
+    <p class="hero-sub an-up d3">
+      Alsina transforma información dispersa en decisiones, prioridades
+      y capacidad de gobierno — para los 135 municipios que más lo necesitan.
+    </p>
+    <div class="hero-hint an-fade d4">
+      <span>→ para avanzar</span>
+      <span style="color:rgba(0,213,216,.3)">|</span>
+      <span>F pantalla completa</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 02 — EL DIAGNÓSTICO
+═══════════════════════════════════════ -->
+<section class="slide" id="s2" data-slide="2">
+  <div class="grid-bg"></div>
+  <div class="si">
+    <div class="ey an-up d1">El diagnóstico</div>
+    <h2 class="st an-up d2" style="max-width:680px">
+      Un municipio no falla<br>solo por falta de <span class="hl">recursos.</span>
+    </h2>
+    <p class="sb an-up d3" style="margin-top:16px;">
+      Falla cuando no logra <strong style="color:var(--crema)">ordenar</strong> decisiones, equipos, datos,
+      procesos y prioridades. La Provincia de Buenos Aires no perdona la improvisación.
+    </p>
+    <div class="chips-flow an-up d4">
+      <span class="chip chip-muted d5">⚡ Procesos lentos</span>
+      <span class="chip chip-muted d6">📋 Agenda dispersa</span>
+      <span class="chip chip-muted d7">📡 Comunicación fragmentada</span>
+      <span class="chip chip-muted d8">🔍 Baja trazabilidad</span>
+      <span class="chip chip-muted d9">💸 Proyectos sin financiamiento</span>
+    </div>
+    <div style="margin-top:32px;padding:20px 22px;border-left:2px solid rgba(0,213,216,.3);background:rgba(0,213,216,.04);" class="an-up d5">
+      <div style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--turquesa);margin-bottom:6px;">El problema de fondo</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.35rem;text-transform:uppercase;color:var(--crema);">"No es mirar más datos. Es saber qué hacer con ellos."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 03 — EL INSIGHT
+═══════════════════════════════════════ -->
+<section class="slide" id="s3" data-slide="3">
+  <div class="grid-bg"></div>
+  <div class="si">
+    <div class="ey an-up d1">El insight</div>
+    <h2 class="st an-up d2">El problema no es<br>mirar más datos.</h2>
+    <p class="sb an-up d3">Es transformarlos en <strong style="color:var(--turquesa)">criterios de decisión</strong>, prioridades de gestión y hoja de ruta ejecutable.</p>
+    <div class="insight-vis an-up d4">
+      <div class="dots-panel">
+        <div class="dots-panel-label">Sin criterio</div>
+        <div class="chaos-wrap" id="chaosWrap"></div>
+      </div>
+      <div class="insight-arrow an-scale d5">→</div>
+      <div class="dots-panel" style="border-color:rgba(0,213,216,.2);background:rgba(0,213,216,.03);">
+        <div class="dots-panel-label" style="color:var(--turquesa);">Con Alsina</div>
+        <div class="order-wrap" id="orderWrap"></div>
+      </div>
+    </div>
+    <div class="an-fade d6" style="margin-top:18px;display:flex;gap:24px;flex-wrap:wrap;">
+      <span class="chip chip-accent">Relevar</span>
+      <span class="chip chip-accent">Ordenar</span>
+      <span class="chip chip-accent">Priorizar</span>
+      <span class="chip chip-accent">Implementar</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 04 — SIN ALSINA vs CON ALSINA
+═══════════════════════════════════════ -->
+<section class="slide" id="s4" data-slide="4">
+  <div class="grid-bg"></div>
+  <div class="si">
+    <div class="ey an-up d1">Diagnóstico comparativo</div>
+    <h2 class="st an-up d2">La diferencia<br>es concreta.</h2>
+    <div class="comp-grid">
+      <div class="comp-col sin an-left d3">
+        <div class="comp-lbl sin">✕ Sin Alsina</div>
+        <div class="comp-item ci-sin"><span class="icon-sin">−</span>Procesos lentos y redundantes</div>
+        <div class="comp-item ci-sin"><span class="icon-sin">−</span>Agenda dispersa sin jerarquía</div>
+        <div class="comp-item ci-sin"><span class="icon-sin">−</span>Comunicación fragmentada</div>
+        <div class="comp-item ci-sin"><span class="icon-sin">−</span>Baja trazabilidad de gestión</div>
+        <div class="comp-item ci-sin"><span class="icon-sin">−</span>Proyectos sin financiamiento</div>
+        <div class="comp-item ci-sin"><span class="icon-sin">−</span>Decisiones sin datos</div>
+      </div>
+      <div class="comp-col con an-right d3">
+        <div class="comp-lbl con">✓ Con Alsina</div>
+        <div class="comp-item ci-con"><span class="icon-con">→</span>Criterios de decisión claros</div>
+        <div class="comp-item ci-con"><span class="icon-con">→</span>Hoja de ruta con prioridades</div>
+        <div class="comp-item ci-con"><span class="icon-con">→</span>Capacidad ejecutora ordenada</div>
+        <div class="comp-item ci-con"><span class="icon-con">→</span>Métricas de seguimiento</div>
+        <div class="comp-item ci-con"><span class="icon-con">→</span>Acceso a financiamiento</div>
+        <div class="comp-item ci-con"><span class="icon-con">→</span>Inteligencia territorial aplicada</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 05 — LA ESCALA DEL TERRITORIO
+═══════════════════════════════════════ -->
+<section class="slide" id="s5" data-slide="5">
+  <div class="beam"></div>
+  <div class="si">
+    <div class="ey an-up d1">La escala del territorio</div>
+    <h2 class="st an-up d2">Un territorio<br><span class="hl">sin precedente</span><br>en complejidad.</h2>
+    <div class="nums-row">
+      <div class="num-block an-up d3">
+        <div class="num-big"><span class="count-up" data-target="135">0</span></div>
+        <div class="num-lbl">municipios bonaerenses</div>
+        <div style="font-size:.78rem;color:rgba(183,178,170,.5);margin-top:6px;">con lógicas propias de gestión, financiamiento y demanda ciudadana</div>
+      </div>
+      <div class="num-block an-up d4">
+        <div class="num-big"><span class="count-up" data-target="17">0</span><span class="num-unit">M</span></div>
+        <div class="num-lbl">habitantes en la PBA</div>
+        <div style="font-size:.78rem;color:rgba(183,178,170,.5);margin-top:6px;">tercera economía provincial de Argentina, segunda por población</div>
+      </div>
+    </div>
+    <div class="mini-grid an-fade d5" id="miniGrid" style="margin-top:20px;"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 06 — QUÉ ES ALSINA
+═══════════════════════════════════════ -->
+<section class="slide" id="s6" data-slide="6">
+  <div class="grid-bg"></div>
+  <div class="beam"></div>
+  <div class="deco-bg an-fade d6" style="font-size:clamp(4rem,10vw,9rem);opacity:1;">SEÑAL</div>
+  <div class="si">
+    <div class="ey an-up d1">Nuestra propuesta</div>
+    <h2 class="st an-up d2" style="font-size:clamp(2.8rem,5.5vw,5rem);max-width:700px;">
+      Ordenamos gobiernos para que las <span class="hl">ciudades funcionen mejor.</span>
+    </h2>
+    <div class="divl an-fade d3"></div>
+    <p class="sb an-up d3" style="max-width:580px;">
+      No vendemos diagnósticos. <strong style="color:var(--crema)">Construimos capacidad de gobierno.</strong> Detectamos la señal en la complejidad y la convertimos en acción. Cada intervención parte del método, aplica tecnología territorial y termina en implementación verificable.
+    </p>
+    <div class="an-fade d5" style="margin-top:28px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.15rem;text-transform:uppercase;letter-spacing:.15em;color:rgba(0,213,216,.5);">
+      Ordenar · Decidir · Ejecutar
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 07 — LAS 4 LÍNEAS
+═══════════════════════════════════════ -->
+<section class="slide" id="s7" data-slide="7">
+  <div class="grid-bg"></div>
+  <div class="si">
+    <div class="ey an-up d1">Dominios de intervención</div>
+    <h2 class="st an-up d2">Cuatro líneas.<br>Una metodología.</h2>
+    <div class="pillars-grid" style="margin-top:28px;">
+      <div class="pillar-card an-up d3">
+        <span class="pillar-card-icon">🏛️</span>
+        <div class="pillar-card-title">Gestión pública</div>
+        <p class="pillar-card-desc">Fortalecimiento institucional, procesos orientados a resultados y capacidad ejecutora. Del organigrama a la implementación.</p>
+      </div>
+      <div class="pillar-card an-up d4">
+        <span class="pillar-card-icon">⚡</span>
+        <div class="pillar-card-title">Tecnología aplicada</div>
+        <p class="pillar-card-desc">CRM, dashboards y automatización para municipios reales. No tecnología genérica: herramientas que funcionan en la gestión diaria.</p>
+      </div>
+      <div class="pillar-card an-up d5">
+        <span class="pillar-card-icon">🗺️</span>
+        <div class="pillar-card-title">Lectura territorial</div>
+        <p class="pillar-card-desc">Mapeo institucional, análisis fiscal y político profundo. Inteligencia sobre los 135 municipios bonaerenses con datos verificables.</p>
+      </div>
+      <div class="pillar-card an-up d6">
+        <span class="pillar-card-icon">📡</span>
+        <div class="pillar-card-title">Comunicación de gobierno</div>
+        <p class="pillar-card-desc">Narrativa, contenidos y posicionamiento político territorial. Comunicación que construye legitimidad, no solo presencia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 08 — MÉTODO OVERVIEW
+═══════════════════════════════════════ -->
+<section class="slide" id="s8" data-slide="8">
+  <div class="grid-bg"></div>
+  <div class="si">
+    <div class="ey an-up d1">Método Alsina</div>
+    <h2 class="st an-up d2">De la complejidad<br>a la <span class="hl">decisión.</span></h2>
+    <p class="sb an-up d3">No diagnóstico: intervención orientada a resultados verificables. Cuatro fases, un proceso continuo.</p>
+    <div class="timeline">
+      <div class="tl-step an-up d4">
+        <div class="tl-num">01</div>
+        <div class="tl-verb">Relevar</div>
+        <div class="tl-desc">Arquitectura organizacional, circuitos de decisión y sistemas de información existentes.</div>
+      </div>
+      <div class="tl-step an-up d5">
+        <div class="tl-num">02</div>
+        <div class="tl-verb">Ordenar</div>
+        <div class="tl-desc">Mapa de capacidades real: dónde se pierde potencial, qué interdependencias generan fricción.</div>
+      </div>
+      <div class="tl-step an-up d6">
+        <div class="tl-num">03</div>
+        <div class="tl-verb">Priorizar</div>
+        <div class="tl-desc">Matriz de impacto, urgencia y factibilidad técnica y política para ordenar la intervención.</div>
+      </div>
+      <div class="tl-step an-up d7">
+        <div class="tl-num">04</div>
+        <div class="tl-verb">Implementar</div>
+        <div class="tl-desc">Hoja de ruta con etapas, responsables y métricas. Acompañamiento en ejecución.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 09 — MÉTODO DETALLE
+═══════════════════════════════════════ -->
+<section class="slide" id="s9" data-slide="9">
+  <div class="grid-bg"></div>
+  <div class="si">
+    <div class="ey an-up d1">Método en detalle</div>
+    <h2 class="st an-up d2">Cuatro fases.<br><span class="hl">Resultados verificables.</span></h2>
+    <div class="method-grid">
+      <div class="method-card an-up d3">
+        <div class="method-n">01</div>
+        <div class="method-verb">Relevar</div>
+        <div class="method-desc">Arquitectura organizacional, circuitos de decisión reales y sistemas de información. No lo que dice el organigrama: lo que funciona en la práctica.</div>
+      </div>
+      <div class="method-card an-up d4">
+        <div class="method-n">02</div>
+        <div class="method-verb">Ordenar</div>
+        <div class="method-desc">Mapa de capacidades: dónde se pierde potencial, qué interdependencias generan fricción, qué procesos bloquean la agenda política.</div>
+      </div>
+      <div class="method-card an-up d5">
+        <div class="method-n">03</div>
+        <div class="method-verb">Priorizar</div>
+        <div class="method-desc">Matriz de impacto, urgencia y factibilidad técnica y política. No todo al mismo tiempo: una secuencia realista y ejecutable.</div>
+      </div>
+      <div class="method-card an-up d6">
+        <div class="method-n">04</div>
+        <div class="method-verb">Implementar</div>
+        <div class="method-desc">Hoja de ruta con etapas, responsables, métricas de seguimiento y punto de corte de evaluación. Acompañamiento en la ejecución real.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 10 — SERVICIOS INTRO
+═══════════════════════════════════════ -->
+<section class="slide" id="s10" data-slide="10">
+  <div class="beam"></div>
+  <div class="si">
+    <div class="ey an-up d1">Servicios de intervención</div>
+    <h2 class="st an-up d2">Donde la gestión<br>se traba,<br><span class="hl">Alsina ordena.</span></h2>
+    <ul class="srv-list" style="max-width:580px;">
+      <li class="srv-item an-up d3"><span class="srv-n">01</span><span class="srv-icon">🔍</span><span class="srv-name">Diagnóstico de gestión municipal</span><span class="srv-arr">→</span></li>
+      <li class="srv-item an-up d4"><span class="srv-n">02</span><span class="srv-icon">📱</span><span class="srv-name">CRM público — VinculAR</span><span class="srv-arr">→</span></li>
+      <li class="srv-item an-up d5"><span class="srv-n">03</span><span class="srv-icon">🗣️</span><span class="srv-name">CICERO — Comunicación con IA</span><span class="srv-arr">→</span></li>
+      <li class="srv-item an-up d6"><span class="srv-n">04</span><span class="srv-icon">🛠️</span><span class="srv-name">Herramientas de gestión</span><span class="srv-arr">→</span></li>
+      <li class="srv-item an-up d7"><span class="srv-n">05</span><span class="srv-icon">🏙️</span><span class="srv-name">Planificación urbana y fiscal</span><span class="srv-arr">→</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 11 — SERVICIO 01: DIAGNÓSTICO
+═══════════════════════════════════════ -->
+<section class="slide" id="s11" data-slide="11">
+  <div class="grid-bg"></div>
+  <div class="si">
+    <div class="ey an-up d1">Servicio 01</div>
+    <div class="srv-split">
+      <div>
+        <span class="srv-icon-big an-up d2">🔍</span>
+        <h2 class="srv-title-big an-up d3">Diagnóstico<br>de gestión<br>municipal</h2>
+        <p class="srv-body an-up d4">
+          Relevamiento institucional estructurado: procesos, cuellos de botella, brechas de capacidad y hoja de ruta. No una auditoría de problemas — un diagnóstico de <strong style="color:var(--turquesa)">potencial</strong>.
+        </p>
+        <div class="an-up d5">
+          <span class="tag">Sprint</span>
+          <span class="tag">Integral</span>
+          <span class="tag">Verificable</span>
+        </div>
+      </div>
+      <div class="an-right d4">
+        <div class="card-base" style="border-top:2px solid var(--turquesa);">
+          <div class="card-title">Qué incluye</div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+            <div style="display:flex;gap:10px;font-size:.82rem;color:var(--concreto);align-items:flex-start;">
+              <span style="color:var(--turquesa);flex-shrink:0;">→</span>Mapa de procesos y circuitos de decisión reales
+            </div>
+            <div style="display:flex;gap:10px;font-size:.82rem;color:var(--concreto);align-items:flex-start;">
+              <span style="color:var(--turquesa);flex-shrink:0;">→</span>Identificación de cuellos de botella institucionales
+            </div>
+            <div style="display:flex;gap:10px;font-size:.82rem;color:var(--concreto);align-items:flex-start;">
+              <span style="color:var(--turquesa);flex-shrink:0;">→</span>Análisis de brechas de capacidad por área
+            </div>
+            <div style="display:flex;gap:10px;font-size:.82rem;color:var(--concreto);align-items:flex-start;">
+              <span style="color:var(--turquesa);flex-shrink:0;">→</span>Hoja de ruta priorizada con etapas y responsables
+            </div>
+            <div style="display:flex;gap:10px;font-size:.82rem;color:var(--concreto);align-items:flex-start;">
+              <span style="color:var(--turquesa);flex-shrink:0;">→</span>Tablero de métricas de seguimiento
+            </div>
+          </div>
+          <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(0,213,216,.1);font-size:.72rem;color:rgba(183,178,170,.5);">Entregable en 4–6 semanas · Formato ejecutivo + técnico</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 12 — SERVICIO 02: CRM / VINCULAR
+═══════════════════════════════════════ -->
+<section class="slide" id="s12" data-slide="12">
+  <div class="grid-bg"></div>
+  <div class="si">
+    <div class="ey an-up d1">Servicio 02</div>
+    <div class="srv-split">
+      <div>
+        <span class="srv-icon-big an-up d2">📱</span>
+        <h2 class="srv-title-big an-up d3">CRM Público<br><span style="color:var(--turquesa);">VinculAR</span></h2>
+        <p class="srv-body an-up d4">
+          Arquitectura omnicanal: WhatsApp, web y redes unificados en un solo sistema. Automatización, trazabilidad completa y dashboards en tiempo real. <strong style="color:var(--turquesa)">Ciudades que responden y aprenden.</strong>
+        </p>
+        <div class="an-up d5">
+          <span class="tag">Omnicanal</span>
+          <span class="tag">Tiempo real</span>
+          <span class="tag">WhatsApp</span>
+          <span class="tag">Dashboard</span>
+        </div>
+      </div>
+      <div class="dash-mock an-right d3">
+        <div class="dash-header-m">
+          <div class="dash-dot-m" style="background:#00D5D8;"></div>
+          <div class="dash-dot-m" style="background:rgba(0,213,216,.4);"></div>
+          <div class="dash-dot-m" style="background:rgba(0,213,216,.2);"></div>
+          <div class="dash-title-m" style="margin-left:4px;">VinculAR · Dashboard Municipal</div>
+        </div>
+        <div class="dash-kpis">
+          <div class="dash-kpi"><div class="dash-kpi-val">847</div><div class="dash-kpi-lbl">Tickets activos</div></div>
+          <div class="dash-kpi"><div class="dash-kpi-val">94%</div><div class="dash-kpi-lbl">Resueltos</div></div>
+          <div class="dash-kpi"><div class="dash-kpi-val">2.3h</div><div class="dash-kpi-lbl">T. promedio</div></div>
+        </div>
+        <div class="dash-bar-row">
+          <div class="dash-bar-lbl"><span>WhatsApp</span><span style="color:var(--turquesa);">62%</span></div>
+          <div class="dash-bar-track"><div class="dash-bar-fill" style="width:62%;"></div></div>
+        </div>
+        <div class="dash-bar-row">
+          <div class="dash-bar-lbl"><span>Web</span><span style="color:var(--turquesa);">24%</span></div>
+          <div class="dash-bar-track"><div class="dash-bar-fill" style="width:24%;opacity:.7;"></div></div>
+        </div>
+        <div class="dash-bar-row">
+          <div class="dash-bar-lbl"><span>Redes sociales</span><span style="color:var(--turquesa);">14%</span></div>
+          <div class="dash-bar-track"><div class="dash-bar-fill" style="width:14%;opacity:.5;"></div></div>
+        </div>
+        <div style="margin-top:12px;font-size:.6rem;color:rgba(183,178,170,.3);text-align:right;">Panel ilustrativo · Datos de ejemplo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 13 — SERVICIO 03: CICERO
+═══════════════════════════════════════ -->
+<section class="slide" id="s13" data-slide="13">
+  <div class="beam" style="left:0;right:auto;width:30%;clip-path:polygon(0 0,100% 0,80% 100%,0 100%);border-left:none;border-right:1.5px solid rgba(0,213,216,.15);"></div>
+  <div class="si">
+    <div class="ey an-up d1">Servicio 03</div>
+    <div class="srv-split">
+      <div>
+        <span class="srv-icon-big an-up d2">🗣️</span>
+        <h2 class="srv-title-big an-up d3">CICERO<br><span style="color:var(--turquesa);">Comunicación</span><br>política con IA</h2>
+        <p class="srv-body an-up d4">
+          Sistema de inteligencia comunicacional con IA. Perfil político estructurado, generación de contenidos multiplataforma, calendario editorial y analítica de posicionamiento.
+        </p>
+        <div class="an-up d5">
+          <span class="tag">IA Generativa</span>
+          <span class="tag">Multiplataforma</span>
+          <span class="tag">Gobierno</span>
+        </div>
+      </div>
+      <div class="cicero-features an-right d3">
+        <div class="cicero-feat">
+          <div class="cicero-feat-title">Perfil político</div>
+          <div class="cicero-feat-desc">Diagnóstico de imagen, mensajes clave y posicionamiento diferencial</div>
+        </div>
+        <div class="cicero-feat">
+          <div class="cicero-feat-title">Contenido IA</div>
+          <div class="cicero-feat-desc">Generación automática adaptada al tono, canal y audiencia</div>
+        </div>
+        <div class="cicero-feat">
+          <div class="cicero-feat-title">Calendario editorial</div>
+          <div class="cicero-feat-desc">Planificación estratégica de comunicación con ciclo político</div>
+        </div>
+        <div class="cicero-feat">
+          <div class="cicero-feat-title">Analítica</div>
+          <div class="cicero-feat-desc">Métricas de alcance, engagement y posicionamiento en tiempo real</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 14 — SERVICIOS 04 Y 05
+═══════════════════════════════════════ -->
+<section class="slide" id="s14" data-slide="14">
+  <div class="grid-bg"></div>
+  <div class="si">
+    <div class="ey an-up d1">Servicios 04 · 05</div>
+    <h2 class="st an-up d2">Gestión y<br><span class="hl">territorio.</span></h2>
+    <div class="two-srv">
+      <div class="two-srv-card an-up d3">
+        <span style="font-size:2rem;display:block;margin-bottom:16px;">🛠️</span>
+        <div class="pillar-card-title">Herramientas de gestión</div>
+        <p class="pillar-card-desc" style="margin-bottom:16px;">Tableros de control, métricas y sistemas de seguimiento. Datos dispersos → información accionable para el equipo de gobierno.</p>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="font-size:.8rem;color:var(--concreto);display:flex;gap:8px;"><span style="color:var(--turquesa);">→</span>KPIs de gestión por área</div>
+          <div style="font-size:.8rem;color:var(--concreto);display:flex;gap:8px;"><span style="color:var(--turquesa);">→</span>Tablero ejecutivo semanal</div>
+          <div style="font-size:.8rem;color:var(--concreto);display:flex;gap:8px;"><span style="color:var(--turquesa);">→</span>Alertas y seguimiento de proyectos</div>
+        </div>
+        <div style="margin-top:16px;"><span class="tag">Tableros</span><span class="tag">Métricas</span></div>
+      </div>
+      <div class="two-srv-card an-up d4">
+        <span style="font-size:2rem;display:block;margin-bottom:16px;">🏙️</span>
+        <div class="pillar-card-title">Planificación urbana</div>
+        <p class="pillar-card-desc" style="margin-bottom:16px;">Diagnóstico territorial, zonificación estratégica, captura de plusvalías e infraestructura. Del catastro a los instrumentos de financiamiento urbano.</p>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="font-size:.8rem;color:var(--concreto);display:flex;gap:8px;"><span style="color:var(--turquesa);">→</span>Diagnóstico territorial integrado</div>
+          <div style="font-size:.8rem;color:var(--concreto);display:flex;gap:8px;"><span style="color:var(--turquesa);">→</span>Zonificación estratégica</div>
+          <div style="font-size:.8rem;color:var(--concreto);display:flex;gap:8px;"><span style="color:var(--turquesa);">→</span>Captura de plusvalías e infraestructura</div>
+        </div>
+        <div style="margin-top:16px;"><span class="tag">Territorio</span><span class="tag">Fiscalidad urbana</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 15 — INTELIGENCIA FISCAL
+═══════════════════════════════════════ -->
+<section class="slide" id="s15" data-slide="15">
+  <div class="grid-bg"></div>
+  <div class="si">
+    <div class="ey an-up d1">Productos informativos</div>
+    <h2 class="st an-up d2">Información que<br><span class="hl">reduce asimetría.</span></h2>
+    <p class="sb an-up d3">Los municipios operan en desventaja porque no tienen acceso a datos procesados, comparables y actualizados. Alsina cierra esa brecha.</p>
+    <div class="fiscal-grid">
+      <div class="fiscal-card an-up d4">
+        <div class="fiscal-period">Bimestral</div>
+        <div class="fiscal-name">📊 Recaudación PBA</div>
+        <div class="fiscal-desc">Evolución de los tributos provinciales, variación real ajustada por inflación, composición por rubro y comparativa con períodos anteriores.</div>
+        <div style="margin-top:14px;"><span class="tag">Tributos</span><span class="tag">Variación real</span></div>
+      </div>
+      <div class="fiscal-card an-up d5">
+        <div class="fiscal-period">Trimestral</div>
+        <div class="fiscal-name">💰 Transferencias municipales</div>
+        <div class="fiscal-desc">Coparticipación, ATN y transferencias condicionadas a los 135 municipios. Comparativa per cápita, variación y tendencias fiscales.</div>
+        <div style="margin-top:14px;"><span class="tag">Coparticipación</span><span class="tag">135 municipios</span></div>
+      </div>
+      <div class="fiscal-card an-up d6">
+        <div class="fiscal-period">Permanente</div>
+        <div class="fiscal-name">🗺️ Mapa del Estado PBA</div>
+        <div class="fiscal-desc">Estructura del Estado provincial, organismos, empresas, relaciones institucionales y mapa de actores clave para la gestión municipal.</div>
+        <div style="margin-top:14px;"><span class="tag">Institucional</span><span class="tag">Actualizado</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 16 — EL DATO EN VIVO
+═══════════════════════════════════════ -->
+<section class="slide" id="s16" data-slide="16">
+  <div class="si" style="padding-top:56px;padding-bottom:40px;">
+    <div class="ey an-up d1">Inteligencia fiscal · datos verificables</div>
+    <div class="s16-layout">
+      <div>
+        <h2 class="st an-up d2" style="font-size:clamp(2rem,3.8vw,3.4rem);">El dato<br><span class="hl">habla solo.</span></h2>
+        <p style="font-size:.82rem;color:var(--concreto);line-height:1.7;margin-top:12px;max-width:340px;" class="an-fade d3">Recaudación PBA y transferencias municipales 2024–2026. Datos consolidados de ARBA y Ministerio de Economía PBA.</p>
+        <div class="kpi-grid an-up d3" style="margin-top:18px;">
+          <div class="kpi-card">
+            <div class="kpi-val"><span class="count-up" data-target="6" data-prefix="+">0</span>%</div>
+            <div class="kpi-lbl">Recaudación real PBA 1er Bim 2026</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-val">$<span class="count-up" data-target="874">0</span>B</div>
+            <div class="kpi-lbl">Transferencias 1er Bim 2026</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-val"><span class="count-up" data-target="58">0</span>%</div>
+            <div class="kpi-lbl">Ing. Brutos sobre total</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-val"><span class="count-up" data-target="135">0</span></div>
+            <div class="kpi-lbl">Municipios monitoreados</div>
+          </div>
+        </div>
+      </div>
+      <div class="an-right d4">
+        <div class="chart-wrap" style="margin-bottom:8px;">
+          <div class="chart-wrap-title">Recaudación PBA · índice base 100 = Bim1 2024 (ilustrativo)</div>
+          <div style="position:relative;height:160px;"><canvas id="barChart"></canvas></div>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-wrap-title">Composición tributaria PBA 2025 (ilustrativo)</div>
+          <div style="position:relative;height:160px;"><canvas id="donutChart"></canvas></div>
+        </div>
+        <div class="chart-source">Fuente: ARBA · Ministerio de Economía PBA · Alsina · Datos ilustrativos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 17 — DATA HUB / HEATMAP
+═══════════════════════════════════════ -->
+<section class="slide" id="s17" data-slide="17">
+  <div class="si">
+    <div class="ey an-up d1">Data Hub Territorial</div>
+    <div class="hmap-layout">
+      <div class="hmap-wrap an-left d3">
+        <svg id="hmap" viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="hmap-tooltip" id="hmapTooltip"></div>
+        <div class="hmap-legend">
+          <span>Baja actividad</span>
+          <div class="legend-bar"></div>
+          <span>Alta actividad</span>
+        </div>
+      </div>
+      <div class="an-right d4">
+        <h2 class="st" style="font-size:clamp(2rem,3.5vw,3.2rem);margin-bottom:14px;">135 municipios.<br>Una sola <span class="hl">vista.</span></h2>
+        <p style="font-size:.85rem;color:var(--concreto);line-height:1.75;margin-bottom:18px;">
+          Mapa interactivo, tabla comparativa y dashboard por municipio: transferencias, coparticipación, variaciones reales y tendencias fiscales 2023–2025.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;gap:10px;font-size:.82rem;color:var(--concreto);align-items:flex-start;">
+            <span style="color:var(--turquesa);flex-shrink:0;">→</span>Transferencias per cápita por municipio
+          </div>
+          <div style="display:flex;gap:10px;font-size:.82rem;color:var(--concreto);align-items:flex-start;">
+            <span style="color:var(--turquesa);flex-shrink:0;">→</span>Variación real ajustada por inflación
+          </div>
+          <div style="display:flex;gap:10px;font-size:.82rem;color:var(--concreto);align-items:flex-start;">
+            <span style="color:var(--turquesa);flex-shrink:0;">→</span>Comparativas entre municipios similares
+          </div>
+          <div style="display:flex;gap:10px;font-size:.82rem;color:var(--concreto);align-items:flex-start;">
+            <span style="color:var(--turquesa);flex-shrink:0;">→</span>Tendencias 2023, 2024 y 2025
+          </div>
+        </div>
+        <div style="margin-top:20px;">
+          <a href="municipios-data-hub.html" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--turquesa);text-decoration:none;border-bottom:1px solid rgba(0,213,216,.3);padding-bottom:2px;">
+            Explorar Data Hub →
+          </a>
+        </div>
+        <div style="margin-top:10px;font-size:.6rem;color:rgba(183,178,170,.35);letter-spacing:.06em;">Intensidad de color proporcional a transferencias per cápita · Datos ilustrativos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 18 — CAPACIDADES ANALÍTICAS
+═══════════════════════════════════════ -->
+<section class="slide" id="s18" data-slide="18">
+  <div class="grid-bg"></div>
+  <div class="si">
+    <div class="ey an-up d1">Biblioteca de inteligencia territorial</div>
+    <h2 class="st an-up d2">Informes que<br><span class="hl">mueven el tablero.</span></h2>
+    <div class="rep-grid" style="margin-top:22px;">
+      <div class="rep-card an-up d3">
+        <div class="rep-badge">Fiscal</div>
+        <div class="rep-title">Radiografía Fiscal Bonaerense 1999–2026</div>
+        <div class="rep-desc">Evolución de 25 años de finanzas públicas PBA. El documento de referencia para entender la estructura fiscal provincial.</div>
+      </div>
+      <div class="rep-card an-up d4">
+        <div class="rep-badge">Económico</div>
+        <div class="rep-title">PBG Municipal PBA 2021–2023</div>
+        <div class="rep-desc">Producto Bruto Geográfico de los 134 municipios PBA con análisis sectorial, comparativas y mapa de calor económico.</div>
+      </div>
+      <div class="rep-card an-up d5">
+        <div class="rep-badge">Político</div>
+        <div class="rep-title">Mapa Político 135 Municipios</div>
+        <div class="rep-desc">Intendentes, composición del HCD, color político, elecciones 2023 y proyecciones para el ciclo 2027.</div>
+      </div>
+      <div class="rep-card an-up d6">
+        <div class="rep-badge">Electoral</div>
+        <div class="rep-title">"2027 Empieza Ahora"</div>
+        <div class="rep-desc">Análisis electoral de septiembre 2025. LLA, PJ, JxC y vecinalismos en los 135 municipios. Municipios bisagra y peso propio de intendentes.</div>
+      </div>
+      <div class="rep-card an-up d7">
+        <div class="rep-badge">Inversión</div>
+        <div class="rep-title">Súper RIGI — Grandes Inversiones</div>
+        <div class="rep-desc">Análisis del Régimen de Incentivo a las Grandes Inversiones y su impacto en la autonomía fiscal municipal PBA.</div>
+      </div>
+      <div class="rep-card an-up d8">
+        <div class="rep-badge">Presupuesto</div>
+        <div class="rep-title">Presupuesto e Impositiva PBA 2026</div>
+        <div class="rep-desc">Análisis completo de las leyes presupuestarias 2026: gasto, déficit, personal, recaudación y cambios tributarios.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 19 — POR QUÉ ALSINA
+═══════════════════════════════════════ -->
+<section class="slide" id="s19" data-slide="19">
+  <div class="beam"></div>
+  <div class="si">
+    <div class="ey an-up d1">Señal territorial Alsina</div>
+    <h2 class="st an-up d2">Detectamos la señal<br><span class="hl">en la complejidad.</span></h2>
+    <div class="met-grid">
+      <div class="met-card an-up d4">
+        <div class="met-num"><span class="count-up" data-target="135">0</span></div>
+        <div class="met-lbl">Municipios bonaerenses en cobertura</div>
+      </div>
+      <div class="met-card an-up d5">
+        <div class="met-num"><span class="count-up" data-target="5">0</span></div>
+        <div class="met-lbl">Líneas de servicio especializadas</div>
+      </div>
+      <div class="met-card an-up d6">
+        <div class="met-num"><span class="count-up" data-target="4">0</span></div>
+        <div class="met-lbl">Fases del método Alsina</div>
+      </div>
+      <div class="met-card an-up d7">
+        <div class="met-num"><span class="count-up" data-target="1">0</span></div>
+        <div class="met-lbl">Metodología propia para el territorio PBA</div>
+      </div>
+    </div>
+    <div class="an-fade d8" style="margin-top:28px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;text-transform:uppercase;letter-spacing:.18em;color:rgba(0,213,216,.4);">
+      Relevar · Ordenar · Priorizar · Implementar
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 20 — CIERRE / CTA
+═══════════════════════════════════════ -->
+<section class="slide" id="s20" data-slide="20">
+  <div class="grid-bg"></div>
+  <div class="beam"></div>
+  <div class="close-wm an-fade d8">ALSINA</div>
+  <div class="si">
+    <div class="ey an-up d1">Señal territorial Alsina · Buenos Aires</div>
+    <h2 class="close-h an-up d2">
+      Gobiernos que<br>
+      <span class="hl">funcionan.</span><br>
+      Ciudades mejor<br>
+      gestionadas.
+    </h2>
+    <p class="close-sub an-up d3">Para gobiernos que necesitan ordenar, decidir y ejecutar mejor. La Provincia de Buenos Aires no perdona la improvisación.</p>
+    <div class="an-up d4">
+      <a href="mailto:contacto@alsinaconsulting.com.ar" class="cta-email">contacto@alsina.ar</a>
+    </div>
+    <div class="close-loc an-fade d5">Provincia de Buenos Aires · Argentina</div>
+    <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;" class="an-up d6">
+      <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);text-decoration:none;border:1px solid rgba(0,213,216,.25);padding:10px 20px;transition:all .2s;" onmouseover="this.style.background='rgba(0,213,216,.08)'" onmouseout="this.style.background='transparent'">← Volver al sitio</a>
+      <a href="municipios-data-hub.html" style="display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);text-decoration:none;border:1px solid rgba(183,178,170,.15);padding:10px 20px;transition:all .2s;" onmouseover="this.style.color='var(--crema)'" onmouseout="this.style.color='var(--concreto)'">Data Hub →</a>
+    </div>
+  </div>
+  <div class="close-pulse an-fade d7">
+    <svg viewBox="0 0 60 14" width="60" height="14" fill="none">
+      <polyline points="0,7 10,7 15,2 20,12 25,5 30,9 35,7 60,7" stroke="#00D5D8" stroke-width="1.2" fill="none" opacity="0.5"/>
+    </svg>
+    Señal Territorial Alsina
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   SLIDES CONFIG — editar textos aquí sin tocar el HTML
+   ══════════════════════════════════════════════════════════════ */
+const DECK_CONFIG = {
+  totalSlides: 20,
+  brand: "ALSINA",
+  contact: "contacto@alsina.ar",
+  tagline: "Gobiernos que funcionan. Ciudades mejor gestionadas.",
+};
+
+/* ══════════════════════════════════════════════════════════════
+   STATE & ELEMENTS
+   ══════════════════════════════════════════════════════════════ */
+const deck = document.getElementById('deck');
+const progressBar = document.getElementById('progress-bar');
+const counter = document.getElementById('slide-counter');
+const dotNav = document.getElementById('dot-nav');
+const slides = document.querySelectorAll('.slide');
+let currentSlide = 0;
+let chartsInitialized = false;
+let hmapInitialized = false;
+let miniGridBuilt = false;
+let chaosBuilt = false;
+
+/* ══════════════════════════════════════════════════════════════
+   DOT NAVIGATION
+   ══════════════════════════════════════════════════════════════ */
+slides.forEach((_, i) => {
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.title = `Slide ${i + 1}`;
+  dot.addEventListener('click', () => goToSlide(i));
+  dotNav.appendChild(dot);
+});
+
+/* ══════════════════════════════════════════════════════════════
+   NAVIGATION
+   ══════════════════════════════════════════════════════════════ */
+function goToSlide(n) {
+  const i = Math.max(0, Math.min(n, slides.length - 1));
+  deck.scrollTo({ top: i * deck.clientHeight, behavior: 'smooth' });
+}
+
+function updateUI(i) {
+  currentSlide = i;
+  const pct = ((i + 1) / slides.length) * 100;
+  progressBar.style.width = pct + '%';
+  counter.innerHTML = `<em>${String(i + 1).padStart(2, '0')}</em> / ${slides.length}`;
+  document.querySelectorAll('.dot').forEach((d, idx) => {
+    d.classList.toggle('active', idx === i);
+  });
+}
+
+// Track scroll position
+let scrollTimer;
+deck.addEventListener('scroll', () => {
+  clearTimeout(scrollTimer);
+  scrollTimer = setTimeout(() => {
+    const i = Math.round(deck.scrollTop / deck.clientHeight);
+    updateUI(i);
+  }, 50);
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'ArrowDown':
+    case 'ArrowRight':
+    case ' ':
+      e.preventDefault();
+      goToSlide(currentSlide + 1);
+      break;
+    case 'ArrowUp':
+    case 'ArrowLeft':
+      e.preventDefault();
+      goToSlide(currentSlide - 1);
+      break;
+    case 'f':
+    case 'F':
+      toggleFullscreen();
+      break;
+    case 'Home':
+      e.preventDefault();
+      goToSlide(0);
+      break;
+    case 'End':
+      e.preventDefault();
+      goToSlide(slides.length - 1);
+      break;
+  }
+});
+
+// Touch / swipe
+let touchStartY = 0, touchStartX = 0;
+deck.addEventListener('touchstart', e => {
+  touchStartY = e.touches[0].clientY;
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
+deck.addEventListener('touchend', e => {
+  const dy = touchStartY - e.changedTouches[0].clientY;
+  const dx = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 40) {
+    goToSlide(currentSlide + (dy > 0 ? 1 : -1));
+  }
+}, { passive: true });
+
+// Fullscreen
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   INTERSECTION OBSERVER — SLIDE ANIMATIONS
+   ══════════════════════════════════════════════════════════════ */
+const slideObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const slide = entry.target;
+      slide.classList.add('is-active');
+      const idx = Array.from(slides).indexOf(slide);
+      updateUI(idx);
+
+      // Trigger count-up for numbers in this slide
+      slide.querySelectorAll('.count-up').forEach(el => {
+        startCountUp(el);
+      });
+
+      // Lazy-init special slides
+      if (slide.id === 's5' && !miniGridBuilt) buildMiniGrid();
+      if (slide.id === 's3' && !chaosBuilt) buildChaos();
+      if (slide.id === 's16' && !chartsInitialized) initCharts();
+      if (slide.id === 's17' && !hmapInitialized) initHeatmap();
+    }
+  });
+}, { threshold: 0.45 });
+
+slides.forEach(s => slideObs.observe(s));
+
+/* ══════════════════════════════════════════════════════════════
+   COUNT-UP ANIMATION
+   ══════════════════════════════════════════════════════════════ */
+const activeCounters = new WeakSet();
+function startCountUp(el) {
+  if (activeCounters.has(el)) return;
+  activeCounters.add(el);
+  const target = parseFloat(el.dataset.target) || 0;
+  const prefix = el.dataset.prefix || '';
+  const duration = 1600;
+  const start = performance.now();
+  function tick(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const val = target * eased;
+    el.textContent = prefix + (Number.isInteger(target) ? Math.floor(val) : val.toFixed(1));
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MINI GRID — SLIDE 05 (135 cells lighting up)
+   ══════════════════════════════════════════════════════════════ */
+function buildMiniGrid() {
+  miniGridBuilt = true;
+  const grid = document.getElementById('miniGrid');
+  if (!grid) return;
+  const cells = [];
+  for (let i = 0; i < 135; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'mini-cell';
+    grid.appendChild(cell);
+    cells.push(cell);
+  }
+  // Animate cells lighting up in waves
+  cells.forEach((cell, i) => {
+    setTimeout(() => {
+      cell.classList.add(i % 7 === 0 ? 'lit-hi' : 'lit');
+    }, 20 + i * 14);
+  });
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CHAOS / ORDER DOTS — SLIDE 03
+   ══════════════════════════════════════════════════════════════ */
+function buildChaos() {
+  chaosBuilt = true;
+  const wrap = document.getElementById('chaosWrap');
+  const orderWrap = document.getElementById('orderWrap');
+  if (!wrap || !orderWrap) return;
+  // Random scattered dots
+  for (let i = 0; i < 32; i++) {
+    const d = document.createElement('div');
+    d.className = 'chaos-dot';
+    d.style.left = (5 + Math.random() * 88) + '%';
+    d.style.top = (5 + Math.random() * 78) + '%';
+    d.style.opacity = (0.2 + Math.random() * 0.55).toFixed(2);
+    d.style.width = (5 + Math.random() * 5) + 'px';
+    d.style.height = d.style.width;
+    wrap.appendChild(d);
+  }
+  // Ordered grid dots
+  for (let i = 0; i < 30; i++) {
+    const d = document.createElement('div');
+    d.className = 'order-dot';
+    orderWrap.appendChild(d);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CHART.JS — SLIDE 16
+   ══════════════════════════════════════════════════════════════ */
+function initCharts() {
+  chartsInitialized = true;
+  const T = '#00D5D8';
+  const C = '#008C9A';
+  const G2 = '#162429';
+  const CON = '#9e9992';
+  Chart.defaults.color = CON;
+  Chart.defaults.borderColor = 'rgba(0,213,216,0.07)';
+  Chart.defaults.font.family = "'Barlow', sans-serif";
+
+  // Bar chart: Recaudación index
+  const barCtx = document.getElementById('barChart');
+  if (barCtx) {
+    new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Bim1 24', 'Bim2 24', 'Bim3 24', 'Bim1 25', 'Bim2 25', 'Bim3 25', 'Bim1 26'],
+        datasets: [{
+          label: 'Recaudación (base 100)',
+          data: [100, 108, 117, 129, 139, 151, 157],
+          backgroundColor: 'rgba(0,213,216,0.15)',
+          borderColor: T,
+          borderWidth: 1.5,
+          borderRadius: 2,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(14,28,32,.96)',
+            borderColor: 'rgba(0,213,216,.28)',
+            borderWidth: 1,
+            callbacks: { label: ctx => ` Índice: ${ctx.raw}` }
+          }
+        },
+        scales: {
+          x: { grid: { color: 'rgba(0,213,216,0.05)' }, ticks: { font: { size: 9 } } },
+          y: { grid: { color: 'rgba(0,213,216,0.05)' }, ticks: { font: { size: 9 } } }
+        }
+      }
+    });
+  }
+
+  // Donut: composición tributaria
+  const donutCtx = document.getElementById('donutChart');
+  if (donutCtx) {
+    new Chart(donutCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Ing. Brutos', 'Sellos', 'Automotores', 'Inmobiliario', 'Otros'],
+        datasets: [{
+          data: [58, 15, 12, 8, 7],
+          backgroundColor: [T, 'rgba(0,213,216,.55)', C, 'rgba(0,140,154,.45)', 'rgba(0,213,216,.2)'],
+          borderColor: G2,
+          borderWidth: 2,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '60%',
+        plugins: {
+          legend: {
+            position: 'right',
+            labels: { font: { size: 9 }, boxWidth: 9, padding: 8, color: CON }
+          },
+          tooltip: {
+            backgroundColor: 'rgba(14,28,32,.96)',
+            borderColor: 'rgba(0,213,216,.28)',
+            borderWidth: 1,
+            callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}%` }
+          }
+        }
+      }
+    });
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HEATMAP SVG — SLIDE 17 (135 cells)
+   ══════════════════════════════════════════════════════════════ */
+function initHeatmap() {
+  hmapInitialized = true;
+  const svg = document.getElementById('hmap');
+  const tooltip = document.getElementById('hmapTooltip');
+  if (!svg) return;
+
+  const cols = 15, rows = 9;
+  const W = 900, H = 540;
+  const cw = W / cols, ch = H / rows, gap = 4;
+
+  // Simulate intensity: GBA perimeter high, interior moderate, south low
+  const MUNIS = [
+    'La Plata','Gral. Pueyrredón','Lomas de Zamora','Quilmes','Lanús','Morón','San Isidro',
+    'Tigre','San Martín','La Matanza','Almirante Brown','Berazategui','Florencio Varela',
+    'Merlo','Moreno','José C. Paz','Malvinas Argentinas','San Fernando','Vicente López',
+    'Tres de Febrero','Hurlingham','Ituzaingó','Esteban Echeverría','Ezeiza','Presidente Perón',
+    'Bahía Blanca','Tandil','Mar del Plata','Pergamino','Junín','Luján','Campana','Zárate',
+    'San Nicolás','Olavarría','Necochea','Azul','Dolores','Chascomús','Las Flores',
+    'Roque Pérez','Lobos','Monte','Cañuelas','San Vicente','Brandsen','Magdalena','Punta Indio',
+    'Ensenada','Berisso','Bolívar','Trenque Lauquen','Pehuajó','Coronel Pringles','Coronel Suárez',
+    'Guaminí','Pellegrini','General Villegas','Lincoln','Leandro N. Alem','Bragado','Chivilcoy',
+    'Mercedes','Marcos Paz','Navarro','General Las Heras','Alberti','Chacabuco','Salto',
+    'Rojas','Ramallo','San Pedro','Baradero','Arrecifes','Capitán Sarmiento','Exaltación de la Cruz',
+    'Pilar','Escobar','San Antonio de Areco','Carmen de Areco','Gral. Rodríguez','Gral. San Martín',
+    'Balcarce','Lobería','San Cayetano','Gral. Alvarado','Miramar','Gral. Pueyrredón','Maipú',
+    'Gral. Guido','Tordillo','Pila','Ayacucho','Rauch','Tandil','Azul','Tapalqué','Saladillo',
+    'Roque Pérez','Gral. Belgrano','Chascomús','Gral. Paz','Castelli','Gral. Madariaga',
+    'Pinamar','Villa Gesell','Mar Chiquita','Municipio 110','Municipio 111','Municipio 112',
+    'Municipio 113','Municipio 114','Municipio 115','Municipio 116','Municipio 117','Municipio 118',
+    'Municipio 119','Municipio 120','Municipio 121','Municipio 122','Municipio 123','Municipio 124',
+    'Municipio 125','Municipio 126','Municipio 127','Municipio 128','Municipio 129','Municipio 130',
+    'Municipio 131','Municipio 132','Municipio 133','Municipio 134','Municipio 135'
+  ];
+
+  let cells = '';
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const idx = r * cols + c;
+      // Intensity model: GBA (rows 0-2, cols 11-14 and 0-1) = high; center = medium; south/west = low
+      let base;
+      if (r <= 1 && c >= 11) base = 0.65 + Math.random() * 0.35;
+      else if (r <= 2 && c >= 9) base = 0.45 + Math.random() * 0.35;
+      else if (r <= 3 && c >= 7) base = 0.3 + Math.random() * 0.3;
+      else if (r <= 1 && c <= 2) base = 0.4 + Math.random() * 0.3;
+      else base = 0.08 + Math.random() * 0.22;
+
+      const muni = MUNIS[idx] || `Municipio ${idx + 1}`;
+      const transfers = (base * 1200 + 120).toFixed(0);
+
+      cells += `<rect
+        x="${c * cw + gap / 2}" y="${r * ch + gap / 2}"
+        width="${cw - gap}" height="${ch - gap}"
+        fill="#00D5D8" opacity="${base.toFixed(2)}" rx="2"
+        class="hmap-cell" data-muni="${muni}" data-val="${transfers}"
+      />`;
+    }
+  }
+  svg.innerHTML = cells;
+
+  // Tooltip
+  const svgEl = svg;
+  svgEl.addEventListener('mousemove', e => {
+    const cell = e.target;
+    if (!cell.classList.contains('hmap-cell')) { tooltip.style.opacity = '0'; return; }
+    const rect = svgEl.parentElement.getBoundingClientRect();
+    tooltip.innerHTML = `<strong style="color:var(--turquesa)">${cell.dataset.muni}</strong><br>Transf.: $${cell.dataset.val}M est.`;
+    tooltip.style.opacity = '1';
+    tooltip.style.left = (e.clientX - rect.left + 14) + 'px';
+    tooltip.style.top = (e.clientY - rect.top - 10) + 'px';
+  });
+  svgEl.addEventListener('mouseleave', () => { tooltip.style.opacity = '0'; });
+}
+
+/* ══════════════════════════════════════════════════════════════
+   INIT
+   ══════════════════════════════════════════════════════════════ */
+updateUI(0);
+// Trigger first slide animations on load
+setTimeout(() => {
+  slides[0].classList.add('is-active');
+}, 100);
+
+// Hide nav hint after a few seconds
+setTimeout(() => {
+  const hint = document.getElementById('nav-hint');
+  if (hint) hint.style.opacity = '0';
+}, 5000);
+</script>
+</body>
+</html>
