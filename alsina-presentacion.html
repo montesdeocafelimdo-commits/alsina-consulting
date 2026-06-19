@@ -269,6 +269,46 @@ html,body{height:100%;overflow:hidden;font-family:'Barlow',sans-serif;background
 .close-wm{position:absolute;right:4%;bottom:4%;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(5rem,13vw,11rem);letter-spacing:.18em;color:rgba(0,213,216,.05);line-height:1;user-select:none;pointer-events:none;}
 .close-pulse{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,213,216,.35);}
 
+/* ─── SLIDES CLARAS (fondo blanco/crema) ─── */
+.slide-light { background: var(--blanco) !important; }
+.slide-light .grid-bg { background-image: linear-gradient(rgba(0,140,154,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,140,154,.05) 1px,transparent 1px); }
+.slide-light .beam { opacity: .25; }
+.slide-light .deco-bg { color: rgba(0,140,154,.04); }
+/* texto */
+.slide-light .ey { color: var(--cian); }
+.slide-light .ey::before { background: var(--cian); }
+.slide-light .st { color: var(--texto-oscuro); }
+.slide-light .st .hl { color: var(--cian); }
+.slide-light .sb { color: #4a5a60; }
+.slide-light .divl { background: var(--cian); }
+/* timeline (slide 08) */
+.slide-light .timeline::before { background: linear-gradient(90deg,var(--cian),rgba(0,140,154,.12)); }
+.slide-light .tl-num { background: var(--blanco); color: var(--cian); border-color: var(--cian); box-shadow: none; }
+.slide-light .tl-verb { color: var(--texto-oscuro); }
+.slide-light .tl-desc { color: #5a6a70; }
+/* fiscal cards (slide 15) */
+.slide-light .fiscal-grid { gap: 16px; }
+.slide-light .fiscal-card { background: #f5f2ed; border-left-color: rgba(0,140,154,.2); }
+.slide-light .fiscal-card:hover { background: rgba(0,140,154,.06); border-left-color: var(--cian); }
+.slide-light .fiscal-period { color: var(--cian); }
+.slide-light .fiscal-name { color: var(--texto-oscuro); }
+.slide-light .fiscal-desc { color: #4a5a60; }
+.slide-light .tag { color: var(--cian); border-color: rgba(0,140,154,.25); }
+/* report cards (slide 18) */
+.slide-light .rep-grid { gap: 14px; }
+.slide-light .rep-card { background: #f5f2ed; border-left-color: rgba(0,140,154,.15); }
+.slide-light .rep-card:hover { background: rgba(0,140,154,.06); border-left-color: var(--cian); }
+.slide-light .rep-badge { color: var(--cian); border-color: rgba(0,140,154,.25); }
+.slide-light .rep-title { color: var(--texto-oscuro); }
+.slide-light .rep-desc { color: #4a5a60; }
+/* insight dots (slide 03) */
+.slide-light .dots-panel { border-color: rgba(0,0,0,.08); background: #f8f6f2; }
+.slide-light .dots-panel-label { color: #5a6a70; }
+.slide-light .insight-arrow { color: rgba(0,140,154,.4); }
+.slide-light .chip-accent { background: rgba(0,140,154,.1); border-color: rgba(0,140,154,.28); color: var(--cian); }
+.slide-light .order-dot { background: var(--cian); }
+.slide-light .chaos-dot { background: rgba(0,140,154,.35); }
+
 /* ─── RESPONSIVE ─── */
 @media(max-width:900px){
   .si{padding:60px 28px;}
@@ -366,7 +406,7 @@ html,body{height:100%;overflow:hidden;font-family:'Barlow',sans-serif;background
 <!-- ═══════════════════════════════════════
      SLIDE 03 — EL INSIGHT
 ═══════════════════════════════════════ -->
-<section class="slide" id="s3" data-slide="3">
+<section class="slide slide-light" id="s3" data-slide="3">
   <div class="grid-bg"></div>
   <div class="si">
     <div class="ey an-up d1">El insight</div>
@@ -505,7 +545,7 @@ html,body{height:100%;overflow:hidden;font-family:'Barlow',sans-serif;background
 <!-- ═══════════════════════════════════════
      SLIDE 08 — MÉTODO OVERVIEW
 ═══════════════════════════════════════ -->
-<section class="slide" id="s8" data-slide="8">
+<section class="slide slide-light" id="s8" data-slide="8">
   <div class="grid-bg"></div>
   <div class="si">
     <div class="ey an-up d1">Método Alsina</div>
@@ -765,7 +805,7 @@ html,body{height:100%;overflow:hidden;font-family:'Barlow',sans-serif;background
 <!-- ═══════════════════════════════════════
      SLIDE 15 — INTELIGENCIA FISCAL
 ═══════════════════════════════════════ -->
-<section class="slide" id="s15" data-slide="15">
+<section class="slide slide-light" id="s15" data-slide="15">
   <div class="grid-bg"></div>
   <div class="si">
     <div class="ey an-up d1">Productos informativos</div>
@@ -887,7 +927,7 @@ html,body{height:100%;overflow:hidden;font-family:'Barlow',sans-serif;background
 <!-- ═══════════════════════════════════════
      SLIDE 18 — CAPACIDADES ANALÍTICAS
 ═══════════════════════════════════════ -->
-<section class="slide" id="s18" data-slide="18">
+<section class="slide slide-light" id="s18" data-slide="18">
   <div class="grid-bg"></div>
   <div class="si">
     <div class="ey an-up d1">Biblioteca de inteligencia territorial</div>
