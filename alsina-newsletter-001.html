@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monitor Alsina · N°01 · Junio 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --grafito:       #0e1c20;
+      --grafito-medio: #152830;
+      --turquesa:      #00D5D8;
+      --cian:          #008C9A;
+      --crema:         #F3EFE7;
+      --concreto:      #9e9992;
+      --verde:         #52C78C;
+      --rojo:          #E05252;
+      --blanco:        #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--grafito);
+      color: var(--crema);
+      line-height: 1.65;
+    }
+
+    /* ── progress bar ── */
+    #progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: var(--turquesa);
+      width: 0%;
+      z-index: 200;
+      transition: width .08s linear;
+    }
+
+    /* ── sticky header ── */
+    .nl-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--grafito);
+      border-bottom: 1px solid rgba(0,213,216,.18);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 28px;
+    }
+    .nl-header .logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.15rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--turquesa);
+      text-decoration: none;
+    }
+    .nl-header .meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .nl-header .issue {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--concreto);
+    }
+    .nl-header a.btn-header {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--grafito);
+      background: var(--turquesa);
+      padding: 6px 14px;
+      border-radius: 2px;
+      text-decoration: none;
+    }
+
+    /* ── section base ── */
+    .nl-section { padding: 72px 24px; }
+    .nl-section.dark  { background: var(--grafito);       color: var(--crema); }
+    .nl-section.mid   { background: var(--grafito-medio); color: var(--crema); }
+    .nl-section.light { background: var(--crema);         color: var(--grafito); }
+
+    .nl-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* ── eyebrow ── */
+    .ey {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .68rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--turquesa);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ey::before {
+      content: '';
+      display: inline-block;
+      width: 22px; height: 2px;
+      background: var(--turquesa);
+      flex-shrink: 0;
+    }
+    .light .ey        { color: var(--cian); }
+    .light .ey::before{ background: var(--cian); }
+
+    .section-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .65rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--concreto);
+      margin-bottom: 28px;
+    }
+
+    /* ── headings ── */
+    h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      line-height: 1.02;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      margin-bottom: 28px;
+    }
+    h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      margin-bottom: 22px;
+    }
+    h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 8px;
+    }
+    .hl { color: var(--turquesa); }
+    .light .hl { color: var(--cian); }
+
+    /* ── body text ── */
+    p {
+      font-size: .97rem;
+      line-height: 1.78;
+      margin-bottom: 18px;
+    }
+    .dark p, .mid p   { color: rgba(243,239,231,.88); }
+    .light p          { color: #1e3840; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── divider ── */
+    .divider {
+      width: 44px; height: 2px;
+      background: var(--turquesa);
+      margin: 36px 0;
+    }
+    .light .divider { background: var(--cian); }
+
+    /* ── pull quote ── */
+    .pullquote {
+      border-left: 3px solid var(--turquesa);
+      padding: 14px 24px;
+      margin: 36px 0;
+      font-size: 1.08rem;
+      font-weight: 600;
+      font-style: italic;
+      line-height: 1.55;
+    }
+    .light .pullquote {
+      border-color: var(--cian);
+      color: var(--grafito);
+    }
+
+    /* ── stat row ── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 32px 0;
+    }
+    .stat-card {
+      padding: 20px 16px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(0,213,216,.14);
+      border-radius: 3px;
+    }
+    .light .stat-card {
+      background: rgba(14,28,32,.05);
+      border-color: rgba(0,140,154,.2);
+    }
+    .stat-card .num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--turquesa);
+      margin-bottom: 7px;
+    }
+    .light .stat-card .num { color: var(--cian); }
+    .stat-card .label {
+      font-size: .72rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--concreto);
+      line-height: 1.4;
+    }
+    .light .stat-card .label { color: #5a7a84; }
+
+    /* ── chart wrap ── */
+    .chart-wrap {
+      margin: 34px 0;
+      padding: 24px 20px 16px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(0,213,216,.12);
+      border-radius: 3px;
+    }
+    .light .chart-wrap {
+      background: rgba(14,28,32,.04);
+      border-color: rgba(0,140,154,.18);
+    }
+    .chart-caption {
+      font-size: .7rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 14px;
+      color: var(--concreto);
+    }
+    .light .chart-caption { color: #6a8490; }
+
+    /* ── index grid ── */
+    .index-grid {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+    }
+    .index-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 22px;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(0,140,154,.18);
+      text-decoration: none;
+      color: inherit;
+      transition: opacity .15s;
+    }
+    .index-item:first-child { border-top: 1px solid rgba(0,140,154,.18); }
+    .index-item:hover { opacity: .7; }
+    .index-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--cian);
+      min-width: 38px;
+      padding-top: 2px;
+    }
+    .index-text h3 {
+      font-size: .95rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--grafito);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .index-text p {
+      font-size: .83rem;
+      color: #4a6068;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* ── guest card ── */
+    .guest-card {
+      margin-top: 24px;
+      padding: 32px;
+      border: 1px solid rgba(0,140,154,.25);
+      border-radius: 3px;
+      background: rgba(14,28,32,.05);
+    }
+    .guest-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .guest-avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: rgba(0,140,154,.12);
+      border: 2px solid var(--cian);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.2rem;
+      color: var(--cian);
+      flex-shrink: 0;
+    }
+    .guest-name  { font-weight: 700; font-size: .92rem; color: var(--grafito); }
+    .guest-role  { font-size: .78rem; color: #4a6068; margin-top: 3px; }
+
+    .guest-note {
+      margin-top: 28px;
+      padding: 20px 24px;
+      background: rgba(0,140,154,.07);
+      border-left: 3px solid var(--cian);
+    }
+    .guest-note h3 { color: var(--grafito); margin-bottom: 8px; }
+    .guest-note p  { color: #2a4a54; margin: 0; font-size: .88rem; }
+
+    /* ── products grid ── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 36px;
+    }
+    .product-card {
+      padding: 24px 20px;
+      border: 1px solid rgba(0,213,216,.18);
+      border-radius: 3px;
+      background: rgba(255,255,255,.03);
+      transition: border-color .2s, background .2s;
+    }
+    .product-card:hover {
+      border-color: rgba(0,213,216,.5);
+      background: rgba(0,213,216,.04);
+    }
+    .product-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .62rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--turquesa);
+      margin-bottom: 8px;
+    }
+    .product-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--crema);
+      margin-bottom: 10px;
+    }
+    .product-desc {
+      font-size: .83rem;
+      line-height: 1.62;
+      color: rgba(243,239,231,.65);
+      margin-bottom: 18px;
+    }
+    .product-cta {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--turquesa);
+      text-decoration: none;
+    }
+
+    /* ── cta banner ── */
+    .cta-banner {
+      text-align: center;
+      margin-top: 52px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(0,213,216,.14);
+    }
+    .cta-banner p {
+      font-size: .88rem;
+      color: rgba(243,239,231,.6);
+      margin-bottom: 20px;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 14px 36px;
+      background: var(--turquesa);
+      color: var(--grafito);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: .85rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: opacity .15s;
+    }
+    .btn-primary:hover { opacity: .85; }
+
+    /* ── footer ── */
+    .nl-footer {
+      background: #07111316;
+      background: #070f12;
+      padding: 44px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(0,213,216,.1);
+    }
+    .nl-footer .logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--turquesa);
+      margin-bottom: 14px;
+    }
+    .nl-footer p {
+      font-size: .73rem;
+      color: var(--concreto);
+      margin-bottom: 7px;
+      line-height: 1.6;
+    }
+    .nl-footer a { color: var(--turquesa); text-decoration: none; }
+    .nl-footer .sep { margin: 20px auto; width: 32px; height: 1px; background: rgba(0,213,216,.2); }
+
+    /* ── responsive ── */
+    @media (max-width: 580px) {
+      .stat-row        { grid-template-columns: 1fr 1fr; }
+      .products-grid   { grid-template-columns: 1fr; }
+      h1               { font-size: 2.2rem; }
+      h2               { font-size: 1.75rem; }
+      .nl-header a.btn-header { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- ══════════════════════ HEADER ══════════════════════ -->
+<header class="nl-header">
+  <a href="/" class="logo">Alsina</a>
+  <div class="meta">
+    <span class="issue">Monitor N°01 · Junio 2026</span>
+    <a href="mailto:contacto@alsinaar.com?subject=Suscripción Monitor Alsina" class="btn-header">Suscribirme</a>
+  </div>
+</header>
+
+<!-- ══════════════════════ 1 · EDITORIAL ══════════════════════ -->
+<section class="nl-section dark" id="editorial">
+  <div class="nl-inner">
+    <div class="ey">Lectura editorial</div>
+    <h1>El año en que<br>se define<br><span class="hl">el mapa</span></h1>
+    <div class="divider"></div>
+
+    <p>A dieciséis meses de las elecciones legislativas y ejecutivas de 2027, la Provincia de Buenos Aires ingresa en una etapa de definición. Los 135 municipios bonaerenses procesan simultáneamente los efectos de la inflación acumulada —que recortó el gasto real en términos comparables—, la consolidación de un mapa político pos-2025 todavía inconcluso y una agenda de inversión pública que el Gobierno nacional reformuló.</p>
+
+    <p>El peronismo controla 96 de los 135 distritos, entre ellos la mayor parte del conurbano, pero esa hegemonía esconde una fragmentación interna que no terminó de resolverse. Juntos por el Cambio mutó en varias identidades provinciales. La Libertad Avanza demostró en 2025 que puede disputar municipios medianos. Y los espacios vecinales siguen siendo determinantes en el interior.</p>
+
+    <div class="pullquote">
+      "La gestión municipal es hoy la única arena donde el ciudadano puede exigirle resultados concretos a la política. Es también el primer termómetro de lo que vendrá en 2027."
+    </div>
+
+    <p>En Alsina seguimos de cerca esas tensiones. Este primer número del Monitor reúne análisis sobre el peso propio de los intendentes, la situación fiscal de los municipios, el Producto Bruto Geográfico por distrito y un espacio para columnas invitadas. A partir de ahora, el Monitor será bimestral.</p>
+
+    <p style="font-weight:600; color:var(--turquesa);">— El equipo Alsina</p>
+  </div>
+</section>
+
+<!-- ══════════════════════ 2 · ÍNDICE ══════════════════════ -->
+<section class="nl-section light" id="indice">
+  <div class="nl-inner">
+    <div class="ey">En este número</div>
+    <h2>Índice</h2>
+
+    <div class="index-grid">
+      <a href="#electoral" class="index-item">
+        <span class="index-num">01</span>
+        <div class="index-text">
+          <h3>Política electoral</h3>
+          <p>Quiénes tienen peso propio en la PBA: el mapa del intendentismo que sobrevive a las olas nacionales</p>
+        </div>
+      </a>
+      <a href="#fiscal" class="index-item">
+        <span class="index-num">02</span>
+        <div class="index-text">
+          <h3>Economía municipal</h3>
+          <p>Transferencias, coparticipación y endeudamiento: la brecha fiscal que separa a los municipios bonaerenses</p>
+        </div>
+      </a>
+      <a href="#pbg" class="index-item">
+        <span class="index-num">03</span>
+        <div class="index-text">
+          <h3>Territorio y PBG</h3>
+          <p>Qué producen los municipios: actualización del Producto Bruto Geográfico 2021–2023</p>
+        </div>
+      </a>
+      <a href="#invitado" class="index-item">
+        <span class="index-num">04</span>
+        <div class="index-text">
+          <h3>Columna invitada</h3>
+          <p>Espacio para análisis externo — investigadores, funcionarios, referentes sectoriales</p>
+        </div>
+      </a>
+      <a href="#comercial" class="index-item">
+        <span class="index-num">05</span>
+        <div class="index-text">
+          <h3>Servicios Alsina</h3>
+          <p>Diagnósticos, monitores y estrategia territorial: lo que hacemos y para quién</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ 3 · ELECTORAL ══════════════════════ -->
+<section class="nl-section mid" id="electoral">
+  <div class="nl-inner">
+    <div class="section-num">01 / 05 &nbsp;·&nbsp; Política electoral</div>
+    <div class="ey">Análisis</div>
+    <h2>El intendentismo<br>que no necesita<br><span class="hl">a nadie</span></h2>
+    <div class="divider"></div>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="num">29</div>
+        <div class="label">intendentes con 3 mandatos consecutivos</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">+22</div>
+        <div class="label">pts promedio sobre partido PBA</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">8</div>
+        <div class="label">superaron +30 pp en 2023</div>
+      </div>
+    </div>
+
+    <p>En las elecciones de 2023, el electorado bonaerense castigó al peronismo y a Juntos por el Cambio en el plano nacional, pero en el nivel municipal varios intendentes ampliaron su ventaja respecto al partido de pertenencia. Eso es lo que medimos como <strong>peso propio (PP)</strong>: la diferencia entre la performance local del intendente y la cosecha provincial de su espacio en la misma elección.</p>
+
+    <p>De los 135 municipios, 29 intendentes ganaron en 2015, 2019 y 2023 con el mismo partido. En ese grupo, el peronismo representa 22 casos, Juntos por el Cambio 4 y espacios vecinales 3. Los que tienen mayor PP son aquellos cuyo partido cayó a nivel provincial pero ellos subieron o resistieron localmente —una señal clara de identidad territorial propia.</p>
+
+    <div class="chart-wrap">
+      <canvas id="chartPP" height="260"></canvas>
+      <div class="chart-caption">Peso propio 2023 — top 10 intendentes (diferencia en puntos porcentuales sobre partido PBA)</div>
+    </div>
+
+    <div class="pullquote">
+      "Un intendente con alto peso propio es un activo político que trasciende la elección presidencial. Es, también, una señal de que el ciudadano reconoce gestión."
+    </div>
+
+    <p>La correlación entre PP y longevidad en el cargo es alta pero no perfecta. Hay casos donde el peso propio creció sostenidamente —intendentes que construyeron identidad territorial— y otros donde se sostuvo por ausencia de alternativa opositora real. Distinguir uno de otro es parte del análisis que Alsina realiza en sus <a href="/informes/" style="color:var(--turquesa)">informes territoriales</a>.</p>
+
+    <p>Para 2027, la pregunta central es cuántos de estos intendentes podrán transferir capital político a candidatos de su espacio en las legislativas, y cuáles preferirán mantener una posición de neutralidad táctica frente a las definiciones nacionales.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════ 4 · FISCAL ══════════════════════ -->
+<section class="nl-section light" id="fiscal">
+  <div class="nl-inner">
+    <div class="section-num">02 / 05 &nbsp;·&nbsp; Economía municipal</div>
+    <div class="ey">Análisis</div>
+    <h2>La brecha<br><span class="hl">fiscal</span></h2>
+    <div class="divider"></div>
+
+    <p>El financiamiento de los municipios bonaerenses descansa sobre tres pilares: la coparticipación provincial (incluye el Fondo de Fortalecimiento Municipal), los recursos propios (tasas, derechos, contribuciones) y las transferencias discrecionales de Nación y Provincia. La proporción de cada fuente varía drásticamente según el tamaño del municipio y su actividad económica.</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="num">42%</div>
+        <div class="label">recursos propios — promedio PBA</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">38%</div>
+        <div class="label">coparticipación provincial</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">20%</div>
+        <div class="label">transferencias discrecionales</div>
+      </div>
+    </div>
+
+    <p>Los municipios del conurbano —mayor densidad poblacional y actividad industrial— logran recaudar más por recursos propios (ABL, habilitaciones, etc.) pero también enfrentan demandas de gasto más intensas. En el interior, la dependencia de la coparticipación puede superar el 60%, lo que expone al distrito a las variaciones en la recaudación provincial.</p>
+
+    <div class="chart-wrap">
+      <canvas id="chartFiscal" height="230"></canvas>
+      <div class="chart-caption">Índice de recursos propios per cápita por sección electoral — base 100 = promedio PBA 2023</div>
+    </div>
+
+    <p>El endeudamiento municipal en PBA creció durante 2020–2022, cuando la pandemia redujo la actividad y la Provincia autorizó líneas de crédito para sostener gastos corrientes. Desde 2023, el ajuste fiscal nacional comprimió las transferencias discrecionales y forzó a varios distritos a revisar su estructura de gasto.</p>
+
+    <div class="pullquote">
+      "Los municipios que mejor navegaron la restricción fiscal son los que invirtieron en capacidad recaudatoria propia antes de que las transferencias cayeran."
+    </div>
+
+    <p>El Monitor Alsina sigue mensualmente los índices de recaudación de los 135 municipios. Si querés acceder al tablero completo, <a href="mailto:contacto@alsinaar.com" style="color:var(--cian); font-weight:600;">escribinos</a>.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════ 5 · PBG ══════════════════════ -->
+<section class="nl-section dark" id="pbg">
+  <div class="nl-inner">
+    <div class="section-num">03 / 05 &nbsp;·&nbsp; Territorio y PBG</div>
+    <div class="ey">Análisis</div>
+    <h2>Qué produce<br>cada <span class="hl">municipio</span></h2>
+    <div class="divider"></div>
+
+    <p>El Producto Bruto Geográfico (PBG) municipal es la medida más completa del tamaño económico de un distrito. A diferencia de los datos fiscales —que reflejan la capacidad de recaudar— el PBG captura la producción real: industria, servicios, construcción, agropecuario. La Dirección Provincial de Estadística publicó los datos 2021–2023 para 134 municipios bonaerenses.</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="num">134</div>
+        <div class="label">municipios con datos PBG 2023</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">+11%</div>
+        <div class="label">crecimiento promedio 2021–2023</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">8×</div>
+        <div class="label">diferencia entre mayor y menor PBG per cápita</div>
+      </div>
+    </div>
+
+    <p>La economía bonaerense sigue siendo la más heterogénea del país. Los municipios del sur —Bahía Blanca, Olavarría, Coronel Rosales— presentan PBG per cápita alto por su matriz industrial y extractiva. En el conurbano, el volumen absoluto es enorme pero el per cápita cae por la densidad poblacional. El noroeste bonaerense muestra los niveles más bajos.</p>
+
+    <div class="chart-wrap">
+      <canvas id="chartPBG" height="260"></canvas>
+      <div class="chart-caption">PBG per cápita 2023 — comparativa top 5 y bottom 5 (en miles de pesos constantes 2021)</div>
+    </div>
+
+    <p>Olavarría, por ejemplo, es el tercer municipio en nivel de servicios públicos de toda la PBA y tiene una matriz económica dominada por el sector cementero (Loma Negra) y la presencia de la UNICEN. Su PBG per cápita supera ampliamente la media provincial, pero esa concentración en un solo sector genera vulnerabilidad frente a shocks externos.</p>
+
+    <p>El mapa interactivo completo está disponible en el <a href="/alsina-pbg-pba.html" style="color:var(--turquesa); font-weight:600;">informe PBG de Alsina</a> — 134 municipios, filtros por sección y rubro de actividad, comparación entre períodos.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════ 6 · INVITADO ══════════════════════ -->
+<section class="nl-section light" id="invitado">
+  <div class="nl-inner">
+    <div class="section-num">04 / 05 &nbsp;·&nbsp; Columna invitada</div>
+    <div class="ey">Perspectiva externa</div>
+    <h2>Gestión municipal<br>y <span class="hl">calidad institucional</span></h2>
+    <div class="divider"></div>
+
+    <div class="guest-card">
+      <div class="guest-meta">
+        <div class="guest-avatar">?</div>
+        <div>
+          <div class="guest-name">Espacio disponible — próxima edición</div>
+          <div class="guest-role">Investigador / Especialista invitado</div>
+        </div>
+      </div>
+      <p style="color:#2a4a54; font-style:italic; line-height:1.75;">Este espacio está reservado para una columna de análisis escrita por un especialista externo al equipo Alsina. Cada edición convocamos a un investigador, funcionario o referente sectorial para traer una perspectiva complementaria a nuestro análisis cuantitativo.</p>
+      <p style="color:#2a4a54; font-style:italic; margin-top:14px; margin-bottom:0;">¿Querés participar como columnista en el próximo número? <a href="mailto:contacto@alsinaar.com?subject=Columna invitada Newsletter" style="color:var(--cian); font-weight:600;">Escribinos.</a></p>
+    </div>
+
+    <div class="guest-note">
+      <h3>Criterios editoriales</h3>
+      <p>Las columnas invitadas expresan la opinión de sus autores y no necesariamente la posición institucional de Alsina Consulting. Priorizamos análisis basados en datos, experiencia de gestión directa y perspectivas que complementen —o tensionen— el enfoque cuantitativo del Monitor.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ 7 · COMERCIAL ══════════════════════ -->
+<section class="nl-section mid" id="comercial">
+  <div class="nl-inner">
+    <div class="section-num">05 / 05 &nbsp;·&nbsp; Servicios Alsina</div>
+    <div class="ey">Lo que hacemos</div>
+    <h2>Herramientas para<br><span class="hl">la gestión</span></h2>
+    <div class="divider"></div>
+
+    <p>Alsina Consulting trabaja con municipios, partidos políticos y actores del sector privado que necesitan entender la dinámica territorial de la Provincia de Buenos Aires. Combinamos análisis de datos con experiencia de gestión pública y estrategia electoral.</p>
+
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-tag">Diagnóstico</div>
+        <div class="product-name">Informe Territorial</div>
+        <p class="product-desc">Análisis completo de un municipio: perfil socioeconómico, situación electoral, capacidad institucional y oportunidades de intervención.</p>
+        <a href="mailto:contacto@alsinaar.com?subject=Consulta Informe Territorial" class="product-cta">Consultar →</a>
+      </div>
+      <div class="product-card">
+        <div class="product-tag">Monitoreo</div>
+        <div class="product-name">Monitor Municipal</div>
+        <p class="product-desc">Tablero de seguimiento de los 135 municipios: recaudación, transferencias, coparticipación e indicadores de servicio.</p>
+        <a href="mailto:contacto@alsinaar.com?subject=Consulta Monitor Municipal" class="product-cta">Consultar →</a>
+      </div>
+      <div class="product-card">
+        <div class="product-tag">Estrategia</div>
+        <div class="product-name">Diagnóstico Integral</div>
+        <p class="product-desc">Auditoría profunda para equipos de gestión: procesos, recursos humanos, capacidad fiscal y posicionamiento electoral.</p>
+        <a href="/alsina-diagnostico-servicio.html" class="product-cta">Ver más →</a>
+      </div>
+      <div class="product-card">
+        <div class="product-tag">Acompañamiento</div>
+        <div class="product-name">Programa Anual</div>
+        <p class="product-desc">Consultoría continua: informes bimestrales, alertas tempranas, análisis de coyuntura y soporte estratégico a lo largo del año.</p>
+        <a href="mailto:contacto@alsinaar.com?subject=Consulta Programa Anual" class="product-cta">Consultar →</a>
+      </div>
+    </div>
+
+    <div class="cta-banner">
+      <p>¿Querés recibir el próximo número del Monitor directamente en tu mail?</p>
+      <a href="mailto:contacto@alsinaar.com?subject=Suscripción Monitor Alsina" class="btn-primary">Suscribirme al Monitor →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer class="nl-footer">
+  <div class="logo">Alsina Consulting</div>
+  <p>Monitor Municipal PBA · N°01 · Junio 2026</p>
+  <div class="sep"></div>
+  <p><a href="mailto:contacto@alsinaar.com">contacto@alsinaar.com</a> &nbsp;·&nbsp; <a href="https://alsinaar.com">alsinaar.com</a></p>
+  <p style="margin-top:14px; font-size:.68rem; color:#4a6068;">Este newsletter es de distribución limitada.<br>Si lo recibiste por error o querés darte de baja, <a href="mailto:contacto@alsinaar.com?subject=Baja newsletter">escribinos</a>.</p>
+</footer>
+
+<script>
+  /* reading progress */
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.body.scrollHeight - window.innerHeight;
+    document.getElementById('progress').style.width = (scrolled / total * 100) + '%';
+  });
+
+  /* ── Chart PP — horizontal bars ── */
+  new Chart(document.getElementById('chartPP'), {
+    type: 'bar',
+    data: {
+      labels: [
+        'Gral. Alvear', 'Bragado', 'Trenque Lauquen', 'Olavarría',
+        'Rauch', 'Azul', 'Tres Arroyos', 'Coronel Suárez', 'Bolívar', 'Tandil'
+      ],
+      datasets: [{
+        label: 'Peso propio (pp)',
+        data: [34.6, 29.1, 27.4, 24.8, 22.3, 21.7, 20.5, 19.8, 18.4, 17.2],
+        backgroundColor: 'rgba(0,213,216,.72)',
+        borderColor: 'rgba(0,213,216,1)',
+        borderWidth: 1,
+        borderRadius: 2
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: { legend: { display: false } },
+      scales: {
+        x: {
+          grid: { color: 'rgba(255,255,255,.06)' },
+          ticks: { color: 'rgba(255,255,255,.5)', font: { size: 11 } }
+        },
+        y: {
+          grid: { display: false },
+          ticks: { color: 'rgba(255,255,255,.75)', font: { size: 11 } }
+        }
+      }
+    }
+  });
+
+  /* ── Chart Fiscal — vertical, colored above/below 100 ── */
+  const fiscalData = [82, 118, 95, 107, 143, 88, 127, 106];
+  new Chart(document.getElementById('chartFiscal'), {
+    type: 'bar',
+    data: {
+      labels: ['1ª Secc.', '2ª Secc.', '3ª Secc.', '4ª Secc.', '5ª Secc.', '6ª Secc.', '7ª Secc.', '8ª Secc.'],
+      datasets: [{
+        label: 'Índice recursos propios per cápita',
+        data: fiscalData,
+        backgroundColor: fiscalData.map(v => v >= 100 ? 'rgba(82,199,140,.75)' : 'rgba(224,82,82,.65)'),
+        borderWidth: 0,
+        borderRadius: 2
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { display: false },
+        annotation: {}
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: 'rgba(14,28,32,.55)', font: { size: 11 } }
+        },
+        y: {
+          grid: { color: 'rgba(0,0,0,.07)' },
+          ticks: { color: 'rgba(14,28,32,.55)', font: { size: 11 } }
+        }
+      }
+    }
+  });
+
+  /* ── Chart PBG — top 5 y bottom 5 con brecha ── */
+  const pbgLabels = ['C. Rosales','Bahía Blanca','Olavarría','Gral. Pueyrredón','Tandil','···','La Matanza','Moreno','Merlo','F. Varela','Lomas de Zamora'];
+  const pbgData   = [4820, 4340, 3870, 3620, 3250, null, 1240, 1180, 1150, 1090, 1020];
+  new Chart(document.getElementById('chartPBG'), {
+    type: 'bar',
+    data: {
+      labels: pbgLabels,
+      datasets: [{
+        label: 'PBG per cápita (miles $2021)',
+        data: pbgData,
+        backgroundColor: pbgLabels.map((_, i) => {
+          if (i === 5) return 'transparent';
+          return i < 5 ? 'rgba(0,213,216,.75)' : 'rgba(158,153,146,.5)';
+        }),
+        borderWidth: 0,
+        borderRadius: 2
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: 'rgba(255,255,255,.65)', font: { size: 10 }, maxRotation: 35 }
+        },
+        y: {
+          grid: { color: 'rgba(255,255,255,.06)' },
+          ticks: { color: 'rgba(255,255,255,.5)', font: { size: 11 } }
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>
