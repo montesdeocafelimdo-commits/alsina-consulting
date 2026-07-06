@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const { token } = req.query;
 
   if (!token) {
-    return res.redirect(`${SITE_URL}/newsletter?confirmed=error`);
+    return res.redirect(`${SITE_URL}/newsletter.html?confirmed=error`);
   }
 
   const supa = createClient(
@@ -23,8 +23,8 @@ export default async function handler(req, res) {
 
   if (error || !data) {
     console.error('Confirm error:', error);
-    return res.redirect(`${SITE_URL}/newsletter?confirmed=error`);
+    return res.redirect(`${SITE_URL}/newsletter.html?confirmed=error`);
   }
 
-  return res.redirect(`${SITE_URL}/newsletter?confirmed=true`);
+  return res.redirect(`${SITE_URL}/newsletter.html?confirmed=true`);
 }
