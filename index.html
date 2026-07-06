@@ -586,7 +586,10 @@ footer{
     <li><a href="nota-electoral-2027.html" style="color:var(--turquesa)">Análisis 2027</a></li>
     <li><a href="#clientes" style="color:var(--concreto)">Clientes</a></li>
   </ul>
-  <a href="#contacto" class="nav-cta">Contacto →</a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="/newsletter" style="font-size:.72rem;color:var(--turquesa);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(0,213,216,.3);padding:8px 16px;transition:all .2s;" onmouseover="this.style.background='rgba(0,213,216,.08)'" onmouseout="this.style.background='transparent'">Newsletter</a>
+    <a href="#contacto" class="nav-cta">Contacto →</a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -1230,13 +1233,14 @@ footer{
       Contanos sobre el municipio o gestión que dirigís y encontramos juntos el punto de entrada.
     </p>
     <div class="cta-actions reveal">
-      <a href="mailto:contacto@alsinaconsulting.com.ar" class="btn-primary">Escribirnos →</a>
-      <a href="#servicios" class="btn-secondary">Ver todos los servicios</a>
+      <a href="mailto:contacto@alsinaar.com" class="btn-primary">Escribirnos →</a>
+      <a href="/newsletter" class="btn-secondary">Señal Alsina →</a>
     </div>
-    <div class="cta-form reveal">
-      <input type="email" class="cta-input" placeholder="Tu correo electrónico...">
-      <button class="cta-submit">Enviar</button>
+    <div class="cta-form reveal" id="ctaNewsletterForm">
+      <input type="email" class="cta-input" id="ctaEmail" placeholder="Tu correo — recibí la Señal Alsina...">
+      <button class="cta-submit" id="ctaBtn" onclick="subscribeFromCta()">Suscribirme</button>
     </div>
+    <div id="ctaStatus" style="margin-top:10px;font-size:.78rem;min-height:20px;text-align:center;"></div>
   </div>
 </section>
 
@@ -1308,9 +1312,17 @@ footer{
       </ul>
     </div>
     <div>
+      <div class="footer-col-title">Newsletter</div>
+      <ul class="footer-links">
+        <li><a href="/newsletter">Señal Alsina — Suscribirse</a></li>
+        <li><a href="/newsletter#contenido">Qué incluye cada edición</a></li>
+        <li><a href="/newsletter#suscripcion">Próximamente: plan Pro</a></li>
+      </ul>
+    </div>
+    <div>
       <div class="footer-col-title">Contacto</div>
       <ul class="footer-links">
-        <li><a href="mailto:contacto@alsinaconsulting.com.ar">contacto@alsina.ar</a></li>
+        <li><a href="mailto:contacto@alsinaar.com">contacto@alsinaar.com</a></li>
         <li><a href="#">Provincia de Buenos Aires</a></li>
         <li><a href="#">Argentina</a></li>
       </ul>
@@ -1396,6 +1408,42 @@ function drawParticles() {
   requestAnimationFrame(drawParticles);
 }
 drawParticles();
+
+// ── CTA NEWSLETTER SUBSCRIBE ──
+async function subscribeFromCta() {
+  const email = document.getElementById('ctaEmail').value.trim();
+  const btn   = document.getElementById('ctaBtn');
+  const status = document.getElementById('ctaStatus');
+  if (!email) return;
+  btn.disabled = true;
+  btn.textContent = '…';
+  status.style.color = 'rgba(243,239,231,.5)';
+  status.textContent = '';
+  try {
+    const r = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    const d = await r.json();
+    if (d.status === 'ok') {
+      status.style.color = 'var(--turquesa)';
+      status.textContent = '¡Listo! Revisá tu mail para confirmar.';
+      document.getElementById('ctaEmail').value = '';
+    } else if (d.status === 'already_subscribed') {
+      status.style.color = 'rgba(0,213,216,.7)';
+      status.textContent = 'Ya estás en la lista — revisá tu carpeta de spam si no confirmaste.';
+    } else {
+      throw new Error();
+    }
+  } catch {
+    status.style.color = 'var(--rojo)';
+    status.textContent = 'Error al suscribirse. Intentá desde la página del newsletter.';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Suscribirme';
+  }
+}
 
 // ── SMOOTH NAV ──
 document.querySelectorAll('a[href^="#"]').forEach(a => {

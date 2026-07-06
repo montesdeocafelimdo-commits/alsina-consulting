@@ -302,6 +302,40 @@
   </div>
 </section>
 
+<!-- ══ CONTENT GATE ═══════════════════════════════════════════════════════ -->
+<div id="pbgGateBar" style="background:#0e1c20;border-top:2px solid #00D5D8;padding:28px 48px;position:relative;">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:32px;flex-wrap:wrap;">
+    <div style="flex:1;min-width:260px;">
+      <div style="font-size:.6rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:#00D5D8;margin-bottom:8px;">Acceso al análisis completo</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;text-transform:uppercase;color:#F3EFE7;margin-bottom:6px;">
+        Desbloqueá el informe PBG completo
+      </div>
+      <p style="font-size:.82rem;color:#9e9992;line-height:1.65;max-width:480px;">
+        El capítulo de panorama es gratuito. Para acceder al mapa coroplético,
+        ranking completo, dinámica temporal, per cápita, cruce con transferencias
+        y análisis por secciones — dejá tu mail.
+      </p>
+    </div>
+    <div style="flex-shrink:0;min-width:280px;">
+      <div id="pbgGateForm" style="display:flex;flex-direction:column;gap:8px;max-width:320px;">
+        <input type="email" id="pbgEmail" placeholder="tu@mail.com"
+          style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.2);color:#F3EFE7;padding:11px 16px;font-family:'Barlow',sans-serif;font-size:.85rem;outline:none;transition:border-color .2s;"
+          onfocus="this.style.borderColor='#00D5D8'" onblur="this.style.borderColor='rgba(255,255,255,.2)'">
+        <button id="pbgGateBtn" onclick="submitPbgGate()"
+          style="background:#00D5D8;border:none;color:#071114;padding:12px;font-family:'Barlow',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s;"
+          onmouseover="this.style.background='#00b8ba'" onmouseout="this.style.background='#00D5D8'">
+          Leer el informe completo →
+        </button>
+        <div id="pbgGateStatus" style="font-size:.72rem;color:rgba(0,213,216,.8);min-height:14px;"></div>
+      </div>
+      <p style="font-size:.6rem;color:rgba(158,153,146,.4);margin-top:6px;">Gratis. Sin spam. Un mail y listo.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENIDO BLOQUEADO — visible tras dejar el mail -->
+<div id="pbgLockedContent" style="display:none;">
+
 <!-- ══ MAPA DE CALOR ══════════════════════════════════════════════════════ -->
 <section class="gray" id="mapa-calor">
   <div class="wrap">
@@ -696,6 +730,8 @@
     </div>
   </div>
 </section>
+
+</div><!-- /pbgLockedContent -->
 
 <footer>
   <div class="foot-inner">
@@ -1250,6 +1286,51 @@ renderMap('percap');
     links.forEach(l=>l.classList.toggle('active', l.getAttribute('href')===current));
   };
   window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+})();
+
+// ── CONTENT GATE (Feature 2) ──────────────────────────
+(function initPbgGate(){
+  const STORAGE_KEY = 'alsina_unlock_pbg-pba';
+  if (localStorage.getItem(STORAGE_KEY)) {
+    revealPbgContent();
+  }
+
+  function revealPbgContent() {
+    const locked = document.getElementById('pbgLockedContent');
+    const bar    = document.getElementById('pbgGateBar');
+    if (locked) locked.style.display = 'block';
+    if (bar)    bar.style.display    = 'none';
+  }
+
+  window.submitPbgGate = async function() {
+    const emailEl  = document.getElementById('pbgEmail');
+    const btnEl    = document.getElementById('pbgGateBtn');
+    const statusEl = document.getElementById('pbgGateStatus');
+    const email    = (emailEl?.value || '').trim();
+    if (!email) return;
+
+    btnEl.disabled = true;
+    btnEl.textContent = 'Verificando…';
+
+    try {
+      const r = await fetch('/api/unlock', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, resource: 'pbg-pba' }),
+      });
+      const d = await r.json();
+      if (d.status === 'ok') {
+        localStorage.setItem(STORAGE_KEY, '1');
+        revealPbgContent();
+      } else {
+        throw new Error(d.error || 'Error');
+      }
+    } catch {
+      statusEl.textContent = 'Error al verificar. Intentá de nuevo.';
+      btnEl.disabled = false;
+      btnEl.textContent = 'Leer el informe completo →';
+    }
+  };
 })();
 </script>
 </body>

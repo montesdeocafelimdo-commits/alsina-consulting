@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Señal Alsina — Newsletter quincenal de gestión pública PBA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --grafito:#0e1c20;--grafito2:#152830;--grafito3:#1e2f35;
+  --turquesa:#00D5D8;--cian:#008C9A;
+  --crema:#F3EFE7;--concreto:#9e9992;
+  --verde:#52C78C;--rojo:#E05252;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 48px;
+  background:rgba(14,28,32,0.97);
+  box-shadow:0 1px 0 rgba(0,213,216,0.1);
+  backdrop-filter:blur(8px);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-mark{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.2em;color:var(--crema);}
+.nav-tagline{font-size:.58rem;color:rgba(183,178,170,.55);letter-spacing:.12em;text-transform:uppercase;}
+.nav-back{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.72rem;color:var(--turquesa);text-decoration:none;
+  letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid rgba(0,213,216,.3);padding:6px 14px;transition:all .2s;
+}
+.nav-back:hover{background:rgba(0,213,216,.08);border-color:var(--turquesa);}
+
+/* ── HERO ── */
+.hero{
+  min-height:92vh;display:flex;align-items:center;
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--grafito) 0%,var(--grafito2) 55%,#0a2535 100%);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,213,216,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,213,216,.04) 1px,transparent 1px);
+  background-size:56px 56px;
+}
+.hero-beam{
+  position:absolute;top:-10%;right:-5%;bottom:-10%;width:50%;
+  clip-path:polygon(30% 0,100% 0,100% 100%,0% 100%);
+  background:linear-gradient(135deg,rgba(0,213,216,.07) 0%,rgba(0,140,154,.03) 60%,transparent 100%);
+  border-left:1px solid rgba(0,213,216,.2);
+}
+.hero-inner{
+  position:relative;z-index:2;
+  max-width:1100px;margin:0 auto;padding:120px 48px 80px;
+  display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;
+}
+.hero-eyebrow{
+  font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--turquesa);margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+}
+.hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--turquesa);}
+.hero-headline{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(3rem,5.5vw,5rem);line-height:.93;text-transform:uppercase;
+  color:var(--crema);margin-bottom:22px;
+}
+.hero-headline em{color:var(--turquesa);font-style:normal;}
+.hero-sub{
+  font-size:.98rem;color:rgba(243,239,231,.7);line-height:1.8;max-width:440px;margin-bottom:32px;
+}
+.hero-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;}
+.badge{
+  font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 12px;border:1px solid rgba(0,213,216,.3);color:rgba(0,213,216,.8);
+}
+.badge.green{border-color:rgba(82,199,140,.4);color:var(--verde);}
+
+/* Hero form card */
+.hero-card{
+  background:rgba(14,28,32,.8);
+  border:1px solid rgba(0,213,216,.2);
+  backdrop-filter:blur(10px);
+  padding:36px 32px;
+  position:relative;
+}
+.hero-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--turquesa),transparent);
+}
+.card-eyebrow{
+  font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--turquesa);margin-bottom:14px;
+}
+.card-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:1.5rem;text-transform:uppercase;color:var(--crema);
+  margin-bottom:8px;
+}
+.card-sub{font-size:.82rem;color:var(--concreto);line-height:1.65;margin-bottom:24px;}
+.nl-form{display:flex;flex-direction:column;gap:10px;}
+.nl-input{
+  background:rgba(255,255,255,.07);border:1.5px solid rgba(243,239,231,.2);
+  color:var(--crema);padding:13px 16px;font-family:'Barlow',sans-serif;font-size:.88rem;
+  outline:none;transition:border-color .2s;
+}
+.nl-input::placeholder{color:rgba(243,239,231,.35);}
+.nl-input:focus{border-color:var(--turquesa);}
+.nl-btn{
+  background:var(--turquesa);border:none;color:var(--grafito);
+  padding:14px 24px;font-family:'Barlow',sans-serif;font-weight:700;
+  font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;text-align:center;
+}
+.nl-btn:hover{background:#00b8ba;transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,213,216,.3);}
+.nl-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none;}
+.form-status{font-size:.8rem;line-height:1.5;padding:10px 14px;display:none;}
+.form-status.ok{background:rgba(82,199,140,.12);border-left:3px solid var(--verde);color:var(--verde);display:block;}
+.form-status.err{background:rgba(224,82,82,.1);border-left:3px solid var(--rojo);color:var(--rojo);display:block;}
+.form-status.warn{background:rgba(0,213,216,.08);border-left:3px solid var(--turquesa);color:var(--turquesa);display:block;}
+.card-note{font-size:.68rem;color:rgba(158,153,146,.5);margin-top:10px;text-align:center;}
+
+/* ── MARQUEE ── */
+.marquee-band{background:var(--turquesa);padding:12px 0;overflow:hidden;}
+.marquee-track{display:flex;white-space:nowrap;animation:marquee 24s linear infinite;}
+.marquee-item{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;
+  text-transform:uppercase;letter-spacing:.12em;color:var(--grafito);
+  padding:0 28px;display:flex;align-items:center;gap:28px;
+}
+.marquee-item::after{content:'◆';font-size:.45rem;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ── SECCIONES ── */
+.section{padding:96px 48px;}
+.section-dark{background:var(--grafito2);}
+.section-light{background:var(--crema);color:#1a2a30;}
+.section-mid{background:#0f1e23;}
+.wrap{max-width:1100px;margin:0 auto;}
+.section-label{
+  font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--turquesa);margin-bottom:14px;display:flex;align-items:center;gap:10px;
+}
+.section-label::after{content:'';flex:0 0 28px;height:1px;background:var(--turquesa);}
+.section-label-dark{
+  font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--cian);margin-bottom:14px;display:flex;align-items:center;gap:10px;
+}
+.section-label-dark::after{content:'';flex:0 0 28px;height:1px;background:var(--cian);}
+.section-headline{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(2.2rem,4vw,3.4rem);text-transform:uppercase;line-height:.95;
+  color:var(--crema);
+}
+.section-headline em{color:var(--turquesa);font-style:normal;}
+.section-headline-dark{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(2.2rem,4vw,3.4rem);text-transform:uppercase;line-height:.95;
+  color:#1a2a30;
+}
+.section-headline-dark em{color:var(--cian);font-style:normal;}
+
+/* ── SECCIONES DEL NL ── */
+.sections-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:48px;
+}
+.sec-card{
+  background:rgba(14,28,32,.6);padding:32px 28px;
+  border-top:2px solid rgba(0,213,216,.15);
+  transition:border-top-color .3s,background .3s;position:relative;
+}
+.sec-card:hover{border-top-color:var(--turquesa);background:rgba(0,213,216,.04);}
+.sec-num{
+  font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;
+  color:rgba(0,213,216,.07);position:absolute;top:12px;right:18px;line-height:1;
+}
+.sec-icon{font-size:1.6rem;margin-bottom:14px;display:block;}
+.sec-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;
+  text-transform:uppercase;letter-spacing:.07em;color:var(--crema);margin-bottom:8px;
+}
+.sec-desc{font-size:.8rem;color:var(--concreto);line-height:1.7;}
+.sec-tag{
+  display:inline-block;margin-top:12px;font-size:.58rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--turquesa);border:1px solid rgba(0,213,216,.25);
+  padding:3px 10px;
+}
+
+/* ── PREVIEW ── */
+.preview-container{
+  max-width:640px;margin:48px auto 0;
+  background:var(--grafito);border:1px solid rgba(0,213,216,.15);
+  position:relative;overflow:hidden;
+}
+.preview-header{
+  background:var(--grafito2);padding:14px 20px;
+  border-bottom:1px solid rgba(0,213,216,.1);
+  display:flex;align-items:center;gap:10px;
+}
+.preview-dot{width:8px;height:8px;border-radius:50%;background:var(--turquesa);}
+.preview-label{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--concreto);}
+.preview-body{padding:24px;}
+.preview-issue{
+  font-size:.58rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(0,213,216,.5);margin-bottom:10px;
+}
+.preview-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;
+  text-transform:uppercase;color:var(--crema);line-height:1;margin-bottom:12px;
+}
+.preview-row{
+  border-top:1px solid rgba(255,255,255,.06);padding:12px 0;
+  display:flex;align-items:flex-start;gap:12px;
+}
+.preview-row-num{
+  font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;
+  color:var(--turquesa);letter-spacing:.1em;flex-shrink:0;padding-top:2px;
+}
+.preview-row-content{}
+.preview-row-title{font-size:.78rem;font-weight:700;color:var(--crema);margin-bottom:3px;}
+.preview-row-desc{font-size:.72rem;color:var(--concreto);line-height:1.6;}
+.preview-blur{
+  position:absolute;bottom:0;left:0;right:0;height:120px;
+  background:linear-gradient(transparent,var(--grafito));
+  display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px;
+}
+.preview-blur-label{
+  font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(0,213,216,.5);
+}
+
+/* ── FRECUENCIA ── */
+.freq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:40px;}
+.freq-card{
+  background:var(--crema);padding:28px 24px;border-top:3px solid transparent;
+  transition:all .25s;
+}
+.freq-card:hover{transform:translateY(-3px);border-top-color:var(--cian);box-shadow:0 8px 24px rgba(0,0,0,.1);}
+.freq-icon{font-size:1.8rem;margin-bottom:12px;display:block;}
+.freq-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;text-transform:uppercase;letter-spacing:.06em;color:#1a2a30;margin-bottom:8px;}
+.freq-desc{font-size:.8rem;color:#4a5a60;line-height:1.65;}
+
+/* ── SUSCRIPCIÓN (Feature 4) ── */
+.suscripcion-section{
+  background:linear-gradient(135deg,#071114 0%,#0e1c20 60%,#0a1f28 100%);
+  padding:100px 48px;position:relative;overflow:hidden;
+}
+.suscripcion-section::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,213,216,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,213,216,.03) 1px,transparent 1px);
+  background-size:56px 56px;
+}
+.pricing-card{
+  max-width:520px;margin:48px auto 0;
+  background:rgba(14,28,32,.8);
+  border:1px solid rgba(0,213,216,.25);
+  position:relative;overflow:hidden;
+}
+.pricing-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--turquesa),var(--cian));
+}
+.pricing-header{padding:32px 36px 24px;border-bottom:1px solid rgba(0,213,216,.1);}
+.pricing-badge{
+  display:inline-block;background:rgba(0,213,216,.12);
+  border:1px solid rgba(0,213,216,.3);
+  color:var(--turquesa);font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  padding:4px 12px;margin-bottom:16px;
+}
+.pricing-name{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;
+  text-transform:uppercase;color:var(--crema);letter-spacing:.05em;
+}
+.pricing-price{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3.5rem;
+  color:var(--turquesa);line-height:1;margin-top:8px;
+}
+.pricing-price span{font-size:1.2rem;font-weight:600;color:var(--concreto);margin-left:4px;}
+.pricing-period{font-size:.75rem;color:var(--concreto);margin-top:4px;}
+.pricing-body{padding:28px 36px;}
+.pricing-items{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
+.pricing-items li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:.85rem;color:rgba(243,239,231,.8);line-height:1.55;
+}
+.pricing-items li::before{content:'✓';color:var(--turquesa);font-weight:700;flex-shrink:0;margin-top:1px;}
+.pricing-items li.premium::before{content:'★';color:#f59e0b;}
+.btn-checkout{
+  width:100%;background:var(--turquesa);border:none;color:var(--grafito);
+  padding:16px 24px;font-family:'Barlow',sans-serif;font-weight:700;
+  font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;
+}
+.btn-checkout:hover{background:#00b8ba;box-shadow:0 4px 20px rgba(0,213,216,.3);}
+.pricing-note{
+  font-size:.68rem;color:rgba(158,153,146,.4);text-align:center;margin-top:10px;
+  line-height:1.5;
+}
+
+/* ── MODAL ── */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(7,17,20,.88);backdrop-filter:blur(6px);
+  z-index:1000;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.modal-bg.open{opacity:1;pointer-events:all;}
+.modal{
+  background:var(--grafito2);border:1px solid rgba(0,213,216,.3);
+  max-width:480px;width:90%;padding:40px 36px;position:relative;
+  animation:modalIn .3s ease;
+}
+@keyframes modalIn{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.modal-close{
+  position:absolute;top:16px;right:16px;background:none;border:none;
+  color:var(--concreto);font-size:1.2rem;cursor:pointer;transition:color .2s;
+}
+.modal-close:hover{color:var(--crema);}
+.modal-icon{font-size:2rem;margin-bottom:16px;}
+.modal-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;
+  text-transform:uppercase;color:var(--crema);margin-bottom:10px;
+}
+.modal-sub{font-size:.88rem;color:var(--concreto);line-height:1.7;margin-bottom:24px;}
+.modal-demo-box{
+  background:rgba(0,213,216,.06);border:1px solid rgba(0,213,216,.2);
+  padding:16px 18px;margin-bottom:24px;
+}
+.modal-demo-label{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--turquesa);margin-bottom:6px;}
+.modal-demo-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.modal-demo-list li{font-size:.78rem;color:rgba(243,239,231,.65);display:flex;align-items:center;gap:8px;}
+.modal-demo-list li::before{content:'→';color:var(--turquesa);font-size:.7rem;}
+.modal-input{
+  width:100%;background:rgba(255,255,255,.07);border:1.5px solid rgba(243,239,231,.2);
+  color:var(--crema);padding:12px 16px;font-family:'Barlow',sans-serif;font-size:.85rem;
+  outline:none;transition:border-color .2s;margin-bottom:10px;
+}
+.modal-input:focus{border-color:var(--turquesa);}
+.modal-btn{
+  width:100%;background:var(--turquesa);border:none;color:var(--grafito);
+  padding:14px;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;
+}
+.modal-btn:hover{background:#00b8ba;}
+.modal-note{font-size:.65rem;color:rgba(158,153,146,.35);text-align:center;margin-top:10px;line-height:1.5;}
+.modal-success{text-align:center;display:none;}
+.modal-success.show{display:block;}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--grafito);padding:40px 48px 28px;
+  border-top:1px solid rgba(0,213,216,.08);
+}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-brand{display:flex;align-items:center;gap:10px;}
+.footer-brandname{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:.2em;color:var(--crema);}
+.footer-copy{font-size:.68rem;color:rgba(183,178,170,.4);}
+.footer-links{display:flex;gap:20px;}
+.footer-links a{font-size:.72rem;color:var(--concreto);text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:var(--turquesa);}
+
+/* ── CONFIRMED BANNER ── */
+.confirmed-banner{
+  display:none;background:rgba(82,199,140,.1);border:1px solid rgba(82,199,140,.3);
+  padding:14px 20px;text-align:center;margin:16px 0 0;
+  font-size:.85rem;color:var(--verde);
+}
+.confirmed-banner.show{display:block;}
+
+@media(max-width:960px){
+  nav{padding:12px 20px;}
+  .hero-inner{grid-template-columns:1fr;gap:40px;padding:90px 20px 60px;}
+  .sections-grid{grid-template-columns:1fr;}
+  .freq-grid{grid-template-columns:1fr;}
+  .section{padding:64px 20px;}
+  .pricing-header,.pricing-body{padding-left:24px;padding-right:24px;}
+  footer{padding:32px 20px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- CONFIRMED BANNER (doble opt-in success) -->
+<div id="confirmedBanner" class="confirmed-banner">
+  ¡Suscripción confirmada! Ya sos parte de la Señal Alsina.
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <svg viewBox="0 0 26 26" fill="none" width="28">
+      <path d="M13 2L1.5 24H5.5L13 11L20.5 24H24.5L13 2Z" fill="#00D5D8"/>
+    </svg>
+    <div>
+      <div class="nav-mark">ALSINA</div>
+      <div class="nav-tagline">Gestión Pública · Tecnología · Territorio</div>
+    </div>
+  </a>
+  <a href="/" class="nav-back">← Volver al sitio</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-beam"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Newsletter Quincenal</div>
+      <h1 class="hero-headline">
+        La señal<br>que ordena<br>la <em>PBA.</em>
+      </h1>
+      <p class="hero-sub">
+        Análisis quincenal sobre gestión pública, finanzas municipales y política
+        en los 135 partidos de Buenos Aires. Información procesada, no ruido.
+      </p>
+      <div class="hero-badges">
+        <span class="badge">Quincenal</span>
+        <span class="badge green">Gratis por ahora</span>
+        <span class="badge">135 municipios</span>
+      </div>
+    </div>
+
+    <!-- Form card -->
+    <div class="hero-card">
+      <div class="card-eyebrow">Señal Alsina · Newsletter</div>
+      <div class="card-title">Suscribite gratis</div>
+      <p class="card-sub">
+        Dejá tu mail y recibís la próxima edición. Sin spam,
+        sin ruido — solo señal territorial.
+      </p>
+      <form class="nl-form" id="heroForm" onsubmit="handleSubscribe(event,'heroForm')">
+        <input type="email" class="nl-input" id="heroEmail" placeholder="tu@mail.com" required>
+        <button type="submit" class="nl-btn" id="heroBtn">Suscribirme gratis →</button>
+        <div class="form-status" id="heroStatus"></div>
+      </form>
+      <p class="card-note">Quincenal · Gratis · En unos meses pasa a premium</p>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-band">
+  <div class="marquee-track">
+    <div class="marquee-item">Señal Alsina</div>
+    <div class="marquee-item">Gestión pública PBA</div>
+    <div class="marquee-item">Finanzas municipales</div>
+    <div class="marquee-item">135 municipios</div>
+    <div class="marquee-item">Quincenal · Gratis</div>
+    <div class="marquee-item">Lectura territorial</div>
+    <div class="marquee-item">Señal Alsina</div>
+    <div class="marquee-item">Gestión pública PBA</div>
+    <div class="marquee-item">Finanzas municipales</div>
+    <div class="marquee-item">135 municipios</div>
+    <div class="marquee-item">Quincenal · Gratis</div>
+    <div class="marquee-item">Lectura territorial</div>
+  </div>
+</div>
+
+<!-- LO QUE INCLUYE -->
+<section class="section section-dark" id="contenido">
+  <div class="wrap">
+    <div class="section-label">Estructura de cada edición</div>
+    <h2 class="section-headline">Cinco secciones.<br><em>Una señal.</em></h2>
+    <p style="font-size:.92rem;color:var(--concreto);max-width:480px;margin-top:16px;line-height:1.75;">
+      Cada número de la Señal Alsina tiene la misma arquitectura:
+      cinco secciones que van de lo macro a lo concreto.
+    </p>
+    <div class="sections-grid">
+      <div class="sec-card">
+        <div class="sec-num">01</div>
+        <span class="sec-icon">📡</span>
+        <div class="sec-title">La señal de la quincena</div>
+        <p class="sec-desc">Un dato, tendencia o fenómeno que explica algo más grande sobre la Provincia. El lente para leer las dos semanas que siguen.</p>
+        <span class="sec-tag">Apertura editorial</span>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">02</div>
+        <span class="sec-icon">🔍</span>
+        <div class="sec-title">Tema protagonista</div>
+        <p class="sec-desc">Antesala del informe del mes. Análisis en profundidad de un tema de gestión, fiscal o electoral que está pasando ahora mismo en la PBA.</p>
+        <span class="sec-tag">Análisis central</span>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">03</div>
+        <span class="sec-icon">🗺️</span>
+        <div class="sec-title">Radar 135</div>
+        <p class="sec-desc">Un dato de un municipio específico. Una cifra, un contraste, una anomalía — con contexto para entender qué significa en el sistema de la Provincia.</p>
+        <span class="sec-tag">Dato municipal</span>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">04</div>
+        <span class="sec-icon">⚙️</span>
+        <div class="sec-title">Recurso de la casa</div>
+        <p class="sec-desc">Una herramienta, un informe, un dataset o un análisis producido por Alsina que podés usar directamente en tu trabajo de gobierno o política.</p>
+        <span class="sec-tag">Herramienta aplicada</span>
+      </div>
+      <div class="sec-card" style="grid-column:1/-1;">
+        <div class="sec-num">05</div>
+        <span class="sec-icon">🏁</span>
+        <div class="sec-title">Cierre + próximos pasos</div>
+        <p class="sec-desc">Un párrafo de cierre con lo que viene, links a los análisis completos y el CTA para quienes quieran profundizar con Alsina.</p>
+        <span class="sec-tag">Cierre editorial</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW -->
+<section class="section section-mid" id="preview">
+  <div class="wrap">
+    <div class="section-label">Vista previa</div>
+    <h2 class="section-headline">Así se ve<br>una <em>edición.</em></h2>
+    <div class="preview-container">
+      <div class="preview-header">
+        <div class="preview-dot"></div>
+        <div class="preview-label">Señal Alsina · N°001 · Julio 2026</div>
+      </div>
+      <div class="preview-body">
+        <div class="preview-issue">Edición 001 · Quincenal · Gratis</div>
+        <div class="preview-title">La PBA cambia<br>de velocidad</div>
+        <div class="preview-row">
+          <div class="preview-row-num">01 —</div>
+          <div class="preview-row-content">
+            <div class="preview-row-title">La señal de la quincena</div>
+            <div class="preview-row-desc">La recaudación de Ingresos Brutos PBA creció +6% real en el primer bimestre de 2026. En qué municipios se siente y por qué importa para las transferencias del segundo semestre.</div>
+          </div>
+        </div>
+        <div class="preview-row">
+          <div class="preview-row-num">02 —</div>
+          <div class="preview-row-content">
+            <div class="preview-row-title">Tema protagonista: Ciclo electoral 2027</div>
+            <div class="preview-row-desc">Con 43 intendentes sin reelección habilitada y 7 distritos clave en disputa, el mapa político de 2027 ya está definiendo la agenda de gestión de hoy...</div>
+          </div>
+        </div>
+        <div class="preview-row" style="opacity:.35;">
+          <div class="preview-row-num">03 —</div>
+          <div class="preview-row-content">
+            <div class="preview-row-title">Radar 135 · General Alvear</div>
+            <div class="preview-row-desc">+34.6 puntos porcentuales de ventaja electoral en 2023 — el mayor margen de victoria en...</div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-blur">
+        <span class="preview-blur-label">↓ Suscribite para leer la edición completa</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRECUENCIA Y PROMESA -->
+<section class="section section-light" id="frecuencia">
+  <div class="wrap">
+    <div class="section-label-dark">Frecuencia y acceso</div>
+    <h2 class="section-headline-dark">Quincenal, gratis,<br>con <em>propósito.</em></h2>
+    <div class="freq-grid">
+      <div class="freq-card">
+        <span class="freq-icon">📅</span>
+        <div class="freq-title">Quincenal</div>
+        <p class="freq-desc">Una edición cada dos semanas, cuando hay algo que vale la pena decir. Sin relleno, sin clickbait — solo análisis que podés usar.</p>
+      </div>
+      <div class="freq-card">
+        <span class="freq-icon">🆓</span>
+        <div class="freq-title">Gratis por ahora</div>
+        <p class="freq-desc">En unos meses la Señal Alsina pasa a ser exclusiva de suscriptores premium. Suscribite ahora y asegurá tu acceso al precio de fundadores: $0.</p>
+      </div>
+      <div class="freq-card">
+        <span class="freq-icon">🔒</span>
+        <div class="freq-title">Próximamente premium</div>
+        <p class="freq-desc">La suscripción premium incluirá el newsletter, acceso completo a los informes municipales y datos de los 135 partidos bonaerenses.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUSCRIPCIÓN PREMIUM (Feature 4 — stub) -->
+<section class="suscripcion-section" id="suscripcion">
+  <div class="wrap" style="position:relative;z-index:2;text-align:center;">
+    <div class="section-label" style="justify-content:center;">Suscripción Alsina</div>
+    <h2 class="section-headline">Acceso completo<br>al <em>laboratorio.</em></h2>
+    <p style="font-size:.92rem;color:var(--concreto);max-width:500px;margin:16px auto 0;line-height:1.75;">
+      Cuando la Señal Alsina se vuelva premium, la suscripción incluirá todo:
+      newsletter, informes y datos de los 135 municipios.
+    </p>
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <div class="pricing-badge">Próximamente</div>
+        <div class="pricing-name">Alsina Pro</div>
+        <div class="pricing-price">$XX<span>/ mes</span></div>
+        <div class="pricing-period">Facturación mensual · Cancelás cuando querés</div>
+      </div>
+      <div class="pricing-body">
+        <ul class="pricing-items">
+          <li>Newsletter quincenal Señal Alsina</li>
+          <li>1 informe de consultoría por mes</li>
+          <li>Acceso ilimitado a todos los informes publicados</li>
+          <li>Datos completos de los 135 municipios PBA</li>
+          <li class="premium">Informes territoriales exclusivos (en desarrollo)</li>
+          <li class="premium">Dashboard municipal avanzado (en desarrollo)</li>
+        </ul>
+        <button class="btn-checkout" onclick="startCheckout()">
+          Suscribirme → (demo)
+        </button>
+        <p class="pricing-note">
+          El pago con Mercado Pago se activa próximamente.<br>
+          Podés ver cómo funciona el flujo haciendo click arriba.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="section section-dark" id="cta-final">
+  <div class="wrap" style="text-align:center;max-width:640px;">
+    <div class="section-label" style="justify-content:center;">¿Arrancamos?</div>
+    <h2 class="section-headline" style="margin-bottom:16px;">
+      Suscribite a la<br><em>Señal Alsina.</em>
+    </h2>
+    <p style="font-size:.9rem;color:var(--concreto);line-height:1.75;margin-bottom:36px;">
+      Quincenal, gratis, sobre los 135 municipios de Buenos Aires.
+      Dejá el mail y el próximo número llega solo.
+    </p>
+    <form id="footerForm" onsubmit="handleSubscribe(event,'footerForm')" style="display:flex;gap:0;max-width:440px;margin:0 auto;">
+      <input type="email" class="nl-input" id="footerEmail" placeholder="tu@mail.com" required style="flex:1;border-right:none;">
+      <button type="submit" class="nl-btn" id="footerBtn" style="flex-shrink:0;padding:13px 20px;">
+        Suscribirme →
+      </button>
+    </form>
+    <div class="form-status" id="footerStatus" style="max-width:440px;margin:8px auto 0;"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <svg viewBox="0 0 22 22" fill="none" width="20">
+        <path d="M11 1.5L1 20.5H5.5L11 10L16.5 20.5H21L11 1.5Z" fill="#00D5D8"/>
+      </svg>
+      <div class="footer-brandname">ALSINA</div>
+    </div>
+    <div class="footer-links">
+      <a href="/">Inicio</a>
+      <a href="/municipios-data-hub.html">Data Hub</a>
+      <a href="mailto:contacto@alsinaar.com">Contacto</a>
+    </div>
+    <div class="footer-copy">© 2026 Alsina · alsinaar.com</div>
+  </div>
+</footer>
+
+<!-- MODAL CHECKOUT (stub) -->
+<div class="modal-bg" id="checkoutModal" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div id="modalDefault">
+      <div class="modal-icon">🚀</div>
+      <div class="modal-title">Suscripción Alsina Pro</div>
+      <p class="modal-sub">
+        El pago con Mercado Pago se habilita próximamente.
+        Podés dejar tu mail ahora para ser notificado cuando esté disponible y mantener tu precio de fundadores.
+      </p>
+      <div class="modal-demo-box">
+        <div class="modal-demo-label">Simulación del flujo</div>
+        <ul class="modal-demo-list">
+          <li>Vas a ser redirigido a Mercado Pago</li>
+          <li>Completás el pago mensual</li>
+          <li>Acceso inmediato a todo el contenido premium</li>
+          <li>Cancelás cuando querés</li>
+        </ul>
+      </div>
+      <input type="email" class="modal-input" id="modalEmail" placeholder="tu@mail.com">
+      <button class="modal-btn" id="modalBtn" onclick="submitCheckout()">
+        Activar demo de suscripción
+      </button>
+      <p class="modal-note">
+        Stub — No se procesa ningún pago real.<br>
+        TODO: integrar Mercado Pago (ver api/checkout.js)
+      </p>
+    </div>
+    <div class="modal-success" id="modalSuccess">
+      <div style="font-size:2.5rem;margin-bottom:12px;">✅</div>
+      <div class="modal-title">¡Demo activada!</div>
+      <p style="font-size:.85rem;color:var(--concreto);line-height:1.7;margin-top:8px;">
+        Tu mail fue registrado como suscriptor de demo.
+        Cuando Mercado Pago esté integrado, te avisamos primero.
+      </p>
+      <p style="font-size:.7rem;color:rgba(158,153,146,.4);margin-top:16px;">
+        API response: <code style="color:var(--turquesa);">{ ok: true, mock: true }</code>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CONFIRMED BANNER ──
+(function(){
+  const p = new URLSearchParams(location.search);
+  if (p.get('confirmed') === 'true') {
+    document.getElementById('confirmedBanner').classList.add('show');
+    history.replaceState({}, '', '/newsletter');
+  }
+})();
+
+// ── SUBSCRIBE ──
+async function handleSubscribe(e, formId) {
+  e.preventDefault();
+  const emailEl = document.getElementById(formId === 'heroForm' ? 'heroEmail' : 'footerEmail');
+  const btnEl   = document.getElementById(formId === 'heroForm' ? 'heroBtn'   : 'footerBtn');
+  const statusEl = document.getElementById(formId === 'heroForm' ? 'heroStatus' : 'footerStatus');
+
+  const email = emailEl.value.trim();
+  btnEl.disabled = true;
+  btnEl.textContent = 'Enviando…';
+  statusEl.className = 'form-status';
+  statusEl.textContent = '';
+
+  try {
+    const r = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    const data = await r.json();
+
+    if (data.status === 'ok') {
+      statusEl.className = 'form-status ok';
+      statusEl.textContent = '¡Listo! Revisá tu mail para confirmar la suscripción.';
+      emailEl.value = '';
+    } else if (data.status === 'already_subscribed') {
+      statusEl.className = 'form-status warn';
+      statusEl.textContent = 'Ya estás en la lista. Si no confirmaste, revisá tu carpeta de spam.';
+    } else {
+      throw new Error(data.error || 'Error desconocido');
+    }
+  } catch (err) {
+    statusEl.className = 'form-status err';
+    statusEl.textContent = 'Algo salió mal. Intentá de nuevo en un momento.';
+  } finally {
+    btnEl.disabled = false;
+    btnEl.textContent = formId === 'heroForm' ? 'Suscribirme gratis →' : 'Suscribirme →';
+  }
+}
+
+// ── CHECKOUT STUB (Feature 4) ──
+function startCheckout() {
+  document.getElementById('checkoutModal').classList.add('open');
+  document.getElementById('modalDefault').style.display = 'block';
+  document.getElementById('modalSuccess').classList.remove('show');
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('checkoutModal')) {
+    document.getElementById('checkoutModal').classList.remove('open');
+  }
+}
+
+async function submitCheckout() {
+  const email = document.getElementById('modalEmail').value.trim();
+  const btn = document.getElementById('modalBtn');
+  btn.disabled = true;
+  btn.textContent = 'Procesando…';
+
+  try {
+    const r = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    const data = await r.json();
+    if (data.ok) {
+      document.getElementById('modalDefault').style.display = 'none';
+      document.getElementById('modalSuccess').classList.add('show');
+    }
+  } catch {
+    btn.textContent = 'Error — intentá de nuevo';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+</body>
+</html>

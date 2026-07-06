@@ -193,6 +193,51 @@ tbody td:first-child{text-align:left;font-family:'Barlow',sans-serif;font-weight
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--bd);border-radius:10px}
 
+/* ── GATES ── */
+.gate-wrap{position:relative;flex:1;overflow:hidden;display:flex;flex-direction:column}
+.gate-overlay{
+  position:absolute;inset:0;z-index:50;
+  background:linear-gradient(to bottom,rgba(7,17,20,0) 0%,rgba(7,17,20,.7) 28%,rgba(7,17,20,.97) 45%);
+  display:flex;align-items:center;justify-content:center;padding-bottom:40px;
+}
+.gate-overlay.hidden{display:none!important}
+.gate-box{
+  background:#0d1c22;border:1px solid rgba(0,213,216,.3);
+  padding:28px 32px;max-width:380px;width:90%;text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.5);position:relative;
+}
+.gate-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,#00D5D8,transparent);
+}
+.gate-lock{font-size:1.6rem;margin-bottom:10px;}
+.gate-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.15rem;text-transform:uppercase;letter-spacing:.06em;color:#F3EFE7;margin-bottom:6px}
+.gate-sub{font-size:.78rem;color:#9e9992;line-height:1.6;margin-bottom:18px;}
+.gate-form{display:flex;flex-direction:column;gap:8px;}
+.gate-input{
+  background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);
+  color:#F3EFE7;padding:10px 14px;font-family:'Barlow',sans-serif;font-size:.85rem;
+  outline:none;transition:border-color .2s;
+}
+.gate-input::placeholder{color:rgba(243,239,231,.3)}
+.gate-input:focus{border-color:#00D5D8}
+.gate-btn{
+  background:#00D5D8;border:none;color:#071114;
+  padding:11px;font-family:'Barlow',sans-serif;font-weight:700;
+  font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s;
+}
+.gate-btn:hover{background:#00b8ba}
+.gate-btn:disabled{opacity:.6;cursor:not-allowed}
+.gate-status{font-size:.72rem;line-height:1.5;min-height:16px;color:rgba(0,213,216,.8);}
+.gate-note{font-size:.62rem;color:rgba(158,153,146,.4);margin-top:8px;}
+/* Premium badge */
+.premium-gate{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);
+  color:#f59e0b;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:2px 8px;border-radius:3px;margin-left:6px;vertical-align:middle;cursor:help;
+}
+
 /* ── DASHBOARD TABS ── */
 .d-tabs{display:flex;border-bottom:1px solid var(--bd);background:var(--card);flex-shrink:0;padding:0 18px}
 .d-tab{padding:10px 16px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;cursor:pointer;border:none;border-bottom:2.5px solid transparent;color:var(--t3);background:none;transition:.15s;margin-bottom:-1px}
@@ -249,6 +294,15 @@ tbody td:first-child{text-align:left;font-family:'Barlow',sans-serif;font-weight
   <div class="sb-div"></div>
   <div class="sk"><div class="sk-l">Municipios</div><div class="sk-v">135</div><div class="sk-s">Provincia de Buenos Aires</div></div>
   <div class="sk" style="margin-top:5px"><div class="sk-l">Fuentes de datos</div><div class="sk-v">3</div><div class="sk-s">Transferencias · Datos municipales · Fiscal 2026</div></div>
+  <div class="sb-div"></div>
+  <div class="sk" style="padding:8px 13px;">
+    <div style="font-size:9px;color:rgba(0,213,216,.5);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Acceso</div>
+    <div id="accessBadge" style="font-size:10px;color:#9e9992;line-height:1.5;">
+      🔓 <span style="color:rgba(0,213,216,.7)">Tabla</span> — dejá tu mail<br>
+      🔒 <span style="color:rgba(245,158,11,.6)">Datos avanzados</span> — suscriptores
+    </div>
+  </div>
+  <div class="sb-div"></div>
   <div class="sb-ft">Transferencias: Min. Economía PBA 2023–2025<br>Demografía: Censo 2022 · SCBA<br>Gobierno: Intendentes 2025 · Padrón<br>Finanzas: Presupuesto 2026 · CUD</div>
 </aside>
 
@@ -347,7 +401,28 @@ tbody td:first-child{text-align:left;font-family:'Barlow',sans-serif;font-weight
       </div>
       <input class="tsrch" id="tabSrch" placeholder="🔍 Filtrar municipio…">
     </div>
-    <div class="tw"><table><thead id="tabHead"></thead><tbody id="tabBody"></tbody></table></div>
+    <div class="gate-wrap">
+      <!-- Gate overlay — se oculta al dejar el mail -->
+      <div class="gate-overlay" id="tablaGate">
+        <div class="gate-box">
+          <div class="gate-lock">🔓</div>
+          <div class="gate-title">Datos de los 135 municipios</div>
+          <p class="gate-sub">
+            Dejá tu mail para acceder a la tabla completa: transferencias,
+            economía municipal, demografía y datos fiscales de toda la PBA.
+          </p>
+          <div class="gate-form">
+            <input type="email" class="gate-input" id="tablaEmail" placeholder="tu@mail.com">
+            <button class="gate-btn" id="tablaBtn" onclick="submitGate('tabla')">
+              Acceder gratis →
+            </button>
+            <div class="gate-status" id="tablaStatus"></div>
+          </div>
+          <p class="gate-note">Gratis. Sin spam. Un mail y listo.</p>
+        </div>
+      </div>
+      <div class="tw" style="filter:blur(0)"><table><thead id="tabHead"></thead><tbody id="tabBody"></tbody></table></div>
+    </div>
   </div>
 
   <!-- SCREEN: DASHBOARD -->
@@ -1366,6 +1441,85 @@ document.getElementById('tabYr').addEventListener('change', renderTabla);
 document.getElementById('tabGrp').addEventListener('change', renderTabla);
 document.getElementById('tabSrch').addEventListener('input', renderTabla);
 document.getElementById('dashSel').addEventListener('change', renderDash);
+
+// ════════════════════════════════════════
+// GATE SYSTEM — Feature 3
+// ════════════════════════════════════════
+const GATE_KEY_TABLA   = 'alsina_unlock_data-hub';
+const GATE_KEY_PREMIUM = 'alsina_unlock_premium';
+
+function initGates() {
+  if (localStorage.getItem(GATE_KEY_TABLA)) revealGate('tablaGate');
+  updateAccessBadge();
+}
+
+function revealGate(overlayId) {
+  const el = document.getElementById(overlayId);
+  if (el) el.classList.add('hidden');
+  updateAccessBadge();
+}
+
+function updateAccessBadge() {
+  const badge = document.getElementById('accessBadge');
+  if (!badge) return;
+  const tablaOpen   = !!localStorage.getItem(GATE_KEY_TABLA);
+  const premiumOpen = !!localStorage.getItem(GATE_KEY_PREMIUM);
+  badge.innerHTML = `
+    ${tablaOpen   ? '✅' : '🔓'} <span style="color:rgba(0,213,216,.7)">Tabla</span> — ${tablaOpen ? 'desbloqueada' : 'dejá tu mail'}<br>
+    ${premiumOpen ? '✅' : '🔒'} <span style="color:rgba(245,158,11,.6)">Datos avanzados</span> — ${premiumOpen ? 'activo' : 'solo suscriptores'}
+  `;
+}
+
+async function submitGate(type) {
+  const emailEl  = document.getElementById(`${type}Email`);
+  const btnEl    = document.getElementById(`${type}Btn`);
+  const statusEl = document.getElementById(`${type}Status`);
+
+  const email = (emailEl?.value || '').trim();
+  if (!email) return;
+
+  btnEl.disabled = true;
+  btnEl.textContent = 'Verificando…';
+  statusEl.textContent = '';
+
+  try {
+    const r = await fetch('/api/unlock', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, resource: 'data-hub' }),
+    });
+    const d = await r.json();
+    if (d.status === 'ok') {
+      localStorage.setItem(GATE_KEY_TABLA, '1');
+      revealGate('tablaGate');
+    } else {
+      throw new Error(d.error || 'Error');
+    }
+  } catch (err) {
+    statusEl.textContent = 'Error al verificar. Intentá de nuevo.';
+    btnEl.disabled = false;
+    btnEl.textContent = 'Acceder gratis →';
+  }
+}
+
+// Premium gate stub — se muestra en dashboard para datos avanzados
+function renderPremiumGate(containerEl, label) {
+  const isPremium = !!localStorage.getItem(GATE_KEY_PREMIUM);
+  if (isPremium) return; // TODO: verificar con token firmado cuando se integre el pago
+  containerEl.innerHTML += `
+    <div style="margin:12px 0;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:12px 16px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:1.1rem;">🔒</span>
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#f59e0b;margin-bottom:3px;">${label} — Solo suscriptores</div>
+        <div style="font-size:10px;color:rgba(148,163,184,.6);line-height:1.5;">
+          Accedé a los datos avanzados con la suscripción Alsina Pro.
+          <a href="/newsletter#suscripcion" style="color:rgba(245,158,11,.7);text-decoration:none;"> Ver planes →</a>
+        </div>
+      </div>
+    </div>`;
+}
+
+initGates();
 </script>
 </body>
 </html>
