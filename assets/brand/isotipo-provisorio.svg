@@ -1,0 +1,6 @@
+<!-- PENDIENTE: reemplazar por el isotipo oficial (equipo de diseño) -->
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ALSINA">
+  <rect x="3" y="3" width="58" height="58" rx="4" fill="none" stroke="#2196c9" stroke-width="2.5"/>
+  <text x="32" y="47" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="40" font-weight="700" fill="#14294d">A</text>
+  <rect x="13" y="28" width="38" height="6" fill="#4db8e0" transform="rotate(-28 32 31)"/>
+</svg>

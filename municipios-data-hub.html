@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Municipios Data Hub · Buenos Aires</title>
+<link rel="icon" type="image/svg+xml" href="/assets/brand/isotipo-provisorio.svg">
+<link rel="stylesheet" href="/assets/css/alsina.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -284,12 +286,12 @@ tbody td:first-child{text-align:left;font-family:'Barlow',sans-serif;font-weight
   </div>
   <nav class="sb-nav">
     <div class="ss">Vistas</div>
-    <button class="nb active" onclick="showScreen('mapa',this)"><span class="ico">🗺️</span> Mapa &amp; Comparar</button>
-    <button class="nb" onclick="showScreen('tabla',this)"><span class="ico">📋</span> Tabla de Datos</button>
-    <button class="nb" onclick="showScreen('dash',this)"><span class="ico">📊</span> Dashboard Municipio</button>
+    <button class="nb active" onclick="showScreen('mapa',this)"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg></span> Mapa &amp; Comparar</button>
+    <button class="nb" onclick="showScreen('tabla',this)"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg></span> Tabla de Datos</button>
+    <button class="nb" onclick="showScreen('dash',this)"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span> Dashboard Municipio</button>
     <div class="ss" style="margin-top:8px">Análisis</div>
-    <a class="nb" href="nota-electoral-2027.html" style="text-decoration:none"><span class="ico">📰</span> 2027 empieza ahora</a>
-    <a class="nb" href="alsina-mapa-politico.html" style="text-decoration:none"><span class="ico">🗳️</span> Mapa de intendentes</a>
+    <a class="nb" href="nota-electoral-2027.html" style="text-decoration:none"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></span> 2027 empieza ahora</a>
+    <a class="nb" href="alsina-mapa-politico.html" style="text-decoration:none"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg></span> Mapa de intendentes</a>
   </nav>
   <div class="sb-div"></div>
   <div class="sk"><div class="sk-l">Municipios</div><div class="sk-v">135</div><div class="sk-s">Provincia de Buenos Aires</div></div>
@@ -298,8 +300,8 @@ tbody td:first-child{text-align:left;font-family:'Barlow',sans-serif;font-weight
   <div class="sk" style="padding:8px 13px;">
     <div style="font-size:9px;color:rgba(0,213,216,.5);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Acceso</div>
     <div id="accessBadge" style="font-size:10px;color:#9e9992;line-height:1.5;">
-      🔓 <span style="color:rgba(0,213,216,.7)">Tabla</span> — dejá tu mail<br>
-      🔒 <span style="color:rgba(245,158,11,.6)">Datos avanzados</span> — suscriptores
+      <svg class="ic" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg> <span style="color:rgba(0,213,216,.7)">Tabla</span> — dejá tu mail<br>
+      <svg class="ic" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> <span style="color:rgba(245,158,11,.6)">Datos avanzados</span> — suscriptores
     </div>
   </div>
   <div class="sb-div"></div>
@@ -319,7 +321,7 @@ tbody td:first-child{text-align:left;font-family:'Barlow',sans-serif;font-weight
   <!-- FILTER BAR -->
   <div class="fb" id="fb">
     <div class="sw">
-      <input type="text" id="srch" placeholder="🔍 Buscar municipio…" autocomplete="off">
+      <input type="text" id="srch" placeholder="<svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Buscar municipio…" autocomplete="off">
       <div class="dd" id="dd"></div>
     </div>
     <div class="cw" id="chips"></div>
@@ -338,7 +340,7 @@ tbody td:first-child{text-align:left;font-family:'Barlow',sans-serif;font-weight
       </div>
     </div>
     <div class="fsep"></div>
-    <button class="bc" id="btnClr">✕ Limpiar</button>
+    <button class="bc" id="btnClr"><svg class="ic" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg> Limpiar</button>
   </div>
 
   <!-- SCREEN: MAPA -->
@@ -368,13 +370,13 @@ tbody td:first-child{text-align:left;font-family:'Barlow',sans-serif;font-weight
         </div>
         <div class="cc">
           <div class="cct">Comparación <span class="ccs" id="barSub"></span></div>
-          <div class="emp" id="barEmp"><div class="empi">📌</div><div>Seleccioná municipios para comparar</div></div>
+          <div class="emp" id="barEmp"><div class="empi"><svg class="ic" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></div><div>Seleccioná municipios para comparar</div></div>
           <div class="chart-wrap" id="barWrap" style="display:none"><canvas id="barC"></canvas></div>
         </div>
         <div class="dt-panel" id="dataTableWrap"></div>
         <div class="cc">
           <div class="cct">Evolución temporal <span class="ccs" id="lineSub"></span></div>
-          <div class="emp" id="lineEmp"><div class="empi">📈</div><div>Seleccioná municipios para ver tendencia</div></div>
+          <div class="emp" id="lineEmp"><div class="empi"><svg class="ic" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div><div>Seleccioná municipios para ver tendencia</div></div>
           <div class="chart-wrap" id="lineWrap" style="display:none"><canvas id="lineC"></canvas></div>
         </div>
       </div>
@@ -399,13 +401,13 @@ tbody td:first-child{text-align:left;font-family:'Barlow',sans-serif;font-weight
           <option value="all">Todos</option>
         </select>
       </div>
-      <input class="tsrch" id="tabSrch" placeholder="🔍 Filtrar municipio…">
+      <input class="tsrch" id="tabSrch" placeholder="<svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Filtrar municipio…">
     </div>
     <div class="gate-wrap">
       <!-- Gate overlay — se oculta al dejar el mail -->
       <div class="gate-overlay" id="tablaGate">
         <div class="gate-box">
-          <div class="gate-lock">🔓</div>
+          <div class="gate-lock"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></div>
           <div class="gate-title">Datos de los 135 municipios</div>
           <p class="gate-sub">
             Dejá tu mail para acceder a la tabla completa: transferencias,
@@ -433,7 +435,7 @@ tbody td:first-child{text-align:left;font-family:'Barlow',sans-serif;font-weight
     </div>
     <div class="db" id="dashB">
       <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;color:var(--t3);gap:10px">
-        <span style="font-size:40px;opacity:.2">📊</span>
+        <span style="font-size:40px;opacity:.2"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span>
         <span style="font-size:13px">Seleccioná un municipio para ver su dashboard completo</span>
       </div>
     </div>
@@ -982,9 +984,9 @@ function renderDash() {
 
   // ── TABS
   html += `<div class="d-tabs">
-    <button class="d-tab active" onclick="dashTab(this,'dt-trans')">💸 Transferencias</button>
-    <button class="d-tab" onclick="dashTab(this,'dt-demo')">🏙️ Demografía</button>
-    <button class="d-tab" onclick="dashTab(this,'dt-elec')">🗳️ Electoral</button>
+    <button class="d-tab active" onclick="dashTab(this,'dt-trans')"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg> Transferencias</button>
+    <button class="d-tab" onclick="dashTab(this,'dt-demo')"><svg class="ic" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg> Demografía</button>
+    <button class="d-tab" onclick="dashTab(this,'dt-elec')"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg> Electoral</button>
   </div>`;
 
   // ── TAB: TRANSFERENCIAS (default active)
@@ -994,9 +996,9 @@ function renderDash() {
   html += `<div class="d-tab-content active" id="dt-trans">`;
   html += `<div class="d-sec"><div class="d-sec-ttl">Evolución de Transferencias Totales</div></div>
   <div class="chart-section"><div class="chart-row">
-    <div class="cbox"><div class="cbox-ttl">📈 Total transferido 2023–2025</div><div class="cbox-body"><canvas id="dBarC"></canvas></div></div>
-    <div class="cbox"><div class="cbox-ttl">📉 Coparticipación vs Total</div><div class="cbox-body"><canvas id="dLineC"></canvas></div></div>
-    <div class="cbox"><div class="cbox-ttl">🥧 Composición 2025</div><div class="cbox-body"><canvas id="dDoughC"></canvas></div></div>
+    <div class="cbox"><div class="cbox-ttl"><svg class="ic" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg> Total transferido 2023–2025</div><div class="cbox-body"><canvas id="dBarC"></canvas></div></div>
+    <div class="cbox"><div class="cbox-ttl"><svg class="ic" viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg> Coparticipación vs Total</div><div class="cbox-body"><canvas id="dLineC"></canvas></div></div>
+    <div class="cbox"><div class="cbox-ttl"><svg class="ic" viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg> Composición 2025</div><div class="cbox-body"><canvas id="dDoughC"></canvas></div></div>
   </div></div>`;
 
   const nomPct25 = pctChg(v25, v24), nomPct24 = pctChg(v24, v23);
@@ -1026,40 +1028,40 @@ function renderDash() {
   html += `<div class="d-tab-content" id="dt-demo">`;
   html += `<div class="d-sec"><div class="d-sec-ttl">Demografía · Censo 2022</div>
   <div class="kgrid">
-    <div class="kcard k-blue"><span class="k-ico">👥</span><div class="k-lbl">Población</div><div class="k-val">${g.p22 ? g.p22.toLocaleString('es-AR') : '—'}</div><div class="k-sub">Censo 2022 · Rank ${g.rp||'—'}/135</div></div>
-    <div class="kcard k-teal"><span class="k-ico">📐</span><div class="k-lbl">Superficie</div><div class="k-val">${g.sup ? g.sup.toLocaleString('es-AR') + ' km²' : '—'}</div><div class="k-sub">Rank ${g.rs||'—'}/135 · ${g.spct ? (g.spct).toFixed(2)+'% PBA' : ''}</div></div>
-    <div class="kcard k-purple"><span class="k-ico">📊</span><div class="k-lbl">Densidad</div><div class="k-val">${g.den ? g.den + ' hab/km²' : '—'}</div><div class="k-sub">Rank ${g.rd||'—'}/135</div></div>
-    <div class="kcard k-amber"><span class="k-ico">🏘️</span><div class="k-lbl">Categoría</div><div class="k-val" style="font-size:13px">${g.cat || '—'}</div><div class="k-sub">Quintil ${g.qp||'—'}/5 · ${g.ppct ? (g.ppct).toFixed(2)+'% PBA' : ''}</div></div>
+    <div class="kcard k-blue"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div class="k-lbl">Población</div><div class="k-val">${g.p22 ? g.p22.toLocaleString('es-AR') : '—'}</div><div class="k-sub">Censo 2022 · Rank ${g.rp||'—'}/135</div></div>
+    <div class="kcard k-teal"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.4 2.4 0 0 1 0-3.4l2.6-2.6a2.4 2.4 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg></span><div class="k-lbl">Superficie</div><div class="k-val">${g.sup ? g.sup.toLocaleString('es-AR') + ' km²' : '—'}</div><div class="k-sub">Rank ${g.rs||'—'}/135 · ${g.spct ? (g.spct).toFixed(2)+'% PBA' : ''}</div></div>
+    <div class="kcard k-purple"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span><div class="k-lbl">Densidad</div><div class="k-val">${g.den ? g.den + ' hab/km²' : '—'}</div><div class="k-sub">Rank ${g.rd||'—'}/135</div></div>
+    <div class="kcard k-amber"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><div class="k-lbl">Categoría</div><div class="k-val" style="font-size:13px">${g.cat || '—'}</div><div class="k-sub">Quintil ${g.qp||'—'}/5 · ${g.ppct ? (g.ppct).toFixed(2)+'% PBA' : ''}</div></div>
   </div></div>`;
 
   html += `<div class="d-sec"><div class="d-sec-ttl">Territorio · Estructura Político-Institucional</div>
   <div class="kgrid">
-    <div class="kcard k-teal"><span class="k-ico">🗳️</span><div class="k-lbl">Sección Electoral</div><div class="k-val" style="font-size:15px">${g.sec || '—'}</div><div class="k-sub">PBA</div></div>
-    <div class="kcard k-blue"><span class="k-ico">⚖️</span><div class="k-lbl">Departamento Judicial</div><div class="k-val" style="font-size:14px">${g.jud || '—'}</div></div>
-    <div class="kcard k-green"><span class="k-ico">🗺️</span><div class="k-lbl">Región</div><div class="k-val" style="font-size:15px">${g.reg || '—'}</div><div class="k-sub">${g.cba ? 'Conurbano bonaerense (24 partidos)' : 'Interior provincial'}</div></div>
-    <div class="kcard ${g.cap ? 'k-amber' : 'k-red'}"><span class="k-ico">📍</span><div class="k-lbl">${g.cap ? 'Capital Provincial' : 'Tipo de partido'}</div><div class="k-val" style="font-size:13px">${g.cap ? 'Capital' : g.cba ? 'Conurbano' : 'Interior'}</div></div>
+    <div class="kcard k-teal"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg></span><div class="k-lbl">Sección Electoral</div><div class="k-val" style="font-size:15px">${g.sec || '—'}</div><div class="k-sub">PBA</div></div>
+    <div class="kcard k-blue"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></span><div class="k-lbl">Departamento Judicial</div><div class="k-val" style="font-size:14px">${g.jud || '—'}</div></div>
+    <div class="kcard k-green"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg></span><div class="k-lbl">Región</div><div class="k-val" style="font-size:15px">${g.reg || '—'}</div><div class="k-sub">${g.cba ? 'Conurbano bonaerense (24 partidos)' : 'Interior provincial'}</div></div>
+    <div class="kcard ${g.cap ? 'k-amber' : 'k-red'}"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></span><div class="k-lbl">${g.cap ? 'Capital Provincial' : 'Tipo de partido'}</div><div class="k-val" style="font-size:13px">${g.cap ? 'Capital' : g.cba ? 'Conurbano' : 'Interior'}</div></div>
   </div></div>`;
 
   html += `<div class="d-sec"><div class="d-sec-ttl">Gobierno Municipal · 2025</div>
   <div class="kgrid" style="grid-template-columns:repeat(3,1fr)">
-    <div class="kcard k-amber"><span class="k-ico">🏛️</span><div class="k-lbl">Intendente Electo</div><div class="k-val" style="font-size:13px;line-height:1.25">${g.int_electo || '—'}</div><div class="k-sub">${g.int_actual && g.int_actual !== g.int_electo ? 'Actual: ' + g.int_actual : 'Continuidad'}</div></div>
-    <div class="kcard k-purple"><span class="k-ico">🎯</span><div class="k-lbl">Fuerza Política 2025</div><div class="k-val" style="font-size:14px">${g.fuerza_2025 || '—'}</div><div class="k-sub">Elecciones municipales 2025</div></div>
-    <div class="kcard k-blue"><span class="k-ico">🗳️</span><div class="k-lbl">Padrón Electoral</div><div class="k-val">${g.elec_nac ? (g.elec_nac + (g.elec_ext||0)).toLocaleString('es-AR') : '—'}</div><div class="k-sub">Nac: ${g.elec_nac ? g.elec_nac.toLocaleString('es-AR') : '—'} · Ext: ${g.elec_ext ? g.elec_ext.toLocaleString('es-AR') : '—'}</div></div>
+    <div class="kcard k-amber"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21V13h6v8"/></svg></span><div class="k-lbl">Intendente Electo</div><div class="k-val" style="font-size:13px;line-height:1.25">${g.int_electo || '—'}</div><div class="k-sub">${g.int_actual && g.int_actual !== g.int_electo ? 'Actual: ' + g.int_actual : 'Continuidad'}</div></div>
+    <div class="kcard k-purple"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span><div class="k-lbl">Fuerza Política 2025</div><div class="k-val" style="font-size:14px">${g.fuerza_2025 || '—'}</div><div class="k-sub">Elecciones municipales 2025</div></div>
+    <div class="kcard k-blue"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg></span><div class="k-lbl">Padrón Electoral</div><div class="k-val">${g.elec_nac ? (g.elec_nac + (g.elec_ext||0)).toLocaleString('es-AR') : '—'}</div><div class="k-sub">Nac: ${g.elec_nac ? g.elec_nac.toLocaleString('es-AR') : '—'} · Ext: ${g.elec_ext ? g.elec_ext.toLocaleString('es-AR') : '—'}</div></div>
   </div></div>`;
 
   html += `<div class="d-sec"><div class="d-sec-ttl">Finanzas Municipales · Presupuesto 2026</div>
   <div class="kgrid" style="grid-template-columns:repeat(3,1fr)">
-    <div class="kcard k-teal"><span class="k-ico">💰</span><div class="k-lbl">Presupuesto 2026</div><div class="k-val" style="font-size:13px">${g.pres_2026 > 0 ? '$' + (g.pres_2026/1e9).toLocaleString('es-AR',{maximumFractionDigits:1}) + ' B' : '—'}</div><div class="k-sub">${g.pres_2026 > 0 ? '$' + g.pres_2026.toLocaleString('es-AR') : 'Sin dato'}</div></div>
-    <div class="kcard k-green"><span class="k-ico">👤</span><div class="k-lbl">Presupuesto per Cápita</div><div class="k-val">${g.pres_per_hab > 0 ? '$' + Math.round(g.pres_per_hab).toLocaleString('es-AR') : '—'}</div><div class="k-sub">Por habitante (2026)</div></div>
-    <div class="kcard k-cyan"><span class="k-ico">📊</span><div class="k-lbl">CUD (Copart. Única)</div><div class="k-val">${g.cud_pct > 0 ? g.cud_pct.toFixed(5) + '%' : '—'}</div><div class="k-sub">% de la copart. provincial</div></div>
+    <div class="kcard k-teal"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg></span><div class="k-lbl">Presupuesto 2026</div><div class="k-val" style="font-size:13px">${g.pres_2026 > 0 ? '$' + (g.pres_2026/1e9).toLocaleString('es-AR',{maximumFractionDigits:1}) + ' B' : '—'}</div><div class="k-sub">${g.pres_2026 > 0 ? '$' + g.pres_2026.toLocaleString('es-AR') : 'Sin dato'}</div></div>
+    <div class="kcard k-green"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><div class="k-lbl">Presupuesto per Cápita</div><div class="k-val">${g.pres_per_hab > 0 ? '$' + Math.round(g.pres_per_hab).toLocaleString('es-AR') : '—'}</div><div class="k-sub">Por habitante (2026)</div></div>
+    <div class="kcard k-cyan"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span><div class="k-lbl">CUD (Copart. Única)</div><div class="k-val">${g.cud_pct > 0 ? g.cud_pct.toFixed(5) + '%' : '—'}</div><div class="k-sub">% de la copart. provincial</div></div>
   </div></div>`;
 
   html += `<div class="d-sec"><div class="d-sec-ttl">Indicadores Sociales y Económicos</div>
   <div class="kgrid">
-    <div class="kcard k-red"><span class="k-ico">📉</span><div class="k-lbl">NBI</div><div class="k-val">${nbi != null ? nbi.toFixed(2) + '%' : '—'}</div><div class="k-sub">${ex['Población con NBI'] ? Math.round(ex['Población con NBI']).toLocaleString('es-AR') + ' hab. (Censo 2010)' : ''}</div></div>
-    <div class="kcard k-amber"><span class="k-ico">🏭</span><div class="k-lbl">Empresas totales</div><div class="k-val">${emp ? Math.round(emp).toLocaleString('es-AR') : '—'}</div><div class="k-sub">2019</div></div>
-    <div class="kcard k-green"><span class="k-ico">🚢</span><div class="k-lbl">Empresas Export.</div><div class="k-val">${expE != null ? Math.round(expE).toLocaleString('es-AR') : '—'}</div><div class="k-sub">${emp && expE ? ((expE/emp*100).toFixed(1) + '% del total') : '2019'}</div></div>
-    <div class="kcard k-purple"><span class="k-ico">🏛️</span><div class="k-lbl">Recaud. Propia</div><div class="k-val">${rec ? fmt(rec,'Total') : '—'}</div><div class="k-sub">2021</div></div>
+    <div class="kcard k-red"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg></span><div class="k-lbl">NBI</div><div class="k-val">${nbi != null ? nbi.toFixed(2) + '%' : '—'}</div><div class="k-sub">${ex['Población con NBI'] ? Math.round(ex['Población con NBI']).toLocaleString('es-AR') + ' hab. (Censo 2010)' : ''}</div></div>
+    <div class="kcard k-amber"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/></svg></span><div class="k-lbl">Empresas totales</div><div class="k-val">${emp ? Math.round(emp).toLocaleString('es-AR') : '—'}</div><div class="k-sub">2019</div></div>
+    <div class="kcard k-green"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M2 21h20"/><path d="M4 21 6 10h12l2 11"/><path d="M12 10V3"/><path d="M12 3h4l-4 4"/></svg></span><div class="k-lbl">Empresas Export.</div><div class="k-val">${expE != null ? Math.round(expE).toLocaleString('es-AR') : '—'}</div><div class="k-sub">${emp && expE ? ((expE/emp*100).toFixed(1) + '% del total') : '2019'}</div></div>
+    <div class="kcard k-purple"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21V13h6v8"/></svg></span><div class="k-lbl">Recaud. Propia</div><div class="k-val">${rec ? fmt(rec,'Total') : '—'}</div><div class="k-sub">2021</div></div>
   </div></div>`;
   html += `</div>`; // /dt-demo
 
@@ -1465,8 +1467,8 @@ function updateAccessBadge() {
   const tablaOpen   = !!localStorage.getItem(GATE_KEY_TABLA);
   const premiumOpen = !!localStorage.getItem(GATE_KEY_PREMIUM);
   badge.innerHTML = `
-    ${tablaOpen   ? '✅' : '🔓'} <span style="color:rgba(0,213,216,.7)">Tabla</span> — ${tablaOpen ? 'desbloqueada' : 'dejá tu mail'}<br>
-    ${premiumOpen ? '✅' : '🔒'} <span style="color:rgba(245,158,11,.6)">Datos avanzados</span> — ${premiumOpen ? 'activo' : 'solo suscriptores'}
+    ${tablaOpen   ? '<svg class="ic" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>' : '<svg class="ic" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>'} <span style="color:rgba(0,213,216,.7)">Tabla</span> — ${tablaOpen ? 'desbloqueada' : 'dejá tu mail'}<br>
+    ${premiumOpen ? '<svg class="ic" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>' : '<svg class="ic" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>'} <span style="color:rgba(245,158,11,.6)">Datos avanzados</span> — ${premiumOpen ? 'activo' : 'solo suscriptores'}
   `;
 }
 
@@ -1508,7 +1510,7 @@ function renderPremiumGate(containerEl, label) {
   if (isPremium) return; // TODO: verificar con token firmado cuando se integre el pago
   containerEl.innerHTML += `
     <div style="margin:12px 0;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:12px 16px;display:flex;align-items:center;gap:12px;">
-      <span style="font-size:1.1rem;">🔒</span>
+      <span style="font-size:1.1rem;"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
       <div>
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#f59e0b;margin-bottom:3px;">${label} — Solo suscriptores</div>
         <div style="font-size:10px;color:rgba(148,163,184,.6);line-height:1.5;">

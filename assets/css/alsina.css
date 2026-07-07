@@ -1,0 +1,148 @@
+/* ══════════════════════════════════════════════════════════════
+   ALSINA — Sistema de diseño
+   Fuente única de tokens (paleta, tipografía, iconografía) y
+   clases de componentes compartidas entre páginas.
+
+   Principio: complejización, no rebranding. La paleta oscura de
+   base (grafito/turquesa/crema) es la del sitio actual y no
+   cambia — esto la formaliza. Lo que se suma son los acentos de
+   marca del logo nuevo (navy/cian) y el "modo claro" (.sec-light)
+   para secciones puntuales (Monitor 135, informes, precios).
+   ══════════════════════════════════════════════════════════════ */
+
+:root{
+  /* ── paleta base (formalizada desde el sitio actual) ── */
+  --grafito:#0e1c20;   --grafito2:#152830;  --grafito3:#1e2f35;
+  --turquesa:#00D5D8;  --cian:#008C9A;
+  --crema:#F3EFE7;     --crema2:#E9E4DB;    --concreto:#9e9992;
+  --verde:#52C78C;     --rojo:#E05252;      --blanco:#ffffff;
+
+  /* ── acentos de marca (logo nuevo) ── */
+  --brand-navy:#14294d;
+  --brand-cyan:#2196c9;
+  --brand-cyan-light:#4db8e0;
+
+  /* ── modo claro — secciones tipo "diapositiva blanca" ── */
+  --bg-light:#f4f6f9;   --card-light:#ffffff;  --line-light:#dbe3ec;
+  --text-on-light:#16233f;  --muted-on-light:#5b6b80;
+
+  /* ── datos ── */
+  --up:#2bb673;  --down:#d9534f;
+}
+
+/* ── tipografía: cifras siempre tabulares ── */
+.num{ font-variant-numeric: tabular-nums; }
+
+/* ── palabra clave destacada en titulares ── */
+.accent-cyan{ color: var(--brand-cyan); }
+
+/* ══════════════════════════════════════════════════════════════
+   ÍCONOS — reemplazo de emojis por SVG de línea (estilo Lucide)
+   Uso: <svg class="ic" viewBox="0 0 24 24"><path d="..."/></svg>
+   El color y el tamaño se heredan del texto que lo rodea
+   (currentColor + 1em), así conservan el contexto donde antes
+   había un emoji con font-size/color propios.
+   ══════════════════════════════════════════════════════════════ */
+.ic{
+  width:1em;height:1em;display:inline-block;vertical-align:-0.125em;
+  fill:none;stroke:currentColor;stroke-width:1.75;
+  stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MODO CLARO — clase de sección (.sec-light)
+   Para Monitor 135, grilla de informes, precios: fondo claro,
+   cards con borde fino, KPI cards con cifra + variación + sparkline.
+   ══════════════════════════════════════════════════════════════ */
+.sec-light{
+  background:var(--bg-light);
+  color:var(--text-on-light);
+  padding:80px 24px;
+}
+.sec-light h2,.sec-light h3{ color:var(--text-on-light); }
+.sec-light p{ color:var(--muted-on-light); }
+
+.sec-light .card,
+.card{
+  background:var(--card-light);
+  border:1px solid var(--line-light);
+  border-radius:8px;
+  padding:24px;
+  transition:border-color .2s, transform .2s;
+}
+.sec-light .card:hover,
+.card:hover{
+  border-color:var(--brand-cyan);
+  transform:translateY(-2px);
+}
+
+.kpi-card{
+  background:var(--card-light);
+  border:1px solid var(--line-light);
+  border-radius:8px;
+  padding:20px 22px;
+}
+.kpi-card .kpi-label{
+  font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted-on-light);margin-bottom:8px;
+}
+.kpi-card .kpi-value{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:2.1rem;color:var(--text-on-light);line-height:1;
+}
+.kpi-card .kpi-delta{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:.78rem;font-weight:700;margin-top:6px;
+}
+.kpi-card .kpi-delta.up{ color:var(--up); }
+.kpi-card .kpi-delta.down{ color:var(--down); }
+.kpi-card .kpi-sparkline{ margin-top:10px; opacity:.8; }
+
+/* ── tag / kicker ── */
+.tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--brand-cyan);
+}
+
+/* ── botones de marca ── */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--brand-cyan);color:#fff;
+  border:1px solid var(--brand-cyan);border-radius:4px;
+  padding:12px 22px;font-weight:700;font-size:.85rem;
+  letter-spacing:.04em;text-decoration:none;cursor:pointer;
+  transition:background .2s, border-color .2s, transform .2s;
+}
+.btn:hover{ background:#1c7ea8; border-color:#1c7ea8; transform:translateY(-1px); }
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--brand-cyan);
+  border:1px solid var(--brand-cyan);border-radius:4px;
+  padding:12px 22px;font-weight:700;font-size:.85rem;
+  letter-spacing:.04em;text-decoration:none;cursor:pointer;
+  transition:background .2s;
+}
+.btn-ghost:hover{ background:rgba(33,150,201,.08); }
+
+/* ── chips de capas institucionales ── */
+.layer{
+  display:inline-flex;align-items:center;
+  font-size:.72rem;font-weight:600;color:var(--muted-on-light);
+  background:var(--card-light);border:1px solid var(--line-light);
+  border-radius:999px;padding:5px 14px;
+}
+
+/* ── formulario de captura de mail inline ── */
+.capture{ display:flex;gap:0;max-width:440px; }
+.capture input[type=email]{
+  flex:1;border:1.5px solid var(--line-light);border-right:none;border-radius:4px 0 0 4px;
+  padding:13px 16px;font-family:inherit;font-size:.88rem;outline:none;
+}
+.capture button{
+  flex-shrink:0;border-radius:0 4px 4px 0;
+}
+
+@media(max-width:600px){
+  .sec-light{ padding:56px 20px; }
+}

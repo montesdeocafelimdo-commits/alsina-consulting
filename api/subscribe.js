@@ -84,7 +84,7 @@ function buildWelcomeEmail(confirmUrl) {
   <!-- Header -->
   <div style="background:#0e1c20;padding:28px 40px 20px;border-bottom:2px solid #00D5D8;">
     <div style="font-family:Arial,sans-serif;font-weight:900;font-size:20px;letter-spacing:5px;color:#F3EFE7;">ALSINA</div>
-    <div style="font-size:9px;color:#9e9992;letter-spacing:3px;text-transform:uppercase;margin-top:4px;">Gestión Pública · Tecnología · Territorio</div>
+    <div style="font-size:9px;color:#9e9992;letter-spacing:3px;text-transform:uppercase;margin-top:4px;">Análisis · Estrategia · Impacto</div>
   </div>
 
   <!-- Body -->
