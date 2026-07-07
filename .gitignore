@@ -1,4 +1,7 @@
 .vercel
+.env
+.env.local
+.env.*.local
 /_next/
 radar-fiscal-app/
 super-rigi-app/

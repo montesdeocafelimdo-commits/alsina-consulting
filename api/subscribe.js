@@ -56,7 +56,7 @@ export default async function handler(req, res) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   const { error: mailError } = await resend.emails.send({
-    from: 'Alsina Consulting <contacto@alsinaar.com>',
+    from: 'Alsina Consulting <newsletter@alsinaar.com>',
     to: clean,
     subject: 'Confirmá tu suscripción a la Señal Alsina',
     html: buildWelcomeEmail(confirmUrl),

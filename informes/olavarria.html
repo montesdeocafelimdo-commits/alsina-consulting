@@ -38,6 +38,12 @@
     /* COVER */
     .cover-section{position:relative;height:420px;overflow:hidden;background:var(--g)}
     .cover-img{width:100%;height:100%;object-fit:cover;opacity:.55}
+    .cover-placeholder{
+      background:
+        linear-gradient(rgba(0,213,216,.08) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,213,216,.08) 1px,transparent 1px);
+      background-size:32px 32px;
+    }
     .cover-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(7,17,20,.3) 0%,rgba(7,17,20,.92) 100%)}
     .cover-text{position:absolute;bottom:40px;left:40px;right:40px}
     .cover-tag{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tq);margin-bottom:10px}
@@ -219,7 +225,8 @@
 
 <!-- COVER -->
 <div class="cover-section" id="portada">
-  <img class="cover-img" src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1400&q=80" alt="Olavarría" id="cover-img-placeholder" />
+  <!-- PENDIENTE: portada con gráfico/mapa propio -->
+  <div class="cover-img cover-placeholder" id="cover-img-placeholder"></div>
   <div class="cover-overlay"></div>
   <div class="cover-text">
     <div class="cover-tag">Alsina Consulting · Informe Territorial · Junio 2026</div>
@@ -941,7 +948,7 @@
       <div class="foot-brand">ALSINA <span>·</span> CONSULTING</div>
       <div class="foot-meta">Gestión Pública · Tecnología · Territorio · Provincia de Buenos Aires · 2026</div>
     </div>
-    <a class="foot-link" href="/">← alsina-consulting.vercel.app</a>
+    <a class="foot-link" href="/">← alsinaar.com</a>
   </div>
 </footer>
 

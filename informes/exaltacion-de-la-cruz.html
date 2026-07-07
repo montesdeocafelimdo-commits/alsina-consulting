@@ -50,7 +50,13 @@
 
     /* HERO */
     .hero{background:linear-gradient(135deg,var(--g) 0%,var(--g2) 60%,#0a1f28 100%);padding:80px 32px 64px;position:relative;overflow:hidden}
-    .hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=1400&q=60') center/cover no-repeat;opacity:.04}
+    .hero::before{
+      content:'';position:absolute;inset:0;opacity:.5;
+      background:
+        linear-gradient(rgba(0,213,216,.05) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,213,216,.05) 1px,transparent 1px);
+      background-size:40px 40px;
+    }
     .hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2}
     .hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(0,213,216,.12);color:var(--tq);border:1px solid rgba(0,213,216,.3);font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;margin-bottom:24px}
     .hero h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(52px,8vw,88px);font-weight:900;line-height:.95;color:var(--crema);text-transform:uppercase;letter-spacing:.02em}
@@ -220,6 +226,12 @@
     /* COVER */
     .cover-section{position:relative;height:420px;overflow:hidden;background:var(--g)}
     .cover-img{width:100%;height:100%;object-fit:cover;opacity:.7}
+    .cover-placeholder{
+      background:
+        linear-gradient(rgba(0,213,216,.08) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,213,216,.08) 1px,transparent 1px);
+      background-size:32px 32px;
+    }
     .cover-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(7,17,20,.9))}
     .cover-text{position:absolute;bottom:40px;left:40px;right:40px}
     .cover-tag{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tq);margin-bottom:10px}
@@ -240,8 +252,8 @@
 
 <!-- COVER / CARÁTULA -->
 <div class="cover-section" id="portada">
-  <!-- REEMPLAZAR src con la imagen de portada que el cliente provea -->
-  <img class="cover-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80" alt="Exaltación de la Cruz" id="cover-img-placeholder" />
+  <!-- PENDIENTE: portada con gráfico/mapa propio -->
+  <div class="cover-img cover-placeholder" id="cover-img-placeholder"></div>
   <div class="cover-overlay"></div>
   <div class="cover-text">
     <div class="cover-tag">Alsina Consulting · Informe Territorial · Junio 2026</div>
@@ -1237,7 +1249,7 @@
       <div class="foot-brand">ALSINA <span>·</span> CONSULTING</div>
       <div class="foot-meta">Gestión Pública · Tecnología · Territorio · Provincia de Buenos Aires · 2026</div>
     </div>
-    <a class="foot-link" href="/">← alsina-consulting.vercel.app</a>
+    <a class="foot-link" href="/">← alsinaar.com</a>
   </div>
 </footer>
 

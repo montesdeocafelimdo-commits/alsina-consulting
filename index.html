@@ -1101,12 +1101,12 @@ footer{
 <section id="numeros">
   <div class="numeros-inner">
     <div class="numero-card reveal delay-1">
-      <div class="numero-val" data-count="135">0</div>
+      <div class="numero-val" data-count="135">135</div>
       <div class="numero-label">Municipios PBA</div>
       <div class="numero-sub">Cobertura territorial completa</div>
     </div>
     <div class="numero-card reveal delay-2">
-      <div class="numero-val" data-count="8">0</div>
+      <div class="numero-val" data-count="8">8</div>
       <div class="numero-label">Líneas de servicio</div>
       <div class="numero-sub">Cobertura integral de la gestión</div>
     </div>
@@ -1124,7 +1124,7 @@ footer{
 </section>
 
 
-<!-- MEDIOS -->
+<!-- MEDIOS — sin menciones reales todavía, reactivar cuando haya contenido real
 <section id="medios">
   <div class="medios-header">
     <div class="reveal-left">
@@ -1139,7 +1139,6 @@ footer{
     </div>
   </div>
   <div class="medios-grid">
-    <!-- Cuando haya menciones reales, reemplazar estos placeholders -->
     <div class="medio-placeholder reveal delay-1">
       <div style="font-size:1.8rem;opacity:.2;">📰</div>
       <div class="medio-placeholder-txt">Las menciones en medios aparecerán aquí.<br>Cada card muestra el medio primero.</div>
@@ -1154,6 +1153,7 @@ footer{
     </div>
   </div>
 </section>
+-->
 
 <!-- SEÑAL -->
 <section id="señal">
@@ -1233,7 +1233,7 @@ footer{
       Contanos sobre el municipio o gestión que dirigís y encontramos juntos el punto de entrada.
     </p>
     <div class="cta-actions reveal">
-      <a href="mailto:contacto@alsinaar.com" class="btn-primary">Escribirnos →</a>
+      <a href="mailto:newsletter@alsinaar.com" class="btn-primary">Escribirnos →</a>
       <a href="/newsletter.html" class="btn-secondary">Señal Alsina →</a>
     </div>
     <div class="cta-form reveal" id="ctaNewsletterForm">
@@ -1264,7 +1264,7 @@ footer{
         <div style="margin-top:16px;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--turquesa)">Acceder → 🔒</div>
       </a>
     </div>
-    <p style="font-size:.7rem;color:rgba(183,178,170,.3);margin-top:24px">Los informes están protegidos con contraseña. Si sos cliente y no tenés tu clave, escribinos a contacto@alsina.ar</p>
+    <p style="font-size:.7rem;color:rgba(183,178,170,.3);margin-top:24px">Los informes están protegidos con contraseña. Si sos cliente y no tenés tu clave, escribinos a newsletter@alsinaar.com</p>
   </div>
 </section>
 
@@ -1322,7 +1322,7 @@ footer{
     <div>
       <div class="footer-col-title">Contacto</div>
       <ul class="footer-links">
-        <li><a href="mailto:contacto@alsinaar.com">contacto@alsinaar.com</a></li>
+        <li><a href="mailto:newsletter@alsinaar.com">newsletter@alsinaar.com</a></li>
         <li><a href="#">Provincia de Buenos Aires</a></li>
         <li><a href="#">Argentina</a></li>
       </ul>
@@ -1356,6 +1356,7 @@ reveals.forEach(el => observer.observe(el));
 // ── COUNTER ANIMATION ──
 function animateCounter(el, target, duration = 1400) {
   let start = 0;
+  el.textContent = '0';
   const step = target / (duration / 16);
   const timer = setInterval(() => {
     start += step;

@@ -294,65 +294,13 @@ nav{
 }
 .pricing-items li::before{content:'✓';color:var(--turquesa);font-weight:700;flex-shrink:0;margin-top:1px;}
 .pricing-items li.premium::before{content:'★';color:#f59e0b;}
-.btn-checkout{
-  width:100%;background:var(--turquesa);border:none;color:var(--grafito);
-  padding:16px 24px;font-family:'Barlow',sans-serif;font-weight:700;
-  font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;
-  cursor:pointer;transition:all .2s;
-}
-.btn-checkout:hover{background:#00b8ba;box-shadow:0 4px 20px rgba(0,213,216,.3);}
 .pricing-note{
   font-size:.68rem;color:rgba(158,153,146,.4);text-align:center;margin-top:10px;
   line-height:1.5;
 }
-
-/* ── MODAL ── */
-.modal-bg{
-  position:fixed;inset:0;background:rgba(7,17,20,.88);backdrop-filter:blur(6px);
-  z-index:1000;display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .25s;
-}
-.modal-bg.open{opacity:1;pointer-events:all;}
-.modal{
-  background:var(--grafito2);border:1px solid rgba(0,213,216,.3);
-  max-width:480px;width:90%;padding:40px 36px;position:relative;
-  animation:modalIn .3s ease;
-}
-@keyframes modalIn{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
-.modal-close{
-  position:absolute;top:16px;right:16px;background:none;border:none;
-  color:var(--concreto);font-size:1.2rem;cursor:pointer;transition:color .2s;
-}
-.modal-close:hover{color:var(--crema);}
-.modal-icon{font-size:2rem;margin-bottom:16px;}
-.modal-title{
-  font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;
-  text-transform:uppercase;color:var(--crema);margin-bottom:10px;
-}
-.modal-sub{font-size:.88rem;color:var(--concreto);line-height:1.7;margin-bottom:24px;}
-.modal-demo-box{
-  background:rgba(0,213,216,.06);border:1px solid rgba(0,213,216,.2);
-  padding:16px 18px;margin-bottom:24px;
-}
-.modal-demo-label{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--turquesa);margin-bottom:6px;}
-.modal-demo-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
-.modal-demo-list li{font-size:.78rem;color:rgba(243,239,231,.65);display:flex;align-items:center;gap:8px;}
-.modal-demo-list li::before{content:'→';color:var(--turquesa);font-size:.7rem;}
-.modal-input{
-  width:100%;background:rgba(255,255,255,.07);border:1.5px solid rgba(243,239,231,.2);
-  color:var(--crema);padding:12px 16px;font-family:'Barlow',sans-serif;font-size:.85rem;
-  outline:none;transition:border-color .2s;margin-bottom:10px;
-}
-.modal-input:focus{border-color:var(--turquesa);}
-.modal-btn{
-  width:100%;background:var(--turquesa);border:none;color:var(--grafito);
-  padding:14px;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;
-  cursor:pointer;transition:all .2s;
-}
-.modal-btn:hover{background:#00b8ba;}
-.modal-note{font-size:.65rem;color:rgba(158,153,146,.35);text-align:center;margin-top:10px;line-height:1.5;}
-.modal-success{text-align:center;display:none;}
-.modal-success.show{display:block;}
+.pricing-form{display:flex;gap:0;}
+.pricing-form .nl-input{flex:1;border-right:none;}
+.pricing-form .nl-btn{flex-shrink:0;padding:16px 22px;}
 
 /* ── FOOTER ── */
 footer{
@@ -580,7 +528,7 @@ footer{
   </div>
 </section>
 
-<!-- SUSCRIPCIÓN PREMIUM (Feature 4 — stub) -->
+<!-- SUSCRIPCIÓN ALSINA PRO -->
 <section class="suscripcion-section" id="suscripcion">
   <div class="wrap" style="position:relative;z-index:2;text-align:center;">
     <div class="section-label" style="justify-content:center;">Suscripción Alsina</div>
@@ -591,9 +539,9 @@ footer{
     </p>
     <div class="pricing-card">
       <div class="pricing-header">
-        <div class="pricing-badge">Próximamente</div>
+        <div class="pricing-badge">Disponible próximamente</div>
         <div class="pricing-name">Alsina Pro</div>
-        <div class="pricing-price">$XX<span>/ mes</span></div>
+        <div class="pricing-price">$45.000<span>/ mes</span></div>
         <div class="pricing-period">Facturación mensual · Cancelás cuando querés</div>
       </div>
       <div class="pricing-body">
@@ -605,12 +553,14 @@ footer{
           <li class="premium">Informes territoriales exclusivos (en desarrollo)</li>
           <li class="premium">Dashboard municipal avanzado (en desarrollo)</li>
         </ul>
-        <button class="btn-checkout" onclick="startCheckout()">
-          Suscribirme → (demo)
-        </button>
+        <form id="proForm" class="pricing-form" onsubmit="handleSubscribe(event,'proForm')">
+          <input type="email" class="nl-input" id="proEmail" placeholder="tu@mail.com" required>
+          <button type="submit" class="nl-btn" id="proBtn">Avisenme →</button>
+        </form>
+        <div class="form-status" id="proStatus"></div>
         <p class="pricing-note">
-          El pago con Mercado Pago se activa próximamente.<br>
-          Podés ver cómo funciona el flujo haciendo click arriba.
+          El pago se habilita próximamente. Dejá tu mail y te avisamos primero,<br>
+          asegurando tu precio de fundador.
         </p>
       </div>
     </div>
@@ -650,54 +600,11 @@ footer{
     <div class="footer-links">
       <a href="/">Inicio</a>
       <a href="/municipios-data-hub.html">Data Hub</a>
-      <a href="mailto:contacto@alsinaar.com">Contacto</a>
+      <a href="mailto:newsletter@alsinaar.com">Contacto</a>
     </div>
     <div class="footer-copy">© 2026 Alsina · alsinaar.com</div>
   </div>
 </footer>
-
-<!-- MODAL CHECKOUT (stub) -->
-<div class="modal-bg" id="checkoutModal" onclick="closeModal(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">×</button>
-    <div id="modalDefault">
-      <div class="modal-icon">🚀</div>
-      <div class="modal-title">Suscripción Alsina Pro</div>
-      <p class="modal-sub">
-        El pago con Mercado Pago se habilita próximamente.
-        Podés dejar tu mail ahora para ser notificado cuando esté disponible y mantener tu precio de fundadores.
-      </p>
-      <div class="modal-demo-box">
-        <div class="modal-demo-label">Simulación del flujo</div>
-        <ul class="modal-demo-list">
-          <li>Vas a ser redirigido a Mercado Pago</li>
-          <li>Completás el pago mensual</li>
-          <li>Acceso inmediato a todo el contenido premium</li>
-          <li>Cancelás cuando querés</li>
-        </ul>
-      </div>
-      <input type="email" class="modal-input" id="modalEmail" placeholder="tu@mail.com">
-      <button class="modal-btn" id="modalBtn" onclick="submitCheckout()">
-        Activar demo de suscripción
-      </button>
-      <p class="modal-note">
-        Stub — No se procesa ningún pago real.<br>
-        TODO: integrar Mercado Pago (ver api/checkout.js)
-      </p>
-    </div>
-    <div class="modal-success" id="modalSuccess">
-      <div style="font-size:2.5rem;margin-bottom:12px;">✅</div>
-      <div class="modal-title">¡Demo activada!</div>
-      <p style="font-size:.85rem;color:var(--concreto);line-height:1.7;margin-top:8px;">
-        Tu mail fue registrado como suscriptor de demo.
-        Cuando Mercado Pago esté integrado, te avisamos primero.
-      </p>
-      <p style="font-size:.7rem;color:rgba(158,153,146,.4);margin-top:16px;">
-        API response: <code style="color:var(--turquesa);">{ ok: true, mock: true }</code>
-      </p>
-    </div>
-  </div>
-</div>
 
 <script>
 // ── CONFIRMED BANNER ──
@@ -712,11 +619,13 @@ footer{
 // ── SUBSCRIBE ──
 async function handleSubscribe(e, formId) {
   e.preventDefault();
-  const emailEl = document.getElementById(formId === 'heroForm' ? 'heroEmail' : 'footerEmail');
-  const btnEl   = document.getElementById(formId === 'heroForm' ? 'heroBtn'   : 'footerBtn');
-  const statusEl = document.getElementById(formId === 'heroForm' ? 'heroStatus' : 'footerStatus');
+  const prefix = formId.replace(/Form$/, '');
+  const emailEl = document.getElementById(prefix + 'Email');
+  const btnEl   = document.getElementById(prefix + 'Btn');
+  const statusEl = document.getElementById(prefix + 'Status');
 
   const email = emailEl.value.trim();
+  const originalLabel = btnEl.textContent;
   btnEl.disabled = true;
   btnEl.textContent = 'Enviando…';
   statusEl.className = 'form-status';
@@ -745,50 +654,9 @@ async function handleSubscribe(e, formId) {
     statusEl.textContent = 'Algo salió mal. Intentá de nuevo en un momento.';
   } finally {
     btnEl.disabled = false;
-    btnEl.textContent = formId === 'heroForm' ? 'Suscribirme gratis →' : 'Suscribirme →';
+    btnEl.textContent = originalLabel;
   }
 }
-
-// ── CHECKOUT STUB (Feature 4) ──
-function startCheckout() {
-  document.getElementById('checkoutModal').classList.add('open');
-  document.getElementById('modalDefault').style.display = 'block';
-  document.getElementById('modalSuccess').classList.remove('show');
-}
-
-function closeModal(e) {
-  if (!e || e.target === document.getElementById('checkoutModal')) {
-    document.getElementById('checkoutModal').classList.remove('open');
-  }
-}
-
-async function submitCheckout() {
-  const email = document.getElementById('modalEmail').value.trim();
-  const btn = document.getElementById('modalBtn');
-  btn.disabled = true;
-  btn.textContent = 'Procesando…';
-
-  try {
-    const r = await fetch('/api/checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
-    });
-    const data = await r.json();
-    if (data.ok) {
-      document.getElementById('modalDefault').style.display = 'none';
-      document.getElementById('modalSuccess').classList.add('show');
-    }
-  } catch {
-    btn.textContent = 'Error — intentá de nuevo';
-  } finally {
-    btn.disabled = false;
-  }
-}
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
-});
 </script>
 </body>
 </html>
