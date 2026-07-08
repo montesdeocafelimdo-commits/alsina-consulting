@@ -1,4 +1,4 @@
-# Alsina — Setup de captación + gating
+# Alsina — Setup de captación, gating y pagos
 
 ## Stack
 
@@ -6,7 +6,7 @@
 - **API**: Vercel Serverless Functions en `/api/` (Node.js 20)
 - **Base de datos**: Supabase (PostgreSQL + RLS)
 - **Email**: Resend (transaccional)
-- **Pagos**: Mercado Pago — **TODO, no integrado todavía**
+- **Pagos**: Mercado Pago — integración completa, apagada por defecto (ver `README-PAGOS.md`)
 
 ---
 
@@ -14,6 +14,8 @@
 
 1. Creá un proyecto en [supabase.com](https://supabase.com)
 2. En **SQL Editor**, ejecutá todo el contenido de `supabase-migration.sql`
+   (es acumulativo — si ya corriste una versión anterior, correlo de
+   nuevo igual, todas las sentencias son `IF NOT EXISTS`/`ADD COLUMN IF NOT EXISTS`)
 3. Copiá las credenciales desde **Project Settings → API**:
    - `Project URL` → `SUPABASE_URL`
    - `anon public` key → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
@@ -40,8 +42,11 @@ En el dashboard de Vercel → **Settings → Environment Variables**, agregá:
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Cliente (con RLS) |
 | `RESEND_API_KEY` | API serverless (**nunca en el cliente**) |
 | `SITE_URL` | `https://alsinaar.com` |
+| `INFORME_KEY_HASH_OLAVARRIA` | API serverless — protección del informe de Olavarría |
+| `INFORME_KEY_HASH_EXALTACION` | API serverless — protección del informe de Exaltación de la Cruz |
+| `PAYMENTS_ENABLED` | `false` hasta activar pagos (ver `README-PAGOS.md`) |
 
-Ver `.env.example` para todos los valores esperados.
+Ver `.env.example` para todos los valores esperados, incluidas las de Mercado Pago.
 
 ---
 
@@ -51,8 +56,11 @@ Ver `.env.example` para todos los valores esperados.
 |---|---|---|
 | `/api/subscribe` | POST | Suscripción al newsletter + doble opt-in |
 | `/api/confirm` | GET | Confirma suscripción (link del mail) |
-| `/api/unlock` | POST | Desbloquea contenido (informe o data-hub) |
-| `/api/checkout` | POST | **STUB** — simula suscripción premium |
+| `/api/unlock` | POST | Desbloquea contenido (informe o data-hub) por mail |
+| `/api/config` | GET | Expone flags de solo lectura al frontend (hoy: `paymentsEnabled`) |
+| `/api/informe` | POST | Valida la clave de un informe de cliente y devuelve su HTML privado |
+| `/api/checkout` | POST | Compra de informe o suscripción Pro. Con `PAYMENTS_ENABLED=false`, anota en lista de espera; con `true`, crea la preferencia/suscripción en Mercado Pago |
+| `/api/webhook` | POST | Notificaciones de Mercado Pago (pago aprobado, suscripción activada) |
 
 ### `/api/subscribe`
 ```json
@@ -66,35 +74,34 @@ Ver `.env.example` para todos los valores esperados.
 // Response: { "status": "ok" }
 ```
 
-### `/api/checkout` (stub)
+### `/api/informe`
 ```json
-{ "email": "usuario@mail.com" }
-// Response: { "ok": true, "mock": true }
+{ "slug": "olavarria", "key": "la-clave-del-cliente" }
+// Response: HTML del informe (200) o mensaje de acceso denegado (401)
+```
+
+### `/api/checkout`
+```json
+{ "type": "informe" | "pro", "resource": "recaudacion", "email": "usuario@mail.com" }
+// PAYMENTS_ENABLED=false -> { "status": "ok", "waitlist": true }
+// PAYMENTS_ENABLED=true  -> { "status": "ok", "checkoutUrl": "https://mercadopago..." }
 ```
 
 ---
 
-## 5. Páginas con captación
+## 5. Páginas con captación o gating
 
-| Página | Gate | Recurso |
+| Página | Mecanismo | Recurso / detalle |
 |---|---|---|
-| `/newsletter` | Suscripción newsletter | `newsletter` |
-| `/alsina-pbg-pba.html` | Informe completo tras email | `pbg-pba` |
-| `/municipios-data-hub.html` | Tabla completa + datos premium | `data-hub` |
+| `/newsletter.html` | Suscripción newsletter | `/api/subscribe` |
+| `/municipios-data-hub.html` | Modal suave (no bloqueante) | mapa y tabla comparativa 100% abiertos |
+| `/alsina-mapa-politico.html` | Modal suave (no bloqueante) | 100% abierto |
+| `/alsina-nota-finanzas-pba.html`, `/alsina-informe-super-rigi.html`, `/alsina-pbg-pba.html`, `/alsina-recaudacion-tributaria-pba.html` | Scroll gate al 30% | contenido completo en el HTML, tapado con degradé hasta dejar el mail (o comprar, con pagos activos) |
+| `/alsina-presupuesto-impositiva-2026.html` | Ninguno — nota de muestra | 100% abierta a propósito |
+| `/informes/olavarria.html`, `/informes/exaltacion-de-la-cruz.html` | Clave por cliente, validada server-side | el contenido real vive en `private/informes/` y nunca se sirve sin pasar por `/api/informe` |
 
 ---
 
-## 6. TODO — Mercado Pago
+## 6. Mercado Pago
 
-El flujo de pago está preparado pero sin integrar:
-
-- **`/api/checkout.js`**: tiene el stub y el comentario `// TODO: integrar Mercado Pago`
-- **`/newsletter.html`**: tiene el modal demo + `startCheckout()`
-- **Tabla `subscriptions`**: lista para recibir datos de pago
-- **Campo `is_subscriber`** en `contacts`: se setea desde el checkout
-
-Cuando estés listo para integrar:
-1. Instalar: `npm install mercadopago`
-2. Agregar `MERCADOPAGO_ACCESS_TOKEN` en Vercel env vars
-3. Descomentar y completar el código en `api/checkout.js`
-4. Actualizar `startCheckout()` en `newsletter.html` para redirigir al init_point de MP
+Ver `README-PAGOS.md` para el checklist completo de activación.

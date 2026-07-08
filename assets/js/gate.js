@@ -99,7 +99,10 @@
     const threshold = opts.percent || 0.3;
     if (alreadyGiven()) return;
 
-    const paymentsEnabled = !!(window.ALSINA_CONFIG && window.ALSINA_CONFIG.PAYMENTS_ENABLED);
+    let paymentsEnabled = !!(window.ALSINA_CONFIG && window.ALSINA_CONFIG.PAYMENTS_ENABLED);
+    if (window.ALSINA_CONFIG_READY) {
+      window.ALSINA_CONFIG_READY.then((cfg) => { paymentsEnabled = !!cfg.PAYMENTS_ENABLED; });
+    }
     let triggered = false;
 
     function unlock(gate) {

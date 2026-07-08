@@ -169,7 +169,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
         <p>Evolución, composición y tendencia de Ingresos Brutos, Inmobiliario, Automotores y Sellos. Variación nominal y real, factores explicativos y ficha ejecutiva.</p>
         <div class="linea-actions">
           <a class="foot" href="/alsina-recaudacion-tributaria-pba.html">Ver último número →</a>
-          <form class="notify-form" onsubmit="notifyMe(event,'recaudacion')">
+          <form class="notify-form" data-checkout-resource="recaudacion" onsubmit="notifyMe(event,'recaudacion')">
             <input type="email" id="recaudacionEmail" placeholder="tu@mail.com" required>
             <button type="submit" class="btn" id="recaudacionBtn">Avisame</button>
           </form>
@@ -182,7 +182,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
         <p>Seguimiento de los recursos que Nación y Provincia giran a los 135 municipios: coparticipación, fondos especiales y alertas ante variaciones significativas.</p>
         <div class="linea-actions">
           <a class="foot" href="/alsina-informe-transferencias.html">Ver último número →</a>
-          <form class="notify-form" onsubmit="notifyMe(event,'transferencias')">
+          <form class="notify-form" data-checkout-resource="transferencias" onsubmit="notifyMe(event,'transferencias')">
             <input type="email" id="transferenciasEmail" placeholder="tu@mail.com" required>
             <button type="submit" class="btn" id="transferenciasBtn">Avisame</button>
           </form>
@@ -195,7 +195,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
         <p>Arquitectura institucional completa: ministerios, organismos, empresas y ventanillas. Finanzas provinciales, deuda, presupuesto e impositiva.</p>
         <div class="linea-actions">
           <a class="foot" href="/alsina-radiografia-pba.html">Ver la radiografía →</a>
-          <form class="notify-form" onsubmit="notifyMe(event,'radiografia-estado')">
+          <form class="notify-form" data-checkout-resource="radiografia-estado" onsubmit="notifyMe(event,'radiografia-estado')">
             <input type="email" id="radiografia-estadoEmail" placeholder="tu@mail.com" required>
             <button type="submit" class="btn" id="radiografia-estadoBtn">Avisame</button>
           </form>
@@ -319,6 +319,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 </footer>
 
 <script src="/assets/js/pricing.js"></script>
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/checkout.js"></script>
 <script>
 const navBurger = document.getElementById('navBurger');
 const navMobile = document.getElementById('navMobile');

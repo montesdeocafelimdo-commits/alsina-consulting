@@ -67,3 +67,29 @@ CREATE INDEX IF NOT EXISTS idx_contacts_email   ON contacts(email);
 CREATE INDEX IF NOT EXISTS idx_contacts_token   ON contacts(confirmation_token);
 CREATE INDEX IF NOT EXISTS idx_unlocks_email    ON unlocks(email);
 CREATE INDEX IF NOT EXISTS idx_unlocks_resource ON unlocks(resource);
+
+-- ════════════════════════════════════════════════════
+-- FASE 6 — Mercado Pago (agregado, no destructivo)
+-- Ejecutar solo esta sección si la base ya tiene las tablas de arriba.
+-- ════════════════════════════════════════════════════
+
+-- ── PURCHASES ────────────────────────────────────────
+-- Compras individuales de informes (pago único vía Checkout Pro)
+CREATE TABLE IF NOT EXISTS purchases (
+  id             uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
+  email          text        NOT NULL,
+  resource       text        NOT NULL,                 -- slug del informe comprado
+  mp_payment_id  text        UNIQUE NOT NULL,           -- id de pago de Mercado Pago
+  amount         numeric,
+  status         text        DEFAULT 'paid',
+  created_at     timestamptz DEFAULT now()
+);
+
+ALTER TABLE purchases ENABLE ROW LEVEL SECURITY;
+-- Sin políticas de INSERT/SELECT para anon: esta tabla solo la escribe
+-- api/webhook.js con la service_role key.
+
+CREATE INDEX IF NOT EXISTS idx_purchases_email ON purchases(email);
+
+-- ── SUBSCRIPTIONS — sumar columna para trackear la suscripción en MP ──
+ALTER TABLE subscriptions ADD COLUMN IF NOT EXISTS mp_preapproval_id text UNIQUE;
