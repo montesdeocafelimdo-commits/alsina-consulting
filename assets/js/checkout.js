@@ -10,7 +10,12 @@
       body: JSON.stringify({ type, resource, email }),
     });
     const data = await r.json();
-    if (data.checkoutUrl) window.location.href = data.checkoutUrl;
+    if (data.checkoutUrl) {
+      if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('checkout_start', { type, resource });
+      window.location.href = data.checkoutUrl;
+    } else if (data.waitlist && window.AlsinaAnalytics) {
+      window.AlsinaAnalytics.trackEvent('waitlist_signup', { type, resource });
+    }
     return data;
   }
 

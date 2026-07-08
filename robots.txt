@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /private/
+Disallow: /informes/olavarria.html
+Disallow: /informes/exaltacion-de-la-cruz.html
+
+Sitemap: https://alsinaar.com/sitemap.xml

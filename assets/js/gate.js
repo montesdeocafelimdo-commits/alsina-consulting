@@ -71,6 +71,7 @@
           const data = await postSubscribe(email);
           if (data.status === 'ok' || data.status === 'already_subscribed') {
             localStorage.setItem(GIVEN_KEY, '1');
+            if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('newsletter_signup', { location: 'modal' });
             status.className = 'alsina-soft-gate-status ok';
             status.textContent = '¡Listo! Gracias.';
             setTimeout(dismiss, 1400);
@@ -151,6 +152,7 @@
             const data = await postSubscribe(email);
             if (data.status === 'ok' || data.status === 'already_subscribed') {
               localStorage.setItem(GIVEN_KEY, '1');
+              if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('newsletter_signup', { location: 'modal' });
               unlock(gate);
             } else {
               throw new Error(data.error || 'Error');

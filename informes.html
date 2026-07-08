@@ -18,6 +18,8 @@
 <link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
 <link rel="stylesheet" href="/assets/css/alsina.css">
+<script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
+<script src="/assets/js/analytics.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -124,8 +126,71 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   .lineas-grid,.notas-grid,.tools-grid,.clientes-grid{grid-template-columns:1fr;}
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "Recaudación tributaria PBA",
+      "description": "Evolución, composición y tendencia de Ingresos Brutos, Inmobiliario, Automotores y Sellos de la provincia de Buenos Aires. Variación nominal y real, factores explicativos y ficha ejecutiva.",
+      "brand": { "@type": "Brand", "name": "ALSINA" },
+      "category": "Informe bimestral",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://alsinaar.com/informes.html",
+        "priceCurrency": "ARS",
+        "price": "25000",
+        "availability": "https://schema.org/PreOrder"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "Transferencias a municipios",
+      "description": "Seguimiento de los recursos que Nación y Provincia giran a los 135 municipios de la provincia de Buenos Aires: coparticipación, fondos especiales y alertas ante variaciones significativas.",
+      "brand": { "@type": "Brand", "name": "ALSINA" },
+      "category": "Informe trimestral",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://alsinaar.com/informes.html",
+        "priceCurrency": "ARS",
+        "price": "25000",
+        "availability": "https://schema.org/PreOrder"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "Radiografía del Estado PBA",
+      "description": "Arquitectura institucional completa de la provincia de Buenos Aires: ministerios, organismos, empresas y ventanillas. Finanzas provinciales, deuda, presupuesto e impositiva.",
+      "brand": { "@type": "Brand", "name": "ALSINA" },
+      "category": "Informe permanente",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://alsinaar.com/informes.html",
+        "priceCurrency": "ARS",
+        "price": "25000",
+        "availability": "https://schema.org/PreOrder"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "Informes territoriales",
+      "description": "Análisis político, fiscal y electoral integral de un municipio o sección de la provincia de Buenos Aires: HCD, economía, escenarios. Como los elaborados para Olavarría y Exaltación de la Cruz.",
+      "brand": { "@type": "Brand", "name": "ALSINA" },
+      "category": "Informe a pedido",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://alsinaar.com/informes.html",
+        "priceCurrency": "ARS",
+        "price": "25000",
+        "availability": "https://schema.org/PreOrder"
+      }
+    }
+  ]
+}
+</script>
 </head>
-<body>
+<body data-track-event="informes_view">
 
 <!-- NAV -->
 <nav>
@@ -369,6 +434,7 @@ async function notifyMe(e, resource) {
     });
     const data = await r.json();
     if (data.status === 'ok') {
+      if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('waitlist_signup', { resource });
       statusEl.className = 'notify-status ok';
       statusEl.textContent = 'Listo, te avisamos cuando salga.';
       emailEl.value = '';

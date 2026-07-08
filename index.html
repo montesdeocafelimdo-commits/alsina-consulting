@@ -18,6 +18,8 @@
 <link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
 <link rel="stylesheet" href="/assets/css/alsina.css">
+<script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
+<script src="/assets/js/analytics.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -190,6 +192,23 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   .capture-dark button{border-radius:4px;}
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ALSINA",
+  "alternateName": "Alsina Consulting",
+  "url": "https://alsinaar.com",
+  "logo": "https://alsinaar.com/assets/brand/apple-touch-icon.png",
+  "description": "Análisis, estrategia e impacto sobre la provincia de Buenos Aires: finanzas públicas, gestión de gobierno, política y territorio de los 135 municipios bonaerenses.",
+  "email": "newsletter@alsinaar.com",
+  "areaServed": {
+    "@type": "AdministrativeArea",
+    "name": "Provincia de Buenos Aires, Argentina"
+  },
+  "sameAs": []
+}
+</script>
 </head>
 <body>
 
@@ -549,6 +568,7 @@ async function handleSubscribe(e, prefix) {
 
     if (data.status === 'ok') {
       localStorage.setItem('alsina_email_given', '1');
+      if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('newsletter_signup', { location: prefix });
       statusEl.className = 'form-status ok';
       statusEl.textContent = '¡Listo! Revisá tu mail para confirmar la suscripción.';
       emailEl.value = '';

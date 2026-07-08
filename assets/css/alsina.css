@@ -268,9 +268,27 @@
 }
 .alsina-sticky-cta.show{ opacity:1;transform:translateY(0);pointer-events:all; }
 .alsina-sticky-cta:hover{ background:#1c7ea8; }
+.alsina-sticky-cta.expanded{
+  background:var(--grafito2);border:1px solid rgba(0,213,216,.3);
+  padding:14px;cursor:default;box-shadow:0 14px 34px rgba(0,0,0,.4);
+}
+.alsina-sticky-cta-form{ display:flex;gap:6px; }
+.alsina-sticky-cta-input{
+  background:rgba(255,255,255,.08);border:1.5px solid rgba(243,239,231,.25);border-radius:4px;
+  color:#fff;padding:9px 11px;font-family:'Barlow',sans-serif;font-size:.82rem;outline:none;width:190px;
+}
+.alsina-sticky-cta-input::placeholder{ color:rgba(255,255,255,.4); }
+.alsina-sticky-cta-input:focus{ border-color:var(--brand-cyan); }
+.alsina-sticky-cta-submit{
+  flex-shrink:0;background:var(--brand-cyan);color:#fff;border:none;border-radius:4px;
+  padding:0 14px;font-weight:700;font-size:.78rem;cursor:pointer;
+}
+.alsina-sticky-cta-status{ font-size:.7rem;margin-top:6px;color:var(--brand-cyan-light); }
 @media(max-width:640px){
   .alsina-sticky-cta{
     left:0;right:0;bottom:0;border-radius:0;width:100%;justify-content:center;
     padding:15px 20px;
   }
+  .alsina-sticky-cta.expanded{ padding:14px 16px; }
+  .alsina-sticky-cta-input{ width:auto;flex:1; }
 }
