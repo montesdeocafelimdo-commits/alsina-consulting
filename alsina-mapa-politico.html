@@ -141,7 +141,7 @@ svg#pmap path.dimmed{opacity:.13;}
         <p>Intendentes actuales y composición política de los 135 municipios bonaerenses.</p>
       </div>
       <div class="srch-wrap">
-        <input type="text" id="srch" placeholder="<svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Buscar municipio…" autocomplete="off">
+        <input type="text" id="srch" placeholder="Buscar municipio…" autocomplete="off">
       </div>
       <div class="view-btns">
         <div class="view-label">Vista</div>
@@ -430,5 +430,8 @@ document.getElementById('srch').addEventListener('input',function(){
 
 buildSVG(); buildLegend(); buildTable(); buildStats();
 </script>
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/gate.js"></script>
+<script>AlsinaGate.initSoftGate({ interactionEl: document.body });</script>
 </body>
 </html>
