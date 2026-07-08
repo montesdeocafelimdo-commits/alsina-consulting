@@ -3,1456 +3,503 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alsina — Análisis, Estrategia e Impacto</title>
+<title>ALSINA — Análisis, estrategia e impacto sobre la provincia de Buenos Aires</title>
+<meta name="description" content="Relevamos, sistematizamos y analizamos las finanzas, la gestión, la política y el territorio de la provincia de Buenos Aires y sus 135 municipios.">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/isotipo-provisorio.svg">
+<link rel="stylesheet" href="/assets/css/alsina.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --grafito: #0e1c20;
-  --grafito2: #162429;
-  --grafito3: #1e2f35;
-  --turquesa: #00D5D8;
-  --cian: #008C9A;
-  --crema: #F3EFE7;
-  --blanco: #ffffff;
-  --concreto: #9e9992;
-  --sombra: #1C3C44;
-  --sombra2: #18303a;
-  --texto-oscuro: #1a2a30;
-  --verde: #52C78C;
-  --rojo: #E05252;
-}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;overflow-x:hidden;}
-
-/* ── SCROLL ANIMATIONS ── */
-.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
-.reveal.visible{opacity:1;transform:none;}
-.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .7s ease,transform .7s ease;}
-.reveal-left.visible{opacity:1;transform:none;}
-.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .7s ease,transform .7s ease;}
-.reveal-right.visible{opacity:1;transform:none;}
-.delay-1{transition-delay:.1s!important;}
-.delay-2{transition-delay:.2s!important;}
-.delay-3{transition-delay:.3s!important;}
-.delay-4{transition-delay:.4s!important;}
+a{color:inherit;}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+h1,h2,h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;line-height:.98;}
+em{color:var(--turquesa);font-style:normal;}
 
 /* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:16px 56px;
-  background:rgba(14,28,32,0.0);
-  transition:background .4s,box-shadow .4s,padding .3s;
+nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,213,216,.1);}
+.nav-inner{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:28px;}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.nav-logo svg{width:30px;height:30px;}
+.nav-word{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.15rem;letter-spacing:.18em;color:var(--crema);}
+.nav-tagline{font-size:.56rem;color:rgba(183,178,170,.55);letter-spacing:.1em;text-transform:uppercase;display:block;margin-top:1px;}
+.nav-links{display:flex;gap:24px;list-style:none;margin-left:auto;}
+.nav-links a{font-size:.78rem;color:rgba(243,239,231,.65);text-decoration:none;letter-spacing:.03em;transition:color .2s;}
+.nav-links a:hover{color:var(--turquesa);}
+.nav-cta{flex-shrink:0;}
+.nav-burger{display:none;flex-shrink:0;background:none;border:none;color:var(--crema);cursor:pointer;padding:6px;}
+.nav-burger svg{width:24px;height:24px;}
+.nav-mobile{display:none;background:var(--grafito2);border-bottom:1px solid rgba(0,213,216,.12);padding:8px 24px 18px;}
+.nav-mobile.open{display:block;}
+.nav-mobile a{display:block;padding:12px 0;font-size:.9rem;color:var(--crema);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);}
+.nav-mobile .nav-cta{margin-top:14px;display:inline-block;}
+@media(max-width:860px){
+  .nav-links{display:none;}
+  .nav-cta{display:none;}
+  .nav-burger{display:block;}
 }
-nav.scrolled{
-  background:rgba(14,28,32,0.97);
-  box-shadow:0 2px 40px rgba(0,0,0,0.4);
-  padding:12px 56px;
-  border-bottom:1px solid rgba(0,213,216,0.1);
-}
-.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
-.logo-mark svg{width:30px;height:30px;}
-.nav-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;letter-spacing:.2em;color:var(--crema);}
-.nav-tagline{font-size:.62rem;color:rgba(183,178,170,.7);letter-spacing:.12em;text-transform:uppercase;}
-.nav-links{display:flex;gap:32px;list-style:none;}
-.nav-links a{color:rgba(243,239,231,.7);text-decoration:none;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;transition:color .2s;padding:4px 0;border-bottom:1px solid transparent;}
-.nav-links a:hover{color:var(--turquesa);border-bottom-color:var(--turquesa);}
-.nav-cta{background:var(--turquesa);color:var(--grafito);padding:10px 24px;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;}
-.nav-cta:hover{background:#00b8ba;transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,213,216,.3);}
 
 /* ── HERO ── */
-#hero{
-  min-height:100vh;position:relative;overflow:hidden;
-  display:flex;align-items:center;
-}
-.hero-img{
-  position:absolute;inset:0;
-  background:url('https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9?w=1600&q=80') center/cover no-repeat;
-}
-.hero-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(110deg,rgba(14,28,32,.95) 40%,rgba(14,28,32,.65) 70%,rgba(0,140,154,.2) 100%);
-}
-.hero-grid-overlay{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(0,213,216,.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,213,216,.04) 1px,transparent 1px);
-  background-size:60px 60px;
-}
-/* diagonal beam */
-.hero-beam{
-  position:absolute;top:-20%;right:0;bottom:-20%;width:52%;
-  clip-path:polygon(25% 0,100% 0,100% 100%,0% 100%);
-  background:linear-gradient(135deg,rgba(0,213,216,.1) 0%,rgba(0,140,154,.04) 60%,transparent 100%);
-  border-left:1.5px solid rgba(0,213,216,.25);
-}
-/* particles canvas */
-#particles{position:absolute;inset:0;pointer-events:none;}
-/* topo */
-.hero-topo{
-  position:absolute;bottom:0;left:0;right:0;height:120px;
-  background:
-    repeating-linear-gradient(0deg,transparent,transparent 23px,rgba(0,213,216,.15) 23px,rgba(0,213,216,.15) 24px);
-  mask-image:linear-gradient(0deg,rgba(0,0,0,.6),transparent);
-}
-.hero-content{position:relative;z-index:10;padding:120px 56px 80px;max-width:700px;}
-.hero-eyebrow{
-  font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--turquesa);
-  margin-bottom:22px;display:flex;align-items:center;gap:12px;
-}
-.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--turquesa);}
-.hero-headline{
-  font-family:'Barlow Condensed',sans-serif;font-weight:900;
-  font-size:clamp(3.4rem,6vw,5.6rem);line-height:.93;text-transform:uppercase;color:var(--crema);
-  margin-bottom:0;
-}
-.hero-headline .hl{color:var(--turquesa);}
-.hero-sub{
-  font-size:1.05rem;color:rgba(243,239,231,.75);max-width:480px;line-height:1.75;margin:26px 0 36px;
-}
-.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
-.btn-primary{background:var(--turquesa);color:var(--grafito);padding:14px 32px;font-weight:700;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;transition:all .25s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
-.btn-primary:hover{background:#00b8ba;transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,213,216,.3);}
-.btn-secondary{background:transparent;color:var(--crema);padding:14px 32px;border:1.5px solid rgba(243,239,231,.4);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .25s;text-decoration:none;display:inline-block;}
-.btn-secondary:hover{border-color:var(--turquesa);color:var(--turquesa);}
-/* floating stats */
-.hero-stats{
-  position:absolute;right:56px;bottom:100px;z-index:10;
-  display:flex;flex-direction:column;gap:2px;
-}
-.hstat{
-  background:rgba(14,28,32,.85);backdrop-filter:blur(10px);
-  border:1px solid rgba(0,213,216,.2);padding:16px 22px;
-  display:flex;align-items:center;gap:16px;
-  transition:border-color .3s;
-}
-.hstat:hover{border-color:var(--turquesa);}
-.hstat-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:var(--turquesa);line-height:1;}
-.hstat-label{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--concreto);}
-/* scroll indicator */
-.scroll-hint{
-  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:10;
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--concreto);
-}
-.scroll-hint-arrow{animation:bounce 2s infinite;}
-@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+.hero{position:relative;overflow:hidden;padding:88px 0 64px;background:linear-gradient(135deg,var(--grafito) 0%,var(--grafito2) 55%,#0a2535 100%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.05) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+/* PENDIENTE (Fase 7.1): mapa SVG de los 135 partidos con red de nodos y pulso radar */
+.hero-inner{position:relative;z-index:2;}
+.kicker{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--turquesa);margin-bottom:20px;font-weight:700;}
+.hero h1{font-size:clamp(2.1rem,5vw,3.6rem);color:var(--crema);max-width:800px;margin-bottom:22px;}
+.hero .sub{font-size:1.02rem;color:rgba(243,239,231,.72);line-height:1.75;max-width:640px;margin-bottom:32px;font-family:'Barlow',sans-serif;text-transform:none;}
+.capture-dark{display:flex;gap:0;max-width:460px;}
+.capture-dark input{flex:1;background:rgba(255,255,255,.07);border:1.5px solid rgba(243,239,231,.2);border-right:none;color:var(--crema);padding:14px 16px;font-family:'Barlow',sans-serif;font-size:.9rem;outline:none;border-radius:4px 0 0 4px;}
+.capture-dark input::placeholder{color:rgba(243,239,231,.35);}
+.capture-dark input:focus{border-color:var(--turquesa);}
+.capture-dark button{flex-shrink:0;border-radius:0 4px 4px 0;padding:14px 22px;}
+.micro{margin-top:14px;font-size:.8rem;color:rgba(243,239,231,.6);line-height:1.6;max-width:460px;}
+.micro b{color:var(--turquesa);font-weight:700;}
+.form-status{font-size:.8rem;line-height:1.5;padding:10px 14px;display:none;max-width:460px;margin-top:8px;}
+.form-status.ok{background:rgba(82,199,140,.12);border-left:3px solid var(--verde);color:var(--verde);display:block;}
+.form-status.err{background:rgba(224,82,82,.1);border-left:3px solid var(--rojo);color:var(--rojo);display:block;}
+.form-status.warn{background:rgba(0,213,216,.08);border-left:3px solid var(--turquesa);color:var(--turquesa);display:block;}
 
-/* ── MARQUEE BAND ── */
-.marquee-band{
-  background:var(--turquesa);padding:14px 0;overflow:hidden;position:relative;
-}
-.marquee-track{
-  display:flex;gap:0;white-space:nowrap;animation:marquee 22s linear infinite;
-}
-.marquee-track:hover{animation-play-state:paused;}
-.marquee-item{
-  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;
-  text-transform:uppercase;letter-spacing:.15em;color:var(--grafito);
-  padding:0 32px;display:flex;align-items:center;gap:32px;
-}
-.marquee-item::after{content:'◆';font-size:.5rem;}
-@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+/* ── FRANJA DE COMPLEJIDAD ── */
+.franja{background:var(--grafito2);border-top:1px solid rgba(0,213,216,.1);border-bottom:1px solid rgba(0,213,216,.1);padding:44px 0;}
+.franja .quote{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:1.25rem;color:var(--crema);max-width:760px;margin-bottom:26px;line-height:1.5;text-transform:none;}
+.layers{display:flex;flex-wrap:wrap;gap:10px;}
+.franja .layer{background:rgba(255,255,255,.04);border:1px solid rgba(0,213,216,.22);color:rgba(243,239,231,.75);}
+.franja .layer strong{color:var(--crema);}
+.franja .close{margin-top:24px;font-size:.92rem;color:rgba(243,239,231,.65);max-width:760px;line-height:1.75;}
+.franja .close b{color:var(--turquesa);font-weight:700;}
 
-/* ── SECCIÓN BLANCA / PROBLEMA ── */
-#problema{
-  background:var(--blanco);color:var(--texto-oscuro);
-  padding:100px 56px;position:relative;overflow:hidden;
-}
-#problema::before{
-  content:'';position:absolute;top:0;right:0;bottom:0;width:40%;
-  background:linear-gradient(135deg,rgba(0,213,216,.06),rgba(0,140,154,.03));
-  clip-path:polygon(20% 0,100% 0,100% 100%,0% 100%);
-}
-.section-label-dark{font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cian);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
-.section-label-dark::after{content:'';flex:0 0 32px;height:1px;background:var(--cian);}
-.headline-dark{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.4rem,4vw,3.6rem);text-transform:uppercase;line-height:.95;color:var(--texto-oscuro);}
-.headline-dark span{color:var(--turquesa);}
-.body-dark{font-size:.95rem;color:#3a4a50;line-height:1.8;margin-top:20px;}
-.body-dark strong{color:var(--texto-oscuro);}
-/* imagen problema */
-.problema-img{
-  position:relative;overflow:hidden;
-  background:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80') center/cover;
-  min-height:340px;border-radius:2px;
-}
-.problema-img-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(0,140,154,.7),rgba(14,28,32,.5));
-  display:flex;align-items:flex-end;padding:28px;
-}
-.problema-img-caption{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.8);}
-/* caos → orden cards */
-.caos-cards{display:flex;flex-direction:column;gap:14px;margin-top:32px;}
-.caos-card{background:#f5f5f0;border-left:3px solid #d0cec8;padding:16px 20px;}
-.caos-card.order{background:rgba(0,213,216,.06);border-left-color:var(--turquesa);}
-.caos-card-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#888;margin-bottom:8px;}
-.caos-card.order .caos-card-label{color:var(--cian);}
-.caos-tags{display:flex;flex-wrap:wrap;gap:8px;}
-.caos-tag{font-size:.72rem;padding:4px 12px;background:rgba(0,0,0,.06);color:#555;border-radius:1px;}
-.caos-tag.t{background:rgba(0,213,216,.12);color:var(--cian);}
+/* ── SECCIONES GENERALES ── */
+.sec{padding:80px 0;}
+.sec h2{font-size:clamp(1.9rem,3.6vw,2.7rem);color:var(--crema);margin-bottom:14px;}
+.sec .lead{font-size:1rem;color:rgba(243,239,231,.65);max-width:640px;margin-bottom:40px;line-height:1.7;font-family:'Barlow',sans-serif;text-transform:none;}
+.sec-light h2{color:var(--text-on-light);}
+.sec-light .lead{color:var(--muted-on-light);}
+.sec-light .tag{color:var(--brand-cyan);}
 
-/* ── PROPUESTA — DARK ── */
-#propuesta{
-  background:var(--grafito2);
-  padding:100px 56px;position:relative;overflow:hidden;
-}
-/* background image subtle */
-#propuesta::before{
-  content:'';position:absolute;inset:0;
-  background:url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1600&q=80') center/cover no-repeat;
-  opacity:.07;
-}
-.prop-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;z-index:2;}
-.prop-visual{position:relative;}
-.prop-img{
-  background:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80') center/cover;
-  height:420px;position:relative;
-}
-.prop-img-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(22,36,41,.9));}
-.prop-img-data{
-  position:absolute;bottom:0;left:0;right:0;padding:24px;
-  display:grid;grid-template-columns:1fr 1fr;gap:2px;
-}
-.prop-datum{background:rgba(14,28,32,.85);backdrop-filter:blur(8px);padding:14px 16px;border-top:2px solid rgba(0,213,216,.5);}
-.prop-datum-val{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.6rem;color:var(--turquesa);}
-.prop-datum-lbl{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);}
-.section-label{font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--turquesa);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
-.section-label::after{content:'';flex:0 0 32px;height:1px;background:var(--turquesa);}
-.section-headline{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.2rem,3.5vw,3.2rem);text-transform:uppercase;line-height:.95;color:var(--crema);}
-.section-headline span{color:var(--turquesa);}
-.section-body{font-size:.93rem;color:var(--concreto);line-height:1.8;margin-top:18px;}
-.pillars{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:32px;}
-.pillar{background:rgba(14,28,32,.7);padding:22px 20px;border-top:2px solid rgba(0,213,216,.2);transition:all .3s;cursor:default;}
-.pillar:hover{border-top-color:var(--turquesa);background:rgba(0,213,216,.06);}
-.pillar-icon{font-size:1.5rem;margin-bottom:10px;display:block;}
-.pillar-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;text-transform:uppercase;letter-spacing:.08em;color:var(--crema);margin-bottom:6px;}
-.pillar-desc{font-size:.78rem;color:var(--concreto);line-height:1.6;}
+/* ── MONITOR ── */
+.monitor-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:44px;align-items:start;}
+.monitor-list{list-style:none;margin-bottom:26px;}
+.monitor-list li{padding:10px 0 10px 28px;position:relative;color:var(--muted-on-light);font-size:.95rem;}
+.monitor-list li::before{content:'→';position:absolute;left:0;color:var(--brand-cyan);font-weight:700;}
+.dash-card{background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;overflow:hidden;}
+.dash-bar{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid var(--line-light);font-size:.72rem;color:var(--muted-on-light);}
+.dash-bar .live{color:var(--up);font-weight:600;}
+.dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-light);}
+.dash-kpis .kpi-card{border-radius:0;border:none;background:var(--card-light);}
+.dash-table{font-size:.82rem;color:var(--muted-on-light);}
+.dash-table .row{display:grid;grid-template-columns:1.5fr 1fr;padding:10px 18px;border-top:1px solid var(--line-light);}
+.dash-table .row span:first-child{color:var(--text-on-light);font-weight:600;}
+.dash-table .row span:last-child{text-align:right;font-variant-numeric:tabular-nums;}
+.dash-note{padding:12px 18px;font-size:.72rem;color:var(--muted-on-light);border-top:1px solid var(--line-light);}
 
-/* ── SPLIT EXPLORE ── */
-#split-explore{
-  display:flex;height:560px;position:relative;overflow:hidden;
-}
-.split-panel{
-  flex:1;position:relative;overflow:hidden;cursor:pointer;
-  transition:flex .6s cubic-bezier(.77,0,.18,1);
-}
-.split-panel:hover{flex:1.35;}
-#split-explore:has(.split-panel:hover) .split-panel:not(:hover){flex:.65;}
-.split-bg{
-  position:absolute;inset:-6%;
-  background-size:cover;background-position:center;
-  filter:grayscale(100%) brightness(.55);
-  transition:filter .6s ease, transform .6s ease;
-}
-.split-panel:hover .split-bg{
-  filter:grayscale(0%) brightness(.6);
-  transform:scale(1.04);
-}
-/* color tint beam on hover */
-.split-panel::after{
-  content:'';
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(0,213,216,.18),transparent 60%);
-  opacity:0;transition:opacity .5s;
-}
-.split-panel:hover::after{opacity:1;}
-/* vertical divider */
-.split-divider{
-  position:absolute;top:0;bottom:0;left:50%;
-  width:1px;background:rgba(255,255,255,.25);z-index:10;
-  pointer-events:none;
-  transition:left .6s cubic-bezier(.77,0,.18,1), background .4s;
-}
-#split-explore:has(.split-panel:first-child:hover) .split-divider{left:57.5%;}
-#split-explore:has(.split-panel:last-child:hover) .split-divider{left:42.5%;}
-/* text box */
-.split-content{
-  position:absolute;inset:0;z-index:5;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:48px 48px 52px;
-}
-.split-tag{
-  font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;
-  color:rgba(255,255,255,.5);margin-bottom:14px;
-  display:flex;align-items:center;gap:10px;
-  transition:color .4s;
-}
-.split-panel:hover .split-tag{color:var(--turquesa);}
-.split-tag::before{content:'';width:20px;height:1px;background:currentColor;}
-.split-box{
-  background:rgba(10,18,22,.72);
-  backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,.1);
-  border-left:3px solid rgba(255,255,255,.3);
-  padding:28px 32px 28px 28px;
-  transition:border-left-color .4s, background .4s;
-  max-width:480px;
-}
-.split-panel:hover .split-box{
-  border-left-color:var(--turquesa);
-  background:rgba(10,18,22,.8);
-}
-.split-title{
-  font-family:'Barlow Condensed',sans-serif;font-weight:900;
-  font-size:clamp(1.6rem,2.8vw,2.4rem);text-transform:uppercase;
-  line-height:.95;color:rgba(255,255,255,.7);margin-bottom:14px;
-  transition:color .4s;
-}
-.split-panel:hover .split-title{color:var(--crema);}
-.split-title em{font-style:normal;color:rgba(0,213,216,.6);transition:color .4s;}
-.split-panel:hover .split-title em{color:var(--turquesa);}
-.split-text{
-  font-size:.84rem;color:rgba(255,255,255,.45);line-height:1.7;
-  transition:color .4s;
-  max-width:360px;
-}
-.split-panel:hover .split-text{color:rgba(243,239,231,.75);}
-.split-cta{
-  display:inline-flex;align-items:center;gap:8px;
-  margin-top:20px;font-size:.75rem;font-weight:700;letter-spacing:.12em;
-  text-transform:uppercase;text-decoration:none;
-  color:rgba(0,213,216,.5);
-  border-bottom:1px solid transparent;
-  padding-bottom:2px;
-  transition:all .4s;
-}
-.split-panel:hover .split-cta{
-  color:var(--turquesa);
-  border-bottom-color:rgba(0,213,216,.4);
-}
-.split-cta-arrow{transition:transform .3s;}
-.split-panel:hover .split-cta-arrow{transform:translateX(5px);}
-/* numero grande decorativo */
-.split-deco-num{
-  position:absolute;top:32px;right:32px;z-index:5;
-  font-family:'Barlow Condensed',sans-serif;font-weight:900;
-  font-size:7rem;line-height:1;color:rgba(255,255,255,.05);
-  transition:color .4s;pointer-events:none;
-}
-.split-panel:hover .split-deco-num{color:rgba(0,213,216,.08);}
+/* ── INFORMES ── */
+.rep-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px;}
+.rep-card .freq{display:inline-block;font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#0e1c20;background:var(--up);border-radius:99px;padding:3px 11px;margin-bottom:14px;}
+.rep-card .freq.amber{background:var(--brand-cyan-light);}
+.rep-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.15rem;color:var(--text-on-light);margin-bottom:8px;letter-spacing:0;}
+.rep-card p{font-size:.86rem;color:var(--muted-on-light);line-height:1.6;}
+.rep-card .foot{margin-top:14px;font-size:.8rem;color:var(--brand-cyan);font-weight:700;text-decoration:none;display:inline-block;}
+.rep-cta{display:flex;gap:18px;align-items:center;flex-wrap:wrap;}
 
-/* ── METODOLOGÍA — BLANCA ── */
-#metodologia{
-  background:var(--crema);color:var(--texto-oscuro);
-  padding:100px 56px;position:relative;overflow:hidden;
-}
-.meto-header{max-width:560px;margin-bottom:64px;}
-.meto-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
-.meto-step{
-  background:var(--blanco);padding:32px 24px;
-  border-bottom:3px solid transparent;
-  transition:all .3s;position:relative;overflow:hidden;
-}
-.meto-step::before{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
-  background:var(--turquesa);transform:scaleX(0);transform-origin:left;transition:transform .3s;
-}
-.meto-step:hover::before{transform:scaleX(1);}
-.meto-step:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.1);}
-.meto-num{
-  width:48px;height:48px;border:2px solid var(--turquesa);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;color:var(--turquesa);
-  margin-bottom:20px;
-}
-.meto-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;text-transform:uppercase;letter-spacing:.1em;color:var(--texto-oscuro);margin-bottom:10px;}
-.meto-desc{font-size:.82rem;color:#4a5a60;line-height:1.7;}
-.meto-arrow{text-align:center;color:rgba(0,140,154,.3);font-size:1.2rem;padding-top:28px;}
+/* ── PRECIOS ── */
+.prods-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.prod-card{background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;padding:30px 26px;display:flex;flex-direction:column;}
+.prod-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.3rem;color:var(--text-on-light);letter-spacing:0;}
+.prod-card .who{font-size:.78rem;color:var(--muted-on-light);margin-bottom:16px;margin-top:4px;}
+.prod-card .price{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.9rem;color:var(--text-on-light);}
+.prod-card .price small{font-size:.78rem;font-weight:500;color:var(--muted-on-light);}
+.prod-card ul{list-style:none;margin:18px 0 26px;flex:1;}
+.prod-card li{padding:7px 0 7px 24px;position:relative;font-size:.85rem;color:var(--muted-on-light);}
+.prod-card li::before{content:'✓';position:absolute;left:0;color:var(--up);font-weight:700;}
+.prod-card.hot{background:var(--brand-navy);border-color:var(--brand-navy);position:relative;}
+.prod-card.hot h3,.prod-card.hot .price{color:#fff;}
+.prod-card.hot .who,.prod-card.hot li{color:rgba(255,255,255,.65);}
+.prod-card.hot .price small{color:rgba(255,255,255,.55);}
+.prod-card.hot li::before{color:var(--brand-cyan-light);}
+.pill{position:absolute;top:-12px;left:26px;background:var(--brand-cyan);color:#fff;font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 13px;border-radius:99px;}
+.prod-card .btn,.prod-card .btn-ghost{text-align:center;justify-content:center;}
 
-/* ── SERVICIOS — DARK ── */
-#servicios{
-  background:var(--grafito);
-  padding:100px 56px;position:relative;
-}
-.servicios-intro{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:flex-end;margin-bottom:56px;}
-.servicios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
-.srv-card{
-  background:var(--sombra2);padding:32px 28px;
-  position:relative;overflow:hidden;
-  transition:all .3s;cursor:default;
-}
-.srv-card::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--turquesa),transparent);
-  opacity:0;transition:opacity .3s;
-}
-.srv-card:hover{transform:translateY(-4px);background:rgba(0,213,216,.05);box-shadow:0 16px 48px rgba(0,0,0,.3);}
-.srv-card:hover::after{opacity:1;}
-.srv-num{font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;color:rgba(0,213,216,.08);position:absolute;top:12px;right:18px;line-height:1;}
-.srv-icon{font-size:1.8rem;margin-bottom:16px;display:block;}
-.srv-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;letter-spacing:.06em;color:var(--crema);margin-bottom:10px;}
-.srv-desc{font-size:.82rem;color:var(--concreto);line-height:1.7;}
-.srv-tag{display:inline-block;margin-top:14px;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--turquesa);border:1px solid rgba(0,213,216,.25);padding:3px 10px;}
+/* ── PRUEBA SOCIAL ── */
+.cases-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:8px;}
+.case-card{background:var(--grafito2);border:1px solid rgba(0,213,216,.16);border-radius:10px;padding:26px;text-decoration:none;display:block;transition:border-color .2s,background .2s;}
+.case-card:hover{border-color:rgba(0,213,216,.5);background:rgba(0,213,216,.05);}
+.case-card .meta{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);font-weight:700;margin-bottom:10px;}
+.case-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.2rem;color:var(--crema);margin-bottom:8px;letter-spacing:0;}
+.case-card p{font-size:.86rem;color:rgba(243,239,231,.6);line-height:1.6;font-family:'Barlow',sans-serif;}
 
-/* ── INFORMES — BLANCA ── */
-#informes{
-  background:var(--blanco);color:var(--texto-oscuro);
-  padding:100px 56px;position:relative;overflow:hidden;
-}
-.informes-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:56px;flex-wrap:wrap;gap:24px;}
-.informes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-@media(min-width:961px){.informes-grid{grid-template-columns:repeat(3,1fr);}}
-.inf-card{
-  border:1px solid #e0ddd8;
-  transition:all .3s;position:relative;overflow:hidden;background:var(--blanco);
-}
-.inf-card:hover{border-color:var(--turquesa);box-shadow:0 8px 32px rgba(0,0,0,.08);transform:translateY(-4px);}
-.inf-img{height:160px;background-size:cover;background-position:center;position:relative;}
-.inf-img-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(14,28,32,.7));}
-.inf-badge{position:absolute;top:14px;left:14px;background:var(--turquesa);color:var(--grafito);font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:4px 10px;}
-.inf-body{padding:24px 22px;}
-.inf-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;letter-spacing:.06em;color:var(--texto-oscuro);margin-bottom:8px;}
-.inf-desc{font-size:.8rem;color:#4a5a60;line-height:1.65;}
-.inf-items{margin-top:14px;list-style:none;}
-.inf-items li{font-size:.75rem;color:#5a6a70;padding:5px 0;border-bottom:1px solid #f0ede8;display:flex;align-items:flex-start;gap:8px;}
-.inf-items li::before{content:'→';color:var(--turquesa);flex-shrink:0;}
+/* ── AUDIENCIAS ── */
+.aud-section{background:var(--grafito2);border-top:1px solid rgba(0,213,216,.1);border-bottom:1px solid rgba(0,213,216,.1);}
+.aud-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:8px;}
+.aud-card{border:1px solid rgba(0,213,216,.15);border-radius:10px;padding:22px;background:rgba(255,255,255,.02);}
+.aud-card h4{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.02rem;color:var(--crema);margin-bottom:8px;letter-spacing:0;}
+.aud-card p{font-size:.8rem;color:rgba(243,239,231,.6);line-height:1.6;font-family:'Barlow',sans-serif;}
+.consult-line{margin-top:30px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;border:1px solid rgba(0,213,216,.18);border-radius:10px;padding:22px 26px;background:rgba(255,255,255,.02);}
+.consult-line p{font-size:.88rem;color:rgba(243,239,231,.65);max-width:620px;font-family:'Barlow',sans-serif;line-height:1.6;}
+.consult-line p strong{color:var(--crema);}
 
-/* ── NÚMEROS — DARK GRADIENT ── */
-#numeros{
-  background:linear-gradient(135deg,var(--grafito2),var(--sombra));
-  padding:80px 56px;position:relative;overflow:hidden;
-}
-#numeros::before{
-  content:'';position:absolute;inset:0;
-  background:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80') center/cover no-repeat;
-  opacity:.07;
-}
-.numeros-inner{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:2px;position:relative;z-index:2;
-}
-.numero-card{
-  padding:40px 32px;text-align:center;background:rgba(14,28,32,.6);
-  backdrop-filter:blur(6px);border-top:2px solid rgba(0,213,216,.2);
-  transition:border-top-color .3s;
-}
-.numero-card:hover{border-top-color:var(--turquesa);}
-.numero-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3.5rem;color:var(--turquesa);line-height:1;}
-.numero-label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-top:8px;}
-.numero-sub{font-size:.75rem;color:rgba(183,178,170,.6);margin-top:4px;}
-
-/* ── TESTIMONIO / QUOTE ── */
-#quote{
-  background:var(--crema);color:var(--texto-oscuro);
-  padding:80px 56px;
-}
-.quote-inner{max-width:860px;margin:0 auto;text-align:center;}
-.quote-mark{font-family:'Barlow Condensed',sans-serif;font-size:6rem;color:rgba(0,213,216,.2);line-height:.7;margin-bottom:8px;}
-.quote-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(1.6rem,3vw,2.5rem);text-transform:uppercase;line-height:1.1;color:var(--texto-oscuro);}
-.quote-text span{color:var(--turquesa);}
-.quote-sub{font-size:.88rem;color:#4a5a60;margin-top:16px;line-height:1.7;max-width:600px;margin-left:auto;margin-right:auto;}
-.quote-author{margin-top:24px;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cian);}
-
-/* ── MEDIOS ── */
-#medios{
-  background:var(--grafito2);
-  padding:80px 56px;position:relative;
-}
-.medios-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:24px;}
-.medios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
-@media(max-width:960px){.medios-grid{grid-template-columns:1fr;}}
-.medio-card{
-  background:var(--grafito3);padding:28px 24px;
-  border-left:3px solid rgba(0,213,216,.15);
-  transition:all .3s;cursor:default;text-decoration:none;display:block;
-}
-.medio-card:hover{border-left-color:var(--turquesa);background:rgba(0,213,216,.04);}
-.medio-outlet{
-  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.35rem;
-  text-transform:uppercase;letter-spacing:.1em;color:var(--turquesa);
-  margin-bottom:10px;display:flex;align-items:center;gap:10px;
-}
-.medio-outlet::after{content:'';flex:1;height:1px;background:rgba(0,213,216,.2);}
-.medio-headline{font-size:.88rem;color:var(--crema);line-height:1.6;font-weight:500;margin-bottom:12px;}
-.medio-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;}
-.medio-fecha{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);}
-.medio-tag{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--turquesa);border:1px solid rgba(0,213,216,.25);padding:2px 8px;}
-.medio-placeholder{
-  border:1px dashed rgba(0,213,216,.15);padding:28px 24px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;min-height:140px;
-}
-.medio-placeholder-txt{font-size:.78rem;color:rgba(183,178,170,.35);line-height:1.6;}
-
-/* ── SEÑAL ── */
-#señal{
-  background:var(--grafito2);
-  padding:100px 56px;position:relative;overflow:hidden;
-}
-.señal-bg-img{
-  position:absolute;inset:0;
-  background:url('https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?w=1600&q=80') center/cover no-repeat;
-  opacity:.06;
-}
-.señal-inner{max-width:1000px;margin:0 auto;text-align:center;position:relative;z-index:2;}
-.señal-svg{margin:32px auto 0;display:block;}
-.señal-badges{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:32px 0 0;}
-.señal-badge{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 18px;border:1px solid rgba(0,213,216,.3);color:var(--turquesa);transition:all .25s;cursor:default;}
-.señal-badge:hover{background:rgba(0,213,216,.1);}
-
-/* ── CTA ── */
-#contacto{
-  position:relative;overflow:hidden;padding:120px 56px;text-align:center;
-}
-.cta-bg{
-  position:absolute;inset:0;
-  background:url('https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?w=1600&q=80') center/cover;
-}
-.cta-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,28,32,.92),rgba(14,28,32,.88));}
-.cta-inner{position:relative;z-index:2;max-width:700px;margin:0 auto;}
-.cta-headline{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.2rem,4.5vw,4rem);text-transform:uppercase;line-height:.95;color:var(--crema);margin-bottom:14px;}
-.cta-headline span{color:var(--turquesa);}
-.cta-sub{font-size:.95rem;color:rgba(243,239,231,.7);max-width:500px;margin:0 auto 40px;line-height:1.75;}
-.cta-divider{width:48px;height:2px;background:var(--turquesa);margin:24px auto;}
-.cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-/* email input */
-.cta-form{display:flex;gap:0;max-width:440px;margin:32px auto 0;}
-.cta-input{
-  flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(243,239,231,.3);
-  color:var(--crema);padding:14px 18px;font-family:'Barlow',sans-serif;font-size:.85rem;
-  outline:none;transition:border-color .2s;
-}
-.cta-input::placeholder{color:rgba(243,239,231,.4);}
-.cta-input:focus{border-color:var(--turquesa);}
-.cta-submit{background:var(--turquesa);border:none;color:var(--grafito);padding:14px 22px;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s;}
-.cta-submit:hover{background:#00b8ba;}
+/* ── CTA FINAL ── */
+.final-cta{padding:96px 0;text-align:center;background:radial-gradient(700px 320px at 50% 130%,#123544 0%,transparent 70%);}
+.final-cta h2{font-size:clamp(2rem,4vw,3rem);color:var(--crema);margin-bottom:16px;}
+.final-cta .sub{color:rgba(243,239,231,.65);margin-bottom:32px;font-family:'Barlow',sans-serif;font-size:.98rem;}
+.final-cta .capture-dark,.final-cta .form-status{margin:0 auto;}
 
 /* ── FOOTER ── */
-footer{
-  background:var(--grafito);
-  padding:48px 56px 32px;
-  border-top:1px solid rgba(0,213,216,.1);
-}
-.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:40px;}
-.footer-brand-col{}
-.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-.footer-brandname{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;letter-spacing:.2em;color:var(--crema);}
-.footer-tagline{font-size:.72rem;color:var(--concreto);line-height:1.6;max-width:220px;}
-.footer-tagline span{color:var(--turquesa);}
-.footer-col-title{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--turquesa);margin-bottom:16px;}
-.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
-.footer-links a{font-size:.8rem;color:var(--concreto);text-decoration:none;transition:color .2s;}
+footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0,213,216,.08);}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:.75rem;color:rgba(183,178,170,.5);}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap;}
+.footer-links a{color:rgba(243,239,231,.6);text-decoration:none;}
 .footer-links a:hover{color:var(--turquesa);}
-.footer-bottom{padding-top:24px;border-top:1px solid rgba(183,178,170,.1);display:flex;align-items:center;justify-content:space-between;}
-.footer-copy{font-size:.7rem;color:rgba(183,178,170,.5);}
-.footer-pulse{display:flex;align-items:center;gap:8px;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(0,213,216,.5);}
 
-/* ── TOOLTIP RADAR ── */
-#radar-wrap{display:flex;justify-content:center;margin:40px 0 0;}
-
-/* responsive */
-@media(max-width:960px){
-  nav{padding:14px 24px;}
-  nav.scrolled{padding:12px 24px;}
-  .nav-links{display:none;}
-  #hero .hero-content{padding:100px 24px 80px;}
-  .hero-stats{display:none;}
-  .prop-grid{grid-template-columns:1fr;gap:32px;}
-  .meto-steps{grid-template-columns:1fr 1fr;}
-  .servicios-intro{grid-template-columns:1fr;}
-  .servicios-grid{grid-template-columns:1fr 1fr;}
-  .numeros-inner{grid-template-columns:1fr 1fr;}
-  .informes-grid{grid-template-columns:1fr;}
-  #problema,#propuesta,#metodologia,#servicios,#informes,#señal,#contacto,#numeros,#quote{padding:72px 24px;}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:32px;}
+@media(max-width:860px){
+  .monitor-grid,.rep-grid,.prods-grid,.cases-grid{grid-template-columns:1fr;}
+  .aud-grid{grid-template-columns:1fr 1fr;}
+  .dash-kpis{grid-template-columns:1fr;}
+  .sec{padding:56px 0;}
+}
+@media(max-width:520px){
+  .aud-grid{grid-template-columns:1fr;}
+  .capture-dark{flex-direction:column;max-width:100%;}
+  .capture-dark input{border-right:1.5px solid rgba(243,239,231,.2);border-radius:4px;margin-bottom:8px;}
+  .capture-dark button{border-radius:4px;}
 }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav id="mainNav">
-  <a href="#" class="nav-logo">
-    <span class="logo-mark">
-      <svg viewBox="0 0 30 30" fill="none">
-        <path d="M15 2L2 28H8L15 14L22 28H28L15 2Z" fill="#00D5D8"/>
-        <path d="M10 22H20" stroke="#071114" stroke-width="2"/>
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="3" y="3" width="58" height="58" rx="4" fill="none" stroke="#2196c9" stroke-width="2.5"/>
+        <text x="32" y="47" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="40" font-weight="700" fill="#14294d">A</text>
+        <rect x="13" y="28" width="38" height="6" fill="#4db8e0" transform="rotate(-28 32 31)"/>
       </svg>
-    </span>
-    <div>
-      <div class="nav-brand">ALSINA</div>
-      <div class="nav-tagline">Análisis · Estrategia · Impacto</div>
-    </div>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#problema">Contexto</a></li>
-    <li><a href="#propuesta">Propuesta</a></li>
-    <li><a href="#metodologia">Método</a></li>
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#informes">Informes</a></li>
-    <li><a href="#quienes-somos">Quiénes somos</a></li>
-    <li><a href="nota-electoral-2027.html" style="color:var(--turquesa)">Análisis 2027</a></li>
-    <li><a href="#clientes" style="color:var(--concreto)">Clientes</a></li>
-  </ul>
-  <div style="display:flex;align-items:center;gap:10px;">
-    <a href="/newsletter.html" style="font-size:.72rem;color:var(--turquesa);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(0,213,216,.3);padding:8px 16px;transition:all .2s;" onmouseover="this.style.background='rgba(0,213,216,.08)'" onmouseout="this.style.background='transparent'">Newsletter</a>
-    <a href="#contacto" class="nav-cta">Contacto →</a>
+      <span>
+        <span class="nav-word">ALSINA</span>
+        <span class="nav-tagline">Análisis · Estrategia · Impacto</span>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#monitor">Monitor 135</a></li>
+      <li><a href="#informes">Informes</a></li>
+      <li><a href="#precios">Suscripción</a></li>
+      <li><a href="/consultoria.html">Consultoría</a></li>
+    </ul>
+    <a class="btn nav-cta" href="#precios">Suscribirme</a>
+    <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navMobile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="#monitor">Monitor 135</a>
+    <a href="#informes">Informes</a>
+    <a href="#precios">Suscripción</a>
+    <a href="/consultoria.html">Consultoría</a>
+    <a class="btn nav-cta" href="#precios">Suscribirme</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<section id="hero">
-  <div class="hero-img"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-grid-overlay"></div>
-  <canvas id="particles"></canvas>
-  <div class="hero-beam"></div>
-  <div class="hero-topo"></div>
-
-  <div class="hero-content">
-    <div class="hero-eyebrow">Señal territorial para Buenos Aires</div>
-    <h1 class="hero-headline">
-      En Buenos Aires,<br>
-      gobernar es<br>
-      <span class="hl">ordenar</span><br>
-      complejidad.
-    </h1>
-    <p class="hero-sub">
-      Alsina transforma información dispersa en decisiones, prioridades 
-      y capacidad de gobierno — para los 135 municipios que más lo necesitan.
-    </p>
-  </div>
-
-  <div class="scroll-hint">
-    <span>Descubrí Alsina</span>
-    <span class="scroll-hint-arrow">↓</span>
+<section class="hero" id="hero-top">
+  <div class="hero-grid"></div>
+  <!-- PENDIENTE (Fase 7.1): mapa SVG de los 135 partidos de la PBA con red de nodos cian y pulso radar -->
+  <div class="wrap hero-inner">
+    <div class="kicker">Radiografía integral de la provincia de Buenos Aires</div>
+    <h1>Comprender la Provincia es el primer paso para <em>transformarla.</em></h1>
+    <p class="sub">Relevamos, sistematizamos y analizamos las finanzas, la gestión, la política y el territorio de la PBA y sus 135 municipios — y lo convertimos en conocimiento útil para decidir.</p>
+    <form id="heroForm" class="capture-dark" onsubmit="handleSubscribe(event,'hero')">
+      <input type="email" id="heroEmail" placeholder="tu@mail.com" required aria-label="Tu email">
+      <button type="submit" class="btn" id="heroBtn">Suscribirme gratis</button>
+    </form>
+    <div class="form-status" id="heroStatus"></div>
+    <p class="micro"><b>Newsletter quincenal, gratis hasta septiembre 2026.</b> Los suscriptores fundadores mantienen beneficios cuando pase a premium.</p>
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee-band">
-  <div class="marquee-track" id="marqueeTrack">
-    <div class="marquee-item">Gestión pública</div>
-    <div class="marquee-item">Tecnología territorial</div>
-    <div class="marquee-item">Señal Alsina</div>
-    <div class="marquee-item">Lectura del territorio</div>
-    <div class="marquee-item">Capacidad de gobierno</div>
-    <div class="marquee-item">Ordenar · Decidir · Ejecutar</div>
-    <div class="marquee-item">Provincia de Buenos Aires</div>
-    <div class="marquee-item">135 municipios</div>
-    <div class="marquee-item">Gestión pública</div>
-    <div class="marquee-item">Tecnología territorial</div>
-    <div class="marquee-item">Señal Alsina</div>
-    <div class="marquee-item">Lectura del territorio</div>
-    <div class="marquee-item">Capacidad de gobierno</div>
-    <div class="marquee-item">Ordenar · Decidir · Ejecutar</div>
-    <div class="marquee-item">Provincia de Buenos Aires</div>
-    <div class="marquee-item">135 municipios</div>
-  </div>
-</div>
-
-<!-- PROBLEMA — BLANCO -->
-<section id="problema">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;">
-    <div class="reveal-left">
-      <div class="section-label-dark">El diagnóstico</div>
-      <h2 class="headline-dark">
-        Un municipio no falla<br>solo por falta de<br><span>recursos.</span>
-      </h2>
-      <p class="body-dark">
-        Muchas veces falla porque no logra <strong>ordenar</strong> decisiones, 
-        equipos, datos, procesos y prioridades. La Provincia de Buenos Aires no perdona 
-        la improvisación: 135 municipios, escalas distintas, demandas urgentes, 
-        recursos limitados. Territorios que cambian más rápido que la gestión.
-      </p>
-      <p class="body-dark" style="margin-top:14px;">
-        El problema tampoco es mirar más datos. Es saber 
-        <strong style="color:var(--turquesa)">qué hacer con ellos</strong>. 
-        Transformamos información dispersa en criterios de decisión, 
-        prioridades de gestión y hoja de ruta.
-      </p>
-      <div class="caos-cards">
-        <div class="caos-card">
-          <div class="caos-card-label">Sin Alsina</div>
-          <div class="caos-tags">
-            <span class="caos-tag">Procesos lentos</span>
-            <span class="caos-tag">Agenda dispersa</span>
-            <span class="caos-tag">Comunicación fragmentada</span>
-            <span class="caos-tag">Baja trazabilidad</span>
-            <span class="caos-tag">Proyectos sin financiamiento</span>
-          </div>
-        </div>
-        <div class="caos-card order">
-          <div class="caos-card-label">Con Alsina</div>
-          <div class="caos-tags">
-            <span class="caos-tag t">Criterios de decisión</span>
-            <span class="caos-tag t">Hoja de ruta</span>
-            <span class="caos-tag t">Prioridades ordenadas</span>
-            <span class="caos-tag t">Capacidad ejecutora</span>
-          </div>
-        </div>
-      </div>
+<!-- FRANJA DE COMPLEJIDAD -->
+<section class="franja">
+  <div class="wrap">
+    <p class="quote">"El territorio bonaerense es el resultado de sucesivas capas institucionales que conviven, se articulan y se desarticulan."</p>
+    <div class="layers">
+      <span class="layer"><strong>37,9%</strong>&nbsp;de la población argentina</span>
+      <span class="layer"><strong>135</strong>&nbsp;municipios</span>
+      <span class="layer"><strong>8</strong>&nbsp;secciones electorales</span>
+      <span class="layer"><strong>25</strong>&nbsp;regiones educativas</span>
+      <span class="layer"><strong>12</strong>&nbsp;regiones sanitarias</span>
+      <span class="layer"><strong>21</strong>&nbsp;departamentos judiciales</span>
+      <span class="layer"><strong>14</strong>&nbsp;superintendencias de seguridad</span>
+      <span class="layer"><strong>12</strong>&nbsp;zonas viales</span>
+      <span class="layer"><strong>9</strong>&nbsp;regiones hídricas</span>
+      <span class="layer"><strong>14</strong>&nbsp;regiones culturales</span>
     </div>
-    <div class="reveal-right">
-      <div class="problema-img">
-        <div class="problema-img-overlay">
-          <span class="problema-img-caption">Buenos Aires — 135 municipios · Complejidad territorial</span>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:2px;">
-        <div style="background:#f0ede8;padding:20px 18px;border-top:3px solid var(--turquesa)">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2rem;color:var(--cian);">135</div>
-          <div style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#4a5a60;">municipios bonaerenses</div>
-        </div>
-        <div style="background:#f0ede8;padding:20px 18px;border-top:3px solid rgba(0,140,154,.4)">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2rem;color:var(--cian);">17M</div>
-          <div style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#4a5a60;">habitantes en la PBA</div>
-        </div>
-      </div>
-    </div>
+    <p class="close">Cuando el territorio es complejo y la información está dispersa, gobernar se vuelve más difícil. <b>En ALSINA ordenamos esa complejidad:</b> datos dispersos → conocimiento → herramientas para la gestión pública.</p>
   </div>
 </section>
 
-<!-- PROPUESTA — DARK -->
-<section id="propuesta">
-  <div class="prop-grid">
-    <div class="reveal-left" style="position:relative;z-index:2;">
-      <div class="section-label">Nuestra propuesta</div>
-      <h2 class="section-headline">Ordenamos gobiernos para que las <span>ciudades funcionen mejor.</span></h2>
-      <p class="section-body">
-        No vendemos diagnósticos. Construimos capacidad de gobierno. 
-        Detectamos la señal en la complejidad y la convertimos en acción.
-        Cada intervención de Alsina parte del método, aplica tecnología territorial 
-        y termina en implementación verificable.
-      </p>
-      <div class="pillars">
-        <div class="pillar"><span class="pillar-icon">🏛️</span><div class="pillar-title">Gestión pública</div><p class="pillar-desc">Fortalecimiento institucional y procesos orientados a resultados.</p></div>
-        <div class="pillar"><span class="pillar-icon">⚡</span><div class="pillar-title">Tecnología aplicada</div><p class="pillar-desc">CRM, dashboards y automatización para municipios reales.</p></div>
-        <div class="pillar"><span class="pillar-icon">🗺️</span><div class="pillar-title">Lectura territorial</div><p class="pillar-desc">Mapeo institucional y análisis fiscal profundo del territorio PBA.</p></div>
-        <div class="pillar"><span class="pillar-icon">📡</span><div class="pillar-title">Comunicación de gobierno</div><p class="pillar-desc">Narrativa, contenidos y posicionamiento político territorial.</p></div>
-      </div>
-    </div>
-    <div class="reveal-right" style="position:relative;z-index:2;">
-      <div class="prop-img">
-        <div class="prop-img-overlay"></div>
-        <div class="prop-img-data">
-          <div class="prop-datum"><div class="prop-datum-val">+6%</div><div class="prop-datum-lbl">Rec. real PBA 1er Bim 2026</div></div>
-          <div class="prop-datum"><div class="prop-datum-val">$874B</div><div class="prop-datum-lbl">Transferencias 1er Bim</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SPLIT EXPLORE -->
-<div id="split-explore">
-
-  <!-- Panel izquierdo: Diagnóstico de la Provincia -->
-  <div class="split-panel" onclick="window.location.href='alsina-radiografia-pba.html'">
-    <div class="split-bg" style="background-image:url('https://images.unsplash.com/photo-1561815908-bb4926a2f4eb?w=1200&q=80')"></div>
-    <div class="split-deco-num">PBA</div>
-    <div class="split-content">
-      <div class="split-tag">Análisis territorial</div>
-      <div class="split-box">
-        <div class="split-title">Un diagnóstico<br>de la <em>Provincia</em></div>
-        <p class="split-text">
-          La Provincia de Buenos Aires no es un territorio homogéneo: es un sistema de 135 realidades distintas con lógicas propias de gestión, financiamiento y demanda ciudadana.
-          Gobernarla exige leer la complejidad antes de intervenir.
-        </p>
-        <a href="alsina-radiografia-pba.html" class="split-cta">
-          Ver la radiografía completa
-          <span class="split-cta-arrow">→</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Divisor visual -->
-  <div class="split-divider"></div>
-
-  <!-- Panel derecho: 135 Municipios -->
-  <div class="split-panel" onclick="window.location.href='municipios-data-hub.html'">
-    <div class="split-bg" style="background-image:url('https://images.unsplash.com/photo-1568153523383-a1389d3dc69a?w=1200&q=80')"></div>
-    <div class="split-deco-num">135</div>
-    <div class="split-content">
-      <div class="split-tag">Datos municipales</div>
-      <div class="split-box">
-        <div class="split-title">Explorar los<br><em>135 Municipios</em></div>
-        <p class="split-text">
-          Mapa interactivo, tabla comparativa y dashboard por municipio: transferencias, coparticipación, variaciones reales y tendencias fiscales 2023–2025. Navegá los datos de los 135 partidos bonaerenses.
-        </p>
-        <a href="municipios-data-hub.html" class="split-cta">
-          Abrir el explorador de datos
-          <span class="split-cta-arrow">→</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- METODOLOGÍA — BLANCA -->
-<section id="metodologia">
-  <div class="meto-header reveal">
-    <div class="section-label-dark">Método Alsina</div>
-    <h2 class="headline-dark">De la complejidad <span>a la decisión.</span></h2>
-    <p style="font-size:.92rem;color:#4a5a60;margin-top:14px;max-width:480px;line-height:1.75;">
-      Cuatro pasos que convierten la opacidad institucional en hoja de ruta ejecutable.
-      No diagnóstico: intervención orientada a resultados verificables.
-    </p>
-  </div>
-  <div class="meto-steps">
-    <div class="meto-step reveal delay-1">
-      <div class="meto-num">1</div>
-      <div class="meto-title">Relevar</div>
-      <p class="meto-desc">Relevamiento de arquitectura organizacional, circuitos de decisión y sistemas de información existentes en el municipio.</p>
-    </div>
-    <div class="meto-step reveal delay-2">
-      <div class="meto-num">2</div>
-      <div class="meto-title">Ordenar</div>
-      <p class="meto-desc">Transformamos información dispersa en un mapa de capacidades real: dónde se pierde potencial, qué interdependencias generan fricción.</p>
-    </div>
-    <div class="meto-step reveal delay-3">
-      <div class="meto-num">3</div>
-      <div class="meto-title">Priorizar</div>
-      <p class="meto-desc">Matriz de impacto, urgencia y factibilidad técnica y política. Identificamos dónde actuar con mayor efectividad e impacto visible.</p>
-    </div>
-    <div class="meto-step reveal delay-4">
-      <div class="meto-num">4</div>
-      <div class="meto-title">Implementar</div>
-      <p class="meto-desc">Hoja de ruta con etapas, responsables y métricas. Cada oportunidad identificada conecta con un producto de intervención concreto.</p>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICIOS — DARK -->
-<section id="servicios">
-  <div class="servicios-intro">
-    <div class="reveal-left">
-      <div class="section-label">Servicios de intervención</div>
-      <h2 class="section-headline">Donde la gestión se traba, <span>Alsina ordena.</span></h2>
-    </div>
-    <div class="reveal-right">
-      <p class="section-body">
-        Cada servicio está diseñado para un problema concreto de la gestión municipal bonaerense. 
-        No consultoras genéricas: intervenciones específicas para la complejidad de la Provincia.
-      </p>
-    </div>
-  </div>
-  <div class="servicios-grid">
-    <div class="srv-card reveal delay-1">
-      <div class="srv-num">01</div>
-      <div class="srv-icon">🔍</div>
-      <div class="srv-title">Diagnóstico de gestión municipal</div>
-      <p class="srv-desc">Relevamiento institucional estructurado: procesos, cuellos de botella, brechas de capacidad y hoja de ruta. Diagnóstico de potencial — no auditoría de problemas.</p>
-      <div style="margin-top:14px;display:flex;flex-direction:column;gap:8px;">
-        <a href="/alsina-diagnostico-servicio.html" style="display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--turquesa);text-decoration:none;border:1px solid rgba(0,213,216,.35);border-radius:3px;padding:7px 14px;transition:background .2s,border-color .2s;" onmouseover="this.style.background='rgba(0,213,216,.08)';this.style.borderColor='rgba(0,213,216,.7)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(0,213,216,.35)'">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Ver servicio
-        </a>
-        <div style="display:flex;flex-direction:column;gap:5px;">
-          <a href="/alsina-diagnostico-modelo-v2.pdf" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(0,213,216,.7);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='rgba(0,213,216,.7)'">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Diagnóstico Modelo
-          </a>
-          <a href="/alsina-diagnostico-olavarria-v2.pdf" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(0,213,216,.7);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='rgba(0,213,216,.7)'">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Diagnóstico Olavarría
-          </a>
-        </div>
-      </div>
-      <span class="srv-tag" style="margin-top:10px;">Sprint · Integral</span>
-    </div>
-    <div class="srv-card reveal delay-2">
-      <div class="srv-num">02</div>
-      <div class="srv-icon">📱</div>
-      <div class="srv-title">CRM público para atención ciudadana</div>
-      <p class="srv-desc">Arquitectura omnicanal: WhatsApp, web y redes unificados. Automatización, trazabilidad completa y dashboards en tiempo real. Ciudades que responden y aprenden.</p>
-      <div style="margin-top:14px;">
-        <a href="/vincular-demo.html" style="display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--turquesa);text-decoration:none;border:1px solid rgba(0,213,216,.35);border-radius:3px;padding:7px 14px;transition:background .2s,border-color .2s;" onmouseover="this.style.background='rgba(0,213,216,.08)';this.style.borderColor='rgba(0,213,216,.7)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(0,213,216,.35)'">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Ver demo VinculAR
-        </a>
-      </div>
-      <span class="srv-tag" style="margin-top:10px;">Tecnología aplicada</span>
-    </div>
-    <div class="srv-card reveal delay-3">
-      <div class="srv-num">03</div>
-      <div class="srv-icon">🗣️</div>
-      <div class="srv-title">CICERO — Comunicación política</div>
-      <p class="srv-desc">Sistema de inteligencia comunicacional con IA. Perfil político estructurado, generación de contenidos multiplataforma, calendario editorial y analítica de posicionamiento.</p>
-      <div style="margin-top:14px;">
-        <a href="https://ciceroapp.vercel.app/sign-in" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--turquesa);text-decoration:none;border:1px solid rgba(0,213,216,.35);border-radius:3px;padding:7px 14px;transition:background .2s,border-color .2s;" onmouseover="this.style.background='rgba(0,213,216,.08)';this.style.borderColor='rgba(0,213,216,.7)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(0,213,216,.35)'">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Acceder a CICERO
-        </a>
-      </div>
-      <span class="srv-tag" style="margin-top:10px;">Comunicación de gobierno</span>
-    </div>
-    <div class="srv-card reveal delay-1">
-      <div class="srv-num">04</div>
-      <div class="srv-icon">🛠️</div>
-      <div class="srv-title">Herramientas de gestión</div>
-      <p class="srv-desc">Tableros de control, métricas de gestión y sistemas de seguimiento adaptados al municipio. Transformamos datos dispersos en información accionable para el equipo de gobierno.</p>
-      <span class="srv-tag">Tecnología aplicada</span>
-    </div>
-    <div class="srv-card reveal delay-2">
-      <div class="srv-num">05</div>
-      <div class="srv-icon">🏙️</div>
-      <div class="srv-title">Planificación urbana</div>
-      <p class="srv-desc">Diagnóstico territorial, zonificación estratégica y hoja de ruta para el desarrollo urbano municipal. Desde el catastro hasta los instrumentos de captura de plusvalías y proyectos de infraestructura.</p>
-      <span class="srv-tag">Desarrollo territorial</span>
-    </div>
-  </div>
-</section>
-
-<!-- INFORMES — BLANCO -->
-<section id="informes">
-  <div class="informes-header">
-    <div class="reveal-left">
-      <div class="section-label-dark">Productos informativos</div>
-      <h2 class="headline-dark">Información que <span>reduce asimetría.</span></h2>
-    </div>
-    <div class="reveal-right" style="max-width:360px;">
-      <p style="font-size:.88rem;color:#4a5a60;line-height:1.75;">
-        Los municipios operan en desventaja porque no tienen acceso a datos procesados. 
-        Nuestros informes convierten datos públicos en herramientas de planificación y negociación.
-      </p>
-    </div>
-  </div>
-  <div class="informes-grid">
-    <div class="inf-card reveal delay-1">
-      <div class="inf-img" style="background-image:url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80')">
-        <div class="inf-img-overlay"></div>
-        <span class="inf-badge">Bimestral</span>
-      </div>
-      <div class="inf-body">
-        <div class="inf-title">Informes de recaudación PBA</div>
-        <p class="inf-desc">Monitoreo de la recaudación tributaria provincial: evolución, composición y tendencias de Ingresos Brutos, Inmobiliario, Automotores y Sellos.</p>
-        <ul class="inf-items">
-          <li>Variación nominal y real interanual</li>
-          <li>Análisis por tributo con tendencia</li>
-          <li>Factores explicativos y anomalías</li>
-          <li>Ficha resumen ejecutivo</li>
-        </ul>
-      </div>
-    </div>
-    <div class="inf-card reveal delay-2">
-      <div class="inf-img" style="background-image:url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80')">
-        <div class="inf-img-overlay"></div>
-        <span class="inf-badge">Trimestral</span>
-      </div>
-      <div class="inf-body">
-        <div class="inf-title">Informes de transferencias municipales</div>
-        <p class="inf-desc">Seguimiento sistemático de los recursos que Nación y Provincia transfieren a los 135 municipios bonaerenses. Información que no está procesada en ningún otro lado.</p>
-        <ul class="inf-items">
-          <li>Coparticipación: monto y variación real</li>
-          <li>Transferencias nacionales específicas</li>
-          <li>Fondos especiales por tramo</li>
-          <li>Alertas ante variaciones significativas</li>
-        </ul>
-      </div>
-    </div>
-    <div class="inf-card reveal delay-3">
-      <div class="inf-img" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80')">
-        <div class="inf-img-overlay"></div>
-        <span class="inf-badge">Permanente</span>
-      </div>
-      <div class="inf-body">
-        <div class="inf-title">Mapa del Estado de la PBA</div>
-        <p class="inf-desc">Arquitectura institucional completa del Estado provincial: ministerios, organismos, empresas, consorcios y todas las ventanillas disponibles para municipios.</p>
-        <ul class="inf-items">
-          <li>Catálogo de programas y fondos</li>
-          <li>Fichas individuales por organismo</li>
-          <li>ARBA, IOMA, OPDS, AUBASA y más</li>
-          <li>Índice de interlocutores reales</li>
-        </ul>
-      </div>
-    </div>
-    <div class="inf-card reveal delay-2" style="grid-column:1/-1;display:flex;flex-direction:row;gap:0;overflow:hidden;" onclick="window.location.href='alsina-presupuesto-impositiva-2026.html'" role="link" tabindex="0" style="cursor:pointer;">
-      <div class="inf-img" style="background-image:url('https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9?w=900&q=80');flex:0 0 280px;min-height:180px;">
-        <div class="inf-img-overlay"></div>
-        <span class="inf-badge">Nota</span>
-      </div>
-      <div class="inf-body" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
-        <div class="inf-title" style="font-size:1.25rem;">Presupuesto e Impositiva PBA 2026 — con datos de los 135 municipios</div>
-        <p class="inf-desc" style="margin-top:8px;max-width:700px;">
-          Análisis completo de las Leyes 15.557, 15.558 y 15.561. Estructura del gasto, déficit, personal, recaudación y cambios tributarios.
-          Incluye tabla interactiva con presupuesto 2026, per cápita y CUD de los 135 municipios bonaerenses.
-        </p>
-        <div style="margin-top:16px;">
-          <a href="alsina-presupuesto-impositiva-2026.html" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cian);text-decoration:none;border-bottom:1px solid rgba(0,140,154,.3);padding-bottom:2px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='var(--cian)'">Leer la nota completa →</a>
-        </div>
-      </div>
-    </div>
-    <div class="inf-card reveal delay-1" style="grid-column:1/-1;display:flex;flex-direction:row;gap:0;overflow:hidden;" onclick="window.location.href='alsina-nota-finanzas-pba.html'" role="link" tabindex="0" style="cursor:pointer;">
-      <div class="inf-img" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80');flex:0 0 280px;min-height:180px;">
-        <div class="inf-img-overlay"></div>
-        <span class="inf-badge">Análisis</span>
-      </div>
-      <div class="inf-body" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
-        <div class="inf-title" style="font-size:1.25rem;">Finanzas de la PBA: estructura, deuda y transferencias</div>
-        <p class="inf-desc" style="margin-top:8px;max-width:700px;">
-          Una lectura profunda de los recursos tributarios provinciales, el stock de deuda, las transferencias a municipios y el colapso de los fondos nacionales.
-          Con gráficos comparativos 2018–2025 y conclusiones políticas para gestores territoriales.
-        </p>
-        <div style="margin-top:16px;">
-          <a href="alsina-nota-finanzas-pba.html" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cian);text-decoration:none;border-bottom:1px solid rgba(0,140,154,.3);padding-bottom:2px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='var(--cian)'">Leer la nota completa →</a>
-        </div>
-      </div>
-    </div>
-    <div class="inf-card reveal delay-1" style="grid-column:1/-1;display:flex;flex-direction:row;gap:0;overflow:hidden;cursor:pointer;" onclick="window.location.href='alsina-recaudacion-tributaria-pba.html'" role="link" tabindex="0">
-      <div class="inf-img" style="background-image:url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=900&q=80');flex:0 0 280px;min-height:180px;">
-        <div class="inf-img-overlay"></div>
-        <span class="inf-badge" style="background:var(--grafito);color:var(--turquesa);border:1px solid rgba(0,213,216,.4);">Informe fiscal</span>
-      </div>
-      <div class="inf-body" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
-        <div class="inf-title" style="font-size:1.25rem;">Radiografía Fiscal Bonaerense 1999–2026: más recaudación nominal, matriz más frágil</div>
-        <p class="inf-desc" style="margin-top:8px;max-width:700px;">
-          27 años de historia fiscal de la PBA: cómo Ingresos Brutos pasó de representar la mitad a tres cuartas partes de la recaudación,
-          qué implica un HHI tributario de 0,604 y por qué el 1T2026 luce fuerte en pesos pero empata en términos reales. Incluye el Laboratorio Tributario Interactivo.
-        </p>
-        <div style="margin-top:16px;display:flex;gap:16px;flex-wrap:wrap;">
-          <a href="alsina-recaudacion-tributaria-pba.html" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cian);text-decoration:none;border-bottom:1px solid rgba(0,140,154,.3);padding-bottom:2px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='var(--cian)'">Leer el informe →</a>
-          <a href="/radar-fiscal/" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);text-decoration:none;border-bottom:1px solid rgba(0,213,216,.3);padding-bottom:2px;transition:color .2s;" onmouseover="this.style.color='#00f0f4'" onmouseout="this.style.color='var(--turquesa)'">Abrir laboratorio interactivo →</a>
-        </div>
-      </div>
-    </div>
-    <div class="inf-card reveal delay-1" style="grid-column:1/-1;display:flex;flex-direction:row;gap:0;overflow:hidden;cursor:pointer;" onclick="window.location.href='alsina-mapa-politico.html'" role="link" tabindex="0">
-      <div class="inf-img" style="background:linear-gradient(135deg,#0e1c20 0%,#1a3a5c 50%,#1a2a50 100%);flex:0 0 280px;min-height:180px;display:flex;align-items:center;justify-content:center;">
-        <div class="inf-img-overlay"></div>
-        <span class="inf-badge" style="background:rgba(0,213,216,.12);color:var(--turquesa);border:1px solid rgba(0,213,216,.35);">Interactivo</span>
-        <svg viewBox="0 0 200 200" width="140" height="140" style="opacity:.65;">
-          <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(0,213,216,.2)" stroke-width="1"/>
-          <rect x="30" y="40" width="55" height="45" rx="3" fill="#1a56db" opacity=".85"/>
-          <rect x="90" y="40" width="80" height="20" rx="3" fill="#9333ea" opacity=".85"/>
-          <rect x="90" y="65" width="80" height="20" rx="3" fill="#f59e0b" opacity=".85"/>
-          <rect x="30" y="90" width="55" height="55" rx="3" fill="#1a56db" opacity=".7"/>
-          <rect x="90" y="90" width="80" height="55" rx="3" fill="#f59e0b" opacity=".7"/>
-          <rect x="30" y="150" width="140" height="15" rx="3" fill="#10b981" opacity=".6"/>
-        </svg>
-      </div>
-      <div class="inf-body" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
-        <div class="inf-title" style="font-size:1.25rem;">Mapa Político PBA — 135 Municipios</div>
-        <p class="inf-desc" style="margin-top:8px;max-width:700px;">
-          Mapa interactivo de la composición política de los 135 municipios bonaerenses. Visualizá la distribución por fuerza política, analizá la continuidad de intendentes entre 2019 y 2023, y detectá los cambios en el ejercicio del mandato 2023–2025.
-          Hover para ver datos de cada municipio. Click para análisis detallado.
-        </p>
-        <div style="margin-top:16px;">
-          <a href="alsina-mapa-politico.html" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);text-decoration:none;border-bottom:1px solid rgba(0,213,216,.3);padding-bottom:2px;transition:color .2s;" onmouseover="this.style.color='#00f0f4'" onmouseout="this.style.color='var(--turquesa)'">Abrir mapa político →</a>
-        </div>
-      </div>
-    </div>
-    <div class="inf-card reveal delay-1" style="grid-column:1/-1;display:flex;flex-direction:row;gap:0;overflow:hidden;cursor:pointer;" onclick="window.location.href='nota-electoral-2027.html'" role="link" tabindex="0">
-      <div class="inf-img" style="background:linear-gradient(135deg,#0e1c20 0%,#1a1040 50%,#0a1628 100%);flex:0 0 280px;min-height:180px;display:flex;align-items:center;justify-content:center;position:relative;">
-        <div class="inf-img-overlay"></div>
-        <span class="inf-badge" style="position:absolute;top:12px;left:12px;background:rgba(124,58,237,.18);color:#a78bfa;border:1px solid rgba(124,58,237,.4);">Análisis</span>
-        <div style="text-align:center;padding:20px">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:900;color:#fff;line-height:1">2027</div>
-          <div style="font-size:.72rem;color:#94a3b8;letter-spacing:.12em;text-transform:uppercase;margin-top:6px">empieza ahora</div>
-          <div style="display:flex;justify-content:center;gap:8px;margin-top:12px">
-            <span style="width:12px;height:12px;border-radius:50%;background:#2563eb;display:inline-block"></span>
-            <span style="width:12px;height:12px;border-radius:50%;background:#eab308;display:inline-block"></span>
-            <span style="width:12px;height:12px;border-radius:50%;background:#7c3aed;display:inline-block"></span>
-          </div>
-        </div>
-      </div>
-      <div class="inf-body" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
-        <div class="inf-title" style="font-size:1.25rem;">2027 empieza ahora: el mapa de poder de los 135 municipios bonaerenses</div>
-        <p class="inf-desc" style="margin-top:8px;max-width:700px;">
-          Quién controla el territorio, cómo se fragmentó el voto anti-peronista, dónde están los municipios que van a decidir la próxima elección, y qué dicen los datos de participación, presupuesto y peso propio sobre lo que viene. Con 7 visualizaciones interactivas y datos de la Junta Electoral PBA 2013–2025.
-        </p>
-        <div style="margin-top:16px;">
-          <a href="nota-electoral-2027.html" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);text-decoration:none;border-bottom:1px solid rgba(0,213,216,.3);padding-bottom:2px;transition:color .2s;" onmouseover="this.style.color='#00f0f4'" onmouseout="this.style.color='var(--turquesa)'">Leer el análisis →</a>
-        </div>
-      </div>
-    </div>
-    <div class="inf-card reveal delay-2" style="grid-column:1/-1;display:flex;flex-direction:row;gap:0;overflow:hidden;cursor:pointer;" onclick="window.location.href='alsina-informe-super-rigi.html'" role="link" tabindex="0">
-      <div class="inf-img" style="background-image:url('https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=900&q=80');flex:0 0 280px;min-height:180px;">
-        <div class="inf-img-overlay"></div>
-        <span class="inf-badge" style="background:var(--grafito);color:var(--turquesa);border:1px solid rgba(0,213,216,.4);">Nota</span>
-      </div>
-      <div class="inf-body" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
-        <div class="inf-title" style="font-size:1.25rem;">Súper RIGI: el régimen de inversiones que cambia la cancha para los municipios</div>
-        <p class="inf-desc" style="margin-top:8px;max-width:700px;">
-          Análisis del Régimen de Incentivo a las Grandes Inversiones (RIGI) y su alcance provincial: cómo afecta la autonomía fiscal municipal,
-          qué proyectos aplican, y qué tiene que saber un intendente antes de negociar con el inversor.
-        </p>
-        <div style="margin-top:16px;">
-          <a href="alsina-informe-super-rigi.html" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cian);text-decoration:none;border-bottom:1px solid rgba(0,140,154,.3);padding-bottom:2px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='var(--cian)'">Leer la nota completa →</a>
-        </div>
-      </div>
-    </div>
-    <div class="inf-card reveal delay-2" style="grid-column:1/-1;display:flex;flex-direction:row;gap:0;overflow:hidden;cursor:pointer;" onclick="window.location.href='alsina-pbg-pba.html'" role="link" tabindex="0">
-      <div class="inf-img" style="background:linear-gradient(135deg,#071114 0%,#003844 50%,#001a22 100%);flex:0 0 280px;min-height:180px;display:flex;align-items:center;justify-content:center;position:relative;">
-        <div class="inf-img-overlay"></div>
-        <span class="inf-badge" style="position:absolute;top:12px;left:12px;background:rgba(0,213,216,.12);color:var(--turquesa);border:1px solid rgba(0,213,216,.35);">Análisis económico</span>
-        <div style="text-align:center;padding:20px">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:900;color:#fff;line-height:1.2;text-transform:uppercase;letter-spacing:.08em">Producto Bruto<br>Geográfico</div>
-          <div style="font-size:.65rem;color:#94a3b8;letter-spacing:.12em;text-transform:uppercase;margin-top:8px">134 municipios · PBA</div>
-        </div>
-      </div>
-      <div class="inf-body" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
-        <div class="inf-title" style="font-size:1.25rem;">PBG Municipal PBA — 134 municipios · 2021–2023</div>
-        <p class="inf-desc" style="margin-top:8px;max-width:700px;">
-          Desagregación municipal del Producto Bruto Geográfico bonaerense en precios constantes de 2004. Mapa de calor interactivo, rankings por PBG total y per cápita, dinámica de crecimiento/contracción 2022-2023, cruces con transferencias, servicios y NBI. Fuente: DPE-PBA.
-        </p>
-        <div style="margin-top:16px;">
-          <a href="alsina-pbg-pba.html" style="display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);text-decoration:none;border-bottom:1px solid rgba(0,213,216,.3);padding-bottom:2px;transition:color .2s;" onmouseover="this.style.color='#00f0f4'" onmouseout="this.style.color='var(--turquesa)'">Ver informe →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- NÚMEROS -->
-<section id="numeros">
-  <div class="numeros-inner">
-    <div class="numero-card reveal delay-1">
-      <div class="numero-val" data-count="135">135</div>
-      <div class="numero-label">Municipios PBA</div>
-      <div class="numero-sub">Cobertura territorial completa</div>
-    </div>
-    <div class="numero-card reveal delay-2">
-      <div class="numero-val" data-count="8">8</div>
-      <div class="numero-label">Líneas de servicio</div>
-      <div class="numero-sub">Cobertura integral de la gestión</div>
-    </div>
-    <div class="numero-card reveal delay-3">
-      <div class="numero-val">4</div>
-      <div class="numero-label">Fases del método</div>
-      <div class="numero-sub">Relevar · Ordenar · Priorizar · Implementar</div>
-    </div>
-    <div class="numero-card reveal delay-4">
-      <div class="numero-val">1</div>
-      <div class="numero-label">Metodología propia</div>
-      <div class="numero-sub">Diseñada para el territorio bonaerense</div>
-    </div>
-  </div>
-</section>
-
-
-<!-- MEDIOS — sin menciones reales todavía, reactivar cuando haya contenido real
-<section id="medios">
-  <div class="medios-header">
-    <div class="reveal-left">
-      <div class="section-label">En los medios</div>
-      <h2 class="section-headline">Alsina en la <span>conversación pública.</span></h2>
-    </div>
-    <div class="reveal-right" style="max-width:360px;">
-      <p class="section-body" style="margin-top:0;">
-        Análisis, notas y referencias sobre gestión territorial, finanzas públicas
-        y política bonaerense.
-      </p>
-    </div>
-  </div>
-  <div class="medios-grid">
-    <div class="medio-placeholder reveal delay-1">
-      <div style="font-size:1.8rem;opacity:.2;">📰</div>
-      <div class="medio-placeholder-txt">Las menciones en medios aparecerán aquí.<br>Cada card muestra el medio primero.</div>
-    </div>
-    <div class="medio-placeholder reveal delay-2">
-      <div style="font-size:1.8rem;opacity:.2;">📻</div>
-      <div class="medio-placeholder-txt">Portales, diarios, radios y revistas especializadas.</div>
-    </div>
-    <div class="medio-placeholder reveal delay-3">
-      <div style="font-size:1.8rem;opacity:.2;">🎙️</div>
-      <div class="medio-placeholder-txt">Entrevistas, notas de opinión y coberturas de análisis.</div>
-    </div>
-  </div>
-</section>
--->
-
-<!-- SEÑAL -->
-<section id="señal">
-  <div class="señal-bg-img"></div>
-  <div class="señal-inner">
-    <div class="section-label" style="justify-content:center">Identidad territorial</div>
-    <h2 class="section-headline" style="font-size:clamp(2.2rem,4vw,3.8rem)">
-      Detectamos la señal<br><span>en la complejidad.</span>
-    </h2>
-    <p style="font-size:.95rem;color:var(--concreto);max-width:520px;margin:16px auto 0;line-height:1.75;">
-      Alsina transforma información dispersa en decisiones, prioridades y capacidad 
-      de gobierno para la Provincia de Buenos Aires. Señal territorial aplicada al gobierno.
-    </p>
-    <div id="radar-wrap">
-      <svg viewBox="0 0 700 180" class="señal-svg" width="680" fill="none">
-        <path d="M0,90 Q60,65 120,90 Q180,115 240,85 Q300,55 360,90 Q420,125 480,90 Q540,55 600,90 Q650,115 700,90" stroke="rgba(0,213,216,0.25)" stroke-width="1" fill="none"/>
-        <path d="M0,110 Q70,80 140,110 Q210,140 280,105 Q350,70 420,110 Q490,150 560,110 Q630,70 700,110" stroke="rgba(0,213,216,0.15)" stroke-width="1" fill="none"/>
-        <circle cx="200" cy="90" r="3" fill="#00D5D8" opacity="0.9"/>
-        <circle cx="350" cy="90" r="3" fill="#00D5D8" opacity="0.9"/>
-        <circle cx="500" cy="90" r="3" fill="#00D5D8" opacity="0.9"/>
-        <circle cx="200" cy="90" r="18" stroke="rgba(0,213,216,0.3)" stroke-width="1" fill="none"/>
-        <circle cx="350" cy="90" r="28" stroke="rgba(0,213,216,0.3)" stroke-width="1" fill="none"/>
-        <circle cx="350" cy="90" r="48" stroke="rgba(0,213,216,0.12)" stroke-width="1" fill="none"/>
-        <circle cx="500" cy="90" r="18" stroke="rgba(0,213,216,0.3)" stroke-width="1" fill="none"/>
-        <line x1="200" y1="90" x2="350" y2="90" stroke="rgba(0,213,216,0.35)" stroke-width="1" stroke-dasharray="4 4"/>
-        <line x1="350" y1="90" x2="500" y2="90" stroke="rgba(0,213,216,0.35)" stroke-width="1" stroke-dasharray="4 4"/>
-        <polyline points="20,90 50,90 62,72 74,108 86,80 98,100 110,90 160,90" stroke="#00D5D8" stroke-width="1.5" fill="none" opacity="0.7"/>
-        <polyline points="530,90 560,90 572,70 584,110 596,78 608,102 620,90 680,90" stroke="#00D5D8" stroke-width="1.5" fill="none" opacity="0.7"/>
-        <line x1="350" y1="42" x2="350" y2="90" stroke="rgba(0,213,216,0.6)" stroke-width="1.5"/>
-      </svg>
-    </div>
-    <div class="señal-badges">
-      <span class="señal-badge">Precisión institucional</span>
-      <span class="señal-badge">Tecnología territorial</span>
-      <span class="señal-badge">Señal de gobierno</span>
-      <span class="señal-badge">Capacidad ejecutora</span>
-      <span class="señal-badge">Inteligencia fiscal PBA</span>
-      <span class="señal-badge">Lectura territorial</span>
-    </div>
-  </div>
-</section>
-
-<!-- QUIÉNES SOMOS -->
-<section id="quienes-somos" style="background:var(--grafito);padding:80px 56px 60px;position:relative;overflow:hidden;">
-  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;"></div>
-  <div style="max-width:1180px;margin:0 auto;position:relative;z-index:2;">
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:20px;">
+<!-- MONITOR 135 -->
+<section class="sec sec-light" id="monitor">
+  <div class="wrap">
+    <span class="tag">Monitor 135 · La herramienta insignia</span>
+    <h2>Los 135 municipios,<br><em>en un solo tablero.</em></h2>
+    <p class="lead">Transferencias, coparticipación, presupuestos, resultados electorales e indicadores sociales y productivos de cada partido bonaerense. Actualización permanente.</p>
+    <div class="monitor-grid">
       <div>
-        <div class="section-label reveal">Quiénes somos</div>
-        <h2 class="section-headline reveal" style="margin-top:4px;">Señal territorial para <span>Buenos Aires.</span></h2>
+        <ul class="monitor-list">
+          <li>Mapa interactivo y tabla comparativa de los 135 partidos</li>
+          <li>Series fiscales y electorales 2013–2026, en términos reales</li>
+          <li>Ficha por municipio: recursos, demografía, HCD, economía</li>
+          <li>Datos oficiales: Junta Electoral · ARBA · DPE-PBA · Min. Interior</li>
+        </ul>
+        <a class="btn" href="/municipios-data-hub.html">Abrir el Monitor 135 →</a>
+        <p class="micro" style="color:var(--muted-on-light);margin-top:14px;">Acceso básico gratis con tu mail · Ficha completa y descargas para suscriptores Pro.</p>
       </div>
-      <a href="alsina-presentacion.html" target="_blank" class="btn-secondary reveal" style="white-space:nowrap;font-size:.75rem;">Pantalla completa →</a>
-    </div>
-    <div class="reveal" style="position:relative;width:100%;height:82vh;border:1px solid rgba(0,213,216,.14);overflow:hidden;box-shadow:0 0 60px rgba(0,0,0,.5);">
-      <iframe src="alsina-presentacion.html" style="width:100%;height:100%;border:none;display:block;" loading="lazy" title="Presentación institucional Alsina"></iframe>
-    </div>
-    <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-      <div style="font-size:.62rem;color:rgba(183,178,170,.3);letter-spacing:.08em;">← → flechas · espacio · swipe · F para pantalla completa</div>
-      <a href="alsina-presentacion.html" target="_blank" style="font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,213,216,.5);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--turquesa)'" onmouseout="this.style.color='rgba(0,213,216,.5)'">Abrir en página propia →</a>
+      <div class="dash-card">
+        <div class="dash-bar"><span>Monitor 135 · alsinaar.com</span><span class="live">● 135/135 municipios con ficha</span></div>
+        <div class="dash-kpis">
+          <div class="kpi-card">
+            <div class="kpi-label">Presupuesto municipal 2026</div>
+            <div class="kpi-value num">$10,9 bn</div>
+            <div class="kpi-delta">64 de 135 con dato publicado</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Población (Censo 2022)</div>
+            <div class="kpi-value num">17,52 M</div>
+            <div class="kpi-delta">habitantes en la PBA</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Municipios con ficha</div>
+            <div class="kpi-value num">135 / 135</div>
+            <div class="kpi-delta up">cobertura completa</div>
+          </div>
+        </div>
+        <div class="dash-table">
+          <div class="row"><span>Olavarría</span><span class="num">CUD 1,01347%</span></div>
+          <div class="row"><span>Exaltación de la Cruz</span><span class="num">CUD 0,45705%</span></div>
+          <div class="row"><span>La Matanza</span><span class="num">CUD 6,58306%</span></div>
+        </div>
+        <div class="dash-note">CUD: Coeficiente Único de Distribución de la coparticipación provincial. Datos: Monitor 135, ficha por municipio.</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section id="contacto">
-  <div class="cta-bg"></div>
-  <div class="cta-overlay"></div>
-  <div class="cta-inner">
-    <div class="section-label" style="justify-content:center" class="reveal">Trabajemos juntos</div>
-    <div class="cta-divider"></div>
-    <h2 class="cta-headline reveal">
-      Para gobiernos que necesitan<br>
-      <span>ordenar, decidir y ejecutar mejor.</span>
-    </h2>
-    <p class="cta-sub reveal">
-      Gobiernos que funcionan. Ciudades mejor gestionadas.
-      Contanos sobre el municipio o gestión que dirigís y encontramos juntos el punto de entrada.
-    </p>
-    <div class="cta-actions reveal">
-      <a href="mailto:newsletter@alsinaar.com" class="btn-primary">Escribirnos →</a>
-      <a href="/newsletter.html" class="btn-secondary">Señal Alsina →</a>
+<!-- INFORMES -->
+<section class="sec sec-light" id="informes" style="padding-top:16px;">
+  <div class="wrap">
+    <span class="tag">Informes ALSINA</span>
+    <h2>Información que reduce<br><em>asimetría.</em></h2>
+    <p class="lead">Convertimos datos públicos dispersos en herramientas de planificación, negociación y análisis. Cuatro líneas de trabajo permanentes.</p>
+    <div class="rep-grid">
+      <div class="card rep-card">
+        <span class="freq">Bimestral</span>
+        <h3>Recaudación tributaria PBA</h3>
+        <p>Evolución, composición y tendencia de Ingresos Brutos, Inmobiliario, Automotores y Sellos. Variación nominal y real, factores explicativos y ficha ejecutiva.</p>
+        <a class="foot" href="/alsina-recaudacion-tributaria-pba.html">Ver último número →</a>
+      </div>
+      <div class="card rep-card">
+        <span class="freq">Trimestral</span>
+        <h3>Transferencias a municipios</h3>
+        <p>Seguimiento de los recursos que Nación y Provincia giran a los 135 municipios: coparticipación, fondos especiales y alertas ante variaciones significativas.</p>
+        <a class="foot" href="/alsina-informe-transferencias.html">Ver último número →</a>
+      </div>
+      <div class="card rep-card">
+        <span class="freq amber">Permanente</span>
+        <h3>Radiografía del Estado PBA</h3>
+        <p>Arquitectura institucional completa: ministerios, organismos, empresas y ventanillas. Finanzas provinciales, deuda, presupuesto e impositiva.</p>
+        <a class="foot" href="/alsina-radiografia-pba.html">Ver la radiografía →</a>
+      </div>
+      <div class="card rep-card">
+        <span class="freq amber">A pedido</span>
+        <h3>Informes territoriales</h3>
+        <p>Análisis político, fiscal y electoral integral de un municipio o sección: HCD, economía, escenarios. Como los elaborados para Olavarría y Exaltación de la Cruz.</p>
+        <a class="foot" href="mailto:newsletter@alsinaar.com?subject=Consulta%20informe%20territorial">Pedir un informe →</a>
+      </div>
     </div>
-    <div class="cta-form reveal" id="ctaNewsletterForm">
-      <input type="email" class="cta-input" id="ctaEmail" placeholder="Tu correo — recibí la Señal Alsina...">
-      <button class="cta-submit" id="ctaBtn" onclick="subscribeFromCta()">Suscribirme</button>
+    <div class="rep-cta">
+      <a class="btn" href="/informes.html">Ver todos los informes →</a>
+      <span class="micro" style="color:var(--muted-on-light);">Compra individual próximamente · Incluidos sin límite en Alsina Pro.</span>
     </div>
-    <div id="ctaStatus" style="margin-top:10px;font-size:.78rem;min-height:20px;text-align:center;"></div>
   </div>
 </section>
 
-<!-- CLIENTES -->
-<section id="clientes" style="background:var(--grafito2);padding:80px 56px;border-top:1px solid rgba(255,255,255,.06)">
-  <div style="max-width:1100px;margin:0 auto">
-    <div class="section-label-dark">Acceso Clientes</div>
-    <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--crema);text-transform:uppercase;margin-bottom:16px">Informes <span style="color:var(--turquesa)">Territoriales</span></h2>
-    <p style="font-size:.9rem;color:var(--concreto);max-width:560px;margin-bottom:36px;line-height:1.7">Informes de acceso restringido para municipios clientes. Se requiere clave de acceso.</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;max-width:900px">
-      <a href="/informes/exaltacion-de-la-cruz.html" style="display:flex;flex-direction:column;background:rgba(255,255,255,.04);border:1px solid rgba(0,213,216,.2);border-radius:8px;padding:24px;text-decoration:none;transition:border-color .2s,background .2s" onmouseover="this.style.background='rgba(0,213,216,.06)';this.style.borderColor='rgba(0,213,216,.5)'" onmouseout="this.style.background='rgba(255,255,255,.04)';this.style.borderColor='rgba(0,213,216,.2)'">
-        <div style="font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--turquesa);margin-bottom:10px">2ª Sección Electoral · PBA</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;color:var(--crema);text-transform:uppercase;line-height:1.1">Exaltación<br>de la Cruz</div>
-        <div style="font-size:.78rem;color:rgba(183,178,170,.55);margin-top:10px;line-height:1.6">Análisis político, fiscal y electoral integral · HCD · Comparativas sección · Junio 2026</div>
-        <div style="margin-top:16px;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--turquesa)">Acceder → 🔒</div>
+<!-- PRECIOS -->
+<section class="sec sec-light" id="precios" style="padding-top:16px;">
+  <div class="wrap">
+    <span class="tag">Tres formas de acceder</span>
+    <h2>Elegí tu nivel de<br><em>señal.</em></h2>
+    <p class="lead">Del pulso quincenal gratuito al acceso total al laboratorio de datos de la Provincia.</p>
+    <div class="prods-grid">
+      <div class="prod-card">
+        <h3>Señal Alsina</h3>
+        <div class="who">Newsletter quincenal</div>
+        <div class="price">Gratis <small>· por tiempo limitado</small></div>
+        <ul>
+          <li>La señal de la quincena</li>
+          <li>Radar 135: un dato municipal</li>
+          <li>Un recurso aplicable por edición</li>
+        </ul>
+        <a class="btn-ghost" href="#hero-top" onclick="document.getElementById('heroEmail').focus();document.querySelector('.hero').scrollIntoView({behavior:'smooth'});return false;">Suscribirme gratis</a>
+      </div>
+      <div class="prod-card">
+        <h3>Informes</h3>
+        <div class="who">Compra individual · tienda online</div>
+        <div class="price">Desde <span data-precio="informe-desde">$25.000</span> <small>· pago único</small></div>
+        <ul>
+          <li>Recaudación PBA · bimestral</li>
+          <li>Transferencias municipales · trimestral</li>
+          <li>Informes territoriales por municipio</li>
+          <li>Entrega inmediata por mail (PDF + datos)</li>
+        </ul>
+        <a class="btn-ghost" href="/informes.html">Ver la tienda →</a>
+      </div>
+      <div class="prod-card hot">
+        <span class="pill">Recomendado</span>
+        <h3>Alsina Pro</h3>
+        <div class="who">Acceso completo al laboratorio</div>
+        <div class="price"><span data-precio="pro-mensual">$45.000</span><small>/mes · cancelás cuando querés</small></div>
+        <ul>
+          <li>Newsletter + todos los informes publicados</li>
+          <li>Monitor 135 completo, con descargas</li>
+          <li>1 informe de consultoría por mes</li>
+          <li>Datos completos de los 135 municipios</li>
+        </ul>
+        <a class="btn" href="/newsletter.html#suscripcion">Suscribirme a Pro →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRUEBA SOCIAL -->
+<section class="sec" style="padding-top:16px;">
+  <div class="wrap">
+    <span class="tag">Quiénes ya usan la señal</span>
+    <h2>Trabajo real, sobre territorio<br><em>real.</em></h2>
+    <div class="cases-grid">
+      <a class="case-card" href="/informes/olavarria.html">
+        <div class="meta">7ª Sección · Informe territorial</div>
+        <h3>Olavarría</h3>
+        <p>Análisis político, fiscal y electoral integral: HCD, economía industrial, escenarios 2027. Encargado por cliente, junio 2026.</p>
       </a>
-      <a href="/informes/olavarria.html" style="display:flex;flex-direction:column;background:rgba(255,255,255,.04);border:1px solid rgba(0,213,216,.2);border-radius:8px;padding:24px;text-decoration:none;transition:border-color .2s,background .2s" onmouseover="this.style.background='rgba(0,213,216,.06)';this.style.borderColor='rgba(0,213,216,.5)'" onmouseout="this.style.background='rgba(255,255,255,.04)';this.style.borderColor='rgba(0,213,216,.2)'">
-        <div style="font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--turquesa);margin-bottom:10px">7ª Sección Electoral · PBA</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;color:var(--crema);text-transform:uppercase;line-height:1.1">Olavarría</div>
-        <div style="font-size:.78rem;color:rgba(183,178,170,.55);margin-top:10px;line-height:1.6">Análisis político, fiscal y electoral integral · HCD · Economía industrial · Junio 2026</div>
-        <div style="margin-top:16px;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--turquesa)">Acceder → 🔒</div>
+      <a class="case-card" href="/informes/exaltacion-de-la-cruz.html">
+        <div class="meta">2ª Sección · Informe territorial</div>
+        <h3>Exaltación de la Cruz</h3>
+        <p>Análisis político, fiscal y electoral integral: HCD y comparativas de sección. Encargado por cliente, junio 2026.</p>
       </a>
     </div>
-    <p style="font-size:.7rem;color:rgba(183,178,170,.3);margin-top:24px">Los informes están protegidos con contraseña. Si sos cliente y no tenés tu clave, escribinos a newsletter@alsinaar.com</p>
+    <!-- PENDIENTE: testimonio real de cliente o lector
+    <blockquote>
+      "..."
+      <footer>Nombre y cargo · Organización</footer>
+    </blockquote>
+    -->
+  </div>
+</section>
+
+<!-- AUDIENCIAS -->
+<section class="sec aud-section" id="consultoria">
+  <div class="wrap">
+    <span class="tag" style="color:var(--turquesa);">Para quién trabajamos</span>
+    <h2>Hecho para quienes hacen<br>a la <em>Provincia.</em></h2>
+    <p class="lead" style="color:rgba(243,239,231,.65);">Mejor información produce mejores diagnósticos; mejores diagnósticos, mejores decisiones; y mejores decisiones, una gestión pública más eficaz y más cercana a los bonaerenses.</p>
+    <div class="aud-grid">
+      <div class="aud-card"><h4>Gobiernos</h4><p>Funcionarios provinciales y municipales, intendentes y equipos técnicos.</p></div>
+      <div class="aud-card"><h4>Política</h4><p>Legisladores, concejales y equipos de campaña que necesitan leer el territorio.</p></div>
+      <div class="aud-card"><h4>Prensa e investigación</h4><p>Periodistas, universidades e investigadores que trabajan con datos de la PBA.</p></div>
+      <div class="aud-card"><h4>Sociedad civil</h4><p>Organizaciones y ciudadanos comprometidos con el presente y futuro bonaerense.</p></div>
+    </div>
+    <div class="consult-line">
+      <p><strong>¿Necesitás intervención directa en una gestión?</strong> Diagnóstico municipal, CRM ciudadano, comunicación de gobierno y planificación urbana — la consultoría ALSINA tiene su propia página.</p>
+      <a class="btn-ghost" href="/consultoria.html">Conocer la consultoría →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final-cta">
+  <div class="wrap">
+    <h2>La Provincia no espera.<br><em>La señal tampoco.</em></h2>
+    <p class="sub">Sumate antes de septiembre y quedate con el precio de fundadores.</p>
+    <form id="finalForm" class="capture-dark" onsubmit="handleSubscribe(event,'final')">
+      <input type="email" id="finalEmail" placeholder="tu@mail.com" required aria-label="Tu email">
+      <button type="submit" class="btn" id="finalBtn">Suscribirme gratis</button>
+    </form>
+    <div class="form-status" id="finalStatus"></div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-grid">
-    <div class="footer-brand-col">
-      <div class="footer-logo">
-        <svg viewBox="0 0 22 22" fill="none" width="22">
-          <path d="M11 1.5L1 20.5H5.5L11 10L16.5 20.5H21L11 1.5Z" fill="#00D5D8"/>
-        </svg>
-        <div class="footer-brandname">ALSINA</div>
-      </div>
-      <div class="footer-tagline">
-        Gobiernos que funcionan.<br>
-        <span>Ciudades mejor gestionadas.</span>
-      </div>
-      <div style="margin-top:16px;font-size:.7rem;color:rgba(183,178,170,.4)">
-        Análisis · Estrategia · Impacto<br>
-        Provincia de Buenos Aires
-      </div>
+  <div class="wrap footer-inner">
+    <div><strong style="color:var(--crema);">ALSINA</strong> · Análisis, Estrategia e Impacto</div>
+    <div class="footer-links">
+      <a href="/municipios-data-hub.html">Monitor 135</a>
+      <a href="/informes.html">Informes</a>
+      <a href="/newsletter.html">Newsletter</a>
+      <a href="#precios">Suscripción</a>
+      <a href="/consultoria.html">Consultoría</a>
+      <a href="/que-es-alsina.html">Qué es ALSINA</a>
     </div>
-    <div>
-      <div class="footer-col-title">Servicios</div>
-      <ul class="footer-links">
-        <li><a href="#servicios">Diagnóstico municipal</a></li>
-        <li><a href="#servicios">CRM público</a></li>
-        <li><a href="#servicios">CICERO</a></li>
-        <li><a href="#servicios">Financiamiento urbano</a></li>
-        <li><a href="#servicios">Proyectos estratégicos</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Informes</div>
-      <ul class="footer-links">
-        <li><a href="municipios-data-hub.html">Explorador 135 Municipios</a></li>
-        <li><a href="alsina-presupuesto-impositiva-2026.html">Presupuesto e Impositiva PBA 2026</a></li>
-        <li><a href="alsina-nota-finanzas-pba.html">Finanzas PBA — Nota analítica</a></li>
-        <li><a href="alsina-informe-super-rigi.html">Súper RIGI — Inversiones y municipios</a></li>
-        <li><a href="alsina-pbg-pba.html">PBG Municipal PBA 2021–2023</a></li>
-        <li><a href="#informes">Recaudación PBA · Transferencias</a></li>
-        <li><a href="#quienes-somos">Presentación institucional</a></li>
-        <li><a href="/informes/exaltacion-de-la-cruz.html">Informe · Exaltación de la Cruz</a></li>
-        <li><a href="/informes/olavarria.html">Informe · Olavarría</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Newsletter</div>
-      <ul class="footer-links">
-        <li><a href="/newsletter.html">Señal Alsina — Suscribirse</a></li>
-        <li><a href="/newsletter.html#contenido">Qué incluye cada edición</a></li>
-        <li><a href="/newsletter.html#suscripcion">Próximamente: plan Pro</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Contacto</div>
-      <ul class="footer-links">
-        <li><a href="mailto:newsletter@alsinaar.com">newsletter@alsinaar.com</a></li>
-        <li><a href="#">Provincia de Buenos Aires</a></li>
-        <li><a href="#">Argentina</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-copy">© 2026 Alsina. Análisis, Estrategia e Impacto.</div>
-    <div class="footer-pulse">
-      <svg viewBox="0 0 60 14" width="60" height="14" fill="none">
-        <polyline points="0,7 10,7 15,2 20,12 25,5 30,9 35,7 60,7" stroke="#00D5D8" stroke-width="1.2" fill="none" opacity="0.6"/>
-      </svg>
-      Señal Territorial Alsina
-    </div>
+    <div>newsletter@alsinaar.com · © 2026</div>
   </div>
 </footer>
 
+<script src="/assets/js/pricing.js"></script>
 <script>
-// ── NAV SCROLL ──
-const nav = document.getElementById('mainNav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
+// ── MOBILE NAV ──
+const navBurger = document.getElementById('navBurger');
+const navMobile = document.getElementById('navMobile');
+navBurger.addEventListener('click', () => {
+  const open = navMobile.classList.toggle('open');
+  navBurger.setAttribute('aria-expanded', open ? 'true' : 'false');
 });
+navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navMobile.classList.remove('open');
+  navBurger.setAttribute('aria-expanded', 'false');
+}));
 
-// ── REVEAL ON SCROLL ──
-const reveals = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.12 });
-reveals.forEach(el => observer.observe(el));
+// ── SUBSCRIBE ──
+async function handleSubscribe(e, prefix) {
+  e.preventDefault();
+  const emailEl = document.getElementById(prefix + 'Email');
+  const btnEl = document.getElementById(prefix + 'Btn');
+  const statusEl = document.getElementById(prefix + 'Status');
+  const originalLabel = btnEl.textContent;
 
-// ── COUNTER ANIMATION ──
-function animateCounter(el, target, duration = 1400) {
-  let start = 0;
-  el.textContent = '0';
-  const step = target / (duration / 16);
-  const timer = setInterval(() => {
-    start += step;
-    if (start >= target) { el.textContent = target; clearInterval(timer); return; }
-    el.textContent = Math.floor(start);
-  }, 16);
-}
-const counterObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const target = parseInt(e.target.dataset.count);
-      if (target) animateCounter(e.target, target);
-      counterObs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.3 });
-document.querySelectorAll('[data-count]').forEach(el => counterObs.observe(el));
+  const email = emailEl.value.trim();
+  btnEl.disabled = true;
+  btnEl.textContent = 'Enviando…';
+  statusEl.className = 'form-status';
+  statusEl.textContent = '';
 
-// ── PARTICLE CANVAS ──
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
-let pts = [];
-function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
-resize();
-window.addEventListener('resize', resize);
-for (let i = 0; i < 60; i++) {
-  pts.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height,
-    vx: (Math.random()-.5)*.3, vy: (Math.random()-.5)*.3,
-    r: Math.random()*1.5+.5, o: Math.random()*.5+.2 });
-}
-function drawParticles() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  pts.forEach(p => {
-    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle = `rgba(0,213,216,${p.o})`; ctx.fill();
-    p.x+=p.vx; p.y+=p.vy;
-    if(p.x<0||p.x>canvas.width) p.vx*=-1;
-    if(p.y<0||p.y>canvas.height) p.vy*=-1;
-  });
-  // draw connections
-  pts.forEach((a,i) => {
-    pts.slice(i+1).forEach(b => {
-      const d = Math.hypot(a.x-b.x,a.y-b.y);
-      if(d<100) {
-        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
-        ctx.strokeStyle = `rgba(0,213,216,${.15*(1-d/100)})`; ctx.stroke();
-      }
-    });
-  });
-  requestAnimationFrame(drawParticles);
-}
-drawParticles();
-
-// ── CTA NEWSLETTER SUBSCRIBE ──
-async function subscribeFromCta() {
-  const email = document.getElementById('ctaEmail').value.trim();
-  const btn   = document.getElementById('ctaBtn');
-  const status = document.getElementById('ctaStatus');
-  if (!email) return;
-  btn.disabled = true;
-  btn.textContent = '…';
-  status.style.color = 'rgba(243,239,231,.5)';
-  status.textContent = '';
   try {
     const r = await fetch('/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }),
     });
-    const d = await r.json();
-    if (d.status === 'ok') {
-      status.style.color = 'var(--turquesa)';
-      status.textContent = '¡Listo! Revisá tu mail para confirmar.';
-      document.getElementById('ctaEmail').value = '';
-    } else if (d.status === 'already_subscribed') {
-      status.style.color = 'rgba(0,213,216,.7)';
-      status.textContent = 'Ya estás en la lista — revisá tu carpeta de spam si no confirmaste.';
+    const data = await r.json();
+
+    if (data.status === 'ok') {
+      statusEl.className = 'form-status ok';
+      statusEl.textContent = '¡Listo! Revisá tu mail para confirmar la suscripción.';
+      emailEl.value = '';
+    } else if (data.status === 'already_subscribed') {
+      statusEl.className = 'form-status warn';
+      statusEl.textContent = 'Ya estás en la lista. Si no confirmaste, revisá tu carpeta de spam.';
     } else {
-      throw new Error();
+      throw new Error(data.error || 'Error desconocido');
     }
-  } catch {
-    status.style.color = 'var(--rojo)';
-    status.textContent = 'Error al suscribirse. Intentá desde la página del newsletter.';
+  } catch (err) {
+    statusEl.className = 'form-status err';
+    statusEl.textContent = 'Algo salió mal. Intentá de nuevo en un momento.';
   } finally {
-    btn.disabled = false;
-    btn.textContent = 'Suscribirme';
+    btnEl.disabled = false;
+    btnEl.textContent = originalLabel;
   }
 }
-
-// ── SMOOTH NAV ──
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const t = document.querySelector(a.getAttribute('href'));
-    if(t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
-  });
-});
 </script>
 </body>
 </html>
