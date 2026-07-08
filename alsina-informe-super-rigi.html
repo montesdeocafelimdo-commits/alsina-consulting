@@ -4,7 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Informe: Súper RIGI — Alsina</title>
-<link rel="icon" type="image/svg+xml" href="/assets/brand/isotipo-provisorio.svg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alsinaar.com/alsina-informe-super-rigi.html">
+<meta property="og:title" content="Informe: Súper RIGI — Alsina">
+<meta property="og:description" content="Inversiones de gran escala bajo el RIGI y su impacto en los municipios bonaerenses.">
+<meta property="og:image" content="https://alsinaar.com/assets/og/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1c20">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
 <link rel="stylesheet" href="/assets/css/alsina.css">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -19,7 +30,7 @@
   --azul:#3b82f6;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
 body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;overflow-x:hidden;line-height:1.75;}
 
 /* NAV */
@@ -65,7 +76,9 @@ section{padding:80px 52px;}
 .white-sec{background:var(--blanco);color:var(--texto-oscuro);}
 
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;}
+.two-col>*{min-width:0}
 .two-col-wide{display:grid;grid-template-columns:1.5fr 1fr;gap:52px;align-items:start;}
+.two-col-wide>*{min-width:0}
 .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 .four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
 
@@ -111,7 +124,9 @@ strong.td{color:var(--cian);}
 .d-card-light .d-label{color:#4a5a60;}
 
 /* TABLES — DARK */
-.tbl{width:100%;border-collapse:collapse;margin-top:22px;font-size:.83rem;}
+.tbl-wrap{width:100%;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.tbl{width:100%;border-collapse:collapse;margin-top:0;font-size:.83rem;}
+@media(max-width:640px){.tbl{min-width:560px}}
 .tbl thead tr{background:var(--sombra);}
 .tbl thead th{padding:10px 14px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);border-bottom:2px solid rgba(0,213,216,.25);}
 .tbl tbody td{padding:9px 14px;border-bottom:1px solid rgba(0,213,216,.07);color:var(--concreto);vertical-align:top;line-height:1.55;}
@@ -523,7 +538,7 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
   <p class="body-t reveal" style="max-width:680px;">Los extractos textuales fueron normalizados desde OCR del expediente escaneado. Para trabajo de cita jurídica fina, verificar sobre la imagen original del PDF oficial.</p>
 
   <div class="reveal" style="margin-top:28px;overflow-x:auto;">
-    <table class="tbl">
+    <div class="tbl-wrap"><table class="tbl">
       <thead>
         <tr>
           <th>Art.</th>
@@ -556,7 +571,7 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
         <tr><td class="n">112</td><td>Provincias/CABA/municipios adherentes: tope de <strong class="strong">0,5% de IIBB</strong>, sin impuesto de Sellos y fuertes restricciones a otras cargas</td><td>Homogeneizar a la baja la tributación subnacional</td><td>Desde la adhesión local</td></tr>
         <tr><td class="n">113–114</td><td>Reglamentación dentro de <strong class="strong">90 días</strong> y vigencia al día siguiente de publicación en BO</td><td>Ordenar implementación</td><td>Tras eventual sanción/publicación</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="div-line"></div>
@@ -716,7 +731,7 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
 
   <!-- TABLA SECTORIAL -->
   <div class="reveal" style="overflow-x:auto;margin-top:32px;">
-    <table class="tbl">
+    <div class="tbl-wrap"><table class="tbl">
       <thead>
         <tr>
           <th>Sector / actor</th>
@@ -791,7 +806,7 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
           <td><span class="chip chip-no">Vulnerabilidad regulatoria</span></td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="div-line"></div>

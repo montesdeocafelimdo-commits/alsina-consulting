@@ -5,7 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Consultoría ALSINA — Diagnóstico, tecnología y planificación para gobiernos</title>
 <meta name="description" content="Consultoría de gestión pública para gobiernos provinciales y municipales de la provincia de Buenos Aires: diagnóstico, CRM ciudadano, comunicación de gobierno y planificación urbana.">
-<link rel="icon" type="image/svg+xml" href="/assets/brand/isotipo-provisorio.svg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alsinaar.com/consultoria.html">
+<meta property="og:title" content="Consultoría ALSINA — Diagnóstico, tecnología y planificación para gobiernos">
+<meta property="og:description" content="Consultoría de gestión pública para gobiernos provinciales y municipales de la provincia de Buenos Aires: diagnóstico, CRM ciudadano, comunicación de gobierno y planificación urbana.">
+<meta property="og:image" content="https://alsinaar.com/assets/og/og-consultoria.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1c20">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
 <link rel="stylesheet" href="/assets/css/alsina.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -84,7 +95,8 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 
 /* ── SERVICIOS ── */
 .srv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
-.srv-card{background:var(--grafito2);border:1px solid rgba(0,213,216,.14);border-radius:10px;padding:28px;position:relative;}
+.srv-card{background:var(--grafito2);border:1px solid rgba(0,213,216,.14);border-radius:10px;padding:28px;position:relative;transition:border-color .2s,transform .2s;}
+.srv-card:hover{border-color:rgba(0,213,216,.5);transform:translateY(-2px);}
 .srv-num{position:absolute;top:20px;right:24px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;color:rgba(0,213,216,.2);}
 .srv-icon{width:26px;height:26px;color:var(--turquesa);margin-bottom:14px;}
 .srv-icon .ic{width:100%;height:100%;}
@@ -182,7 +194,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
 <!-- DIAGNÓSTICO -->
 <section class="sec" id="diagnostico">
-  <div class="wrap">
+  <div class="wrap reveal">
     <span class="tag" style="color:var(--turquesa);">El diagnóstico</span>
     <h2>Un municipio no falla<br>solo por falta de <em>recursos.</em></h2>
     <p class="lead">Muchas veces falla porque no logra ordenar decisiones, equipos, datos, procesos y prioridades. El problema tampoco es mirar más datos — es saber qué hacer con ellos. Transformamos información dispersa en criterios de decisión, prioridades de gestión y hoja de ruta.</p>
@@ -208,7 +220,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
 <!-- MÉTODO -->
 <section class="sec sec-light" id="metodo">
-  <div class="wrap">
+  <div class="wrap reveal">
     <span class="tag">Método Alsina</span>
     <h2>De la complejidad<br>a la <em style="color:var(--brand-cyan);">decisión.</em></h2>
     <p class="lead">Cuatro pasos que convierten la opacidad institucional en hoja de ruta ejecutable. No diagnóstico: intervención orientada a resultados verificables.</p>
@@ -239,7 +251,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
 <!-- SERVICIOS -->
 <section class="sec" id="servicios">
-  <div class="wrap">
+  <div class="wrap reveal">
     <span class="tag" style="color:var(--turquesa);">Servicios de intervención</span>
     <h2>Donde la gestión se traba,<br><em>Alsina ordena.</em></h2>
     <p class="lead">Cada servicio está diseñado para un problema concreto de la gestión municipal bonaerense. No consultoras genéricas: intervenciones específicas para la complejidad de la Provincia.</p>
@@ -296,7 +308,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
 <!-- PRESENTACIÓN INSTITUCIONAL -->
 <section class="sec" id="quienes-somos">
-  <div class="wrap">
+  <div class="wrap reveal">
     <span class="tag" style="color:var(--turquesa);">Quiénes somos</span>
     <h2>Señal territorial para<br><em>Buenos Aires.</em></h2>
     <div class="deck-frame">
@@ -311,7 +323,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
 <!-- CTA CONTACTO -->
 <section class="contact-cta">
-  <div class="wrap">
+  <div class="wrap reveal">
     <h2>Gobiernos que funcionan.<br><em>Ciudades mejor gestionadas.</em></h2>
     <p class="sub">Contanos sobre el municipio o gestión que dirigís y encontramos juntos el punto de entrada.</p>
     <div class="contact-actions">
@@ -337,6 +349,9 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   </div>
 </footer>
 
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/reveal.js"></script>
+<script src="/assets/js/sticky-cta.js"></script>
 <script>
 const navBurger = document.getElementById('navBurger');
 const navMobile = document.getElementById('navMobile');

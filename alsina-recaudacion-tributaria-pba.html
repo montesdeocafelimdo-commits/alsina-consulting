@@ -4,7 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Radiografía Fiscal Bonaerense 1999–2026 — Alsina</title>
-<link rel="icon" type="image/svg+xml" href="/assets/brand/isotipo-provisorio.svg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alsinaar.com/alsina-recaudacion-tributaria-pba.html">
+<meta property="og:title" content="Radiografía Fiscal Bonaerense 1999–2026 — Alsina">
+<meta property="og:description" content="Serie histórica de recaudación tributaria bonaerense 1999-2026, con laboratorio tributario interactivo.">
+<meta property="og:image" content="https://alsinaar.com/assets/og/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1c20">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
 <link rel="stylesheet" href="/assets/css/alsina.css">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -18,7 +29,7 @@
   --azul:#3b82f6;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
 body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;overflow-x:hidden;line-height:1.75;}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:14px 52px;background:rgba(14,28,32,0);transition:background .4s,padding .3s;}
@@ -61,7 +72,9 @@ section{padding:80px 52px;}
 .light-sec{background:var(--crema);color:var(--texto-oscuro);}
 
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;}
+.two-col>*{min-width:0}
 .two-col-wide{display:grid;grid-template-columns:1.5fr 1fr;gap:52px;align-items:start;}
+.two-col-wide>*{min-width:0}
 .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 .four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
 
@@ -103,7 +116,9 @@ strong.td{color:var(--cian);}
 .d-card-light .d-val{color:var(--cian);}
 .d-card-light .d-label{color:#4a5a60;}
 
-.tbl{width:100%;border-collapse:collapse;margin-top:22px;font-size:.83rem;}
+.tbl-wrap{width:100%;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.tbl{width:100%;border-collapse:collapse;margin-top:0;font-size:.83rem;}
+@media(max-width:640px){.tbl{min-width:560px}}
 .tbl thead tr{background:var(--sombra);}
 .tbl thead th{padding:10px 14px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);border-bottom:2px solid rgba(0,213,216,.25);}
 .tbl tbody td{padding:9px 14px;border-bottom:1px solid rgba(0,213,216,.07);color:var(--concreto);vertical-align:top;line-height:1.55;}
@@ -579,7 +594,7 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
   <p class="body-t reveal" style="max-width:700px;">El primer trimestre de 2026 recauda $3.999.701 M frente a $2.996.061 M en el primer trimestre de 2025. La suba nominal es de +33,5%. Ajustado por IPC, la expansión real es de apenas +0,68%: prácticamente un empate en poder de compra. Pero el dato clave está en la composición de ese crecimiento.</p>
 
   <div class="reveal" style="overflow-x:auto;margin-top:28px;">
-    <table class="tbl">
+    <div class="tbl-wrap"><table class="tbl">
       <thead>
         <tr>
           <th>Familia tributaria</th>
@@ -647,7 +662,7 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
           <td class="amarillo">+0,68 pp</td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="two-col" style="margin-top:32px;gap:32px;">

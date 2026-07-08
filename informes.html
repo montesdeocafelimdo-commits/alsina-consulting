@@ -5,7 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Informes ALSINA — Biblioteca de informes y herramientas sobre la PBA</title>
 <meta name="description" content="Todos los informes, notas y herramientas interactivas de ALSINA sobre finanzas, gestión, política y territorio de la provincia de Buenos Aires y sus 135 municipios.">
-<link rel="icon" type="image/svg+xml" href="/assets/brand/isotipo-provisorio.svg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alsinaar.com/informes.html">
+<meta property="og:title" content="Informes ALSINA — Biblioteca de informes y herramientas sobre la PBA">
+<meta property="og:description" content="Todos los informes, notas y herramientas interactivas de ALSINA sobre finanzas, gestión, política y territorio de la provincia de Buenos Aires y sus 135 municipios.">
+<meta property="og:image" content="https://alsinaar.com/assets/og/og-informes.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1c20">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
 <link rel="stylesheet" href="/assets/css/alsina.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -59,7 +70,8 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 
 /* ── LÍNEAS PERMANENTES ── */
 .lineas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
-.linea-card{background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;padding:26px;}
+.linea-card{background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;padding:26px;transition:border-color .2s,transform .2s;}
+.linea-card:hover{border-color:var(--brand-cyan);transform:translateY(-2px);}
 .linea-card .freq{display:inline-block;font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#0e1c20;background:var(--up);border-radius:99px;padding:3px 11px;margin-bottom:14px;}
 .linea-card .freq.amber{background:var(--brand-cyan-light);}
 .linea-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.15rem;color:var(--text-on-light);margin-bottom:8px;letter-spacing:0;}
@@ -160,7 +172,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
 <!-- LÍNEAS PERMANENTES -->
 <section class="sec-light">
-  <div class="wrap">
+  <div class="wrap reveal">
     <div class="sec-title"><h2>Líneas permanentes</h2><span class="cnt">4 líneas de trabajo</span></div>
     <div class="lineas-grid">
       <div class="linea-card">
@@ -217,7 +229,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
 <!-- NOTAS Y ANÁLISIS -->
 <section class="sec-light">
-  <div class="wrap">
+  <div class="wrap reveal">
     <div class="sec-title"><h2>Notas y análisis</h2><span class="cnt">7 notas publicadas</span></div>
     <div class="notas-grid">
       <a class="nota-card" href="/alsina-presupuesto-impositiva-2026.html">
@@ -261,7 +273,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
 <!-- HERRAMIENTAS INTERACTIVAS -->
 <section class="sec-dark">
-  <div class="wrap">
+  <div class="wrap reveal">
     <div class="sec-title"><h2>Herramientas interactivas</h2><span class="cnt">3 herramientas</span></div>
     <div class="tools-grid">
       <a class="tool-card" href="/municipios-data-hub.html">
@@ -285,7 +297,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
 <!-- INFORMES DE CLIENTES -->
 <section class="sec-dark" style="padding-top:16px;">
-  <div class="wrap">
+  <div class="wrap reveal">
     <div class="sec-title"><h2>Informes de clientes</h2><span class="cnt">acceso por clave</span></div>
     <div class="clientes-grid">
       <a class="cliente-card" href="/informes/olavarria.html">
@@ -321,6 +333,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 <script src="/assets/js/pricing.js"></script>
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/checkout.js"></script>
+<script src="/assets/js/reveal.js"></script>
+<script src="/assets/js/sticky-cta.js"></script>
 <script>
 const navBurger = document.getElementById('navBurger');
 const navMobile = document.getElementById('navMobile');

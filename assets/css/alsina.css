@@ -235,3 +235,42 @@
   .alsina-scroll-gate-input{ border-right:1.5px solid rgba(243,239,231,.2);border-radius:4px; }
   .alsina-scroll-gate-form button{ border-radius:4px; }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   MICROINTERACCIONES (Fase 7.2) — assets/js/reveal.js
+   ══════════════════════════════════════════════════════════════ */
+.reveal-pending{ opacity:0;transform:translateY(12px); }
+.reveal{ transition:opacity .4s ease,transform .4s ease; }
+.reveal.is-visible{ opacity:1;transform:translateY(0); }
+
+/* skeleton de carga — assets/js/skeleton.js lo saca al pintar contenido real */
+.skeleton{ position:relative;overflow:hidden;color:transparent!important;border-radius:4px; }
+.skeleton::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg, rgba(0,213,216,.06) 25%, rgba(0,213,216,.16) 50%, rgba(0,213,216,.06) 75%);
+  background-size:200% 100%;animation:skeletonShine 1.3s ease-in-out infinite;
+}
+@media(prefers-reduced-motion:reduce){ .skeleton::after{ animation:none; } }
+@keyframes skeletonShine{ 0%{background-position:200% 0;} 100%{background-position:-200% 0;} }
+
+/* ══════════════════════════════════════════════════════════════
+   STICKY CTA (Fase 7.3) — assets/js/sticky-cta.js
+   ══════════════════════════════════════════════════════════════ */
+.alsina-sticky-cta{
+  position:fixed;z-index:1800;
+  right:20px;bottom:20px;
+  background:var(--brand-cyan);color:#fff;border:none;border-radius:6px;
+  padding:13px 22px;font-family:'Barlow',sans-serif;font-weight:700;font-size:.85rem;
+  letter-spacing:.02em;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  opacity:0;transform:translateY(16px);pointer-events:none;
+  transition:opacity .3s,transform .3s;
+}
+.alsina-sticky-cta.show{ opacity:1;transform:translateY(0);pointer-events:all; }
+.alsina-sticky-cta:hover{ background:#1c7ea8; }
+@media(max-width:640px){
+  .alsina-sticky-cta{
+    left:0;right:0;bottom:0;border-radius:0;width:100%;justify-content:center;
+    padding:15px 20px;
+  }
+}

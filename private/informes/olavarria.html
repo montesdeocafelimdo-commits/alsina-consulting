@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Olavarría — Informe Territorial · Alsina 2026</title>
-<link rel="icon" type="image/svg+xml" href="/assets/brand/isotipo-provisorio.svg">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
 <link rel="stylesheet" href="/assets/css/alsina.css">
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -134,7 +135,9 @@
     .alert p{font-size:.875rem;line-height:1.65;color:var(--ink2)}
 
     /* TABLE */
-    .tbl{width:100%;border-collapse:collapse;font-size:.875rem;margin:16px 0}
+    .tbl-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.tbl{width:100%;border-collapse:collapse;font-size:.875rem;margin:0}
+@media(max-width:640px){.tbl{min-width:560px}}
     .tbl th{text-align:left;padding:9px 12px;background:var(--bg3);color:var(--ink2);font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-bottom:2px solid var(--line)}
     .tbl td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink2)}
     .tbl tr:last-child td{border-bottom:none}
@@ -307,7 +310,7 @@
     <div class="two-col">
       <div>
         <h3 class="sub">Datos básicos del partido</h3>
-        <table class="tbl">
+        <div class="tbl-wrap"><table class="tbl">
           <tbody>
             <tr><td><strong>Fundación</strong></td><td>25 de noviembre de 1867</td></tr>
             <tr><td><strong>Cabecera</strong></td><td>Olavarría (ciudad)</td></tr>
@@ -319,7 +322,7 @@
             <tr><td><strong>Partidos linderos</strong></td><td>Azul, Bolívar, General La Madrid, Laprida, Olavarría, Tapalqué, Benito Juárez</td></tr>
             <tr><td><strong>Accesibilidad</strong></td><td>RN N.° 3 (BA-Bahía Blanca), Ramal Tandil del FFCC</td></tr>
           </tbody>
-        </table>
+        </table></div>
       </div>
       <div>
         <h3 class="sub">Crecimiento demográfico 1991–2022</h3>
@@ -337,7 +340,7 @@
 
     <!-- Localidades -->
     <h3 class="sub" style="margin-top:40px">Localidades del partido</h3>
-    <table class="tbl">
+    <div class="tbl-wrap"><table class="tbl">
       <thead><tr><th>Localidad</th><th>Perfil</th><th>Relevancia</th></tr></thead>
       <tbody>
         <tr><td><strong>Olavarría (ciudad)</strong></td><td>Cabecera urbana</td><td>~111.708 hab. · admin., comercio, UNICEN</td></tr>
@@ -348,7 +351,7 @@
         <tr><td><strong>Hinojo</strong></td><td>Agropecuario</td><td>Soja, ganadería, emprendimientos rurales</td></tr>
         <tr><td><strong>Recalde / Espigas</strong></td><td>Rural</td><td>Localidades de la pampa profunda del partido</td></tr>
       </tbody>
-    </table>
+    </table></div>
 
     <!-- Rankings -->
     <h3 class="sub" style="margin-top:40px">Rankings entre los 135 municipios PBA</h3>
@@ -583,7 +586,7 @@
       <!-- TABLA CONCEJALES -->
       <div>
         <h3 class="sub" style="margin-bottom:12px">Concejales</h3>
-        <table class="tbl" style="font-size:.78rem">
+        <div class="tbl-wrap"><table class="tbl" style="font-size:.78rem">
           <thead><tr><th>Nombre</th><th>Bloque</th><th style="font-size:.65rem;color:var(--ink4)">Mandato</th></tr></thead>
           <tbody>
             <tr><td>Guillermo Santellán</td><td style="color:#2563eb;font-weight:700">Fuerza Patria</td><td style="font-size:.7rem;color:#94a3b8">Pte. HCD · 23-27</td></tr>
@@ -607,7 +610,7 @@
             <tr><td>Marcelo Petehs</td><td style="color:#94a3b8;font-weight:700">Por Más Libertad</td><td style="font-size:.7rem;color:#94a3b8">23-27</td></tr>
             <tr><td>María Adela Casamayor</td><td style="color:#94a3b8;font-weight:700">Partido Libertario</td><td style="font-size:.7rem;color:#94a3b8">23-27</td></tr>
           </tbody>
-        </table>
+        </table></div>
       </div>
     </div>
 
@@ -722,7 +725,7 @@
 
     <!-- Tabla completa -->
     <h3 class="sub" style="margin-top:44px">Detalle transferencias · B1 2024, 2025 y 2026</h3>
-    <table class="tbl">
+    <div class="tbl-wrap"><table class="tbl">
       <thead>
         <tr><th>Ítem</th><th style="text-align:right">B1 2024 ($M)</th><th style="text-align:right">B1 2025 ($M)</th><th style="text-align:right">B1 2026 ($M)</th><th style="text-align:right">Var. nominal 25→26</th><th style="text-align:right">Var. real 25→26</th></tr>
       </thead>
@@ -738,7 +741,7 @@
         <tr><td>Fondo Fort. Fiscal Municipal</td><td style="text-align:right">—</td><td style="text-align:right">$1.212</td><td style="text-align:right"><strong>$0</strong></td><td style="text-align:right" class="neg">−100%</td><td style="text-align:right" class="neg">−100%</td></tr>
         <tr style="background:var(--bg3);font-weight:700"><td><strong>TOTAL</strong></td><td style="text-align:right">$10.104</td><td style="text-align:right">$33.111</td><td style="text-align:right"><strong>$46.571</strong></td><td style="text-align:right">+40,6%</td><td style="text-align:right" class="pos">+6,2%</td></tr>
       </tbody>
-    </table>
+    </table></div>
     <div class="alert alert-tq">
       <div class="alert-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div>
       <div>
@@ -835,7 +838,7 @@
     <div class="two-col" style="margin-top:40px">
       <div>
         <h3 class="sub">Motor económico: cemento e industria</h3>
-        <table class="tbl">
+        <div class="tbl-wrap"><table class="tbl">
           <tbody>
             <tr><td><strong>Loma Negra (CAMCE)</strong></td><td>Principal planta de cemento · Sierras Bayas · propiedad de AbInBev</td></tr>
             <tr><td><strong>Cementos Avellaneda</strong></td><td>Segunda planta cementera · empleador histórico del partido</td></tr>
@@ -844,7 +847,7 @@
             <tr><td><strong>Industria alimentaria</strong></td><td>Procesamiento de cereales y lácteos · corredor interior</td></tr>
             <tr><td><strong>Comercio y servicios</strong></td><td>25% del mix — ciudad cabecera de una zona amplia</td></tr>
           </tbody>
-        </table>
+        </table></div>
       </div>
       <div>
         <h3 class="sub">UNICEN: activo diferencial único</h3>
