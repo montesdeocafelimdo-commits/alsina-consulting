@@ -21,6 +21,11 @@
   --brand-navy:#14294d;
   --brand-cyan:#2196c9;
   --brand-cyan-light:#4db8e0;
+  /* variante oscura para texto/botones sobre fondo claro — #2196c9 no
+     llega a AA (3.35:1) como texto sobre blanco ni como fondo de botón
+     con texto blanco; #146b91 sí (5.9:1). Sobre fondo oscuro seguir
+     usando --brand-cyan o --brand-cyan-light, que ya cumplen AA ahí. */
+  --brand-cyan-text:#146b91;
 
   /* ── modo claro — secciones tipo "diapositiva blanca" ── */
   --bg-light:#f4f6f9;   --card-light:#ffffff;  --line-light:#dbe3ec;
@@ -61,6 +66,7 @@
 }
 .sec-light h2,.sec-light h3{ color:var(--text-on-light); }
 .sec-light p{ color:var(--muted-on-light); }
+.sec-light .tag{ color:var(--brand-cyan-text); }
 
 .sec-light .card,
 .card{
@@ -105,16 +111,22 @@
   color:var(--brand-cyan);
 }
 
-/* ── botones de marca ── */
+/* ── botones de marca ──
+   Fondo/texto de .btn usa --brand-cyan-text: es el par que necesita
+   más contraste (texto blanco fijo) y ese valor cumple AA sin importar
+   dónde se use el botón. .btn-ghost en cambio hereda el color del
+   fondo donde vive — por defecto --brand-cyan (cumple AA sobre los
+   fondos oscuros del sitio); en tarjetas .sec-light necesita el
+   modificador .btn-ghost-onlight (ver más abajo). */
 .btn{
   display:inline-flex;align-items:center;gap:8px;
-  background:var(--brand-cyan);color:#fff;
-  border:1px solid var(--brand-cyan);border-radius:4px;
+  background:var(--brand-cyan-text);color:#fff;
+  border:1px solid var(--brand-cyan-text);border-radius:4px;
   padding:12px 22px;font-weight:700;font-size:.85rem;
   letter-spacing:.04em;text-decoration:none;cursor:pointer;
   transition:background .2s, border-color .2s, transform .2s;
 }
-.btn:hover{ background:#1c7ea8; border-color:#1c7ea8; transform:translateY(-1px); }
+.btn:hover{ background:#0f5674; border-color:#0f5674; transform:translateY(-1px); }
 .btn-ghost{
   display:inline-flex;align-items:center;gap:8px;
   background:transparent;color:var(--brand-cyan);
@@ -124,6 +136,8 @@
   transition:background .2s;
 }
 .btn-ghost:hover{ background:rgba(33,150,201,.08); }
+.btn-ghost-onlight{ color:var(--brand-cyan-text);border-color:var(--brand-cyan-text); }
+.btn-ghost-onlight:hover{ background:rgba(20,107,145,.08); }
 
 /* ── chips de capas institucionales ── */
 .layer{

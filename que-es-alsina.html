@@ -21,7 +21,10 @@
 <script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
 <script src="/assets/js/analytics.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -37,7 +40,7 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
 .nav-logo svg{width:30px;height:30px;}
 .nav-word{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.15rem;letter-spacing:.18em;color:var(--crema);}
-.nav-tagline{font-size:.56rem;color:rgba(183,178,170,.55);letter-spacing:.1em;text-transform:uppercase;display:block;margin-top:1px;}
+.nav-tagline{font-size:.56rem;color:rgba(183,178,170,.72);letter-spacing:.1em;text-transform:uppercase;display:block;margin-top:1px;}
 .nav-links{display:flex;gap:24px;list-style:none;margin-left:auto;}
 .nav-links a{font-size:.78rem;color:rgba(243,239,231,.65);text-decoration:none;letter-spacing:.03em;transition:color .2s;}
 .nav-links a:hover{color:var(--turquesa);}
@@ -74,7 +77,7 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 
 /* ── FOOTER ── */
 footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0,213,216,.08);}
-.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:.75rem;color:rgba(183,178,170,.5);}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:.75rem;color:rgba(183,178,170,.72);}
 .footer-links{display:flex;gap:18px;flex-wrap:wrap;}
 .footer-links a{color:rgba(243,239,231,.6);text-decoration:none;}
 .footer-links a:hover{color:var(--turquesa);}
@@ -120,6 +123,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     <a class="btn nav-cta" href="/index.html#precios">Suscribirme</a>
   </div>
 </nav>
+
+<main>
 
 <!-- HERO -->
 <section class="hero">
@@ -173,6 +178,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     <p>Creemos que una mejor información produce mejores diagnósticos; mejores diagnósticos permiten mejores decisiones; y mejores decisiones hacen posible una gestión pública más eficaz, más transparente y más cercana a las necesidades de los bonaerenses.</p>
   </div>
 </section>
+
+</main>
 
 <!-- FOOTER -->
 <footer>

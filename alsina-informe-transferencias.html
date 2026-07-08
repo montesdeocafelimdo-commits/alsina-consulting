@@ -20,7 +20,9 @@
 <link rel="stylesheet" href="/assets/css/alsina.css">
 <script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
 <script src="/assets/js/analytics.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root{
@@ -41,7 +43,7 @@ body{background:var(--blanco);color:var(--texto);font-family:'Barlow',sans-serif
 }
 .portada-img{
   position:absolute;inset:0;
-  background:url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1600&q=80') center/cover;
+  background-image:linear-gradient(rgba(0,213,216,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.06) 1px,transparent 1px);background-size:32px 32px;
   opacity:.08;
 }
 .portada-beam{

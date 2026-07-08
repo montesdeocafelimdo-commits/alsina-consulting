@@ -20,7 +20,9 @@
 <link rel="stylesheet" href="/assets/css/alsina.css">
 <script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
 <script src="/assets/js/analytics.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
 :root{
   --grafito:#0e1c20;--grafito2:#162429;--grafito3:#1e2f35;
@@ -48,7 +50,7 @@ nav.scrolled{background:rgba(14,28,32,.97);box-shadow:0 2px 40px rgba(0,0,0,.4);
 .nav-back:hover{background:rgba(0,213,216,.08);}
 
 #hero{min-height:85vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding-bottom:0;}
-.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1600&q=80') center/cover no-repeat;}
+.hero-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.07) 1px,transparent 1px);background-size:40px 40px;}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(14,28,32,.97) 55%,rgba(14,28,32,.78) 80%,rgba(0,140,154,.15) 100%);}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.04) 1px,transparent 1px);background-size:52px 52px;}
 .hero-inner{position:relative;z-index:10;padding:130px 52px 72px;width:100%;}
