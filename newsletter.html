@@ -282,27 +282,12 @@ nav{
   font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;
   text-transform:uppercase;color:var(--crema);letter-spacing:.05em;
 }
-.pricing-price{
-  font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3.5rem;
-  color:var(--turquesa);line-height:1;margin-top:8px;
-}
-.pricing-price span{font-size:1.2rem;font-weight:600;color:var(--concreto);margin-left:4px;}
-.pricing-period{font-size:.75rem;color:var(--concreto);margin-top:4px;}
+.pricing-period{font-size:.85rem;color:var(--concreto);margin-top:10px;}
 .pricing-body{padding:28px 36px;}
-.pricing-items{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
-.pricing-items li{
-  display:flex;align-items:flex-start;gap:10px;
-  font-size:.85rem;color:rgba(243,239,231,.8);line-height:1.55;
-}
-.pricing-items li::before{content:'✓';color:var(--turquesa);font-weight:700;flex-shrink:0;margin-top:1px;}
-.pricing-items li.premium::before{content:'★';color:#f59e0b;}
 .pricing-note{
   font-size:.68rem;color:rgba(158,153,146,.4);text-align:center;margin-top:10px;
   line-height:1.5;
 }
-.pricing-form{display:flex;gap:0;}
-.pricing-form .nl-input{flex:1;border-right:none;}
-.pricing-form .nl-btn{flex-shrink:0;padding:16px 22px;}
 
 /* ── FOOTER ── */
 footer{
@@ -373,7 +358,7 @@ footer{
       </p>
       <div class="hero-badges">
         <span class="badge">Quincenal</span>
-        <span class="badge green">Gratis por ahora</span>
+        <span class="badge green">Gratis hasta septiembre 2026</span>
         <span class="badge">135 municipios</span>
       </div>
     </div>
@@ -518,8 +503,8 @@ footer{
       </div>
       <div class="freq-card">
         <span class="freq-icon"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg></span>
-        <div class="freq-title">Gratis por ahora</div>
-        <p class="freq-desc">En unos meses la Señal Alsina pasa a ser exclusiva de suscriptores premium. Suscribite ahora y asegurá tu acceso al precio de fundadores: $0.</p>
+        <div class="freq-title">Gratis hasta septiembre 2026</div>
+        <p class="freq-desc">Desde septiembre de 2026 la Señal Alsina pasa a ser exclusiva de suscriptores premium. Suscribite ahora y asegurá tu acceso al precio de fundadores: $0.</p>
       </div>
       <div class="freq-card">
         <span class="freq-icon"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
@@ -543,26 +528,13 @@ footer{
       <div class="pricing-header">
         <div class="pricing-badge">Disponible próximamente</div>
         <div class="pricing-name">Alsina Pro</div>
-        <div class="pricing-price">$45.000<span>/ mes</span></div>
-        <div class="pricing-period">Facturación mensual · Cancelás cuando querés</div>
+        <div class="pricing-period">Newsletter + informes + Monitor 135 completo</div>
       </div>
       <div class="pricing-body">
-        <ul class="pricing-items">
-          <li>Newsletter quincenal Señal Alsina</li>
-          <li>1 informe de consultoría por mes</li>
-          <li>Acceso ilimitado a todos los informes publicados</li>
-          <li>Datos completos de los 135 municipios PBA</li>
-          <li class="premium">Informes territoriales exclusivos (en desarrollo)</li>
-          <li class="premium">Dashboard municipal avanzado (en desarrollo)</li>
-        </ul>
-        <form id="proForm" class="pricing-form" onsubmit="handleSubscribe(event,'proForm')">
-          <input type="email" class="nl-input" id="proEmail" placeholder="tu@mail.com" required>
-          <button type="submit" class="nl-btn" id="proBtn">Avisenme →</button>
-        </form>
-        <div class="form-status" id="proStatus"></div>
+        <a class="nl-btn" href="/index.html#precios" style="display:block;text-align:center;">Ver planes y precios →</a>
         <p class="pricing-note">
-          El pago se habilita próximamente. Dejá tu mail y te avisamos primero,<br>
-          asegurando tu precio de fundador.
+          El pago se habilita próximamente. En la home podés dejar tu mail<br>
+          y asegurar tu precio de fundador.
         </p>
       </div>
     </div>
