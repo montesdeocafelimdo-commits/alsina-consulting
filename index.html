@@ -27,7 +27,7 @@
 <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
 body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;overflow-x:hidden;}
 a{color:inherit;}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
@@ -60,16 +60,21 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 /* ── HERO ── */
 .hero{position:relative;overflow:hidden;padding:88px 0 64px;background:linear-gradient(135deg,var(--grafito) 0%,var(--grafito2) 55%,#0a2535 100%);}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.05) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
-.hero-map{position:absolute;top:0;right:-6%;height:100%;width:62%;opacity:.6;pointer-events:none;z-index:1;
-  transform:perspective(900px) rotateX(14deg) rotateY(-16deg) scale(1.1);
+.hero-map{position:absolute;top:0;right:-6%;height:100%;width:62%;opacity:.96;pointer-events:none;z-index:1;
+  transform:perspective(900px) rotateX(22deg) rotateY(-20deg) scale(1.14);
   transform-origin:65% 45%;
-  filter:drop-shadow(-22px 28px 36px rgba(0,0,0,.5)) drop-shadow(0 0 26px rgba(0,213,216,.14));
+  filter:drop-shadow(-26px 34px 40px rgba(0,0,0,.55)) drop-shadow(0 0 30px rgba(0,213,216,.16));
   transition:transform .5s cubic-bezier(.2,.7,.3,1);
   will-change:transform;
 }
-.hero-map-shape{fill:rgba(0,213,216,.055);stroke:rgba(0,213,216,.22);stroke-width:1.1;}
-.hero-map-line{stroke:rgba(0,213,216,.35);stroke-width:1;}
-.hero-map-node{fill:var(--turquesa);}
+.hero-map-shape{
+  fill:#dde4e8;
+  stroke:rgba(0,213,216,.5);
+  stroke-width:.6;
+  filter:drop-shadow(0 5px 0 #9aa3a8) drop-shadow(0 10px 0 #58636a) drop-shadow(0 15px 0 #243039) drop-shadow(0 20px 3px #0a1720);
+}
+.hero-map-line{stroke:rgba(0,213,216,.6);stroke-width:1;filter:drop-shadow(0 0 3px rgba(0,213,216,.5));}
+.hero-map-node{fill:var(--turquesa);stroke:#fff;stroke-width:1.5;filter:drop-shadow(0 0 5px rgba(0,213,216,.8));}
 .hero-map-node--pulse{animation:heroMapPulse 2.6s ease-in-out infinite;transform-origin:center;transform-box:fill-box;}
 @keyframes heroMapPulse{0%,100%{opacity:.55;transform:scale(1);}50%{opacity:1;transform:scale(1.7);}}
 @media(prefers-reduced-motion:reduce){.hero-map-node--pulse{animation:none;}.hero-map{transition:none;}}
@@ -120,30 +125,54 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .sec-light .lead{color:var(--muted-on-light);}
 
 /* ── MONITOR ── */
-.monitor-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:44px;align-items:start;}
-.monitor-list{list-style:none;margin-bottom:26px;}
-.monitor-list li{padding:10px 0 10px 28px;position:relative;color:var(--muted-on-light);font-size:.95rem;}
-.monitor-list li::before{content:'→';position:absolute;left:0;color:var(--brand-cyan-text);font-weight:700;}
-.dash-card{background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;overflow:hidden;position:relative;text-decoration:none;display:block;transition:box-shadow .3s ease,transform .3s ease;}
-.dash-card:hover{box-shadow:0 20px 44px -22px rgba(20,60,80,.4);transform:translateY(-3px);}
-.dash-card-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(11,32,42,0) 40%,rgba(11,32,42,.88) 100%);opacity:0;transition:opacity .3s ease;pointer-events:none;}
-.dash-card:hover .dash-card-overlay{opacity:1;}
-.dash-card-overlay span{margin-top:auto;margin-bottom:18px;background:var(--brand-cyan);color:#fff;font-weight:700;font-size:.85rem;padding:10px 22px;border-radius:99px;box-shadow:0 8px 20px -8px rgba(0,0,0,.4);}
-.dash-table .row{transition:background .2s ease;}
-.dash-card:hover .dash-table .row:hover{background:rgba(0,150,180,.05);}
-.monitor-steps{list-style:none;margin:22px 0 26px;counter-reset:mstep;}
-.monitor-steps li{display:flex;gap:14px;align-items:flex-start;padding:9px 0;}
-.monitor-steps li::before{counter-increment:mstep;content:counter(mstep);flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--brand-navy);color:#fff;font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;}
-.monitor-steps li span{font-size:.9rem;color:var(--muted-on-light);padding-top:2px;}
-.monitor-steps li strong{color:var(--text-on-light);}
-.dash-bar{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid var(--line-light);font-size:.72rem;color:var(--muted-on-light);}
-.dash-bar .live{color:var(--up);font-weight:600;}
-.dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-light);}
+.mon-shell{display:grid;grid-template-columns:27% 1fr;gap:28px;align-items:start;}
+.mon-shell>*{min-width:0;}
+.mon-tabs{display:flex;flex-direction:column;}
+.mon-tabs-scroll{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+.mon-tab{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;padding:14px 16px;cursor:pointer;transition:border-color .25s ease,background .25s ease,transform .25s ease;font-family:'Barlow',sans-serif;}
+.mon-tab:hover{border-color:var(--brand-cyan);transform:translateY(-1px);}
+.mon-tab.active{background:var(--brand-navy);border-color:var(--brand-navy);}
+.mon-tab.active .mon-tab-txt strong{color:#fff;}
+.mon-tab.active .mon-tab-txt small{color:rgba(255,255,255,.65);}
+.mon-tab.active .mon-tab-ic{background:rgba(255,255,255,.15);color:#fff;}
+.mon-tab-ic{flex:0 0 auto;width:34px;height:34px;border-radius:8px;background:rgba(20,107,145,.08);display:flex;align-items:center;justify-content:center;color:var(--brand-cyan-text);transition:background .25s,color .25s;}
+.mon-tab-ic .ic{width:18px;height:18px;}
+.mon-tab-txt strong{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;color:var(--text-on-light);letter-spacing:0;}
+.mon-tab-txt small{font-size:.78rem;color:var(--muted-on-light);line-height:1.4;}
+.mon-cta{width:100%;text-align:center;justify-content:center;margin-top:4px;}
+
+.mon-preview{position:relative;display:block;text-decoration:none;border-radius:12px;overflow:hidden;border:1px solid var(--line-light);background:var(--card-light);box-shadow:0 20px 44px -26px rgba(20,60,80,.35);transition:transform .3s ease,box-shadow .3s ease;}
+.mon-preview:hover{transform:translateY(-3px);box-shadow:0 26px 52px -24px rgba(20,60,80,.45);}
+.browser-chrome{display:flex;align-items:center;gap:6px;padding:11px 16px;background:#eef1f4;border-bottom:1px solid var(--line-light);}
+.bc-dot{width:9px;height:9px;border-radius:50%;}
+.bc-red{background:#ff5f57;}
+.bc-amber{background:#febc2e;}
+.bc-green{background:#28c840;}
+.bc-url{margin-left:10px;font-size:.72rem;color:var(--muted-on-light);font-family:ui-monospace,monospace;}
+.bc-live{margin-left:auto;font-size:.7rem;color:var(--up);font-weight:700;}
+.mon-panel{display:none;padding:22px;min-height:300px;}
+.mon-panel.active{display:block;animation:monFade .4s ease;}
+@keyframes monFade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.mon-preview-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(11,32,42,0) 40%,rgba(11,32,42,.88) 100%);opacity:0;transition:opacity .3s ease;pointer-events:none;}
+.mon-preview:hover .mon-preview-overlay{opacity:1;}
+.mon-preview-overlay span{margin-top:auto;margin-bottom:18px;background:var(--brand-cyan);color:#fff;font-weight:700;font-size:.85rem;padding:10px 22px;border-radius:99px;box-shadow:0 8px 20px -8px rgba(0,0,0,.4);}
+
+.dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-light);border:1px solid var(--line-light);border-radius:8px;overflow:hidden;margin-bottom:16px;}
 .dash-kpis .kpi-card{border-radius:0;border:none;background:var(--card-light);}
-.dash-table{font-size:.82rem;color:var(--muted-on-light);}
-.dash-table .row{display:grid;grid-template-columns:1.5fr 1fr;padding:10px 18px;border-top:1px solid var(--line-light);}
+.dash-table{font-size:.82rem;color:var(--muted-on-light);border:1px solid var(--line-light);border-radius:8px;overflow:hidden;}
+.dash-table .row{display:grid;grid-template-columns:1.5fr 1fr;padding:10px 18px;border-top:1px solid var(--line-light);transition:background .2s ease;}
+.dash-table .row:first-child{border-top:none;}
+.dash-table .row:hover{background:rgba(0,150,180,.05);}
 .dash-table .row span:first-child{color:var(--text-on-light);font-weight:600;}
 .dash-table .row span:last-child{text-align:right;font-variant-numeric:tabular-nums;}
+.dash-note{margin-top:14px;font-size:.72rem;color:var(--muted-on-light);}
+
+.party-bars{margin-bottom:6px;}
+.party-row{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.party-row .party-label{width:150px;flex:0 0 auto;font-size:.85rem;font-weight:700;color:var(--text-on-light);}
+.party-row .party-bar-track{flex:1;height:10px;background:var(--line-light);border-radius:99px;overflow:hidden;}
+.party-row .party-bar-fill{height:100%;border-radius:99px;transition:width 1s ease;}
+.party-row .party-count{width:34px;flex:0 0 auto;text-align:right;font-variant-numeric:tabular-nums;font-weight:800;color:var(--text-on-light);}
 .dash-note{padding:12px 18px;font-size:.72rem;color:var(--muted-on-light);border-top:1px solid var(--line-light);}
 
 /* ── INFORMES ── */
@@ -220,7 +249,12 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 .footer-links a:hover{color:var(--turquesa);}
 
 @media(max-width:860px){
-  .monitor-grid,.rep-grid,.prods-grid{grid-template-columns:1fr;}
+  .rep-grid,.prods-grid{grid-template-columns:1fr;}
+  .mon-shell{grid-template-columns:1fr;}
+  .mon-tabs-scroll{flex-direction:row;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;margin-bottom:14px;}
+  .mon-tabs-scroll::-webkit-scrollbar{display:none;}
+  .mon-tab{flex:0 0 auto;width:auto;min-width:170px;}
+  .mon-tab-txt small{display:none;}
   .aud-grid{grid-template-columns:1fr 1fr;}
   .dash-kpis{grid-template-columns:1fr;}
   .sec{padding:56px 0;}
@@ -360,48 +394,108 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     <span class="tag">Monitor 135 · La herramienta insignia</span>
     <h2>Los 135 municipios,<br><em>en un solo tablero.</em></h2>
     <p class="lead">Transferencias, coparticipación, presupuestos, resultados electorales e indicadores sociales y productivos de cada partido bonaerense. Actualización permanente.</p>
-    <div class="monitor-grid">
-      <div>
-        <ul class="monitor-list">
-          <li>Mapa interactivo y tabla comparativa de los 135 partidos</li>
-          <li>Series fiscales y electorales 2013–2026, en términos reales</li>
-          <li>Ficha por municipio: recursos, demografía, HCD, economía</li>
-          <li>Datos oficiales: Junta Electoral · ARBA · DPE-PBA · Min. Interior</li>
-        </ul>
-        <ol class="monitor-steps">
-          <li><span><strong>Elegí</strong> un municipio en el mapa o la tabla comparativa.</span></li>
-          <li><span><strong>Mirá</strong> su ficha completa: recursos, demografía, HCD y electoral.</span></li>
-          <li><span><strong>Compará</strong> o descargá los datos si sos suscriptor Pro.</span></li>
-        </ol>
-        <a class="btn" href="/municipios-data-hub.html">Abrir el Monitor 135 →</a>
+    <div class="mon-shell">
+      <div class="mon-tabs" role="tablist" aria-label="Vistas del Monitor 135">
+        <div class="mon-tabs-scroll">
+          <button class="mon-tab active" data-tab="fiscal" role="tab" aria-selected="true">
+            <span class="mon-tab-ic"><svg class="ic" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span>
+            <span class="mon-tab-txt"><strong>Fiscal</strong><small>Presupuestos y coparticipación de cada municipio.</small></span>
+          </button>
+          <button class="mon-tab" data-tab="electoral" role="tab" aria-selected="false">
+            <span class="mon-tab-ic"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <span class="mon-tab-txt"><strong>Electoral</strong><small>Intendentes y partidos gobernantes, 2025.</small></span>
+          </button>
+          <button class="mon-tab" data-tab="productivo" role="tab" aria-selected="false">
+            <span class="mon-tab-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></span>
+            <span class="mon-tab-txt"><strong>Productivo</strong><small>PBG municipal 2021–2023, a precios constantes.</small></span>
+          </button>
+          <button class="mon-tab" data-tab="territorial" role="tab" aria-selected="false">
+            <span class="mon-tab-ic"><svg class="ic" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
+            <span class="mon-tab-txt"><strong>Territorial</strong><small>Secciones, regiones y jurisdicciones superpuestas.</small></span>
+          </button>
+        </div>
+        <a class="btn mon-cta" href="/municipios-data-hub.html">Abrir el Monitor 135 →</a>
         <p class="micro" style="color:var(--muted-on-light);margin-top:14px;">Acceso básico gratis con tu mail · Ficha completa y descargas para suscriptores Pro.</p>
       </div>
-      <a class="dash-card" id="monitorDash" href="/municipios-data-hub.html">
-        <div class="dash-bar"><span>Monitor 135 · alsinaar.com</span><span class="live">● 135/135 municipios con ficha</span></div>
-        <div class="dash-kpis">
-          <div class="kpi-card">
-            <div class="kpi-label">Presupuesto municipal 2026</div>
-            <div class="kpi-value num js-dash-skeleton">$10,9 bn</div>
-            <div class="kpi-delta">64 de 135 con dato publicado</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-label">Población (Censo 2022)</div>
-            <div class="kpi-value num js-dash-skeleton">17,52 M</div>
-            <div class="kpi-delta">habitantes en la PBA</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-label">Municipios con ficha</div>
-            <div class="kpi-value num js-dash-skeleton">135 / 135</div>
-            <div class="kpi-delta up">cobertura completa</div>
-          </div>
+
+      <a class="mon-preview" id="monitorDash" href="/municipios-data-hub.html">
+        <div class="browser-chrome">
+          <span class="bc-dot bc-red"></span><span class="bc-dot bc-amber"></span><span class="bc-dot bc-green"></span>
+          <span class="bc-url">alsinaar.com/municipios-data-hub</span>
+          <span class="bc-live">● 135/135 con ficha</span>
         </div>
-        <div class="dash-table">
-          <div class="row"><span>Olavarría</span><span class="num js-dash-skeleton">CUD 1,01347%</span></div>
-          <div class="row"><span>Exaltación de la Cruz</span><span class="num js-dash-skeleton">CUD 0,45705%</span></div>
-          <div class="row"><span>La Matanza</span><span class="num js-dash-skeleton">CUD 6,58306%</span></div>
+
+        <div class="mon-panel active" data-panel="fiscal">
+          <div class="dash-kpis">
+            <div class="kpi-card">
+              <div class="kpi-label">Presupuesto municipal 2026</div>
+              <div class="kpi-value num js-dash-skeleton">$10,9 bn</div>
+              <div class="kpi-delta">64 de 135 con dato publicado</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Población (Censo 2022)</div>
+              <div class="kpi-value num js-dash-skeleton">17,52 M</div>
+              <div class="kpi-delta">habitantes en la PBA</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Municipios con ficha</div>
+              <div class="kpi-value num js-dash-skeleton">135 / 135</div>
+              <div class="kpi-delta up">cobertura completa</div>
+            </div>
+          </div>
+          <div class="dash-table">
+            <div class="row"><span>Olavarría</span><span class="num js-dash-skeleton">CUD 1,01347%</span></div>
+            <div class="row"><span>Exaltación de la Cruz</span><span class="num js-dash-skeleton">CUD 0,45705%</span></div>
+            <div class="row"><span>La Matanza</span><span class="num js-dash-skeleton">CUD 6,58306%</span></div>
+          </div>
+          <div class="dash-note">CUD: Coeficiente Único de Distribución de la coparticipación provincial. Datos: Monitor 135, ficha por municipio.</div>
         </div>
-        <div class="dash-note">CUD: Coeficiente Único de Distribución de la coparticipación provincial. Datos: Monitor 135, ficha por municipio.</div>
-        <div class="dash-card-overlay" aria-hidden="true"><span>Explorar el Monitor 135 en vivo →</span></div>
+
+        <div class="mon-panel" data-panel="electoral">
+          <div class="party-bars">
+            <div class="party-row"><span class="party-label">Fuerza Patria</span><div class="party-bar-track"><div class="party-bar-fill" style="width:61%;background:#1a56db;"></div></div><span class="party-count">82</span></div>
+            <div class="party-row"><span class="party-label">Somos</span><div class="party-bar-track"><div class="party-bar-fill" style="width:22%;background:#f59e0b;"></div></div><span class="party-count">30</span></div>
+            <div class="party-row"><span class="party-label">La Libertad Avanza</span><div class="party-bar-track"><div class="party-bar-fill" style="width:9%;background:#9333ea;"></div></div><span class="party-count">12</span></div>
+            <div class="party-row"><span class="party-label">Hechos</span><div class="party-bar-track"><div class="party-bar-fill" style="width:2%;background:#10b981;"></div></div><span class="party-count">3</span></div>
+            <div class="party-row"><span class="party-label">Partidos locales</span><div class="party-bar-track"><div class="party-bar-fill" style="width:6%;background:#6b7280;"></div></div><span class="party-count">8</span></div>
+          </div>
+          <div class="dash-note">Intendentes electos 2023–2027, por partido gobernante. Fuente: Junta Electoral de la PBA.</div>
+        </div>
+
+        <div class="mon-panel" data-panel="productivo">
+          <div class="dash-kpis">
+            <div class="kpi-card">
+              <div class="kpi-label">PBG total PBA 2023</div>
+              <div class="kpi-value num">$258,1 mM</div>
+              <div class="kpi-delta">a precios constantes de 2004</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Municipios que crecieron 21-22</div>
+              <div class="kpi-value num">116 / 135</div>
+              <div class="kpi-delta up">recuperación real</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Municipios que crecieron 22-23</div>
+              <div class="kpi-value num">42 / 135</div>
+              <div class="kpi-delta">contracción generalizada</div>
+            </div>
+          </div>
+          <div class="dash-note">PBG: Producto Bruto Geográfico municipal. Fuente: DPE-PBA · Informe Alsina PBG 2021-2023.</div>
+        </div>
+
+        <div class="mon-panel" data-panel="territorial">
+          <div class="layers" style="grid-template-columns:repeat(3,1fr);gap:10px;margin-top:0;">
+            <div class="layer-stat"><span class="num">135</span><span class="lbl">municipios</span></div>
+            <div class="layer-stat"><span class="num">8</span><span class="lbl">secciones electorales</span></div>
+            <div class="layer-stat"><span class="num">25</span><span class="lbl">regiones educativas</span></div>
+            <div class="layer-stat"><span class="num">12</span><span class="lbl">regiones sanitarias</span></div>
+            <div class="layer-stat"><span class="num">21</span><span class="lbl">departamentos judiciales</span></div>
+            <div class="layer-stat"><span class="num">14</span><span class="lbl">superintendencias de seguridad</span></div>
+          </div>
+          <div class="dash-note">Jurisdicciones administrativas que se superponen sobre los 135 municipios y no siempre coinciden entre sí.</div>
+        </div>
+
+        <div class="mon-preview-overlay" aria-hidden="true"><span>Explorar el Monitor 135 en vivo →</span></div>
       </a>
     </div>
   </div>
@@ -573,6 +667,49 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   setTimeout(() => els.forEach(el => el.classList.remove('skeleton')), 700);
 })();
 
+// ── MONITOR 135 · TABS ──
+(function(){
+  const shell = document.querySelector('.mon-shell');
+  if (!shell) return;
+  const tabs = Array.from(shell.querySelectorAll('.mon-tab'));
+  const panels = Array.from(shell.querySelectorAll('.mon-panel'));
+  if (!tabs.length) return;
+  let i = 0, timer = null;
+
+  function activate(idx, fromAuto) {
+    i = idx;
+    tabs.forEach((t, n) => {
+      t.classList.toggle('active', n === idx);
+      t.setAttribute('aria-selected', n === idx ? 'true' : 'false');
+    });
+    const name = tabs[idx].dataset.tab;
+    panels.forEach(p => p.classList.toggle('active', p.dataset.panel === name));
+  }
+
+  tabs.forEach((tab, idx) => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      activate(idx);
+      stop();
+      start();
+    });
+  });
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function start() {
+    if (reduceMotion) return;
+    timer = setInterval(() => activate((i + 1) % tabs.length), 5000);
+  }
+  function stop() { clearInterval(timer); }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) start(); else stop(); });
+  }, { threshold: 0.3 });
+  io.observe(shell);
+  shell.addEventListener('mouseenter', stop);
+  shell.addEventListener('mouseleave', start);
+})();
+
 // ── PARALLAX 3D MAPA HERO ──
 (function(){
   const heroMap = document.querySelector('.hero-map');
@@ -581,13 +718,20 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (!window.matchMedia('(min-width: 961px)').matches) return;
   if (!window.matchMedia('(pointer: fine)').matches) return;
+  let ticking = false, lastEvent = null;
   hero.addEventListener('mousemove', (e) => {
-    const r = hero.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width - 0.5;
-    const py = (e.clientY - r.top) / r.height - 0.5;
-    const rx = 14 - py * 10;
-    const ry = -16 - px * 12;
-    heroMap.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.1)`;
+    lastEvent = e;
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const r = hero.getBoundingClientRect();
+      const px = (lastEvent.clientX - r.left) / r.width - 0.5;
+      const py = (lastEvent.clientY - r.top) / r.height - 0.5;
+      const rx = 22 - py * 10;
+      const ry = -20 - px * 12;
+      heroMap.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.14)`;
+      ticking = false;
+    });
   });
   hero.addEventListener('mouseleave', () => {
     heroMap.style.transform = '';
