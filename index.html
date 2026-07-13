@@ -69,8 +69,8 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 }
 .hero-map-shape{
   fill:#dde4e8;
-  stroke:rgba(0,213,216,.5);
-  stroke-width:.6;
+  stroke:rgba(0,140,154,.85);
+  stroke-width:1.8;
   filter:drop-shadow(0 5px 0 #9aa3a8) drop-shadow(0 10px 0 #58636a) drop-shadow(0 15px 0 #243039) drop-shadow(0 20px 3px #0a1720);
 }
 .hero-map-line{stroke:rgba(0,213,216,.6);stroke-width:1;filter:drop-shadow(0 0 3px rgba(0,213,216,.5));}
@@ -139,6 +139,8 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .mon-tab-ic .ic{width:18px;height:18px;}
 .mon-tab-txt strong{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;color:var(--text-on-light);letter-spacing:0;}
 .mon-tab-txt small{font-size:.78rem;color:var(--muted-on-light);line-height:1.4;}
+.mon-tab[hidden]{display:none;}
+.mon-tab-search{border-color:var(--brand-cyan);}
 .mon-cta{width:100%;text-align:center;justify-content:center;margin-top:4px;}
 
 .mon-preview{position:relative;display:block;text-decoration:none;border-radius:12px;overflow:hidden;border:1px solid var(--line-light);background:var(--card-light);box-shadow:0 20px 44px -26px rgba(20,60,80,.35);transition:transform .3s ease,box-shadow .3s ease;}
@@ -156,6 +158,33 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .mon-preview-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(11,32,42,0) 40%,rgba(11,32,42,.88) 100%);opacity:0;transition:opacity .3s ease;pointer-events:none;}
 .mon-preview:hover .mon-preview-overlay{opacity:1;}
 .mon-preview-overlay span{margin-top:auto;margin-bottom:18px;background:var(--brand-cyan);color:#fff;font-weight:700;font-size:.85rem;padding:10px 22px;border-radius:99px;box-shadow:0 8px 20px -8px rgba(0,0,0,.4);}
+
+.mon-search{position:relative;margin-bottom:16px;}
+.mon-search-label{display:block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-cyan-text);margin-bottom:8px;}
+.mon-search-box{display:flex;align-items:center;gap:10px;background:var(--card-light);border:1.5px solid var(--brand-cyan);border-radius:10px;padding:12px 14px;box-shadow:0 6px 20px -12px rgba(20,107,145,.4);}
+.mon-search-box .ic{width:18px;height:18px;color:var(--brand-cyan-text);flex:0 0 auto;}
+.mon-search-box input{border:none;outline:none;background:transparent;font-size:.92rem;font-family:'Barlow',sans-serif;color:var(--text-on-light);width:100%;min-width:0;}
+.mon-search-results{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;box-shadow:0 20px 40px -18px rgba(20,60,80,.35);max-height:280px;overflow-y:auto;z-index:20;}
+.mon-search-item{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:10px 14px;cursor:pointer;font-size:.85rem;color:var(--text-on-light);border-bottom:1px solid var(--line-light);}
+.mon-search-item:last-child{border-bottom:none;}
+.mon-search-item:hover,.mon-search-item.hl{background:rgba(0,150,180,.08);}
+.mon-search-item small{color:var(--muted-on-light);font-size:.72rem;flex:0 0 auto;}
+.mon-search-empty{padding:14px;font-size:.82rem;color:var(--muted-on-light);}
+
+.ficha-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;border-left:4px solid var(--brand-cyan);padding-left:16px;margin-bottom:20px;}
+.ficha-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.6rem;color:var(--text-on-light);line-height:1.1;}
+.ficha-sub{font-size:.8rem;color:var(--muted-on-light);margin-top:4px;}
+.ficha-party{flex:0 0 auto;font-size:.72rem;font-weight:800;padding:6px 14px;border-radius:99px;border:1px solid;white-space:nowrap;}
+.ficha-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
+.ficha-stat{background:var(--card-light);border:1px solid var(--line-light);border-left:3px solid var(--brand-cyan);border-radius:8px;padding:12px 14px;}
+.ficha-stat .fs-ic{width:16px;height:16px;margin-bottom:6px;display:block;}
+.ficha-stat .fs-val{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;color:var(--text-on-light);line-height:1.1;}
+.ficha-stat .fs-lbl{font-size:.68rem;color:var(--muted-on-light);line-height:1.3;display:block;margin-top:3px;}
+.ficha-rank{margin-bottom:16px;}
+.ficha-rank-lbl{font-size:.72rem;color:var(--muted-on-light);margin-bottom:8px;}
+.ficha-rank-track{position:relative;height:8px;border-radius:99px;background:linear-gradient(90deg,#dc2626,#f59e0b,#22c55e);}
+.ficha-rank-dot{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--brand-navy);transform:translate(-50%,-50%);box-shadow:0 2px 6px rgba(0,0,0,.3);}
+.ficha-foot{font-size:.72rem;color:var(--muted-on-light);}
 
 .dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-light);border:1px solid var(--line-light);border-radius:8px;overflow:hidden;margin-bottom:16px;}
 .dash-kpis .kpi-card{border-radius:0;border:none;background:var(--card-light);}
@@ -257,6 +286,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   .mon-tab-txt small{display:none;}
   .aud-grid{grid-template-columns:1fr 1fr;}
   .dash-kpis{grid-template-columns:1fr;}
+  .ficha-stats{grid-template-columns:1fr 1fr;}
+  .ficha-head{flex-direction:column;}
   .sec{padding:56px 0;}
 }
 @media(max-width:520px){
@@ -396,6 +427,14 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     <p class="lead">Transferencias, coparticipación, presupuestos, resultados electorales e indicadores sociales y productivos de cada partido bonaerense. Actualización permanente.</p>
     <div class="mon-shell">
       <div class="mon-tabs" role="tablist" aria-label="Vistas del Monitor 135">
+        <div class="mon-search">
+          <label for="muniSearchInput" class="mon-search-label">Buscá tu municipio</label>
+          <div class="mon-search-box">
+            <svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="muniSearchInput" placeholder="Ej: Olavarría, La Matanza..." autocomplete="off" aria-label="Buscar municipio">
+          </div>
+          <div class="mon-search-results" id="muniSearchResults" hidden></div>
+        </div>
         <div class="mon-tabs-scroll">
           <button class="mon-tab active" data-tab="fiscal" role="tab" aria-selected="true">
             <span class="mon-tab-ic"><svg class="ic" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span>
@@ -412,6 +451,10 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
           <button class="mon-tab" data-tab="territorial" role="tab" aria-selected="false">
             <span class="mon-tab-ic"><svg class="ic" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
             <span class="mon-tab-txt"><strong>Territorial</strong><small>Secciones, regiones y jurisdicciones superpuestas.</small></span>
+          </button>
+          <button class="mon-tab mon-tab-search" data-tab="search" role="tab" aria-selected="false" hidden>
+            <span class="mon-tab-ic"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
+            <span class="mon-tab-txt"><strong id="searchTabName">Tu municipio</strong><small>Resultado de tu búsqueda.</small></span>
           </button>
         </div>
         <a class="btn mon-cta" href="/municipios-data-hub.html">Abrir el Monitor 135 →</a>
@@ -494,6 +537,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
           </div>
           <div class="dash-note">Jurisdicciones administrativas que se superponen sobre los 135 municipios y no siempre coinciden entre sí.</div>
         </div>
+
+        <div class="mon-panel" data-panel="search" id="fichaPanel"></div>
 
         <div class="mon-preview-overlay" aria-hidden="true"><span>Explorar el Monitor 135 en vivo →</span></div>
       </a>
@@ -660,6 +705,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 <script src="/assets/js/reveal.js"></script>
 <script src="/assets/js/sticky-cta.js"></script>
 <script>
+const MUNI_DATA = {"VEINTICINCO DE MAYO":{"nd":"25 de Mayo","sec":"Séptima","jud":"Mercedes","cat":"20.000-49.999","p22":35563,"den":7.5,"sup":4769.5,"rp":73,"qp":3,"int_actual":"Ramiro Eguen","fuerza_2025":"Acción Ciudadana","elec_nac":31827,"pres_2026":39900000000,"pres_per_hab":1121952.59,"cud_pct":0.46231},"NUEVE DE JULIO":{"nd":"9 de Julio","sec":"Cuarta","jud":"Mercedes","cat":"50.000-99.999","p22":52607,"den":12.3,"sup":4284.1,"rp":54,"qp":2,"int_actual":"Maria Jose Gentile","fuerza_2025":"Somos","elec_nac":43624,"pres_2026":37542000000,"pres_per_hab":713631.27,"cud_pct":0.3534},"ADOLFO ALSINA":{"nd":"Adolfo Alsina","sec":"Sexta","jud":"Trenque Lauquen","cat":"10.000-19.999","p22":17552,"den":3.0,"sup":5877.9,"rp":100,"qp":4,"int_actual":"Javier Andres","fuerza_2025":"Somos","elec_nac":14378,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.45859},"ADOLFO GONZALES CHAVES":{"nd":"Adolfo Gonzales Chaves","sec":"Sexta","jud":"Bahía Blanca","cat":"10.000-19.999","p22":12914,"den":3.3,"sup":3859.2,"rp":115,"qp":5,"int_actual":"Lucia Gómez","fuerza_2025":"Nuevos Aires","elec_nac":10847,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.24058},"ALBERTI":{"nd":"Alberti","sec":"Cuarta","jud":"Mercedes","cat":"10.000-19.999","p22":12982,"den":11.5,"sup":1125.0,"rp":113,"qp":5,"int_actual":"German Lago","fuerza_2025":"Fuerza Patria","elec_nac":9798,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.25526},"ALMIRANTE BROWN":{"nd":"Almirante Brown","sec":"Tercera","jud":"Lomas de Zamora","cat":"500.000 o más","p22":584827,"den":4522.0,"sup":129.3,"rp":6,"qp":1,"int_actual":"Juan Fabiani","fuerza_2025":"Fuerza Patria","elec_nac":460982,"pres_2026":281014462000,"pres_per_hab":480508.7,"cud_pct":2.01042},"ARRECIFES":{"nd":"Arrecifes","sec":"Segunda","jud":"San Nicolás","cat":"20.000-49.999","p22":32215,"den":26.0,"sup":1240.7,"rp":78,"qp":3,"int_actual":"Juan Fernando Bouvier","fuerza_2025":"LLA","elec_nac":26226,"pres_2026":24994858270,"pres_per_hab":775876.4,"cud_pct":0.26331},"AVELLANEDA":{"nd":"Avellaneda","sec":"Tercera","jud":"Avellaneda - Lanus","cat":"250.000-499.999","p22":367554,"den":7003.7,"sup":52.5,"rp":14,"qp":1,"int_actual":"Jorge Ferraresi","fuerza_2025":"Fuerza Patria","elec_nac":297760,"pres_2026":361000000000,"pres_per_hab":982168.61,"cud_pct":1.19838},"AYACUCHO":{"nd":"Ayacucho","sec":"Quinta","jud":"Dolores","cat":"20.000-49.999","p22":21977,"den":3.3,"sup":6748.9,"rp":93,"qp":4,"int_actual":"Emilio Cordonnier","fuerza_2025":"Somos","elec_nac":18622,"pres_2026":37919278803,"pres_per_hab":1725407.42,"cud_pct":0.41972},"AZUL":{"nd":"Azul","sec":"Séptima","jud":"Azul","cat":"50.000-99.999","p22":75905,"den":11.6,"sup":6540.3,"rp":44,"qp":2,"int_actual":"Nelson Sombra","fuerza_2025":"Fuerza Patria","elec_nac":59429,"pres_2026":85881974217,"pres_per_hab":1131440.28,"cud_pct":0.70491},"BAHIA BLANCA":{"nd":"Bahía Blanca","sec":"Sexta","jud":"Bahía Blanca","cat":"250.000-499.999","p22":336574,"den":149.8,"sup":2247.5,"rp":19,"qp":1,"int_actual":"Federico Susbielles","fuerza_2025":"Fuerza Patria","elec_nac":255488,"pres_2026":344461123616,"pres_per_hab":1023433.55,"cud_pct":1.32772},"BALCARCE":{"nd":"Balcarce","sec":"Quinta","jud":"Mar del Plata","cat":"20.000-49.999","p22":48982,"den":11.9,"sup":4115.3,"rp":56,"qp":3,"int_actual":"Esteban Reino","fuerza_2025":"Somos","elec_nac":41246,"pres_2026":60423675037,"pres_per_hab":1233589.38,"cud_pct":0.51257},"BARADERO":{"nd":"Baradero","sec":"Segunda","jud":"San Nicolás","cat":"20.000-49.999","p22":40002,"den":25.1,"sup":1591.9,"rp":65,"qp":3,"int_actual":"Esteban Sanzio","fuerza_2025":"Fuerza Patria","elec_nac":31573,"pres_2026":35334342103,"pres_per_hab":883314.39,"cud_pct":0.28912},"BENITO JUAREZ":{"nd":"Benito Juárez","sec":"Sexta","jud":"Azul","cat":"20.000-49.999","p22":22292,"den":4.4,"sup":5071.9,"rp":92,"qp":4,"int_actual":"Juliio Cesar Marini","fuerza_2025":"Fuerza Patria","elec_nac":17926,"pres_2026":45237562993,"pres_per_hab":2029318.28,"cud_pct":0.46948},"BERAZATEGUI":{"nd":"Berazategui","sec":"Tercera","jud":"Quilmes","cat":"250.000-499.999","p22":358712,"den":1623.1,"sup":221.0,"rp":16,"qp":1,"int_actual":"Carlos Balor","fuerza_2025":"Fuerza Patria","elec_nac":279672,"pres_2026":147306205436,"pres_per_hab":410653.13,"cud_pct":1.67827},"BERISSO":{"nd":"Berisso","sec":"Tercera","jud":"La Plata","cat":"100.000-249.999","p22":100930,"den":733.6,"sup":137.6,"rp":41,"qp":2,"int_actual":"Fabian Cagliardi","fuerza_2025":"Fuerza Patria","elec_nac":83267,"pres_2026":73070950000,"pres_per_hab":723976.52,"cud_pct":0.72468},"BOLIVAR":{"nd":"Bolívar","sec":"Séptima","jud":"Azul","cat":"20.000-49.999","p22":37594,"den":7.7,"sup":4912.2,"rp":70,"qp":3,"int_actual":"Eduardo Bucca","fuerza_2025":"Fuerza Patria","elec_nac":31364,"pres_2026":57640929444,"pres_per_hab":1533248.11,"cud_pct":0.60707},"BRAGADO":{"nd":"Bragado","sec":"Cuarta","jud":"Mercedes","cat":"20.000-49.999","p22":46504,"den":21.0,"sup":2211.9,"rp":57,"qp":3,"int_actual":"Sergio Juan Barenghi","fuerza_2025":"Fuerza Patria","elec_nac":37603,"pres_2026":47000000000,"pres_per_hab":1010665.75,"cud_pct":0.552},"BRANDSEN":{"nd":"Brandsen","sec":"Tercera","jud":"La Plata","cat":"20.000-49.999","p22":32448,"den":28.8,"sup":1126.0,"rp":77,"qp":3,"int_actual":"Fernando Luis Raitelli","fuerza_2025":"Fuerza Patria","elec_nac":27820,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.18008},"CAMPANA":{"nd":"Campana","sec":"Primera","jud":"Zarate - Campana","cat":"100.000-249.999","p22":110566,"den":115.8,"sup":954.5,"rp":37,"qp":2,"int_actual":"Sebastián Abella","fuerza_2025":"LLA","elec_nac":88743,"pres_2026":123948228198,"pres_per_hab":1121033.85,"cud_pct":0.78458},"CAPITAN SARMIENTO":{"nd":"Capitán Sarmiento","sec":"Segunda","jud":"San Nicolás","cat":"10.000-19.999","p22":15965,"den":29.1,"sup":548.9,"rp":107,"qp":4,"int_actual":"Fernanda Astorino","fuerza_2025":"LLA","elec_nac":13978,"pres_2026":17724215198,"pres_per_hab":1110191.99,"cud_pct":0.15052},"CARLOS CASARES":{"nd":"Carlos Casares","sec":"Cuarta","jud":"Trenque Lauquen","cat":"20.000-49.999","p22":23100,"den":9.2,"sup":2520.4,"rp":88,"qp":4,"int_actual":"Daniel Stadnik","fuerza_2025":"Fuerza Patria","elec_nac":20222,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.52467},"CARLOS TEJEDOR":{"nd":"Carlos Tejedor","sec":"Cuarta","jud":"Trenque Lauquen","cat":"10.000-19.999","p22":14079,"den":3.6,"sup":3910.7,"rp":110,"qp":5,"int_actual":"Maria Celia Gianini","fuerza_2025":"Fuerza Patria","elec_nac":10110,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.29304},"CARMEN DE ARECO":{"nd":"Carmen de Areco","sec":"Segunda","jud":"Mercedes","cat":"10.000-19.999","p22":17499,"den":16.5,"sup":1061.3,"rp":101,"qp":4,"int_actual":"Ivan Villagran","fuerza_2025":"Fuerza Patria","elec_nac":13952,"pres_2026":13352400000,"pres_per_hab":763037.89,"cud_pct":0.10709},"CASTELLI":{"nd":"Castelli","sec":"Quinta","jud":"Dolores","cat":"Menos de 10.000","p22":9594,"den":4.7,"sup":2063.2,"rp":125,"qp":5,"int_actual":"Francisco Jose Echarren","fuerza_2025":"Fuerza Patria","elec_nac":7978,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.17619},"CAÑUELAS":{"nd":"Cañuelas","sec":"Tercera","jud":"La Plata","cat":"50.000-99.999","p22":70684,"den":59.4,"sup":1190.1,"rp":47,"qp":2,"int_actual":"Marisa Fassi","fuerza_2025":"Fuerza Patria","elec_nac":54687,"pres_2026":44000000000,"pres_per_hab":622488.82,"cud_pct":0.30402},"CHACABUCO":{"nd":"Chacabuco","sec":"Cuarta","jud":"Junín","cat":"50.000-99.999","p22":52731,"den":23.1,"sup":2287.4,"rp":53,"qp":2,"int_actual":"Ruben Dario Golia","fuerza_2025":"Fuerza Patria","elec_nac":43596,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.95241},"CHASCOMUS":{"nd":"Chascomús","sec":"Quinta","jud":"Dolores","cat":"20.000-49.999","p22":42452,"den":13.7,"sup":3101.9,"rp":61,"qp":3,"int_actual":"Javier Gaston","fuerza_2025":"Fuerza Patria","elec_nac":35949,"pres_2026":59405821073,"pres_per_hab":1399364.48,"cud_pct":0.49547},"CHIVILCOY":{"nd":"Chivilcoy","sec":"Cuarta","jud":"Mercedes","cat":"50.000-99.999","p22":70839,"den":34.4,"sup":2057.1,"rp":46,"qp":2,"int_actual":"Guillermo Britos","fuerza_2025":"Somos","elec_nac":60922,"pres_2026":64539711923,"pres_per_hab":911075.99,"cud_pct":0.69307},"COLON":{"nd":"Colón","sec":"Segunda","jud":"Pergamino","cat":"20.000-49.999","p22":27504,"den":27.7,"sup":994.6,"rp":80,"qp":3,"int_actual":"Waldemar Audilio Giordano","fuerza_2025":"Fuerza Patria","elec_nac":22372,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.35068},"CORONEL DORREGO":{"nd":"Coronel Dorrego","sec":"Sexta","jud":"Bahía Blanca","cat":"10.000-19.999","p22":15968,"den":9.8,"sup":1622.6,"rp":106,"qp":4,"int_actual":"Juan Carlos Chalde","fuerza_2025":"Somos","elec_nac":13932,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.39807},"CORONEL PRINGLES":{"nd":"Coronel Pringles","sec":"Sexta","jud":"Bahía Blanca","cat":"20.000-49.999","p22":24420,"den":4.6,"sup":5257.1,"rp":87,"qp":4,"int_actual":"Lisandro Matzkin","fuerza_2025":"LLA","elec_nac":20486,"pres_2026":29808657087,"pres_per_hab":1220665.73,"cud_pct":0.40655},"CORONEL ROSALES":{"nd":"Coronel Rosales","sec":"Sexta","jud":"Bahía Blanca","cat":"50.000-99.999","p22":67503,"den":11.6,"sup":5831.5,"rp":49,"qp":2,"int_actual":"Rodrigo Lionel Aristimuño","fuerza_2025":"Fuerza Patria","elec_nac":52104,"pres_2026":44468531920,"pres_per_hab":658763.79,"cud_pct":0.344},"CORONEL SUAREZ":{"nd":"Coronel Suárez","sec":"Sexta","jud":"Bahía Blanca","cat":"20.000-49.999","p22":42110,"den":7.0,"sup":6006.8,"rp":62,"qp":3,"int_actual":"Ricardo Moccero","fuerza_2025":"Movimiento para la Victoria","elec_nac":35188,"pres_2026":56260015943,"pres_per_hab":1336025.08,"cud_pct":0.6706},"DAIREAUX":{"nd":"Daireaux","sec":"Sexta","jud":"Trenque Lauquen","cat":"10.000-19.999","p22":18422,"den":4.8,"sup":3827.5,"rp":97,"qp":4,"int_actual":"María Serra","fuerza_2025":"Fuerza Patria","elec_nac":15370,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.4387},"DOLORES":{"nd":"Dolores","sec":"Quinta","jud":"Dolores","cat":"20.000-49.999","p22":32032,"den":16.2,"sup":1973.1,"rp":79,"qp":3,"int_actual":"Juan Pablo Garcia","fuerza_2025":"Fuerza Patria","elec_nac":25774,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.49045},"ENSENADA":{"nd":"Ensenada","sec":"Tercera","jud":"La Plata","cat":"50.000-99.999","p22":63997,"den":640.4,"sup":99.9,"rp":51,"qp":2,"int_actual":"Mario Secco","fuerza_2025":"Fuerza Patria","elec_nac":59231,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.28041},"ESCOBAR":{"nd":"Escobar","sec":"Primera","jud":"Zarate - Campana","cat":"250.000-499.999","p22":256268,"den":843.7,"sup":303.8,"rp":25,"qp":1,"int_actual":"Ariel Sujarchuk","fuerza_2025":"Fuerza Patria","elec_nac":204417,"pres_2026":299462800000,"pres_per_hab":1168553.23,"cud_pct":1.7861},"ESTEBAN ECHEVERRIA":{"nd":"Esteban Echeverría","sec":"Tercera","jud":"Lomas de Zamora","cat":"250.000-499.999","p22":338480,"den":2815.5,"sup":120.2,"rp":18,"qp":1,"int_actual":"Fernando Gray","fuerza_2025":"Fuerza Patria","elec_nac":245355,"pres_2026":151756000000,"pres_per_hab":448345.54,"cud_pct":1.56854},"EXALTACION DE LA CRUZ":{"nd":"Exaltacion de la Cruz","sec":"","jud":"Zarate - Campana","cat":"20.000-49.999","p22":40159,"den":63.3,"sup":634.2,"rp":64,"qp":3,"int_actual":"Diego Nanni","fuerza_2025":"Fuerza Patria","elec_nac":34059,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.45705},"EZEIZA":{"nd":"Ezeiza","sec":"Tercera","jud":"Lomas de Zamora","cat":"100.000-249.999","p22":201511,"den":850.9,"sup":236.8,"rp":26,"qp":1,"int_actual":"Gastón Granados","fuerza_2025":"Fuerza Patria","elec_nac":150299,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.62144},"FLORENCIO VARELA":{"nd":"Florencio Varela","sec":"Tercera","jud":"Quilmes","cat":"250.000-499.999","p22":496433,"den":2614.2,"sup":189.9,"rp":9,"qp":1,"int_actual":"Andrés Watson","fuerza_2025":"Fuerza Patria","elec_nac":341450,"pres_2026":159582501241,"pres_per_hab":321458.29,"cud_pct":1.99},"FLORENTINO AMEGHINO":{"nd":"Florentino Ameghino","sec":"Cuarta","jud":"Junín","cat":"10.000-19.999","p22":10790,"den":6.0,"sup":1808.6,"rp":122,"qp":5,"int_actual":"Nahuel Mittelbach","fuerza_2025":"Somos","elec_nac":8106,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.18284},"GENERAL ALVARADO":{"nd":"General Alvarado","sec":"Quinta","jud":"Mar del Plata","cat":"20.000-49.999","p22":45526,"den":28.2,"sup":1614.4,"rp":58,"qp":3,"int_actual":"Sebastian Ianatuony","fuerza_2025":"Fuerza Patria","elec_nac":40134,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.37807},"GENERAL ALVEAR":{"nd":"General Alvear","sec":"Séptima","jud":"Azul","cat":"10.000-19.999","p22":13031,"den":3.9,"sup":3384.1,"rp":112,"qp":5,"int_actual":"Ramon Capra","fuerza_2025":"Somos","elec_nac":9005,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.22943},"GENERAL ARENALES":{"nd":"General Arenales","sec":"Cuarta","jud":"Junín","cat":"10.000-19.999","p22":16350,"den":11.0,"sup":1482.6,"rp":105,"qp":4,"int_actual":"Erica Revilla","fuerza_2025":"Somos","elec_nac":15306,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.22683},"GENERAL BELGRANO":{"nd":"General Belgrano","sec":"Quinta","jud":"Dolores","cat":"20.000-49.999","p22":20791,"den":11.3,"sup":1843.2,"rp":94,"qp":4,"int_actual":"Osvaldo Dinapoli","fuerza_2025":"Somos","elec_nac":17009,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.26931},"GENERAL GUIDO":{"nd":"General Guido","sec":"Quinta","jud":"Dolores","cat":"Menos de 10.000","p22":3174,"den":1.4,"sup":2329.9,"rp":134,"qp":5,"int_actual":"Carlos Rocha","fuerza_2025":"Fuerza Patria","elec_nac":2987,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.09319},"GENERAL LAS HERAS":{"nd":"General Las Heras","sec":"Primera","jud":"Mercedes","cat":"10.000-19.999","p22":18022,"den":25.0,"sup":720.1,"rp":99,"qp":4,"int_actual":"Javier Osuna","fuerza_2025":"Fuerza Patria","elec_nac":14566,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.16448},"GENERAL LAVALLE":{"nd":"General Lavalle","sec":"Quinta","jud":"Dolores","cat":"Menos de 10.000","p22":4870,"den":1.9,"sup":2598.7,"rp":132,"qp":5,"int_actual":"Nahuel Guardia","fuerza_2025":"Somos","elec_nac":5408,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.12741},"GENERAL MADARIAGA":{"nd":"General Madariaga","sec":"Quinta","jud":"Dolores","cat":"20.000-49.999","p22":22624,"den":7.6,"sup":2978.3,"rp":90,"qp":4,"int_actual":"Carlos Santoro","fuerza_2025":"Somos","elec_nac":20115,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.29744},"GENERAL PAZ":{"nd":"General Paz","sec":"Quinta","jud":"La Plata","cat":"10.000-19.999","p22":14207,"den":11.9,"sup":1197.5,"rp":109,"qp":5,"int_actual":"Juan Manuel Alvarez","fuerza_2025":"Fuerza Patria","elec_nac":11954,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.30088},"GENERAL PINTO":{"nd":"General Pinto","sec":"Cuarta","jud":"Junín","cat":"10.000-19.999","p22":12941,"den":5.1,"sup":2541.4,"rp":114,"qp":5,"int_actual":"Freddy Zavatarelli","fuerza_2025":"Fuerza Patria","elec_nac":10295,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.29531},"GENERAL PUEYRREDON":{"nd":"General Pueyrredón","sec":"Quinta","jud":"Mar del Plata","cat":"500.000 o más","p22":667082,"den":456.7,"sup":1460.7,"rp":4,"qp":1,"int_actual":"Agustín Neme","fuerza_2025":"LLA","elec_nac":575613,"pres_2026":521996792000,"pres_per_hab":782507.69,"cud_pct":2.13342},"GENERAL RODRIGUEZ":{"nd":"General Rodríguez","sec":"Primera","jud":"Moreno  -  General Rodriguez","cat":"100.000-249.999","p22":142709,"den":396.3,"sup":360.1,"rp":32,"qp":2,"int_actual":"Mauro García","fuerza_2025":"Fuerza Patria","elec_nac":99080,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.53529},"GENERAL SAN MARTIN":{"nd":"General San Martín","sec":"Primera","jud":"San Martin","cat":"250.000-499.999","p22":450575,"den":8082.1,"sup":55.8,"rp":11,"qp":1,"int_actual":"Fernando Moreira","fuerza_2025":"Fuerza Patria","elec_nac":378476,"pres_2026":333000000000,"pres_per_hab":739055.65,"cud_pct":2.24351},"GENERAL VIAMONTE":{"nd":"General Viamonte","sec":"Cuarta","jud":"Junín","cat":"20.000-49.999","p22":22649,"den":10.6,"sup":2145.3,"rp":89,"qp":4,"int_actual":"Franco Flexas","fuerza_2025":"Somos","elec_nac":15875,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.39628},"GENERAL VILLEGAS":{"nd":"General Villegas","sec":"Cuarta","jud":"Trenque Lauquen","cat":"20.000-49.999","p22":35251,"den":4.9,"sup":7232.8,"rp":74,"qp":3,"int_actual":"Gilberto Alegre","fuerza_2025":"Somos","elec_nac":25866,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.66304},"GENERAL LA MADRID":{"nd":"General la Madrid","sec":"","jud":"Azul","cat":"10.000-19.999","p22":11618,"den":2.4,"sup":4811.4,"rp":120,"qp":5,"int_actual":"Martin Randazzo","fuerza_2025":"Somos","elec_nac":9868,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.35992},"GUAMINI":{"nd":"Guaminí","sec":"Sexta","jud":"Trenque Lauquen","cat":"10.000-19.999","p22":11801,"den":2.4,"sup":4826.8,"rp":117,"qp":5,"int_actual":"Jose Nobre Ferreira","fuerza_2025":"Fuerza Patria","elec_nac":10079,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.34023},"HIPOLITO YRIGOYEN":{"nd":"Hipólito Yrigoyen","sec":"Cuarta","jud":"Trenque Lauquen","cat":"10.000-19.999","p22":10661,"den":6.5,"sup":1629.0,"rp":124,"qp":5,"int_actual":"Luis Pugnaloni","fuerza_2025":"Fuerza Patria","elec_nac":8282,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.18059},"HURLINGHAM":{"nd":"Hurlingham","sec":"Primera","jud":"Morón","cat":"100.000-249.999","p22":185641,"den":5239.7,"sup":35.4,"rp":27,"qp":1,"int_actual":"Damian Selci","fuerza_2025":"Fuerza Patria","elec_nac":158216,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.83248},"ITUZAINGO":{"nd":"Ituzaingó","sec":"Primera","jud":"Morón","cat":"100.000-249.999","p22":180232,"den":4713.2,"sup":38.2,"rp":28,"qp":2,"int_actual":"Pablo Catriel Descalzo","fuerza_2025":"Fuerza Patria","elec_nac":149383,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.52523},"JOSE C. PAZ":{"nd":"José C. Paz","sec":"Primera","jud":"San Martin","cat":"250.000-499.999","p22":326992,"den":6519.0,"sup":50.2,"rp":22,"qp":1,"int_actual":"Lorena Espina","fuerza_2025":"Fuerza Patria","elec_nac":233079,"pres_2026":170000000000,"pres_per_hab":519890.39,"cud_pct":1.8771},"JUNIN":{"nd":"Junín","sec":"Cuarta","jud":"Junín","cat":"100.000-249.999","p22":103787,"den":46.1,"sup":2253.2,"rp":38,"qp":2,"int_actual":"Juan Fiorini","fuerza_2025":"Somos","elec_nac":82988,"pres_2026":60160520000,"pres_per_hab":579653.71,"cud_pct":0.3902},"LA COSTA":{"nd":"La Costa","sec":"Quinta","jud":"Dolores","cat":"100.000-249.999","p22":100689,"den":398.6,"sup":252.6,"rp":42,"qp":2,"int_actual":"Juan De Jesús","fuerza_2025":"Fuerza Patria","elec_nac":83039,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":1.52219},"LA MATANZA":{"nd":"La Matanza","sec":"Tercera","jud":"La Matanza","cat":"500.000 o más","p22":1841247,"den":5592.8,"sup":329.2,"rp":1,"qp":1,"int_actual":"Fernando Espinoza","fuerza_2025":"Fuerza Patria","elec_nac":1057458,"pres_2026":460165913347,"pres_per_hab":249920.79,"cud_pct":6.58306},"LA PLATA":{"nd":"La Plata","sec":"Capital/Octava","jud":"La Plata","cat":"500.000 o más","p22":768470,"den":815.6,"sup":942.2,"rp":2,"qp":1,"int_actual":"Julio Alak","fuerza_2025":"Fuerza Patria","elec_nac":576691,"pres_2026":462290471915,"pres_per_hab":601572.57,"cud_pct":3.16983},"LANUS":{"nd":"Lanús","sec":"Tercera","jud":"Avellaneda - Lanus","cat":"250.000-499.999","p22":461267,"den":9540.2,"sup":48.4,"rp":10,"qp":1,"int_actual":"Julian Alvarez","fuerza_2025":"Fuerza Patria","elec_nac":375477,"pres_2026":259797588554,"pres_per_hab":563226.05,"cud_pct":1.63819},"LAPRIDA":{"nd":"Laprida","sec":"Sexta","jud":"Azul","cat":"10.000-19.999","p22":11646,"den":3.4,"sup":3455.0,"rp":119,"qp":5,"int_actual":"Alfredo Fisher","fuerza_2025":"Fuerza Patria","elec_nac":9962,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.28502},"LAS FLORES":{"nd":"Las Flores","sec":"Quinta","jud":"Azul","cat":"20.000-49.999","p22":27239,"den":8.2,"sup":3340.3,"rp":81,"qp":3,"int_actual":"Alberto Gelene","fuerza_2025":"Fuerza Patria","elec_nac":22588,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.27626},"LEANDRO N. ALEM":{"nd":"Leandro N. Alem","sec":"Cuarta","jud":"Junín","cat":"10.000-19.999","p22":17266,"den":10.8,"sup":1603.5,"rp":102,"qp":4,"int_actual":"Carlos Ferraris","fuerza_2025":"Fuerza Patria","elec_nac":15253,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.29463},"LEZAMA":{"nd":"Lezama","sec":"Quinta","jud":"Dolores","cat":"Menos de 10.000","p22":6221,"den":5.6,"sup":1102.0,"rp":131,"qp":5,"int_actual":"Myriam Mongay","fuerza_2025":"Somos","elec_nac":5034,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.11622},"LINCOLN":{"nd":"Lincoln","sec":"Cuarta","jud":"Junín","cat":"20.000-49.999","p22":45506,"den":7.9,"sup":5781.5,"rp":59,"qp":3,"int_actual":"Salvador Serenal","fuerza_2025":"Somos","elec_nac":38730,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.60342},"LOBERIA":{"nd":"Lobería","sec":"","jud":"Necochea","cat":"10.000-19.999","p22":18243,"den":3.8,"sup":4755.7,"rp":98,"qp":4,"int_actual":"Pablo Javier Barrena","fuerza_2025":"Somos","elec_nac":14855,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.3312},"LOBOS":{"nd":"Lobos","sec":"Tercera","jud":"La Plata","cat":"20.000-49.999","p22":41760,"den":24.2,"sup":1724.4,"rp":63,"qp":3,"int_actual":"Jorge Etcheverry","fuerza_2025":"LLA","elec_nac":33382,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.18414},"LOMAS DE ZAMORA":{"nd":"Lomas de Zamora","sec":"Tercera","jud":"Lomas de Zamora","cat":"500.000 o más","p22":690323,"den":7907.5,"sup":87.3,"rp":3,"qp":1,"int_actual":"Federico Otermin","fuerza_2025":"Fuerza Patria","elec_nac":519157,"pres_2026":480834988472,"pres_per_hab":696536.24,"cud_pct":3.0485},"LUJAN":{"nd":"Luján","sec":"Primera","jud":"Mercedes","cat":"100.000-249.999","p22":111008,"den":142.8,"sup":777.1,"rp":36,"qp":2,"int_actual":"Leonardo Boto","fuerza_2025":"Fuerza Patria","elec_nac":97986,"pres_2026":106500000000,"pres_per_hab":959390.31,"cud_pct":0.75184},"MAGDALENA":{"nd":"Magdalena","sec":"Tercera","jud":"La Plata","cat":"20.000-49.999","p22":26830,"den":15.0,"sup":1785.3,"rp":83,"qp":4,"int_actual":"Lisandro Fabian Hourcade","fuerza_2025":"Somos","elec_nac":16379,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.32864},"MAIPU":{"nd":"Maipú","sec":"Quinta","jud":"Dolores","cat":"10.000-19.999","p22":11323,"den":4.4,"sup":2601.7,"rp":121,"qp":5,"int_actual":"Matías Rappallini","fuerza_2025":"Somos","elec_nac":10212,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.24649},"MALVINAS ARGENTINAS":{"nd":"Malvinas Argentinas","sec":"Primera","jud":"San Martin","cat":"250.000-499.999","p22":350674,"den":5558.3,"sup":63.1,"rp":17,"qp":1,"int_actual":"Leo Nardini","fuerza_2025":"Fuerza Patria","elec_nac":285415,"pres_2026":422127315214,"pres_per_hab":1203759.95,"cud_pct":3.17276},"MAR CHIQUITA":{"nd":"Mar Chiquita","sec":"Quinta","jud":"Mar del Plata","cat":"20.000-49.999","p22":33110,"den":10.7,"sup":3096.7,"rp":75,"qp":3,"int_actual":"Walter Wischnivetzky","fuerza_2025":"Fuerza Patria","elec_nac":33065,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.51108},"MARCOS PAZ":{"nd":"Marcos Paz","sec":"Primera","jud":"Mercedes","cat":"50.000-99.999","p22":67011,"den":147.2,"sup":455.1,"rp":50,"qp":2,"int_actual":"Ricardo Curuchet","fuerza_2025":"Fuerza Patria","elec_nac":50660,"pres_2026":60000000000,"pres_per_hab":895375.39,"cud_pct":0.49056},"MERCEDES":{"nd":"Mercedes","sec":"Primera","jud":"Mercedes","cat":"50.000-99.999","p22":72980,"den":69.5,"sup":1049.5,"rp":45,"qp":2,"int_actual":"Juan Ignacio Ustarroz","fuerza_2025":"Fuerza Patria","elec_nac":58987,"pres_2026":49000000000,"pres_per_hab":671416.83,"cud_pct":0.65572},"MERLO":{"nd":"Merlo","sec":"Primera","jud":"Morón","cat":"500.000 o más","p22":582486,"den":3364.4,"sup":173.1,"rp":7,"qp":1,"int_actual":"Gustavo Menendez","fuerza_2025":"Fuerza Patria","elec_nac":434550,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":2.96058},"MONTE":{"nd":"Monte","sec":"Quinta","jud":"La Plata","cat":"20.000-49.999","p22":24868,"den":13.5,"sup":1847.5,"rp":86,"qp":4,"int_actual":"José Castro","fuerza_2025":"Somos","elec_nac":20755,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.1393},"MONTE HERMOSO":{"nd":"Monte Hermoso","sec":"Sexta","jud":"Bahía Blanca","cat":"Menos de 10.000","p22":8465,"den":40.5,"sup":209.0,"rp":129,"qp":5,"int_actual":"Hernan Fabio Arranz","fuerza_2025":"Fuerza Patria","elec_nac":9459,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.18718},"MORENO":{"nd":"Moreno","sec":"Primera","jud":"Moreno  -  General Rodriguez","cat":"500.000 o más","p22":576632,"den":3098.0,"sup":186.1,"rp":8,"qp":1,"int_actual":"Mariel Fernandez","fuerza_2025":"Fuerza Patria","elec_nac":372309,"pres_2026":481595000000,"pres_per_hab":835186.05,"cud_pct":2.19588},"MORON":{"nd":"Morón","sec":"Primera","jud":"Morón","cat":"250.000-499.999","p22":331183,"den":5950.1,"sup":55.7,"rp":20,"qp":1,"int_actual":"Lucas Ghi","fuerza_2025":"Fuerza Patria","elec_nac":279897,"pres_2026":272000000000,"pres_per_hab":821298.19,"cud_pct":1.08322},"NAVARRO":{"nd":"Navarro","sec":"Primera","jud":"Mercedes","cat":"10.000-19.999","p22":19899,"den":12.3,"sup":1617.6,"rp":95,"qp":4,"int_actual":"Facundo Diz","fuerza_2025":"Fuerza Patria","elec_nac":15946,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.21962},"NECOCHEA":{"nd":"Necochea","sec":"Quinta","jud":"Necochea","cat":"100.000-249.999","p22":102110,"den":21.3,"sup":4791.6,"rp":39,"qp":2,"int_actual":"Arturo Rojas","fuerza_2025":"Nueva Necochea","elec_nac":87250,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.71164},"OLAVARRIA":{"nd":"Olavarría","sec":"Séptima","jud":"Azul","cat":"100.000-249.999","p22":125751,"den":16.4,"sup":7658.8,"rp":34,"qp":2,"int_actual":"Maximiliano Wesner","fuerza_2025":"Fuerza Patria","elec_nac":99434,"pres_2026":138287923000,"pres_per_hab":1099696.41,"cud_pct":1.01347},"PATAGONES":{"nd":"Patagones","sec":"Sexta","jud":"Bahía Blanca","cat":"20.000-49.999","p22":37646,"den":2.8,"sup":13569.7,"rp":69,"qp":3,"int_actual":"Ricardo Evaristo Marino","fuerza_2025":"Fuerza Patria","elec_nac":28927,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.72998},"PEHUAJO":{"nd":"Pehuajó","sec":"Cuarta","jud":"Trenque Lauquen","cat":"20.000-49.999","p22":44783,"den":9.9,"sup":4531.9,"rp":60,"qp":3,"int_actual":"Pablo Zurro","fuerza_2025":"Fuerza Patria","elec_nac":36546,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.74124},"PELLEGRINI":{"nd":"Pellegrini","sec":"Sexta","jud":"Trenque Lauquen","cat":"Menos de 10.000","p22":7143,"den":3.9,"sup":1820.2,"rp":130,"qp":5,"int_actual":"Sofia Magdalena Gambier","fuerza_2025":"Somos","elec_nac":5270,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.15865},"PERGAMINO":{"nd":"Pergamino","sec":"Segunda","jud":"Pergamino","cat":"100.000-249.999","p22":115340,"den":38.3,"sup":3010.2,"rp":35,"qp":2,"int_actual":"Javier Martinez","fuerza_2025":"Hechos","elec_nac":92836,"pres_2026":74718307000,"pres_per_hab":647809.15,"cud_pct":0.43329},"PILA":{"nd":"Pila","sec":"Quinta","jud":"Dolores","cat":"Menos de 10.000","p22":4642,"den":1.3,"sup":3453.0,"rp":133,"qp":5,"int_actual":"Gustavo Walker","fuerza_2025":"Fuerza Patria","elec_nac":3660,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.15236},"PILAR":{"nd":"Pilar","sec":"Primera","jud":"San Isidro","cat":"250.000-499.999","p22":394754,"den":1030.7,"sup":383.0,"rp":13,"qp":1,"int_actual":"Federico De Achaval","fuerza_2025":"Fuerza Patria","elec_nac":287769,"pres_2026":488609779242,"pres_per_hab":1237757.64,"cud_pct":2.41838},"PINAMAR":{"nd":"Pinamar","sec":"Quinta","jud":"Dolores","cat":"20.000-49.999","p22":39449,"den":589.8,"sup":66.9,"rp":67,"qp":3,"int_actual":"Juan Manuel Ibarguren","fuerza_2025":"LLA","elec_nac":31923,"pres_2026":75951000000,"pres_per_hab":1925295.95,"cud_pct":0.39153},"PRESIDENTE PERON":{"nd":"Presidente Perón","sec":"Tercera","jud":"La Plata","cat":"100.000-249.999","p22":102106,"den":845.7,"sup":120.7,"rp":40,"qp":2,"int_actual":"Blanca Cantero","fuerza_2025":"Fuerza Patria","elec_nac":75162,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.44498},"PUNTA INDIO":{"nd":"Punta Indio","sec":"Tercera","jud":"La Plata","cat":"10.000-19.999","p22":12297,"den":7.9,"sup":1550.7,"rp":116,"qp":5,"int_actual":"Daniel Angueira","fuerza_2025":"Fuerza Patria","elec_nac":10470,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.21996},"PUAN":{"nd":"Puán","sec":"Sexta","jud":"Bahía Blanca","cat":"10.000-19.999","p22":16613,"den":2.6,"sup":6370.9,"rp":104,"qp":4,"int_actual":"Diego Reyes","fuerza_2025":"Potencia PBA","elec_nac":14175,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.58771},"QUILMES":{"nd":"Quilmes","sec":"Tercera","jud":"Quilmes","cat":"500.000 o más","p22":633391,"den":6923.1,"sup":91.5,"rp":5,"qp":1,"int_actual":"Eva Mieri","fuerza_2025":"Fuerza Patria","elec_nac":480256,"pres_2026":504890000000,"pres_per_hab":797122.16,"cud_pct":1.99122},"RAMALLO":{"nd":"Ramallo","sec":"Segunda","jud":"San Nicolás","cat":"20.000-49.999","p22":39730,"den":41.8,"sup":951.5,"rp":66,"qp":3,"int_actual":"Mauro David Poletti","fuerza_2025":"Fuerza Patria","elec_nac":31646,"pres_2026":47603204249,"pres_per_hab":1198167.74,"cud_pct":0.22533},"RAUCH":{"nd":"Rauch","sec":"Quinta","jud":"Azul","cat":"10.000-19.999","p22":16635,"den":3.9,"sup":4315.3,"rp":103,"qp":4,"int_actual":"Maximiliano Suescun","fuerza_2025":"Somos","elec_nac":14085,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.27562},"RIVADAVIA":{"nd":"Rivadavia","sec":"Cuarta","jud":"Trenque Lauquen","cat":"10.000-19.999","p22":19849,"den":5.0,"sup":3954.9,"rp":96,"qp":4,"int_actual":"Juan Alberto Martinez","fuerza_2025":"Fuerza Patria","elec_nac":14971,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.39294},"ROJAS":{"nd":"Rojas","sec":"Segunda","jud":"Junín","cat":"20.000-49.999","p22":25627,"den":13.0,"sup":1978.9,"rp":85,"qp":4,"int_actual":"Roman Bouvier","fuerza_2025":"Hechos","elec_nac":21106,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.31636},"ROQUE PEREZ":{"nd":"Roque Perez","sec":"","jud":"La Plata","cat":"10.000-19.999","p22":13977,"den":8.9,"sup":1572.2,"rp":111,"qp":5,"int_actual":"Maximiliano Oscar Sciaini","fuerza_2025":"Fuerza Patria","elec_nac":11621,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.19553},"SAAVEDRA":{"nd":"Saavedra","sec":"Sexta","jud":"Bahía Blanca","cat":"20.000-49.999","p22":22537,"den":6.4,"sup":3541.5,"rp":91,"qp":4,"int_actual":"Matías Nebot","fuerza_2025":"Todos por Saavedra","elec_nac":18669,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.46034},"SALADILLO":{"nd":"Saladillo","sec":"Séptima","jud":"La Plata","cat":"20.000-49.999","p22":35656,"den":13.3,"sup":2685.2,"rp":72,"qp":3,"int_actual":"Jose Luis Salomon","fuerza_2025":"Somos","elec_nac":29532,"pres_2026":29814329611,"pres_per_hab":836165.85,"cud_pct":0.29818},"SALLIQUELO":{"nd":"Salliqueló","sec":"Sexta","jud":"Trenque Lauquen","cat":"Menos de 10.000","p22":9427,"den":11.9,"sup":794.0,"rp":126,"qp":5,"int_actual":"Ariel Horacio Succurro","fuerza_2025":"Fuerza Patria","elec_nac":7848,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.16346},"SALTO":{"nd":"Salto","sec":"Segunda","jud":"Mercedes","cat":"20.000-49.999","p22":39425,"den":24.5,"sup":1611.1,"rp":68,"qp":3,"int_actual":"Ricardo Alessandro","fuerza_2025":"Fuerza Patria","elec_nac":30967,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.27067},"SAN ANDRES DE GILES":{"nd":"San Andrés de Giles","sec":"Segunda","jud":"Mercedes","cat":"20.000-49.999","p22":26510,"den":23.4,"sup":1132.0,"rp":84,"qp":4,"int_actual":"Miguel Gesualdi","fuerza_2025":"Fuerza Patria","elec_nac":21299,"pres_2026":18600000000,"pres_per_hab":701622.03,"cud_pct":0.35301},"SAN ANTONIO DE ARECO":{"nd":"San Antonio de Areco","sec":"Segunda","jud":"Mercedes","cat":"20.000-49.999","p22":26897,"den":31.4,"sup":857.6,"rp":82,"qp":4,"int_actual":"Francisco Ratto","fuerza_2025":"LLA","elec_nac":21194,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.21658},"SAN CAYETANO":{"nd":"San Cayetano","sec":"","jud":"Necochea","cat":"Menos de 10.000","p22":8994,"den":3.3,"sup":2757.5,"rp":128,"qp":5,"int_actual":"Miguel Angel Gargaglione","fuerza_2025":"Somos","elec_nac":7436,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.27905},"SAN FERNANDO":{"nd":"San Fernando","sec":"Primera","jud":"San Isidro","cat":"100.000-249.999","p22":171616,"den":195.7,"sup":877.1,"rp":29,"qp":2,"int_actual":"Juan Andreotti","fuerza_2025":"Fuerza Patria","elec_nac":137506,"pres_2026":244138924675,"pres_per_hab":1422588.36,"cud_pct":0.89792},"SAN ISIDRO":{"nd":"San Isidro","sec":"Primera","jud":"San Isidro","cat":"250.000-499.999","p22":297282,"den":5779.2,"sup":51.4,"rp":23,"qp":1,"int_actual":"Ramon Lanus","fuerza_2025":"LLA","elec_nac":270890,"pres_2026":333052543695,"pres_per_hab":1120325.29,"cud_pct":1.78688},"SAN MIGUEL":{"nd":"San Miguel","sec":"Primera","jud":"San Martin","cat":"250.000-499.999","p22":328835,"den":3971.4,"sup":82.8,"rp":21,"qp":1,"int_actual":"Jaime Méndez","fuerza_2025":"Primero San Miguel","elec_nac":250967,"pres_2026":221558017532,"pres_per_hab":673766.53,"cud_pct":1.86998},"SAN NICOLAS":{"nd":"San Nicolás","sec":"Segunda","jud":"San Nicolás","cat":"100.000-249.999","p22":167824,"den":257.3,"sup":652.3,"rp":30,"qp":2,"int_actual":"Santiago Passaglia","fuerza_2025":"Hechos","elec_nac":129231,"pres_2026":132625134534,"pres_per_hab":790263.22,"cud_pct":0.58987},"SAN PEDRO":{"nd":"San Pedro","sec":"Segunda","jud":"San Nicolás","cat":"50.000-99.999","p22":68613,"den":52.0,"sup":1319.3,"rp":48,"qp":2,"int_actual":"Cecilio Salazar","fuerza_2025":"Fuerza Patria","elec_nac":55498,"pres_2026":57000000000,"pres_per_hab":830746.36,"cud_pct":0.60954},"SAN VICENTE":{"nd":"San Vicente","sec":"Tercera","jud":"La Plata","cat":"50.000-99.999","p22":98215,"den":149.7,"sup":656.3,"rp":43,"qp":2,"int_actual":"Nicolas Mantegazza","fuerza_2025":"Fuerza Patria","elec_nac":69599,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.37209},"SUIPACHA":{"nd":"Suipacha","sec":"Primera","jud":"Mercedes","cat":"10.000-19.999","p22":11786,"den":12.5,"sup":943.9,"rp":118,"qp":5,"int_actual":"Juan Luis Mancini","fuerza_2025":"Fuerza Patria","elec_nac":10065,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.16673},"TANDIL":{"nd":"Tandil","sec":"Quinta","jud":"Azul","cat":"100.000-249.999","p22":145575,"den":30.1,"sup":4836.5,"rp":31,"qp":2,"int_actual":"Miguel Angel Lunghi","fuerza_2025":"Somos","elec_nac":117853,"pres_2026":152650000000,"pres_per_hab":1048600.38,"cud_pct":1.01156},"TAPALQUE":{"nd":"Tapalqué","sec":"Séptima","jud":"Azul","cat":"10.000-19.999","p22":10783,"den":2.6,"sup":4149.2,"rp":123,"qp":5,"int_actual":"Gustavo Cocconi","fuerza_2025":"Fuerza Patria","elec_nac":8918,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.28079},"TIGRE":{"nd":"Tigre","sec":"Primera","jud":"San Isidro","cat":"250.000-499.999","p22":446949,"den":1468.5,"sup":304.4,"rp":12,"qp":1,"int_actual":"Julio Zamora","fuerza_2025":"Somos","elec_nac":338554,"pres_2026":578906001955,"pres_per_hab":1295239.51,"cud_pct":1.7895},"TORDILLO":{"nd":"Tordillo","sec":"Quinta","jud":"Dolores","cat":"Menos de 10.000","p22":2542,"den":2.0,"sup":1295.6,"rp":135,"qp":5,"int_actual":"Hector Anibal Olivera","fuerza_2025":"Fuerza Patria","elec_nac":2431,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.06327},"TORNQUIST":{"nd":"Tornquist","sec":"Sexta","jud":"Bahía Blanca","cat":"10.000-19.999","p22":14810,"den":3.6,"sup":4149.3,"rp":108,"qp":4,"int_actual":"Estefania Bordoni","fuerza_2025":"Fuerza Patria","elec_nac":16117,"pres_2026":31515252000,"pres_per_hab":2127971.1,"cud_pct":0.45831},"TRENQUE LAUQUEN":{"nd":"Trenque Lauquen","sec":"Cuarta","jud":"Trenque Lauquen","cat":"20.000-49.999","p22":49309,"den":9.0,"sup":5509.2,"rp":55,"qp":3,"int_actual":"Francisco Recoulat","fuerza_2025":"Somos","elec_nac":42261,"pres_2026":86704835294,"pres_per_hab":1758397.76,"cud_pct":0.75942},"TRES ARROYOS":{"nd":"Tres Arroyos","sec":"Sexta","jud":"Bahía Blanca","cat":"50.000-99.999","p22":62426,"den":10.5,"sup":5962.9,"rp":52,"qp":2,"int_actual":"Pablo Humberto Garate","fuerza_2025":"Fuerza Patria","elec_nac":53947,"pres_2026":79890154575,"pres_per_hab":1279757.71,"cud_pct":0.64268},"TRES LOMAS":{"nd":"Tres Lomas","sec":"Sexta","jud":"Trenque Lauquen","cat":"Menos de 10.000","p22":9164,"den":7.3,"sup":1262.5,"rp":127,"qp":5,"int_actual":"Luciano Spinolo","fuerza_2025":"Somos","elec_nac":6952,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.15733},"TRES DE FEBRERO":{"nd":"Tres de Febrero","sec":"Primera","jud":"San Martin","cat":"250.000-499.999","p22":364176,"den":8461.3,"sup":43.0,"rp":15,"qp":1,"int_actual":"Rodrigo Aybar","fuerza_2025":"LLA","elec_nac":284774,"pres_2026":189429000000,"pres_per_hab":520157.84,"cud_pct":0.99991},"VICENTE LOPEZ":{"nd":"Vicente López","sec":"Primera","jud":"San Isidro","cat":"250.000-499.999","p22":282281,"den":8358.9,"sup":33.8,"rp":24,"qp":1,"int_actual":"Soledad Martinez","fuerza_2025":"LLA","elec_nac":230596,"pres_2026":362143765971,"pres_per_hab":1282919.38,"cud_pct":1.52525},"VILLA GESELL":{"nd":"Villa Gesell","sec":"Quinta","jud":"Dolores","cat":"20.000-49.999","p22":37463,"den":226.4,"sup":165.5,"rp":71,"qp":3,"int_actual":"Gustavo Barrera","fuerza_2025":"Fuerza Patria","elec_nac":33973,"pres_2026":61609288752,"pres_per_hab":1644536.98,"cud_pct":0.4682},"VILLARINO":{"nd":"Villarino","sec":"Sexta","jud":"Bahía Blanca","cat":"20.000-49.999","p22":32717,"den":3.2,"sup":10099.9,"rp":76,"qp":3,"int_actual":"Carlos Bevilacqua","fuerza_2025":"Acción por Villarino","elec_nac":25085,"pres_2026":34236305303,"pres_per_hab":1046437.79,"cud_pct":0.53047},"ZARATE":{"nd":"Zárate","sec":"Segunda","jud":"Zarate - Campana","cat":"100.000-249.999","p22":132221,"den":111.2,"sup":1188.9,"rp":33,"qp":2,"int_actual":"Marcelo Matzkin","fuerza_2025":"LLA","elec_nac":103528,"pres_2026":101500000000,"pres_per_hab":767654.15,"cud_pct":0.54929}};
+
 // ── SKELETON LOADING (preview del Monitor) ──
 (function(){
   const els = document.querySelectorAll('.js-dash-skeleton');
@@ -674,9 +721,10 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   const tabs = Array.from(shell.querySelectorAll('.mon-tab'));
   const panels = Array.from(shell.querySelectorAll('.mon-panel'));
   if (!tabs.length) return;
-  let i = 0, timer = null;
+  const staticCount = tabs.filter(t => !t.classList.contains('mon-tab-search')).length;
+  let i = 0, timer = null, autoRotateEnabled = true;
 
-  function activate(idx, fromAuto) {
+  function activate(idx) {
     i = idx;
     tabs.forEach((t, n) => {
       t.classList.toggle('active', n === idx);
@@ -685,6 +733,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     const name = tabs[idx].dataset.tab;
     panels.forEach(p => p.classList.toggle('active', p.dataset.panel === name));
   }
+  window.AlsinaMonitorTabs = { activate, tabs };
 
   tabs.forEach((tab, idx) => {
     tab.addEventListener('click', (e) => {
@@ -697,10 +746,11 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function start() {
-    if (reduceMotion) return;
-    timer = setInterval(() => activate((i + 1) % tabs.length), 5000);
+    if (reduceMotion || !autoRotateEnabled) return;
+    timer = setInterval(() => activate((i + 1) % staticCount), 5000);
   }
   function stop() { clearInterval(timer); }
+  window.AlsinaMonitorTabs.disableAutoRotate = () => { autoRotateEnabled = false; stop(); };
 
   const io = new IntersectionObserver(entries => {
     entries.forEach(entry => { if (entry.isIntersecting) start(); else stop(); });
@@ -708,6 +758,143 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   io.observe(shell);
   shell.addEventListener('mouseenter', stop);
   shell.addEventListener('mouseleave', start);
+})();
+
+// ── BUSCADOR DE MUNICIPIOS ──
+(function(){
+  const input = document.getElementById('muniSearchInput');
+  const results = document.getElementById('muniSearchResults');
+  const fichaPanel = document.getElementById('fichaPanel');
+  const searchTabBtn = document.querySelector('.mon-tab-search');
+  const searchTabName = document.getElementById('searchTabName');
+  if (!input || !results || !fichaPanel || typeof MUNI_DATA === 'undefined') return;
+
+  const PARTY_COLORS = {
+    'Fuerza Patria': '#1a56db', 'Somos': '#f59e0b', 'LLA': '#9333ea', 'Hechos': '#10b981'
+  };
+  function partyColor(f) { return PARTY_COLORS[f] || '#6b7280'; }
+
+  function stripAccents(s) {
+    return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+
+  const index = Object.keys(MUNI_DATA).map(key => ({ key, nd: MUNI_DATA[key].nd, norm: stripAccents(MUNI_DATA[key].nd) }));
+
+  function fmtMoney(n) {
+    if (!n) return '—';
+    return '$' + Math.round(n).toLocaleString('es-AR');
+  }
+  function fmtPop(n) { return n ? n.toLocaleString('es-AR') : '—'; }
+
+  function renderFicha(key) {
+    const m = MUNI_DATA[key];
+    if (!m) return;
+    const color = partyColor(m.fuerza_2025);
+    const rankPct = 100 - ((m.rp - 1) / 134) * 100;
+    fichaPanel.innerHTML = `
+      <div class="ficha-head" style="border-left-color:${color}">
+        <div>
+          <div class="ficha-name">${m.nd}</div>
+          <div class="ficha-sub">Sección ${m.sec || '—'} · Depto. judicial ${m.jud || '—'} · Categoría ${m.cat}</div>
+        </div>
+        <span class="ficha-party" style="background:${color}1a;color:${color};border-color:${color}55">${m.fuerza_2025}</span>
+      </div>
+      <div class="ficha-stats">
+        <div class="ficha-stat" style="border-left-color:#3b82f6">
+          <svg class="ic fs-ic" style="color:#3b82f6" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="fs-val">${fmtPop(m.p22)}</span>
+          <span class="fs-lbl">Población · Rank ${m.rp}/135</span>
+        </div>
+        <div class="ficha-stat" style="border-left-color:#10b981">
+          <svg class="ic fs-ic" style="color:#10b981" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="fs-val">${fmtMoney(m.pres_per_hab)}</span>
+          <span class="fs-lbl">Presupuesto per cápita 2026</span>
+        </div>
+        <div class="ficha-stat" style="border-left-color:#06b6d4">
+          <svg class="ic fs-ic" style="color:#06b6d4" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+          <span class="fs-val">${m.cud_pct ? m.cud_pct.toFixed(5) + '%' : '—'}</span>
+          <span class="fs-lbl">CUD · Coparticipación única</span>
+        </div>
+        <div class="ficha-stat" style="border-left-color:#f59e0b">
+          <svg class="ic fs-ic" style="color:#f59e0b" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21V13h6v8"/></svg>
+          <span class="fs-val">${m.int_actual || '—'}</span>
+          <span class="fs-lbl">Intendente actual</span>
+        </div>
+      </div>
+      <div class="ficha-rank">
+        <div class="ficha-rank-lbl">Posición en población, sobre 135 municipios</div>
+        <div class="ficha-rank-track"><div class="ficha-rank-dot" style="left:${rankPct}%"></div></div>
+      </div>
+      <div class="ficha-foot">Electores: ${fmtPop(m.elec_nac)} · Densidad: ${m.den} hab/km² · Fuente: Monitor 135, ficha por municipio.</div>
+    `;
+    searchTabName.textContent = m.nd;
+    searchTabBtn.hidden = false;
+    const idx = window.AlsinaMonitorTabs.tabs.indexOf(searchTabBtn);
+    window.AlsinaMonitorTabs.disableAutoRotate();
+    window.AlsinaMonitorTabs.activate(idx);
+    if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('muni_search', { municipio: m.nd });
+  }
+
+  function closeResults() { results.hidden = true; results.innerHTML = ''; }
+
+  function showResults(items) {
+    if (!items.length) {
+      results.innerHTML = '<div class="mon-search-empty">No encontramos ese municipio.</div>';
+      results.hidden = false;
+      return;
+    }
+    results.innerHTML = items.slice(0, 8).map((it, n) => {
+      const m = MUNI_DATA[it.key];
+      return `<div class="mon-search-item" data-key="${it.key}" data-idx="${n}"><span>${m.nd}</span><small>${m.fuerza_2025}</small></div>`;
+    }).join('');
+    results.hidden = false;
+    results.querySelectorAll('.mon-search-item').forEach(el => {
+      el.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        renderFicha(el.dataset.key);
+        input.value = MUNI_DATA[el.dataset.key].nd;
+        closeResults();
+      });
+    });
+  }
+
+  input.addEventListener('input', () => {
+    const q = stripAccents(input.value.trim());
+    if (!q) { closeResults(); return; }
+    const matches = index.filter(it => it.norm.includes(q));
+    showResults(matches);
+  });
+
+  input.addEventListener('keydown', (e) => {
+    const items = Array.from(results.querySelectorAll('.mon-search-item'));
+    let hl = results.querySelector('.mon-search-item.hl');
+    let hlIdx = hl ? items.indexOf(hl) : -1;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (hl) hl.classList.remove('hl');
+      hlIdx = Math.min(hlIdx + 1, items.length - 1);
+      if (items[hlIdx]) items[hlIdx].classList.add('hl');
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (hl) hl.classList.remove('hl');
+      hlIdx = Math.max(hlIdx - 1, 0);
+      if (items[hlIdx]) items[hlIdx].classList.add('hl');
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      const target = hl || items[0];
+      if (target) {
+        renderFicha(target.dataset.key);
+        input.value = MUNI_DATA[target.dataset.key].nd;
+        closeResults();
+      }
+    } else if (e.key === 'Escape') {
+      closeResults();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.mon-search')) closeResults();
+  });
 })();
 
 // ── PARALLAX 3D MAPA HERO ──
