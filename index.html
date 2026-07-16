@@ -236,6 +236,15 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .rep-cover::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.1) 1px,transparent 1px);background-size:18px 18px;pointer-events:none;}
 .rep-cover .rep-preview{position:relative;height:44px;margin:0;opacity:.9;}
 .rep-cover .rep-preview span{background:linear-gradient(180deg,var(--brand-cyan-light),var(--brand-cyan));}
+.rep-cover-light{
+  margin:-24px -24px 18px -24px;padding:22px 24px;height:66px;
+  border-radius:8px 8px 0 0;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(20,107,145,.08),rgba(0,213,216,.03));
+  border-bottom:1px solid var(--line-light);
+  display:flex;align-items:center;justify-content:center;
+}
+.rep-cover-light::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(20,107,145,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(20,107,145,.06) 1px,transparent 1px);background-size:16px 16px;pointer-events:none;}
+.rep-cover-light .ic{width:30px;height:30px;color:var(--brand-cyan-text);position:relative;}
 .rep-hooks{list-style:none;margin:14px 0;display:flex;flex-direction:column;gap:10px;}
 .rep-hooks li{font-size:.85rem;color:rgba(255,255,255,.92);line-height:1.4;padding-left:22px;position:relative;font-weight:600;}
 .rep-hooks li::before{content:'?';position:absolute;left:0;top:-2px;color:var(--brand-cyan-light);font-weight:900;font-size:1.05rem;}
@@ -273,10 +282,9 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .rep-donut::before{content:'';position:absolute;inset:24%;background:var(--card-light);border-radius:50%;}
 .rep-donut-legend{display:flex;flex-direction:column;gap:5px;font-size:.72rem;color:var(--muted-on-light);}
 .rep-donut-legend span.dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;}
-.rep-hcd-row{display:flex;gap:10px;margin:14px 0;}
-.rep-hcd-stat{flex:1;background:rgba(0,150,180,.05);border:1px solid var(--line-light);border-radius:8px;padding:10px 12px;text-align:center;}
-.rep-hcd-stat .rh-val{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;color:var(--text-on-light);}
-.rep-hcd-stat .rh-lbl{font-size:.66rem;color:var(--muted-on-light);}
+.rep-scope{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin:16px 0;}
+.rep-scope li{font-size:.85rem;color:var(--text-on-light);padding-left:26px;position:relative;line-height:1.4;}
+.rep-scope li::before{content:'✓';position:absolute;left:0;top:0;color:var(--up);font-weight:800;}
 
 /* ── PRECIOS ── */
 .prods-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
@@ -358,6 +366,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   .prod-slide{width:240px;}
 }
 @media(max-width:520px){
+  .rep-scope{grid-template-columns:1fr;}
   .capture-dark{flex-direction:column;max-width:100%;}
   .prod-slider-wrap{gap:8px;padding:0 12px;}
   .prod-arrow{width:34px;height:34px;}
@@ -456,7 +465,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   </div>
   <div class="wrap hero-inner">
     <div class="kicker">Radiografía integral de la provincia de Buenos Aires</div>
-    <h1>Comprender la Provincia es el primer paso para <em>transformarla.</em></h1>
+    <h1>Comprender la Provincia <em>para transformarla.</em></h1>
     <p class="sub">Relevamos, sistematizamos y analizamos las finanzas, la gestión, la política y el territorio de la PBA y sus 135 municipios — y lo convertimos en conocimiento útil para decidir.</p>
     <form id="heroForm" class="capture-dark" onsubmit="handleSubscribe(event,'hero')">
       <input type="email" id="heroEmail" placeholder="tu@mail.com" required aria-label="Tu email">
@@ -612,11 +621,11 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     <p class="lead">Convertimos datos públicos dispersos en herramientas de planificación, negociación y análisis. Cuatro líneas de trabajo permanentes.</p>
 
     <div class="rep-filters" role="tablist" aria-label="Filtrar informes">
-      <button class="rep-filter active" data-filter="todos">Todos</button>
-      <button class="rep-filter" data-filter="finanzas">Finanzas</button>
+      <button class="rep-filter active" data-filter="todos">Destacados</button>
+      <button class="rep-filter" data-filter="finanzas">Económico-financiero</button>
       <button class="rep-filter" data-filter="territorio">Territorio</button>
       <button class="rep-filter" data-filter="institucional">Institucional</button>
-      <button class="rep-filter" data-filter="pedido">A pedido</button>
+      <button class="rep-filter" data-filter="pedido">A demanda</button>
     </div>
 
     <div class="rep-grid" id="repGrid">
@@ -645,6 +654,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
       </div>
 
       <div class="card rep-card" data-category="territorio">
+        <div class="rep-cover-light" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></div>
         <span class="freq">Trimestral</span>
         <h3>Transferencias a municipios</h3>
         <div class="rep-kpis">
@@ -674,14 +684,16 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
       </div>
 
       <div class="card rep-card rep-card--full" data-category="pedido">
-        <span class="freq amber">A pedido</span>
+        <div class="rep-cover-light" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <span class="freq amber">A demanda</span>
         <h3>Informes territoriales</h3>
-        <div class="rep-hcd-row">
-          <div class="rep-hcd-stat"><span class="rh-val">20</span><span class="rh-lbl">concejales HCD</span></div>
-          <div class="rep-hcd-stat"><span class="rh-val">10/20</span><span class="rh-lbl">Fuerza Patria (mitad exacta)</span></div>
-          <div class="rep-hcd-stat"><span class="rh-val">7</span><span class="rh-lbl">bancas libertarias en 3 bloques</span></div>
-        </div>
-        <p>Análisis político, fiscal y electoral integral de un municipio o sección: HCD, economía, escenarios. Ejemplo real: composición del Concejo Deliberante de Olavarría, 2023-2027.</p>
+        <ul class="rep-scope">
+          <li>Composición y mayorías del Concejo Deliberante (HCD)</li>
+          <li>Diagnóstico fiscal, presupuestario y de servicios</li>
+          <li>Mapa de actores políticos y correlación de fuerzas</li>
+          <li>Escenarios electorales de cara a 2027</li>
+        </ul>
+        <p>Análisis político, fiscal y electoral integral de un municipio o sección. Como los elaborados para Olavarría y Exaltación de la Cruz.</p>
         <a class="foot" href="mailto:newsletter@alsinaar.com?subject=Consulta%20informe%20territorial">Pedir un informe →</a>
       </div>
     </div>
@@ -696,7 +708,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 <section class="sec sec-light" id="precios" style="padding-top:16px;">
   <div class="wrap reveal">
     <span class="tag">Tres formas de acceder</span>
-    <h2>Elegí tu nivel de<br><em>señal.</em></h2>
+    <h2>Elegí tu nivel de<br><em>suscripción.</em></h2>
     <p class="lead">Del pulso quincenal gratuito al acceso total al laboratorio de datos de la Provincia.</p>
     <div class="prods-grid">
       <div class="prod-card">
