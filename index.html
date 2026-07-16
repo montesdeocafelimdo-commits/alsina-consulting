@@ -218,6 +218,9 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .dash-note{padding:12px 18px;font-size:.72rem;color:var(--muted-on-light);border-top:1px solid var(--line-light);}
 
 /* ── INFORMES ── */
+.landmark-bg{position:relative;overflow:hidden;}
+.landmark-svg{position:absolute;bottom:0;right:-4%;width:62%;max-width:760px;height:auto;opacity:.05;pointer-events:none;z-index:0;}
+.landmark-bg>.wrap{position:relative;z-index:1;}
 .rep-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
 .rep-filter{background:var(--card-light);border:1px solid var(--line-light);color:var(--muted-on-light);font-size:.8rem;font-weight:700;padding:8px 16px;border-radius:99px;cursor:pointer;transition:all .2s ease;}
 .rep-filter:hover{border-color:var(--brand-cyan);}
@@ -351,6 +354,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 .footer-links a:hover{color:var(--turquesa);}
 
 @media(max-width:860px){
+  .landmark-svg{display:none;}
   .rep-grid,.prods-grid{grid-template-columns:1fr;}
   .rep-card--featured{grid-row:auto;}
   .rep-donut-row{flex-direction:column;align-items:flex-start;}
@@ -614,7 +618,37 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 </section>
 
 <!-- INFORMES -->
-<section class="sec sec-light" id="informes" style="padding-top:16px;">
+<section class="sec sec-light landmark-bg" id="informes" style="padding-top:16px;">
+  <svg class="landmark-svg" viewBox="0 0 800 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="#14294d" stroke-width="2">
+      <rect x="40" y="230" width="720" height="150"/>
+      <rect x="40" y="380" width="720" height="14"/>
+      <rect x="10" y="394" width="780" height="14"/>
+      <rect x="140" y="150" width="520" height="80"/>
+      <polygon points="140,150 400,60 660,150"/>
+      <circle cx="400" cy="10" r="46"/>
+      <rect x="380" y="-30" width="40" height="46"/>
+      <line x1="400" y1="-30" x2="400" y2="-52"/>
+      <g stroke-width="1.5">
+        <line x1="170" y1="150" x2="170" y2="230"/>
+        <line x1="210" y1="150" x2="210" y2="230"/>
+        <line x1="250" y1="150" x2="250" y2="230"/>
+        <line x1="290" y1="150" x2="290" y2="230"/>
+        <line x1="330" y1="150" x2="330" y2="230"/>
+        <line x1="370" y1="150" x2="370" y2="230"/>
+        <line x1="430" y1="150" x2="430" y2="230"/>
+        <line x1="470" y1="150" x2="470" y2="230"/>
+        <line x1="510" y1="150" x2="510" y2="230"/>
+        <line x1="550" y1="150" x2="550" y2="230"/>
+        <line x1="590" y1="150" x2="590" y2="230"/>
+        <line x1="630" y1="150" x2="630" y2="230"/>
+      </g>
+      <line x1="80" y1="230" x2="80" y2="380"/>
+      <line x1="720" y1="230" x2="720" y2="380"/>
+      <line x1="110" y1="260" x2="110" y2="380"/>
+      <line x1="690" y1="260" x2="690" y2="380"/>
+    </g>
+  </svg>
   <div class="wrap reveal">
     <span class="tag">Informes ALSINA</span>
     <h2>Nuestros informes.</h2>
