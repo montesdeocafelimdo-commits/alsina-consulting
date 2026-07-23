@@ -317,22 +317,30 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .prod-slides{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:8px 4px 16px;scrollbar-width:none;flex:1;}
 .prod-slides::-webkit-scrollbar{display:none;}
 .prod-slide{
-  flex:0 0 auto;width:270px;scroll-snap-align:start;text-decoration:none;
-  border:1px solid rgba(0,213,216,.15);border-radius:12px;padding:26px 22px;background:rgba(255,255,255,.02);
-  transition:transform .25s ease,border-color .25s ease,background .25s ease;display:flex;flex-direction:column;
+  flex:0 0 auto;width:270px;scroll-snap-align:start;text-decoration:none;overflow:hidden;
+  border:1px solid var(--line-light);border-radius:12px;background:var(--card-light);
+  box-shadow:0 14px 30px -16px rgba(0,0,0,.4);
+  transition:transform .25s ease,box-shadow .25s ease;display:flex;flex-direction:column;
 }
-.prod-slide:hover{transform:translateY(-4px);border-color:rgba(0,213,216,.5);background:rgba(0,213,216,.05);}
+.prod-slide:hover{transform:translateY(-4px);box-shadow:0 20px 40px -16px rgba(0,0,0,.5);}
+.prod-slide-cover{
+  height:84px;position:relative;overflow:hidden;flex:0 0 auto;
+  background:linear-gradient(135deg,rgba(20,107,145,.14),rgba(0,213,216,.05));
+  border-bottom:1px solid var(--line-light);
+  display:flex;align-items:center;justify-content:center;
+}
+.prod-slide-cover::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(20,107,145,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(20,107,145,.08) 1px,transparent 1px);background-size:16px 16px;pointer-events:none;}
+.prod-slide-body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1;}
 .prod-slide-ic{
   width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  background:rgba(0,213,216,.1);border:1px solid rgba(0,213,216,.25);margin-bottom:14px;
-  transition:background .25s,transform .25s;
+  background:var(--card-light);border:1px solid rgba(20,107,145,.3);position:relative;z-index:1;
+  box-shadow:0 4px 10px -4px rgba(0,0,0,.25);
 }
-.prod-slide-ic .ic{width:20px;height:20px;color:var(--turquesa);}
-.prod-slide:hover .prod-slide-ic{background:rgba(0,213,216,.18);transform:scale(1.08);}
-.prod-slide-tag{display:inline-block;font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--turquesa);margin-bottom:10px;}
-.prod-slide h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.15rem;color:var(--crema);margin-bottom:8px;letter-spacing:0;}
-.prod-slide p{font-size:.82rem;color:rgba(243,239,231,.6);line-height:1.6;font-family:'Barlow',sans-serif;flex:1;}
-.prod-slide-cta{margin-top:14px;font-size:.8rem;color:var(--turquesa);font-weight:700;}
+.prod-slide-ic .ic{width:20px;height:20px;color:var(--brand-cyan-text);}
+.prod-slide-tag{display:inline-block;font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-cyan-text);margin-bottom:10px;}
+.prod-slide h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.15rem;color:var(--text-on-light);margin-bottom:8px;letter-spacing:0;}
+.prod-slide p{font-size:.82rem;color:var(--muted-on-light);line-height:1.6;font-family:'Barlow',sans-serif;flex:1;}
+.prod-slide-cta{margin-top:14px;font-size:.8rem;color:var(--brand-cyan-text);font-weight:700;}
 .prod-arrow{flex:0 0 auto;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.03);border:1px solid rgba(0,213,216,.25);color:var(--crema);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s;}
 .prod-arrow:hover{background:rgba(0,213,216,.15);border-color:var(--turquesa);}
 .prod-arrow .ic{width:18px;height:18px;}
@@ -799,46 +807,58 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     </button>
     <div class="prod-slides" id="prodSlides">
       <a class="prod-slide" href="/newsletter.html">
-        <div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg></div>
-        <span class="prod-slide-tag">Gratis</span>
-        <h3>Señal Alsina</h3>
-        <p>Newsletter quincenal con la señal del momento, un dato municipal y un recurso aplicable en cada edición.</p>
-        <span class="prod-slide-cta">Suscribirme →</span>
+        <div class="prod-slide-cover" aria-hidden="true"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg></div></div>
+        <div class="prod-slide-body">
+          <span class="prod-slide-tag">Gratis</span>
+          <h3>Señal Alsina</h3>
+          <p>Newsletter quincenal con la señal del momento, un dato municipal y un recurso aplicable en cada edición.</p>
+          <span class="prod-slide-cta">Suscribirme →</span>
+        </div>
       </a>
       <a class="prod-slide" href="/municipios-data-hub.html">
-        <div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
-        <span class="prod-slide-tag">Herramienta</span>
-        <h3>Monitor 135</h3>
-        <p>Mapa interactivo y ficha completa de los 135 municipios: datos fiscales, electorales, productivos y territoriales.</p>
-        <span class="prod-slide-cta">Abrir el Monitor →</span>
+        <div class="prod-slide-cover" aria-hidden="true"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div></div>
+        <div class="prod-slide-body">
+          <span class="prod-slide-tag">Herramienta</span>
+          <h3>Monitor 135</h3>
+          <p>Mapa interactivo y ficha completa de los 135 municipios: datos fiscales, electorales, productivos y territoriales.</p>
+          <span class="prod-slide-cta">Abrir el Monitor →</span>
+        </div>
       </a>
       <a class="prod-slide" href="/informes.html">
-        <div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></div>
-        <span class="prod-slide-tag">Tienda</span>
-        <h3>Informes</h3>
-        <p>Recaudación tributaria, transferencias municipales, radiografía institucional e informes territoriales a medida.</p>
-        <span class="prod-slide-cta">Ver la tienda →</span>
+        <div class="prod-slide-cover" aria-hidden="true"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></div></div>
+        <div class="prod-slide-body">
+          <span class="prod-slide-tag">Tienda</span>
+          <h3>Informes</h3>
+          <p>Recaudación tributaria, transferencias municipales, radiografía institucional e informes territoriales a medida.</p>
+          <span class="prod-slide-cta">Ver la tienda →</span>
+        </div>
       </a>
       <a class="prod-slide" href="mailto:newsletter@alsinaar.com?subject=Consulta%20an%C3%A1lisis%20electoral">
-        <div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg></div>
-        <span class="prod-slide-tag">A medida</span>
-        <h3>Análisis electoral</h3>
-        <p>Historial de resultados, composición de HCD y mapa de fuerzas políticas por municipio y sección electoral.</p>
-        <span class="prod-slide-cta">Consultar →</span>
+        <div class="prod-slide-cover" aria-hidden="true"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg></div></div>
+        <div class="prod-slide-body">
+          <span class="prod-slide-tag">A medida</span>
+          <h3>Análisis electoral</h3>
+          <p>Historial de resultados, composición de HCD y mapa de fuerzas políticas por municipio y sección electoral.</p>
+          <span class="prod-slide-cta">Consultar →</span>
+        </div>
       </a>
       <a class="prod-slide" href="mailto:newsletter@alsinaar.com?subject=Consulta%20an%C3%A1lisis%20productivo">
-        <div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
-        <span class="prod-slide-tag">A medida</span>
-        <h3>Análisis productivo</h3>
-        <p>PBG municipal, tejido empresarial e indicadores socioeconómicos aplicados a decisiones de inversión — para organismos públicos y empresas privadas.</p>
-        <span class="prod-slide-cta">Consultar →</span>
+        <div class="prod-slide-cover" aria-hidden="true"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div></div>
+        <div class="prod-slide-body">
+          <span class="prod-slide-tag">A medida</span>
+          <h3>Análisis productivo</h3>
+          <p>PBG municipal, tejido empresarial e indicadores socioeconómicos aplicados a decisiones de inversión — para organismos públicos y empresas privadas.</p>
+          <span class="prod-slide-cta">Consultar →</span>
+        </div>
       </a>
       <a class="prod-slide" href="/consultoria.html">
-        <div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></div>
-        <span class="prod-slide-tag">Servicio</span>
-        <h3>Consultoría</h3>
-        <p>Diagnóstico municipal, CRM ciudadano, comunicación de gobierno y planificación urbana con intervención directa.</p>
-        <span class="prod-slide-cta">Conocer la consultoría →</span>
+        <div class="prod-slide-cover" aria-hidden="true"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></div></div>
+        <div class="prod-slide-body">
+          <span class="prod-slide-tag">Servicio</span>
+          <h3>Consultoría</h3>
+          <p>Diagnóstico municipal, CRM ciudadano, comunicación de gobierno y planificación urbana con intervención directa.</p>
+          <span class="prod-slide-cta">Conocer la consultoría →</span>
+        </div>
       </a>
     </div>
     <button class="prod-arrow prod-arrow--next" id="prodNext" aria-label="Producto siguiente">
