@@ -75,8 +75,12 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 
 /* ── LÍNEAS PERMANENTES ── */
 .lineas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
-.linea-card{background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;padding:26px;transition:border-color .2s,transform .2s;}
+.linea-card{background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;overflow:hidden;transition:border-color .2s,transform .2s;}
 .linea-card:hover{border-color:var(--brand-cyan);transform:translateY(-2px);}
+.linea-card-cover{height:130px;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(20,107,145,.14),rgba(0,213,216,.05));}
+.linea-card-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.linea-card-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,30,42,.6),rgba(20,107,145,.22));pointer-events:none;}
+.linea-card-body{padding:26px;}
 .linea-card .freq{display:inline-block;font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#0e1c20;background:var(--up);border-radius:99px;padding:3px 11px;margin-bottom:14px;}
 .linea-card .freq.amber{background:var(--brand-cyan-light);}
 .linea-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.15rem;color:var(--text-on-light);margin-bottom:8px;letter-spacing:0;}
@@ -245,6 +249,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     <div class="sec-title"><h2>Líneas permanentes</h2><span class="cnt">4 líneas de trabajo</span></div>
     <div class="lineas-grid">
       <div class="linea-card">
+        <div class="linea-card-cover"><img src="/assets/img/cards/recaudacion-tributaria.jpg" alt="" loading="lazy"></div>
+        <div class="linea-card-body">
         <span class="freq">Bimestral</span>
         <h3>Recaudación tributaria PBA</h3>
         <p>Evolución, composición y tendencia de Ingresos Brutos, Inmobiliario, Automotores y Sellos. Variación nominal y real, factores explicativos y ficha ejecutiva.</p>
@@ -256,8 +262,11 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
           </form>
           <div class="notify-status" id="recaudacionStatus"></div>
         </div>
+        </div>
       </div>
       <div class="linea-card">
+        <div class="linea-card-cover"><img src="/assets/img/cards/transferencias-municipios.jpg" alt="" loading="lazy"></div>
+        <div class="linea-card-body">
         <span class="freq">Trimestral</span>
         <h3>Transferencias a municipios</h3>
         <p>Seguimiento de los recursos que Nación y Provincia giran a los 135 municipios: coparticipación, fondos especiales y alertas ante variaciones significativas.</p>
@@ -269,8 +278,11 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
           </form>
           <div class="notify-status" id="transferenciasStatus"></div>
         </div>
+        </div>
       </div>
       <div class="linea-card">
+        <div class="linea-card-cover"><img src="/assets/img/cards/radiografia-estado.jpg" alt="" loading="lazy"></div>
+        <div class="linea-card-body">
         <span class="freq amber">Permanente</span>
         <h3>Radiografía del Estado PBA</h3>
         <p>Arquitectura institucional completa: ministerios, organismos, empresas y ventanillas. Finanzas provinciales, deuda, presupuesto e impositiva.</p>
@@ -282,14 +294,18 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
           </form>
           <div class="notify-status" id="radiografia-estadoStatus"></div>
         </div>
+        </div>
       </div>
       <div class="linea-card">
+        <div class="linea-card-cover"><img src="/assets/img/cards/informes-territoriales.jpg" alt="" loading="lazy"></div>
+        <div class="linea-card-body">
         <span class="freq amber">A pedido</span>
         <h3>Informes territoriales</h3>
         <p>Análisis político, fiscal y electoral integral de un municipio o sección: HCD, economía, escenarios. Como los elaborados para Olavarría y Exaltación de la Cruz.</p>
         <div class="price">Desde <span data-precio="informe-desde">$25.000</span> <small>· a pedido</small></div>
         <div class="linea-actions">
           <a class="foot" href="mailto:newsletter@alsinaar.com?subject=Consulta%20informe%20territorial">Pedir un informe →</a>
+        </div>
         </div>
       </div>
     </div>

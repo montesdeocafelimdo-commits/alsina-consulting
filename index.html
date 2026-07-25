@@ -333,7 +333,12 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
   border-bottom:1px solid var(--line-light);
   display:flex;align-items:center;justify-content:center;
 }
-.prod-slide-cover::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(20,107,145,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(20,107,145,.08) 1px,transparent 1px);background-size:16px 16px;pointer-events:none;}
+.prod-slide-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.prod-slide-cover::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(243,239,231,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(243,239,231,.1) 1px,transparent 1px),linear-gradient(135deg,rgba(10,30,42,.68),rgba(20,107,145,.32));
+  background-size:16px 16px,16px 16px,cover;
+}
 .prod-slide-body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1;}
 .prod-slide-ic{
   width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
@@ -780,7 +785,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     </button>
     <div class="prod-slides" id="prodSlides">
       <a class="prod-slide" href="/newsletter.html">
-        <div class="prod-slide-cover" aria-hidden="true"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg></div></div>
+        <div class="prod-slide-cover" aria-hidden="true"><img src="/assets/img/cards/senal-alsina.jpg" alt="" loading="lazy"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg></div></div>
         <div class="prod-slide-body">
           <span class="prod-slide-tag">Gratis</span>
           <h3>Señal Alsina</h3>
@@ -789,7 +794,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
         </div>
       </a>
       <a class="prod-slide" href="/municipios-data-hub.html">
-        <div class="prod-slide-cover" aria-hidden="true"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div></div>
+        <div class="prod-slide-cover" aria-hidden="true"><img src="/assets/img/cards/monitor-135.jpg" alt="" loading="lazy"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div></div>
         <div class="prod-slide-body">
           <span class="prod-slide-tag">Herramienta</span>
           <h3>Monitor 135</h3>
@@ -798,7 +803,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
         </div>
       </a>
       <a class="prod-slide" href="/informes.html">
-        <div class="prod-slide-cover" aria-hidden="true"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></div></div>
+        <div class="prod-slide-cover" aria-hidden="true"><img src="/assets/img/cards/informes-tienda.jpg" alt="" loading="lazy"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></div></div>
         <div class="prod-slide-body">
           <span class="prod-slide-tag">Tienda</span>
           <h3>Informes</h3>
@@ -807,7 +812,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
         </div>
       </a>
       <a class="prod-slide" href="mailto:newsletter@alsinaar.com?subject=Consulta%20an%C3%A1lisis%20electoral">
-        <div class="prod-slide-cover" aria-hidden="true"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg></div></div>
+        <div class="prod-slide-cover" aria-hidden="true"><img src="/assets/img/cards/analisis-electoral.jpg" alt="" loading="lazy"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg></div></div>
         <div class="prod-slide-body">
           <span class="prod-slide-tag">A medida</span>
           <h3>Análisis electoral</h3>
@@ -816,7 +821,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
         </div>
       </a>
       <a class="prod-slide" href="mailto:newsletter@alsinaar.com?subject=Consulta%20an%C3%A1lisis%20productivo">
-        <div class="prod-slide-cover" aria-hidden="true"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div></div>
+        <div class="prod-slide-cover" aria-hidden="true"><img src="/assets/img/cards/analisis-productivo.jpg" alt="" loading="lazy"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div></div>
         <div class="prod-slide-body">
           <span class="prod-slide-tag">A medida</span>
           <h3>Análisis productivo</h3>
@@ -825,7 +830,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
         </div>
       </a>
       <a class="prod-slide" href="/consultoria.html">
-        <div class="prod-slide-cover" aria-hidden="true"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></div></div>
+        <div class="prod-slide-cover" aria-hidden="true"><img src="/assets/img/cards/consultoria.jpg" alt="" loading="lazy"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></div></div>
         <div class="prod-slide-body">
           <span class="prod-slide-tag">Servicio</span>
           <h3>Consultoría</h3>
