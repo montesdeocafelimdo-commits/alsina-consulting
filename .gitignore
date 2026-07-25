@@ -1,4 +1,5 @@
 .vercel
+node_modules/
 /_next/
 radar-fiscal-app/
 super-rigi-app/
