@@ -4,7 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Presupuesto e Impositiva PBA 2026 — Alsina</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="Presupuesto provincial 2026 y ley impositiva de la provincia de Buenos Aires: gasto público, déficit, personal, recaudación e impositiva explicados.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alsinaar.com/alsina-presupuesto-impositiva-2026.html">
+<meta property="og:title" content="Presupuesto e Impositiva PBA 2026 — Alsina">
+<meta property="og:description" content="Cómo se arma el presupuesto provincial 2026 y qué cambia en la ley impositiva bonaerense.">
+<meta property="og:image" content="https://alsinaar.com/assets/og/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1c20">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="stylesheet" href="/assets/css/alsina.css">
+<script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
+<script src="/assets/js/analytics.js"></script>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root{
@@ -16,7 +34,7 @@
   --rojo:#E05252;--verde:#52C78C;--amarillo:#E4AB02;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
 body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;overflow-x:hidden;font-size:16px;line-height:1.7;}
 
 /* NAV */
@@ -34,7 +52,7 @@ nav.scrolled{background:rgba(14,28,32,.97);box-shadow:0 2px 40px rgba(0,0,0,.4);
 
 /* HERO */
 #hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;}
-.hero-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9?w=1600&q=80') center/cover no-repeat;}
+.hero-img{position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.07) 1px,transparent 1px);background-size:40px 40px;}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(110deg,rgba(14,28,32,.97) 45%,rgba(14,28,32,.7) 75%,rgba(0,140,154,.15) 100%);}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.04) 1px,transparent 1px);background-size:55px 55px;}
 .hero-content{position:relative;z-index:10;padding:130px 52px 90px;max-width:780px;}
@@ -223,7 +241,7 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
 
 <!-- NAV -->
 <nav id="mainNav">
-  <a href="alsina-web.html" class="nav-logo">
+  <a href="/index.html" class="nav-logo">
     <span class="logo-mark">
       <svg viewBox="0 0 30 30" fill="none">
         <path d="M15 2L2 28H8L15 14L22 28H28L15 2Z" fill="#00D5D8"/>
@@ -245,7 +263,7 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
     <li><a href="#financiamiento">Financiamiento</a></li>
     <li><a href="#municipios">135 Municipios</a></li>
   </ul>
-  <a href="alsina-web.html" class="nav-back">← Volver al sitio</a>
+  <a href="/index.html" class="nav-back">← Volver al sitio</a>
 </nav>
 
 <!-- HERO -->
@@ -848,7 +866,7 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
 
   <div class="impositiva-grid" style="background:inherit;">
     <div class="imp-card" style="background:#f5f2ec;border-color:#d0ccc2;" class="reveal d1">
-      <span class="imp-card-icon">🏠</span>
+      <span class="imp-card-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
       <div class="imp-card-title" style="color:var(--texto-oscuro);">Impuesto Inmobiliario</div>
       <ul class="imp-card-body" style="color:#4a5a60;list-style:none;padding:0;">
         <li>Sin modificaciones en estructura, tramos ni coeficientes patrimoniales</li>
@@ -860,7 +878,7 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
       </ul>
     </div>
     <div class="imp-card" style="background:#f5f2ec;border-color:#d0ccc2;" class="reveal d2">
-      <span class="imp-card-icon">🚗</span>
+      <span class="imp-card-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9L2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg></span>
       <div class="imp-card-title" style="color:var(--texto-oscuro);">Impuesto Automotor</div>
       <ul class="imp-card-body" style="color:#4a5a60;list-style:none;padding:0;">
         <li><strong>Se simplifica y se reducen los tramos</strong></li>
@@ -872,7 +890,7 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
       </ul>
     </div>
     <div class="imp-card" style="background:#f5f2ec;border-color:#d0ccc2;" class="reveal d3">
-      <span class="imp-card-icon">📊</span>
+      <span class="imp-card-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span>
       <div class="imp-card-title" style="color:var(--texto-oscuro);">Ingresos Brutos (IIBB)</div>
       <ul class="imp-card-body" style="color:#4a5a60;list-style:none;padding:0;">
         <li><strong>Suben alícuotas</strong> en algunos tramos (no en todos)</li>
@@ -883,7 +901,7 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
       </ul>
     </div>
     <div class="imp-card" style="background:#f5f2ec;border-color:#d0ccc2;" class="reveal d1">
-      <span class="imp-card-icon">📋</span>
+      <span class="imp-card-icon"><svg class="ic" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg></span>
       <div class="imp-card-title" style="color:var(--texto-oscuro);">Sellos y Otros</div>
       <ul class="imp-card-body" style="color:#4a5a60;list-style:none;padding:0;">
         <li><strong>No se modifica</strong> el impuesto a los Sellos</li>
@@ -892,7 +910,7 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
       </ul>
     </div>
     <div class="imp-card" style="background:#f5f2ec;border-color:#d0ccc2;" class="reveal d2">
-      <span class="imp-card-icon">💰</span>
+      <span class="imp-card-icon"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg></span>
       <div class="imp-card-title" style="color:var(--texto-oscuro);">Unidad Tributaria</div>
       <ul class="imp-card-body" style="color:#4a5a60;list-style:none;padding:0;">
         <li>Fijada en <strong>$275 para 2026</strong> (era $227 en 2025)</li>
@@ -902,7 +920,7 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
       </ul>
     </div>
     <div class="imp-card" style="background:#f5f2ec;border-color:#d0ccc2;" class="reveal d3">
-      <span class="imp-card-icon">🏛️</span>
+      <span class="imp-card-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21V13h6v8"/></svg></span>
       <div class="imp-card-title" style="color:var(--texto-oscuro);">Contrib. Seguridad Social</div>
       <ul class="imp-card-body" style="color:#4a5a60;list-style:none;padding:0;">
         <li><strong>Empleadores</strong> — Jubilaciones: 10,77% · Asignaciones: 4,44% · Salud: 6% · Desempleo: 1,5%</li>
@@ -1232,7 +1250,7 @@ renderTable();
       <div class="footer-source">Fuente: Leyes 15.557, 15.558 y 15.561 — Presupuesto, Impositiva y Financiamiento PBA 2026</div>
     </div>
     <div style="text-align:right;">
-      <div class="footer-copy">© 2026 Alsina · Gestión Pública, Tecnología y Territorio</div>
+      <div class="footer-copy">© 2026 Alsina · Análisis, Estrategia e Impacto</div>
       <div class="footer-copy" style="margin-top:4px;">Provincia de Buenos Aires · 135 municipios</div>
     </div>
   </div>

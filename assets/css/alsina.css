@@ -1,0 +1,308 @@
+/* ══════════════════════════════════════════════════════════════
+   ALSINA — Sistema de diseño
+   Fuente única de tokens (paleta, tipografía, iconografía) y
+   clases de componentes compartidas entre páginas.
+
+   Principio: complejización, no rebranding. La paleta oscura de
+   base (grafito/turquesa/crema) es la del sitio actual y no
+   cambia — esto la formaliza. Lo que se suma son los acentos de
+   marca del logo nuevo (navy/cian) y el "modo claro" (.sec-light)
+   para secciones puntuales (Monitor 135, informes, precios).
+   ══════════════════════════════════════════════════════════════ */
+
+:root{
+  /* ── paleta base (formalizada desde el sitio actual) ── */
+  --grafito:#0e1c20;   --grafito2:#152830;  --grafito3:#1e2f35;
+  --turquesa:#00D5D8;  --cian:#008C9A;
+  --crema:#F3EFE7;     --crema2:#E9E4DB;    --concreto:#9e9992;
+  --verde:#52C78C;     --rojo:#E05252;      --blanco:#ffffff;
+
+  /* ── acentos de marca (logo nuevo) ── */
+  --brand-navy:#14294d;
+  --brand-cyan:#2196c9;
+  --brand-cyan-light:#4db8e0;
+  /* variante oscura para texto/botones sobre fondo claro — #2196c9 no
+     llega a AA (3.35:1) como texto sobre blanco ni como fondo de botón
+     con texto blanco; #146b91 sí (5.9:1). Sobre fondo oscuro seguir
+     usando --brand-cyan o --brand-cyan-light, que ya cumplen AA ahí. */
+  --brand-cyan-text:#146b91;
+
+  /* ── modo claro — secciones tipo "diapositiva blanca" ── */
+  --bg-light:#f4f6f9;   --card-light:#ffffff;  --line-light:#dbe3ec;
+  --text-on-light:#16233f;  --muted-on-light:#5b6b80;
+
+  /* ── datos ── */
+  --up:#2bb673;  --down:#d9534f;
+}
+
+/* ── tipografía: cifras siempre tabulares ── */
+.num{ font-variant-numeric: tabular-nums; }
+
+/* ── palabra clave destacada en titulares ── */
+.accent-cyan{ color: var(--brand-cyan); }
+
+/* ══════════════════════════════════════════════════════════════
+   ÍCONOS — reemplazo de emojis por SVG de línea (estilo Lucide)
+   Uso: <svg class="ic" viewBox="0 0 24 24"><path d="..."/></svg>
+   El color y el tamaño se heredan del texto que lo rodea
+   (currentColor + 1em), así conservan el contexto donde antes
+   había un emoji con font-size/color propios.
+   ══════════════════════════════════════════════════════════════ */
+.ic{
+  width:1em;height:1em;display:inline-block;vertical-align:-0.125em;
+  fill:none;stroke:currentColor;stroke-width:1.75;
+  stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MODO CLARO — clase de sección (.sec-light)
+   Para Monitor 135, grilla de informes, precios: fondo claro,
+   cards con borde fino, KPI cards con cifra + variación + sparkline.
+   ══════════════════════════════════════════════════════════════ */
+.sec-light{
+  background:var(--bg-light);
+  color:var(--text-on-light);
+  padding:80px 24px;
+}
+.sec-light h2,.sec-light h3{ color:var(--text-on-light); }
+.sec-light p{ color:var(--muted-on-light); }
+.sec-light .tag{ color:var(--brand-cyan-text); }
+
+.sec-light .card,
+.card{
+  background:var(--card-light);
+  border:1px solid var(--line-light);
+  border-radius:8px;
+  padding:24px;
+  transition:border-color .2s, transform .2s;
+}
+.sec-light .card:hover,
+.card:hover{
+  border-color:var(--brand-cyan);
+  transform:translateY(-2px);
+}
+
+.kpi-card{
+  background:var(--card-light);
+  border:1px solid var(--line-light);
+  border-radius:8px;
+  padding:20px 22px;
+}
+.kpi-card .kpi-label{
+  font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted-on-light);margin-bottom:8px;
+}
+.kpi-card .kpi-value{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:2.1rem;color:var(--text-on-light);line-height:1;
+}
+.kpi-card .kpi-delta{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:.78rem;font-weight:700;margin-top:6px;
+}
+.kpi-card .kpi-delta.up{ color:var(--up); }
+.kpi-card .kpi-delta.down{ color:var(--down); }
+.kpi-card .kpi-sparkline{ margin-top:10px; opacity:.8; }
+
+/* ── tag / kicker ── */
+.tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--brand-cyan);
+}
+
+/* ── botones de marca ──
+   Fondo/texto de .btn usa --brand-cyan-text: es el par que necesita
+   más contraste (texto blanco fijo) y ese valor cumple AA sin importar
+   dónde se use el botón. .btn-ghost en cambio hereda el color del
+   fondo donde vive — por defecto --brand-cyan (cumple AA sobre los
+   fondos oscuros del sitio); en tarjetas .sec-light necesita el
+   modificador .btn-ghost-onlight (ver más abajo). */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--brand-cyan-text);color:#fff;
+  border:1px solid var(--brand-cyan-text);border-radius:4px;
+  padding:12px 22px;font-weight:700;font-size:.85rem;
+  letter-spacing:.04em;text-decoration:none;cursor:pointer;
+  transition:background .2s, border-color .2s, transform .2s;
+}
+.btn:hover{ background:#0f5674; border-color:#0f5674; transform:translateY(-1px); }
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--brand-cyan);
+  border:1px solid var(--brand-cyan);border-radius:4px;
+  padding:12px 22px;font-weight:700;font-size:.85rem;
+  letter-spacing:.04em;text-decoration:none;cursor:pointer;
+  transition:background .2s;
+}
+.btn-ghost:hover{ background:rgba(33,150,201,.08); }
+.btn-ghost-onlight{ color:var(--brand-cyan-text);border-color:var(--brand-cyan-text); }
+.btn-ghost-onlight:hover{ background:rgba(20,107,145,.08); }
+
+/* ── chips de capas institucionales ── */
+.layer{
+  display:inline-flex;align-items:center;
+  font-size:.72rem;font-weight:600;color:var(--muted-on-light);
+  background:var(--card-light);border:1px solid var(--line-light);
+  border-radius:999px;padding:5px 14px;
+}
+
+/* ── formulario de captura de mail inline ── */
+.capture{ display:flex;gap:0;max-width:440px; }
+.capture input[type=email]{
+  flex:1;border:1.5px solid var(--line-light);border-right:none;border-radius:4px 0 0 4px;
+  padding:13px 16px;font-family:inherit;font-size:.88rem;outline:none;
+}
+.capture button{
+  flex-shrink:0;border-radius:0 4px 4px 0;
+}
+
+@media(max-width:600px){
+  .sec-light{ padding:56px 20px; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   GATING DE CONTENIDO (Fase 5)
+   Dos mecanismos, ambos vía assets/js/gate.js:
+   - .alsina-soft-gate: modal no bloqueante (Monitor 135, Mapa Político)
+   - .alsina-scroll-gate: corte con degradé al 30% de scroll (notas largas)
+   Estilizados con los tokens oscuros del sitio para verse consistentes
+   sin importar la paleta propia de cada página donde se inyectan.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── soft gate (modal no bloqueante) ── */
+.alsina-soft-gate{
+  position:fixed;right:20px;bottom:20px;z-index:2000;
+  width:320px;max-width:calc(100vw - 40px);
+  background:var(--grafito2);border:1px solid rgba(0,213,216,.3);
+  border-radius:10px;padding:22px 22px 18px;
+  box-shadow:0 20px 50px rgba(0,0,0,.5);
+  font-family:'Barlow',sans-serif;color:var(--crema);
+  opacity:0;transform:translateY(16px);
+  transition:opacity .3s,transform .3s;
+  pointer-events:none;
+}
+.alsina-soft-gate.open{ opacity:1;transform:translateY(0);pointer-events:all; }
+.alsina-soft-gate-close{
+  position:absolute;top:10px;right:12px;background:none;border:none;
+  color:var(--concreto);font-size:1.1rem;line-height:1;cursor:pointer;
+}
+.alsina-soft-gate-close:hover{ color:var(--crema); }
+.alsina-soft-gate-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;
+  font-size:1rem;letter-spacing:.02em;color:var(--crema);margin-bottom:6px;padding-right:16px;
+}
+.alsina-soft-gate-sub{ font-size:.78rem;color:var(--concreto);line-height:1.55;margin-bottom:14px; }
+.alsina-soft-gate-form{ display:flex;gap:0; }
+.alsina-soft-gate-input{
+  flex:1;background:rgba(255,255,255,.07);border:1.5px solid rgba(243,239,231,.2);border-right:none;
+  color:var(--crema);padding:10px 12px;font-family:inherit;font-size:.82rem;outline:none;border-radius:4px 0 0 4px;
+}
+.alsina-soft-gate-input::placeholder{ color:rgba(243,239,231,.35); }
+.alsina-soft-gate-input:focus{ border-color:var(--turquesa); }
+.alsina-soft-gate-btn{ flex-shrink:0;border-radius:0 4px 4px 0;padding:10px 16px;font-size:.78rem; }
+.alsina-soft-gate-status{ font-size:.72rem;margin-top:8px;min-height:14px; }
+.alsina-soft-gate-status.ok{ color:var(--up); }
+.alsina-soft-gate-status.err{ color:var(--down); }
+
+/* ── scroll gate (corte con degradé, notas largas) ── */
+.alsina-scroll-gate{
+  position:fixed;left:0;right:0;bottom:0;z-index:1500;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  padding-bottom:28px;
+  pointer-events:none;
+  opacity:0;transition:opacity .4s;
+}
+.alsina-scroll-gate.open{ opacity:1; }
+.alsina-scroll-gate-fade{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom, rgba(14,28,32,0) 0%, rgba(14,28,32,.85) 55%, rgba(14,28,32,.98) 100%);
+}
+.alsina-scroll-gate-card{
+  position:relative;pointer-events:all;
+  width:520px;max-width:calc(100vw - 40px);
+  background:var(--grafito2);border:1px solid rgba(0,213,216,.3);border-radius:10px;
+  padding:26px 30px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5);
+  font-family:'Barlow',sans-serif;color:var(--crema);
+}
+.alsina-scroll-gate-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;
+  font-size:1.3rem;color:var(--crema);margin-bottom:8px;
+}
+.alsina-scroll-gate-sub{ font-size:.85rem;color:var(--concreto);line-height:1.6;margin-bottom:18px; }
+.alsina-scroll-gate-form{ display:flex;gap:0;max-width:380px;margin:0 auto; }
+.alsina-scroll-gate-input{
+  flex:1;background:rgba(255,255,255,.07);border:1.5px solid rgba(243,239,231,.2);border-right:none;
+  color:var(--crema);padding:12px 14px;font-family:inherit;font-size:.85rem;outline:none;border-radius:4px 0 0 4px;
+}
+.alsina-scroll-gate-input::placeholder{ color:rgba(243,239,231,.35); }
+.alsina-scroll-gate-input:focus{ border-color:var(--turquesa); }
+.alsina-scroll-gate-form button{ flex-shrink:0;border-radius:0 4px 4px 0; }
+.alsina-scroll-gate-status{ font-size:.75rem;margin-top:10px;min-height:16px; }
+.alsina-scroll-gate-status.err{ color:var(--down); }
+.alsina-scroll-gate-actions{ display:flex;gap:12px;justify-content:center;flex-wrap:wrap; }
+
+@media(max-width:600px){
+  .alsina-soft-gate{ right:12px;bottom:12px;left:12px;width:auto; }
+  .alsina-scroll-gate-card{ padding:22px 20px; }
+  .alsina-scroll-gate-form{ flex-direction:column;gap:8px; }
+  .alsina-scroll-gate-input{ border-right:1.5px solid rgba(243,239,231,.2);border-radius:4px; }
+  .alsina-scroll-gate-form button{ border-radius:4px; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MICROINTERACCIONES (Fase 7.2) — assets/js/reveal.js
+   ══════════════════════════════════════════════════════════════ */
+.reveal-pending{ opacity:0;transform:translateY(12px); }
+.reveal{ transition:opacity .4s ease,transform .4s ease; }
+.reveal.is-visible{ opacity:1;transform:translateY(0); }
+
+/* skeleton de carga — assets/js/skeleton.js lo saca al pintar contenido real */
+.skeleton{ position:relative;overflow:hidden;color:transparent!important;border-radius:4px; }
+.skeleton::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg, rgba(0,213,216,.06) 25%, rgba(0,213,216,.16) 50%, rgba(0,213,216,.06) 75%);
+  background-size:200% 100%;animation:skeletonShine 1.3s ease-in-out infinite;
+}
+@media(prefers-reduced-motion:reduce){ .skeleton::after{ animation:none; } }
+@keyframes skeletonShine{ 0%{background-position:200% 0;} 100%{background-position:-200% 0;} }
+
+/* ══════════════════════════════════════════════════════════════
+   STICKY CTA (Fase 7.3) — assets/js/sticky-cta.js
+   ══════════════════════════════════════════════════════════════ */
+.alsina-sticky-cta{
+  position:fixed;z-index:1800;
+  right:20px;bottom:20px;
+  background:var(--brand-cyan);color:#fff;border:none;border-radius:6px;
+  padding:13px 22px;font-family:'Barlow',sans-serif;font-weight:700;font-size:.85rem;
+  letter-spacing:.02em;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  opacity:0;transform:translateY(16px);pointer-events:none;
+  transition:opacity .3s,transform .3s;
+}
+.alsina-sticky-cta.show{ opacity:1;transform:translateY(0);pointer-events:all; }
+.alsina-sticky-cta:hover{ background:#1c7ea8; }
+.alsina-sticky-cta.expanded{
+  background:var(--grafito2);border:1px solid rgba(0,213,216,.3);
+  padding:14px;cursor:default;box-shadow:0 14px 34px rgba(0,0,0,.4);
+}
+.alsina-sticky-cta-form{ display:flex;gap:6px; }
+.alsina-sticky-cta-input{
+  background:rgba(255,255,255,.08);border:1.5px solid rgba(243,239,231,.25);border-radius:4px;
+  color:#fff;padding:9px 11px;font-family:'Barlow',sans-serif;font-size:.82rem;outline:none;width:190px;
+}
+.alsina-sticky-cta-input::placeholder{ color:rgba(255,255,255,.4); }
+.alsina-sticky-cta-input:focus{ border-color:var(--brand-cyan); }
+.alsina-sticky-cta-submit{
+  flex-shrink:0;background:var(--brand-cyan);color:#fff;border:none;border-radius:4px;
+  padding:0 14px;font-weight:700;font-size:.78rem;cursor:pointer;
+}
+.alsina-sticky-cta-status{ font-size:.7rem;margin-top:6px;color:var(--brand-cyan-light); }
+@media(max-width:640px){
+  .alsina-sticky-cta{
+    left:0;right:0;bottom:0;border-radius:0;width:100%;justify-content:center;
+    padding:15px 20px;
+  }
+  .alsina-sticky-cta.expanded{ padding:14px 16px; }
+  .alsina-sticky-cta-input{ width:auto;flex:1; }
+}

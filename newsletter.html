@@ -4,8 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Señal Alsina — Newsletter quincenal de gestión pública PBA</title>
+<meta name="description" content="Suscribite a la Señal Alsina: newsletter quincenal gratis con análisis de gestión pública, finanzas municipales y política de los 135 municipios de la provincia de Buenos Aires.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alsinaar.com/newsletter.html">
+<meta property="og:title" content="Señal Alsina — Newsletter quincenal de gestión pública PBA">
+<meta property="og:description" content="Análisis quincenal sobre gestión pública, finanzas municipales y política en los 135 partidos de Buenos Aires.">
+<meta property="og:image" content="https://alsinaar.com/assets/og/og-newsletter.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1c20">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="stylesheet" href="/assets/css/alsina.css">
+<script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
+<script src="/assets/js/analytics.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -28,7 +47,7 @@ nav{
 }
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .nav-mark{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.2em;color:var(--crema);}
-.nav-tagline{font-size:.58rem;color:rgba(183,178,170,.55);letter-spacing:.12em;text-transform:uppercase;}
+.nav-tagline{font-size:.58rem;color:rgba(183,178,170,.72);letter-spacing:.12em;text-transform:uppercase;}
 .nav-back{
   display:inline-flex;align-items:center;gap:6px;
   font-size:.72rem;color:var(--turquesa);text-decoration:none;
@@ -151,7 +170,7 @@ nav{
 .section-label::after{content:'';flex:0 0 28px;height:1px;background:var(--turquesa);}
 .section-label-dark{
   font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;
-  color:var(--cian);margin-bottom:14px;display:flex;align-items:center;gap:10px;
+  color:#006670;margin-bottom:14px;display:flex;align-items:center;gap:10px;
 }
 .section-label-dark::after{content:'';flex:0 0 28px;height:1px;background:var(--cian);}
 .section-headline{
@@ -179,7 +198,7 @@ nav{
 .sec-card:hover{border-top-color:var(--turquesa);background:rgba(0,213,216,.04);}
 .sec-num{
   font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;
-  color:rgba(0,213,216,.07);position:absolute;top:12px;right:18px;line-height:1;
+  color:rgba(0,213,216,.5);position:absolute;top:12px;right:18px;line-height:1;
 }
 .sec-icon{font-size:1.6rem;margin-bottom:14px;display:block;}
 .sec-title{
@@ -209,7 +228,7 @@ nav{
 .preview-body{padding:24px;}
 .preview-issue{
   font-size:.58rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
-  color:rgba(0,213,216,.5);margin-bottom:10px;
+  color:rgba(0,213,216,.75);margin-bottom:10px;
 }
 .preview-title{
   font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;
@@ -280,79 +299,12 @@ nav{
   font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;
   text-transform:uppercase;color:var(--crema);letter-spacing:.05em;
 }
-.pricing-price{
-  font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3.5rem;
-  color:var(--turquesa);line-height:1;margin-top:8px;
-}
-.pricing-price span{font-size:1.2rem;font-weight:600;color:var(--concreto);margin-left:4px;}
-.pricing-period{font-size:.75rem;color:var(--concreto);margin-top:4px;}
+.pricing-period{font-size:.85rem;color:var(--concreto);margin-top:10px;}
 .pricing-body{padding:28px 36px;}
-.pricing-items{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
-.pricing-items li{
-  display:flex;align-items:flex-start;gap:10px;
-  font-size:.85rem;color:rgba(243,239,231,.8);line-height:1.55;
-}
-.pricing-items li::before{content:'✓';color:var(--turquesa);font-weight:700;flex-shrink:0;margin-top:1px;}
-.pricing-items li.premium::before{content:'★';color:#f59e0b;}
-.btn-checkout{
-  width:100%;background:var(--turquesa);border:none;color:var(--grafito);
-  padding:16px 24px;font-family:'Barlow',sans-serif;font-weight:700;
-  font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;
-  cursor:pointer;transition:all .2s;
-}
-.btn-checkout:hover{background:#00b8ba;box-shadow:0 4px 20px rgba(0,213,216,.3);}
 .pricing-note{
   font-size:.68rem;color:rgba(158,153,146,.4);text-align:center;margin-top:10px;
   line-height:1.5;
 }
-
-/* ── MODAL ── */
-.modal-bg{
-  position:fixed;inset:0;background:rgba(7,17,20,.88);backdrop-filter:blur(6px);
-  z-index:1000;display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .25s;
-}
-.modal-bg.open{opacity:1;pointer-events:all;}
-.modal{
-  background:var(--grafito2);border:1px solid rgba(0,213,216,.3);
-  max-width:480px;width:90%;padding:40px 36px;position:relative;
-  animation:modalIn .3s ease;
-}
-@keyframes modalIn{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
-.modal-close{
-  position:absolute;top:16px;right:16px;background:none;border:none;
-  color:var(--concreto);font-size:1.2rem;cursor:pointer;transition:color .2s;
-}
-.modal-close:hover{color:var(--crema);}
-.modal-icon{font-size:2rem;margin-bottom:16px;}
-.modal-title{
-  font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;
-  text-transform:uppercase;color:var(--crema);margin-bottom:10px;
-}
-.modal-sub{font-size:.88rem;color:var(--concreto);line-height:1.7;margin-bottom:24px;}
-.modal-demo-box{
-  background:rgba(0,213,216,.06);border:1px solid rgba(0,213,216,.2);
-  padding:16px 18px;margin-bottom:24px;
-}
-.modal-demo-label{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--turquesa);margin-bottom:6px;}
-.modal-demo-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
-.modal-demo-list li{font-size:.78rem;color:rgba(243,239,231,.65);display:flex;align-items:center;gap:8px;}
-.modal-demo-list li::before{content:'→';color:var(--turquesa);font-size:.7rem;}
-.modal-input{
-  width:100%;background:rgba(255,255,255,.07);border:1.5px solid rgba(243,239,231,.2);
-  color:var(--crema);padding:12px 16px;font-family:'Barlow',sans-serif;font-size:.85rem;
-  outline:none;transition:border-color .2s;margin-bottom:10px;
-}
-.modal-input:focus{border-color:var(--turquesa);}
-.modal-btn{
-  width:100%;background:var(--turquesa);border:none;color:var(--grafito);
-  padding:14px;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;
-  cursor:pointer;transition:all .2s;
-}
-.modal-btn:hover{background:#00b8ba;}
-.modal-note{font-size:.65rem;color:rgba(158,153,146,.35);text-align:center;margin-top:10px;line-height:1.5;}
-.modal-success{text-align:center;display:none;}
-.modal-success.show{display:block;}
 
 /* ── FOOTER ── */
 footer{
@@ -362,7 +314,7 @@ footer{
 .footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
 .footer-brand{display:flex;align-items:center;gap:10px;}
 .footer-brandname{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:.2em;color:var(--crema);}
-.footer-copy{font-size:.68rem;color:rgba(183,178,170,.4);}
+.footer-copy{font-size:.68rem;color:rgba(183,178,170,.7);}
 .footer-links{display:flex;gap:20px;}
 .footer-links a{font-size:.72rem;color:var(--concreto);text-decoration:none;transition:color .2s;}
 .footer-links a:hover{color:var(--turquesa);}
@@ -375,6 +327,21 @@ footer{
 }
 .confirmed-banner.show{display:block;}
 
+.audience-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px;}
+.audience-card{
+  border:1px solid rgba(0,213,216,.15);border-radius:12px;padding:26px 22px;background:rgba(255,255,255,.02);
+  transition:transform .25s ease,border-color .25s ease,background .25s ease;
+}
+.audience-card:hover{transform:translateY(-4px);border-color:rgba(0,213,216,.5);background:rgba(0,213,216,.05);}
+.audience-icon{
+  width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,213,216,.1);border:1px solid rgba(0,213,216,.25);margin-bottom:16px;
+  transition:background .25s,transform .25s;
+}
+.audience-icon .ic{width:20px;height:20px;color:var(--turquesa);}
+.audience-card:hover .audience-icon{background:rgba(0,213,216,.18);transform:scale(1.08);}
+.audience-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.1rem;color:var(--crema);margin-bottom:8px;letter-spacing:0;}
+.audience-card p{font-size:.82rem;color:rgba(243,239,231,.6);line-height:1.6;}
 @media(max-width:960px){
   nav{padding:12px 20px;}
   .hero-inner{grid-template-columns:1fr;gap:40px;padding:90px 20px 60px;}
@@ -383,6 +350,10 @@ footer{
   .section{padding:64px 20px;}
   .pricing-header,.pricing-body{padding-left:24px;padding-right:24px;}
   footer{padding:32px 20px 20px;}
+  .audience-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:520px){
+  .audience-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -401,7 +372,7 @@ footer{
     </svg>
     <div>
       <div class="nav-mark">ALSINA</div>
-      <div class="nav-tagline">Gestión Pública · Tecnología · Territorio</div>
+      <div class="nav-tagline">Análisis · Estrategia · Impacto</div>
     </div>
   </a>
   <a href="/" class="nav-back">← Volver al sitio</a>
@@ -423,7 +394,7 @@ footer{
       </p>
       <div class="hero-badges">
         <span class="badge">Quincenal</span>
-        <span class="badge green">Gratis por ahora</span>
+        <span class="badge green">Gratis hasta septiembre 2026</span>
         <span class="badge">135 municipios</span>
       </div>
     </div>
@@ -475,39 +446,68 @@ footer{
     </p>
     <div class="sections-grid">
       <div class="sec-card">
-        <div class="sec-num">01</div>
-        <span class="sec-icon">📡</span>
+        <div class="sec-num" aria-hidden="true">01</div>
+        <span class="sec-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg></span>
         <div class="sec-title">La señal de la quincena</div>
         <p class="sec-desc">Un dato, tendencia o fenómeno que explica algo más grande sobre la Provincia. El lente para leer las dos semanas que siguen.</p>
         <span class="sec-tag">Apertura editorial</span>
       </div>
       <div class="sec-card">
-        <div class="sec-num">02</div>
-        <span class="sec-icon">🔍</span>
+        <div class="sec-num" aria-hidden="true">02</div>
+        <span class="sec-icon"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
         <div class="sec-title">Tema protagonista</div>
         <p class="sec-desc">Antesala del informe del mes. Análisis en profundidad de un tema de gestión, fiscal o electoral que está pasando ahora mismo en la PBA.</p>
         <span class="sec-tag">Análisis central</span>
       </div>
       <div class="sec-card">
-        <div class="sec-num">03</div>
-        <span class="sec-icon">🗺️</span>
+        <div class="sec-num" aria-hidden="true">03</div>
+        <span class="sec-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg></span>
         <div class="sec-title">Radar 135</div>
         <p class="sec-desc">Un dato de un municipio específico. Una cifra, un contraste, una anomalía — con contexto para entender qué significa en el sistema de la Provincia.</p>
         <span class="sec-tag">Dato municipal</span>
       </div>
       <div class="sec-card">
-        <div class="sec-num">04</div>
-        <span class="sec-icon">⚙️</span>
+        <div class="sec-num" aria-hidden="true">04</div>
+        <span class="sec-icon"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
         <div class="sec-title">Recurso de la casa</div>
         <p class="sec-desc">Una herramienta, un informe, un dataset o un análisis producido por Alsina que podés usar directamente en tu trabajo de gobierno o política.</p>
         <span class="sec-tag">Herramienta aplicada</span>
       </div>
       <div class="sec-card" style="grid-column:1/-1;">
-        <div class="sec-num">05</div>
-        <span class="sec-icon">🏁</span>
+        <div class="sec-num" aria-hidden="true">05</div>
+        <span class="sec-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22V4"/></svg></span>
         <div class="sec-title">Cierre + próximos pasos</div>
         <p class="sec-desc">Un párrafo de cierre con lo que viene, links a los análisis completos y el CTA para quienes quieran profundizar con Alsina.</p>
         <span class="sec-tag">Cierre editorial</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUIÉN -->
+<section class="section section-dark" id="para-quien">
+  <div class="wrap">
+    <div class="section-label">Para quién trabajamos</div>
+    <h2 class="section-headline">Hecho para quienes hacen<br>a la <em>Provincia.</em></h2>
+    <p style="font-size:.92rem;color:var(--concreto);max-width:480px;margin-top:16px;line-height:1.75;">
+      Mejor información produce mejores diagnósticos; mejores diagnósticos, mejores decisiones; y mejores decisiones, una gestión pública más eficaz y más cercana a los bonaerenses.
+    </p>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21V13h6v8"/></svg></div>
+        <h3>Gobiernos</h3><p>Funcionarios provinciales y municipales, intendentes y equipos técnicos.</p>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <h3>Política</h3><p>Legisladores, concejales y equipos de campaña que necesitan leer el territorio.</p>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></div>
+        <h3>Prensa e investigación</h3><p>Periodistas, universidades e investigadores que trabajan con datos de la PBA.</p>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Sociedad civil</h3><p>Organizaciones y ciudadanos comprometidos con el presente y futuro bonaerense.</p>
       </div>
     </div>
   </div>
@@ -552,6 +552,9 @@ footer{
         <span class="preview-blur-label">↓ Suscribite para leer la edición completa</span>
       </div>
     </div>
+    <p style="margin-top:16px;font-size:.8rem;">
+      <a href="/alsina-newsletter-001.html" style="color:var(--turquesa);text-decoration:none;font-weight:600;">Ver una edición anterior completa →</a>
+    </p>
   </div>
 </section>
 
@@ -562,17 +565,17 @@ footer{
     <h2 class="section-headline-dark">Quincenal, gratis,<br>con <em>propósito.</em></h2>
     <div class="freq-grid">
       <div class="freq-card">
-        <span class="freq-icon">📅</span>
+        <span class="freq-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg></span>
         <div class="freq-title">Quincenal</div>
         <p class="freq-desc">Una edición cada dos semanas, cuando hay algo que vale la pena decir. Sin relleno, sin clickbait — solo análisis que podés usar.</p>
       </div>
       <div class="freq-card">
-        <span class="freq-icon">🆓</span>
-        <div class="freq-title">Gratis por ahora</div>
-        <p class="freq-desc">En unos meses la Señal Alsina pasa a ser exclusiva de suscriptores premium. Suscribite ahora y asegurá tu acceso al precio de fundadores: $0.</p>
+        <span class="freq-icon"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg></span>
+        <div class="freq-title">Gratis hasta septiembre 2026</div>
+        <p class="freq-desc">Desde septiembre de 2026 la Señal Alsina pasa a ser exclusiva de suscriptores premium. Suscribite ahora y asegurá tu acceso al precio de fundadores: $0.</p>
       </div>
       <div class="freq-card">
-        <span class="freq-icon">🔒</span>
+        <span class="freq-icon"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
         <div class="freq-title">Próximamente premium</div>
         <p class="freq-desc">La suscripción premium incluirá el newsletter, acceso completo a los informes municipales y datos de los 135 partidos bonaerenses.</p>
       </div>
@@ -580,7 +583,7 @@ footer{
   </div>
 </section>
 
-<!-- SUSCRIPCIÓN PREMIUM (Feature 4 — stub) -->
+<!-- SUSCRIPCIÓN ALSINA PRO -->
 <section class="suscripcion-section" id="suscripcion">
   <div class="wrap" style="position:relative;z-index:2;text-align:center;">
     <div class="section-label" style="justify-content:center;">Suscripción Alsina</div>
@@ -591,26 +594,15 @@ footer{
     </p>
     <div class="pricing-card">
       <div class="pricing-header">
-        <div class="pricing-badge">Próximamente</div>
+        <div class="pricing-badge">Disponible próximamente</div>
         <div class="pricing-name">Alsina Pro</div>
-        <div class="pricing-price">$XX<span>/ mes</span></div>
-        <div class="pricing-period">Facturación mensual · Cancelás cuando querés</div>
+        <div class="pricing-period">Newsletter + informes + Monitor 135 completo</div>
       </div>
       <div class="pricing-body">
-        <ul class="pricing-items">
-          <li>Newsletter quincenal Señal Alsina</li>
-          <li>1 informe de consultoría por mes</li>
-          <li>Acceso ilimitado a todos los informes publicados</li>
-          <li>Datos completos de los 135 municipios PBA</li>
-          <li class="premium">Informes territoriales exclusivos (en desarrollo)</li>
-          <li class="premium">Dashboard municipal avanzado (en desarrollo)</li>
-        </ul>
-        <button class="btn-checkout" onclick="startCheckout()">
-          Suscribirme → (demo)
-        </button>
+        <a class="nl-btn" href="/index.html#precios" style="display:block;text-align:center;">Ver planes y precios →</a>
         <p class="pricing-note">
-          El pago con Mercado Pago se activa próximamente.<br>
-          Podés ver cómo funciona el flujo haciendo click arriba.
+          El pago se habilita próximamente. En la home podés dejar tu mail<br>
+          y asegurar tu precio de fundador.
         </p>
       </div>
     </div>
@@ -650,54 +642,11 @@ footer{
     <div class="footer-links">
       <a href="/">Inicio</a>
       <a href="/municipios-data-hub.html">Data Hub</a>
-      <a href="mailto:contacto@alsinaar.com">Contacto</a>
+      <a href="mailto:newsletter@alsinaar.com">Contacto</a>
     </div>
     <div class="footer-copy">© 2026 Alsina · alsinaar.com</div>
   </div>
 </footer>
-
-<!-- MODAL CHECKOUT (stub) -->
-<div class="modal-bg" id="checkoutModal" onclick="closeModal(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">×</button>
-    <div id="modalDefault">
-      <div class="modal-icon">🚀</div>
-      <div class="modal-title">Suscripción Alsina Pro</div>
-      <p class="modal-sub">
-        El pago con Mercado Pago se habilita próximamente.
-        Podés dejar tu mail ahora para ser notificado cuando esté disponible y mantener tu precio de fundadores.
-      </p>
-      <div class="modal-demo-box">
-        <div class="modal-demo-label">Simulación del flujo</div>
-        <ul class="modal-demo-list">
-          <li>Vas a ser redirigido a Mercado Pago</li>
-          <li>Completás el pago mensual</li>
-          <li>Acceso inmediato a todo el contenido premium</li>
-          <li>Cancelás cuando querés</li>
-        </ul>
-      </div>
-      <input type="email" class="modal-input" id="modalEmail" placeholder="tu@mail.com">
-      <button class="modal-btn" id="modalBtn" onclick="submitCheckout()">
-        Activar demo de suscripción
-      </button>
-      <p class="modal-note">
-        Stub — No se procesa ningún pago real.<br>
-        TODO: integrar Mercado Pago (ver api/checkout.js)
-      </p>
-    </div>
-    <div class="modal-success" id="modalSuccess">
-      <div style="font-size:2.5rem;margin-bottom:12px;">✅</div>
-      <div class="modal-title">¡Demo activada!</div>
-      <p style="font-size:.85rem;color:var(--concreto);line-height:1.7;margin-top:8px;">
-        Tu mail fue registrado como suscriptor de demo.
-        Cuando Mercado Pago esté integrado, te avisamos primero.
-      </p>
-      <p style="font-size:.7rem;color:rgba(158,153,146,.4);margin-top:16px;">
-        API response: <code style="color:var(--turquesa);">{ ok: true, mock: true }</code>
-      </p>
-    </div>
-  </div>
-</div>
 
 <script>
 // ── CONFIRMED BANNER ──
@@ -712,11 +661,13 @@ footer{
 // ── SUBSCRIBE ──
 async function handleSubscribe(e, formId) {
   e.preventDefault();
-  const emailEl = document.getElementById(formId === 'heroForm' ? 'heroEmail' : 'footerEmail');
-  const btnEl   = document.getElementById(formId === 'heroForm' ? 'heroBtn'   : 'footerBtn');
-  const statusEl = document.getElementById(formId === 'heroForm' ? 'heroStatus' : 'footerStatus');
+  const prefix = formId.replace(/Form$/, '');
+  const emailEl = document.getElementById(prefix + 'Email');
+  const btnEl   = document.getElementById(prefix + 'Btn');
+  const statusEl = document.getElementById(prefix + 'Status');
 
   const email = emailEl.value.trim();
+  const originalLabel = btnEl.textContent;
   btnEl.disabled = true;
   btnEl.textContent = 'Enviando…';
   statusEl.className = 'form-status';
@@ -731,10 +682,16 @@ async function handleSubscribe(e, formId) {
     const data = await r.json();
 
     if (data.status === 'ok') {
+      localStorage.setItem('alsina_email_given', '1');
+      if (window.AlsinaAnalytics) {
+        const location = prefix === 'footer' ? 'final' : prefix;
+        window.AlsinaAnalytics.trackEvent('newsletter_signup', { location });
+      }
       statusEl.className = 'form-status ok';
       statusEl.textContent = '¡Listo! Revisá tu mail para confirmar la suscripción.';
       emailEl.value = '';
     } else if (data.status === 'already_subscribed') {
+      localStorage.setItem('alsina_email_given', '1');
       statusEl.className = 'form-status warn';
       statusEl.textContent = 'Ya estás en la lista. Si no confirmaste, revisá tu carpeta de spam.';
     } else {
@@ -745,50 +702,9 @@ async function handleSubscribe(e, formId) {
     statusEl.textContent = 'Algo salió mal. Intentá de nuevo en un momento.';
   } finally {
     btnEl.disabled = false;
-    btnEl.textContent = formId === 'heroForm' ? 'Suscribirme gratis →' : 'Suscribirme →';
+    btnEl.textContent = originalLabel;
   }
 }
-
-// ── CHECKOUT STUB (Feature 4) ──
-function startCheckout() {
-  document.getElementById('checkoutModal').classList.add('open');
-  document.getElementById('modalDefault').style.display = 'block';
-  document.getElementById('modalSuccess').classList.remove('show');
-}
-
-function closeModal(e) {
-  if (!e || e.target === document.getElementById('checkoutModal')) {
-    document.getElementById('checkoutModal').classList.remove('open');
-  }
-}
-
-async function submitCheckout() {
-  const email = document.getElementById('modalEmail').value.trim();
-  const btn = document.getElementById('modalBtn');
-  btn.disabled = true;
-  btn.textContent = 'Procesando…';
-
-  try {
-    const r = await fetch('/api/checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
-    });
-    const data = await r.json();
-    if (data.ok) {
-      document.getElementById('modalDefault').style.display = 'none';
-      document.getElementById('modalSuccess').classList.add('show');
-    }
-  } catch {
-    btn.textContent = 'Error — intentá de nuevo';
-  } finally {
-    btn.disabled = false;
-  }
-}
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
-});
 </script>
 </body>
 </html>

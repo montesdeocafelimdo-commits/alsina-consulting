@@ -4,6 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VinculAR — Demo</title>
+<meta name="description" content="VinculAR: demo del CRM de atención ciudadana omnicanal de Alsina para gobiernos municipales.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alsinaar.com/vincular-demo.html">
+<meta property="og:title" content="VinculAR — Demo">
+<meta property="og:description" content="Demo del CRM VinculAR: atención ciudadana omnicanal para gobiernos municipales.">
+<meta property="og:image" content="https://alsinaar.com/assets/og/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1c20">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="stylesheet" href="/assets/css/alsina.css">
+<script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
+<script src="/assets/js/analytics.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -244,7 +260,7 @@ tbody tr:hover{background:var(--bg);}
         <label class="form-label">Contraseña</label>
         <div style="position:relative;">
           <input class="form-input" id="login-pass" type="password" placeholder="••••••••" style="padding-right:2.75rem;">
-          <button type="button" onclick="togglePass('login-pass',this)" style="position:absolute;right:.625rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--light);font-size:1.1rem;line-height:1;">👁</button>
+          <button type="button" onclick="togglePass('login-pass',this)" style="position:absolute;right:.625rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--light);font-size:1.1rem;line-height:1;"><svg class="ic" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></button>
         </div>
         <div class="field-error hide" id="login-error">Email o contraseña incorrectos.</div>
       </div>
@@ -469,22 +485,22 @@ tbody tr:hover{background:var(--bg);}
         <div class="page-header"><h2>Panel Principal</h2><p>Resumen de actividad y métricas clave</p></div>
         <div class="stats-grid">
           <div class="stat-card">
-            <div class="stat-header"><div class="stat-title">Total de Actores</div><div class="stat-icon" style="background:#dbeafe;color:#1e40af;">👥</div></div>
+            <div class="stat-header"><div class="stat-title">Total de Actores</div><div class="stat-icon" style="background:#dbeafe;color:#1e40af;"><svg class="ic" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div></div>
             <div class="stat-value" id="stat-actors">0</div>
             <div class="stat-change pos">Importá actores para comenzar</div>
           </div>
           <div class="stat-card">
-            <div class="stat-header"><div class="stat-title">Reuniones esta Semana</div><div class="stat-icon" style="background:#fce7f3;color:#be185d;">📅</div></div>
+            <div class="stat-header"><div class="stat-title">Reuniones esta Semana</div><div class="stat-icon" style="background:#fce7f3;color:#be185d;"><svg class="ic" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg></div></div>
             <div class="stat-value" id="stat-meetings">0</div>
             <div class="stat-change pos">Agregá reuniones al calendario</div>
           </div>
           <div class="stat-card">
-            <div class="stat-header"><div class="stat-title">Tareas Pendientes</div><div class="stat-icon" style="background:#fef3c7;color:#92400e;">📋</div></div>
+            <div class="stat-header"><div class="stat-title">Tareas Pendientes</div><div class="stat-icon" style="background:#fef3c7;color:#92400e;"><svg class="ic" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg></div></div>
             <div class="stat-value" id="stat-tasks">0</div>
             <div class="stat-change pos">Sin tareas pendientes</div>
           </div>
           <div class="stat-card">
-            <div class="stat-header"><div class="stat-title">Emails Enviados (mes)</div><div class="stat-icon" style="background:#d1fae5;color:#065f46;">📧</div></div>
+            <div class="stat-header"><div class="stat-title">Emails Enviados (mes)</div><div class="stat-icon" style="background:#d1fae5;color:#065f46;"><svg class="ic" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div></div>
             <div class="stat-value" id="stat-emails">0</div>
             <div class="stat-change pos">↑ vía Gmail integrado</div>
           </div>
@@ -512,7 +528,7 @@ tbody tr:hover{background:var(--bg);}
               <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
               Importar CSV
             </button>
-            <button class="btn btn-secondary btn-sm" onclick="downloadTemplate()">📥 Template CSV</button>
+            <button class="btn btn-secondary btn-sm" onclick="downloadTemplate()"><svg class="ic" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg> Template CSV</button>
             <button class="btn btn-primary btn-sm" onclick="openModal('newActorModal')">+ Nuevo Actor</button>
           </div>
         </div>
@@ -571,14 +587,14 @@ tbody tr:hover{background:var(--bg);}
       <div id="ai-view" class="view-content">
         <div class="page-header"><h2>Asistente de IA</h2><p>Generación inteligente de mensajes personalizados</p></div>
         <div class="ai-card">
-          <h3>✨ Generador de Mensajes</h3>
+          <h3><svg class="ic" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.287 1.288L3 12l5.8 1.9a2 2 0 0 1 1.288 1.287L12 21l1.9-5.8a2 2 0 0 1 1.287-1.288L21 12l-5.8-1.9a2 2 0 0 1-1.288-1.287Z"/></svg> Generador de Mensajes</h3>
           <div class="ai-field"><label>Actor u Organización</label><input id="ai-actor" placeholder="Ej: Fundación Ambiente Sustentable"></div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
             <div class="ai-field"><label>Objetivo</label><select id="ai-obj"><option>Solicitar reunión</option><option>Presentar agenda política</option><option>Invitar a evento</option><option>Seguimiento post-reunión</option><option>Re-activar actor inactivo</option></select></div>
             <div class="ai-field"><label>Agenda</label><select id="ai-ag"><option>Economía Circular</option><option>Salud Mental</option><option>Ciudadanía Digital</option><option>Desarrollo Productivo</option><option>PyMEs</option><option>Ambiente</option></select></div>
           </div>
           <div class="ai-field"><label>Tono</label><select id="ai-tone"><option>Formal institucional</option><option>Técnico profesional</option><option>Colaborativo cercano</option><option>Político estratégico</option></select></div>
-          <button class="btn btn-primary w-full" style="background:#fff;color:#764ba2;margin-top:.5rem;" onclick="generateMsg()">✨ Generar Mensaje</button>
+          <button class="btn btn-primary w-full" style="background:#fff;color:#764ba2;margin-top:.5rem;" onclick="generateMsg()"><svg class="ic" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.287 1.288L3 12l5.8 1.9a2 2 0 0 1 1.288 1.287L12 21l1.9-5.8a2 2 0 0 1 1.287-1.288L21 12l-5.8-1.9a2 2 0 0 1-1.288-1.287Z"/></svg> Generar Mensaje</button>
           <div class="ai-output hide" id="ai-out">
             <div style="font-size:.8rem;opacity:.85;margin-bottom:.5rem;">Mensaje generado:</div>
             <div id="ai-text" style="font-size:.875rem;line-height:1.7;white-space:pre-wrap;"></div>
@@ -598,7 +614,7 @@ tbody tr:hover{background:var(--bg);}
           <div>
             <h2 id="p-name">María González</h2>
             <div class="profile-meta">
-              <span id="p-email">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="234e444c4d59424f46596345564d4742404a4c4d0d4c5144">[email&#160;protected]</a></span>
+              <span id="p-email"><svg class="ic" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> <a href="mailto:mgonzalez@fundacion.org">mgonzalez@fundacion.org</a></span>
               <span id="p-phone"></span>
               <span id="p-org"></span>
             </div>
@@ -615,10 +631,10 @@ tbody tr:hover{background:var(--bg);}
         <div id="tab-timeline" class="tab-panel">
           <div class="timeline" id="actor-timeline"></div>
           <div style="display:flex;gap:.75rem;margin-top:1.25rem;flex-wrap:wrap;">
-            <button class="btn btn-primary btn-sm" onclick="openAIEmail()">✨ Redactar con IA</button>
-            <button class="btn btn-secondary btn-sm" onclick="openModal('composeModal')">📧 Email manual</button>
-            <button class="btn btn-secondary btn-sm" onclick="openModal('newMeetingModal')">📅 Programar Reunión</button>
-            <button class="btn btn-secondary btn-sm" onclick="addNote()">📝 Agregar Nota</button>
+            <button class="btn btn-primary btn-sm" onclick="openAIEmail()"><svg class="ic" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.287 1.288L3 12l5.8 1.9a2 2 0 0 1 1.288 1.287L12 21l1.9-5.8a2 2 0 0 1 1.287-1.288L21 12l-5.8-1.9a2 2 0 0 1-1.288-1.287Z"/></svg> Redactar con IA</button>
+            <button class="btn btn-secondary btn-sm" onclick="openModal('composeModal')"><svg class="ic" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Email manual</button>
+            <button class="btn btn-secondary btn-sm" onclick="openModal('newMeetingModal')"><svg class="ic" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg> Programar Reunión</button>
+            <button class="btn btn-secondary btn-sm" onclick="addNote()"><svg class="ic" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></svg> Agregar Nota</button>
           </div>
         </div>
 
@@ -632,7 +648,7 @@ tbody tr:hover{background:var(--bg);}
             <div class="table-container" style="padding:1.25rem;">
               <div class="table-title" style="margin-bottom:1rem;">Métricas de Relación</div>
               <div style="display:flex;flex-direction:column;gap:.75rem;font-size:.875rem;">
-                <div><strong>Temperatura:</strong> ❄️ Frío</div>
+                <div><strong>Temperatura:</strong> <svg class="ic" viewBox="0 0 24 24"><path d="M12 2v20"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m17 5-5 5-5-5"/><path d="m7 19 5-5 5 5"/></svg> Frío</div>
                 <div><strong>Reuniones:</strong> 0 realizadas</div>
                 <div><strong>Emails:</strong> <span id="perfil-email-count">0</span> enviados</div>
               </div>
@@ -643,7 +659,7 @@ tbody tr:hover{background:var(--bg);}
         <!-- Tab: Gmail -->
         <div id="tab-gmail" class="tab-panel hide">
           <div class="gmail-status connected" id="gmail-profile-status">
-            ✅ Gmail conectado
+            <svg class="ic" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg> Gmail conectado
           </div>
           <div class="table-container">
             <div class="table-header"><span class="table-title">Conversaciones</span>
@@ -759,7 +775,7 @@ tbody tr:hover{background:var(--bg);}
       <!-- Step 3: Confirm -->
       <div id="csv-step3" class="hide">
         <div style="text-align:center;padding:1.5rem;">
-          <div style="font-size:2.5rem;margin-bottom:.75rem;">✅</div>
+          <div style="font-size:2.5rem;margin-bottom:.75rem;"><svg class="ic" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg></div>
           <div style="font-size:1.1rem;font-weight:600;margin-bottom:.5rem;" id="csv-confirm-msg"></div>
           <div class="text-sm text-light" id="csv-confirm-sub"></div>
         </div>
@@ -777,7 +793,7 @@ tbody tr:hover{background:var(--bg);}
   <div class="modal-box sm">
     <div class="modal-head"><h3>Gmail — Integración</h3><button class="modal-close" onclick="closeModal('gmailModal')">×</button></div>
     <div class="modal-body">
-      <div class="gmail-status connected" style="margin-bottom:1.25rem;">✅ Cuenta conectada: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5f352a3e311f333a38362c333e2b2a2d3e71383029713e2d">[email&#160;protected]</a></div>
+      <div class="gmail-status connected" style="margin-bottom:1.25rem;"><svg class="ic" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg> Cuenta conectada: <a href="mailto:juan@legislatura.gov.ar">juan@legislatura.gov.ar</a></div>
       <div style="font-size:.875rem;display:flex;flex-direction:column;gap:.875rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
           <span>Enviar emails desde perfiles</span><span class="badge badge-green">Activo</span>
@@ -806,7 +822,7 @@ tbody tr:hover{background:var(--bg);}
     <div class="modal-body" style="padding:0;">
       <div class="compose-header">
         <span style="font-size:.9rem;">Nuevo mensaje — vía Gmail</span>
-        <span class="badge" style="background:rgba(255,255,255,.2);color:#fff;font-size:.75rem;">✅ Conectado</span>
+        <span class="badge" style="background:rgba(255,255,255,.2);color:#fff;font-size:.75rem;"><svg class="ic" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg> Conectado</span>
       </div>
       <div class="compose-body">
         <div class="compose-field">
@@ -939,8 +955,8 @@ loadData();
 
 function togglePass(inputId, btn) {
   const input = document.getElementById(inputId);
-  if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; }
-  else { input.type = 'password'; btn.textContent = '👁'; }
+  if (input.type === 'password') { input.type = 'text'; btn.textContent = '<svg class="ic" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>'; }
+  else { input.type = 'password'; btn.textContent = '<svg class="ic" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>'; }
 }
 
 function switchAuth(mode) {
@@ -1088,7 +1104,7 @@ function renderActorsTable() {
       <td>${a.temp}</td>
       <td onclick="event.stopPropagation()">
         <button class="btn btn-secondary btn-sm" onclick="openProfile(${a.id})">Ver perfil</button>
-        <button class="btn btn-secondary btn-sm" onclick="setComposeTo('${a.email}');openModal('composeModal')">📧</button>
+        <button class="btn btn-secondary btn-sm" onclick="setComposeTo('${a.email}');openModal('composeModal')"><svg class="ic" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></button>
       </td>
     </tr>`).join('');
   document.getElementById('actor-count').textContent = actors.length;
@@ -1107,9 +1123,9 @@ function openProfile(id) {
   const a = actors.find(x => x.id === id);
   if (!a) return;
   document.getElementById('p-name').textContent = a.nombre + ' ' + a.apellido;
-  document.getElementById('p-email').textContent = '📧 ' + a.email;
-  document.getElementById('p-phone').textContent = a.tel ? '📱 ' + a.tel : '';
-  document.getElementById('p-org').textContent = '🏢 ' + a.org;
+  document.getElementById('p-email').textContent = '<svg class="ic" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> ' + a.email;
+  document.getElementById('p-phone').textContent = a.tel ? '<svg class="ic" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> ' + a.tel : '';
+  document.getElementById('p-org').textContent = '<svg class="ic" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg> ' + a.org;
   document.getElementById('p-avatar').textContent = (a.nombre[0] + (a.apellido ? a.apellido[0] : '')).toUpperCase();
   document.getElementById('compose-to').value = a.email;
   // Perfil estratégico datos + custom chips
@@ -1157,7 +1173,7 @@ function saveNewActor() {
     agenda: document.getElementById('na-agenda').value,
     notas: document.getElementById('na-notas').value,
     customFields,
-    temp: '❄️ Frío', score: '5.0'
+    temp: '<svg class="ic" viewBox="0 0 24 24"><path d="M12 2v20"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m17 5-5 5-5-5"/><path d="m7 19 5-5 5 5"/></svg> Frío', score: '5.0'
   });
   saveData();
   closeModal('newActorModal');
@@ -1166,7 +1182,7 @@ function saveNewActor() {
   document.getElementById('stat-actors').textContent = actors.length;
   document.getElementById('actor-count').textContent = actors.length;
   ['na-nombre','na-apellido','na-cargo','na-email','na-tel','na-org','na-notas'].forEach(id => document.getElementById(id).value='');
-  showNotification('✅ Actor guardado');
+  showNotification('<svg class="ic" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg> Actor guardado');
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1294,7 +1310,7 @@ function importActors() {
       agenda: mapping['agenda'] !== undefined ? row[mapping['agenda']] : '',
       notas: mapping['notas'] !== undefined ? row[mapping['notas']] : '',
       customFields,
-      temp: '❄️ Frío', score: '5.0'
+      temp: '<svg class="ic" viewBox="0 0 24 24"><path d="M12 2v20"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m17 5-5 5-5-5"/><path d="m7 19 5-5 5 5"/></svg> Frío', score: '5.0'
     };
     actors.push(newActor);
     imported++;
@@ -1304,7 +1320,7 @@ function importActors() {
   document.getElementById('csv-step2').classList.add('hide');
   document.getElementById('csv-step3').classList.remove('hide');
   const extraMsg = customColIndexes.length ? ` Se crearon ${customColIndexes.length} campo(s) personalizado(s).` : '';
-  document.getElementById('csv-confirm-msg').textContent = `✅ ${imported} actores importados correctamente`;
+  document.getElementById('csv-confirm-msg').textContent = `<svg class="ic" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg> ${imported} actores importados correctamente`;
   document.getElementById('csv-confirm-sub').textContent = (skipped > 0 ? `${skipped} filas ignoradas por falta de email. ` : 'Todos los registros procesados.') + extraMsg;
   document.getElementById('csv-footer').innerHTML = `<button class="btn btn-primary" onclick="closeModal('csvModal');resetCsvModal();renderActorsTable();renderDashboardTable();">Ver Actores →</button>`;
   document.getElementById('stat-actors').textContent = actors.length;
@@ -1343,8 +1359,8 @@ async function sendEmail() {
   const subject = document.getElementById('compose-subject').value.trim() || '(sin asunto)';
   const body    = document.getElementById('compose-body').value.trim();
   const logIt   = document.getElementById('compose-log').checked;
-  if (!to)   { showNotification('⚠️ Ingresá un destinatario'); return; }
-  if (!body) { showNotification('⚠️ El mensaje no puede estar vacío'); return; }
+  if (!to)   { showNotification('<svg class="ic" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Ingresá un destinatario'); return; }
+  if (!body) { showNotification('<svg class="ic" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> El mensaje no puede estar vacío'); return; }
 
   // ── UI: show sending state ──────────────────────────────────────
   const sendBtn = document.querySelector('#composeModal .btn-primary');
@@ -1390,7 +1406,7 @@ Send it now and confirm it was sent.`
         const item = document.createElement('div');
         item.className = 'tl-item';
         item.innerHTML = `
-          <div class="tl-icon" style="background:#667eea;color:#fff;">📧</div>
+          <div class="tl-icon" style="background:#667eea;color:#fff;"><svg class="ic" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
           <div class="tl-box">
             <div class="tl-head">
               <div class="tl-title">Email enviado: ${subject}</div>
@@ -1415,11 +1431,11 @@ Send it now and confirm it was sent.`
     closeModal('composeModal');
     document.getElementById('compose-subject').value = '';
     document.getElementById('compose-body').value = '';
-    showNotification(`✅ Email enviado a ${to} vía Gmail`);
+    showNotification(`<svg class="ic" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg> Email enviado a ${to} vía Gmail`);
 
   } catch (err) {
     console.error('Gmail send error:', err);
-    showNotification(`❌ Error al enviar: ${err.message}`);
+    showNotification(`<svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg> Error al enviar: ${err.message}`);
   } finally {
     sendBtn.innerHTML = origText;
     sendBtn.disabled = false;
@@ -1462,7 +1478,7 @@ ${document.getElementById('user-role-display').textContent}`;
 
 function copyMsg() {
   navigator.clipboard.writeText(document.getElementById('ai-text').textContent)
-    .then(() => showNotification('✅ Mensaje copiado al portapapeles'));
+    .then(() => showNotification('<svg class="ic" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg> Mensaje copiado al portapapeles'));
 }
 
 function sendFromAI() {
@@ -1483,7 +1499,7 @@ function inviteTeamMember() {
   renderTeam();
   closeModal('inviteModal');
   document.getElementById('tm-email').value = '';
-  showNotification(`📧 Invitación enviada a ${email}`);
+  showNotification(`<svg class="ic" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Invitación enviada a ${email}`);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1574,7 +1590,7 @@ function saveMeeting() {
   renderCalendar();
   renderMeetingsTable();
   document.getElementById('stat-meetings').textContent = meetings.length;
-  showNotification('📅 Reunión guardada');
+  showNotification('<svg class="ic" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg> Reunión guardada');
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1590,7 +1606,7 @@ function saveTask() {
   ['nt-title','nt-actor','nt-date'].forEach(id => document.getElementById(id).value = '');
   renderTasksTable();
   document.getElementById('stat-tasks').textContent = tasks.filter(t => t.status === 'Pendiente').length;
-  showNotification('✅ Tarea creada');
+  showNotification('<svg class="ic" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg> Tarea creada');
 }
 
 function renderTasksTable() {
@@ -1649,7 +1665,7 @@ function sendAIEmail() {
     const tl = document.getElementById('actor-timeline');
     const item = document.createElement('div');
     item.className = 'tl-item';
-    item.innerHTML = `<div class="tl-icon" style="background:#667eea;color:#fff;">📧</div><div class="tl-box"><div class="tl-head"><div class="tl-title">Email enviado: ${subject}</div><div class="tl-date">Ahora</div></div><div class="tl-body">Para: ${to}<br>${body.substring(0,120)}${body.length>120?'...':''}</div></div>`;
+    item.innerHTML = `<div class="tl-icon" style="background:#667eea;color:#fff;"><svg class="ic" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div><div class="tl-box"><div class="tl-head"><div class="tl-title">Email enviado: ${subject}</div><div class="tl-date">Ahora</div></div><div class="tl-body">Para: ${to}<br>${body.substring(0,120)}${body.length>120?'...':''}</div></div>`;
     if (tl.querySelector('.tl-item')) tl.insertBefore(item, tl.firstChild);
     else tl.appendChild(item);
 
@@ -1665,7 +1681,7 @@ function sendAIEmail() {
   emailLog++;
   document.getElementById('stat-emails').textContent = emailLog;
   closeModal('aiEmailModal');
-  showNotification(`📧 Email enviado a ${to}`);
+  showNotification(`<svg class="ic" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Email enviado a ${to}`);
 }
 
 function addNote() {
@@ -1674,9 +1690,9 @@ function addNote() {
   const tl = document.getElementById('actor-timeline');
   const item = document.createElement('div');
   item.className = 'tl-item';
-  item.innerHTML = `<div class="tl-icon" style="background:var(--yellow);color:#fff;">📝</div><div class="tl-box"><div class="tl-head"><div class="tl-title">Nota interna agregada</div><div class="tl-date">Ahora</div></div><div class="tl-body">${text}</div></div>`;
+  item.innerHTML = `<div class="tl-icon" style="background:var(--yellow);color:#fff;"><svg class="ic" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></svg></div><div class="tl-box"><div class="tl-head"><div class="tl-title">Nota interna agregada</div><div class="tl-date">Ahora</div></div><div class="tl-body">${text}</div></div>`;
   tl.insertBefore(item, tl.firstChild);
-  showNotification('📝 Nota guardada');
+  showNotification('<svg class="ic" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></svg> Nota guardada');
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1707,7 +1723,7 @@ function addCustomType() {
   input.value = '';
   renderTypeChips();
   saveData();
-  showNotification(`✅ Tipo "${val}" agregado`);
+  showNotification(`<svg class="ic" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg> Tipo "${val}" agregado`);
 }
 
 function removeCustomType(t) {
@@ -1773,7 +1789,7 @@ function showNotification(msg) {
 <!-- AI EMAIL MODAL -->
 <div id="aiEmailModal" class="modal">
   <div class="modal-box md">
-    <div class="modal-head"><h3>✨ Redactar Email con IA</h3><button class="modal-close" onclick="closeModal('aiEmailModal')">×</button></div>
+    <div class="modal-head"><h3><svg class="ic" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.287 1.288L3 12l5.8 1.9a2 2 0 0 1 1.288 1.287L12 21l1.9-5.8a2 2 0 0 1 1.287-1.288L21 12l-5.8-1.9a2 2 0 0 1-1.288-1.287Z"/></svg> Redactar Email con IA</h3><button class="modal-close" onclick="closeModal('aiEmailModal')">×</button></div>
     <div class="modal-body">
       <div style="background:linear-gradient(135deg,#667eea,#764ba2);border-radius:10px;padding:1.25rem;margin-bottom:1.25rem;color:#fff;font-size:.875rem;">
         <strong>Actor:</strong> <span id="ai-email-actor-name">—</span><br>
@@ -1784,7 +1800,7 @@ function showNotification(msg) {
         <div class="form-group"><label class="form-label">Agenda</label><select class="form-select" id="ae-ag"><option>Economía Circular</option><option>Salud Mental</option><option>Ciudadanía Digital</option><option>Desarrollo Productivo</option><option>PyMEs</option><option>Ambiente</option><option>Educación</option></select></div>
       </div>
       <div class="form-group"><label class="form-label">Tono</label><select class="form-select" id="ae-tone"><option>Formal institucional</option><option>Técnico profesional</option><option>Colaborativo cercano</option><option>Político estratégico</option></select></div>
-      <button class="btn btn-primary w-full" onclick="generateAIEmail()" id="ae-generate-btn">✨ Generar mensaje</button>
+      <button class="btn btn-primary w-full" onclick="generateAIEmail()" id="ae-generate-btn"><svg class="ic" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.287 1.288L3 12l5.8 1.9a2 2 0 0 1 1.288 1.287L12 21l1.9-5.8a2 2 0 0 1 1.287-1.288L21 12l-5.8-1.9a2 2 0 0 1-1.288-1.287Z"/></svg> Generar mensaje</button>
       <div id="ae-result" class="hide" style="margin-top:1.25rem;">
         <div class="form-group"><label class="form-label">Asunto</label><input class="form-input" id="ae-subject"></div>
         <div class="form-group"><label class="form-label">Mensaje</label><textarea class="form-textarea" id="ae-body" style="min-height:160px;"></textarea></div>
@@ -1796,7 +1812,7 @@ function showNotification(msg) {
     <div class="modal-foot">
       <button class="btn btn-secondary" onclick="closeModal('aiEmailModal')">Cancelar</button>
       <button class="btn btn-secondary" id="ae-regen-btn" onclick="generateAIEmail()" style="display:none;">↻ Regenerar</button>
-      <button class="btn btn-primary" id="ae-send-btn" onclick="sendAIEmail()" style="display:none;">📤 Enviar por Gmail</button>
+      <button class="btn btn-primary" id="ae-send-btn" onclick="sendAIEmail()" style="display:none;"><svg class="ic" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg> Enviar por Gmail</button>
     </div>
   </div>
 </div>

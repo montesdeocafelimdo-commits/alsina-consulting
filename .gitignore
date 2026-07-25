@@ -1,4 +1,7 @@
 .vercel
+.env
+.env.local
+.env.*.local
 node_modules/
 /_next/
 radar-fiscal-app/

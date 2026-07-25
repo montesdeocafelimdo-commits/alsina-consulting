@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qué es ALSINA — Manifiesto</title>
+<meta name="description" content="Gobernar la provincia de Buenos Aires es, ante todo, ordenar su complejidad. Qué es ALSINA y por qué construimos una radiografía integral de la PBA.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alsinaar.com/que-es-alsina.html">
+<meta property="og:title" content="Qué es ALSINA — Manifiesto">
+<meta property="og:description" content="Gobernar la provincia de Buenos Aires es, ante todo, ordenar su complejidad. Qué es ALSINA y por qué construimos una radiografía integral de la PBA.">
+<meta property="og:image" content="https://alsinaar.com/assets/og/og-que-es-alsina.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1c20">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="stylesheet" href="/assets/css/alsina.css">
+<script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
+<script src="/assets/js/analytics.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;overflow-x:hidden;}
+a{color:inherit;}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+h1,h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;line-height:.98;}
+em{color:var(--turquesa);font-style:normal;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,213,216,.1);}
+.nav-inner{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:28px;}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.nav-logo svg{width:30px;height:30px;}
+.nav-word{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.15rem;letter-spacing:.18em;color:var(--crema);}
+.nav-tagline{font-size:.56rem;color:rgba(183,178,170,.72);letter-spacing:.1em;text-transform:uppercase;display:block;margin-top:1px;}
+.nav-links{display:flex;gap:24px;list-style:none;margin-left:auto;}
+.nav-links a{font-size:.78rem;color:rgba(243,239,231,.65);text-decoration:none;letter-spacing:.03em;transition:color .2s;}
+.nav-links a:hover{color:var(--turquesa);}
+.nav-cta{flex-shrink:0;}
+.nav-burger{display:none;flex-shrink:0;background:none;border:none;color:var(--crema);cursor:pointer;padding:6px;}
+.nav-burger svg{width:24px;height:24px;}
+.nav-mobile{display:none;background:var(--grafito2);border-bottom:1px solid rgba(0,213,216,.12);padding:8px 24px 18px;}
+.nav-mobile.open{display:block;}
+.nav-mobile a{display:block;padding:12px 0;font-size:.9rem;color:var(--crema);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);}
+.nav-mobile .nav-cta{margin-top:14px;display:inline-block;}
+@media(max-width:860px){
+  .nav-links{display:none;}
+  .nav-cta{display:none;}
+  .nav-burger{display:block;}
+}
+
+/* ── HERO ── */
+.hero{padding:72px 0 48px;background:linear-gradient(135deg,var(--grafito) 0%,var(--grafito2) 100%);text-align:center;}
+.kicker{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--turquesa);margin-bottom:16px;font-weight:700;}
+.hero h1{font-size:clamp(2.1rem,5vw,3.4rem);color:var(--crema);}
+
+/* ── MANIFIESTO ── */
+.manifesto{padding:56px 0 96px;}
+.manifesto-body{max-width:640px;margin:0 auto;font-size:1.05rem;line-height:1.85;color:rgba(243,239,231,.82);}
+.manifesto-body p{margin-bottom:26px;}
+.pull{
+  font-family:Georgia,'Times New Roman',serif;font-style:italic;
+  font-size:1.5rem;line-height:1.5;color:var(--crema);
+  border-left:3px solid var(--turquesa);padding-left:24px;
+  margin:44px 0;
+}
+.divisiones{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 26px;}
+.divisiones .layer{font-size:.82rem;}
+
+/* ── FOOTER ── */
+footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0,213,216,.08);}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:.75rem;color:rgba(183,178,170,.72);}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap;}
+.footer-links a{color:rgba(243,239,231,.6);text-decoration:none;}
+.footer-links a:hover{color:var(--turquesa);}
+
+@media(max-width:600px){
+  .manifesto-body{font-size:1rem;}
+  .pull{font-size:1.25rem;padding-left:18px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="3" y="3" width="58" height="58" rx="4" fill="none" stroke="#2196c9" stroke-width="2.5"/>
+        <text x="32" y="47" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="40" font-weight="700" fill="#F3EFE7">A</text>
+      </svg>
+      <span>
+        <span class="nav-word">ALSINA</span>
+        <span class="nav-tagline">Análisis · Estrategia · Impacto</span>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/index.html#monitor">Monitor 135</a></li>
+      <li><a href="/informes.html">Informes</a></li>
+      <li><a href="/index.html#precios">Suscripción</a></li>
+      <li><a href="/consultoria.html">Consultoría</a></li>
+    </ul>
+    <a class="btn nav-cta" href="/index.html#precios">Suscribirme</a>
+    <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navMobile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="/index.html#monitor">Monitor 135</a>
+    <a href="/informes.html">Informes</a>
+    <a href="/index.html#precios">Suscripción</a>
+    <a href="/consultoria.html">Consultoría</a>
+    <a class="btn nav-cta" href="/index.html#precios">Suscribirme</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="kicker">Manifiesto</div>
+    <h1>Qué es <em>ALSINA.</em></h1>
+  </div>
+</section>
+
+<!-- MANIFIESTO -->
+<section class="manifesto">
+  <div class="wrap manifesto-body">
+    <p>La provincia de Buenos Aires concentra el 37,90&nbsp;% de la población de la República Argentina. Es la jurisdicción más extensa y la más poblada del país.</p>
+
+    <p>Su organización territorial refleja una complejidad excepcional, entre otras divisiones:</p>
+
+    <div class="divisiones">
+      <span class="layer"><strong>135</strong>&nbsp;municipios</span>
+      <span class="layer"><strong>25</strong>&nbsp;regiones educativas</span>
+      <span class="layer"><strong>12</strong>&nbsp;regiones sanitarias</span>
+      <span class="layer"><strong>14</strong>&nbsp;superintendencias de seguridad</span>
+      <span class="layer"><strong>8</strong>&nbsp;secciones electorales</span>
+      <span class="layer"><strong>21</strong>&nbsp;departamentos judiciales</span>
+      <span class="layer"><strong>12</strong>&nbsp;zonas viales</span>
+      <span class="layer"><strong>9</strong>&nbsp;regiones hídricas</span>
+      <span class="layer"><strong>14</strong>&nbsp;regiones culturales</span>
+    </div>
+
+    <p>A ello se suman las rutas nacionales, las rutas provinciales y una extensa red de caminos rurales.</p>
+
+    <p>En este entramado no siempre existe una delimitación nítida de las competencias entre el Estado nacional, el gobierno provincial y los municipios. Las responsabilidades se superponen, los límites administrativos se cruzan y las distintas regionalizaciones responden a lógicas diversas.</p>
+
+    <p>Esta superposición no es necesariamente el resultado de un diseño institucional deficiente. En muchos casos surge como respuesta a necesidades concretas de gestión; en otros, es consecuencia de un proceso histórico en el que cada etapa fue incorporando nuevas estructuras sin reemplazar por completo las anteriores.</p>
+
+    <p class="pull">"El territorio bonaerense es el resultado de sucesivas capas institucionales que conviven, se articulan y, también se desarticulan."</p>
+
+    <p>Cuando el territorio es complejo y la información está dispersa, gobernar se vuelve más difícil. Sin un diagnóstico compartido resulta más complejo coordinar políticas públicas, asignar recursos, evaluar resultados y establecer prioridades.</p>
+
+    <p class="pull">"Comprender la provincia es el primer paso para transformarla."</p>
+
+    <p>En ALSINA creemos que gobernar la provincia de Buenos Aires es, ante todo, ordenar esa complejidad. Reunir información dispersa, convertir datos en conocimiento y transformar ese conocimiento en herramientas para la gestión pública.</p>
+
+    <p>Por eso construimos una radiografía integral y permanentemente actualizada de la provincia de Buenos Aires. Relevamos y analizamos sus finanzas públicas, la gestión de gobierno, las principales políticas públicas y la evolución de los indicadores que permiten comprender el funcionamiento del Estado provincial.</p>
+
+    <p>Al mismo tiempo, estudiamos en profundidad los 135 municipios: sus recursos, sus presupuestos, su actividad económica, su demografía, su infraestructura, sus indicadores sociales y productivos, su realidad política y electoral. Porque entender la provincia también implica comprender las particularidades de cada uno de sus gobiernos locales.</p>
+
+    <p>ALSINA releva, organiza, sistematiza y analiza información pública para convertirla en conocimiento útil. Elaboramos diagnósticos, desarrollamos indicadores, diseñamos herramientas de gestión y construimos planes de acción que permitan identificar problemas, establecer prioridades y mejorar la calidad de las decisiones públicas.</p>
+
+    <p>Nuestro trabajo está dirigido a quienes tienen responsabilidades de gobierno —funcionarios provinciales y municipales, intendentes, concejales y equipos técnicos—, pero también a legisladores, periodistas, investigadores, universidades, organizaciones de la sociedad civil y ciudadanos comprometidos con el presente y el futuro de la provincia de Buenos Aires.</p>
+
+    <p>Creemos que una mejor información produce mejores diagnósticos; mejores diagnósticos permiten mejores decisiones; y mejores decisiones hacen posible una gestión pública más eficaz, más transparente y más cercana a las necesidades de los bonaerenses.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap footer-inner">
+    <div><strong style="color:var(--crema);">ALSINA</strong> · Análisis, Estrategia e Impacto</div>
+    <div class="footer-links">
+      <a href="/municipios-data-hub.html">Monitor 135</a>
+      <a href="/informes.html">Informes</a>
+      <a href="/newsletter.html">Newsletter</a>
+      <a href="/index.html#precios">Suscripción</a>
+      <a href="/consultoria.html">Consultoría</a>
+      <a href="/que-es-alsina.html">Qué es ALSINA</a>
+    </div>
+    <div>newsletter@alsinaar.com · © 2026</div>
+  </div>
+</footer>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/reveal.js"></script>
+<script src="/assets/js/sticky-cta.js"></script>
+<script>
+const navBurger = document.getElementById('navBurger');
+const navMobile = document.getElementById('navMobile');
+navBurger.addEventListener('click', () => {
+  const open = navMobile.classList.toggle('open');
+  navBurger.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navMobile.classList.remove('open');
+  navBurger.setAttribute('aria-expanded', 'false');
+}));
+</script>
+</body>
+</html>
