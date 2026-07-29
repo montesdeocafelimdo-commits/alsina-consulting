@@ -219,7 +219,7 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 
 /* ── FONDO TÉCNICO (papel marfil + cartografía) ── */
 .sec-tech{position:relative;overflow:hidden;background-color:#F7F2EA;background-repeat:no-repeat;background-position:center center;background-size:cover;}
-.sec-tech>.wrap,.sec-tech>.mon-shell,.sec-tech>.prod-slider-wrap,.sec-tech>.prod-dots{position:relative;z-index:1;}
+.sec-tech>.wrap,.sec-tech>.mon-shell{position:relative;z-index:1;}
 .sec-tech--monitor{background-image:url('/assets/img/bg/bg-tech-monitor.jpg');}
 .sec-tech--informes{background-image:url('/assets/img/bg/bg-tech-informes.jpg');}
 .sec-tech--precios{background-image:url('/assets/img/bg/bg-tech-precios.jpg');}
@@ -315,47 +315,25 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .prod-card .btn-ghost{color:var(--brand-cyan-text);border-color:var(--brand-cyan-text);}
 .prod-card .btn-ghost:hover{background:rgba(20,107,145,.08);}
 
-/* ── AUDIENCIAS ── */
-.prod-slider-section{background:var(--grafito2);border-top:1px solid rgba(0,213,216,.1);border-bottom:1px solid rgba(0,213,216,.1);padding:80px 0;overflow:hidden;}
-.prod-slider-wrap{display:flex;align-items:center;gap:14px;max-width:1120px;margin:0 auto;padding:0 24px;}
-.prod-slides{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:8px 4px 16px;scrollbar-width:none;flex:1;}
-.prod-slides::-webkit-scrollbar{display:none;}
-.prod-slide{
-  flex:0 0 auto;width:270px;scroll-snap-align:start;text-decoration:none;overflow:hidden;
-  border:1px solid var(--line-light);border-radius:12px;background:var(--card-light);
-  box-shadow:0 14px 30px -16px rgba(0,0,0,.4);
-  transition:transform .25s ease,box-shadow .25s ease;display:flex;flex-direction:column;
-}
-.prod-slide:hover{transform:translateY(-4px);box-shadow:0 20px 40px -16px rgba(0,0,0,.5);}
-.prod-slide-cover{
-  height:84px;position:relative;overflow:hidden;flex:0 0 auto;
-  background:linear-gradient(135deg,rgba(20,107,145,.14),rgba(0,213,216,.05));
-  border-bottom:1px solid var(--line-light);
-  display:flex;align-items:center;justify-content:center;
-}
-.prod-slide-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.prod-slide-cover::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background-image:linear-gradient(rgba(243,239,231,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(243,239,231,.1) 1px,transparent 1px),linear-gradient(135deg,rgba(10,30,42,.68),rgba(20,107,145,.32));
-  background-size:16px 16px,16px 16px,cover;
-}
-.prod-slide-body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1;}
-.prod-slide-ic{
-  width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  background:var(--card-light);border:1px solid rgba(20,107,145,.3);position:relative;z-index:1;
-  box-shadow:0 4px 10px -4px rgba(0,0,0,.25);
-}
-.prod-slide-ic .ic{width:20px;height:20px;color:var(--brand-cyan-text);}
-.prod-slide-tag{display:inline-block;font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-cyan-text);margin-bottom:10px;}
-.prod-slide h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.15rem;color:var(--text-on-light);margin-bottom:8px;letter-spacing:0;}
-.prod-slide p{font-size:.82rem;color:var(--muted-on-light);line-height:1.6;font-family:'Barlow',sans-serif;flex:1;}
-.prod-slide-cta{margin-top:14px;font-size:.8rem;color:var(--brand-cyan-text);font-weight:700;}
-.prod-arrow{flex:0 0 auto;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.03);border:1px solid rgba(0,213,216,.25);color:var(--crema);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s;}
-.prod-arrow:hover{background:rgba(0,213,216,.15);border-color:var(--turquesa);}
-.prod-arrow .ic{width:18px;height:18px;}
-.prod-dots{display:flex;justify-content:center;gap:8px;margin-top:22px;}
-.prod-dot{width:7px;height:7px;border-radius:50%;background:rgba(243,239,231,.25);border:none;padding:0;cursor:pointer;transition:background .2s,transform .2s;}
-.prod-dot.active{background:var(--turquesa);transform:scale(1.3);}
+/* ── SERVICIOS (QUÉ HACEMOS) ── */
+.services-section{background:var(--grafito2);border-top:1px solid rgba(0,213,216,.1);border-bottom:1px solid rgba(0,213,216,.1);}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:12px;}
+.services-col h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.2rem;color:var(--crema);letter-spacing:0;margin-bottom:8px;}
+.services-col>p{font-size:.85rem;color:rgba(243,239,231,.6);line-height:1.6;margin-bottom:16px;}
+.services-col ul{list-style:none;display:flex;flex-direction:column;gap:2px;}
+.services-col li{border-top:1px solid rgba(255,255,255,.08);}
+.services-col li:last-child{border-bottom:1px solid rgba(255,255,255,.08);}
+.services-col a{display:block;padding:12px 2px;font-size:.9rem;color:var(--crema);text-decoration:none;line-height:1.4;transition:color .2s,padding-left .2s;}
+.services-col a:hover{color:var(--turquesa);padding-left:6px;}
+
+/* ── LO QUE PUBLICAMOS ── */
+.publish-section{background:var(--bg-light);}
+.publish-links{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:8px;}
+.publish-link{display:flex;flex-direction:column;gap:6px;padding:22px;background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;text-decoration:none;transition:border-color .2s,transform .2s;}
+.publish-link:hover{border-color:var(--brand-cyan);transform:translateY(-2px);}
+.publish-link strong{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;color:var(--text-on-light);}
+.publish-link span{font-size:.84rem;color:var(--muted-on-light);line-height:1.5;}
+.publish-link em{font-style:normal;font-size:.8rem;color:var(--brand-cyan-text);font-weight:700;margin-top:4px;}
 
 /* ── CTA FINAL ── */
 .final-cta{padding:96px 0;text-align:center;background:radial-gradient(700px 320px at 50% 130%,#123544 0%,transparent 70%);}
@@ -383,14 +361,11 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   .ficha-stats{grid-template-columns:1fr 1fr;}
   .ficha-head{flex-direction:column;}
   .sec{padding:56px 0;}
-  .prod-slide{width:240px;}
+  .services-grid,.publish-links{grid-template-columns:1fr;gap:32px;}
 }
 @media(max-width:520px){
   .rep-scope{grid-template-columns:1fr;}
   .capture-dark{flex-direction:column;max-width:100%;}
-  .prod-slider-wrap{gap:8px;padding:0 12px;}
-  .prod-arrow{width:34px;height:34px;}
-  .prod-slide{width:78vw;}
   .capture-dark input{border-right:1.5px solid rgba(243,239,231,.2);border-radius:4px;margin-bottom:8px;}
   .capture-dark button{border-radius:4px;}
 }
@@ -431,6 +406,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     <ul class="nav-links">
       <li><a href="#monitor">Monitor 135</a></li>
       <li><a href="/informes.html">Informes</a></li>
+      <li><a href="/productos.html">Productos</a></li>
       <li><a href="#precios">Suscripción</a></li>
       <li><a href="/consultoria.html">Consultoría</a></li>
     </ul>
@@ -442,6 +418,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   <div class="nav-mobile" id="navMobile">
     <a href="#monitor">Monitor 135</a>
     <a href="/informes.html">Informes</a>
+    <a href="/productos.html">Productos</a>
     <a href="#precios">Suscripción</a>
     <a href="/consultoria.html">Consultoría</a>
     <a class="btn nav-cta" href="#precios">Suscribirme</a>
@@ -771,79 +748,69 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   </div>
 </section>
 
-<!-- PRUEBA SOCIAL -->
-<!-- PRODUCTOS -->
-<section class="sec prod-slider-section" id="productos">
+<!-- SERVICIOS (QUÉ HACEMOS) -->
+<section class="sec services-section" id="servicios">
   <div class="wrap reveal">
-    <span class="tag" style="color:var(--turquesa);">Todo lo que hacemos</span>
-    <h2>Un ecosistema<br><em>de productos.</em></h2>
-    <p class="lead" style="color:rgba(243,239,231,.65);">De la señal quincenal gratuita al análisis hecho a medida — elegí el formato que necesitás.</p>
+    <span class="tag" style="color:var(--turquesa);">Servicios ALSINA</span>
+    <h2>Nueve productos.<br><em>Un solo método.</em></h2>
+    <p class="lead" style="color:rgba(243,239,231,.65);">Consultoría de gestión pública organizada en tres frentes: cómo funciona el municipio por dentro, de dónde salen los recursos y hacia dónde va, y cómo se comunica y compite.</p>
+    <div class="services-grid">
+      <div class="services-col">
+        <h3>Gobernar mejor</h3>
+        <p>Capacidad de gestión: que el municipio funcione mejor por dentro.</p>
+        <ul>
+          <li><a href="/productos.html#ia">Inteligencia Artificial aplicada a gobiernos locales</a></li>
+          <li><a href="/productos.html#crm">CRM ciudadano</a></li>
+          <li><a href="/productos.html#tablero">Tablero de control y gestión</a></li>
+          <li><a href="/productos.html#compliance">Compliance</a></li>
+        </ul>
+      </div>
+      <div class="services-col">
+        <h3>Financiar y planificar</h3>
+        <p>Recursos y rumbo: de dónde sale la plata y hacia dónde va la gestión.</p>
+        <ul>
+          <li><a href="/productos.html#finanzas">Mejoras financieras</a></li>
+          <li><a href="/productos.html#planes">Planes de gobierno</a></li>
+          <li><a href="/productos.html#legislativa">Asesoría legislativa</a></li>
+        </ul>
+      </div>
+      <div class="services-col">
+        <h3>Comunicar y competir</h3>
+        <p>Poder político: cómo se cuenta la gestión y cómo se compite.</p>
+        <ul>
+          <li><a href="/productos.html#cicero">Comunicación política (CICERO)</a></li>
+          <li><a href="/productos.html#campanas">Gestión de campañas electorales</a></li>
+        </ul>
+      </div>
+    </div>
+    <a class="btn" href="/productos.html" style="margin-top:36px;">Ver todos los productos →</a>
   </div>
-  <div class="prod-slider-wrap">
-    <button class="prod-arrow prod-arrow--prev" id="prodPrev" aria-label="Producto anterior">
-      <svg class="ic" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
-    </button>
-    <div class="prod-slides" id="prodSlides">
-      <a class="prod-slide" href="/newsletter.html">
-        <div class="prod-slide-cover" aria-hidden="true"><img src="/assets/img/cards/senal-alsina.jpg" alt="" loading="lazy"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg></div></div>
-        <div class="prod-slide-body">
-          <span class="prod-slide-tag">Gratis</span>
-          <h3>Señal Alsina</h3>
-          <p>Newsletter quincenal con la señal del momento, un dato municipal y un recurso aplicable en cada edición.</p>
-          <span class="prod-slide-cta">Suscribirme →</span>
-        </div>
+</section>
+
+<!-- LO QUE PUBLICAMOS -->
+<section class="sec-light publish-section" id="publicamos">
+  <div class="wrap reveal">
+    <span class="tag">Lo que publicamos</span>
+    <h2 style="font-size:clamp(1.5rem,2.6vw,2rem);margin-bottom:10px;">La vidriera de ALSINA.</h2>
+    <p class="lead" style="margin-bottom:24px;">El Monitor demuestra que tenemos los datos, los informes que sabemos leerlos, la Señal sostiene la relación.</p>
+    <div class="publish-links">
+      <a class="publish-link" href="#monitor">
+        <strong>Monitor 135</strong>
+        <span>Herramienta abierta. Mapa interactivo y ficha de los 135 municipios.</span>
+        <em>Abrir el Monitor →</em>
       </a>
-      <a class="prod-slide" href="/municipios-data-hub.html">
-        <div class="prod-slide-cover" aria-hidden="true"><img src="/assets/img/cards/monitor-135.jpg" alt="" loading="lazy"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div></div>
-        <div class="prod-slide-body">
-          <span class="prod-slide-tag">Herramienta</span>
-          <h3>Monitor 135</h3>
-          <p>Mapa interactivo y ficha completa de los 135 municipios: datos fiscales, electorales, productivos y territoriales.</p>
-          <span class="prod-slide-cta">Abrir el Monitor →</span>
-        </div>
+      <a class="publish-link" href="/informes.html">
+        <strong>Informes</strong>
+        <span>Publicaciones periódicas y análisis territoriales.</span>
+        <em>Ver los informes →</em>
       </a>
-      <a class="prod-slide" href="/informes.html">
-        <div class="prod-slide-cover" aria-hidden="true"><img src="/assets/img/cards/informes-tienda.jpg" alt="" loading="lazy"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></div></div>
-        <div class="prod-slide-body">
-          <span class="prod-slide-tag">Tienda</span>
-          <h3>Informes</h3>
-          <p>Recaudación tributaria, transferencias municipales, radiografía institucional e informes territoriales a medida.</p>
-          <span class="prod-slide-cta">Ver la tienda →</span>
-        </div>
-      </a>
-      <a class="prod-slide" href="mailto:newsletter@alsinaar.com?subject=Consulta%20an%C3%A1lisis%20electoral">
-        <div class="prod-slide-cover" aria-hidden="true"><img src="/assets/img/cards/analisis-electoral.jpg" alt="" loading="lazy"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg></div></div>
-        <div class="prod-slide-body">
-          <span class="prod-slide-tag">A medida</span>
-          <h3>Análisis electoral</h3>
-          <p>Historial de resultados, composición de HCD y mapa de fuerzas políticas por municipio y sección electoral.</p>
-          <span class="prod-slide-cta">Consultar →</span>
-        </div>
-      </a>
-      <a class="prod-slide" href="mailto:newsletter@alsinaar.com?subject=Consulta%20an%C3%A1lisis%20productivo">
-        <div class="prod-slide-cover" aria-hidden="true"><img src="/assets/img/cards/analisis-productivo.jpg" alt="" loading="lazy"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div></div>
-        <div class="prod-slide-body">
-          <span class="prod-slide-tag">A medida</span>
-          <h3>Análisis productivo</h3>
-          <p>PBG municipal, tejido empresarial e indicadores socioeconómicos aplicados a decisiones de inversión — para organismos públicos y empresas privadas.</p>
-          <span class="prod-slide-cta">Consultar →</span>
-        </div>
-      </a>
-      <a class="prod-slide" href="/consultoria.html">
-        <div class="prod-slide-cover" aria-hidden="true"><img src="/assets/img/cards/consultoria.jpg" alt="" loading="lazy"><div class="prod-slide-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></div></div>
-        <div class="prod-slide-body">
-          <span class="prod-slide-tag">Servicio</span>
-          <h3>Consultoría</h3>
-          <p>Diagnóstico municipal, CRM ciudadano, comunicación de gobierno y planificación urbana con intervención directa.</p>
-          <span class="prod-slide-cta">Conocer la consultoría →</span>
-        </div>
+      <a class="publish-link" href="#hero-top" onclick="document.getElementById('heroEmail').focus();document.querySelector('.hero').scrollIntoView({behavior:'smooth'});return false;">
+        <strong>Señal Alsina</strong>
+        <span>Newsletter quincenal sobre la PBA.</span>
+        <em>Suscribirme →</em>
       </a>
     </div>
-    <button class="prod-arrow prod-arrow--next" id="prodNext" aria-label="Producto siguiente">
-      <svg class="ic" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
-    </button>
   </div>
-  <div class="prod-dots" id="prodDots"></div>
 </section>
 
 <!-- CTA FINAL -->
@@ -868,6 +835,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     <div class="footer-links">
       <a href="/municipios-data-hub.html">Monitor 135</a>
       <a href="/informes.html">Informes</a>
+      <a href="/productos.html">Productos</a>
       <a href="/newsletter.html">Newsletter</a>
       <a href="#precios">Suscripción</a>
       <a href="/consultoria.html">Consultoría</a>
@@ -1243,63 +1211,6 @@ const MUNI_ELECTORAL_HIST = {"ADOLFO ALSINA":{"2015":[{"f":"Juntos x el Cambio",
   io.observe(grid);
   grid.addEventListener('mouseenter', stop);
   grid.addEventListener('mouseleave', start);
-})();
-
-// ── SLIDER DE PRODUCTOS ──
-(function(){
-  const track = document.getElementById('prodSlides');
-  const prevBtn = document.getElementById('prodPrev');
-  const nextBtn = document.getElementById('prodNext');
-  const dotsWrap = document.getElementById('prodDots');
-  if (!track || !prevBtn || !nextBtn || !dotsWrap) return;
-  const slides = Array.from(track.children);
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  slides.forEach((_, idx) => {
-    const dot = document.createElement('button');
-    dot.className = 'prod-dot';
-    dot.setAttribute('aria-label', 'Ir al producto ' + (idx + 1));
-    dot.addEventListener('click', () => scrollToSlide(idx));
-    dotsWrap.appendChild(dot);
-  });
-  const dots = Array.from(dotsWrap.children);
-
-  let current = 0, timer = null;
-  function updateDots(idx) {
-    current = idx;
-    dots.forEach((d, n) => d.classList.toggle('active', n === idx));
-  }
-  function scrollToSlide(idx) {
-    idx = (idx + slides.length) % slides.length;
-    slides[idx].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
-    updateDots(idx);
-  }
-  prevBtn.addEventListener('click', () => { scrollToSlide(current - 1); stop(); start(); });
-  nextBtn.addEventListener('click', () => { scrollToSlide(current + 1); stop(); start(); });
-
-  let scrollTimer = null;
-  track.addEventListener('scroll', () => {
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(() => {
-      const step = slides[1] ? slides[1].offsetLeft - slides[0].offsetLeft : slides[0].offsetWidth;
-      const idx = Math.round(track.scrollLeft / step);
-      updateDots(Math.max(0, Math.min(slides.length - 1, idx)));
-    }, 120);
-  }, { passive: true });
-
-  function start() {
-    if (reduceMotion) return;
-    timer = setInterval(() => scrollToSlide(current + 1), 4500);
-  }
-  function stop() { clearInterval(timer); }
-
-  const sectionIo = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if (entry.isIntersecting) start(); else stop(); });
-  }, { threshold: 0.3 });
-  sectionIo.observe(track);
-  track.addEventListener('mouseenter', stop);
-  track.addEventListener('mouseleave', start);
-  track.addEventListener('touchstart', stop, { passive: true });
 })();
 
 // ── MOBILE NAV ──
