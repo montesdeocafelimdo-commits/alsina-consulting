@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Productos ALSINA — Nueve servicios de consultoría para gobiernos locales</title>
+<meta name="description" content="Los nueve productos de consultoría ALSINA para gobiernos locales bonaerenses: IA aplicada a gestión, CRM ciudadano, tablero de control, compliance, finanzas, planes de gobierno, asesoría legislativa, comunicación política y campañas electorales.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alsinaar.com/productos.html">
+<meta property="og:title" content="Productos ALSINA — Nueve servicios de consultoría para gobiernos locales">
+<meta property="og:description" content="Cada producto ALSINA resuelve un problema concreto de la gestión pública bonaerense.">
+<meta property="og:image" content="https://alsinaar.com/assets/og/og-consultoria.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1c20">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="stylesheet" href="/assets/css/alsina.css">
+<script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
+<script src="/assets/js/analytics.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;overflow-x:hidden;}
+a{color:inherit;}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+h1,h2,h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;line-height:.98;}
+em{color:var(--turquesa);font-style:normal;}
+
+/* ── NAV (idéntico al del sitio) ── */
+nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,213,216,.1);}
+.nav-inner{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:28px;}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.nav-logo svg{width:30px;height:30px;}
+.nav-word{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.15rem;letter-spacing:.18em;color:var(--crema);}
+.nav-tagline{font-size:.56rem;color:rgba(183,178,170,.72);letter-spacing:.1em;text-transform:uppercase;display:block;margin-top:1px;}
+.nav-links{display:flex;gap:24px;list-style:none;margin-left:auto;}
+.nav-links a{font-size:.78rem;color:rgba(243,239,231,.65);text-decoration:none;letter-spacing:.03em;transition:color .2s;}
+.nav-links a:hover,.nav-links a.current{color:var(--turquesa);}
+.nav-cta{flex-shrink:0;}
+.nav-burger{display:none;flex-shrink:0;background:none;border:none;color:var(--crema);cursor:pointer;padding:6px;}
+.nav-burger svg{width:24px;height:24px;}
+.nav-mobile{display:none;background:var(--grafito2);border-bottom:1px solid rgba(0,213,216,.12);padding:8px 24px 18px;}
+.nav-mobile.open{display:block;}
+.nav-mobile a{display:block;padding:12px 0;font-size:.9rem;color:var(--crema);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);}
+.nav-mobile .nav-cta{margin-top:14px;display:inline-block;}
+@media(max-width:860px){
+  .nav-links{display:none;}
+  .nav-cta{display:none;}
+  .nav-burger{display:block;}
+}
+
+/* ── HERO (corto, sin captura de mail) ── */
+.hero{position:relative;overflow:hidden;padding:64px 0 40px;background:linear-gradient(135deg,var(--grafito) 0%,var(--grafito2) 55%,#0a2535 100%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.05) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;}
+.hero-inner{position:relative;z-index:2;}
+.kicker{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--turquesa);margin-bottom:18px;font-weight:700;}
+.hero h1{font-size:clamp(2rem,4.4vw,3.1rem);color:var(--crema);max-width:760px;margin-bottom:18px;}
+.hero .sub{font-size:1rem;color:rgba(243,239,231,.72);line-height:1.75;max-width:640px;font-family:'Barlow',sans-serif;text-transform:none;}
+
+/* ── ÍNDICE ANCLA ── */
+.prod-index{background:var(--grafito2);border-top:1px solid rgba(0,213,216,.1);border-bottom:1px solid rgba(0,213,216,.1);padding:32px 0;}
+.pi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+.pi-fam{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);margin-bottom:10px;display:block;}
+.pi-col ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.pi-col a{font-size:.86rem;color:var(--crema);text-decoration:none;line-height:1.4;transition:color .2s;}
+.pi-col a:hover{color:var(--turquesa);}
+
+/* ── SECCIONES GENERALES ── */
+.sec{padding:64px 0;}
+.sec-light{padding:64px 0;}
+.sec h2{font-size:clamp(1.7rem,3vw,2.3rem);color:var(--crema);margin-bottom:10px;}
+.sec-light h2{color:var(--text-on-light);}
+.sec .lead,.sec-light .lead{font-size:.95rem;max-width:640px;margin-bottom:8px;line-height:1.7;font-family:'Barlow',sans-serif;text-transform:none;}
+.sec .lead{color:rgba(243,239,231,.65);}
+.sec-light .lead{color:var(--muted-on-light);}
+.fam-head{margin-bottom:36px;}
+
+/* ── FICHA DE PRODUCTO ── */
+.ficha-producto{scroll-margin-top:88px;padding:40px 0;border-top:1px solid rgba(0,213,216,.1);}
+.ficha-producto:first-of-type{border-top:none;padding-top:8px;}
+.fp-head{display:flex;gap:18px;align-items:flex-start;margin-bottom:22px;}
+.fp-icon{flex:0 0 auto;width:46px;height:46px;border-radius:10px;background:rgba(0,213,216,.08);border:1px solid rgba(0,213,216,.25);display:flex;align-items:center;justify-content:center;color:var(--turquesa);}
+.fp-icon .ic{width:22px;height:22px;}
+.fp-head h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.5rem;color:var(--crema);letter-spacing:0;margin-bottom:6px;}
+.fp-problem{font-size:.92rem;color:rgba(243,239,231,.55);font-style:italic;line-height:1.5;}
+.fp-body{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;margin-bottom:22px;}
+.fp-block h4,.fp-meta h4{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);margin-bottom:10px;}
+.fp-block p{font-size:.92rem;color:rgba(243,239,231,.75);line-height:1.7;}
+.fp-block ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.fp-block li{font-size:.88rem;color:rgba(243,239,231,.75);line-height:1.5;padding-left:18px;position:relative;}
+.fp-block li::before{content:'·';position:absolute;left:0;top:0;color:var(--turquesa);font-weight:900;}
+.fp-meta{display:flex;flex-direction:column;gap:20px;}
+.fp-meta p{font-size:.88rem;color:rgba(243,239,231,.75);line-height:1.6;}
+.fp-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+
+/* ── CIERRE ── */
+.contact-cta{padding:88px 0;text-align:center;background:radial-gradient(700px 320px at 50% 130%,#123544 0%,transparent 70%);}
+.contact-cta h2{font-size:clamp(1.8rem,3.6vw,2.6rem);color:var(--crema);margin-bottom:14px;}
+.contact-cta .sub{color:rgba(243,239,231,.65);margin-bottom:28px;font-family:'Barlow',sans-serif;font-size:.96rem;max-width:560px;margin-left:auto;margin-right:auto;}
+.contact-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+/* ── FOOTER (idéntico al del sitio) ── */
+footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0,213,216,.08);}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:.75rem;color:rgba(183,178,170,.72);}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap;}
+.footer-links a{color:rgba(243,239,231,.6);text-decoration:none;}
+.footer-links a:hover{color:var(--turquesa);}
+
+@media(max-width:860px){
+  .pi-grid{grid-template-columns:1fr;gap:20px;}
+  .fp-body{grid-template-columns:1fr;gap:18px;}
+  .fp-meta{flex-direction:row;gap:24px;flex-wrap:wrap;}
+  .sec,.sec-light{padding:48px 0;}
+}
+@media(max-width:520px){
+  .fp-meta{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="3" y="3" width="58" height="58" rx="4" fill="none" stroke="#2196c9" stroke-width="2.5"/>
+        <text x="32" y="47" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="40" font-weight="700" fill="#F3EFE7">A</text>
+      </svg>
+      <span>
+        <span class="nav-word">ALSINA</span>
+        <span class="nav-tagline">Análisis · Estrategia · Impacto</span>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/index.html#monitor">Monitor 135</a></li>
+      <li><a href="/informes.html">Informes</a></li>
+      <li><a href="/productos.html" class="current">Productos</a></li>
+      <li><a href="/index.html#precios">Suscripción</a></li>
+      <li><a href="/consultoria.html">Consultoría</a></li>
+    </ul>
+    <a class="btn nav-cta" href="mailto:newsletter@alsinaar.com">Escribirnos</a>
+    <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navMobile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="/index.html#monitor">Monitor 135</a>
+    <a href="/informes.html">Informes</a>
+    <a href="/productos.html">Productos</a>
+    <a href="/index.html#precios">Suscripción</a>
+    <a href="/consultoria.html">Consultoría</a>
+    <a class="btn nav-cta" href="mailto:newsletter@alsinaar.com">Escribirnos</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="wrap hero-inner">
+    <div class="kicker">Servicios</div>
+    <h1>Nueve formas de ordenar<br><em>la complejidad.</em></h1>
+    <p class="sub">Cada producto ALSINA resuelve un problema concreto de la gestión pública bonaerense. Todos parten del mismo método: relevar, ordenar, priorizar, implementar.</p>
+  </div>
+</section>
+
+<!-- ÍNDICE ANCLA -->
+<section class="prod-index">
+  <div class="wrap">
+    <div class="pi-grid">
+      <div class="pi-col">
+        <span class="pi-fam">Gobernar mejor</span>
+        <ul>
+          <li><a href="#ia">Inteligencia Artificial aplicada a gobiernos locales</a></li>
+          <li><a href="#crm">CRM ciudadano</a></li>
+          <li><a href="#tablero">Tablero de control y gestión</a></li>
+          <li><a href="#compliance">Compliance</a></li>
+        </ul>
+      </div>
+      <div class="pi-col">
+        <span class="pi-fam">Financiar y planificar</span>
+        <ul>
+          <li><a href="#finanzas">Mejoras financieras</a></li>
+          <li><a href="#planes">Planes de gobierno</a></li>
+          <li><a href="#legislativa">Asesoría legislativa</a></li>
+        </ul>
+      </div>
+      <div class="pi-col">
+        <span class="pi-fam">Comunicar y competir</span>
+        <ul>
+          <li><a href="#cicero">Comunicación política (CICERO)</a></li>
+          <li><a href="#campanas">Gestión de campañas electorales</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAMILIA 1 — GOBERNAR MEJOR ═══ -->
+<section class="sec" id="gobernar-mejor">
+  <div class="wrap reveal">
+    <div class="fam-head">
+      <span class="tag" style="color:var(--turquesa);">Familia 1</span>
+      <h2>Gobernar mejor</h2>
+      <p class="lead">Capacidad de gestión: que el municipio funcione mejor por dentro.</p>
+    </div>
+
+    <!-- 1. IA -->
+    <article class="ficha-producto" id="ia">
+      <div class="fp-head">
+        <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div>
+        <div>
+          <h3>Inteligencia Artificial aplicada a gobiernos locales</h3>
+          <p class="fp-problem">El problema: los equipos municipales pierden horas en tareas repetitivas que hoy se pueden automatizar.</p>
+        </div>
+      </div>
+      <div class="fp-body">
+        <div class="fp-block">
+          <h4>Qué es</h4>
+          <p>Diagnóstico e implementación de IA en procesos concretos de la gestión municipal. No es un curso ni una charla de tendencias: identificamos dónde la IA ahorra tiempo real en tu municipio y la ponemos a funcionar con el equipo que ya tenés.</p>
+        </div>
+        <div class="fp-block">
+          <h4>Qué incluye</h4>
+          <ul>
+            <li>Relevamiento de procesos automatizables y matriz de impacto</li>
+            <li>Implementación de asistentes para atención ciudadana y trámites</li>
+            <li>Automatización de análisis documental (expedientes, normativa, licitaciones)</li>
+            <li>Capacitación del equipo municipal en el uso de las herramientas</li>
+            <li>Protocolo de uso responsable de IA en el ámbito público</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fp-body" style="margin-bottom:24px;">
+        <div class="fp-meta" style="flex-direction:row;gap:32px;">
+          <div><h4>Para quién</h4><p>Intendentes y secretarios que necesitan más capacidad operativa sin ampliar la planta.</p></div>
+          <div><h4>Qué se entrega</h4><p>Hoja de ruta de adopción, herramientas implementadas y equipo capacitado.</p></div>
+        </div>
+      </div>
+      <div class="fp-cta">
+        <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Inteligencia%20Artificial%20aplicada%20a%20gobiernos%20locales">Consultar por este servicio →</a>
+      </div>
+    </article>
+
+    <!-- 2. CRM -->
+    <article class="ficha-producto" id="crm">
+      <div class="fp-head">
+        <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+        <div>
+          <h3>CRM ciudadano</h3>
+          <p class="fp-problem">El problema: el vecino reclama por cinco canales distintos y nadie sabe en qué quedó cada reclamo.</p>
+        </div>
+      </div>
+      <div class="fp-body">
+        <div class="fp-block">
+          <h4>Qué es</h4>
+          <p>Arquitectura omnicanal de atención ciudadana: WhatsApp, web y redes unificados en un solo sistema, con trazabilidad completa del reclamo y tableros en tiempo real. Es la plataforma VinculAR, adaptada al municipio.</p>
+        </div>
+        <div class="fp-block">
+          <h4>Qué incluye</h4>
+          <ul>
+            <li>Unificación de canales de contacto en una sola bandeja</li>
+            <li>Automatización de respuestas y derivación por área</li>
+            <li>Trazabilidad del reclamo de punta a punta, con responsable y plazo</li>
+            <li>Dashboard de gestión en tiempo real por área y por territorio</li>
+            <li>Capacitación del equipo de atención</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fp-body" style="margin-bottom:24px;">
+        <div class="fp-meta" style="flex-direction:row;gap:32px;">
+          <div><h4>Para quién</h4><p>Municipios que quieren responder mejor y demostrar lo que responden.</p></div>
+          <div><h4>Qué se entrega</h4><p>Sistema implementado, circuitos definidos y tableros operativos.</p></div>
+        </div>
+      </div>
+      <div class="fp-cta">
+        <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20CRM%20ciudadano">Consultar por este servicio →</a>
+      </div>
+    </article>
+
+    <!-- 3. Tablero -->
+    <article class="ficha-producto" id="tablero">
+      <div class="fp-head">
+        <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div>
+        <div>
+          <h3>Tablero de control y gestión</h3>
+          <p class="fp-problem">El problema: se decide sin datos propios, o con datos que llegan tarde.</p>
+        </div>
+      </div>
+      <div class="fp-body">
+        <div class="fp-block">
+          <h4>Qué es</h4>
+          <p>Tableros de control con las métricas que el intendente necesita mirar todas las semanas. Transformamos datos dispersos entre áreas en información accionable para la mesa de gestión.</p>
+        </div>
+        <div class="fp-block">
+          <h4>Qué incluye</h4>
+          <ul>
+            <li>Definición de indicadores clave por área de gobierno</li>
+            <li>Integración de fuentes de datos municipales existentes</li>
+            <li>Tablero de seguimiento de metas y proyectos</li>
+            <li>Cruce con datos provinciales del Monitor 135 (fiscales, sociales, productivos)</li>
+            <li>Rutina de gestión: qué se mira, cada cuánto y con quién</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fp-body" style="margin-bottom:24px;">
+        <div class="fp-meta" style="flex-direction:row;gap:32px;">
+          <div><h4>Para quién</h4><p>Gabinetes que necesitan una mesa de gestión con evidencia.</p></div>
+          <div><h4>Qué se entrega</h4><p>Tablero operativo, indicadores documentados y rutina de seguimiento.</p></div>
+        </div>
+      </div>
+      <div class="fp-cta">
+        <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Tablero%20de%20control%20y%20gesti%C3%B3n">Consultar por este servicio →</a>
+      </div>
+    </article>
+
+    <!-- 4. Compliance -->
+    <article class="ficha-producto" id="compliance">
+      <div class="fp-head">
+        <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <div>
+          <h3>Compliance</h3>
+          <p class="fp-problem">El problema: la exposición institucional y patrimonial crece, y los controles internos no siempre acompañan.</p>
+        </div>
+      </div>
+      <div class="fp-body">
+        <div class="fp-block">
+          <h4>Qué es</h4>
+          <p>Diseño e implementación de programas de integridad y control interno para la administración municipal: normativa, procedimientos y trazabilidad de las decisiones sensibles.</p>
+        </div>
+        <div class="fp-block">
+          <h4>Qué incluye</h4>
+          <ul>
+            <li>Relevamiento de riesgos de integridad por área</li>
+            <li>Diseño de programa de integridad y código de conducta</li>
+            <li>Circuitos de compras y contrataciones con trazabilidad</li>
+            <li>Canal de denuncias y protocolo de investigación interna</li>
+            <li>Capacitación de funcionarios y agentes</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fp-body" style="margin-bottom:24px;">
+        <div class="fp-meta" style="flex-direction:row;gap:32px;">
+          <div><h4>Para quién</h4><p>Gestiones que quieren blindar sus procesos y mostrar transparencia verificable.</p></div>
+          <div><h4>Qué se entrega</h4><p>Programa de integridad documentado y circuitos implementados.</p></div>
+        </div>
+      </div>
+      <div class="fp-cta">
+        <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Compliance">Consultar por este servicio →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ═══ FAMILIA 2 — FINANCIAR Y PLANIFICAR ═══ -->
+<section class="sec-light" id="financiar-planificar">
+  <div class="wrap reveal">
+    <div class="fam-head">
+      <span class="tag">Familia 2</span>
+      <h2>Financiar y planificar</h2>
+      <p class="lead">Recursos y rumbo: de dónde sale la plata y hacia dónde va la gestión.</p>
+    </div>
+
+    <!-- 5. Finanzas -->
+    <article class="ficha-producto" id="finanzas">
+      <div class="fp-head">
+        <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+        <div>
+          <h3>Mejoras financieras</h3>
+          <p class="fp-problem">El problema: muchos municipios dependen de las transferencias y dejan sobre la mesa recursos propios y financiamiento disponible.</p>
+        </div>
+      </div>
+      <div class="fp-body">
+        <div class="fp-block">
+          <h4>Qué es</h4>
+          <p>Análisis integral de la estructura de recursos del municipio y hoja de ruta para mejorarla: recaudación propia, acceso a fondos provinciales y nacionales, y financiamiento de proyectos.</p>
+        </div>
+        <div class="fp-block">
+          <h4>Qué incluye</h4>
+          <ul>
+            <li>Diagnóstico fiscal del municipio y comparación con pares de su sección</li>
+            <li>Análisis de la estructura tributaria local y márgenes de mejora</li>
+            <li>Mapa de ventanillas: programas y fondos provinciales y nacionales disponibles</li>
+            <li>Instrumentos de financiamiento urbano y captura de plusvalías</li>
+            <li>Preparación de carpetas de proyecto para presentar ante organismos</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fp-body" style="margin-bottom:24px;">
+        <div class="fp-meta" style="flex-direction:row;gap:32px;">
+          <div><h4>Para quién</h4><p>Municipios que necesitan ampliar su margen fiscal sin depender solo de la coparticipación.</p></div>
+          <div><h4>Qué se entrega</h4><p>Diagnóstico fiscal, hoja de ruta priorizada y carpetas de gestión.</p></div>
+        </div>
+      </div>
+      <div class="fp-cta">
+        <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Mejoras%20financieras">Consultar por este servicio →</a>
+      </div>
+    </article>
+
+    <!-- 6. Planes de gobierno -->
+    <article class="ficha-producto" id="planes">
+      <div class="fp-head">
+        <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M9 20l-5.5 2V6L9 4m0 16l6 2m-6-2V4m6 18l5.5-2V4L15 6m0 14V6m0 0L9 4"/></svg></div>
+        <div>
+          <h3>Planes de gobierno</h3>
+          <p class="fp-problem">El problema: se asume la gestión con un discurso de campaña pero sin un plan ejecutable.</p>
+        </div>
+      </div>
+      <div class="fp-body">
+        <div class="fp-block">
+          <h4>Qué es</h4>
+          <p>Construcción del plan de gobierno municipal: del diagnóstico del territorio a los objetivos, metas y responsables. El documento que ordena los cuatro años y permite evaluar si se está cumpliendo.</p>
+        </div>
+        <div class="fp-block">
+          <h4>Qué incluye</h4>
+          <ul>
+            <li>Diagnóstico territorial integral del partido</li>
+            <li>Definición de ejes estratégicos, objetivos y metas medibles</li>
+            <li>Priorización por impacto, urgencia y factibilidad técnica y política</li>
+            <li>Cronograma de gestión con responsables e hitos</li>
+            <li>Sistema de seguimiento del cumplimiento del plan</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fp-body" style="margin-bottom:24px;">
+        <div class="fp-meta" style="flex-direction:row;gap:32px;">
+          <div><h4>Para quién</h4><p>Intendentes que asumen o gestiones que necesitan reordenar su rumbo a mitad de mandato.</p></div>
+          <div><h4>Qué se entrega</h4><p>Plan de gobierno documentado y tablero de seguimiento.</p></div>
+        </div>
+      </div>
+      <div class="fp-cta">
+        <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Planes%20de%20gobierno">Consultar por este servicio →</a>
+      </div>
+    </article>
+
+    <!-- 7. Asesoría legislativa -->
+    <article class="ficha-producto" id="legislativa">
+      <div class="fp-head">
+        <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M16 11V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"/><path d="M22 19H12"/><path d="m16 15 4 4-4 4"/></svg></div>
+        <div>
+          <h3>Asesoría legislativa</h3>
+          <p class="fp-problem">El problema: los bloques trabajan sin equipo técnico y las ordenanzas se copian sin adaptarse al distrito.</p>
+        </div>
+      </div>
+      <div class="fp-body">
+        <div class="fp-block">
+          <h4>Qué es</h4>
+          <p>Soporte técnico para el trabajo en el Concejo Deliberante: redacción de proyectos, estrategia de bloque y análisis de la normativa provincial que impacta en el municipio.</p>
+        </div>
+        <div class="fp-block">
+          <h4>Qué incluye</h4>
+          <ul>
+            <li>Redacción y fundamentación de proyectos de ordenanza</li>
+            <li>Análisis de impacto local de la normativa provincial y nacional</li>
+            <li>Estrategia parlamentaria: mapa de bloques, mayorías y comisiones</li>
+            <li>Seguimiento de expedientes y agenda del cuerpo</li>
+            <li>Informes de composición y dinámica del HCD</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fp-body" style="margin-bottom:24px;">
+        <div class="fp-meta" style="flex-direction:row;gap:32px;">
+          <div><h4>Para quién</h4><p>Bloques, concejales y presidencias de HCD.</p></div>
+          <div><h4>Qué se entrega</h4><p>Proyectos redactados, informes de coyuntura legislativa y estrategia de bloque.</p></div>
+        </div>
+      </div>
+      <div class="fp-cta">
+        <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Asesor%C3%ADa%20legislativa">Consultar por este servicio →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ═══ FAMILIA 3 — COMUNICAR Y COMPETIR ═══ -->
+<section class="sec" id="comunicar-competir">
+  <div class="wrap reveal">
+    <div class="fam-head">
+      <span class="tag" style="color:var(--turquesa);">Familia 3</span>
+      <h2>Comunicar y competir</h2>
+      <p class="lead">Poder político: cómo se cuenta la gestión y cómo se compite.</p>
+    </div>
+
+    <!-- 8. CICERO -->
+    <article class="ficha-producto" id="cicero">
+      <div class="fp-head">
+        <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
+        <div>
+          <h3>Comunicación política — CICERO</h3>
+          <p class="fp-problem">El problema: la gestión hace cosas que nadie se entera, y la comunicación se improvisa día a día.</p>
+        </div>
+      </div>
+      <div class="fp-body">
+        <div class="fp-block">
+          <h4>Qué es</h4>
+          <p>Sistema de inteligencia comunicacional con IA. CICERO estructura el perfil político, genera contenidos multiplataforma, ordena el calendario editorial y mide el posicionamiento.</p>
+        </div>
+        <div class="fp-block">
+          <h4>Qué incluye</h4>
+          <ul>
+            <li>Perfil político estructurado: mensaje, tono y ejes propios</li>
+            <li>Generación de contenidos multiplataforma asistida por IA</li>
+            <li>Calendario editorial y rutina de comunicación de gobierno</li>
+            <li>Analítica de posicionamiento y desempeño de contenidos</li>
+            <li>Acceso a la plataforma CICERO y capacitación del equipo</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fp-body" style="margin-bottom:24px;">
+        <div class="fp-meta" style="flex-direction:row;gap:32px;">
+          <div><h4>Para quién</h4><p>Intendentes, funcionarios y dirigentes que necesitan comunicar de forma sostenida.</p></div>
+          <div><h4>Qué se entrega</h4><p>Acceso a la plataforma, sistema de contenidos y rutina de comunicación.</p></div>
+        </div>
+      </div>
+      <div class="fp-cta">
+        <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Comunicaci%C3%B3n%20pol%C3%ADtica%20(CICERO)">Consultar por este servicio →</a>
+        <a class="btn-ghost" href="https://ciceroapp.vercel.app/sign-in" target="_blank" rel="noopener">Conocer CICERO →</a>
+      </div>
+    </article>
+
+    <!-- 9. Campañas -->
+    <article class="ficha-producto" id="campanas">
+      <div class="fp-head">
+        <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <div>
+          <h3>Gestión de campañas electorales</h3>
+          <p class="fp-problem">El problema: se compite con intuición sobre un territorio que cambió más rápido que el diagnóstico.</p>
+        </div>
+      </div>
+      <div class="fp-body">
+        <div class="fp-block">
+          <h4>Qué es</h4>
+          <p>Dirección y soporte integral de campaña con base en datos electorales propios: lectura del distrito, estrategia, mensaje y operación territorial.</p>
+        </div>
+        <div class="fp-block">
+          <h4>Qué incluye</h4>
+          <ul>
+            <li>Diagnóstico electoral del distrito con series 2013–2025</li>
+            <li>Análisis de escenarios y mapa de competencia por sección</li>
+            <li>Estrategia de campaña: segmentos, mensaje y prioridades territoriales</li>
+            <li>Plan de comunicación de campaña, articulado con CICERO</li>
+            <li>Seguimiento y ajuste durante el ciclo electoral</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fp-body" style="margin-bottom:24px;">
+        <div class="fp-meta" style="flex-direction:row;gap:32px;">
+          <div><h4>Para quién</h4><p>Candidatos y espacios políticos de la provincia de Buenos Aires.</p></div>
+          <div><h4>Qué se entrega</h4><p>Diagnóstico electoral, estrategia documentada y acompañamiento durante la campaña.</p></div>
+        </div>
+      </div>
+      <div class="fp-cta">
+        <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Gesti%C3%B3n%20de%20campa%C3%B1as%20electorales">Consultar por este servicio →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- CIERRE -->
+<section class="contact-cta">
+  <div class="wrap reveal">
+    <h2>¿No sabés por dónde empezar?</h2>
+    <p class="sub">Contanos el problema y proponemos el punto de entrada.</p>
+    <div class="contact-actions">
+      <a class="btn" href="mailto:newsletter@alsinaar.com">Escribirnos →</a>
+      <a class="btn-ghost" href="/consultoria.html">Conocer el método →</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap footer-inner">
+    <div><strong style="color:var(--crema);">ALSINA</strong> · Análisis, Estrategia e Impacto</div>
+    <div class="footer-links">
+      <a href="/municipios-data-hub.html">Monitor 135</a>
+      <a href="/informes.html">Informes</a>
+      <a href="/productos.html">Productos</a>
+      <a href="/index.html#precios">Suscripción</a>
+      <a href="/consultoria.html">Consultoría</a>
+      <a href="/que-es-alsina.html">Qué es ALSINA</a>
+    </div>
+    <div>newsletter@alsinaar.com · © 2026</div>
+  </div>
+</footer>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/reveal.js"></script>
+<script src="/assets/js/sticky-cta.js"></script>
+<script>
+const navBurger = document.getElementById('navBurger');
+const navMobile = document.getElementById('navMobile');
+navBurger.addEventListener('click', () => {
+  const open = navMobile.classList.toggle('open');
+  navBurger.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navMobile.classList.remove('open');
+  navBurger.setAttribute('aria-expanded', 'false');
+}));
+</script>
+</body>
+</html>
