@@ -76,7 +76,10 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 
 /* ── SECCIONES GENERALES ── */
 .sec{padding:64px 0;}
-.sec.fam-alt{background:var(--grafito2);border-top:1px solid rgba(0,213,216,.08);border-bottom:1px solid rgba(0,213,216,.08);}
+.fam-photo{background-size:cover;background-position:center;background-repeat:no-repeat;border-top:1px solid rgba(0,213,216,.08);border-bottom:1px solid rgba(0,213,216,.08);}
+.fam-photo.fam-gobernar{background-image:linear-gradient(180deg,rgba(14,28,32,.91),rgba(14,28,32,.95)),url('/assets/img/bg/bg-familia-gobernar.jpg');}
+.fam-photo.fam-financiar{background-image:linear-gradient(180deg,rgba(21,40,48,.88),rgba(21,40,48,.93)),url('/assets/img/bg/bg-familia-financiar.jpg');}
+.fam-photo.fam-comunicar{background-image:linear-gradient(180deg,rgba(14,28,32,.91),rgba(14,28,32,.95)),url('/assets/img/bg/bg-familia-comunicar.jpg');}
 .sec h2{font-size:clamp(1.7rem,3vw,2.3rem);color:var(--crema);margin-bottom:10px;}
 .sec .lead{font-size:.95rem;max-width:640px;margin-bottom:8px;line-height:1.7;font-family:'Barlow',sans-serif;text-transform:none;color:rgba(243,239,231,.65);}
 .fam-head{margin-bottom:36px;}
@@ -214,7 +217,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 </section>
 
 <!-- ═══ FAMILIA 1 — GOBERNAR MEJOR ═══ -->
-<section class="sec" id="gobernar-mejor">
+<section class="sec fam-photo fam-gobernar" id="gobernar-mejor">
   <div class="wrap reveal">
     <div class="fam-head">
       <span class="tag" style="color:var(--turquesa);">Familia 1</span>
@@ -369,7 +372,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 </section>
 
 <!-- ═══ FAMILIA 2 — FINANCIAR Y PLANIFICAR ═══ -->
-<section class="sec fam-alt" id="financiar-planificar">
+<section class="sec fam-photo fam-financiar" id="financiar-planificar">
   <div class="wrap reveal">
     <div class="fam-head">
       <span class="tag" style="color:var(--turquesa);">Familia 2</span>
@@ -488,7 +491,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 </section>
 
 <!-- ═══ FAMILIA 3 — COMUNICAR Y COMPETIR ═══ -->
-<section class="sec" id="comunicar-competir">
+<section class="sec fam-photo fam-comunicar" id="comunicar-competir">
   <div class="wrap reveal">
     <div class="fam-head">
       <span class="tag" style="color:var(--turquesa);">Familia 3</span>
