@@ -76,31 +76,34 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 
 /* ── SECCIONES GENERALES ── */
 .sec{padding:64px 0;}
-.fam-photo{background-size:cover;background-position:center;background-repeat:no-repeat;border-top:1px solid rgba(0,213,216,.08);border-bottom:1px solid rgba(0,213,216,.08);}
-.fam-photo.fam-gobernar{background-image:linear-gradient(180deg,rgba(14,28,32,.91),rgba(14,28,32,.95)),url('/assets/img/bg/bg-familia-gobernar.jpg');}
-.fam-photo.fam-financiar{background-image:linear-gradient(180deg,rgba(21,40,48,.88),rgba(21,40,48,.93)),url('/assets/img/bg/bg-familia-financiar.jpg');}
-.fam-photo.fam-comunicar{background-image:linear-gradient(180deg,rgba(14,28,32,.91),rgba(14,28,32,.95)),url('/assets/img/bg/bg-familia-comunicar.jpg');}
+.fam-services-bg{position:relative;overflow:hidden;background:var(--grafito2);border-top:1px solid rgba(0,213,216,.08);border-bottom:1px solid rgba(0,213,216,.08);}
+.fam-services-bg>.wrap{position:relative;z-index:1;}
+.fam-bg-deco{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.55;
+  background-image:
+    radial-gradient(560px 320px at 88% 8%,rgba(0,213,216,.09),transparent 70%),
+    radial-gradient(480px 280px at 6% 92%,rgba(0,213,216,.06),transparent 70%),
+    linear-gradient(rgba(0,213,216,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,213,216,.05) 1px,transparent 1px);
+  background-size:auto,auto,46px 46px,46px 46px;
+}
 .sec h2{font-size:clamp(1.7rem,3vw,2.3rem);color:var(--crema);margin-bottom:10px;}
 .sec .lead{font-size:.95rem;max-width:640px;margin-bottom:8px;line-height:1.7;font-family:'Barlow',sans-serif;text-transform:none;color:rgba(243,239,231,.65);}
 .fam-head{margin-bottom:36px;}
 
-/* ── FICHA DE PRODUCTO ── */
-.ficha-producto{scroll-margin-top:88px;padding:40px 0;border-top:1px solid rgba(0,213,216,.1);}
-.ficha-producto:first-of-type{border-top:none;padding-top:8px;}
-.ficha-producto{position:relative;overflow:hidden;counter-increment:fp;}
-.ficha-producto::after{
-  content:counter(fp,decimal-leading-zero);
-  position:absolute;top:26px;right:2px;
-  font-family:'Barlow Condensed',sans-serif;font-weight:900;
-  font-size:clamp(56px,7vw,100px);line-height:1;letter-spacing:-2px;
-  color:rgba(0,213,216,.07);pointer-events:none;user-select:none;z-index:0;
+/* ── FICHA DE PRODUCTO (recuadrada) ── */
+.ficha-producto{
+  scroll-margin-top:88px; margin-bottom:28px; overflow:hidden;
+  background:rgba(0,213,216,.045); border:1px solid rgba(0,213,216,.18); border-radius:14px;
+  box-shadow:0 14px 32px -20px rgba(0,0,0,.5);
 }
-.fp-head,.fp-body,.fp-meta,.fp-cta{position:relative;z-index:1;}
+.ficha-producto:last-child{margin-bottom:0;}
+.fp-cover{width:100%;height:180px;object-fit:cover;display:block;}
+.fp-inner{padding:28px 28px 24px;}
 .fp-head{display:flex;gap:18px;align-items:flex-start;margin-bottom:22px;}
 .fp-icon{flex:0 0 auto;width:46px;height:46px;border-radius:10px;background:rgba(0,213,216,.08);border:1px solid rgba(0,213,216,.25);display:flex;align-items:center;justify-content:center;color:var(--turquesa);box-shadow:0 0 26px -6px rgba(0,213,216,.4);}
 .fp-icon .ic{width:22px;height:22px;}
-.fp-head h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.5rem;color:var(--crema);letter-spacing:0;margin-bottom:6px;}
-.fp-problem{font-size:.92rem;color:rgba(243,239,231,.55);font-style:italic;line-height:1.5;}
+.fp-head h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.7rem;color:var(--crema);letter-spacing:0;margin-bottom:8px;line-height:1.1;}
+.fp-problem{font-size:.94rem;color:rgba(243,239,231,.6);font-style:italic;line-height:1.5;}
 .fp-body{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;margin-bottom:22px;}
 .fp-block h4,.fp-meta h4{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);margin-bottom:10px;}
 .fp-block p{font-size:.92rem;color:rgba(243,239,231,.75);line-height:1.7;}
@@ -129,6 +132,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   .fp-body{grid-template-columns:1fr;gap:18px;}
   .fp-meta{flex-direction:row;gap:24px;flex-wrap:wrap;}
   .sec,.sec-light{padding:48px 0;}
+  .fp-inner{padding:22px 20px 20px;}
+  .fp-cover{height:150px;}
 }
 @media(max-width:520px){
   .fp-meta{flex-direction:column;}
@@ -217,7 +222,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 </section>
 
 <!-- ═══ FAMILIA 1 — GOBERNAR MEJOR ═══ -->
-<section class="sec fam-photo fam-gobernar" id="gobernar-mejor">
+<section class="sec" id="gobernar-mejor">
   <div class="wrap reveal">
     <div class="fam-head">
       <span class="tag" style="color:var(--turquesa);">Familia 1</span>
@@ -227,6 +232,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
     <!-- 1. IA -->
     <article class="ficha-producto" id="ia">
+      <img class="fp-cover" src="/assets/img/productos/ia.jpg" alt="Chip con inscripción AI sobre una placa de circuito" width="480" height="320" loading="lazy">
+      <div class="fp-inner">
       <div class="fp-head">
         <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div>
         <div>
@@ -259,10 +266,13 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
       <div class="fp-cta">
         <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Inteligencia%20Artificial%20aplicada%20a%20gobiernos%20locales">Consultar por este servicio →</a>
       </div>
+      </div>
     </article>
 
     <!-- 2. CRM -->
     <article class="ficha-producto" id="crm">
+      <img class="fp-cover" src="/assets/img/productos/crm.jpg" alt="Auriculares de atención al cliente junto a una notebook" width="480" height="320" loading="lazy">
+      <div class="fp-inner">
       <div class="fp-head">
         <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
         <div>
@@ -295,10 +305,13 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
       <div class="fp-cta">
         <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20CRM%20ciudadano">Consultar por este servicio →</a>
       </div>
+      </div>
     </article>
 
     <!-- 3. Tablero -->
     <article class="ficha-producto" id="tablero">
+      <img class="fp-cover" src="/assets/img/productos/tablero.jpg" alt="Pantalla con tablero de indicadores y gráficos" width="480" height="320" loading="lazy">
+      <div class="fp-inner">
       <div class="fp-head">
         <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div>
         <div>
@@ -331,10 +344,13 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
       <div class="fp-cta">
         <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Tablero%20de%20control%20y%20gesti%C3%B3n">Consultar por este servicio →</a>
       </div>
+      </div>
     </article>
 
     <!-- 4. Compliance -->
     <article class="ficha-producto" id="compliance">
+      <img class="fp-cover" src="/assets/img/productos/compliance.jpg" alt="Persona firmando un documento con lapicera" width="480" height="320" loading="lazy">
+      <div class="fp-inner">
       <div class="fp-head">
         <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
         <div>
@@ -367,12 +383,14 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
       <div class="fp-cta">
         <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Compliance">Consultar por este servicio →</a>
       </div>
+      </div>
     </article>
   </div>
 </section>
 
 <!-- ═══ FAMILIA 2 — FINANCIAR Y PLANIFICAR ═══ -->
-<section class="sec fam-photo fam-financiar" id="financiar-planificar">
+<section class="sec fam-services-bg" id="financiar-planificar">
+  <div class="fam-bg-deco" aria-hidden="true"></div>
   <div class="wrap reveal">
     <div class="fam-head">
       <span class="tag" style="color:var(--turquesa);">Familia 2</span>
@@ -382,6 +400,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
     <!-- 5. Finanzas -->
     <article class="ficha-producto" id="finanzas">
+      <img class="fp-cover" src="/assets/img/productos/finanzas.jpg" alt="Gráficos de desempeño en la pantalla de una notebook" width="480" height="320" loading="lazy">
+      <div class="fp-inner">
       <div class="fp-head">
         <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
         <div>
@@ -414,10 +434,13 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
       <div class="fp-cta">
         <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Mejoras%20financieras">Consultar por este servicio →</a>
       </div>
+      </div>
     </article>
 
     <!-- 6. Planes de gobierno -->
     <article class="ficha-producto" id="planes">
+      <img class="fp-cover" src="/assets/img/productos/planes.jpg" alt="Pizarra blanca con notas adhesivas de planificación" width="480" height="320" loading="lazy">
+      <div class="fp-inner">
       <div class="fp-head">
         <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M9 20l-5.5 2V6L9 4m0 16l6 2m-6-2V4m6 18l5.5-2V4L15 6m0 14V6m0 0L9 4"/></svg></div>
         <div>
@@ -450,10 +473,13 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
       <div class="fp-cta">
         <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Planes%20de%20gobierno">Consultar por este servicio →</a>
       </div>
+      </div>
     </article>
 
     <!-- 7. Asesoría legislativa -->
     <article class="ficha-producto" id="legislativa">
+      <img class="fp-cover" src="/assets/img/productos/legislativa.jpg" alt="Libros de derecho ordenados en un estante" width="480" height="320" loading="lazy">
+      <div class="fp-inner">
       <div class="fp-head">
         <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M16 11V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"/><path d="M22 19H12"/><path d="m16 15 4 4-4 4"/></svg></div>
         <div>
@@ -486,12 +512,13 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
       <div class="fp-cta">
         <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Asesor%C3%ADa%20legislativa">Consultar por este servicio →</a>
       </div>
+      </div>
     </article>
   </div>
 </section>
 
 <!-- ═══ FAMILIA 3 — COMUNICAR Y COMPETIR ═══ -->
-<section class="sec fam-photo fam-comunicar" id="comunicar-competir">
+<section class="sec" id="comunicar-competir">
   <div class="wrap reveal">
     <div class="fam-head">
       <span class="tag" style="color:var(--turquesa);">Familia 3</span>
@@ -501,6 +528,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
     <!-- 8. CICERO -->
     <article class="ficha-producto" id="cicero">
+      <img class="fp-cover" src="/assets/img/productos/cicero.jpg" alt="Altavoz montado en una pared, vista desde abajo" width="480" height="320" loading="lazy">
+      <div class="fp-inner">
       <div class="fp-head">
         <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
         <div>
@@ -534,10 +563,13 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
         <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Comunicaci%C3%B3n%20pol%C3%ADtica%20(CICERO)">Consultar por este servicio →</a>
         <a class="btn-ghost" href="https://ciceroapp.vercel.app/sign-in" target="_blank" rel="noopener">Conocer CICERO →</a>
       </div>
+      </div>
     </article>
 
     <!-- 9. Campañas -->
     <article class="ficha-producto" id="campanas">
+      <img class="fp-cover" src="/assets/img/productos/campanas.jpg" alt="Mapa con chinches marcando distintos puntos del territorio" width="480" height="320" loading="lazy">
+      <div class="fp-inner">
       <div class="fp-head">
         <div class="fp-icon"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
         <div>
@@ -569,6 +601,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
       </div>
       <div class="fp-cta">
         <a class="btn" href="mailto:newsletter@alsinaar.com?subject=Consulta%3A%20Gesti%C3%B3n%20de%20campa%C3%B1as%20electorales">Consultar por este servicio →</a>
+      </div>
       </div>
     </article>
   </div>
