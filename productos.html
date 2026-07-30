@@ -30,6 +30,7 @@
 html{scroll-behavior:smooth;}
 body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;overflow-x:hidden;}
 a{color:inherit;}
+main{counter-reset:fp;}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
 h1,h2,h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;line-height:.98;}
 em{color:var(--turquesa);font-style:normal;}
@@ -75,19 +76,25 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 
 /* ── SECCIONES GENERALES ── */
 .sec{padding:64px 0;}
-.sec-light{padding:64px 0;}
+.sec.fam-alt{background:var(--grafito2);border-top:1px solid rgba(0,213,216,.08);border-bottom:1px solid rgba(0,213,216,.08);}
 .sec h2{font-size:clamp(1.7rem,3vw,2.3rem);color:var(--crema);margin-bottom:10px;}
-.sec-light h2{color:var(--text-on-light);}
-.sec .lead,.sec-light .lead{font-size:.95rem;max-width:640px;margin-bottom:8px;line-height:1.7;font-family:'Barlow',sans-serif;text-transform:none;}
-.sec .lead{color:rgba(243,239,231,.65);}
-.sec-light .lead{color:var(--muted-on-light);}
+.sec .lead{font-size:.95rem;max-width:640px;margin-bottom:8px;line-height:1.7;font-family:'Barlow',sans-serif;text-transform:none;color:rgba(243,239,231,.65);}
 .fam-head{margin-bottom:36px;}
 
 /* ── FICHA DE PRODUCTO ── */
 .ficha-producto{scroll-margin-top:88px;padding:40px 0;border-top:1px solid rgba(0,213,216,.1);}
 .ficha-producto:first-of-type{border-top:none;padding-top:8px;}
+.ficha-producto{position:relative;overflow:hidden;counter-increment:fp;}
+.ficha-producto::after{
+  content:counter(fp,decimal-leading-zero);
+  position:absolute;top:26px;right:2px;
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(56px,7vw,100px);line-height:1;letter-spacing:-2px;
+  color:rgba(0,213,216,.07);pointer-events:none;user-select:none;z-index:0;
+}
+.fp-head,.fp-body,.fp-meta,.fp-cta{position:relative;z-index:1;}
 .fp-head{display:flex;gap:18px;align-items:flex-start;margin-bottom:22px;}
-.fp-icon{flex:0 0 auto;width:46px;height:46px;border-radius:10px;background:rgba(0,213,216,.08);border:1px solid rgba(0,213,216,.25);display:flex;align-items:center;justify-content:center;color:var(--turquesa);}
+.fp-icon{flex:0 0 auto;width:46px;height:46px;border-radius:10px;background:rgba(0,213,216,.08);border:1px solid rgba(0,213,216,.25);display:flex;align-items:center;justify-content:center;color:var(--turquesa);box-shadow:0 0 26px -6px rgba(0,213,216,.4);}
 .fp-icon .ic{width:22px;height:22px;}
 .fp-head h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.5rem;color:var(--crema);letter-spacing:0;margin-bottom:6px;}
 .fp-problem{font-size:.92rem;color:rgba(243,239,231,.55);font-style:italic;line-height:1.5;}
@@ -362,10 +369,10 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 </section>
 
 <!-- ═══ FAMILIA 2 — FINANCIAR Y PLANIFICAR ═══ -->
-<section class="sec-light" id="financiar-planificar">
+<section class="sec fam-alt" id="financiar-planificar">
   <div class="wrap reveal">
     <div class="fam-head">
-      <span class="tag">Familia 2</span>
+      <span class="tag" style="color:var(--turquesa);">Familia 2</span>
       <h2>Financiar y planificar</h2>
       <p class="lead">Recursos y rumbo: de dónde sale la plata y hacia dónde va la gestión.</p>
     </div>

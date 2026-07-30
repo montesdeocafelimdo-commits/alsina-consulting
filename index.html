@@ -316,15 +316,52 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .prod-card .btn-ghost:hover{background:rgba(20,107,145,.08);}
 
 /* ── SERVICIOS (QUÉ HACEMOS) ── */
-.services-section{background:var(--grafito2);border-top:1px solid rgba(0,213,216,.1);border-bottom:1px solid rgba(0,213,216,.1);}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:12px;}
-.services-col h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.2rem;color:var(--crema);letter-spacing:0;margin-bottom:8px;}
-.services-col>p{font-size:.85rem;color:rgba(243,239,231,.6);line-height:1.6;margin-bottom:16px;}
-.services-col ul{list-style:none;display:flex;flex-direction:column;gap:2px;}
-.services-col li{border-top:1px solid rgba(255,255,255,.08);}
-.services-col li:last-child{border-bottom:1px solid rgba(255,255,255,.08);}
-.services-col a{display:block;padding:12px 2px;font-size:.9rem;color:var(--crema);text-decoration:none;line-height:1.4;transition:color .2s,padding-left .2s;}
-.services-col a:hover{color:var(--turquesa);padding-left:6px;}
+.services-section{position:relative;background:var(--grafito2);border-top:1px solid rgba(0,213,216,.1);border-bottom:1px solid rgba(0,213,216,.1);overflow:hidden;}
+.services-section>.wrap{position:relative;z-index:1;}
+.services-bg{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.55;
+  background-image:
+    radial-gradient(560px 320px at 88% 8%,rgba(0,213,216,.09),transparent 70%),
+    radial-gradient(480px 280px at 6% 92%,rgba(0,213,216,.06),transparent 70%),
+    linear-gradient(rgba(0,213,216,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,213,216,.05) 1px,transparent 1px);
+  background-size:auto,auto,46px 46px,46px 46px;
+}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px;}
+.service-card{
+  position:relative;background:rgba(0,213,216,.045);
+  border:1px solid rgba(0,213,216,.18);border-radius:14px;
+  padding:30px 26px 26px;
+  box-shadow:0 18px 40px -28px rgba(0,0,0,.6);
+  transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;
+}
+.service-card:hover{transform:translateY(-4px);border-color:rgba(0,213,216,.45);box-shadow:0 24px 48px -24px rgba(0,213,216,.22),0 0 0 1px rgba(0,213,216,.1);}
+.sc-icon{width:50px;height:50px;border-radius:50%;background:rgba(0,213,216,.1);border:1px solid rgba(0,213,216,.3);display:flex;align-items:center;justify-content:center;color:var(--turquesa);margin-bottom:18px;}
+.sc-icon .ic{width:24px;height:24px;}
+.service-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.25rem;color:var(--crema);letter-spacing:0;margin-bottom:12px;}
+.sc-rule{display:block;width:34px;height:3px;background:var(--turquesa);border-radius:2px;margin-bottom:14px;}
+.service-card>p{font-size:.86rem;color:rgba(243,239,231,.6);line-height:1.6;margin-bottom:20px;}
+.sc-list{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.sc-list a{
+  display:flex;align-items:center;gap:11px;padding:12px 14px;border-radius:9px;
+  background:rgba(7,17,20,.35);border:1px solid rgba(0,213,216,.14);
+  text-decoration:none;transition:background .25s ease,border-color .25s ease,transform .25s ease,box-shadow .25s ease;
+}
+.sc-dot{flex:0 0 auto;width:21px;height:21px;border-radius:50%;border:1.5px solid rgba(0,213,216,.5);color:var(--turquesa);display:flex;align-items:center;justify-content:center;transition:background .25s ease,color .25s ease,border-color .25s ease;}
+.sc-dot .ic{width:11px;height:11px;stroke-width:3;}
+.sc-label{flex:1;font-size:.86rem;color:rgba(243,239,231,.88);line-height:1.35;transition:color .25s ease;}
+.sc-arrow{flex:0 0 auto;color:rgba(243,239,231,.45);font-size:.9rem;transition:transform .25s ease,color .25s ease;}
+.sc-list a:hover,.sc-list a:focus-visible{
+  background:#fff;border-color:var(--brand-cyan);transform:translateY(-1px);
+  box-shadow:0 10px 22px -10px rgba(33,150,201,.5);outline:none;
+}
+.sc-list a:hover .sc-label,.sc-list a:focus-visible .sc-label{color:var(--brand-navy);}
+.sc-list a:hover .sc-dot,.sc-list a:focus-visible .sc-dot{background:var(--brand-cyan);border-color:var(--brand-cyan);color:#fff;}
+.sc-list a:hover .sc-arrow,.sc-list a:focus-visible .sc-arrow{color:var(--brand-cyan);transform:translateX(3px);}
+.services-cta{background:linear-gradient(135deg,var(--turquesa),var(--cian));color:var(--grafito);border:1px solid transparent;}
+.services-cta:hover{background:#fff;color:var(--brand-navy);border-color:#fff;}
+@media(prefers-reduced-motion:reduce){
+  .service-card,.sc-list a,.sc-dot,.sc-label,.sc-arrow,.services-cta{transition:none;}
+}
 
 /* ── LO QUE PUBLICAMOS ── */
 .publish-section{background:var(--bg-light);}
@@ -348,6 +385,9 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 .footer-links a{color:rgba(243,239,231,.6);text-decoration:none;}
 .footer-links a:hover{color:var(--turquesa);}
 
+@media(max-width:960px){
+  .services-grid{grid-template-columns:1fr 1fr;}
+}
 @media(max-width:860px){
   .rep-grid,.prods-grid{grid-template-columns:1fr;}
   .rep-card--featured{grid-row:auto;}
@@ -361,7 +401,10 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   .ficha-stats{grid-template-columns:1fr 1fr;}
   .ficha-head{flex-direction:column;}
   .sec{padding:56px 0;}
-  .services-grid,.publish-links{grid-template-columns:1fr;gap:32px;}
+  .publish-links{grid-template-columns:1fr;gap:32px;}
+}
+@media(max-width:640px){
+  .services-grid{grid-template-columns:1fr;gap:20px;}
 }
 @media(max-width:520px){
   .rep-scope{grid-template-columns:1fr;}
@@ -750,40 +793,47 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
 <!-- SERVICIOS (QUÉ HACEMOS) -->
 <section class="sec services-section" id="servicios">
+  <div class="services-bg" aria-hidden="true"></div>
   <div class="wrap reveal">
-    <span class="tag" style="color:var(--turquesa);">Servicios ALSINA</span>
+    <span class="tag" style="color:var(--turquesa);">Productos ALSINA</span>
     <h2>Nueve productos.<br><em>Un solo método.</em></h2>
     <p class="lead" style="color:rgba(243,239,231,.65);">Consultoría de gestión pública organizada en tres frentes: cómo funciona el municipio por dentro, de dónde salen los recursos y hacia dónde va, y cómo se comunica y compite.</p>
     <div class="services-grid">
-      <div class="services-col">
+      <article class="service-card">
+        <div class="sc-icon"><svg class="ic" viewBox="0 0 24 24"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 21 7 3 7"/></svg></div>
         <h3>Gobernar mejor</h3>
+        <span class="sc-rule" aria-hidden="true"></span>
         <p>Capacidad de gestión: que el municipio funcione mejor por dentro.</p>
-        <ul>
-          <li><a href="/productos.html#ia">Inteligencia Artificial aplicada a gobiernos locales</a></li>
-          <li><a href="/productos.html#crm">CRM ciudadano</a></li>
-          <li><a href="/productos.html#tablero">Tablero de control y gestión</a></li>
-          <li><a href="/productos.html#compliance">Compliance</a></li>
+        <ul class="sc-list">
+          <li><a href="/productos.html#ia"><span class="sc-dot"><svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="sc-label">Inteligencia Artificial aplicada a gobiernos locales</span><span class="sc-arrow" aria-hidden="true">→</span></a></li>
+          <li><a href="/productos.html#crm"><span class="sc-dot"><svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="sc-label">CRM ciudadano</span><span class="sc-arrow" aria-hidden="true">→</span></a></li>
+          <li><a href="/productos.html#tablero"><span class="sc-dot"><svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="sc-label">Tablero de control y gestión</span><span class="sc-arrow" aria-hidden="true">→</span></a></li>
+          <li><a href="/productos.html#compliance"><span class="sc-dot"><svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="sc-label">Compliance</span><span class="sc-arrow" aria-hidden="true">→</span></a></li>
         </ul>
-      </div>
-      <div class="services-col">
+      </article>
+      <article class="service-card">
+        <div class="sc-icon"><svg class="ic" viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div>
         <h3>Financiar y planificar</h3>
+        <span class="sc-rule" aria-hidden="true"></span>
         <p>Recursos y rumbo: de dónde sale la plata y hacia dónde va la gestión.</p>
-        <ul>
-          <li><a href="/productos.html#finanzas">Mejoras financieras</a></li>
-          <li><a href="/productos.html#planes">Planes de gobierno</a></li>
-          <li><a href="/productos.html#legislativa">Asesoría legislativa</a></li>
+        <ul class="sc-list">
+          <li><a href="/productos.html#finanzas"><span class="sc-dot"><svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="sc-label">Mejoras financieras</span><span class="sc-arrow" aria-hidden="true">→</span></a></li>
+          <li><a href="/productos.html#planes"><span class="sc-dot"><svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="sc-label">Planes de gobierno</span><span class="sc-arrow" aria-hidden="true">→</span></a></li>
+          <li><a href="/productos.html#legislativa"><span class="sc-dot"><svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="sc-label">Asesoría legislativa</span><span class="sc-arrow" aria-hidden="true">→</span></a></li>
         </ul>
-      </div>
-      <div class="services-col">
+      </article>
+      <article class="service-card">
+        <div class="sc-icon"><svg class="ic" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
         <h3>Comunicar y competir</h3>
+        <span class="sc-rule" aria-hidden="true"></span>
         <p>Poder político: cómo se cuenta la gestión y cómo se compite.</p>
-        <ul>
-          <li><a href="/productos.html#cicero">Comunicación política (CICERO)</a></li>
-          <li><a href="/productos.html#campanas">Gestión de campañas electorales</a></li>
+        <ul class="sc-list">
+          <li><a href="/productos.html#cicero"><span class="sc-dot"><svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="sc-label">Comunicación política (CICERO)</span><span class="sc-arrow" aria-hidden="true">→</span></a></li>
+          <li><a href="/productos.html#campanas"><span class="sc-dot"><svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="sc-label">Gestión de campañas electorales</span><span class="sc-arrow" aria-hidden="true">→</span></a></li>
         </ul>
-      </div>
+      </article>
     </div>
-    <a class="btn" href="/productos.html" style="margin-top:36px;">Ver todos los productos →</a>
+    <a class="btn services-cta" href="/productos.html" style="margin-top:36px;">Ver todos los productos →</a>
   </div>
 </section>
 
