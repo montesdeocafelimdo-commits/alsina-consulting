@@ -98,11 +98,20 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 
 /* ── NOTAS / HERRAMIENTAS / CLIENTES: grid de cards ── */
 .notas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-.nota-card{background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;padding:22px;text-decoration:none;display:block;transition:border-color .2s,transform .2s;}
+.nota-card{background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;padding:22px;text-decoration:none;display:block;transition:border-color .2s,transform .2s;overflow:hidden;}
 .nota-card:hover{border-color:var(--brand-cyan);transform:translateY(-2px);}
+.nota-card.has-cover{padding:0;}
+.nota-card-cover{aspect-ratio:4/3;overflow:hidden;background:var(--bg-light);}
+.nota-card-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease;}
+.nota-card:hover .nota-card-cover img{transform:scale(1.04);}
+.nota-card-body{padding:18px 22px 22px;}
 .nota-card .tag-mini{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-cyan-text);margin-bottom:10px;display:block;}
 .nota-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.02rem;color:var(--text-on-light);letter-spacing:0;margin-bottom:6px;}
 .nota-card p{font-size:.8rem;color:var(--muted-on-light);line-height:1.55;}
+@media(prefers-reduced-motion:reduce){
+  .nota-card-cover img{transition:none;}
+  .nota-card:hover .nota-card-cover img{transform:none;}
+}
 
 /* ── HERRAMIENTAS (dark cards) ── */
 .tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
@@ -322,35 +331,47 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
         <h3>El fin de una era</h3>
         <p>Por qué 2027 puede cambiar para siempre el mapa municipal bonaerense: 80 de 135 intendentes sin reelección.</p>
       </a>
-      <a class="nota-card" href="/alsina-presupuesto-impositiva-2026.html">
-        <span class="tag-mini">Fiscal</span>
-        <h3>Presupuesto e Impositiva PBA 2026</h3>
-        <p>Cómo se arma el presupuesto provincial y qué cambia en la ley impositiva.</p>
+      <a class="nota-card has-cover" href="/alsina-presupuesto-impositiva-2026.html">
+        <div class="nota-card-cover"><img src="/assets/img/informes/presupuesto.jpg" alt="Portada: ¿Quién paga la cuenta en 2026? Presupuesto e Impositiva PBA" loading="lazy" width="1050" height="787"></div>
+        <div class="nota-card-body">
+          <span class="tag-mini">Fiscal</span>
+          <h3>Presupuesto e Impositiva PBA 2026</h3>
+          <p>Cómo se arma el presupuesto provincial y qué cambia en la ley impositiva.</p>
+        </div>
       </a>
       <a class="nota-card" href="/alsina-nota-finanzas-pba.html">
         <span class="tag-mini">Fiscal</span>
         <h3>Finanzas de la PBA</h3>
         <p>Estado de las cuentas provinciales: recursos, gastos y resultado fiscal.</p>
       </a>
-      <a class="nota-card" href="/alsina-recaudacion-tributaria-pba.html">
-        <span class="tag-mini">Fiscal · Interactivo</span>
-        <h3>Radiografía Fiscal 1999–2026</h3>
-        <p>Serie histórica de recaudación con Laboratorio Tributario interactivo.</p>
+      <a class="nota-card has-cover" href="/alsina-recaudacion-tributaria-pba.html">
+        <div class="nota-card-cover"><img src="/assets/img/informes/recaudacion.jpg" alt="Portada: El impuesto que sostiene todo" loading="lazy" width="1050" height="787"></div>
+        <div class="nota-card-body">
+          <span class="tag-mini">Fiscal · Interactivo</span>
+          <h3>Radiografía Fiscal 1999–2026</h3>
+          <p>Serie histórica de recaudación con Laboratorio Tributario interactivo.</p>
+        </div>
       </a>
-      <a class="nota-card" href="/nota-electoral-2027.html">
-        <span class="tag-mini">Electoral</span>
-        <h3>2027 empieza ahora</h3>
-        <p>Lectura política y electoral de los 135 municipios rumbo a 2027.</p>
+      <a class="nota-card has-cover" href="/nota-electoral-2027.html">
+        <div class="nota-card-cover"><img src="/assets/img/informes/electoral-2027.jpg" alt="Portada: 2027 empieza ahora" loading="lazy" width="1050" height="787"></div>
+        <div class="nota-card-body">
+          <span class="tag-mini">Electoral</span>
+          <h3>2027 empieza ahora</h3>
+          <p>Lectura política y electoral de los 135 municipios rumbo a 2027.</p>
+        </div>
       </a>
       <a class="nota-card" href="/alsina-informe-super-rigi.html">
         <span class="tag-mini">Inversión</span>
         <h3>Súper RIGI</h3>
         <p>Inversiones de gran escala y su impacto en los municipios bonaerenses.</p>
       </a>
-      <a class="nota-card" href="/alsina-pbg-pba.html">
-        <span class="tag-mini">Territorial</span>
-        <h3>PBG Municipal PBA 2021–2023</h3>
-        <p>Producto bruto geográfico por municipio: quién produce qué en la PBA.</p>
+      <a class="nota-card has-cover" href="/alsina-pbg-pba.html">
+        <div class="nota-card-cover"><img src="/assets/img/informes/pbg.jpg" alt="Portada: No todos los municipios crecen igual" loading="lazy" width="1050" height="787"></div>
+        <div class="nota-card-body">
+          <span class="tag-mini">Territorial</span>
+          <h3>PBG Municipal PBA 2021–2023</h3>
+          <p>Producto bruto geográfico por municipio: quién produce qué en la PBA.</p>
+        </div>
       </a>
       <a class="nota-card" href="/alsina-radiografia-pba.html">
         <span class="tag-mini">Institucional</span>
