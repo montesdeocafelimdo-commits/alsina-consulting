@@ -76,19 +76,31 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 
 /* ── SECCIONES GENERALES ── */
 .sec{padding:64px 0;}
-.fam-services-bg{position:relative;overflow:hidden;background:var(--grafito2);border-top:1px solid rgba(0,213,216,.08);border-bottom:1px solid rgba(0,213,216,.08);}
-.fam-services-bg>.wrap{position:relative;z-index:1;}
-.fam-bg-deco{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:1;
-  background-image:
-    radial-gradient(680px 400px at 88% 8%,rgba(0,213,216,.16),transparent 70%),
-    radial-gradient(600px 360px at 6% 92%,rgba(0,213,216,.12),transparent 70%),
-    linear-gradient(rgba(0,213,216,.14) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,213,216,.14) 1px,transparent 1px);
-  background-size:auto,auto,96px 96px,96px 96px;
-}
 .sec h2{font-size:clamp(1.7rem,3vw,2.3rem);color:var(--crema);margin-bottom:10px;}
 .sec .lead{font-size:.95rem;max-width:640px;margin-bottom:8px;line-height:1.7;font-family:'Barlow',sans-serif;text-transform:none;color:rgba(243,239,231,.65);}
 .fam-head{margin-bottom:36px;}
+
+/* ── FAMILIA 2 — fondo claro papel marfil + cartografía (como Monitor 135 en la home) ── */
+.fam-light-bg{
+  position:relative;overflow:hidden;
+  background-color:#F7F2EA;background-image:url('/assets/img/bg/bg-tech-monitor.jpg');
+  background-repeat:no-repeat;background-position:center center;background-size:cover;
+}
+.fam-light-bg>.wrap{position:relative;z-index:1;}
+.fam-light-bg .sec h2,.fam-light-bg h2{color:var(--text-on-light);}
+.fam-light-bg .lead{color:var(--muted-on-light);}
+.fam-light-bg .tag{color:var(--brand-cyan-text)!important;}
+.fam-light-bg .ficha-producto{
+  background:var(--card-light);border:1px solid var(--line-light);
+  box-shadow:0 14px 32px -20px rgba(20,41,77,.22);
+}
+.fam-light-bg .fp-icon{background:rgba(33,150,201,.1);border-color:rgba(33,150,201,.35);color:var(--brand-cyan-text);box-shadow:none;}
+.fam-light-bg .fp-head h3{color:var(--text-on-light);}
+.fam-light-bg .fp-problem{color:var(--muted-on-light);}
+.fam-light-bg .fp-block,.fam-light-bg .fp-meta>div{background:var(--bg-light);border-color:var(--line-light);}
+.fam-light-bg .fp-block h4,.fam-light-bg .fp-meta h4{color:var(--brand-cyan-text);}
+.fam-light-bg .fp-block p,.fam-light-bg .fp-meta p,.fam-light-bg .fp-block li{color:var(--text-on-light);}
+.fam-light-bg .fp-block li::before{color:var(--brand-cyan-text);}
 
 /* ── FICHA DE PRODUCTO (recuadrada) ── */
 .ficha-producto{
@@ -391,11 +403,10 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 </section>
 
 <!-- ═══ FAMILIA 2 — FINANCIAR Y PLANIFICAR ═══ -->
-<section class="sec fam-services-bg" id="financiar-planificar">
-  <div class="fam-bg-deco" aria-hidden="true"></div>
+<section class="sec fam-light-bg" id="financiar-planificar">
   <div class="wrap reveal">
     <div class="fam-head">
-      <span class="tag" style="color:var(--turquesa);">Familia 2</span>
+      <span class="tag">Familia 2</span>
       <h2>Financiar y planificar</h2>
       <p class="lead">Recursos y rumbo: de dónde sale la plata y hacia dónde va la gestión.</p>
     </div>
