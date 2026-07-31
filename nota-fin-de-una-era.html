@@ -87,13 +87,6 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,17,20,.97);border-bottom
 .art-col .tl-step{background:#fff;border-color:#e5e7eb;color:#374151}
 .art-col .tl-step.risk{background:rgba(240,101,62,.08);border-color:rgba(240,101,62,.35);color:var(--riskd)}
 .art-col .tl-label{color:#6b7280}
-.art-col .pt-row-label{color:#374151}
-.art-col .pt-track{background:#f1f5f9}
-.art-col .pt-axis{color:#9ca3af}
-.art-col .pt-leg-item{color:#374151}
-.art-col .pt-leg-lbl{color:#9ca3af}
-.art-col .pt-row-pres{border-top-color:#e5e7eb}
-.art-col .pt-seg{border-right-color:rgba(255,255,255,.4)}
 .art-col .ficha{background:#f8f9fa;border-color:#e5e7eb}
 .art-col .ficha h3{color:#111827}
 .art-col .cl-list li{background:rgba(0,180,200,.06);border-color:rgba(0,180,200,.2)}
@@ -156,28 +149,105 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,17,20,.97);border-bottom
 .tl-step.risk .tl-year{color:var(--risk)}
 .tl-arrow{color:var(--t3);font-size:.9rem;flex-shrink:0}
 
-/* ── PRESIDENTS/INTENDENTES TIMELINE (Cap. 1) ── */
-.pt-timeline{display:flex;flex-direction:column;gap:10px}
-.pt-row{display:flex;align-items:center;gap:14px}
-.pt-row-label{width:190px;flex-shrink:0;font-size:.78rem;color:var(--t2)}
-.pt-track{flex:1;display:flex;height:34px;border-radius:4px;overflow:hidden;background:rgba(255,255,255,.04)}
-.pt-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;color:#fff;overflow:hidden;white-space:nowrap;padding:0 6px;box-sizing:border-box;border-right:1px solid rgba(7,17,20,.5)}
-.pt-seg:last-child{border-right:none}
-.pt-gap{background:transparent}
-.pt-seg-solo{font-size:.72rem}
-.pt-row-pres{margin-top:8px;padding-top:14px;border-top:1px dashed var(--bd)}
-.pt-row-pres .pt-track{height:26px}
-.pt-axis{margin-left:204px;display:flex;justify-content:space-between;font-size:.68rem;color:var(--t3);margin-top:2px}
-.pt-legend-group{margin-top:14px}
-.pt-leg-lbl{display:block;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
-.pt-legend{display:flex;flex-wrap:wrap;gap:8px 18px}
-.pt-leg-item{display:flex;align-items:center;gap:6px;font-size:.74rem;color:var(--t2)}
-.pt-leg-item i{width:10px;height:10px;border-radius:2px;display:inline-block;flex-shrink:0}
+/* ── MANDATOS TIMELINE CHART (Cap. 1) — card marfil institucional ── */
+.mtc{
+  --mtc-bg:#F5EFE6; --mtc-card:#FFFDF8; --mtc-navy:#071D2B; --mtc-blue:#0B2E4A;
+  --mtc-teal:#00C7D4; --mtc-muted:#6B7785; --mtc-border:rgba(7,29,43,.12); --mtc-soft:rgba(0,199,212,.10);
+  position:relative; background:var(--mtc-bg); border-radius:28px; padding:3px; overflow:hidden;
+  font-family:'Barlow',sans-serif;
+}
+.mtc-bgtex{
+  position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.5;
+  background-image:
+    radial-gradient(420px 240px at 92% 6%, rgba(7,29,43,.05), transparent 70%),
+    radial-gradient(380px 220px at 4% 96%, rgba(0,199,212,.08), transparent 70%),
+    linear-gradient(rgba(7,29,43,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(7,29,43,.05) 1px,transparent 1px);
+  background-size:auto,auto,64px 64px,64px 64px;
+}
+.mtc-card{
+  position:relative; z-index:1; max-width:1400px; margin:0 auto;
+  background:rgba(255,253,248,.92); border:1px solid var(--mtc-border); border-radius:24px;
+  box-shadow:0 24px 80px rgba(7,29,43,.08); padding:32px 36px;
+}
+.mtc-head{display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; margin-bottom:28px;}
+.mtc-title{font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:1.02rem; letter-spacing:.02em; text-transform:uppercase; color:var(--mtc-navy); line-height:1.25; margin-bottom:6px;}
+.mtc-sub{font-size:.85rem; color:var(--mtc-muted);}
+.mtc-hint{display:flex; align-items:center; gap:6px; font-size:.72rem; color:var(--mtc-muted); white-space:nowrap; padding-top:4px;}
+.mtc-hint .ic{width:14px; height:14px; flex-shrink:0; color:var(--mtc-teal); stroke-width:2;}
+
+.mtc-section{margin-bottom:26px;}
+.mtc-sec-label{display:flex; align-items:baseline; gap:10px; margin-bottom:16px;}
+.mtc-sec-title{font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:.82rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mtc-blue);}
+.mtc-sec-sub{font-size:.76rem; color:var(--mtc-muted);}
+
+/* intendentes */
+.mtc-rows{display:flex; flex-direction:column; gap:14px;}
+.mtc-row{display:flex; align-items:center; gap:18px;}
+.mtc-person{display:flex; align-items:center; gap:10px; width:190px; flex-shrink:0;}
+.mtc-avatar{width:44px; height:44px; border-radius:10px; object-fit:cover; border:1px solid var(--mtc-border); box-shadow:0 2px 6px rgba(7,29,43,.12); flex-shrink:0; background:#e9e4d9;}
+.mtc-pname{font-size:.84rem; font-weight:700; color:var(--mtc-navy); line-height:1.2;}
+.mtc-pmuni{font-size:.72rem; color:var(--mtc-muted); margin-top:1px;}
+.mtc-barwrap{position:relative; flex:1; min-width:0; padding-top:16px;}
+.mtc-track{position:relative; height:22px; background:rgba(7,29,43,.05); border-radius:8px;}
+.mtc-ribbon{position:absolute; top:0; height:100%; border-radius:8px; clip-path:polygon(0 0,98% 0,100% 50%,98% 100%,0 100%); box-shadow:0 3px 10px -2px rgba(7,29,43,.25); cursor:default;}
+.mtc-year{position:absolute; top:-3px; transform:translateX(-2px); font-size:.66rem; font-weight:700; color:var(--mtc-muted); white-space:nowrap;}
+.mtc-year-end{transform:translateX(-100%); }
+.mtc-badge{flex-shrink:0; width:58px; height:44px; border-radius:14px; background:var(--mtc-soft); border:1px solid rgba(0,199,212,.3); display:flex; flex-direction:column; align-items:center; justify-content:center; line-height:1;}
+.mtc-badge strong{font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:1.15rem; color:var(--mtc-blue);}
+.mtc-badge small{font-size:.6rem; color:var(--mtc-muted); text-transform:uppercase; letter-spacing:.04em;}
+
+/* presidentes */
+.mtc-timeline{position:relative; padding-top:18px;}
+.mtc-ticks{position:relative; height:16px; margin-bottom:4px;}
+.mtc-ticks span{position:absolute; top:0; font-size:.62rem; color:var(--mtc-muted); transform:translateX(-50%);}
+.mtc-ticks span:first-child{transform:translateX(0);}
+.mtc-ticks span:last-child{transform:translateX(-100%);}
+.mtc-pres-track{position:relative; height:30px; border-radius:8px; overflow:hidden; box-shadow:0 3px 10px -2px rgba(7,29,43,.18);}
+.mtc-seg{position:absolute; top:0; height:100%; border-right:1px solid rgba(255,255,255,.35); cursor:default;}
+.mtc-pres-cards{display:flex; flex-wrap:wrap; gap:14px 10px; margin-top:20px;}
+.mtc-pcard{flex:1 1 100px; min-width:88px; max-width:150px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:6px;}
+.mtc-pcard img{width:52px; height:52px; border-radius:50%; object-fit:cover; border:2px solid; box-shadow:0 3px 8px rgba(7,29,43,.15); background:#e9e4d9;}
+.mtc-pcard-name{font-size:.72rem; font-weight:700; color:var(--mtc-navy); line-height:1.25;}
+.mtc-pcard-yrs{font-size:.66rem; color:var(--mtc-muted);}
+
+/* leyenda */
+.mtc-legend{border-top:1px solid var(--mtc-border); padding-top:18px; margin-top:6px;}
+.mtc-leg-title{font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mtc-blue); margin-bottom:8px;}
+.mtc-leg-row{display:flex; align-items:center; gap:8px; font-size:.76rem; color:var(--mtc-muted); margin-bottom:4px;}
+.mtc-leg-sw{width:12px; height:12px; border-radius:3px; flex-shrink:0; background:var(--mtc-teal);}
+.mtc-leg-sw--party{background:linear-gradient(90deg,#195FD7,#F06423,#2459C9,#F2B705,#8A4DE8); background-size:250% 100%;}
+.mtc-note{font-size:.72rem; color:var(--mtc-muted); line-height:1.6; margin-top:8px; max-width:760px;}
+
+/* tooltip */
+.mtc-tooltip{
+  position:fixed; z-index:400; pointer-events:none; opacity:0; transform:translateY(4px);
+  transition:opacity .15s ease, transform .15s ease;
+  background:var(--mtc-navy); color:#fff; border-radius:8px; padding:10px 13px;
+  font-size:.74rem; line-height:1.45; box-shadow:0 12px 30px -8px rgba(7,29,43,.45);
+  border:1px solid rgba(255,255,255,.08); max-width:230px;
+}
+.mtc-tooltip.show{opacity:1; transform:translateY(0);}
+.mtc-tooltip strong{display:block; font-size:.8rem; margin-bottom:2px;}
+.mtc-tooltip .mtc-tt-sub{color:rgba(255,255,255,.6); margin-bottom:4px;}
+.mtc-tooltip .mtc-tt-extra{color:var(--mtc-teal); font-weight:600;}
+
+@media(prefers-reduced-motion:reduce){ .mtc-tooltip{transition:none;} }
+
+@media(max-width:860px){
+  .mtc-card{padding:24px 20px;}
+  .mtc-person{width:150px;}
+  .mtc-pname{font-size:.78rem;}
+}
 @media(max-width:640px){
-  .pt-row{flex-direction:column;align-items:stretch;gap:4px}
-  .pt-row-label{width:auto}
-  .pt-track{flex:none}
-  .pt-axis{margin-left:0}
+  .mtc-card{border-radius:18px;}
+  .mtc-head{flex-direction:column; gap:8px;}
+  .mtc-section > .mtc-rows, .mtc-timeline{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  .mtc-row{min-width:560px;}
+  .mtc-person{position:sticky; left:0; z-index:2; background:rgba(255,253,248,.97); padding-right:8px; box-shadow:8px 0 8px -8px rgba(7,29,43,.1);}
+  .mtc-ticks,.mtc-pres-track{min-width:520px;}
+  .mtc-pres-cards{min-width:520px; flex-wrap:nowrap;}
+  .mtc-pcard{flex:0 0 auto; width:88px;}
 }
 
 /* ── NOTE CARD ── */
@@ -284,81 +354,122 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,17,20,.97);border-bottom
     <p>Lo llamativo es que ese recambio, se da como consecuencia de una ley aprobada hace casi diez años, modificada posteriormente para amortiguar sus efectos inmediatos, pero cuyos principales impactos están próximos a sentirse.</p>
   </div>
 
-  <div class="viz">
-    <div class="viz-title">Tres intendentes bonaerenses vs. presidentes de la Nación · 1989–2026</div>
-    <div class="pt-timeline">
-      <div class="pt-row">
-        <div class="pt-row-label">Intendente de Ituzaingó</div>
-        <div class="pt-track">
-          <div class="pt-gap" style="width:16%"></div>
-          <div class="pt-seg pt-seg-solo" style="width:77.18%;background:#00D5D8" title="Alberto Descalzo · 1995–2023">Alberto Descalzo — 28 años ininterrumpidos</div>
+  <div class="mtc" id="mandatosChart">
+    <div class="mtc-bgtex" aria-hidden="true"></div>
+    <div class="mtc-card">
+      <div class="mtc-head">
+        <div>
+          <h3 class="mtc-title">Intendentes bonaerenses vs. presidentes de la Nación · 1989–2026</h3>
+          <p class="mtc-sub">Mandatos superpuestos en la Provincia de Buenos Aires</p>
+        </div>
+        <div class="mtc-hint">
+          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          Pasá el cursor sobre las barras para ver detalles
         </div>
       </div>
-      <div class="pt-row">
-        <div class="pt-row-label">Intendente de Ezeiza</div>
-        <div class="pt-track">
-          <div class="pt-gap" style="width:18.5%"></div>
-          <div class="pt-seg pt-seg-solo" style="width:74.68%;background:#00D5D8" title="Alejandro Granados · 1995–2023">Alejandro Granados — 28 años ininterrumpidos</div>
+
+      <div class="mtc-section">
+        <div class="mtc-sec-label">
+          <span class="mtc-sec-title">Intendentes</span>
+          <span class="mtc-sec-sub">Mandatos locales seleccionados</span>
+        </div>
+        <div class="mtc-rows">
+          <div class="mtc-row" data-tip-name="Alberto Descalzo" data-tip-sub="Ituzaingó" data-tip-range="1995–2023" data-tip-extra="28 años ininterrumpidos">
+            <div class="mtc-person">
+              <img class="mtc-avatar" src="/assets/img/mandatos/descalzo.jpg" alt="Alberto Descalzo" width="64" height="64" loading="lazy">
+              <div><div class="mtc-pname">Alberto Descalzo</div><div class="mtc-pmuni">Ituzaingó</div></div>
+            </div>
+            <div class="mtc-barwrap">
+              <span class="mtc-year" style="left:16.22%">1995</span>
+              <div class="mtc-track">
+                <div class="mtc-ribbon" style="left:16.22%;width:75.68%;background:#008E9B"></div>
+              </div>
+              <span class="mtc-year mtc-year-end" style="left:91.89%">2023</span>
+            </div>
+            <div class="mtc-badge"><strong>28</strong><small>años</small></div>
+          </div>
+          <div class="mtc-row" data-tip-name="Alejandro Granados" data-tip-sub="Ezeiza" data-tip-range="1995–2023" data-tip-extra="28 años ininterrumpidos">
+            <div class="mtc-person">
+              <img class="mtc-avatar" src="/assets/img/mandatos/granados.jpg" alt="Alejandro Granados" width="64" height="64" loading="lazy">
+              <div><div class="mtc-pname">Alejandro Granados</div><div class="mtc-pmuni">Ezeiza</div></div>
+            </div>
+            <div class="mtc-barwrap">
+              <span class="mtc-year" style="left:16.22%">1995</span>
+              <div class="mtc-track">
+                <div class="mtc-ribbon" style="left:16.22%;width:75.68%;background:#4F8F83"></div>
+              </div>
+              <span class="mtc-year mtc-year-end" style="left:91.89%">2023</span>
+            </div>
+            <div class="mtc-badge"><strong>28</strong><small>años</small></div>
+          </div>
+          <div class="mtc-row" data-tip-name="Julio Pereyra" data-tip-sub="Florencio Varela" data-tip-range="1992–2017" data-tip-extra="25 años ininterrumpidos">
+            <div class="mtc-person">
+              <img class="mtc-avatar" src="/assets/img/mandatos/pereyra.jpg" alt="Julio Pereyra" width="64" height="64" loading="lazy">
+              <div><div class="mtc-pname">Julio Pereyra</div><div class="mtc-pmuni">Florencio Varela</div></div>
+            </div>
+            <div class="mtc-barwrap">
+              <span class="mtc-year" style="left:8.11%">1992</span>
+              <div class="mtc-track">
+                <div class="mtc-ribbon" style="left:8.11%;width:67.57%;background:#4C7892"></div>
+              </div>
+              <span class="mtc-year mtc-year-end" style="left:75.68%">2017</span>
+            </div>
+            <div class="mtc-badge"><strong>25</strong><small>años</small></div>
+          </div>
         </div>
       </div>
-      <div class="pt-row">
-        <div class="pt-row-label">Intendente de Florencio Varela</div>
-        <div class="pt-track">
-          <div class="pt-gap" style="width:8.88%"></div>
-          <div class="pt-seg pt-seg-solo" style="width:65.8%;background:#00D5D8" title="Julio Pereyra · 1992–2017">Julio Pereyra — 25 años ininterrumpidos</div>
+
+      <div class="mtc-section">
+        <div class="mtc-sec-label">
+          <span class="mtc-sec-title">Presidentes de la Nación</span>
+          <span class="mtc-sec-sub">Períodos presidenciales</span>
+        </div>
+        <div class="mtc-timeline">
+          <div class="mtc-ticks">
+            <span style="left:0%">1989</span><span style="left:16.22%">1995</span><span style="left:27.03%">1999</span>
+            <span style="left:32.43%">2001</span><span style="left:37.84%">2003</span><span style="left:48.65%">2007</span>
+            <span style="left:59.46%">2011</span><span style="left:70.27%">2015</span><span style="left:81.08%">2019</span>
+            <span style="left:91.89%">2023</span><span style="left:100%">2026</span>
+          </div>
+          <div class="mtc-pres-track">
+            <div class="mtc-seg" style="left:0%;width:27.03%;background:#195FD7" data-tip-name="Carlos Menem" data-tip-sub="Presidente de la Nación" data-tip-range="1989–1999" data-tip-extra="PJ / Justicialismo"></div>
+            <div class="mtc-seg" style="left:27.03%;width:5.41%;background:#5C8FB8" data-tip-name="Fernando de la Rúa" data-tip-sub="Presidente de la Nación" data-tip-range="1999–2001" data-tip-extra="Alianza / UCR"></div>
+            <div class="mtc-seg" style="left:32.43%;width:5.41%;background:#F06423" data-tip-name="Eduardo Duhalde" data-tip-sub="Presidente de la Nación" data-tip-range="2001–2003" data-tip-extra="Transición / PJ"></div>
+            <div class="mtc-seg" style="left:37.84%;width:10.81%;background:#2459C9" data-tip-name="Néstor Kirchner" data-tip-sub="Presidente de la Nación" data-tip-range="2003–2007" data-tip-extra="Frente para la Victoria"></div>
+            <div class="mtc-seg" style="left:48.65%;width:21.62%;background:#2459C9" data-tip-name="Cristina Fernández de Kirchner" data-tip-sub="Presidenta de la Nación" data-tip-range="2007–2015" data-tip-extra="Frente para la Victoria"></div>
+            <div class="mtc-seg" style="left:70.27%;width:10.81%;background:#F2B705" data-tip-name="Mauricio Macri" data-tip-sub="Presidente de la Nación" data-tip-range="2015–2019" data-tip-extra="Cambiemos"></div>
+            <div class="mtc-seg" style="left:81.08%;width:10.81%;background:#1E9DE0" data-tip-name="Alberto Fernández" data-tip-sub="Presidente de la Nación" data-tip-range="2019–2023" data-tip-extra="Frente de Todos"></div>
+            <div class="mtc-seg" style="left:91.89%;width:8.11%;background:#8A4DE8" data-tip-name="Javier Milei" data-tip-sub="Presidente de la Nación" data-tip-range="2023–2026" data-tip-extra="La Libertad Avanza"></div>
+          </div>
+          <div class="mtc-pres-cards">
+            <div class="mtc-pcard"><img src="/assets/img/mandatos/menem.jpg" alt="Carlos Menem" width="56" height="56" loading="lazy" style="border-color:#195FD7"><div class="mtc-pcard-name">Carlos Menem</div><div class="mtc-pcard-yrs">1989–1999</div></div>
+            <div class="mtc-pcard"><img src="/assets/img/mandatos/delarua.jpg" alt="Fernando de la Rúa" width="56" height="56" loading="lazy" style="border-color:#5C8FB8"><div class="mtc-pcard-name">Fernando de la Rúa</div><div class="mtc-pcard-yrs">1999–2001</div></div>
+            <div class="mtc-pcard"><img src="/assets/img/mandatos/duhalde.jpg" alt="Eduardo Duhalde" width="56" height="56" loading="lazy" style="border-color:#F06423"><div class="mtc-pcard-name">Eduardo Duhalde</div><div class="mtc-pcard-yrs">2001–2003</div></div>
+            <div class="mtc-pcard"><img src="/assets/img/mandatos/nestor.jpg" alt="Néstor Kirchner" width="56" height="56" loading="lazy" style="border-color:#2459C9"><div class="mtc-pcard-name">Néstor Kirchner</div><div class="mtc-pcard-yrs">2003–2007</div></div>
+            <div class="mtc-pcard"><img src="/assets/img/mandatos/cristina.jpg" alt="Cristina Fernández de Kirchner" width="56" height="56" loading="lazy" style="border-color:#2459C9"><div class="mtc-pcard-name">Cristina F. de Kirchner</div><div class="mtc-pcard-yrs">2007–2015</div></div>
+            <div class="mtc-pcard"><img src="/assets/img/mandatos/macri.jpg" alt="Mauricio Macri" width="56" height="56" loading="lazy" style="border-color:#F2B705"><div class="mtc-pcard-name">Mauricio Macri</div><div class="mtc-pcard-yrs">2015–2019</div></div>
+            <div class="mtc-pcard"><img src="/assets/img/mandatos/alberto.jpg" alt="Alberto Fernández" width="56" height="56" loading="lazy" style="border-color:#1E9DE0"><div class="mtc-pcard-name">Alberto Fernández</div><div class="mtc-pcard-yrs">2019–2023</div></div>
+            <div class="mtc-pcard"><img src="/assets/img/mandatos/milei.jpg" alt="Javier Milei" width="56" height="56" loading="lazy" style="border-color:#8A4DE8"><div class="mtc-pcard-name">Javier Milei</div><div class="mtc-pcard-yrs">2023–presente</div></div>
+          </div>
         </div>
       </div>
-      <div class="pt-row pt-row-pres">
-        <div class="pt-row-label">Presidentes de la Nación</div>
-        <div class="pt-track">
-          <div class="pt-seg" style="width:17.37%;background:#2563eb" title="Carlos Menem · 1989–1995 (1er mandato)"></div>
-          <div class="pt-seg" style="width:11.8%;background:#2563eb" title="Carlos Menem · 1995–1999 (2do mandato)"></div>
-          <div class="pt-seg" style="width:4.8%;background:#ea580c" title="Fernando de la Rúa · 1999–2001 (renunció)"></div>
-          <div class="pt-seg" style="width:.55%;background:#94a3b8" title="Ramón Puerta · dic. 2001 (interino, pocos días)"></div>
-          <div class="pt-seg" style="width:.55%;background:#94a3b8" title="Adolfo Rodríguez Saá · dic. 2001 (una semana, renunció)"></div>
-          <div class="pt-seg" style="width:3.31%;background:#2563eb" title="Eduardo Duhalde · 2002–2003 (por Asamblea Legislativa)"></div>
-          <div class="pt-seg" style="width:12.12%;background:#2563eb" title="Néstor Kirchner · 2003–2007"></div>
-          <div class="pt-seg" style="width:10.67%;background:#2563eb" title="Cristina Fernández de Kirchner · 2007–2011 (1er mandato)"></div>
-          <div class="pt-seg" style="width:10.67%;background:#2563eb" title="Cristina Fernández de Kirchner · 2011–2015 (2do mandato)"></div>
-          <div class="pt-seg" style="width:10.67%;background:#eab308" title="Mauricio Macri · 2015–2019"></div>
-          <div class="pt-seg" style="width:10.67%;background:#2563eb" title="Alberto Fernández · 2019–2023"></div>
-          <div class="pt-seg" style="width:6.82%;background:#7c3aed" title="Javier Milei · 2023–presente"></div>
-        </div>
-      </div>
-      <div class="pt-axis"><span>1989</span><span>1999</span><span>2009</span><span>2019</span><span>2026</span></div>
-      <div class="pt-legend-group">
-        <span class="pt-leg-lbl">Intendentes</span>
-        <div class="pt-legend">
-          <span class="pt-leg-item"><i style="background:#00D5D8"></i>Descalzo (Ituzaingó) · 1995–2023</span>
-          <span class="pt-leg-item"><i style="background:#00D5D8"></i>Granados (Ezeiza) · 1995–2023</span>
-          <span class="pt-leg-item"><i style="background:#00D5D8"></i>Pereyra (Fcio. Varela) · 1992–2017</span>
-        </div>
-      </div>
-      <div class="pt-legend-group">
-        <span class="pt-leg-lbl">Presidentes — por mandato</span>
-        <div class="pt-legend">
-          <span class="pt-leg-item"><i style="background:#2563eb"></i>Menem I · 1989–1995</span>
-          <span class="pt-leg-item"><i style="background:#2563eb"></i>Menem II · 1995–1999</span>
-          <span class="pt-leg-item"><i style="background:#ea580c"></i>De la Rúa · 1999–2001</span>
-          <span class="pt-leg-item"><i style="background:#94a3b8"></i>Puerta · dic. 2001</span>
-          <span class="pt-leg-item"><i style="background:#94a3b8"></i>Rodríguez Saá · dic. 2001</span>
-          <span class="pt-leg-item"><i style="background:#2563eb"></i>Duhalde · 2002–2003</span>
-          <span class="pt-leg-item"><i style="background:#2563eb"></i>Néstor Kirchner · 2003–2007</span>
-          <span class="pt-leg-item"><i style="background:#2563eb"></i>Cristina I · 2007–2011</span>
-          <span class="pt-leg-item"><i style="background:#2563eb"></i>Cristina II · 2011–2015</span>
-          <span class="pt-leg-item"><i style="background:#eab308"></i>Macri · 2015–2019</span>
-          <span class="pt-leg-item"><i style="background:#2563eb"></i>Alberto Fernández · 2019–2023</span>
-          <span class="pt-leg-item"><i style="background:#7c3aed"></i>Milei · 2023–presente</span>
-        </div>
+
+      <div class="mtc-legend">
+        <div class="mtc-leg-title">Referencias</div>
+        <div class="mtc-leg-row"><span class="mtc-leg-sw" style="background:#008E9B"></span>Mandatos locales — colores neutros, no partidarios</div>
+        <div class="mtc-leg-row"><span class="mtc-leg-sw mtc-leg-sw--party"></span>Mandatos presidenciales — colores por fuerza política / coalición</div>
+        <p class="mtc-note">Los períodos presidenciales se muestran según fecha de inicio y final de mandato. Los mandatos locales corresponden a períodos ininterrumpidos informados.</p>
       </div>
     </div>
-    <div class="badge-row">
-      <span class="badge">Manuel Quindimil · <strong>Lanús</strong> · +5 mandatos</span>
-      <span class="badge">Hugo Curto · <strong>Tres de Febrero</strong> · +5 mandatos</span>
-      <span class="badge">Gustavo Posse · <strong>San Isidro</strong> · +5 mandatos</span>
-    </div>
-    <div class="chart-note">Doce mandatos presidenciales distintos ocuparon la Casa Rosada entre 1989 y hoy (8 personas, 12 si se cuentan las acefalías y excepciones de 2001–2003) — mientras tanto, tres intendentes bonaerenses gobernaron sus municipios de forma ininterrumpida durante 25 a 28 años cada uno.</div>
+    <div class="mtc-tooltip" id="mtcTooltip" role="tooltip"></div>
   </div>
+
+  <div class="badge-row">
+    <span class="badge">Manuel Quindimil · <strong>Lanús</strong> · +5 mandatos</span>
+    <span class="badge">Hugo Curto · <strong>Tres de Febrero</strong> · +5 mandatos</span>
+    <span class="badge">Gustavo Posse · <strong>San Isidro</strong> · +5 mandatos</span>
+  </div>
+  <div class="chart-note">Ocho presidentes ocuparon la Casa Rosada entre 1989 y hoy (doce si se cuentan las acefalías y excepciones de 2001–2003) — mientras tanto, tres intendentes bonaerenses gobernaron sus municipios de forma ininterrumpida durante 25 a 28 años cada uno.</div>
 
   <div class="datazo"><div class="datazo-text">80 de los 135 intendentes bonaerenses no podrán competir por un nuevo mandato en las elecciones de 2027: el mayor recambio simultáneo de jefes comunales desde el regreso de la democracia.</div></div>
 </section>
@@ -572,6 +683,42 @@ const observer = new IntersectionObserver(entries=>{
   });
 },{threshold:0.2,rootMargin:'-60px 0px -70% 0px'});
 document.querySelectorAll('.chapter,.closing').forEach(el=>observer.observe(el));
+
+// ── MANDATOS TIMELINE CHART — tooltips ──
+(function(){
+  const chart = document.getElementById('mandatosChart');
+  if (!chart) return;
+  const tip = document.getElementById('mtcTooltip');
+  const targets = chart.querySelectorAll('[data-tip-name]');
+
+  function showTip(el, evt){
+    tip.innerHTML =
+      `<strong>${el.dataset.tipName}</strong>` +
+      `<div class="mtc-tt-sub">${el.dataset.tipSub}${el.dataset.tipRange ? ' · ' + el.dataset.tipRange : ''}</div>` +
+      (el.dataset.tipExtra ? `<div class="mtc-tt-extra">${el.dataset.tipExtra}</div>` : '');
+    tip.classList.add('show');
+    moveTip(evt);
+  }
+  function moveTip(evt){
+    const pad = 14;
+    let x = evt.clientX + pad;
+    let y = evt.clientY + pad;
+    const tw = tip.offsetWidth || 220, th = tip.offsetHeight || 60;
+    if (x + tw > window.innerWidth - 8) x = evt.clientX - tw - pad;
+    if (y + th > window.innerHeight - 8) y = evt.clientY - th - pad;
+    tip.style.left = x + 'px';
+    tip.style.top = y + 'px';
+  }
+  function hideTip(){ tip.classList.remove('show'); }
+
+  targets.forEach(el => {
+    el.addEventListener('mouseenter', e => showTip(el, e));
+    el.addEventListener('mousemove', moveTip);
+    el.addEventListener('mouseleave', hideTip);
+    el.addEventListener('focus', e => showTip(el, { clientX: el.getBoundingClientRect().left, clientY: el.getBoundingClientRect().bottom }));
+    el.addEventListener('blur', hideTip);
+  });
+})();
 
 // ── Charts
 const CDB = { ticks:{color:'#6b7280',font:{size:10}}, grid:{ color:'rgba(0,0,0,.07)' } };
