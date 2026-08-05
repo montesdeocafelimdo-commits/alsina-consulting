@@ -205,11 +205,11 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,17,20,.97);border-bottom
 .mtc-ticks span:last-child{transform:translateX(-100%);}
 .mtc-pres-track{position:relative; height:30px; border-radius:8px; overflow:hidden; box-shadow:0 3px 10px -2px rgba(7,29,43,.18);}
 .mtc-seg{position:absolute; top:0; height:100%; border-right:1px solid rgba(255,255,255,.35); cursor:default;}
-.mtc-pres-cards{display:flex; flex-wrap:wrap; gap:14px 10px; margin-top:20px;}
-.mtc-pcard{flex:1 1 100px; min-width:88px; max-width:150px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:6px;}
-.mtc-pcard img{width:52px; height:52px; border-radius:50%; object-fit:cover; border:2px solid; box-shadow:0 3px 8px rgba(7,29,43,.15); background:#e9e4d9;}
-.mtc-pcard-name{font-size:.72rem; font-weight:700; color:var(--mtc-navy); line-height:1.25;}
-.mtc-pcard-yrs{font-size:.66rem; color:var(--mtc-muted);}
+.mtc-pres-cards{position:relative; height:112px; margin-top:20px;}
+.mtc-pcard{position:absolute; top:0; display:flex; flex-direction:column; align-items:center; text-align:center; gap:5px; padding:0 3px; box-sizing:border-box;}
+.mtc-pcard img{width:52px; height:52px; border-radius:50%; object-fit:cover; border:2px solid; box-shadow:0 3px 8px rgba(7,29,43,.15); background:#e9e4d9; flex-shrink:0;}
+.mtc-pcard-name{font-size:.7rem; font-weight:700; color:var(--mtc-navy); line-height:1.2;}
+.mtc-pcard-yrs{font-size:.64rem; color:var(--mtc-muted); white-space:nowrap;}
 
 /* leyenda */
 .mtc-legend{border-top:1px solid var(--mtc-border); padding-top:18px; margin-top:6px;}
@@ -245,9 +245,8 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,17,20,.97);border-bottom
   .mtc-section > .mtc-rows, .mtc-timeline{overflow-x:auto; -webkit-overflow-scrolling:touch;}
   .mtc-row{min-width:560px;}
   .mtc-person{position:sticky; left:0; z-index:2; background:rgba(255,253,248,.97); padding-right:8px; box-shadow:8px 0 8px -8px rgba(7,29,43,.1);}
-  .mtc-ticks,.mtc-pres-track{min-width:520px;}
-  .mtc-pres-cards{min-width:520px; flex-wrap:nowrap;}
-  .mtc-pcard{flex:0 0 auto; width:88px;}
+  .mtc-ticks,.mtc-pres-track,.mtc-pres-cards{width:1300px; min-width:1300px;}
+  .mtc-pres-cards{height:120px;}
 }
 
 /* ── NOTE CARD ── */
@@ -433,8 +432,8 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,17,20,.97);border-bottom
           </div>
           <div class="mtc-pres-track">
             <div class="mtc-seg" style="left:0%;width:27.03%;background:#195FD7" data-tip-name="Carlos Menem" data-tip-sub="Presidente de la Nación" data-tip-range="1989–1999" data-tip-extra="PJ / Justicialismo"></div>
-            <div class="mtc-seg" style="left:27.03%;width:5.41%;background:#5C8FB8" data-tip-name="Fernando de la Rúa" data-tip-sub="Presidente de la Nación" data-tip-range="1999–2001" data-tip-extra="Alianza / UCR"></div>
-            <div class="mtc-seg" style="left:32.43%;width:5.41%;background:#F06423" data-tip-name="Eduardo Duhalde" data-tip-sub="Presidente de la Nación" data-tip-range="2001–2003" data-tip-extra="Transición / PJ"></div>
+            <div class="mtc-seg" style="left:27.03%;width:5.41%;background:#F06423" data-tip-name="Fernando de la Rúa" data-tip-sub="Presidente de la Nación" data-tip-range="1999–2001" data-tip-extra="Alianza / UCR"></div>
+            <div class="mtc-seg" style="left:32.43%;width:5.41%;background:#9AA7B5" data-tip-name="Eduardo Duhalde" data-tip-sub="Presidente de la Nación" data-tip-range="2001–2003" data-tip-extra="Transición / PJ"></div>
             <div class="mtc-seg" style="left:37.84%;width:10.81%;background:#2459C9" data-tip-name="Néstor Kirchner" data-tip-sub="Presidente de la Nación" data-tip-range="2003–2007" data-tip-extra="Frente para la Victoria"></div>
             <div class="mtc-seg" style="left:48.65%;width:21.62%;background:#2459C9" data-tip-name="Cristina Fernández de Kirchner" data-tip-sub="Presidenta de la Nación" data-tip-range="2007–2015" data-tip-extra="Frente para la Victoria"></div>
             <div class="mtc-seg" style="left:70.27%;width:10.81%;background:#F2B705" data-tip-name="Mauricio Macri" data-tip-sub="Presidente de la Nación" data-tip-range="2015–2019" data-tip-extra="Cambiemos"></div>
@@ -442,14 +441,14 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,17,20,.97);border-bottom
             <div class="mtc-seg" style="left:91.89%;width:8.11%;background:#8A4DE8" data-tip-name="Javier Milei" data-tip-sub="Presidente de la Nación" data-tip-range="2023–2026" data-tip-extra="La Libertad Avanza"></div>
           </div>
           <div class="mtc-pres-cards">
-            <div class="mtc-pcard"><img src="/assets/img/mandatos/menem.jpg" alt="Carlos Menem" width="56" height="56" loading="lazy" style="border-color:#195FD7"><div class="mtc-pcard-name">Carlos Menem</div><div class="mtc-pcard-yrs">1989–1999</div></div>
-            <div class="mtc-pcard"><img src="/assets/img/mandatos/delarua.jpg" alt="Fernando de la Rúa" width="56" height="56" loading="lazy" style="border-color:#5C8FB8"><div class="mtc-pcard-name">Fernando de la Rúa</div><div class="mtc-pcard-yrs">1999–2001</div></div>
-            <div class="mtc-pcard"><img src="/assets/img/mandatos/duhalde.jpg" alt="Eduardo Duhalde" width="56" height="56" loading="lazy" style="border-color:#F06423"><div class="mtc-pcard-name">Eduardo Duhalde</div><div class="mtc-pcard-yrs">2001–2003</div></div>
-            <div class="mtc-pcard"><img src="/assets/img/mandatos/nestor.jpg" alt="Néstor Kirchner" width="56" height="56" loading="lazy" style="border-color:#2459C9"><div class="mtc-pcard-name">Néstor Kirchner</div><div class="mtc-pcard-yrs">2003–2007</div></div>
-            <div class="mtc-pcard"><img src="/assets/img/mandatos/cristina.jpg" alt="Cristina Fernández de Kirchner" width="56" height="56" loading="lazy" style="border-color:#2459C9"><div class="mtc-pcard-name">Cristina F. de Kirchner</div><div class="mtc-pcard-yrs">2007–2015</div></div>
-            <div class="mtc-pcard"><img src="/assets/img/mandatos/macri.jpg" alt="Mauricio Macri" width="56" height="56" loading="lazy" style="border-color:#F2B705"><div class="mtc-pcard-name">Mauricio Macri</div><div class="mtc-pcard-yrs">2015–2019</div></div>
-            <div class="mtc-pcard"><img src="/assets/img/mandatos/alberto.jpg" alt="Alberto Fernández" width="56" height="56" loading="lazy" style="border-color:#1E9DE0"><div class="mtc-pcard-name">Alberto Fernández</div><div class="mtc-pcard-yrs">2019–2023</div></div>
-            <div class="mtc-pcard"><img src="/assets/img/mandatos/milei.jpg" alt="Javier Milei" width="56" height="56" loading="lazy" style="border-color:#8A4DE8"><div class="mtc-pcard-name">Javier Milei</div><div class="mtc-pcard-yrs">2023–presente</div></div>
+            <div class="mtc-pcard" style="left:0%;width:27.03%"><img src="/assets/img/mandatos/menem.jpg" alt="Carlos Menem" width="56" height="56" loading="lazy" style="border-color:#195FD7"><div class="mtc-pcard-name">Carlos Menem</div><div class="mtc-pcard-yrs">1989–1999</div></div>
+            <div class="mtc-pcard" style="left:27.03%;width:5.41%"><img src="/assets/img/mandatos/delarua.jpg" alt="Fernando de la Rúa" width="56" height="56" loading="lazy" style="border-color:#F06423"><div class="mtc-pcard-name">Fernando<br>de la Rúa</div><div class="mtc-pcard-yrs">1999–2001</div></div>
+            <div class="mtc-pcard" style="left:32.43%;width:5.41%"><img src="/assets/img/mandatos/duhalde.jpg" alt="Eduardo Duhalde" width="56" height="56" loading="lazy" style="border-color:#9AA7B5"><div class="mtc-pcard-name">Eduardo<br>Duhalde</div><div class="mtc-pcard-yrs">2001–2003</div></div>
+            <div class="mtc-pcard" style="left:37.84%;width:10.81%"><img src="/assets/img/mandatos/nestor.jpg" alt="Néstor Kirchner" width="56" height="56" loading="lazy" style="border-color:#2459C9"><div class="mtc-pcard-name">Néstor Kirchner</div><div class="mtc-pcard-yrs">2003–2007</div></div>
+            <div class="mtc-pcard" style="left:48.65%;width:21.62%"><img src="/assets/img/mandatos/cristina.jpg" alt="Cristina Fernández de Kirchner" width="56" height="56" loading="lazy" style="border-color:#2459C9"><div class="mtc-pcard-name">Cristina F. de Kirchner</div><div class="mtc-pcard-yrs">2007–2015</div></div>
+            <div class="mtc-pcard" style="left:70.27%;width:10.81%"><img src="/assets/img/mandatos/macri.jpg" alt="Mauricio Macri" width="56" height="56" loading="lazy" style="border-color:#F2B705"><div class="mtc-pcard-name">Mauricio Macri</div><div class="mtc-pcard-yrs">2015–2019</div></div>
+            <div class="mtc-pcard" style="left:81.08%;width:10.81%"><img src="/assets/img/mandatos/alberto.jpg" alt="Alberto Fernández" width="56" height="56" loading="lazy" style="border-color:#1E9DE0"><div class="mtc-pcard-name">Alberto Fernández</div><div class="mtc-pcard-yrs">2019–2023</div></div>
+            <div class="mtc-pcard" style="left:91.89%;width:8.11%"><img src="/assets/img/mandatos/milei.jpg" alt="Javier Milei" width="56" height="56" loading="lazy" style="border-color:#8A4DE8"><div class="mtc-pcard-name">Javier Milei</div><div class="mtc-pcard-yrs">2023–presente</div></div>
           </div>
         </div>
       </div>
