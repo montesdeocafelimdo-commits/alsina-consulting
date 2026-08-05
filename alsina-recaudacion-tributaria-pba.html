@@ -65,6 +65,11 @@ nav.scrolled{background:rgba(14,28,32,.97);box-shadow:0 2px 40px rgba(0,0,0,.4);
 .cta-hero{display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:12px 26px;background:var(--turquesa);color:#071114;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:background .2s,transform .15s;}
 .cta-hero:hover{background:#00f0f4;transform:translateY(-1px);}
 
+.byline{display:flex;align-items:center;gap:12px;margin-top:26px;}
+.byline-photo{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid rgba(0,213,216,.4);flex-shrink:0;}
+.byline-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;color:var(--crema);letter-spacing:.02em;}
+.byline-role{font-size:.65rem;color:var(--concreto);letter-spacing:.08em;text-transform:uppercase;}
+
 .ficha-band{background:var(--sombra);border-top:2px solid var(--turquesa);border-bottom:1px solid rgba(0,213,216,.15);}
 .ficha-grid{display:grid;grid-template-columns:repeat(6,1fr);}
 .ficha-cell{padding:22px 18px;border-right:1px solid rgba(0,213,216,.08);text-align:center;}
@@ -242,7 +247,7 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
     <li><a href="#regimenes">Regímenes</a></li>
     <li><a href="#anatomia">Anatomía</a></li>
     <li><a href="#tributos">Por tributo</a></li>
-    <li><a href="#trimestre">1T2026</a></li>
+    <li><a href="#trimestre">1S2026</a></li>
     <li><a href="#hipotesis">Hipótesis</a></li>
   </ul>
   <a href="index.html" class="nav-back">← Volver al sitio</a>
@@ -263,20 +268,27 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
     </h1>
     <p class="hero-sub">
       Historia, concentración y fragilidad real de la recaudación tributaria
-      de la Provincia de Buenos Aires. 327 meses de datos, seis regímenes
+      de la Provincia de Buenos Aires. 329 meses de datos, seis regímenes
       fiscales y una tesis: la Provincia recauda más nominalmente, pero
       depende de menos.
     </p>
     <div class="hero-meta">
-      <div class="meta-chip">Serie <span>ene 1999 – mar 2026</span></div>
-      <div class="meta-chip">Registros <span>327 meses</span></div>
+      <div class="meta-chip">Serie <span>ene 1999 – may 2026</span></div>
+      <div class="meta-chip">Registros <span>329 meses</span></div>
       <div class="meta-chip">Fuente <span>ARBA · Min. Economía PBA</span></div>
-      <div class="meta-chip">Base <span>Precios corrientes + real mar-2026</span></div>
+      <div class="meta-chip">Base <span>Precios corrientes + real may-2026</span></div>
     </div>
     <a href="/radar-fiscal/" class="cta-hero">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
       Abrir el Laboratorio Tributario Interactivo
     </a>
+    <div class="byline">
+      <img class="byline-photo" src="/assets/img/autores/gaston-corti.jpg" alt="Gastón Corti" width="46" height="46" loading="lazy">
+      <div>
+        <div class="byline-name">Gastón Corti</div>
+        <div class="byline-role">Alsina Consulting</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -304,8 +316,8 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
       <div class="ficha-label">Caída real acumulada<br>2017–2025</div>
     </div>
     <div class="ficha-cell">
-      <div class="ficha-val">+0,68%</div>
-      <div class="ficha-label">Crecimiento real<br>1T2026 vs 1T2025</div>
+      <div class="ficha-val">−2,39%</div>
+      <div class="ficha-label">Caída real<br>ene–may 2026 vs 2025</div>
     </div>
   </div>
 </div>
@@ -321,6 +333,9 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
       </p>
       <p class="body-t">
         Desde que es posible deflactar con el IPC Nacional oficial homogéneo, el poder de compra de la recaudación no solo no creció de forma continua: <strong class="t">entre 2017 y 2025 cayó −19,5% en términos reales</strong>, con un máximo en 2017 ($21.328.709 M a precios de marzo 2026) y un piso en 2020 ($15.631.394 M). La nominalidad camufla deterioro real.
+      </p>
+      <p class="body-t">
+        La actualización con datos a mayo 2026 confirma ese patrón dentro del propio año: con cinco de los seis meses del primer semestre cerrados, la recaudación acumula <strong class="t">−2,39% real</strong>, con tres meses consecutivos de caída (marzo, abril, mayo). El detalle está en la sección <a href="#trimestre" style="color:var(--turquesa);">"El envión de enero se apaga"</a>, más abajo.
       </p>
       <p class="body-t">
         El rasgo estructural central de la serie es la concentración creciente en <strong class="t">Ingresos Brutos</strong>: pasó de representar 50,8% del total en 1999 a 76,6% en 2025, con un pico histórico de 79,7% en 2023. El índice de concentración HHI tributario subió de 0,322 a 0,604. En paralelo, el peso conjunto de los tributos patrimoniales (Inmobiliario + Automotor) cayó de 23,8% a 10,3%.
@@ -592,90 +607,109 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
   </div>
 </section>
 
-<!-- ── 1T 2026 ── -->
+<!-- ── 1S 2026 ── -->
 <section id="trimestre" class="dark-sec">
-  <div class="sec-label reveal">Primer trimestre 2026</div>
-  <h2 class="sec-h reveal">Crecimiento nominal fuerte.<br><span>Empate real. Señal de alerta en marzo.</span></h2>
-  <p class="body-t reveal" style="max-width:700px;">El primer trimestre de 2026 recauda $3.999.701 M frente a $2.996.061 M en el primer trimestre de 2025. La suba nominal es de +33,5%. Ajustado por IPC, la expansión real es de apenas +0,68%: prácticamente un empate en poder de compra. Pero el dato clave está en la composición de ese crecimiento.</p>
+  <div class="sec-label reveal">Actualización · primeros cinco meses de 2026</div>
+  <h2 class="sec-h reveal">El envión de enero se apaga.<br><span>Tres meses seguidos en rojo.</span></h2>
+  <p class="body-t reveal" style="max-width:700px;">Con datos hasta mayo —cinco de los seis meses del primer semestre— la Provincia recaudó <strong class="t">$6.767.262 M</strong> frente a <strong class="t">$5.222.942 M</strong> en el mismo tramo de 2025: +29,57% nominal. Ajustado por inflación interanual, el semestre acumula una <strong class="t">caída real de −2,39%</strong>. No es un dato aislado: es el resultado de tres meses consecutivos de retroceso real —marzo, abril y mayo— después de un arranque de año que sí había crecido en poder de compra.</p>
 
   <div class="reveal" style="overflow-x:auto;margin-top:28px;">
     <div class="tbl-wrap"><table class="tbl">
       <thead>
         <tr>
           <th>Familia tributaria</th>
-          <th>1T 2025</th>
-          <th>1T 2026</th>
+          <th>Ene–may 2025</th>
+          <th>Ene–may 2026</th>
           <th>Var. nominal</th>
           <th>Var. real</th>
-          <th>Share 1T26</th>
+          <th>Share 2026</th>
           <th>Contrib. al crec. real</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td class="strong">Ingresos Brutos</td>
-          <td>$2.339.303 M</td>
-          <td>$2.992.067 M</td>
-          <td class="verde">+27,9%</td>
-          <td class="rojo">−3,6%</td>
-          <td>74,8%</td>
-          <td class="rojo">−2,82 pp</td>
-        </tr>
-        <tr>
-          <td class="strong">Inmobiliario</td>
-          <td>$156.234 M</td>
-          <td>$333.673 M</td>
-          <td class="verde">+113,6%</td>
-          <td class="verde">+63,1%</td>
-          <td>8,3%</td>
-          <td class="verde">+3,22 pp</td>
-        </tr>
-        <tr>
-          <td class="strong">Automotor</td>
-          <td>$124.588 M</td>
-          <td>$166.259 M</td>
-          <td class="verde">+33,4%</td>
-          <td class="amarillo">+1,1%</td>
-          <td>4,2%</td>
-          <td class="amarillo">+0,04 pp</td>
+          <td>$3.999.918 M</td>
+          <td>$5.137.199 M</td>
+          <td class="verde">+28,4%</td>
+          <td class="rojo">−3,2%</td>
+          <td>75,9%</td>
+          <td class="rojo">−2,48 pp</td>
         </tr>
         <tr>
           <td class="strong">Sellos</td>
-          <td>$303.758 M</td>
-          <td>$400.936 M</td>
-          <td class="verde">+32,0%</td>
-          <td class="rojo">−0,4%</td>
+          <td>$538.367 M</td>
+          <td>$679.185 M</td>
+          <td class="verde">+26,2%</td>
+          <td class="rojo">−5,0%</td>
           <td>10,0%</td>
-          <td class="rojo">−0,04 pp</td>
+          <td class="rojo">−0,52 pp</td>
+        </tr>
+        <tr>
+          <td class="strong">Inmobiliario</td>
+          <td>$299.171 M</td>
+          <td>$461.198 M</td>
+          <td class="verde">+54,2%</td>
+          <td class="verde">+16,1%</td>
+          <td>6,8%</td>
+          <td class="verde">+0,92 pp</td>
+        </tr>
+        <tr>
+          <td class="strong">Automotor</td>
+          <td>$254.144 M</td>
+          <td>$296.400 M</td>
+          <td class="verde">+16,6%</td>
+          <td class="rojo">−12,1%</td>
+          <td>4,4%</td>
+          <td class="rojo">−0,59 pp</td>
         </tr>
         <tr>
           <td class="strong">Otros</td>
-          <td>$72.179 M</td>
-          <td>$106.765 M</td>
-          <td class="verde">+47,9%</td>
-          <td class="verde">+11,4%</td>
-          <td>2,7%</td>
+          <td>$131.342 M</td>
+          <td>$193.280 M</td>
+          <td class="verde">+47,2%</td>
+          <td class="verde">+11,1%</td>
+          <td>2,9%</td>
           <td class="verde">+0,28 pp</td>
         </tr>
         <tr style="background:rgba(0,213,216,.06);">
           <td class="strong" style="color:var(--crema);">TOTAL</td>
-          <td style="color:var(--crema);">$2.996.061 M</td>
-          <td style="color:var(--crema);">$3.999.701 M</td>
-          <td class="verde">+33,5%</td>
-          <td class="amarillo">+0,68%</td>
+          <td style="color:var(--crema);">$5.222.942 M</td>
+          <td style="color:var(--crema);">$6.767.262 M</td>
+          <td class="verde">+29,6%</td>
+          <td class="rojo">−2,39%</td>
           <td style="color:var(--crema);">100%</td>
-          <td class="amarillo">+0,68 pp</td>
+          <td class="rojo">−2,39 pp</td>
         </tr>
+      </tbody>
+    </table></div>
+  </div>
+  <p class="body-t reveal" style="font-size:.8rem;margin-top:8px;">Elaboración propia sobre datos oficiales ARBA a mayo 2026. Valores reales calculados contra el mismo mes de 2025, deflactados por inflación interanual mensual (32,4%–33,2% en el período).</p>
+
+  <div class="div-line" style="margin:44px 0 28px;"></div>
+  <div class="sec-label reveal">Mes a mes: de un arranque positivo a tres caídas seguidas</div>
+  <div class="reveal" style="overflow-x:auto;margin-top:16px;">
+    <div class="tbl-wrap"><table class="tbl">
+      <thead>
+        <tr><th>Mes</th><th>Total 2025</th><th>Total 2026</th><th>Inflación i.a.</th><th>Var. real</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="strong">Enero</td><td>$950.706 M</td><td>$1.314.352 M</td><td>32,4%</td><td class="verde">+4,42%</td></tr>
+        <tr><td class="strong">Febrero</td><td>$921.021 M</td><td>$1.319.640 M</td><td>33,1%</td><td class="verde">+7,65%</td></tr>
+        <tr><td class="strong">Marzo</td><td>$1.083.448 M</td><td>$1.366.397 M</td><td>32,6%</td><td class="rojo">−4,89%</td></tr>
+        <tr><td class="strong">Abril</td><td>$1.104.931 M</td><td>$1.425.234 M</td><td>32,4%</td><td class="rojo">−2,58%</td></tr>
+        <tr style="background:rgba(224,82,82,.07);"><td class="strong">Mayo</td><td>$1.162.836 M</td><td>$1.341.639 M</td><td>33,2%</td><td class="rojo">−13,38%</td></tr>
+        <tr style="background:rgba(0,213,216,.06);"><td class="strong" style="color:var(--crema);">TOTAL</td><td style="color:var(--crema);">$5.222.942 M</td><td style="color:var(--crema);">$6.767.262 M</td><td style="color:var(--crema);">—</td><td class="rojo">−2,39%</td></tr>
       </tbody>
     </table></div>
   </div>
 
   <div class="two-col" style="margin-top:32px;gap:32px;">
     <div class="callout reveal">
-      <p><strong>Lectura técnica:</strong> El crecimiento real del 1T26 no proviene del núcleo estructural del sistema. IIBB cae en términos reales, Sellos queda neutro, Automotor aporta mínimo. Es Inmobiliario el que explica el resultado positivo (+3,22 pp de los +0,68% totales). Una lectura de coyuntura que no considere la estacionalidad del Inmobiliario sobreestima la solidez del arranque de año.</p>
+      <p><strong>Lectura técnica:</strong> Ingresos Brutos —75,9% del total— cae por cuarto mes consecutivo en términos reales y explica −2,48 pp de los −2,39% del semestre: es el tributo que arrastra al sistema. Inmobiliario sigue siendo el único gran sostén (+16,1% real acumulado), pero se desinfla mes a mes: de +67% real en enero a −64,5% en mayo, tercer mes consecutivo en rojo. Automotor profundiza su caída (−12,1% real, tercer mes negativo) y Sellos —el termómetro transaccional de la serie— encadena cuatro meses de baja real.</p>
     </div>
     <div class="alert reveal">
-      <p><strong>Señal de marzo 2026:</strong> La variación real interanual del total en marzo fue −4,9%, con IIBB en −2,6% y Sellos en −2,8%. Esto sugiere que el rebote de febrero estuvo condicionado por vencimientos y no necesariamente por una mejora orgánica de la base imponible. La lectura prudente es que el año empieza sin una recuperación robusta del núcleo recaudatorio.</p>
+      <p><strong>Tres meses seguidos en rojo:</strong> Marzo, abril y mayo cerraron con caída real, con un derrumbe de −13,38% en mayo. El Presupuesto 2026 de la Provincia ya proyectaba un déficit financiero de $1,54 billones y una dependencia de IIBB del 76,49% de los recursos tributarios propios<sup>[4]</sup>. Si el núcleo recaudatorio sigue perdiendo poder de compra, ese financiamiento —y la Coparticipación Bruta que depende de él y explica ~83% de las transferencias a municipios<sup>[5]</sup>— quedan más expuestos.</p>
     </div>
   </div>
 </section>
@@ -817,7 +851,15 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
       </div>
       <div class="fuente-item">
         <div class="fuente-num">[3]</div>
-        <div class="fuente-text">INDEC. Índice de Precios al Consumidor (IPC) Nacional. Serie oficial desde diciembre 2016. Deflactor utilizado para construir series reales a precios de marzo de 2026.</div>
+        <div class="fuente-text">INDEC. Índice de Precios al Consumidor (IPC) Nacional. Serie oficial desde diciembre 2016. Deflactor utilizado para construir series reales a precios de marzo de 2026, y variación interanual mensual para la actualización a mayo 2026.</div>
+      </div>
+      <div class="fuente-item">
+        <div class="fuente-num">[4]</div>
+        <div class="fuente-text">Alsina Consulting. <a href="/alsina-presupuesto-impositiva-2026.html" style="color:var(--turquesa);">Presupuesto e Impositiva PBA 2026</a>. Déficit financiero proyectado y participación de IIBB en la recaudación tributaria propia.</div>
+      </div>
+      <div class="fuente-item">
+        <div class="fuente-num">[5]</div>
+        <div class="fuente-text">Alsina Consulting. <a href="/alsina-informe-transferencias.html" style="color:var(--turquesa);">Transferencias a municipios PBA</a>. Peso de la Coparticipación Bruta sobre el total transferido a municipios.</div>
       </div>
     </div>
     <div class="reveal">
@@ -837,6 +879,10 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
       <div class="fuente-item">
         <div class="fuente-num">M4</div>
         <div class="fuente-text">La actividad corriente se define como Ingresos Brutos + Sellos, los dos tributos con mayor sensibilidad al ciclo económico y a los precios nominales.</div>
+      </div>
+      <div class="fuente-item">
+        <div class="fuente-num">M5</div>
+        <div class="fuente-text">La actualización a mayo 2026 (sección "El envión de enero se apaga") usa deflación mes contra el mismo mes de 2025, con inflación interanual provista por la fuente [3]. Este método difiere del usado para la serie histórica anual (precios constantes de marzo 2026), por lo que las variaciones reales de esta sección no son estrictamente comparables mes a mes con la tabla de hitos de la sección "Regímenes fiscales".</div>
       </div>
     </div>
   </div>
