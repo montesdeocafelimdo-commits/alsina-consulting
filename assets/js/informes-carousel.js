@@ -2,6 +2,11 @@
    Vainilla JS: scroll nativo + scroll-snap, sin librerías.
    Editar este array para agregar/quitar informes de la vitrina. */
 const INFORMES = [
+  { id: 'fin-de-una-era', cat: ['destacados', 'institucional'],
+    titulo: 'El fin de una era',
+    subtitulo: '80 de 135 intendentes no podrán competir en 2027. Mapa interactivo de reelección y signo político.',
+    img: '/assets/img/informes/fin-de-una-era.jpg',
+    href: '/nota-fin-de-una-era.html' },
   { id: 'recaudacion', cat: ['destacados', 'economico'],
     titulo: 'Recaudación tributaria PBA',
     subtitulo: 'Evolución y composición de los tributos provinciales.',

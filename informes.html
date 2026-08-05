@@ -108,6 +108,15 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .nota-card .tag-mini{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-cyan-text);margin-bottom:10px;display:block;}
 .nota-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.02rem;color:var(--text-on-light);letter-spacing:0;margin-bottom:6px;}
 .nota-card p{font-size:.8rem;color:var(--muted-on-light);line-height:1.55;}
+.nota-card.featured{grid-column:span 2;}
+.nota-card.featured .nota-card-cover{aspect-ratio:16/7;}
+.nota-card.featured h3{font-size:1.5rem;}
+.nota-card.featured p{font-size:.88rem;max-width:520px;}
+.nota-card-authors{display:flex;align-items:center;margin-top:12px;}
+.nota-card-authors img{width:24px;height:24px;border-radius:50%;object-fit:cover;border:1.5px solid var(--brand-cyan);margin-left:-7px;flex-shrink:0;}
+.nota-card-authors img:first-child{margin-left:0;}
+.nota-card-authors span{font-size:.74rem;color:var(--muted-on-light);margin-left:8px;}
+@media(max-width:860px){.nota-card.featured{grid-column:span 1;}.nota-card.featured .nota-card-cover{aspect-ratio:4/3;}}
 @media(prefers-reduced-motion:reduce){
   .nota-card-cover img{transition:none;}
   .nota-card:hover .nota-card-cover img{transform:none;}
@@ -326,12 +335,17 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   <div class="wrap reveal">
     <div class="sec-title"><h2>Notas y análisis</h2><span class="cnt">8 notas publicadas</span></div>
     <div class="notas-grid">
-      <a class="nota-card has-cover" href="/nota-fin-de-una-era.html">
-        <div class="nota-card-cover"><img src="/assets/img/informes/fin-de-una-era.jpg" alt="Portada: una ley de hace 10 años puede provocar el mayor recambio simultáneo de intendentes" loading="lazy" width="675" height="900"></div>
+      <a class="nota-card has-cover featured" href="/nota-fin-de-una-era.html">
+        <div class="nota-card-cover"><img src="/assets/img/informes/fin-de-una-era.jpg" alt="Portada: una ley de hace 10 años puede provocar el mayor recambio simultáneo de intendentes" loading="lazy" width="900" height="675"></div>
         <div class="nota-card-body">
-          <span class="tag-mini">Institucional · Electoral</span>
+          <span class="tag-mini">Destacado · Institucional · Electoral</span>
           <h3>El fin de una era</h3>
-          <p>Por qué 2027 puede cambiar para siempre el mapa municipal bonaerense: 80 de 135 intendentes sin reelección.</p>
+          <p>Por qué 2027 puede cambiar para siempre el mapa municipal bonaerense: 80 de 135 intendentes sin reelección. Con mapa interactivo de los 135 municipios.</p>
+          <div class="nota-card-authors">
+            <img src="/assets/img/autores/luz-landivar.jpg" alt="Luz Landívar" loading="lazy">
+            <img src="/assets/img/autores/pablo-rodriguez.jpg" alt="Pablo Rodríguez" loading="lazy">
+            <span>Luz Landívar y Pablo Rodríguez</span>
+          </div>
         </div>
       </a>
       <a class="nota-card has-cover" href="/alsina-presupuesto-impositiva-2026.html">
