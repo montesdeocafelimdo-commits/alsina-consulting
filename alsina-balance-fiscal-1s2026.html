@@ -2,885 +2,763 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Balance Fiscal PBA · 1er Semestre 2026 — Alsina</title>
-<meta name="description" content="Recaudación provincial, recursos de Nación y transferencias a los 135 municipios bonaerenses en el primer semestre de 2026: por qué todos los niveles de gobierno recaudan menos en términos reales.">
-<meta property="og:type" content="website">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Más pesos, menos margen: el balance fiscal bonaerense del primer semestre — Alsina</title>
+<meta name="description" content="La Provincia de Buenos Aires recibió más pesos nominales en el primer semestre de 2026, pero perdieron contra la inflación: cae la recaudación propia, lo que gira la Nación y lo que llega a los 135 municipios. Con herramienta interactiva por municipio.">
+<meta property="og:type" content="article">
 <meta property="og:url" content="https://alsinaar.com/alsina-balance-fiscal-1s2026.html">
-<meta property="og:title" content="Balance Fiscal PBA · 1er Semestre 2026 — Alsina">
-<meta property="og:description" content="Recaudación provincial, recursos de Nación y transferencias a los 135 municipios bonaerenses en el primer semestre de 2026: menos plata en toda la cadena.">
+<meta property="og:title" content="Más pesos, menos margen: el balance fiscal bonaerense del primer semestre">
+<meta property="og:description" content="La caída real aparece en los recursos nacionales, en la recaudación provincial y en las transferencias municipales — aunque no impactó igual sobre todos los impuestos ni sobre los 135 municipios.">
 <meta property="og:image" content="https://alsinaar.com/assets/og/og-default.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0e1c20">
+<link rel="canonical" href="https://alsinaar.com/alsina-balance-fiscal-1s2026.html">
 <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
 <link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
 <link rel="stylesheet" href="/assets/css/alsina.css">
 <script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
 <script src="/assets/js/analytics.js"></script>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"></noscript>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Más pesos, menos margen: el balance fiscal bonaerense del primer semestre",
+  "description": "La Provincia cerró la primera mitad de 2026 con una caída real de su recaudación propia. La pérdida también aparece en los recursos enviados por la Nación y se profundiza al llegar a los municipios.",
+  "datePublished": "2026-08-11",
+  "dateModified": "2026-08-11",
+  "author": [{"@type": "Person", "name": "Gastón Corti"}],
+  "publisher": {"@type": "Organization", "name": "Alsina", "logo": {"@type": "ImageObject", "url": "https://alsinaar.com/assets/brand/apple-touch-icon.png"}},
+  "mainEntityOfPage": "https://alsinaar.com/alsina-balance-fiscal-1s2026.html"
+}
+</script>
 <style>
 :root{
-  --grafito:#0e1c20;--grafito2:#162429;--grafito3:#1e2f35;
-  --turquesa:#00D5D8;--cian:#008C9A;
-  --crema:#F3EFE7;--crema2:#eae6de;
-  --concreto:#9e9992;--sombra:#1C3C44;
-  --blanco:#ffffff;--texto-oscuro:#1a2a30;
-  --rojo:#E05252;--verde:#52C78C;--amarillo:#E4AB02;
-  --azul:#3b82f6;
+  --g:#071114;--g2:#0d1c22;--g3:#111f2a;
+  --teal:#00D5D8;--td:#007b8a;
+  --risk:#f0653e;--riskd:#c2410c;
+  --bd:rgba(255,255,255,.08);
+  --t1:#f1f5f9;--t2:#94a3b8;--t3:#64748b;
+  --sb:230px;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;overflow-x:hidden;}
-body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;overflow-x:hidden;line-height:1.75;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--g);color:var(--t1);font-family:'Barlow',sans-serif;font-size:15px;line-height:1.7}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition-duration:.01ms!important;animation-duration:.01ms!important} }
 
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:14px 52px;background:rgba(14,28,32,0);transition:background .4s,padding .3s;}
-nav.scrolled{background:rgba(14,28,32,.97);box-shadow:0 2px 40px rgba(0,0,0,.4);padding:11px 52px;border-bottom:1px solid rgba(0,213,216,.1);}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.logo-mark svg{width:28px;height:28px;}
-.nav-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.2em;color:var(--crema);}
-.nav-tagline{font-size:.58rem;color:rgba(183,178,170,.65);letter-spacing:.12em;text-transform:uppercase;}
-.nav-links{display:flex;gap:22px;list-style:none;}
-.nav-links a{color:rgba(243,239,231,.65);text-decoration:none;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;transition:color .2s;padding:3px 0;border-bottom:1px solid transparent;}
-.nav-links a:hover{color:var(--turquesa);border-bottom-color:var(--turquesa);}
-.nav-back{background:transparent;color:var(--turquesa);border:1px solid rgba(0,213,216,.35);padding:7px 18px;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all .2s;}
-.nav-back:hover{background:rgba(0,213,216,.08);}
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:200;background:rgba(7,17,20,.97);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:10px 24px;backdrop-filter:blur(8px)}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-mark{width:30px;height:30px;background:var(--teal);border-radius:6px;display:grid;place-items:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--g);flex-shrink:0}
+.nav-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:.15em;color:#fff}
+.nav-sub{font-size:.6rem;color:var(--t3);letter-spacing:.12em;text-transform:uppercase}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{color:var(--t2);text-decoration:none;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--teal)}
+@media(max-width:768px){.nav-links{display:none}}
 
-#hero{min-height:85vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding-bottom:0;}
-.hero-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.07) 1px,transparent 1px);background-size:40px 40px;}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(14,28,32,.97) 55%,rgba(14,28,32,.78) 80%,rgba(0,140,154,.15) 100%);}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.04) 1px,transparent 1px);background-size:52px 52px;}
-.hero-inner{position:relative;z-index:10;padding:130px 52px 72px;width:100%;}
-.informe-tag{display:inline-flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--concreto);margin-bottom:20px;}
-.informe-tag::before{content:'';width:28px;height:1px;background:var(--concreto);}
-.hero-headline{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.2rem,6vw,5.5rem);line-height:.9;text-transform:uppercase;color:var(--crema);max-width:900px;}
-.hero-headline .hl{color:var(--turquesa);}
-.hero-sub{font-size:.95rem;color:rgba(243,239,231,.68);max-width:640px;line-height:1.75;margin:20px 0 32px;}
-.hero-meta{display:flex;flex-wrap:wrap;gap:10px;}
-.meta-chip{background:rgba(14,28,32,.85);border:1px solid rgba(0,213,216,.2);color:var(--concreto);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;font-family:'Barlow Condensed',sans-serif;}
-.meta-chip span{color:var(--turquesa);font-weight:700;}
-.cta-hero{display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:12px 26px;background:var(--turquesa);color:#071114;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:background .2s,transform .15s;}
-.cta-hero:hover{background:#00f0f4;transform:translateY(-1px);}
+/* ── MOBILE TOC TOGGLE ── */
+.toc-toggle{display:none;position:sticky;top:52px;z-index:150;background:rgba(7,17,20,.97);border-bottom:1px solid var(--bd);}
+.toc-toggle button{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 20px;background:none;border:none;color:var(--t1);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.toc-toggle svg{transition:transform .2s}
+.toc-toggle.open svg{transform:rotate(180deg)}
+.toc-mobile-panel{display:none;background:rgba(7,17,20,.99);border-bottom:1px solid var(--bd);padding:6px 12px 14px}
+.toc-mobile-panel.open{display:block}
+@media(max-width:900px){.toc-toggle{display:block}}
 
-.byline{display:flex;align-items:center;gap:12px;margin-top:26px;}
-.byline-photo{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid rgba(0,213,216,.4);flex-shrink:0;}
-.byline-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;color:var(--crema);letter-spacing:.02em;}
-.byline-role{font-size:.65rem;color:var(--concreto);letter-spacing:.08em;text-transform:uppercase;}
+/* ── LAYOUT ── */
+.layout{display:flex;gap:0;max-width:1400px;margin:0 auto}
+.toc-col{width:var(--sb);flex:0 0 var(--sb);position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto;padding:28px 16px 28px 20px;display:flex;flex-direction:column;gap:3px}
+.toc-head{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);padding:0 0 10px 0;border-bottom:1px solid var(--bd);margin-bottom:8px}
+.toc-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;text-decoration:none;color:var(--t3);font-size:.78rem;line-height:1.35;transition:color .2s;cursor:pointer;border:none;background:none;text-align:left;width:100%}
+.toc-item:hover,.toc-item.active{color:var(--teal)}
+.toc-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;color:var(--td);min-width:16px;margin-top:1px}
+@media(max-width:900px){.toc-col{display:none}}
 
-.ficha-band{background:var(--sombra);border-top:2px solid var(--turquesa);border-bottom:1px solid rgba(0,213,216,.15);}
-.ficha-grid{display:grid;grid-template-columns:repeat(6,1fr);}
-.ficha-cell{padding:22px 18px;border-right:1px solid rgba(0,213,216,.08);text-align:center;}
-.ficha-cell:last-child{border-right:none;}
-.ficha-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;color:var(--turquesa);line-height:1.2;}
-.ficha-label{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-top:5px;line-height:1.4;}
+/* ── WHITE ARTICLE COLUMN ── */
+.art-col{flex:1;min-width:0;padding:48px 56px 0 56px;background:#ffffff;color:#111827;
+  border-left:1px solid rgba(0,0,0,.07);box-shadow:-4px 0 24px rgba(0,0,0,.08);}
+.art-col{--t1:#111827;--t2:#374151;--t3:#6b7280;--bd:rgba(0,0,0,.1);--teal:#007b8a;--td:#007b8a;}
+.art-col .art-title,.art-col .ch-title,.art-col .cl-title,.art-col .cl-qt{color:#111827}
+.art-col .art-bajada,.art-col .ch-text,.art-col .cl-text{color:#374151}
+.art-col .art-label,.art-col .ch-label,.art-col .cl-num{color:#0891b2}
+.art-col .art-meta{color:#6b7280}
+.art-col .art-meta strong{color:#374151}
+.art-col .art-header{border-bottom-color:#e5e7eb}
+.art-col .art-footer{border-top-color:#e5e7eb;color:#9ca3af}
+.art-col .art-footer a{color:#0891b2}
+.art-col .datazo{background:rgba(0,180,200,.06);border-left-color:#0891b2}
+.art-col .datazo-text{color:#111827}
+.art-col .viz{background:#f8f9fa;border-color:#e5e7eb}
+.art-col .viz-title{color:#6b7280}
+.art-col .chart-note{color:#9ca3af}
+.art-col .data-table th{color:#6b7280;border-bottom-color:#e5e7eb}
+.art-col .data-table td{border-bottom-color:#f1f5f9}
+.art-col .data-table tr:hover td{background:#f8f9fa}
+.art-col .toc-item{color:#6b7280}
+.art-col .hero-stat{background:#fff;border-color:#e5e7eb}
+.art-col .hero-stat .hs-lbl{color:#6b7280}
+.art-col .badge{background:#f3f4f6;border-color:#e5e7eb;color:#374151}
+.art-col .note-card{background:#f8f9fa;border-color:#e5e7eb;color:#374151}
+.art-col .note-card strong{color:#111827}
+.art-col .ficha{background:#f8f9fa;border-color:#e5e7eb}
+.art-col .ficha h3{color:#111827}
+.art-col .tool-card{background:#f8f9fa;border-color:#e5e7eb}
+.art-col .tool-title{color:#111827}
+.art-col .tool-sentence{color:#111827}
+.art-col .search-input{background:#fff;border-color:#d1d5db;color:#111827}
+.art-col .search-results{background:#fff;border-color:#e5e7eb}
+.art-col .period-toggle button{border-color:#d1d5db;color:#374151}
+.art-col .period-toggle button.active{background:#007b8a;color:#fff;border-color:#007b8a}
+.art-col .indicator-cell{background:#fff;border-color:#e5e7eb}
+.art-col .indicator-cell .ic-lbl{color:#6b7280}
+.art-col .gap-card{background:#fff;border-color:#e5e7eb}
+.art-col .rank-row-label{color:#374151}
+.art-col .rank-track{background:#eef0f2}
+.art-col details.full-table summary{color:#0891b2;border-color:#e5e7eb}
+.art-col .dl-link{color:#0891b2}
 
-section{padding:80px 52px;}
-.dark-sec{background:var(--grafito2);}
-.light-sec{background:var(--crema);color:var(--texto-oscuro);}
+@media(max-width:900px){
+  .art-col{padding:24px 20px 0;box-shadow:none;border-left:none}
+  .layout{max-width:100%}
+}
 
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;}
-.two-col>*{min-width:0}
-.two-col-wide{display:grid;grid-template-columns:1.5fr 1fr;gap:52px;align-items:start;}
-.two-col-wide>*{min-width:0}
-.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+/* ── ARTICLE HEADER ── */
+.art-header{border-bottom:1px solid var(--bd);padding-bottom:28px;margin-bottom:36px}
+.art-label{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+.art-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.1rem,4.4vw,3.6rem);font-weight:900;line-height:1.06;color:#fff;margin-bottom:18px;letter-spacing:.005em}
+.art-bajada{font-size:1.15rem;color:var(--t2);line-height:1.65;max-width:760px;margin-bottom:22px;font-weight:500}
+.art-authors{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:14px}
+.art-author{display:flex;align-items:center;gap:9px}
+.art-author img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid rgba(0,213,216,.4);flex-shrink:0}
+.art-author-name{font-size:.82rem;font-weight:700;color:var(--t1)}
+.art-meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:.78rem;color:var(--t3);margin-bottom:16px}
+.art-meta strong{color:var(--t2)}
+.art-meta-sep{color:var(--t3)}
+.art-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.share-row{display:flex;gap:8px}
+.share-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--bd);background:transparent;color:var(--t2);display:grid;place-items:center;cursor:pointer;transition:all .2s;text-decoration:none}
+.share-btn:hover{border-color:var(--teal);color:var(--teal)}
+.share-btn svg{width:14px;height:14px}
+.art-actions .sep-dot{color:var(--t3);font-size:.78rem}
+.art-actions a.meta-link{font-size:.78rem;color:var(--td);text-decoration:none;border-bottom:1px dotted var(--td)}
+.art-actions a.meta-link:hover{color:var(--teal);border-color:var(--teal)}
 
-.sec-label{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--turquesa);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
-.sec-label::after{content:'';flex:0 0 26px;height:1px;background:var(--turquesa);}
-.sec-label-dark{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cian);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
-.sec-label-dark::after{content:'';flex:0 0 26px;height:1px;background:var(--cian);}
+/* ── HERO STATS ── */
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.hero-stat{border:1px solid var(--bd);border-radius:8px;padding:20px 18px;background:rgba(255,255,255,.03)}
+.hero-stat .hs-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;line-height:1;color:var(--risk)}
+.hero-stat .hs-num.ok{color:var(--teal)}
+.hero-stat .hs-tag{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-top:8px}
+.hero-stat .hs-lbl{font-size:.8rem;color:var(--t2);margin-top:4px;line-height:1.45}
+@media(max-width:640px){.hero-stats{grid-template-columns:1fr}}
+.chapters-start{margin-top:44px}
 
-.sec-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2rem,3.5vw,3.2rem);text-transform:uppercase;line-height:.93;color:var(--crema);}
-.sec-h span{color:var(--turquesa);}
-.sec-h-dark{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2rem,3.5vw,3.2rem);text-transform:uppercase;line-height:.93;color:var(--texto-oscuro);}
-.sec-h-dark span{color:var(--cian);}
+/* ── CHAPTER ── */
+.chapter{margin-bottom:72px;scroll-margin-top:70px}
+.ch-label{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--td);margin-bottom:6px}
+.ch-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:#fff;margin-bottom:20px;line-height:1.15}
+.ch-text{color:var(--t2);line-height:1.85;max-width:720px;margin-bottom:28px;font-size:1rem}
+.ch-text p{margin-bottom:16px}
 
-.body-t{font-size:.92rem;color:var(--concreto);line-height:1.82;margin-top:14px;}
-.body-t-dark{font-size:.92rem;color:#3a4a50;line-height:1.82;margin-top:14px;}
-strong.t{color:var(--turquesa);}
-strong.td{color:var(--cian);}
+/* ── DATAZO (pull quote) ── */
+.datazo{border-left:3px solid var(--teal);background:rgba(0,213,216,.07);padding:16px 22px;margin:28px 0;border-radius:0 6px 6px 0}
+.datazo-text{font-size:1.05rem;font-weight:600;color:#e2e8f0;line-height:1.55}
 
-.callout{border-left:3px solid var(--turquesa);background:rgba(0,213,216,.05);padding:16px 20px;margin:18px 0;}
-.callout p{font-size:.88rem;color:var(--concreto);line-height:1.72;margin:0;}
-.callout strong{color:var(--turquesa);}
-.callout-dark{border-left:3px solid var(--cian);background:rgba(0,140,154,.06);padding:16px 20px;margin:18px 0;}
-.callout-dark p{font-size:.88rem;color:#4a5a60;line-height:1.72;margin:0;}
-.callout-dark strong{color:var(--cian);}
-.alert{border-left:3px solid var(--rojo);background:rgba(224,82,82,.07);padding:16px 20px;margin:18px 0;}
-.alert p{font-size:.88rem;color:#e09090;line-height:1.72;margin:0;}
-.alert strong{color:var(--rojo);}
-.alert-light{border-left:3px solid var(--rojo);background:rgba(224,82,82,.05);padding:16px 20px;margin:18px 0;}
-.alert-light p{font-size:.88rem;color:#a03030;line-height:1.72;margin:0;}
-.alert-light strong{color:#cc2222;}
+/* ── VIZ CONTAINERS ── */
+.viz{background:rgba(255,255,255,.03);border:1px solid var(--bd);border-radius:8px;padding:22px 22px 20px;margin:24px 0;max-width:1080px}
+.viz-title{font-family:'Barlow Condensed',sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:none;color:var(--t3);margin-bottom:16px}
+.chart-wrap{position:relative}
+.chart-note{font-size:.74rem;color:var(--t3);margin-top:10px;line-height:1.55}
 
-.d-card{background:rgba(14,28,32,.7);border-top:2px solid rgba(0,213,216,.25);padding:20px 18px;transition:border-top-color .3s;}
-.d-card:hover{border-top-color:var(--turquesa);}
-.d-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.75rem;color:var(--turquesa);line-height:1;}
-.d-label{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-top:5px;line-height:1.35;}
-.d-sub{font-size:.72rem;color:rgba(183,178,170,.5);margin-top:3px;}
+/* ── NOTE CARD / FICHA ── */
+.note-card{border:1px solid var(--bd);background:rgba(255,255,255,.03);border-radius:8px;padding:16px 18px;font-size:.87rem;color:var(--t2);line-height:1.65;margin:20px 0;max-width:720px}
+.note-card strong{color:var(--t1)}
+.ficha{border:1px solid var(--bd);border-radius:8px;padding:24px;background:rgba(255,255,255,.03);max-width:720px}
+.ficha h3{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:12px}
+.ficha p{color:var(--t2);line-height:1.75;margin-bottom:12px;font-size:.9rem}
 
-.d-card-light{background:#f5f2ec;border-top:2px solid rgba(0,140,154,.25);padding:20px 18px;}
-.d-card-light .d-val{color:var(--cian);}
-.d-card-light .d-label{color:#4a5a60;}
+/* ── TABLE ── */
+.data-table{width:100%;border-collapse:collapse;font-size:.84rem}
+.data-table th{padding:8px 10px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);border-bottom:1px solid var(--bd);white-space:nowrap;cursor:pointer;user-select:none}
+.data-table th:hover{color:var(--teal)}
+.data-table td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
+.data-table tr:hover td{background:rgba(255,255,255,.03)}
+.table-wrap{overflow-x:auto}
+details.full-table{margin:24px 0;max-width:1080px}
+details.full-table summary{cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;color:var(--teal);padding:12px 0;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);list-style:none;display:flex;align-items:center;justify-content:space-between}
+details.full-table summary::-webkit-details-marker{display:none}
+details.full-table summary::after{content:'+';font-size:1.3rem;line-height:1}
+details.full-table[open] summary::after{content:'–'}
+.dl-link{color:var(--teal);font-size:.8rem;text-decoration:none;border-bottom:1px dotted currentColor}
 
-.tbl-wrap{width:100%;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.tbl{width:100%;border-collapse:collapse;margin-top:0;font-size:.83rem;}
-@media(max-width:640px){.tbl{min-width:560px}}
-.tbl thead tr{background:var(--sombra);}
-.tbl thead th{padding:10px 14px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);border-bottom:2px solid rgba(0,213,216,.25);}
-.tbl tbody td{padding:9px 14px;border-bottom:1px solid rgba(0,213,216,.07);color:var(--concreto);vertical-align:top;line-height:1.55;}
-.tbl tbody tr:hover td{background:rgba(0,213,216,.03);}
-.tbl .n{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--turquesa);font-size:.95rem;}
-.tbl .strong{font-weight:600;color:var(--crema);}
-.tbl .verde{color:var(--verde);}
-.tbl .rojo{color:var(--rojo);}
-.tbl .amarillo{color:var(--amarillo);}
+/* ── CLOSING (dark full-bleed, cierre institucional) ── */
+.closing-band{background:var(--g2);border-top:1px solid var(--bd);padding:64px 24px;}
+.closing-inner{max-width:820px;margin:0 auto}
+.cl-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.cl-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:800;color:#fff;margin-bottom:22px}
+.cl-intro{color:var(--t2);line-height:1.8;margin-bottom:28px;max-width:680px}
+.signal-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:20px}
+.signal-card{background:rgba(255,255,255,.04);border-top:2px solid rgba(0,213,216,.3);padding:22px 20px}
+.signal-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;color:rgba(0,213,216,.4);line-height:1}
+.signal-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;text-transform:uppercase;color:#fff;margin:6px 0 8px}
+.signal-body{font-size:.85rem;color:var(--t2);line-height:1.65}
+.signal-body strong{color:#e2e8f0}
+@media(max-width:640px){.signal-grid{grid-template-columns:1fr}}
 
-.tbl-light{width:100%;border-collapse:collapse;margin-top:22px;font-size:.83rem;}
-.tbl-light thead tr{background:var(--sombra);}
-.tbl-light thead th{padding:10px 14px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--crema);border-bottom:2px solid rgba(0,213,216,.35);}
-.tbl-light tbody td{padding:9px 14px;border-bottom:1px solid #ddd8d0;color:#3a4a50;vertical-align:top;line-height:1.55;}
-.tbl-light tbody tr:hover td{background:rgba(0,140,154,.04);}
-.tbl-light .n{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--cian);font-size:.92rem;}
-.tbl-light .strong{font-weight:600;color:var(--texto-oscuro);}
-.tbl-light .verde{color:#1a7a4a;}
-.tbl-light .rojo{color:#cc2222;}
-.tbl-light .neutral{color:#5a6a70;}
-.tbl-light tr.highlight{background:rgba(0,140,154,.07)!important;font-weight:600;}
+/* ── FOOTER ── */
+.art-footer{border-top:1px solid var(--bd);margin-top:0;padding:36px 56px 40px;font-size:.75rem;color:var(--t3);line-height:1.85;max-width:1400px;margin-left:auto;margin-right:auto}
+.art-footer a{color:var(--teal)}
+@media(max-width:900px){.art-footer{padding:28px 20px 40px}}
 
-.cap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:24px;}
-.cap-card{background:rgba(14,28,32,.65);padding:18px 16px;border-left:2px solid rgba(0,213,216,.2);transition:border-left-color .3s;}
-.cap-card:hover{border-left-color:var(--turquesa);}
-.cap-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;color:rgba(0,213,216,.2);line-height:1;}
-.cap-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;text-transform:uppercase;color:var(--crema);margin-top:4px;margin-bottom:6px;}
-.cap-body{font-size:.76rem;color:var(--concreto);line-height:1.6;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.grid-2{grid-template-columns:1fr}}
 
-.div-line{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,213,216,.22),transparent);margin:52px 0;}
-.div-line-dark{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,0,0,.15),transparent);margin:52px 0;}
+/* ── CHAIN VIZ ── */
+.chain-wrap{display:flex;align-items:stretch;gap:0;margin:28px 0;max-width:900px;flex-wrap:wrap}
+.chain-node{flex:1;min-width:150px;border:1px solid var(--bd);border-radius:8px;padding:20px 16px;text-align:center;background:rgba(255,255,255,.03)}
+.chain-node-lbl{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--t3);margin-bottom:10px;line-height:1.3}
+.chain-node-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.7rem;color:var(--risk)}
+.chain-node-val.ok{color:var(--teal)}
+.chain-node-sub{font-size:.7rem;color:var(--t3);margin-top:4px}
+.chain-arrow{display:flex;align-items:center;justify-content:center;padding:0 10px;color:var(--t3);font-size:1.2rem;flex:0 0 auto}
+@media(max-width:640px){.chain-wrap{flex-direction:column}.chain-arrow{transform:rotate(90deg);padding:6px 0}}
 
-.fuente-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(0,213,216,.07);}
-.fuente-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;color:var(--turquesa);flex-shrink:0;width:28px;}
-.fuente-text{font-size:.78rem;color:var(--concreto);line-height:1.6;}
+/* ── TOOL: buscador municipal ── */
+.tool-card{border:1px solid var(--bd);border-radius:12px;background:rgba(255,255,255,.03);padding:28px 26px;margin:28px 0;max-width:1080px}
+.tool-head{margin-bottom:20px}
+.tool-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--td);margin-bottom:6px}
+.tool-title{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;color:#fff}
+.tool-scope-note{font-size:.76rem;color:var(--t3);margin-top:8px;line-height:1.5}
+.search-wrap{position:relative;max-width:420px}
+.search-input{width:100%;padding:13px 16px;border-radius:8px;border:1px solid var(--bd);background:rgba(255,255,255,.05);color:var(--t1);font-family:'Barlow',sans-serif;font-size:.95rem}
+.search-input:focus{outline:2px solid var(--teal);outline-offset:1px}
+.search-results{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#0d1c22;border:1px solid var(--bd);border-radius:8px;max-height:280px;overflow-y:auto;z-index:50;display:none;box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.search-results.open{display:block}
+.search-item{display:block;width:100%;text-align:left;padding:10px 16px;background:none;border:none;color:var(--t1);font-size:.88rem;cursor:pointer}
+.search-item:hover,.search-item.focus{background:rgba(0,213,216,.12);color:var(--teal)}
+.period-toggle{display:flex;gap:8px;margin:18px 0 4px}
+.period-toggle button{padding:7px 16px;border-radius:20px;border:1px solid var(--bd);background:transparent;color:var(--t2);font-family:'Barlow',sans-serif;font-size:.8rem;cursor:pointer;transition:all .2s}
+.period-toggle button.active{background:rgba(0,213,216,.18);border-color:var(--teal);color:var(--teal)}
+.tool-alpha-link{font-size:.78rem;color:var(--td);text-decoration:underline;margin-top:8px;display:inline-block;cursor:pointer;background:none;border:none;padding:0}
+.tool-result{margin-top:22px;display:none}
+.tool-result.open{display:block}
+.tool-sentence{font-size:1.15rem;font-weight:600;color:#fff;line-height:1.5;padding:18px 20px;background:rgba(0,213,216,.07);border-left:3px solid var(--teal);border-radius:0 6px 6px 0;margin-bottom:22px}
+.tool-sentence.pos{background:rgba(0,213,216,.1);border-left-color:var(--teal)}
+.tool-sentence.neg{background:rgba(240,101,62,.1);border-left-color:var(--risk)}
+.indicator-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.indicator-cell{border:1px solid var(--bd);border-radius:8px;padding:14px 14px;background:rgba(255,255,255,.03)}
+.ic-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.25rem;color:var(--t1)}
+.ic-val.neg{color:var(--risk)}.ic-val.pos{color:var(--teal)}
+.ic-lbl{font-size:.68rem;letter-spacing:.03em;color:var(--t3);margin-top:4px;line-height:1.4}
+@media(max-width:760px){.indicator-grid{grid-template-columns:1fr 1fr}}
 
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease;}
-.reveal.v{opacity:1;transform:none;}
-.rl{opacity:0;transform:translateX(-32px);transition:opacity .65s ease,transform .65s ease;}
-.rl.v{opacity:1;transform:none;}
-.rr{opacity:0;transform:translateX(32px);transition:opacity .65s ease,transform .65s ease;}
-.rr.v{opacity:1;transform:none;}
-.d1{transition-delay:.1s!important;}.d2{transition-delay:.2s!important;}.d3{transition-delay:.3s!important;}.d4{transition-delay:.4s!important;}
+.dotplot-wrap{position:relative;margin:8px 0 4px;max-width:1000px}
+.dotplot-svg{width:100%;height:auto;display:block}
+.dot{cursor:pointer}
+.dot:focus{outline:2px solid var(--teal);outline-offset:2px}
+.dotplot-tooltip{position:fixed;pointer-events:none;z-index:999;background:rgba(7,17,20,.97);border:1px solid rgba(0,213,216,.35);padding:10px 14px;max-width:230px;font-size:.78rem;display:none;border-radius:6px;color:#fff}
+.dotplot-tooltip.show{display:block}
+.dp-tt-name{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:#fff;margin-bottom:3px}
+.dp-tt-row{color:#94a3b8;font-size:.72rem;line-height:1.5}
+.dp-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:.72rem;color:var(--t3)}
+.dp-legend span{display:inline-flex;align-items:center;gap:6px}
+.dp-legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
 
-footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgba(0,213,216,.1);}
-.foot-inner{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:28px;}
-.foot-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:.2em;color:var(--crema);}
-.foot-copy{font-size:.7rem;color:rgba(183,178,170,.45);line-height:1.65;max-width:420px;}
-.foot-disclaimer{font-size:.7rem;color:rgba(183,178,170,.4);line-height:1.65;max-width:480px;font-style:italic;}
+.gap-card{border:1px solid var(--bd);border-radius:8px;padding:18px 20px;background:rgba(255,255,255,.03);margin-top:18px}
+.gap-card-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
+.gap-row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.88rem}
+.gap-row:last-child{border-bottom:none}
+.gap-row .gr-lbl{color:var(--t2)}
+.gap-row .gr-val{font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--t1)}
+.gap-sentence{margin-top:12px;font-size:.86rem;color:var(--t2);line-height:1.6;font-style:italic}
 
-/* BAR VISUAL */
-.bar-row{display:flex;align-items:center;gap:12px;margin:6px 0;}
-.bar-label{font-size:.72rem;color:var(--concreto);width:170px;flex-shrink:0;text-align:right;}
-.bar-track{flex:1;background:rgba(0,213,216,.08);height:8px;border-radius:4px;}
-.bar-fill{height:8px;border-radius:4px;background:var(--turquesa);}
-.bar-val{font-size:.72rem;font-weight:700;color:var(--turquesa);width:54px;text-align:right;}
+/* ── RANKING BARS ── */
+.rank-list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.rank-row{display:grid;grid-template-columns:170px 1fr 60px;align-items:center;gap:10px}
+.rank-row-label{font-size:.82rem;color:var(--t2);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rank-track{position:relative;height:20px;background:rgba(255,255,255,.06);border-radius:4px}
+.rank-fill{position:absolute;top:0;height:100%;border-radius:4px}
+.rank-val{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem}
+@media(max-width:640px){.rank-row{grid-template-columns:96px 1fr 50px}.rank-row-label{font-size:.72rem}}
 
-/* CADENA (Nación → Provincia → Municipios) */
-.cadena-grid{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:center;margin-top:32px;}
-.cadena-node{background:rgba(14,28,32,.7);border-top:2px solid rgba(224,82,82,.4);padding:20px 16px;text-align:center;}
-.cadena-node-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--crema);margin-bottom:8px;}
-.cadena-node-val{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;color:var(--rojo);}
-.cadena-node-sub{font-size:.65rem;color:var(--concreto);text-transform:uppercase;letter-spacing:.06em;margin-top:4px;}
-.cadena-arrow{font-size:1.4rem;color:rgba(224,82,82,.5);text-align:center;}
-
-@media(max-width:960px){
-  nav{padding:13px 20px;}nav.scrolled{padding:11px 20px;}.nav-links{display:none;}
-  section{padding:60px 20px;}.hero-inner{padding:100px 20px 56px;}
-  .ficha-grid{grid-template-columns:repeat(3,1fr);}.ficha-cell:nth-child(3){border-right:none;}
-  .two-col,.two-col-wide{grid-template-columns:1fr;}
-  .three-col,.cap-grid{grid-template-columns:1fr 1fr;}
-  .four-col{grid-template-columns:1fr 1fr;}
-  .cadena-grid{grid-template-columns:1fr;}
-  .cadena-arrow{transform:rotate(90deg);}
-  .bar-label{width:120px;font-size:.68rem;}
+@media(max-width:900px){
+  .art-header{padding-bottom:24px}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="mainNav">
-  <a href="index.html" class="nav-logo">
-    <span class="logo-mark">
-      <svg viewBox="0 0 30 30" fill="none">
-        <path d="M15 2L2 28H8L15 14L22 28H28L15 2Z" fill="#00D5D8"/>
-        <path d="M10 22H20" stroke="#071114" stroke-width="2"/>
-      </svg>
-    </span>
-    <div>
-      <div class="nav-brand">ALSINA</div>
-      <div class="nav-tagline">Análisis fiscal</div>
-    </div>
+<!-- NAVBAR -->
+<nav>
+  <a class="nav-brand" href="index.html">
+    <div class="nav-mark">A</div>
+    <div><div class="nav-name">ALSINA</div><div class="nav-sub">Gestión · Tecnología · Territorio</div></div>
   </a>
   <ul class="nav-links">
-    <li><a href="#resumen">Resumen</a></li>
-    <li><a href="#provincia">Provincia</a></li>
-    <li><a href="#nacion">Nación</a></li>
-    <li><a href="#municipios">Municipios</a></li>
-    <li><a href="#ranking">Ranking</a></li>
-    <li><a href="#hipotesis">Qué significa</a></li>
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="informes.html">Informes</a></li>
+    <li><a href="alsina-recaudacion-tributaria-pba.html">Radiografía fiscal PBA</a></li>
   </ul>
-  <a href="index.html" class="nav-back">← Volver al sitio</a>
 </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-inner">
-    <div class="informe-tag">Balance semestral · Recaudación, Nación y municipios · Alsina Consulting</div>
-    <h1 class="hero-headline">
-      MENOS PLATA<br>
-      EN TODA<br>
-      <span class="hl">LA CADENA</span><br>
-      <span style="font-size:48%;color:rgba(243,239,231,.5);">Balance fiscal · 1er semestre 2026</span>
-    </h1>
-    <p class="hero-sub">
-      En el primer semestre de 2026 la Provincia de Buenos Aires recaudó menos en
-      términos reales que en el mismo período de 2025: Ingresos Brutos retrocede y la
-      venta de inmuebles se frena por el crédito caro. El gobernador administra una caja
-      con menos poder de compra. Y la escasez no se detiene ahí: la Nación también gira
-      menos recursos reales a la Provincia, y esa pérdida llega amplificada a los 135
-      municipios bonaerenses.
-    </p>
-    <div class="hero-meta">
-      <div class="meta-chip">Período <span>ene–jun 2026</span></div>
-      <div class="meta-chip">Recaudación propia PBA <span>−1,58% real</span></div>
-      <div class="meta-chip">Recursos de Nación <span>−1,7% real</span></div>
-      <div class="meta-chip">Transferencias a municipios <span>−2,5% real</span></div>
-      <div class="meta-chip">Fuente <span>ARBA · Min. Hacienda PBA</span></div>
-    </div>
-    <div class="byline">
-      <img class="byline-photo" src="/assets/img/autores/gaston-corti.jpg" alt="Gastón Corti" width="46" height="46" loading="lazy">
-      <div>
-        <div class="byline-name">Gastón Corti</div>
-        <div class="byline-role">Alsina Consulting</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FICHA TÉCNICA -->
-<div class="ficha-band">
-  <div class="ficha-grid">
-    <div class="ficha-cell">
-      <div class="ficha-val">$8.329.354 M</div>
-      <div class="ficha-label">Recaudación propia PBA<br>1er semestre 2026</div>
-    </div>
-    <div class="ficha-cell">
-      <div class="ficha-val" style="color:var(--rojo);">−1,58%</div>
-      <div class="ficha-label">Var. real recaudación<br>propia vs. 1S 2025</div>
-    </div>
-    <div class="ficha-cell">
-      <div class="ficha-val" style="color:var(--rojo);">−2,56%</div>
-      <div class="ficha-label">Var. real Ingresos<br>Brutos (75,6% del total)</div>
-    </div>
-    <div class="ficha-cell">
-      <div class="ficha-val" style="color:var(--rojo);">−7,23%</div>
-      <div class="ficha-label">Var. real Sellos<br>(venta de inmuebles)</div>
-    </div>
-    <div class="ficha-cell">
-      <div class="ficha-val" style="color:var(--rojo);">−2,5%</div>
-      <div class="ficha-label">Var. real transferencias<br>a municipios, semestre</div>
-    </div>
-    <div class="ficha-cell">
-      <div class="ficha-val">23 de 135</div>
-      <div class="ficha-label">Municipios que ganaron<br>poder de compra en el semestre</div>
-    </div>
+<!-- MOBILE TOC TOGGLE -->
+<div class="toc-toggle" id="tocToggle">
+  <button id="tocToggleBtn" aria-expanded="false" aria-controls="tocMobilePanel">
+    <span>Índice de la nota</span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="toc-mobile-panel" id="tocMobilePanel">
+    <button class="toc-item" onclick="tocGo('ch1')"><span class="toc-num">1</span><span>Una cadena con menos poder de compra</span></button>
+    <button class="toc-item" onclick="tocGo('ch2')"><span class="toc-num">2</span><span>La recaudación provincial perdió contra la inflación</span></button>
+    <button class="toc-item" onclick="tocGo('ch3')"><span class="toc-num">3</span><span>No todos los impuestos cuentan la misma historia</span></button>
+    <button class="toc-item" onclick="tocGo('ch4')"><span class="toc-num">4</span><span>El primer eslabón también llega debilitado</span></button>
+    <button class="toc-item" onclick="tocGo('ch5')"><span class="toc-num">5</span><span>La caída se amplifica al llegar a los municipios</span></button>
+    <button class="toc-item" onclick="tocGo('ch6')"><span class="toc-num">6</span><span>Radiografía fiscal de tu municipio</span></button>
+    <button class="toc-item" onclick="tocGo('ch7')"><span class="toc-num">7</span><span>Un mismo semestre, 135 resultados diferentes</span></button>
+    <button class="toc-item" onclick="tocGo('closing')"><span class="toc-num">→</span><span>Cuatro señales para la gestión pública</span></button>
+    <button class="toc-item" onclick="tocGo('metodologia')"><span class="toc-num">i</span><span>Metodología y fuentes</span></button>
   </div>
 </div>
 
-<!-- ── RESUMEN EJECUTIVO ── -->
-<section id="resumen" class="dark-sec">
-  <div class="two-col-wide">
-    <div class="rl">
-      <div class="sec-label">Resumen ejecutivo</div>
-      <h2 class="sec-h">Todos recaudan menos.<br><span>Nadie se salva.</span></h2>
-      <p class="body-t">
-        La Provincia de Buenos Aires recaudó <strong class="t">$8.329.354 M</strong> por recursos tributarios propios en el primer semestre de 2026, un 30,78% más que en el mismo período de 2025 en pesos corrientes. Pero descontando la inflación, esa recaudación <strong class="t">cayó 1,58% en términos reales</strong>. El motivo principal es Ingresos Brutos —75,6% de todo lo que recauda la Provincia por sus propios medios—, que retrocede 2,56% real y arrastra al conjunto: cuando IIBB pierde poder de compra, es matemáticamente imposible que el total no lo sienta.
-      </p>
-      <p class="body-t">
-        El segundo síntoma es más específico y tiene una causa identificable: <strong class="t">Sellos cayó 7,23% real</strong>, y es el único de los cuatro tributos principales sin distorsión de calendario de pagos —a diferencia de Inmobiliario y Automotor, que se cobran en pocas cuotas grandes y por eso "saltan" de un mes a otro—. Sellos grava fundamentalmente escrituras, hipotecas y actos con garantía real: en la práctica, es el termómetro más limpio de cuánto se compra y vende en el mercado inmobiliario. Que caiga hace cinco meses consecutivos, en un contexto de tasas de interés muy altas y crédito hipotecario caro, no es casualidad: es la señal de que las operaciones inmobiliarias financiadas con crédito se frenaron.
-      </p>
-      <p class="body-t">
-        Con menos Ingresos Brutos y menos Sellos, <strong class="t">el gobernador administra una caja con menos poder de compra</strong> que hace un año. Eso presiona sobre cualquier decisión de gasto, inversión o negociación política que dependa de los recursos propios de la Provincia.
-      </p>
-      <p class="body-t">
-        Y el fenómeno no es exclusivo de la Provincia: <strong class="t">el Estado nacional también gira menos recursos reales</strong>. Lo que la Nación transfirió a la Provincia de Buenos Aires en el semestre cayó 1,7% real, con la Coparticipación Federal de Impuestos —el componente más grande— retrocediendo 9,3% real. La escasez no nace en la Provincia: viene de arriba, se agrava en el medio y llega amplificada a los municipios, como se ve más abajo en este informe.
-      </p>
-      <div class="callout" style="margin-top:24px;">
-        <p><strong>Tesis central:</strong> No es un problema de un solo nivel de gobierno. Es una cadena: la Nación gira menos, la Provincia recauda menos por su cuenta —principalmente por Ingresos Brutos y por un mercado inmobiliario frenado por el crédito caro—, y los 135 municipios bonaerenses reciben, en conjunto, 2,5% menos poder de compra que en el mismo semestre de 2025. Cada eslabón transmite la escasez del anterior, y algunos municipios —los más ligados a actividad inmobiliaria de alto valor— la sienten más que otros.</p>
-      </div>
+<div class="layout">
+<!-- TOC -->
+<div class="toc-col">
+  <div class="toc-head">Índice</div>
+  <button class="toc-item" onclick="tocGo('ch1')"><span class="toc-num">1</span><span>Una cadena con menos poder de compra</span></button>
+  <button class="toc-item" onclick="tocGo('ch2')"><span class="toc-num">2</span><span>La recaudación provincial perdió contra la inflación</span></button>
+  <button class="toc-item" onclick="tocGo('ch3')"><span class="toc-num">3</span><span>No todos los impuestos cuentan la misma historia</span></button>
+  <button class="toc-item" onclick="tocGo('ch4')"><span class="toc-num">4</span><span>El primer eslabón también llega debilitado</span></button>
+  <button class="toc-item" onclick="tocGo('ch5')"><span class="toc-num">5</span><span>La caída se amplifica al llegar a los municipios</span></button>
+  <button class="toc-item" onclick="tocGo('ch6')"><span class="toc-num">6</span><span>Radiografía fiscal de tu municipio</span></button>
+  <button class="toc-item" onclick="tocGo('ch7')"><span class="toc-num">7</span><span>Un mismo semestre, 135 resultados diferentes</span></button>
+  <button class="toc-item" onclick="tocGo('closing')" style="margin-top:12px;border-top:1px solid rgba(0,0,0,.07);padding-top:12px"><span class="toc-num">→</span><span>Cuatro señales para la gestión pública</span></button>
+  <button class="toc-item" onclick="tocGo('metodologia')"><span class="toc-num">i</span><span>Metodología y fuentes</span></button>
+</div>
+
+<!-- ARTICLE -->
+<div class="art-col">
+
+<!-- HEADER -->
+<header class="art-header">
+  <div class="art-label">Análisis fiscal · Provincia de Buenos Aires</div>
+  <h1 class="art-title">Más pesos, menos margen: el balance fiscal bonaerense del primer semestre</h1>
+  <p class="art-bajada">La Provincia cerró la primera mitad de 2026 con una caída real de su recaudación propia. La pérdida también aparece en los recursos enviados por la Nación y se profundiza al llegar a los municipios. El resultado agregado, sin embargo, esconde trayectorias muy diferentes entre impuestos y distritos.</p>
+  <div class="art-authors">
+    <div class="art-author"><img src="/assets/img/autores/gaston-corti.jpg" alt="Gastón Corti" width="38" height="38" loading="lazy"><span class="art-author-name">Gastón Corti</span></div>
+  </div>
+  <div class="art-meta">
+    <span>Agosto 2026</span>
+    <span class="art-meta-sep">·</span>
+    <span>9 min de lectura</span>
+    <span class="art-meta-sep">·</span>
+    <span>Datos: Ministerio de Economía PBA · ARBA · INDEC</span>
+  </div>
+  <div class="art-actions">
+    <div class="share-row" role="group" aria-label="Compartir esta nota">
+      <a class="share-btn" id="shareX" href="#" target="_blank" rel="noopener" aria-label="Compartir en X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23 22h-6.9l-5.4-6.9L4.8 22H2l8.1-9.3L1 2h7l4.9 6.3z"/></svg></a>
+      <a class="share-btn" id="shareWA" href="#" target="_blank" rel="noopener" aria-label="Compartir en WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.2-.6.9-.8 1.1-.1.2-.3.2-.5.1-1.3-.6-2.4-1.4-3.3-2.6-.2-.3-.1-.5.1-.7.2-.2.4-.5.6-.7.1-.2.1-.4 0-.6-.1-.2-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4-.2 0-.4 0-.6 0-.2 0-.5.1-.7.3-.5.5-.8 1.1-.8 1.9 0 1.9 1.4 3.7 1.6 4 .2.3 2.2 3.3 5.2 4.4 2.5.9 2.5.6 2.9.6.4 0 1.6-.6 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.1-.2-.2-.4-.3zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg></a>
+      <button class="share-btn" id="shareCopy" aria-label="Copiar enlace"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
     </div>
-    <div class="rr">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;">
-        <div class="d-card">
-          <div class="d-val" style="color:var(--rojo);">−1,58%</div>
-          <div class="d-label">Recaudación propia PBA<br>var. real 1S26 vs 1S25</div>
-        </div>
-        <div class="d-card">
-          <div class="d-val" style="color:var(--rojo);">−2,56%</div>
-          <div class="d-label">Ingresos Brutos<br>var. real, 75,6% del total</div>
-        </div>
-        <div class="d-card">
-          <div class="d-val" style="color:var(--rojo);">−7,23%</div>
-          <div class="d-label">Sellos<br>cae hace 5 meses seguidos</div>
-        </div>
-        <div class="d-card">
-          <div class="d-val" style="color:var(--verde);">+17,36%</div>
-          <div class="d-label">Inmobiliario<br>positivo, pero por calendario</div>
-        </div>
-        <div class="d-card">
-          <div class="d-val" style="color:var(--rojo);">−1,7%</div>
-          <div class="d-label">Recursos de Nación<br>a la Provincia, var. real</div>
-        </div>
-        <div class="d-card">
-          <div class="d-val" style="color:var(--rojo);">−9,3%</div>
-          <div class="d-label">Coparticipación Federal<br>de Impuestos, var. real</div>
-        </div>
-      </div>
-      <div class="alert" style="margin-top:16px;">
-        <p><strong>Nota metodológica:</strong> Todos los valores reales de este informe están deflactados por inflación interanual mensual (IPC INDEC). Las dos piezas fuente de este informe —recaudación propia y transferencias a municipios— fueron elaboradas por separado y usan cada una su propia serie de inflación mensual, con pequeñas diferencias entre sí (por ejemplo, marzo 32,6% vs. 33,0%; junio 33,5% vs. 31,0%). No se homogeneizaron para no alterar el cálculo original de cada pieza; el lector debe tomar cada cifra real dentro del contexto de su propia sección.</p>
-      </div>
-      <div class="callout-dark" style="margin-top:12px;">
-        <p><strong>Sellos ≠ Inmobiliario:</strong> son dos impuestos distintos y no deben confundirse. <strong>Sellos</strong> grava la transacción (compraventas, hipotecas, contratos): es sensible al crédito y al volumen de operaciones. <strong>Inmobiliario</strong> es un impuesto patrimonial anual sobre el valor fiscal de la propiedad, que se cobra en pocas cuotas grandes: su variación mes a mes está dominada por el calendario de vencimientos, no por el estado del mercado.</p>
-      </div>
-    </div>
+    <span class="sep-dot">·</span>
+    <a class="meta-link" href="#metodologia">Metodología</a>
+    <span class="sep-dot">·</span>
+    <a class="meta-link" href="/assets/data/transferencias-135-municipios-2026.csv" download>Descargar base (CSV)</a>
+  </div>
+</header>
+
+<!-- HERO STATS -->
+<div class="hero-stats">
+  <div class="hero-stat"><div class="hs-num">−1,58%</div><div class="hs-tag">Recaudación propia</div><div class="hs-lbl">Variación real de lo que la Provincia recauda por sus propios tributos (IIBB, Sellos, Inmobiliario, Automotor), 1S 2026 vs. 1S 2025.</div></div>
+  <div class="hero-stat"><div class="hs-num">−1,7%</div><div class="hs-tag">Nación → Provincia</div><div class="hs-lbl">Variación real de los recursos que la Nación giró a la Provincia (Coparticipación Federal, Financiamiento Educativo y otros), mismo período.</div></div>
+  <div class="hero-stat"><div class="hs-num">−2,5%</div><div class="hs-tag">Provincia → Municipios</div><div class="hs-lbl">Variación real del total transferido por la Provincia a los 135 municipios bonaerenses en el mismo semestre.</div></div>
+</div>
+
+<div class="chapters-start"></div>
+
+<!-- ═══════ CAP 1 — LA CADENA ═══════ -->
+<section class="chapter" id="ch1">
+  <div class="ch-label">Capítulo 1</div>
+  <h2 class="ch-title">Una cadena con menos poder de compra</h2>
+  <div class="ch-text">
+    <p>En pesos corrientes, todos los niveles de gobierno tuvieron más plata en el primer semestre de 2026 que en el mismo período de 2025. La Provincia recaudó 30,78% más por sus propios tributos; la Nación giró 30,2% más de recursos; y la Provincia transfirió 29,6% más a sus municipios.</p>
+    <p>El problema es que los precios subieron más rápido que esos números. Descontada la inflación, los tres eslabones de la cadena —Nación, Provincia y municipios— terminaron el semestre con menos poder de compra que un año atrás. Y la pérdida no es igual en los tres tramos: se va agravando a medida que baja de nivel.</p>
   </div>
 
-  <!-- LA CADENA -->
-  <div class="div-line" style="margin:48px 0 8px;"></div>
-  <div class="sec-label reveal">La cadena, de arriba hacia abajo</div>
-  <h3 class="sec-h reveal" style="font-size:clamp(1.5rem,2.4vw,2.2rem);">Tres niveles.<br><span>Un mismo problema.</span></h3>
-  <div class="cadena-grid reveal">
-    <div class="cadena-node">
-      <div class="cadena-node-title">Nación → Provincia</div>
-      <div class="cadena-node-val">−1,7%</div>
-      <div class="cadena-node-sub">var. real, 1S26</div>
+  <div class="chain-wrap">
+    <div class="chain-node">
+      <div class="chain-node-lbl">Nación → Provincia</div>
+      <div class="chain-node-val">−1,7%</div>
+      <div class="chain-node-sub">variación real, 1S 2026</div>
     </div>
-    <div class="cadena-arrow">→</div>
-    <div class="cadena-node" style="border-top-color:rgba(228,171,2,.5);">
-      <div class="cadena-node-title">Recaudación propia PBA</div>
-      <div class="cadena-node-val" style="color:var(--amarillo);">−1,58%</div>
-      <div class="cadena-node-sub">var. real, 1S26</div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-node">
+      <div class="chain-node-lbl">Recaudación propia PBA</div>
+      <div class="chain-node-val">−1,58%</div>
+      <div class="chain-node-sub">variación real, 1S 2026</div>
     </div>
-    <div class="cadena-arrow">→</div>
-    <div class="cadena-node" style="border-top-color:rgba(224,82,82,.6);">
-      <div class="cadena-node-title">Provincia → Municipios</div>
-      <div class="cadena-node-val">−2,5%</div>
-      <div class="cadena-node-sub">var. real, 1S26</div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-node">
+      <div class="chain-node-lbl">Provincia → Municipios</div>
+      <div class="chain-node-val">−2,5%</div>
+      <div class="chain-node-sub">variación real, 1S 2026</div>
     </div>
   </div>
-  <p class="body-t reveal" style="max-width:700px;">La pérdida se amplifica a medida que baja: los municipios, último eslabón de la cadena y sin capacidad de decidir sobre las reglas de reparto en el corto plazo, terminan sintiendo un ajuste real mayor que el que experimenta la propia Provincia.</p>
+  <p class="chart-note" style="max-width:720px">Los tres números están deflactados con la misma serie de inflación interanual mensual del INDEC (detalle en <a href="#metodologia" style="color:inherit;text-decoration:underline">metodología</a>). La caída se amplifica al bajar de nivel: los municipios, último eslabón, terminan sintiendo un ajuste real mayor que el que registra la propia Provincia.</p>
+
+  <div class="datazo"><div class="datazo-text">La Provincia recibió más pesos nominales durante el primer semestre de 2026, pero esos recursos perdieron contra la inflación en los tres niveles de la cadena fiscal.</div></div>
 </section>
 
-<!-- ── LA PROVINCIA RECAUDA MENOS ── -->
-<section id="provincia" class="light-sec">
-  <div class="sec-label-dark reveal">La Provincia recauda menos</div>
-  <h2 class="sec-h-dark reveal">Ingresos Brutos flaquea.<br><span>El crédito caro frena Sellos.</span></h2>
-  <p class="body-t-dark reveal" style="max-width:720px;">En el primer semestre de 2026 la Provincia recaudó $8.329.354 M por sus cuatro tributos principales, +30,78% nominal pero −1,58% real frente al mismo semestre de 2025. La composición explica por qué: Ingresos Brutos concentra el 75,56% del total, y es el que más pesa en la caída.</p>
+<!-- ═══════ CAP 2 — RECAUDACIÓN PROVINCIAL ═══════ -->
+<section class="chapter" id="ch2">
+  <div class="ch-label">Capítulo 2</div>
+  <h2 class="ch-title">La recaudación provincial perdió contra la inflación</h2>
+  <div class="ch-text">
+    <p>En el primer semestre de 2026 la Provincia recaudó <strong>$8.329.354 millones</strong> por sus cuatro tributos principales —Ingresos Brutos, Sellos, Inmobiliario y Automotor—, un 30,78% más que en el mismo semestre de 2025 en pesos corrientes. Ajustada por inflación, esa recaudación cayó <strong>1,58%</strong> frente a 2025.</p>
+    <p>El semestre no fue parejo. Enero y febrero crecieron en términos reales; marzo, abril y mayo cayeron; junio volvió a crecer, cortando una racha de tres meses negativos. El repunte de junio (+2,1% real) fue el mejor mes del semestre, pero no alcanza para compensar la caída acumulada.</p>
+  </div>
 
-  <div class="four-col reveal" style="margin-top:28px;">
-    <div class="d-card-light">
-      <div class="d-val" style="color:var(--rojo);">−2,56%</div>
-      <div class="d-label">Ingresos Brutos<br>75,56% del total · $6.293.460 M</div>
+  <div class="grid-2">
+    <div class="viz">
+      <div class="viz-title">Recaudación propia · 1S 2026 vs. 1S 2025</div>
+      <div class="chart-wrap" style="height:200px"><canvas id="recaudacion-total-chart"></canvas></div>
+      <div class="chart-note">$6.368.882 M (1S 2025) → $8.329.354 M (1S 2026). Nominal +30,78% · Real −1,58%.</div>
     </div>
-    <div class="d-card-light">
-      <div class="d-val" style="color:var(--rojo);">−7,23%</div>
-      <div class="d-label">Sellos<br>9,76% del total · $812.971 M</div>
-    </div>
-    <div class="d-card-light">
-      <div class="d-val" style="color:var(--verde);">+17,36%</div>
-      <div class="d-label">Inmobiliario<br>7,34% del total · $611.210 M</div>
-    </div>
-    <div class="d-card-light">
-      <div class="d-val" style="color:var(--rojo);">−7,75%</div>
-      <div class="d-label">Automotor<br>4,38% del total · $364.742 M</div>
+    <div class="ficha">
+      <h3>En números</h3>
+      <p><strong>$8.329.354 M</strong> recaudados en el semestre, frente a $6.368.882 M en 2025.</p>
+      <p><strong>+30,78%</strong> nominal, pero <strong style="color:var(--risk)">−1,58%</strong> una vez descontada la inflación.</p>
+      <p style="margin-bottom:0">El motivo principal: Ingresos Brutos, que concentra el 75,6% de la recaudación propia, cae 2,56% real y arrastra al total (desarrollo en el próximo capítulo).</p>
     </div>
   </div>
 
-  <div style="margin-top:32px;max-width:640px;" class="reveal">
-    <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4a5a60;margin-bottom:14px;">Composición de la recaudación propia · 1S 2026</div>
-    <div class="bar-row">
-      <div class="bar-label" style="color:#4a5a60;">Ingresos Brutos</div>
-      <div class="bar-track"><div class="bar-fill" style="width:75.56%;background:var(--cian);"></div></div>
-      <div class="bar-val" style="color:var(--cian);">75,56%</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label" style="color:#4a5a60;">Sellos</div>
-      <div class="bar-track"><div class="bar-fill" style="width:9.76%;background:var(--amarillo);"></div></div>
-      <div class="bar-val" style="color:var(--amarillo);">9,76%</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label" style="color:#4a5a60;">Inmobiliario</div>
-      <div class="bar-track"><div class="bar-fill" style="width:7.34%;background:var(--verde);"></div></div>
-      <div class="bar-val" style="color:var(--verde);">7,34%</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label" style="color:#4a5a60;">Automotor</div>
-      <div class="bar-track"><div class="bar-fill" style="width:4.38%;background:#3b82f6;"></div></div>
-      <div class="bar-val" style="color:#3b82f6;">4,38%</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label" style="color:#4a5a60;">Otros</div>
-      <div class="bar-track"><div class="bar-fill" style="width:2.97%;background:rgba(90,90,90,.5);"></div></div>
-      <div class="bar-val" style="color:#5a6a70;">2,97%</div>
-    </div>
+  <div class="viz">
+    <div class="viz-title">Variación real mes a mes de la recaudación total · 2026</div>
+    <div class="chart-wrap" style="height:240px"><canvas id="recaudacion-mensual-chart"></canvas></div>
+    <div class="chart-note">Enero y febrero crecieron en términos reales; marzo, abril y mayo encadenaron caídas consecutivas; junio recuperó terreno. Deflactado por inflación interanual mensual (INDEC).</div>
   </div>
 
-  <div class="div-line-dark"></div>
-
-  <div class="sec-label-dark reveal">Sellos: el termómetro sin distorsión</div>
-  <h3 class="sec-h-dark reveal" style="font-size:clamp(1.4rem,2.2vw,2rem);">Cinco meses<br><span>de caída consecutiva.</span></h3>
-  <div class="two-col" style="margin-top:24px;gap:32px;">
-    <div class="callout-dark reveal">
-      <p><strong>Por qué importa:</strong> A diferencia de Inmobiliario y Automotor, Sellos no tiene un calendario de pago concentrado en pocas cuotas: se paga sobre el acto en el momento en que ocurre. Eso lo convierte en el indicador más confiable de cuánto se está comprando y vendiendo, escriturando e hipotecando en la Provincia. Que caiga 7,23% real en el semestre —y hace cinco meses consecutivos, cuando en 2025 crecía todos los meses— es consistente con tasas de interés altas que encarecen el crédito hipotecario y frenan las operaciones inmobiliarias financiadas.</p>
-    </div>
-    <div class="alert-light reveal">
-      <p><strong>Ojo con Inmobiliario:</strong> que Inmobiliario crezca 17,36% real en el semestre no contradice esta lectura. Es un impuesto patrimonial que se paga en 4 o 5 cuotas grandes al año (ARBA 2026): si una cuota "cae" en un mes distinto al del año anterior, el efecto en la comparación interanual es enorme. Por eso febrero 2026 explota +511% real y mayo se derrumba −64,5% real: son artefactos de calendario, no una foto del mercado inmobiliario.</p>
-    </div>
-  </div>
-
-  <div class="div-line-dark"></div>
-
-  <div class="sec-label-dark reveal">Junio: un mes de rebote, no de cambio de tendencia</div>
-  <div class="reveal" style="overflow-x:auto;margin-top:16px;">
-    <table class="tbl-light">
-      <thead>
-        <tr><th>Rubro</th><th>Junio 2026</th><th>Lectura</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="strong">Recaudación total</td><td class="verde"><strong>+2,1% real</strong></td><td class="neutral">Corta una racha de tres meses negativos (marzo–mayo).</td></tr>
-        <tr><td class="strong">Ingresos Brutos</td><td class="verde">+0,61% real</td><td class="neutral">Freno recién después de cuatro meses seguidos de caída.</td></tr>
-        <tr><td class="strong">Automotor</td><td class="verde">+17,73% mensual</td><td class="neutral">Corta tres negativos; ARBA pasó a 10 cuotas mensuales desde marzo 2026, ahora junio tiene vencimiento.</td></tr>
-        <tr><td class="strong">Inmobiliario</td><td class="verde">+21,42% mensual</td><td class="neutral">Corta tres negativos; efecto calendario de cuotas, no mejora de fondo.</td></tr>
-        <tr class="highlight"><td class="strong">Sellos</td><td class="rojo"><strong>Cae por 5º mes consecutivo</strong></td><td class="rojo">Único sin distorsión de calendario. En 2025 crecía todos los meses.</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p class="body-t-dark reveal" style="font-size:.8rem;margin-top:10px;">El repunte de junio se explica por Automotor e Inmobiliario —ambos con vencimientos que cayeron ese mes— y por un alivio marginal de Ingresos Brutos. Sellos, el indicador sin ruido de calendario, sigue cayendo. Es la diferencia entre un mes bueno en la caja y una mejora real de fondo.</p>
-
-  <div class="div-line-dark"></div>
-
-  <div class="sec-label-dark reveal">Contexto histórico · peso de cada tributo por gestión</div>
-  <div class="reveal" style="overflow-x:auto;margin-top:16px;">
-    <table class="tbl-light">
-      <thead>
-        <tr><th>Gobierno</th><th>Año</th><th>Ingresos Brutos</th><th>%</th><th>Inmobiliario</th><th>%</th><th>Automotores</th><th>%</th><th>Sellos</th><th>%</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="strong">Daniel Scioli</td><td class="n">2015</td><td>$87.517 M</td><td>74,23%</td><td>$6.456 M</td><td>5,48%</td><td>$8.403 M</td><td>7,13%</td><td>$9.334 M</td><td>7,92%</td></tr>
-        <tr><td class="strong">M. E. Vidal</td><td class="n">2016</td><td>$115.234 M</td><td>72,90%</td><td>$9.494 M</td><td>6,01%</td><td>$13.241 M</td><td>8,38%</td><td>$12.912 M</td><td>8,17%</td></tr>
-        <tr><td class="strong">M. E. Vidal</td><td class="n">2019</td><td>$262.604 M</td><td>71,75%</td><td>$29.616 M</td><td>8,09%</td><td>$29.304 M</td><td>8,01%</td><td>$30.137 M</td><td>8,23%</td></tr>
-        <tr><td class="strong">Axel Kicillof</td><td class="n">2020</td><td>$339.086 M</td><td>72,61%</td><td>$41.643 M</td><td>8,92%</td><td>$37.653 M</td><td>8,06%</td><td>$37.043 M</td><td>7,93%</td></tr>
-        <tr class="highlight"><td class="strong">Axel Kicillof</td><td class="n">2023</td><td>$2.424.197 M</td><td class="rojo"><strong>79,73%</strong></td><td>$156.549 M</td><td>5,15%</td><td>$133.423 M</td><td>4,39%</td><td>$250.420 M</td><td>8,24%</td></tr>
-        <tr><td class="strong">Axel Kicillof</td><td class="n">2025</td><td>$10.631.475 M</td><td>76,23%</td><td>$734.431 M</td><td>5,27%</td><td>$761.482 M</td><td>5,46%</td><td>$1.468.366 M</td><td class="verde"><strong>10,53%</strong></td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p class="body-t-dark reveal" style="font-size:.8rem;margin-top:10px;">Elaboración propia sobre datos oficiales. La dependencia de Ingresos Brutos es estructural y viene de gestiones anteriores: no es un fenómeno de 2026, pero explica por qué cualquier freno de IIBB golpea con tanta fuerza al total.</p>
+  <div class="note-card"><strong>Sobre el rebote de junio:</strong> buena parte de la mejora mensual de junio se explica por Automotor e Inmobiliario, dos tributos que se cobran en pocas cuotas grandes y cuyo vencimiento cayó ese mes (ver Capítulo 3). No es necesariamente el inicio de una recuperación estructural.</div>
 </section>
 
-<!-- ── LA NACIÓN TAMBIÉN GIRA MENOS ── -->
-<section id="nacion" class="dark-sec">
-  <div class="sec-label reveal">La Nación también tiene menos recursos</div>
-  <h2 class="sec-h reveal">El primer eslabón<br><span>ya viene débil.</span></h2>
-  <p class="body-t reveal" style="max-width:720px;">Antes de que la Provincia reparta nada, recibe recursos de la Nación —principalmente Coparticipación Federal de Impuestos y Financiamiento Educativo—. En el primer semestre de 2026, la Nación giró a la Provincia $8.472.534 M, +30,2% nominal pero <strong class="t">−1,7% real</strong>. El Estado nacional, en conjunto, también está recaudando y transfiriendo menos poder de compra que hace un año.</p>
-
-  <div class="four-col reveal" style="margin-top:28px;">
-    <div class="d-card">
-      <div class="d-val" style="font-size:1.4rem;">$8.472.534 M</div>
-      <div class="d-label">Total girado a la Provincia<br>1S 2026, nominal</div>
-    </div>
-    <div class="d-card">
-      <div class="d-val" style="color:var(--rojo);">−1,7%</div>
-      <div class="d-label">Variación real<br>del total girado</div>
-    </div>
-    <div class="d-card">
-      <div class="d-val" style="color:var(--rojo);">−9,3%</div>
-      <div class="d-label">Coparticipación Federal<br>de Impuestos, var. real</div>
-    </div>
-    <div class="d-card">
-      <div class="d-val">65,6%→60,6%</div>
-      <div class="d-label">Peso de la CFI sobre el total<br>girado, 2025 vs. 2026</div>
-    </div>
+<!-- ═══════ CAP 3 — POR IMPUESTO ═══════ -->
+<section class="chapter" id="ch3">
+  <div class="ch-label">Capítulo 3</div>
+  <h2 class="ch-title">No todos los impuestos cuentan la misma historia</h2>
+  <div class="ch-text">
+    <p>El resultado agregado esconde comportamientos muy distintos entre los cuatro tributos. Ingresos Brutos —tres de cada cuatro pesos que recauda la Provincia por sus propios medios— cae 2,56% real y explica, por peso relativo, la mayor parte de la caída del total. Sellos cae todavía más fuerte, 7,23% real, y es el único de los cuatro sin distorsión de calendario de pagos: se cobra sobre el acto en el momento en que ocurre, a diferencia de Inmobiliario y Automotor. Automotor cae 7,75% real. Inmobiliario, en cambio, sube 17,36% real — pero antes de leer esto como una mejora, hay que entender por qué.</p>
   </div>
 
-  <div style="margin-top:32px;max-width:640px;" class="reveal">
-    <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--concreto);margin-bottom:14px;">De qué se compone lo que la Nación gira a la Provincia · 1S 2026</div>
-    <div class="bar-row">
-      <div class="bar-label">CFI neta (Ley 26.075)</div>
-      <div class="bar-track"><div class="bar-fill" style="width:60.6%;"></div></div>
-      <div class="bar-val">60,6%</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">Financiamiento Educativo</div>
-      <div class="bar-track"><div class="bar-fill" style="width:21.5%;background:var(--cian);"></div></div>
-      <div class="bar-val" style="color:var(--cian);">21,5%</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">Compensación Consenso Fiscal</div>
-      <div class="bar-track"><div class="bar-fill" style="width:11.3%;background:var(--amarillo);"></div></div>
-      <div class="bar-val" style="color:var(--amarillo);">11,3%</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">Otros 11 conceptos</div>
-      <div class="bar-track"><div class="bar-fill" style="width:6.6%;background:rgba(158,153,146,.6);"></div></div>
-      <div class="bar-val" style="color:var(--concreto);">6,6%</div>
-    </div>
+  <div class="viz">
+    <div class="viz-title">Composición de la recaudación propia · 1S 2026</div>
+    <div class="chart-wrap" style="height:110px"><canvas id="composicion-chart"></canvas></div>
+    <div class="chart-note">Ingresos Brutos 75,56% · Sellos 9,76% · Inmobiliario 7,34% · Automotor 4,38% · Otros 2,97%.</div>
   </div>
 
-  <div class="div-line" style="margin:44px 0 28px;"></div>
-
-  <div class="sec-label reveal">Volatilidad mes a mes</div>
-  <div class="reveal" style="overflow-x:auto;margin-top:16px;">
-    <div class="tbl-wrap"><table class="tbl">
-      <thead>
-        <tr><th>Mes 2026</th><th>Total Nación→Provincia<br>(var. real)</th><th>CFI neta<br>(var. real)</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="strong">Enero</td><td class="rojo">−5,83%</td><td class="rojo">−21,9%</td></tr>
-        <tr><td class="strong">Febrero</td><td class="rojo">−6,80%</td><td class="rojo">−36,8%</td></tr>
-        <tr><td class="strong">Marzo</td><td class="rojo">−2,43%</td><td class="rojo">−34,2%</td></tr>
-        <tr><td class="strong">Abril</td><td class="rojo">−2,51%</td><td class="verde">+10,9%</td></tr>
-        <tr><td class="strong">Mayo</td><td class="verde">+7,45%</td><td class="verde">+35,3%</td></tr>
-        <tr><td class="strong">Junio</td><td class="rojo">−1,94%</td><td class="verde">+9,9%</td></tr>
-        <tr style="background:rgba(0,213,216,.06);"><td class="strong" style="color:var(--crema);">Semestre</td><td class="rojo"><strong>−1,69%</strong></td><td class="rojo"><strong>−9,3%</strong></td></tr>
-      </tbody>
-    </table></div>
+  <div class="viz">
+    <div class="viz-title">Variación real por impuesto · 1S 2026 vs. 1S 2025</div>
+    <div class="chart-wrap" style="height:220px"><canvas id="variacion-impuesto-chart"></canvas></div>
+    <div class="chart-note">Barras desde cero: a la izquierda, caída real; a la derecha, suba real. Inmobiliario es el único tributo con variación positiva.</div>
   </div>
-  <p class="body-t reveal" style="font-size:.8rem;margin-top:8px;">La CFI neta —el componente más grande— tuvo una volatilidad mucho mayor que el total: cayó hasta −36,8% real en febrero y se recuperó +35,3% en mayo. El acumulado semestral (−9,3% real) es el número que realmente importa para entender la tendencia, más allá del ruido mes a mes.</p>
 
-  <div class="callout" style="margin-top:24px;">
-    <p><strong>Marco legal:</strong> La Ley 26.075 de Financiamiento Educativo y la Coparticipación Federal de Impuestos (Ley 23.548 y modificatorias) son las dos vías principales por las que la Nación transfiere recursos a las provincias. Que la CFI neta pierda peso relativo (de 65,6% a 60,6% del total girado) y caiga 9,3% real es la señal más clara de que el propio Estado nacional está recaudando y/o compartiendo menos.</p>
+  <div class="note-card">
+    <strong>Por qué Inmobiliario no es lo que parece:</strong> a diferencia de Sellos, Inmobiliario es un impuesto patrimonial que se cobra en pocas cuotas grandes al año (4 a 5, según el calendario 2026 de ARBA). Si una cuota "cae" en un mes distinto al del año anterior, el efecto en la comparación interanual es enorme: por eso febrero 2026 muestra +511% real y mayo se derrumba −64,5% real. Son artefactos de calendario, no una fotografía del mercado inmobiliario. El resultado semestral positivo (+17,36%) no debe leerse como una mejora estructural.
   </div>
+
+  <div class="viz">
+    <div class="viz-title">Evolución mensual de la variación real, por tributo · 2026</div>
+    <div class="chart-wrap" style="height:280px"><canvas id="tributos-mensual-chart"></canvas></div>
+    <div class="chart-note">Sellos —sin distorsión de calendario— cae los seis meses del semestre. Inmobiliario y Automotor muestran los saltos característicos del efecto calendario.</div>
+  </div>
+
+  <div class="datazo"><div class="datazo-text">Sellos cae hace cinco meses consecutivos y es el indicador más confiable de actividad transaccional: en un contexto de tasas de interés altas, es consistente con un freno del crédito hipotecario y de las operaciones inmobiliarias financiadas.</div></div>
 </section>
 
-<!-- ── LO QUE LLEGA A LOS MUNICIPIOS ── -->
-<section id="municipios" class="light-sec">
-  <div class="sec-label-dark reveal">Lo que llega a los municipios</div>
-  <h2 class="sec-h-dark reveal">La escasez baja<br><span>y se amplifica.</span></h2>
-  <p class="body-t-dark reveal" style="max-width:720px;">En el primer semestre de 2026 la Provincia transfirió a sus 135 municipios $2.778.995 M, +29,6% nominal frente a los $2.145.002 M del mismo semestre de 2025. En términos reales, esos municipios recibieron en conjunto <strong class="td">2,5% menos poder de compra</strong> que un año atrás. En junio, el mes más reciente, la caída real fue todavía mayor: −4,2%.</p>
+<!-- ═══════ CAP 4 — NACIÓN → PROVINCIA ═══════ -->
+<section class="chapter" id="ch4">
+  <div class="ch-label">Capítulo 4</div>
+  <h2 class="ch-title">El primer eslabón también llega debilitado</h2>
+  <div class="ch-text">
+    <p>Antes de que la Provincia reparta nada, recibe recursos de la Nación: principalmente la Coparticipación Federal de Impuestos (CFI) y el Fondo de Financiamiento Educativo. En el primer semestre de 2026, la Nación giró a la Provincia <strong>$8.472.534 millones</strong>, un 30,2% más en pesos corrientes. En términos reales, esos recursos cayeron <strong>1,7%</strong>.</p>
+    <p>El componente que más pesa —la CFI neta, 60,6% del total girado— cayó 9,3% real y además perdió peso relativo dentro del total (representaba 65,6% en 2025). Es la señal más clara de que el propio Estado nacional también recaudó y compartió menos.</p>
+  </div>
 
-  <div class="four-col reveal" style="margin-top:28px;">
-    <div class="d-card-light">
-      <div class="d-val">+29,6%</div>
-      <div class="d-label">Variación nominal<br>semestre 2026 vs 2025</div>
+  <div class="grid-2">
+    <div class="viz">
+      <div class="viz-title">Composición de lo que la Nación gira a la Provincia · 1S 2026</div>
+      <div class="chart-wrap" style="height:110px"><canvas id="nacion-composicion-chart"></canvas></div>
+      <div class="chart-note">CFI neta 60,6% · Financiamiento Educativo 21,5% · Consenso Fiscal 11,3% · Otros 6,6%.</div>
     </div>
-    <div class="d-card-light">
-      <div class="d-val" style="color:var(--rojo);">−2,5%</div>
-      <div class="d-label">Variación real<br>semestre 2026 vs 2025</div>
-    </div>
-    <div class="d-card-light">
-      <div class="d-val">+27,9%</div>
-      <div class="d-label">Variación nominal<br>junio 2026 vs 2025</div>
-    </div>
-    <div class="d-card-light">
-      <div class="d-val" style="color:var(--rojo);">−4,2%</div>
-      <div class="d-label">Variación real<br>junio 2026 vs 2025</div>
+    <div class="ficha">
+      <h3>En números</h3>
+      <p><strong>$8.472.534 M</strong> girados en el semestre. <strong>+30,2%</strong> nominal, <strong style="color:var(--risk)">−1,7%</strong> real.</p>
+      <p><strong>CFI neta:</strong> $5.130.631 M nominal (+20,2%) — <strong style="color:var(--risk)">−9,3%</strong> real.</p>
+      <p style="margin-bottom:0">Peso de la CFI sobre el total girado: <strong>65,6% → 60,6%</strong> entre 2025 y 2026.</p>
     </div>
   </div>
 
-  <div style="margin-top:32px;max-width:640px;" class="reveal">
-    <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4a5a60;margin-bottom:14px;">Qué conceptos se transfieren · 1S 2026</div>
-    <div class="bar-row">
-      <div class="bar-label" style="color:#4a5a60;">Coparticipación</div>
-      <div class="bar-track"><div class="bar-fill" style="width:75.94%;background:var(--cian);"></div></div>
-      <div class="bar-val" style="color:var(--cian);">75,94%</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label" style="color:#4a5a60;">Fdo. Financiamiento Educativo</div>
-      <div class="bar-track"><div class="bar-fill" style="width:10.60%;background:var(--amarillo);"></div></div>
-      <div class="bar-val" style="color:var(--amarillo);">10,60%</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label" style="color:#4a5a60;">Fdo. Fort. Rec. Municipales</div>
-      <div class="bar-track"><div class="bar-fill" style="width:4.41%;background:var(--verde);"></div></div>
-      <div class="bar-val" style="color:var(--verde);">4,41%</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label" style="color:#4a5a60;">Fdo. Municipal Inclusión Social</div>
-      <div class="bar-track"><div class="bar-fill" style="width:3.33%;background:#3b82f6;"></div></div>
-      <div class="bar-val" style="color:#3b82f6;">3,33%</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label" style="color:#4a5a60;">Descentralización Tributaria</div>
-      <div class="bar-track"><div class="bar-fill" style="width:2.10%;background:rgba(90,90,90,.5);"></div></div>
-      <div class="bar-val" style="color:#5a6a70;">2,10%</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label" style="color:#4a5a60;">Fdo. Prog. Sociales y San. Amb.</div>
-      <div class="bar-track"><div class="bar-fill" style="width:1.67%;background:rgba(90,90,90,.5);"></div></div>
-      <div class="bar-val" style="color:#5a6a70;">1,67%</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label" style="color:#4a5a60;">Juegos de Azar</div>
-      <div class="bar-track"><div class="bar-fill" style="width:1.06%;background:rgba(90,90,90,.5);"></div></div>
-      <div class="bar-val" style="color:#5a6a70;">1,06%</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label" style="color:#4a5a60;">FEFIM</div>
-      <div class="bar-track"><div class="bar-fill" style="width:0.90%;background:rgba(90,90,90,.5);"></div></div>
-      <div class="bar-val" style="color:#5a6a70;">0,90%</div>
-    </div>
+  <div class="viz">
+    <div class="viz-title">Variación real mensual · Total girado y CFI neta · 2026</div>
+    <div class="chart-wrap" style="height:260px"><canvas id="nacion-mensual-chart"></canvas></div>
+    <div class="chart-note">La CFI neta es mucho más volátil que el total: cayó hasta −36,8% real en febrero y se recuperó +35,3% en mayo. El acumulado semestral (−9,3%) es el dato que importa para la tendencia.</div>
   </div>
 
-  <div class="callout-dark" style="margin-top:24px;">
-    <p><strong>Marco legal — Ley 10.559, Art. 1°:</strong> "Las Municipalidades de la Provincia recibirán en concepto de coparticipación el 16,14% del total de ingresos que percibe la Provincia por Ingresos Brutos no descentralizados, Impuesto Inmobiliario Urbano, Impuesto a los Automotores, Impuesto de Sellos, Tasas Retributivas de Servicios y Coparticipación Federal de Impuestos." Como la Coparticipación es 75,94% de lo transferido, y se calcula sobre tributos que ya vienen cayendo en términos reales (IIBB, Sellos, y la CFI que gira la Nación), la caída se traslada casi automáticamente a los municipios.</p>
-  </div>
-
-  <div class="div-line-dark"></div>
-
-  <div class="sec-label-dark reveal">¿Cuántos municipios ganaron y cuántos perdieron?</div>
-  <div class="two-col reveal" style="margin-top:20px;gap:32px;">
-    <div>
-      <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4a5a60;margin-bottom:12px;">Acumulado del semestre (ene–jun)</div>
-      <div class="cap-grid" style="grid-template-columns:repeat(2,1fr);">
-        <div class="cap-card" style="border-left-color:rgba(82,199,140,.5);"><div class="cap-num" style="color:rgba(82,199,140,.3);">23</div><div class="cap-title">Ganaron en real</div><div class="cap-body">17% de los 135 municipios</div></div>
-        <div class="cap-card"><div class="cap-num">37</div><div class="cap-title">Perdieron &lt;2%</div><div class="cap-body">27% de los 135 municipios</div></div>
-        <div class="cap-card" style="border-left-color:rgba(228,171,2,.5);"><div class="cap-num" style="color:rgba(228,171,2,.3);">56</div><div class="cap-title">Perdieron 2%–5%</div><div class="cap-body">41% de los 135 municipios</div></div>
-        <div class="cap-card" style="border-left-color:rgba(224,82,82,.5);"><div class="cap-num" style="color:rgba(224,82,82,.3);">19</div><div class="cap-title">Perdieron &gt;5%</div><div class="cap-body">14% de los 135 municipios</div></div>
-      </div>
-    </div>
-    <div>
-      <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4a5a60;margin-bottom:12px;">Solo junio</div>
-      <div class="cap-grid" style="grid-template-columns:repeat(2,1fr);">
-        <div class="cap-card" style="border-left-color:rgba(82,199,140,.5);"><div class="cap-num" style="color:rgba(82,199,140,.3);">12</div><div class="cap-title">Ganaron en real</div><div class="cap-body">9% de los 135 municipios</div></div>
-        <div class="cap-card"><div class="cap-num">67</div><div class="cap-title">Perdieron &lt;5%</div><div class="cap-body">50% de los 135 municipios</div></div>
-        <div class="cap-card" style="border-left-color:rgba(228,171,2,.5);"><div class="cap-num" style="color:rgba(228,171,2,.3);">55</div><div class="cap-title">Perdieron 5%–10%</div><div class="cap-body">41% de los 135 municipios</div></div>
-        <div class="cap-card" style="border-left-color:rgba(224,82,82,.5);"><div class="cap-num" style="color:rgba(224,82,82,.3);">1</div><div class="cap-title">Perdió 10%–25%</div><div class="cap-body">Caso puntual</div></div>
-      </div>
-    </div>
-  </div>
-  <p class="body-t-dark reveal" style="font-size:.8rem;margin-top:14px;">En junio la foto es peor que en el acumulado semestral: la mayoría de los municipios (55) perdió entre 5% y 10% de poder de compra en ese mes puntual, mientras que en el semestre completo la mayoría (56) perdió entre 2% y 5%. Es consistente con una tendencia que se agrava mes a mes más que con un evento aislado.</p>
+  <div class="note-card"><strong>Marco legal:</strong> la Ley 26.075 de Financiamiento Educativo y el régimen de Coparticipación Federal de Impuestos son las dos vías principales por las que la Nación transfiere recursos a las provincias. Ese es el primer escalón de la cadena que se analiza en este informe.</div>
 </section>
 
-<!-- ── RANKING ── -->
-<section id="ranking" class="dark-sec">
-  <div class="sec-label reveal">Ganadores y perdedores</div>
-  <h2 class="sec-h reveal">No a todos los municipios<br><span>les pega igual.</span></h2>
-  <p class="body-t reveal" style="max-width:720px;">La lista de los municipios que más perdieron en el semestre tiene un patrón llamativo: varios de los distritos con mayor actividad inmobiliaria de alto valor y turística —San Isidro, Pinamar, Vicente López, Tandil, Villa Gesell— están entre los que más poder de compra perdieron. Es coherente con la caída de Sellos: si el mercado inmobiliario financiado con crédito se frena, los municipios cuya base económica depende más de esa actividad sienten el freno con mayor intensidad que el promedio provincial.</p>
+<!-- ═══════ CAP 5 — PROVINCIA → MUNICIPIOS ═══════ -->
+<section class="chapter" id="ch5">
+  <div class="ch-label">Capítulo 5</div>
+  <h2 class="ch-title">La caída se amplifica al llegar a los municipios</h2>
+  <div class="ch-text">
+    <p>En el primer semestre de 2026 la Provincia transfirió a sus 135 municipios <strong>$2.778.995 millones</strong>, frente a $2.145.002 millones en el mismo semestre de 2025: +29,6% nominal. En términos reales, esos municipios recibieron en conjunto <strong>2,5% menos poder de compra</strong> que un año atrás — más que la caída de la propia recaudación provincial (−1,58%). En junio, el mes más reciente y el más volátil, la caída real fue todavía mayor: −4,2%.</p>
+    <p>Ese promedio provincial, sin embargo, no se repartió de forma pareja. De los 135 municipios, <strong>23 ganaron poder de compra</strong> en el semestre (17%) y <strong>19 perdieron más del 5%</strong> (14%). El resto quedó en un rango intermedio. La brecha entre el mejor y el peor caso ronda los 19 puntos porcentuales.</p>
+  </div>
 
-  <div class="two-col" style="margin-top:32px;gap:40px;">
-    <div class="reveal">
-      <div class="sec-label" style="color:var(--verde);">Los que ganaron en el semestre</div>
-      <p class="body-t" style="margin-top:0;font-size:.82rem;">23 de 135 partidos (17%) con variación real acumulada positiva vs. 1S 2025.</p>
-      <div style="overflow-x:auto;margin-top:12px;">
-        <div class="tbl-wrap"><table class="tbl">
-          <thead><tr><th>Distrito</th><th>Var. real</th></tr></thead>
-          <tbody>
-            <tr><td class="strong">Chacabuco</td><td class="verde">+10,9%</td></tr>
-            <tr><td class="strong">Campana</td><td class="verde">+6,6%</td></tr>
-            <tr><td class="strong">Capitán Sarmiento</td><td class="verde">+6,4%</td></tr>
-            <tr><td class="strong">Exaltación de la Cruz</td><td class="verde">+6,1%</td></tr>
-            <tr><td class="strong">General Rodríguez</td><td class="verde">+3,5%</td></tr>
-            <tr><td class="strong">Marcos Paz</td><td class="verde">+2,6%</td></tr>
-            <tr><td class="strong">Dolores</td><td class="verde">+2,2%</td></tr>
-            <tr><td class="strong">Carmen de Areco</td><td class="verde">+1,9%</td></tr>
-            <tr><td class="strong">Escobar</td><td class="verde">+1,6%</td></tr>
-            <tr><td class="strong">Adolfo Alsina</td><td class="verde">+1,5%</td></tr>
-            <tr><td class="strong">Laprida</td><td class="verde">+1,4%</td></tr>
-            <tr><td class="strong">General Villegas</td><td class="verde">+1,4%</td></tr>
-            <tr><td class="strong">Suipacha</td><td class="verde">+1,2%</td></tr>
-            <tr><td class="strong">General Alvarado</td><td class="verde">+1,0%</td></tr>
-            <tr><td class="strong">Rojas</td><td class="verde">+1,0%</td></tr>
-            <tr><td class="strong">Lobería</td><td class="verde">+0,9%</td></tr>
-            <tr><td class="strong">Roque Pérez</td><td class="verde">+0,8%</td></tr>
-            <tr><td class="strong">Monte</td><td class="verde">+0,4%</td></tr>
-            <tr><td class="strong">San Fernando</td><td class="verde">+0,2%</td></tr>
-            <tr><td class="strong">Pergamino</td><td class="verde">+0,1%</td></tr>
-            <tr><td class="strong">Pellegrini</td><td class="verde">+0,1%</td></tr>
-            <tr><td class="strong">Lobos</td><td class="verde">+0,1%</td></tr>
-            <tr><td class="strong">Tapalqué</td><td class="verde">+0,1%</td></tr>
-          </tbody>
-        </table></div>
-      </div>
-      <p class="body-t" style="font-size:.78rem;">La mejora en varios de estos casos se explica por cambios en su Coeficiente Único de Distribución durante 2025, no solo por dinámica 2026.</p>
+  <div class="grid-2">
+    <div class="viz">
+      <div class="viz-title">Composición de lo transferido a municipios · 1S 2026</div>
+      <div class="chart-wrap" style="height:110px"><canvas id="municipios-composicion-chart"></canvas></div>
+      <div class="chart-note">Coparticipación 75,94% · Fdo. Financ. Educativo 10,60% · Fdo. Fort. Rec. Municipales 4,41% · Fdo. Municipal Inclusión Social 3,33% · Descentralización 2,10% · otros fondos 2,63%.</div>
     </div>
-    <div class="reveal">
-      <div class="sec-label" style="color:var(--rojo);">Los que más perdieron en el semestre</div>
-      <p class="body-t" style="margin-top:0;font-size:.82rem;">Top 12 · mayor caída real acumulada vs. 1S 2025.</p>
-      <div style="overflow-x:auto;margin-top:12px;">
-        <div class="tbl-wrap"><table class="tbl">
-          <thead><tr><th>Distrito</th><th>Var. real</th></tr></thead>
-          <tbody>
-            <tr style="background:rgba(224,82,82,.08);"><td class="strong" style="color:var(--crema);">San Isidro</td><td class="rojo"><strong>−8,5%</strong></td></tr>
-            <tr><td class="strong">Pinamar</td><td class="rojo">−8,2%</td></tr>
-            <tr><td class="strong">Vicente López</td><td class="rojo">−7,0%</td></tr>
-            <tr><td class="strong">Florentino Ameghino</td><td class="rojo">−6,5%</td></tr>
-            <tr><td class="strong">Maipú</td><td class="rojo">−6,4%</td></tr>
-            <tr><td class="strong">General San Martín</td><td class="rojo">−6,4%</td></tr>
-            <tr><td class="strong">General Madariaga</td><td class="rojo">−6,0%</td></tr>
-            <tr><td class="strong">Leandro N. Alem</td><td class="rojo">−5,8%</td></tr>
-            <tr><td class="strong">Tandil</td><td class="rojo">−5,8%</td></tr>
-            <tr><td class="strong">Tordillo</td><td class="rojo">−5,8%</td></tr>
-            <tr><td class="strong">General Viamonte</td><td class="rojo">−5,6%</td></tr>
-            <tr><td class="strong">Villa Gesell</td><td class="rojo">−5,6%</td></tr>
-          </tbody>
-        </table></div>
-      </div>
-      <p class="body-t" style="font-size:.78rem;">San Isidro y Vicente López concentran actividad inmobiliaria y comercial de alto valor; Pinamar, Villa Gesell y Tandil dependen fuertemente de la actividad turística e inmobiliaria estacional. Los cinco están entre los doce municipios con mayor caída real del semestre.</p>
+    <div class="ficha">
+      <h3>Ganadores y perdedores del semestre</h3>
+      <p><strong style="color:var(--teal)">23 municipios (17%)</strong> ganaron poder de compra real.</p>
+      <p><strong>37 (27%)</strong> perdieron menos de 2%. <strong>56 (41%)</strong> perdieron entre 2% y 5%.</p>
+      <p style="margin-bottom:0"><strong style="color:var(--risk)">19 (14%)</strong> perdieron más de 5% de poder de compra.</p>
     </div>
   </div>
 
-  <div class="div-line" style="margin:44px 0 28px;"></div>
+  <div class="note-card"><strong>Marco legal — Ley 10.559, Art. 1°:</strong> los municipios reciben en coparticipación el 16,14% de lo que la Provincia percibe por Ingresos Brutos no descentralizados, Inmobiliario Urbano, Automotores, Sellos, Tasas Retributivas y Coparticipación Federal de Impuestos. Como la Coparticipación es 75,94% de lo transferido y se calcula sobre tributos que ya venían cayendo en términos reales, la pérdida se traslada casi automáticamente a los municipios.</div>
 
-  <div class="sec-label reveal">La foto de junio, más volátil</div>
-  <div class="two-col reveal" style="gap:40px;">
-    <div>
-      <p class="body-t" style="margin-top:0;font-size:.85rem;"><strong class="t">Ganadores de junio (top):</strong> Chacabuco (+12,9%), Exaltación de la Cruz (+7,9%), Campana (+6,1%), Capitán Sarmiento (+4,0%) y Dolores (+4,0%) repiten como los mejores posicionados, coherente con su desempeño en el acumulado semestral.</p>
-    </div>
-    <div>
-      <p class="body-t" style="margin-top:0;font-size:.85rem;"><strong style="color:var(--rojo);">Perdedores de junio (top):</strong> Ezeiza (−11,1%), Pila (−9,5%), General Madariaga (−8,9%), Ramallo (−8,6%) y Carmen de Areco (−8,4%) encabezaron la caída puntual de ese mes; varios de estos casos responden a la mayor volatilidad mensual de fondos específicos y no se repiten con la misma magnitud en el acumulado del semestre.</p>
-    </div>
-  </div>
+  <p class="ch-text" style="margin-top:24px">¿Y tu municipio en particular? La herramienta de abajo permite ver, distrito por distrito, cuánto recibió, cómo varió en términos reales y cómo se posicionó frente al conjunto de la Provincia.</p>
 </section>
 
-<!-- ── QUÉ SIGNIFICA ── -->
-<section id="hipotesis" style="background:var(--grafito);padding:80px 52px;">
-  <div class="sec-label reveal">Qué significa esto</div>
-  <h2 class="sec-h reveal">Cuatro lecturas<br><span>para la gestión pública.</span></h2>
+<!-- ═══════ CAP 6 — HERRAMIENTA INTERACTIVA ═══════ -->
+<section class="chapter" id="ch6">
+  <div class="ch-label">Capítulo 6</div>
+  <h2 class="ch-title">Radiografía fiscal de tu municipio</h2>
+  <div class="ch-text">
+    <p>Elegí un municipio para ver cuánto recibió de la Provincia, cómo varió en términos reales frente al mismo período de 2025 y en qué posición quedó frente a los otros 134 distritos bonaerenses.</p>
+  </div>
 
-  <div class="cap-grid reveal" style="margin-top:32px;">
-    <div class="cap-card" style="padding:24px;">
-      <div class="cap-num">I</div>
-      <div class="cap-title">La Provincia con menos margen real</div>
-      <div class="cap-body">Con recaudación propia cayendo 1,58% real y arrastrada por Ingresos Brutos, el gobernador tiene menos poder de compra disponible que hace un año para gasto, inversión o negociación política, más allá de lo que muestre el número nominal.</div>
+  <div class="tool-card" id="tool">
+    <div class="tool-head">
+      <div class="tool-eyebrow">Herramienta interactiva</div>
+      <h3 class="tool-title">Buscá tu municipio</h3>
+      <div class="tool-scope-note">Cobertura: 135 de 135 municipios bonaerenses, con datos oficiales completos para el primer semestre y para junio de 2026 (ver <a href="#metodologia" style="color:inherit;text-decoration:underline">metodología</a>).</div>
     </div>
-    <div class="cap-card" style="padding:24px;">
-      <div class="cap-num">II</div>
-      <div class="cap-title">El crédito caro frena la actividad inmobiliaria</div>
-      <div class="cap-body">Sellos —el termómetro sin distorsión de calendario— cae hace cinco meses seguidos. Con tasas de interés muy altas, el crédito hipotecario se encarece, se frenan las operaciones inmobiliarias financiadas y eso golpea directamente a la recaudación provincial y municipal.</div>
+
+    <div class="search-wrap">
+      <label for="muniSearch" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Buscar municipio</label>
+      <input type="text" id="muniSearch" class="search-input" placeholder="Escribí el nombre de tu municipio…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="muniSearchResults" aria-autocomplete="list">
+      <div class="search-results" id="muniSearchResults" role="listbox"></div>
     </div>
-    <div class="cap-card" style="padding:24px;">
-      <div class="cap-num">III</div>
-      <div class="cap-title">La Nación también aprieta</div>
-      <div class="cap-body">La Coparticipación Federal de Impuestos —el mayor componente de lo que Nación gira a la Provincia— cae 9,3% real en el semestre. La escasez no nace en la Provincia: empieza un escalón más arriba, en un Estado nacional que también recauda y distribuye menos.</div>
+    <button type="button" class="tool-alpha-link" id="alphaListToggle">Ver lista alfabética completa</button>
+
+    <div class="period-toggle" id="periodToggle">
+      <button type="button" class="active" data-period="1s">Primer semestre 2026</button>
+      <button type="button" data-period="jun">Junio 2026</button>
     </div>
-    <div class="cap-card" style="padding:24px;">
-      <div class="cap-num">IV</div>
-      <div class="cap-title">Los municipios reciben el efecto amplificado, y no todos igual</div>
-      <div class="cap-body">La caída real llega a los municipios (−2,5% en el semestre) mayor que la de la Provincia (−1,58%). Y dentro de los municipios, los más ligados a actividad inmobiliaria y turística de alto valor —San Isidro, Vicente López, Pinamar, Villa Gesell, Tandil— son los que más sienten el freno del crédito.</div>
+
+    <div class="tool-result" id="toolResult">
+      <p class="tool-sentence" id="toolSentence"></p>
+
+      <div class="indicator-grid" id="indicatorGrid"></div>
+
+      <div class="dotplot-wrap">
+        <div class="viz-title" style="margin-bottom:8px">Los 135 municipios, ordenados por variación real</div>
+        <svg class="dotplot-svg" id="dotplotSvg" viewBox="0 0 1000 170" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="dotplotDesc"></svg>
+        <p id="dotplotDesc" style="position:absolute;width:1px;height:1px;overflow:hidden">Gráfico de puntos con los 135 municipios de la provincia ordenados de menor a mayor variación real de las transferencias recibidas. El municipio seleccionado se resalta. Los valores exactos están disponibles en la tabla del Capítulo 7 y en la base descargable.</p>
+        <div class="dp-legend">
+          <span><i style="background:#f0653e"></i>Municipio seleccionado</span>
+          <span><i style="background:#94a3b8"></i>Resto de los municipios</span>
+          <span>┊ línea llena = 0% · línea punteada = promedio provincial</span>
+        </div>
+      </div>
+      <div class="dotplot-tooltip" id="dotplotTooltip" role="tooltip"></div>
+
+      <div class="gap-card" id="chainCard">
+        <div class="gap-card-title">La cadena fiscal, con tu municipio</div>
+        <div class="gap-row"><span class="gr-lbl">Nación → Provincia</span><span class="gr-val" style="color:var(--risk)">−1,7%</span></div>
+        <div class="gap-row"><span class="gr-lbl">Recaudación propia PBA</span><span class="gr-val" style="color:var(--risk)">−1,58%</span></div>
+        <div class="gap-row"><span class="gr-lbl">Provincia → conjunto de municipios</span><span class="gr-val" style="color:var(--risk)">−2,5%</span></div>
+        <div class="gap-row" id="chainMuniRow"><span class="gr-lbl">Provincia → <strong id="chainMuniName"></strong></span><span class="gr-val" id="chainMuniVal"></span></div>
+      </div>
+
+      <div class="gap-card" id="gapCard">
+        <div class="gap-card-title">Brecha para igualar la inflación</div>
+        <div class="gap-row"><span class="gr-lbl">Recibido en 1S 2025 (base)</span><span class="gr-val" id="gap2025"></span></div>
+        <div class="gap-row"><span class="gr-lbl">Necesario en 1S 2026 para igualar el poder de compra de 2025</span><span class="gr-val" id="gapNecesario"></span></div>
+        <div class="gap-row"><span class="gr-lbl">Efectivamente recibido en 1S 2026</span><span class="gr-val" id="gapRecibido"></span></div>
+        <div class="gap-row"><span class="gr-lbl">Diferencia (brecha nominal)</span><span class="gr-val" id="gapBrecha"></span></div>
+        <p class="gap-sentence" id="gapSentence"></p>
+      </div>
     </div>
   </div>
 
-  <div class="div-line"></div>
+  <div class="note-card">Esta herramienta usa exclusivamente datos oficiales de la Provincia (Ministerio de Economía PBA) para los 135 municipios, con la misma serie de inflación documentada en la <a href="#metodologia" style="color:inherit;text-decoration:underline">metodología</a>. No incorpora datos de población, sección electoral ni categoría municipal porque esa información no está disponible en la base de origen — no se estimó ni se completó con supuestos.</div>
+</section>
 
-  <div class="sec-label reveal">Cómo usar este análisis</div>
-  <div class="two-col reveal" style="gap:32px;margin-top:20px;">
-    <div>
-      <div class="callout">
-        <p><strong>Para intendentes con base inmobiliaria/turística:</strong> si Sellos sigue cayendo, la Coparticipación que reciben seguirá bajo presión más allá de cualquier mejora nominal. Conviene planificar el presupuesto municipal con el escenario real, no con el nominal.</p>
-      </div>
-      <div class="callout" style="margin-top:12px;">
-        <p><strong>Para equipos técnicos provinciales:</strong> la dependencia de Ingresos Brutos —75,6% de la recaudación propia— sigue siendo el mayor riesgo estructural de la caja provincial. Cualquier desaceleración de la actividad económica formal se traduce casi uno a uno en menos recursos reales.</p>
-      </div>
+<!-- ═══════ CAP 7 — 135 RESULTADOS ═══════ -->
+<section class="chapter" id="ch7">
+  <div class="ch-label">Capítulo 7</div>
+  <h2 class="ch-title">Un mismo semestre, 135 resultados diferentes</h2>
+  <div class="ch-text">
+    <p>Las diferencias entre municipios no son aleatorias. Los distritos con mejor resultado real —Chacabuco, Campana, Capitán Sarmiento, Exaltación de la Cruz— mejoraron, en buena parte, por cambios en su Coeficiente Único de Distribución durante 2025, no solo por dinámica de 2026.</p>
+    <p>Entre los que más perdieron aparece un patrón distinto: San Isidro, Pinamar, Vicente López, Tandil y Villa Gesell —municipios con fuerte peso de actividad inmobiliaria de alto valor o turística— están entre los doce con mayor caída real del semestre. Es coherente con lo visto en el Capítulo 3: si el mercado inmobiliario financiado con crédito se frena, los distritos cuya base económica depende más de esa actividad sienten el freno con más intensidad que el promedio provincial.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="viz">
+      <div class="viz-title">Mejor resultado real del semestre · Top 12</div>
+      <div class="rank-list" id="rankTop"></div>
     </div>
-    <div>
-      <div class="callout">
-        <p><strong>Para quien mira la macro:</strong> la caída de la CFI neta (−9,3% real) es la variable a seguir en los próximos meses. Si la Nación recompone esa transferencia, parte de la presión sobre Provincia y municipios se alivia. Si no, la cadena de escasez continúa.</p>
+    <div class="viz">
+      <div class="viz-title">Mayor caída real del semestre · Top 12</div>
+      <div class="rank-list" id="rankBottom"></div>
+    </div>
+  </div>
+
+  <details class="full-table" id="fullTableDetails">
+    <summary>Ver los 135 municipios — tabla completa</summary>
+    <div class="table-wrap" style="margin-top:16px">
+      <table class="data-table" id="fullTable">
+        <thead>
+          <tr>
+            <th data-sort="municipio" tabindex="0" role="button" aria-sort="ascending">Municipio</th>
+            <th data-sort="n2026_1s" tabindex="0" role="button" aria-sort="none">Transferido 1S26</th>
+            <th data-sort="var_nom_1s" tabindex="0" role="button" aria-sort="none">Var. nominal</th>
+            <th data-sort="var_real_1s" tabindex="0" role="button" aria-sort="none">Var. real</th>
+            <th data-sort="rank_1s" tabindex="0" role="button" aria-sort="none">Ranking</th>
+          </tr>
+        </thead>
+        <tbody id="fullTableBody"></tbody>
+      </table>
+    </div>
+    <p class="chart-note" style="margin-top:10px">Tabla completa y ordenable. También disponible como <a class="dl-link" href="/assets/data/transferencias-135-municipios-2026.csv" download>archivo CSV descargable</a> con el detalle de junio, brecha nominal y ranking.</p>
+  </details>
+
+  <div class="note-card">Ver los 135 casos, con detalle mensual y desglose por componente, en la base descargable. La combinación de <em>cuánto</em> se transfirió (volumen) y <em>cómo varió</em> (variación real) es la que permite comparar posiciones entre municipios de tamaños muy distintos: un municipio grande puede perder menos en puntos porcentuales pero representar una pérdida nominal mucho mayor, y viceversa.</div>
+</section>
+
+</div><!-- /art-col -->
+</div><!-- /layout -->
+
+<!-- ═══════ CIERRE INSTITUCIONAL (dark, full-bleed) ═══════ -->
+<section class="closing-band" id="closing">
+  <div class="closing-inner">
+    <div class="cl-eyebrow">Cierre</div>
+    <h2 class="cl-title">Cuatro señales para la gestión pública</h2>
+    <p class="cl-intro">Más allá del número agregado, estas son las cuatro lecturas que se desprenden del balance del primer semestre:</p>
+    <div class="signal-grid">
+      <div class="signal-card">
+        <div class="signal-num">I</div>
+        <div class="signal-title">La Provincia, con menos margen real</div>
+        <div class="signal-body">Con recaudación propia cayendo 1,58% real —arrastrada por Ingresos Brutos—, el gobernador dispone de menos poder de compra que hace un año para gasto, inversión o negociación política, más allá de lo que muestre el número nominal.</div>
       </div>
-      <div class="callout" style="margin-top:12px;">
-        <p><strong>Próximo paso:</strong> este balance se actualizará con los datos del segundo semestre. La variable clave a monitorear es si las tasas de interés bajan lo suficiente como para reactivar Sellos, o si la caída del crédito hipotecario se instala como un fenómeno de mediano plazo.</p>
+      <div class="signal-card">
+        <div class="signal-num">II</div>
+        <div class="signal-title">El crédito caro frena la actividad inmobiliaria</div>
+        <div class="signal-body">Sellos —el indicador sin distorsión de calendario— cae hace cinco meses consecutivos. Con tasas de interés muy altas, el crédito hipotecario se encarece y se frenan las operaciones inmobiliarias financiadas, golpeando la recaudación provincial y municipal.</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-num">III</div>
+        <div class="signal-title">La Nación también aprieta</div>
+        <div class="signal-body">La Coparticipación Federal de Impuestos —el mayor componente de lo que gira la Nación— cae 9,3% real en el semestre. La escasez no nace en la Provincia: empieza un escalón más arriba.</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-num">IV</div>
+        <div class="signal-title">Los municipios reciben el efecto amplificado, y no todos igual</div>
+        <div class="signal-body">La caída real que llega a los municipios (−2,5%) es mayor que la de la Provincia (−1,58%). Y dentro de los municipios, los más ligados a actividad inmobiliaria y turística de alto valor son los que más sienten el freno del crédito.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── FUENTES ── -->
-<section id="fuentes" style="background:var(--grafito3);padding:72px 52px;">
-  <div class="sec-label reveal">Fuentes y metodología</div>
-  <h2 class="sec-h reveal" style="font-size:clamp(1.6rem,2.6vw,2.4rem);">Datos, métodos<br><span>y advertencias.</span></h2>
-
-  <div class="two-col" style="margin-top:36px;gap:48px;">
-    <div class="reveal">
-      <div class="sec-label">Fuentes primarias</div>
-      <div class="fuente-item">
-        <div class="fuente-num">[1]</div>
-        <div class="fuente-text">Alsina Consulting / Gastón Corti. "Recaudación PBA — 1er Semestre 2026". Elaboración propia sobre datos oficiales de ARBA y el Ministerio de Economía de la Provincia de Buenos Aires. Serie mensual por tributo, enero–junio 2026 vs. 2025.</div>
-      </div>
-      <div class="fuente-item">
-        <div class="fuente-num">[2]</div>
-        <div class="fuente-text">Alsina Consulting / Gastón Corti. "Transferencias a Municipios de la Provincia de Buenos Aires — Balance Enero–Junio 2026". Elaboración propia sobre datos oficiales de coparticipación provincial, ranking de los 135 municipios y recursos de origen nacional a la Provincia.</div>
-      </div>
-      <div class="fuente-item">
-        <div class="fuente-num">[3]</div>
-        <div class="fuente-text">Ley 10.559, Art. 1°. Régimen de coparticipación municipal bonaerense: 16,14% de Ingresos Brutos no descentralizados, Inmobiliario Urbano, Automotores, Sellos, Tasas Retributivas de Servicios y Coparticipación Federal de Impuestos.</div>
-      </div>
-      <div class="fuente-item">
-        <div class="fuente-num">[4]</div>
-        <div class="fuente-text">Ley 26.075 de Financiamiento Educativo. Base normativa de la CFI neta y el Fondo de Financiamiento Educativo transferidos por la Nación a las provincias.</div>
-      </div>
-      <div class="fuente-item">
-        <div class="fuente-num">[5]</div>
-        <div class="fuente-text">INDEC. Índice de Precios al Consumidor (IPC) Nacional. Inflación interanual mensual utilizada para deflactar las series nominales de ambas piezas fuente.</div>
-      </div>
+<!-- ═══════ METODOLOGÍA ═══════ -->
+<div class="layout" style="margin-top:0">
+<div class="toc-col" style="visibility:hidden"></div>
+<div class="art-col" style="padding-top:0">
+<section class="chapter" id="metodologia" style="margin-top:56px">
+  <div class="ch-label">Metodología y fuentes</div>
+  <h2 class="ch-title">Datos, fórmulas y advertencias</h2>
+  <div class="ch-text">
+    <p><strong>Fuentes primarias:</strong> Ministerio de Economía de la Provincia de Buenos Aires (transferencias mensuales por municipio y por componente, enero 2025–junio 2026); ARBA (recaudación tributaria mensual por concepto); INDEC (Índice de Precios al Consumidor Nacional, inflación interanual mensual).</p>
+    <p><strong>Serie de inflación aplicada:</strong> se usó la serie de inflación interanual mensual del INDEC ya publicada en los informes previos de Alsina sobre recaudación y transferencias: enero 32,4% · febrero 33,1% · marzo 32,6% · abril 32,4% · mayo 33,2% · junio 33,5%. Es la misma serie para todos los cálculos de este informe, incluida la herramienta interactiva del Capítulo 6.</p>
+    <p><strong>Criterio de comparación interanual:</strong> cada monto nominal de 2026 se deflacta dividiéndolo por (1 + inflación interanual del mes correspondiente), obteniendo su equivalente "a precios de 2025". La variación real de un período (mes, junio o semestre) es la suma de esos valores deflactados dividida por la suma nominal del mismo período en 2025, menos 1.</p>
+    <p><strong>Brecha e igualación de inflación:</strong> el "monto necesario para igualar la inflación" se calcula de forma inversa: cada monto nominal de 2025 se multiplica por (1 + inflación interanual del mes correspondiente). Ese es el monto que, en 2026, habría sido necesario para mantener el mismo poder de compra de 2025. La brecha nominal es la diferencia entre ese monto necesario y el monto efectivamente recibido en 2026.</p>
+    <p><strong>Tratamiento de calendarios tributarios:</strong> Inmobiliario y Automotor se cobran en pocas cuotas grandes (4–5 y hasta 10 cuotas anuales según el calendario 2026 de ARBA), por lo que su variación real mensual está fuertemente afectada por en qué mes cae cada cuota. Sellos no tiene esa distorsión: se paga sobre el acto en el momento en que ocurre, y por eso se usa en este informe como el indicador más confiable de actividad transaccional e inmobiliaria.</p>
+    <p><strong>Validación:</strong> la metodología de deflactación mes a mes se aplicó a los 135 municipios a partir de la serie mensual completa 2025–2026 del Ministerio de Economía PBA. El agregado provincial resultante (−2,50% real semestral, −4,16% real en junio) reproduce, dentro del margen de redondeo, los valores agregados ya publicados en el informe fuente de transferencias (−2,5% y −4,2% respectivamente), y el conteo de municipios ganadores coincide exactamente (23 en el semestre, 12 en junio).</p>
+    <div class="note-card">
+      <strong>Advertencia sobre discrepancias entre fuentes:</strong> los informes previos de Alsina sobre recaudación provincial y sobre transferencias a municipios fueron elaborados por separado y usan, cada uno, su propia serie mensual de inflación interanual, con pequeñas diferencias entre sí (por ejemplo, marzo 32,6% vs. 33,0%; junio 33,5% vs. 31,0% en una tabla puntual de recursos de origen nacional). Este informe unificó esa serie para todos los cálculos propios —recaudación por tributo, transferencias a municipios y la herramienta interactiva— usando la versión confirmada por dos fuentes independientes (32,4 / 33,1 / 32,6 / 32,4 / 33,2 / 33,5). No se ocultan las diferencias: donde una cifra proviene textualmente del informe original de recursos de Nación a Provincia, se mantiene fiel a su fuente y se aclara en el cuerpo del texto (Capítulo 4).
     </div>
-    <div class="reveal">
-      <div class="sec-label">Notas metodológicas</div>
-      <div class="fuente-item">
-        <div class="fuente-num">M1</div>
-        <div class="fuente-text">Las dos piezas fuente de este informe fueron elaboradas por separado y no fueron reconciliadas entre sí: hay pequeñas diferencias en la inflación interanual mensual usada por cada una (ej. marzo 32,6% vs. 33,0%; junio 33,5% vs. 31,0%). Cada cifra real de este informe corresponde a la metodología de su pieza fuente original.</div>
-      </div>
-      <div class="fuente-item">
-        <div class="fuente-num">M2</div>
-        <div class="fuente-text">Inmobiliario y Automotor se cobran en pocas cuotas grandes (4–5 y hasta 10 cuotas anuales según ARBA 2026), por lo que su variación real mensual está fuertemente afectada por el calendario de vencimientos. Sellos, en cambio, no tiene esa distorsión: se paga sobre el acto en el momento en que ocurre, y por eso se usa en este informe como el indicador más confiable de actividad transaccional/inmobiliaria.</div>
-      </div>
-      <div class="fuente-item">
-        <div class="fuente-num">M3</div>
-        <div class="fuente-text">Todos los montos de "Recaudación PBA" están expresados en millones de pesos corrientes. Los montos de "Transferencias a Municipios" fueron convertidos a millones de pesos (dividiendo los valores originales en pesos por 1.000.000) para mantener consistencia de unidades dentro de este informe.</div>
-      </div>
-      <div class="fuente-item">
-        <div class="fuente-num">M4</div>
-        <div class="fuente-text">El ranking de municipios ganadores/perdedores usa variación real interanual del monto transferido a cada distrito, comparando el mismo período (junio o el acumulado enero–junio) de 2026 contra 2025.</div>
-      </div>
-    </div>
+    <p><strong>Datos no disponibles — no estimados ni completados con supuestos:</strong> población municipal, transferencias por habitante, sección electoral, región, superficie, categoría municipal y código geográfico oficial no están presentes en la base de origen (confirmado en la hoja "Fuentes y guía" del archivo de trabajo). Por esa razón, la herramienta del Capítulo 6 no incluye esas variables ni un mapa coroplético: se limitó a lo que la fuente permite sostener con rigor. Los informes en PDF originales de "Recaudación PBA 1S26" y "Transferencias 1S26" no están publicados como archivos descargables en el sitio; la base de datos completa (nominal, real, ranking y brecha por municipio) sí está disponible para descarga en el enlace de abajo.</p>
+    <p><strong>Fecha de actualización:</strong> agosto de 2026, con datos oficiales hasta junio de 2026.</p>
+    <p><a class="dl-link" href="/assets/data/transferencias-135-municipios-2026.csv" download>Descargar base completa de los 135 municipios (CSV)</a></p>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer>
-  <div class="foot-inner">
-    <div>
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <svg viewBox="0 0 22 22" fill="none" width="20"><path d="M11 1.5L1 20.5H5.5L11 10L16.5 20.5H21L11 1.5Z" fill="#00D5D8"/></svg>
-        <div class="foot-brand">ALSINA</div>
-      </div>
-      <div class="foot-copy">
-        Análisis · Estrategia · Impacto<br>
-        Provincia de Buenos Aires · 135 municipios<br>
-        © 2026 Alsina Consulting
-      </div>
-    </div>
-    <div style="max-width:520px;">
-      <div class="foot-disclaimer">
-        Este informe combina dos análisis de elaboración propia de Alsina Consulting (recaudación tributaria provincial y transferencias a municipios) correspondientes al primer semestre de 2026. Los datos de base provienen de fuentes oficiales; las interpretaciones, lecturas y la conexión entre ambas piezas son de elaboración propia y no constituyen asesoramiento financiero o fiscal.
-      </div>
-    </div>
-  </div>
-</footer>
+<div class="art-footer">
+  Fuentes: Ministerio de Economía de la Provincia de Buenos Aires · ARBA · INDEC · Ley 10.559 · Ley 26.075<br>
+  Procesamiento y análisis: Gastón Corti · Alsina · Agosto 2026<br>
+  Ver también: <a href="alsina-recaudacion-tributaria-pba.html">Radiografía Fiscal Bonaerense 1999–2026</a><br>
+  <a href="index.html">alsinaar.com</a>
+</div>
+</div>
+<div style="width:230px;flex:0 0 230px" class="toc-col-spacer"></div>
+</div>
 
 <script>
-const nav=document.getElementById('mainNav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+// ── TOC scroll (desktop + mobile)
+function tocGo(id){
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
+  const panel = document.getElementById('tocMobilePanel');
+  const btn = document.getElementById('tocToggleBtn');
+  if(panel && panel.classList.contains('open')){ panel.classList.remove('open'); btn.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+}
+const tocBtn = document.getElementById('tocToggleBtn');
+const tocPanel = document.getElementById('tocMobilePanel');
+tocBtn?.addEventListener('click', ()=>{
+  const open = tocPanel.classList.toggle('open');
+  tocBtn.classList.toggle('open', open);
+  tocBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
 
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v');});
-},{threshold:.08});
-document.querySelectorAll('.reveal,.rl,.rr').forEach(el=>io.observe(el));
+// ── TOC active highlighting
+const tocObserver = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    document.querySelectorAll(`.toc-item[onclick*="'${e.target.id}'"]`).forEach(btn=>btn.classList.toggle('active', e.isIntersecting));
+  });
+},{threshold:0.2,rootMargin:'-60px 0px -70% 0px'});
+document.querySelectorAll('.chapter,.closing-band,#metodologia').forEach(el=>tocObserver.observe(el));
+
+// ── Share buttons
+(function(){
+  const url = encodeURIComponent(location.href);
+  const text = encodeURIComponent('Más pesos, menos margen: el balance fiscal bonaerense del primer semestre — Alsina');
+  const x = document.getElementById('shareX'); if(x) x.href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+  const wa = document.getElementById('shareWA'); if(wa) wa.href = `https://wa.me/?text=${text}%20${url}`;
+  const copyBtn = document.getElementById('shareCopy');
+  copyBtn?.addEventListener('click', ()=>{
+    navigator.clipboard?.writeText(location.href).then(()=>{
+      copyBtn.setAttribute('aria-label','Enlace copiado');
+      const prev = copyBtn.innerHTML;
+      copyBtn.innerHTML = '✓';
+      setTimeout(()=>{ copyBtn.innerHTML = prev; copyBtn.setAttribute('aria-label','Copiar enlace'); }, 1600);
+    });
+  });
+})();
 </script>
+<script src="/assets/js/balance-fiscal-charts.js" defer></script>
+<script src="/assets/js/balance-fiscal-tool.js" defer></script>
 <script src="/assets/js/config.js"></script>
 </body>
 </html>
