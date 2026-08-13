@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Informes ALSINA — Biblioteca de informes y herramientas sobre la PBA</title>
-<meta name="description" content="Todos los informes, notas y herramientas interactivas de ALSINA sobre finanzas, gestión, política y territorio de la provincia de Buenos Aires y sus 135 municipios.">
+<title>Informes y análisis ALSINA — Provincia de Buenos Aires y sus 135 municipios</title>
+<meta name="description" content="Informes, notas y series de seguimiento de ALSINA sobre finanzas públicas, política y elecciones, municipios y territorio, y gestión pública de la provincia de Buenos Aires.">
+<link rel="canonical" href="https://alsinaar.com/informes.html">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://alsinaar.com/informes.html">
-<meta property="og:title" content="Informes ALSINA — Biblioteca de informes y herramientas sobre la PBA">
-<meta property="og:description" content="Todos los informes, notas y herramientas interactivas de ALSINA sobre finanzas, gestión, política y territorio de la provincia de Buenos Aires y sus 135 municipios.">
+<meta property="og:title" content="Informes y análisis ALSINA — Provincia de Buenos Aires y sus 135 municipios">
+<meta property="og:description" content="Informes, notas y series de seguimiento sobre finanzas públicas, política y elecciones, municipios y territorio, y gestión pública de la PBA.">
 <meta property="og:image" content="https://alsinaar.com/assets/og/og-informes.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -33,8 +34,10 @@ a{color:inherit;}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
 h1,h2,h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;line-height:.98;}
 em{color:var(--turquesa);font-style:normal;}
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+:focus-visible{outline:2px solid var(--turquesa);outline-offset:3px;}
 
-/* ── NAV ── */
+/* ── NAV (sin cambios de marca) ── */
 nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,213,216,.1);}
 .nav-inner{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:28px;}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
@@ -57,88 +60,117 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
   .nav-burger{display:block;}
 }
 
-/* ── HERO ── */
-.hero{padding:64px 0 48px;background:linear-gradient(135deg,var(--grafito) 0%,var(--grafito2) 100%);}
+/* ── HERO: azul noche técnico + silueta PBA muy sutil ── */
+.hero{position:relative;padding:56px 0 44px;background:linear-gradient(135deg,var(--grafito) 0%,var(--grafito2) 100%);overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.05) 1px,transparent 1px);background-size:42px 42px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%);pointer-events:none;}
+.hero-pba{position:absolute;right:-4%;top:50%;transform:translateY(-50%);width:min(42vw,460px);aspect-ratio:680/800;opacity:.14;pointer-events:none;background-color:var(--turquesa);-webkit-mask-image:url('/assets/img/pba-outline.svg');mask-image:url('/assets/img/pba-outline.svg');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:contain;mask-size:contain;-webkit-mask-position:center;mask-position:center;}
+.hero .wrap{position:relative;z-index:1;}
 .kicker{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--turquesa);margin-bottom:16px;font-weight:700;}
 .hero h1{font-size:clamp(2rem,4.4vw,3.1rem);color:var(--crema);max-width:760px;margin-bottom:16px;}
 .hero .sub{font-size:.98rem;color:rgba(243,239,231,.68);line-height:1.7;max-width:620px;font-family:'Barlow',sans-serif;text-transform:none;}
 
 /* ── SECCIONES ── */
-.sec-light{padding:64px 0;background:var(--bg-light);}
+.sec-light{padding:56px 0;background-color:var(--crema);position:relative;}
+.sec-light::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(11,37,56,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(11,37,56,.05) 1px,transparent 1px);background-size:38px 38px;-webkit-mask-image:radial-gradient(ellipse at 100% 0%,#000 0%,transparent 55%),radial-gradient(ellipse at 0% 100%,#000 0%,transparent 55%);mask-image:radial-gradient(ellipse at 100% 0%,#000 0%,transparent 55%),radial-gradient(ellipse at 0% 100%,#000 0%,transparent 55%);pointer-events:none;}
+.sec-light > .wrap{position:relative;z-index:1;}
 .sec-dark{padding:64px 0;background:var(--grafito);}
 .sec-light + .sec-light{padding-top:0;}
-.sec-title{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:28px;}
+.sec-title{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:20px;}
 .sec-title h2{font-size:clamp(1.5rem,2.6vw,1.9rem);color:var(--text-on-light);}
 .sec-dark .sec-title h2{color:var(--crema);}
-.sec-title .cnt{font-size:.78rem;color:var(--muted-on-light);}
-.sec-dark .sec-title .cnt{color:rgba(243,239,231,.5);}
 
-/* ── LÍNEAS PERMANENTES ── */
-.lineas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
-.linea-card{background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;overflow:hidden;transition:border-color .2s,transform .2s;}
-.linea-card:hover{border-color:var(--brand-cyan);transform:translateY(-2px);}
-.linea-card-cover{height:130px;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(20,107,145,.14),rgba(0,213,216,.05));}
-.linea-card-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.linea-card-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,30,42,.6),rgba(20,107,145,.22));pointer-events:none;}
-.linea-card-body{padding:26px;}
-.linea-card .freq{display:inline-block;font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#0e1c20;background:var(--up);border-radius:99px;padding:3px 11px;margin-bottom:14px;}
-.linea-card .freq.amber{background:var(--brand-cyan-light);}
-.linea-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.15rem;color:var(--text-on-light);margin-bottom:8px;letter-spacing:0;}
-.linea-card p{font-size:.85rem;color:var(--muted-on-light);line-height:1.6;margin-bottom:16px;}
-.linea-card .price{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;color:var(--text-on-light);margin-bottom:14px;}
-.linea-card .price small{font-size:.72rem;font-weight:500;color:var(--muted-on-light);}
-.linea-actions{display:flex;flex-direction:column;gap:10px;}
-.linea-actions a.foot{font-size:.78rem;color:var(--brand-cyan-text);font-weight:700;text-decoration:none;}
-.notify-form{display:flex;gap:0;max-width:320px;}
-.notify-form input{flex:1;border:1.5px solid var(--line-light);border-right:none;border-radius:4px 0 0 4px;padding:10px 12px;font-family:inherit;font-size:.82rem;outline:none;}
-.notify-form button{flex-shrink:0;border-radius:0 4px 4px 0;padding:10px 16px;font-size:.75rem;}
-.notify-status{font-size:.72rem;margin-top:6px;min-height:16px;}
-.notify-status.ok{color:var(--up);}
-.notify-status.err{color:var(--down);}
-
-/* ── NOTAS / HERRAMIENTAS / CLIENTES: grid de cards ── */
-.notas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-.nota-card{background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;padding:22px;text-decoration:none;display:block;transition:border-color .2s,transform .2s;overflow:hidden;}
-.nota-card:hover{border-color:var(--brand-cyan);transform:translateY(-2px);}
-.nota-card.has-cover{padding:0;}
-.nota-card-cover{aspect-ratio:4/3;overflow:hidden;background:var(--bg-light);}
-.nota-card-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease;}
-.nota-card:hover .nota-card-cover img{transform:scale(1.04);}
-.nota-card-body{padding:18px 22px 22px;}
-.nota-card .tag-mini{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-cyan-text);margin-bottom:10px;display:block;}
-.nota-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.02rem;color:var(--text-on-light);letter-spacing:0;margin-bottom:6px;}
-.nota-card p{font-size:.8rem;color:var(--muted-on-light);line-height:1.55;}
-.nota-card.featured{grid-column:span 2;}
-.nota-card.featured .nota-card-cover{aspect-ratio:16/7;}
-.nota-card.featured h3{font-size:1.5rem;}
-.nota-card.featured p{font-size:.88rem;max-width:520px;}
-.nota-card-authors{display:flex;align-items:center;margin-top:12px;}
-.nota-card-authors img{width:24px;height:24px;border-radius:50%;object-fit:cover;border:1.5px solid var(--brand-cyan);margin-left:-7px;flex-shrink:0;}
-.nota-card-authors img:first-child{margin-left:0;}
-.nota-card-authors span{font-size:.74rem;color:var(--muted-on-light);margin-left:8px;}
-@media(max-width:860px){.nota-card.featured{grid-column:span 1;}.nota-card.featured .nota-card-cover{aspect-ratio:4/3;}}
-@media(prefers-reduced-motion:reduce){
-  .nota-card-cover img{transition:none;}
-  .nota-card:hover .nota-card-cover img{transform:none;}
+/* ── PUBLICACIÓN DESTACADA ── */
+#featuredWrap{margin-bottom:48px;}
+a.featured-pub{display:grid;grid-template-columns:1.1fr 1fr;gap:0;background:var(--card-light);border:1px solid var(--line-light);border-radius:12px;overflow:hidden;text-decoration:none;transition:border-color .2s,box-shadow .2s;box-shadow:0 1px 2px rgba(11,37,56,.04);}
+.featured-pub:hover{border-color:var(--brand-cyan);box-shadow:0 8px 28px rgba(11,37,56,.1);}
+.featured-pub .nota-card-cover{min-height:280px;max-height:420px;}
+.featured-pub .featured-kicker{display:block;font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--brand-cyan-text);margin-bottom:6px;}
+.featured-pub .featured-body{padding:30px;display:flex;flex-direction:column;justify-content:center;}
+.featured-pub h3{font-size:clamp(1.5rem,2.6vw,2.1rem);text-transform:none;letter-spacing:0;color:var(--text-on-light);margin:10px 0 12px;}
+.featured-pub p{font-size:.95rem;color:var(--muted-on-light);line-height:1.6;max-width:520px;}
+@media(max-width:860px){
+  a.featured-pub{grid-template-columns:1fr;}
+  .featured-pub .nota-card-cover{min-height:200px;max-height:280px;}
 }
 
-/* ── HERRAMIENTAS (dark cards) ── */
-.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-.tool-card{background:var(--grafito2);border:1px solid rgba(0,213,216,.16);border-radius:10px;padding:24px;text-decoration:none;display:block;transition:border-color .2s,background .2s;}
-.tool-card:hover{border-color:rgba(0,213,216,.5);background:rgba(0,213,216,.05);}
-.tool-card .ic-wrap{width:26px;height:26px;color:var(--turquesa);margin-bottom:12px;}
-.tool-card .ic-wrap .ic{width:100%;height:100%;}
-.tool-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.05rem;color:var(--crema);margin-bottom:6px;letter-spacing:0;}
-.tool-card p{font-size:.8rem;color:rgba(243,239,231,.6);line-height:1.55;font-family:'Barlow',sans-serif;}
+/* ── NAV DE FORMATO (tablist) ── */
+.format-nav{display:flex;gap:6px;background:var(--grafito);border-radius:10px;padding:6px;margin-bottom:14px;width:max-content;max-width:100%;overflow-x:auto;}
+.format-tab{appearance:none;border:none;background:transparent;color:rgba(243,239,231,.6);font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:.82rem;padding:10px 18px;border-radius:7px;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s;}
+.format-tab:hover{color:var(--crema);}
+.format-tab.active{background:var(--turquesa);color:#06262b;}
+@media(max-width:480px){
+  .format-nav{flex-wrap:wrap;width:100%;overflow-x:visible;}
+  .format-tab{flex:1 1 45%;text-align:center;padding:9px 8px;font-size:.7rem;}
+}
 
-/* ── CLIENTES ── */
-.clientes-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-.cliente-card{background:var(--grafito2);border:1px solid rgba(0,213,216,.16);border-radius:10px;padding:26px;text-decoration:none;display:block;transition:border-color .2s,background .2s;}
-.cliente-card:hover{border-color:rgba(0,213,216,.5);background:rgba(0,213,216,.05);}
-.cliente-card .meta{display:flex;align-items:center;gap:8px;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--turquesa);font-weight:700;margin-bottom:10px;}
-.cliente-card .meta .ic{width:14px;height:14px;}
-.cliente-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.15rem;color:var(--crema);margin-bottom:8px;letter-spacing:0;}
-.cliente-card p{font-size:.84rem;color:rgba(243,239,231,.6);line-height:1.6;font-family:'Barlow',sans-serif;}
+/* ── FILTROS DE TEMA (chips) ── */
+.topic-filters{margin-bottom:8px;}
+.topic-filters-toggle{display:none;appearance:none;cursor:pointer;align-items:center;gap:8px;font-size:.82rem;font-weight:700;color:var(--brand-cyan-text);background:var(--card-light);padding:9px 16px;border:1px solid var(--brand-cyan-text);border-radius:99px;user-select:none;}
+.topic-filters-toggle::after{content:'▾';font-size:.7rem;}
+.topic-filters-toggle[aria-expanded="true"]::after{content:'▴';}
+.topic-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.topic-chip{appearance:none;background:var(--card-light);border:1px solid var(--line-light);color:var(--muted-on-light);font-size:.78rem;font-weight:600;padding:8px 15px;border-radius:99px;cursor:pointer;transition:border-color .2s,color .2s,background .2s;}
+.topic-chip:hover{border-color:var(--brand-cyan);color:var(--text-on-light);}
+.topic-chip.active{background:var(--brand-cyan-text);border-color:var(--brand-cyan-text);color:#fff;}
+@media(max-width:700px){
+  .topic-filters-toggle{display:inline-flex;margin-bottom:10px;}
+  .topic-chips{display:none;}
+  .topic-chips.open{display:flex;}
+}
+
+.access-legend{font-size:.78rem;color:var(--muted-on-light);margin-bottom:18px;}
+.access-legend a{color:var(--brand-cyan-text);font-weight:700;text-decoration:none;}
+.access-legend a:hover{text-decoration:underline;}
+.filters-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:22px;}
+.reset-filters-inline{appearance:none;background:none;border:none;color:var(--brand-cyan-text);font-size:.78rem;font-weight:700;text-decoration:underline;cursor:pointer;padding:6px 2px;}
+.results-count{font-size:.78rem;color:var(--muted-on-light);margin-bottom:16px;min-height:1.2em;}
+
+/* ── GRILLA DE PUBLICACIONES ── */
+.pub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.nota-card{background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;text-decoration:none;display:flex;flex-direction:column;transition:border-color .2s,transform .2s,box-shadow .2s;overflow:hidden;}
+.nota-card:hover{border-color:var(--brand-cyan);transform:translateY(-2px);box-shadow:0 6px 20px rgba(11,37,56,.08);}
+.nota-card-cover{aspect-ratio:4/3;overflow:hidden;background:var(--bg-light);flex-shrink:0;}
+.nota-card-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease;}
+.nota-card:hover .nota-card-cover img{transform:scale(1.04);}
+.nota-card-body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1;}
+.tag-mini{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-cyan-text);margin-bottom:10px;display:block;}
+.nota-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.05rem;color:var(--text-on-light);letter-spacing:0;margin-bottom:6px;line-height:1.2;}
+.nota-card p{font-size:.8rem;color:var(--muted-on-light);line-height:1.55;flex:1;}
+.nota-card-meta2{font-size:.72rem;color:var(--concreto);margin-top:10px;}
+.nota-card-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--line-light);}
+.access-badge{font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:99px;white-space:nowrap;}
+.access-badge.access-free{background:rgba(43,182,115,.14);color:#1a7a4d;}
+.access-badge.access-sub{background:rgba(11,37,56,.08);color:var(--text-on-light);}
+.card-cta{font-size:.78rem;font-weight:700;color:var(--brand-cyan-text);display:inline-flex;align-items:center;gap:4px;white-space:nowrap;}
+.ic-arrow{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s;}
+.nota-card:hover .ic-arrow{transform:translateX(3px);}
+@media(prefers-reduced-motion:reduce){
+  .nota-card-cover img,.nota-card,.ic-arrow{transition:none;}
+  .nota-card:hover .nota-card-cover img{transform:none;}
+  .nota-card:hover .ic-arrow{transform:none;}
+}
+@media(max-width:980px){.pub-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.pub-grid{grid-template-columns:1fr;}}
+
+.pub-empty{text-align:center;padding:48px 20px;background:var(--card-light);border:1px dashed var(--line-light);border-radius:10px;}
+.pub-empty p{color:var(--muted-on-light);margin-bottom:16px;font-size:.9rem;}
+
+/* ── MAPA POLÍTICO PBA ── */
+.map-block{position:relative;padding:80px 0;background:var(--grafito);overflow:hidden;}
+.map-block::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,213,216,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.05) 1px,transparent 1px);background-size:46px 46px;pointer-events:none;}
+.map-block-pba{position:absolute;right:-2%;top:50%;transform:translateY(-50%);width:min(40vw,440px);aspect-ratio:680/800;opacity:.16;pointer-events:none;background-color:var(--turquesa);-webkit-mask-image:url('/assets/img/pba-outline.svg');mask-image:url('/assets/img/pba-outline.svg');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:contain;mask-size:contain;-webkit-mask-position:center;mask-position:center;}
+.map-block .wrap{position:relative;z-index:1;}
+.map-block h2{font-size:clamp(1.7rem,3.4vw,2.5rem);color:var(--crema);margin-bottom:14px;max-width:480px;}
+.map-block p{font-size:.98rem;color:rgba(243,239,231,.68);line-height:1.65;max-width:440px;margin-bottom:26px;}
+@media(max-width:860px){
+  .map-block-pba{width:min(70vw,360px);opacity:.12;}
+}
+
+/* ── CTA SUSCRIPCIONES ── */
+.cta-sub{padding:64px 0;background-color:var(--crema);text-align:center;position:relative;}
+.cta-sub .wrap{max-width:640px;}
+.cta-sub h2{font-size:clamp(1.6rem,3vw,2.2rem);color:var(--text-on-light);margin-bottom:14px;}
+.cta-sub p{font-size:.98rem;color:var(--muted-on-light);line-height:1.65;margin-bottom:26px;}
 
 /* ── FOOTER ── */
 footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0,213,216,.08);}
@@ -146,71 +178,22 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 .footer-links{display:flex;gap:18px;flex-wrap:wrap;}
 .footer-links a{color:rgba(243,239,231,.6);text-decoration:none;}
 .footer-links a:hover{color:var(--turquesa);}
-
-@media(max-width:860px){
-  .lineas-grid,.notas-grid,.tools-grid,.clientes-grid{grid-template-columns:1fr;}
-}
 </style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Product",
-      "name": "Recaudación tributaria PBA",
-      "description": "Evolución, composición y tendencia de Ingresos Brutos, Inmobiliario, Automotores y Sellos de la provincia de Buenos Aires. Variación nominal y real, factores explicativos y ficha ejecutiva.",
-      "brand": { "@type": "Brand", "name": "ALSINA" },
-      "category": "Informe bimestral",
-      "offers": {
-        "@type": "Offer",
-        "url": "https://alsinaar.com/informes.html",
-        "priceCurrency": "ARS",
-        "price": "25000",
-        "availability": "https://schema.org/PreOrder"
-      }
-    },
-    {
-      "@type": "Product",
-      "name": "Transferencias a municipios",
-      "description": "Seguimiento de los recursos que Nación y Provincia giran a los 135 municipios de la provincia de Buenos Aires: coparticipación, fondos especiales y alertas ante variaciones significativas.",
-      "brand": { "@type": "Brand", "name": "ALSINA" },
-      "category": "Informe trimestral",
-      "offers": {
-        "@type": "Offer",
-        "url": "https://alsinaar.com/informes.html",
-        "priceCurrency": "ARS",
-        "price": "25000",
-        "availability": "https://schema.org/PreOrder"
-      }
-    },
-    {
-      "@type": "Product",
-      "name": "Radiografía del Estado PBA",
-      "description": "Arquitectura institucional completa de la provincia de Buenos Aires: ministerios, organismos, empresas y ventanillas. Finanzas provinciales, deuda, presupuesto e impositiva.",
-      "brand": { "@type": "Brand", "name": "ALSINA" },
-      "category": "Informe permanente",
-      "offers": {
-        "@type": "Offer",
-        "url": "https://alsinaar.com/informes.html",
-        "priceCurrency": "ARS",
-        "price": "25000",
-        "availability": "https://schema.org/PreOrder"
-      }
-    },
-    {
-      "@type": "Product",
-      "name": "Informes territoriales",
-      "description": "Análisis político, fiscal y electoral integral de un municipio o sección de la provincia de Buenos Aires: HCD, economía, escenarios. Como los elaborados para Olavarría y Exaltación de la Cruz.",
-      "brand": { "@type": "Brand", "name": "ALSINA" },
-      "category": "Informe a pedido",
-      "offers": {
-        "@type": "Offer",
-        "url": "https://alsinaar.com/informes.html",
-        "priceCurrency": "ARS",
-        "price": "25000",
-        "availability": "https://schema.org/PreOrder"
-      }
-    }
+  "@type": "ItemList",
+  "name": "Informes y análisis ALSINA",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "item": { "@type": "Report", "name": "El fin de una era", "url": "https://alsinaar.com/nota-fin-de-una-era.html", "author": [{"@type":"Person","name":"Luz Landívar"},{"@type":"Person","name":"Pablo Rodríguez"}] } },
+    { "@type": "ListItem", "position": 2, "item": { "@type": "Report", "name": "Presupuesto e Impositiva PBA 2026", "url": "https://alsinaar.com/alsina-presupuesto-impositiva-2026.html" } },
+    { "@type": "ListItem", "position": 3, "item": { "@type": "Report", "name": "PBG Municipal PBA 2021–2023", "url": "https://alsinaar.com/alsina-pbg-pba.html" } },
+    { "@type": "ListItem", "position": 4, "item": { "@type": "Report", "name": "Radiografía del Estado PBA", "url": "https://alsinaar.com/alsina-radiografia-pba.html" } },
+    { "@type": "ListItem", "position": 5, "item": { "@type": "Article", "name": "Anatomía de la dependencia", "url": "https://alsinaar.com/alsina-nota-finanzas-pba.html" } },
+    { "@type": "ListItem", "position": 6, "item": { "@type": "Article", "name": "2027 empieza ahora", "url": "https://alsinaar.com/nota-electoral-2027.html" } },
+    { "@type": "ListItem", "position": 7, "item": { "@type": "Article", "name": "Más pesos, menos margen: el balance fiscal bonaerense del primer semestre", "url": "https://alsinaar.com/alsina-balance-fiscal-1s2026.html", "author": {"@type":"Person","name":"Gastón Corti"}, "datePublished": "2026-08-11" } },
+    { "@type": "ListItem", "position": 8, "item": { "@type": "CreativeWorkSeries", "name": "Recaudación tributaria PBA", "url": "https://alsinaar.com/alsina-recaudacion-tributaria-pba.html" } },
+    { "@type": "ListItem", "position": 9, "item": { "@type": "CreativeWorkSeries", "name": "Transferencias a municipios", "url": "https://alsinaar.com/alsina-informe-transferencias.html" } }
   ]
 }
 </script>
@@ -254,191 +237,71 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-pba" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="kicker">Biblioteca de informes ALSINA</div>
-    <h1>Todo lo que sabemos<br>sobre la <em>Provincia.</em></h1>
-    <p class="sub">Líneas permanentes de trabajo, notas de análisis, herramientas interactivas e informes de clientes — todo en un solo lugar. Compra individual próximamente con Mercado Pago; incluido sin límite en Alsina Pro.</p>
+    <div class="kicker">Conocimiento para decidir</div>
+    <h1>Informes y <em>análisis</em></h1>
+    <p class="sub">Datos, evidencia y lectura estratégica para comprender la Provincia de Buenos Aires y sus 135 municipios.</p>
   </div>
 </section>
 
-<!-- LÍNEAS PERMANENTES -->
-<section class="sec-light">
+<!-- BIBLIOTECA: destacado + filtros + grilla -->
+<section class="sec-light" aria-labelledby="pubHeading">
   <div class="wrap reveal">
-    <div class="sec-title"><h2>Líneas permanentes</h2><span class="cnt">4 líneas de trabajo</span></div>
-    <div class="lineas-grid">
-      <div class="linea-card">
-        <div class="linea-card-cover"><img src="/assets/img/cards/recaudacion-tributaria.jpg" alt="" loading="lazy"></div>
-        <div class="linea-card-body">
-        <span class="freq">Bimestral</span>
-        <h3>Recaudación tributaria PBA</h3>
-        <p>Evolución, composición y tendencia de Ingresos Brutos, Inmobiliario, Automotores y Sellos. Variación nominal y real, factores explicativos y ficha ejecutiva.</p>
-        <div class="linea-actions">
-          <a class="foot" href="/alsina-recaudacion-tributaria-pba.html">Ver último número →</a>
-          <form class="notify-form" data-checkout-resource="recaudacion" onsubmit="notifyMe(event,'recaudacion')">
-            <input type="email" id="recaudacionEmail" placeholder="tu@mail.com" required>
-            <button type="submit" class="btn" id="recaudacionBtn">Avisame</button>
-          </form>
-          <div class="notify-status" id="recaudacionStatus"></div>
-        </div>
-        </div>
-      </div>
-      <div class="linea-card">
-        <div class="linea-card-cover"><img src="/assets/img/cards/transferencias-municipios.jpg" alt="" loading="lazy"></div>
-        <div class="linea-card-body">
-        <span class="freq">Trimestral</span>
-        <h3>Transferencias a municipios</h3>
-        <p>Seguimiento de los recursos que Nación y Provincia giran a los 135 municipios: coparticipación, fondos especiales y alertas ante variaciones significativas.</p>
-        <div class="linea-actions">
-          <a class="foot" href="/alsina-informe-transferencias.html">Ver último número →</a>
-          <form class="notify-form" data-checkout-resource="transferencias" onsubmit="notifyMe(event,'transferencias')">
-            <input type="email" id="transferenciasEmail" placeholder="tu@mail.com" required>
-            <button type="submit" class="btn" id="transferenciasBtn">Avisame</button>
-          </form>
-          <div class="notify-status" id="transferenciasStatus"></div>
-        </div>
+    <h2 id="featuredHeading" class="visually-hidden">Publicación destacada</h2>
+    <div id="featuredWrap"><div id="featuredPub"></div></div>
+
+    <h2 id="pubHeading" class="visually-hidden">Publicaciones</h2>
+
+    <div class="format-nav" role="group" aria-label="Filtrar por formato">
+      <button type="button" class="format-tab" data-format="note" aria-pressed="true">Notas</button>
+      <button type="button" class="format-tab" data-format="report" aria-pressed="false">Informes</button>
+      <button type="button" class="format-tab" data-format="tracking-series" aria-pressed="false">Series de seguimiento</button>
+    </div>
+    <p class="access-legend">Notas: lectura gratuita. Informes y series de seguimiento: incluidos según tu nivel de suscripción — <a href="/index.html#precios">comparar niveles →</a></p>
+
+    <div class="filters-row">
+      <div class="topic-filters" id="topicFilters">
+        <button type="button" id="topicToggle" class="topic-filters-toggle" aria-expanded="false" aria-controls="topicChipsPanel">Filtrar por tema</button>
+        <div class="topic-chips" id="topicChipsPanel" role="group" aria-label="Filtrar por tema">
+          <button type="button" class="topic-chip" data-topic="all" aria-pressed="true">Todos los temas</button>
+          <button type="button" class="topic-chip" data-topic="public-finance" aria-pressed="false">Finanzas públicas</button>
+          <button type="button" class="topic-chip" data-topic="politics-elections" aria-pressed="false">Política y elecciones</button>
+          <button type="button" class="topic-chip" data-topic="municipalities-territory" aria-pressed="false">Municipios y territorio</button>
+          <button type="button" class="topic-chip" data-topic="state-public-management" aria-pressed="false">Estado y gestión pública</button>
         </div>
       </div>
-      <div class="linea-card">
-        <div class="linea-card-cover"><img src="/assets/img/cards/radiografia-estado.jpg" alt="" loading="lazy"></div>
-        <div class="linea-card-body">
-        <span class="freq amber">Permanente</span>
-        <h3>Radiografía del Estado PBA</h3>
-        <p>Arquitectura institucional completa: ministerios, organismos, empresas y ventanillas. Finanzas provinciales, deuda, presupuesto e impositiva.</p>
-        <div class="linea-actions">
-          <a class="foot" href="/alsina-radiografia-pba.html">Ver la radiografía →</a>
-          <form class="notify-form" data-checkout-resource="radiografia-estado" onsubmit="notifyMe(event,'radiografia-estado')">
-            <input type="email" id="radiografia-estadoEmail" placeholder="tu@mail.com" required>
-            <button type="submit" class="btn" id="radiografia-estadoBtn">Avisame</button>
-          </form>
-          <div class="notify-status" id="radiografia-estadoStatus"></div>
-        </div>
-        </div>
-      </div>
-      <div class="linea-card">
-        <div class="linea-card-cover"><img src="/assets/img/cards/informes-territoriales.jpg" alt="" loading="lazy"></div>
-        <div class="linea-card-body">
-        <span class="freq amber">A pedido</span>
-        <h3>Informes territoriales</h3>
-        <p>Análisis político, fiscal y electoral integral de un municipio o sección: HCD, economía, escenarios. Como los elaborados para Olavarría y Exaltación de la Cruz.</p>
-        <div class="price">Desde <span data-precio="informe-desde">$25.000</span> <small>· a pedido</small></div>
-        <div class="linea-actions">
-          <a class="foot" href="mailto:newsletter@alsinaar.com?subject=Consulta%20informe%20territorial">Pedir un informe →</a>
-        </div>
-        </div>
-      </div>
+      <button type="button" id="resetFiltersInline" class="reset-filters-inline" hidden>Restablecer filtros</button>
+    </div>
+
+    <p id="pubResultsCount" class="results-count" aria-live="polite"></p>
+
+    <div id="pubGrid" class="pub-grid"></div>
+    <div id="pubEmpty" class="pub-empty" hidden>
+      <p>No encontramos publicaciones con esa combinación de filtros.</p>
+      <button type="button" id="resetFiltersEmpty" class="btn-ghost btn-ghost-onlight">Restablecer filtros</button>
     </div>
   </div>
 </section>
 
-<!-- NOTAS Y ANÁLISIS -->
-<section class="sec-light">
-  <div class="wrap reveal">
-    <div class="sec-title"><h2>Notas y análisis</h2><span class="cnt">8 notas publicadas</span></div>
-    <div class="notas-grid">
-      <a class="nota-card has-cover featured" href="/nota-fin-de-una-era.html">
-        <div class="nota-card-cover"><img src="/assets/img/informes/fin-de-una-era.jpg" alt="Portada: una ley de hace 10 años puede provocar el mayor recambio simultáneo de intendentes" loading="lazy" width="900" height="675"></div>
-        <div class="nota-card-body">
-          <span class="tag-mini">Destacado · Institucional · Electoral</span>
-          <h3>El fin de una era</h3>
-          <p>Por qué 2027 puede cambiar para siempre el mapa municipal bonaerense: 80 de 135 intendentes sin reelección. Con mapa interactivo de los 135 municipios.</p>
-          <div class="nota-card-authors">
-            <img src="/assets/img/autores/luz-landivar.jpg" alt="Luz Landívar" loading="lazy">
-            <img src="/assets/img/autores/pablo-rodriguez.jpg" alt="Pablo Rodríguez" loading="lazy">
-            <span>Luz Landívar y Pablo Rodríguez</span>
-          </div>
-        </div>
-      </a>
-      <a class="nota-card has-cover" href="/alsina-presupuesto-impositiva-2026.html">
-        <div class="nota-card-cover"><img src="/assets/img/informes/presupuesto.jpg" alt="Portada: ¿Quién paga la cuenta en 2026? Presupuesto e Impositiva PBA" loading="lazy" width="1050" height="787"></div>
-        <div class="nota-card-body">
-          <span class="tag-mini">Fiscal</span>
-          <h3>Presupuesto e Impositiva PBA 2026</h3>
-          <p>Cómo se arma el presupuesto provincial y qué cambia en la ley impositiva.</p>
-        </div>
-      </a>
-      <a class="nota-card" href="/alsina-nota-finanzas-pba.html">
-        <span class="tag-mini">Fiscal</span>
-        <h3>Finanzas de la PBA</h3>
-        <p>Estado de las cuentas provinciales: recursos, gastos y resultado fiscal.</p>
-      </a>
-      <a class="nota-card has-cover" href="/alsina-recaudacion-tributaria-pba.html">
-        <div class="nota-card-cover"><img src="/assets/img/informes/recaudacion.jpg" alt="Portada: El impuesto que sostiene todo" loading="lazy" width="1050" height="787"></div>
-        <div class="nota-card-body">
-          <span class="tag-mini">Fiscal · Semestral · Interactivo</span>
-          <h3>Recaudación PBA: informe semestral 1S 2026</h3>
-          <p>Datos a mayo 2026 (tres meses seguidos de caída real), serie histórica 1999–2026 y Laboratorio Tributario interactivo.</p>
-        </div>
-      </a>
-      <a class="nota-card has-cover" href="/nota-electoral-2027.html">
-        <div class="nota-card-cover"><img src="/assets/img/informes/electoral-2027.jpg" alt="Portada: 2027 empieza ahora" loading="lazy" width="1050" height="787"></div>
-        <div class="nota-card-body">
-          <span class="tag-mini">Electoral</span>
-          <h3>2027 empieza ahora</h3>
-          <p>Lectura política y electoral de los 135 municipios rumbo a 2027.</p>
-        </div>
-      </a>
-      <a class="nota-card" href="/alsina-informe-super-rigi.html">
-        <span class="tag-mini">Inversión</span>
-        <h3>Súper RIGI</h3>
-        <p>Inversiones de gran escala y su impacto en los municipios bonaerenses.</p>
-      </a>
-      <a class="nota-card has-cover" href="/alsina-pbg-pba.html">
-        <div class="nota-card-cover"><img src="/assets/img/informes/pbg.jpg" alt="Portada: No todos los municipios crecen igual" loading="lazy" width="1050" height="787"></div>
-        <div class="nota-card-body">
-          <span class="tag-mini">Territorial</span>
-          <h3>PBG Municipal PBA 2021–2023</h3>
-          <p>Producto bruto geográfico por municipio: quién produce qué en la PBA.</p>
-        </div>
-      </a>
-      <a class="nota-card" href="/alsina-radiografia-pba.html">
-        <span class="tag-mini">Institucional</span>
-        <h3>Radiografía PBA</h3>
-        <p>Arquitectura institucional completa del estado provincial.</p>
-      </a>
+<!-- MAPA POLÍTICO PBA -->
+<section class="map-block">
+  <div class="map-block-pba" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <h2>Explorá el mapa político de la Provincia</h2>
+      <p>Intendentes, secciones electorales y distribución territorial del poder bonaerense en una herramienta interactiva.</p>
+      <a class="btn" href="/alsina-mapa-politico.html">Abrir Mapa Político PBA →</a>
     </div>
   </div>
 </section>
 
-<!-- HERRAMIENTAS INTERACTIVAS -->
-<section class="sec-dark">
+<!-- CTA SUSCRIPCIONES -->
+<section class="cta-sub">
   <div class="wrap reveal">
-    <div class="sec-title"><h2>Herramientas interactivas</h2><span class="cnt">3 herramientas</span></div>
-    <div class="tools-grid">
-      <a class="tool-card" href="/municipios-data-hub.html">
-        <div class="ic-wrap"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div>
-        <h3>Monitor 135</h3>
-        <p>Mapa interactivo y ficha completa de los 135 municipios bonaerenses.</p>
-      </a>
-      <a class="tool-card" href="/alsina-mapa-politico.html">
-        <div class="ic-wrap"><svg class="ic" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg></div>
-        <h3>Mapa Político PBA</h3>
-        <p>Intendentes actuales por partido, sección electoral y fuerza política.</p>
-      </a>
-      <a class="tool-card" href="/radar-fiscal/">
-        <div class="ic-wrap"><svg class="ic" viewBox="0 0 24 24"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg></div>
-        <h3>Radar Fiscal</h3>
-        <p>Laboratorio tributario interactivo: escenarios y anomalías de recaudación.</p>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- INFORMES DE CLIENTES -->
-<section class="sec-dark" style="padding-top:16px;">
-  <div class="wrap reveal">
-    <div class="sec-title"><h2>Informes de clientes</h2><span class="cnt">acceso por clave</span></div>
-    <div class="clientes-grid">
-      <a class="cliente-card" href="/informes/olavarria.html">
-        <div class="meta"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> 7ª Sección · Informe territorial</div>
-        <h3>Olavarría</h3>
-        <p>Análisis político, fiscal y electoral integral. Encargado por cliente, junio 2026.</p>
-      </a>
-      <a class="cliente-card" href="/informes/exaltacion-de-la-cruz.html">
-        <div class="meta"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> 2ª Sección · Informe territorial</div>
-        <h3>Exaltación de la Cruz</h3>
-        <p>Análisis político, fiscal y electoral integral. Encargado por cliente, junio 2026.</p>
-      </a>
-    </div>
+    <h2>Accedé a más información sobre la Provincia</h2>
+    <p>Informes, seguimientos y herramientas para entender qué está pasando y tomar mejores decisiones.</p>
+    <a class="btn" href="/index.html#precios">Comparar suscripciones →</a>
   </div>
 </section>
 
@@ -460,9 +323,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   </div>
 </footer>
 
-<script src="/assets/js/pricing.js"></script>
-<script src="/assets/js/config.js"></script>
-<script src="/assets/js/checkout.js"></script>
+<script src="/assets/data/publications.js"></script>
+<script src="/assets/js/informes-library.js"></script>
 <script src="/assets/js/reveal.js"></script>
 <script src="/assets/js/sticky-cta.js"></script>
 <script>
@@ -476,44 +338,6 @@ navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
   navMobile.classList.remove('open');
   navBurger.setAttribute('aria-expanded', 'false');
 }));
-
-// ── NOTIFICARME (waitlist por informe, vía /api/unlock) ──
-async function notifyMe(e, resource) {
-  e.preventDefault();
-  const emailEl = document.getElementById(resource + 'Email');
-  const btnEl = document.getElementById(resource + 'Btn');
-  const statusEl = document.getElementById(resource + 'Status');
-  const originalLabel = btnEl.textContent;
-
-  const email = emailEl.value.trim();
-  btnEl.disabled = true;
-  btnEl.textContent = '...';
-  statusEl.className = 'notify-status';
-  statusEl.textContent = '';
-
-  try {
-    const r = await fetch('/api/unlock', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, resource: 'waitlist:' + resource }),
-    });
-    const data = await r.json();
-    if (data.status === 'ok') {
-      if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('waitlist_signup', { resource });
-      statusEl.className = 'notify-status ok';
-      statusEl.textContent = 'Listo, te avisamos cuando salga.';
-      emailEl.value = '';
-    } else {
-      throw new Error(data.error || 'Error desconocido');
-    }
-  } catch (err) {
-    statusEl.className = 'notify-status err';
-    statusEl.textContent = 'Algo salió mal. Intentá de nuevo.';
-  } finally {
-    btnEl.disabled = false;
-    btnEl.textContent = originalLabel;
-  }
-}
 </script>
 </body>
 </html>
