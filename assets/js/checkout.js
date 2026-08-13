@@ -28,7 +28,11 @@
     document.querySelectorAll('[data-checkout-type]').forEach((el) => {
       const type = el.dataset.checkoutType;
       const resource = el.dataset.checkoutResource || null;
-      el.textContent = type === 'pro' ? 'Suscribirme a Pro →' : 'Comprar →';
+      // data-checkout-keep-label: para botones con copy propio (ej. la tabla
+      // comparativa de suscripción), que no debe pisarse con el label genérico.
+      if (!el.dataset.checkoutKeepLabel) {
+        el.textContent = type === 'pro' ? 'Suscribirme a Pro →' : 'Comprar →';
+      }
       el.addEventListener('click', async (e) => {
         e.preventDefault();
         const email = askEmail();

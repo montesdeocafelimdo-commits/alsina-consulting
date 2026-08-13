@@ -7,6 +7,9 @@
 window.ALSINA_PRICING = {
   informeDesde: '$25.000',
   proMensual: '$45.000',
+  intendenteMensual: 'Gratis',
+  ministroMensual: '$25.000',
+  gobernadorMensual: '$45.000',
 };
 
 document.addEventListener('DOMContentLoaded', () => {

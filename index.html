@@ -231,27 +231,144 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .rep-filter.active{background:var(--brand-navy);border-color:var(--brand-navy);color:#fff;}
 .rep-cta{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:24px;}
 
-/* ── PRECIOS ── */
-.prods-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
-.prod-card{background:var(--card-light);border:1px solid var(--line-light);border-radius:10px;padding:30px 26px;display:flex;flex-direction:column;transition:border-color .2s,transform .2s;}
-.prod-card:hover{border-color:var(--brand-cyan);transform:translateY(-2px);}
-.prod-card.hot:hover{border-color:var(--brand-cyan-light);}
-.prod-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:none;font-size:1.3rem;color:var(--text-on-light);letter-spacing:0;}
-.prod-card .who{font-size:.78rem;color:var(--muted-on-light);margin-bottom:16px;margin-top:4px;}
-.prod-card .price{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.9rem;color:var(--text-on-light);}
-.prod-card .price small{font-size:.78rem;font-weight:500;color:var(--muted-on-light);}
-.prod-card ul{list-style:none;margin:18px 0 26px;flex:1;}
-.prod-card li{padding:7px 0 7px 24px;position:relative;font-size:.85rem;color:var(--muted-on-light);}
-.prod-card li::before{content:'✓';position:absolute;left:0;color:var(--up);font-weight:700;}
-.prod-card.hot{background:var(--brand-navy);border-color:var(--brand-navy);position:relative;}
-.prod-card.hot h3,.prod-card.hot .price{color:#fff;}
-.prod-card.hot .who,.prod-card.hot li{color:rgba(255,255,255,.65);}
-.prod-card.hot .price small{color:rgba(255,255,255,.55);}
-.prod-card.hot li::before{color:var(--brand-cyan-light);}
-.pill{position:absolute;top:-12px;left:26px;background:var(--brand-cyan);color:#fff;font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 13px;border-radius:99px;}
-.prod-card .btn,.prod-card .btn-ghost{text-align:center;justify-content:center;}
-.prod-card .btn-ghost{color:var(--brand-cyan-text);border-color:var(--brand-cyan-text);}
-.prod-card .btn-ghost:hover{background:rgba(20,107,145,.08);}
+/* ── PRECIOS: tabla comparativa ── */
+/* .sec-tech trae overflow:hidden (para el fondo técnico) que también
+   rompe position:sticky del thead al ser un ancestro con overflow!=visible;
+   se anula sólo acá por id para no tocar Monitor/Informes, que comparten
+   la clase .sec-tech y no tienen contenido sticky. */
+#precios.sec-tech{overflow:visible;}
+.compare-accent{color:var(--brand-cyan-text);font-style:normal;}
+.compare-note{margin-top:18px;font-size:.8rem;color:var(--muted-on-light);text-align:center;}
+
+.compare-shell{
+  position:relative;max-width:960px;margin:0 auto;
+  background:var(--card-light);border-radius:16px;
+  box-shadow:0 26px 60px -32px rgba(11,37,56,.35);
+}
+
+/* — escritorio: tabla —
+   border-collapse:separate (no overflow:hidden en .compare-shell): un
+   ancestro con overflow!=visible se vuelve el contenedor de referencia de
+   position:sticky y lo deja "stuck" dentro de su propia caja en vez de
+   flotar sobre la página — las esquinas redondeadas se resuelven celda
+   por celda para no depender de ese overflow:hidden. */
+.compare-table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;}
+.compare-table thead tr th:first-child{border-top-left-radius:16px;}
+.compare-table thead tr th:last-child{border-top-right-radius:16px;}
+.compare-table tfoot tr td:first-child{border-bottom-left-radius:16px;}
+.compare-table tfoot tr td:last-child{border-bottom-right-radius:16px;}
+.compare-th-product{width:32%;}
+.compare-th-plan,.compare-cell,.compare-cell-foot{width:22.66%;}
+
+.compare-table thead th{
+  /* el "top" exacto lo fija subscription-compare.js como estilo inline
+     (offsetHeight real del nav): una custom property actualizada después
+     del layout inicial no siempre re-dispara el cálculo de sticky. */
+  position:sticky;top:58px;z-index:5;
+  box-shadow:0 10px 18px -14px rgba(11,37,56,.3);
+  padding:26px 18px 20px;vertical-align:top;text-align:left;
+  border-bottom:1px solid var(--line-light);
+}
+.compare-th-plan{text-align:center;}
+.compare-th-product,
+.compare-th-intendente{background:var(--card-light);}
+.compare-th-intendente{border-top:3px solid var(--brand-cyan);}
+/* sólido, no rgba: el thead queda sticky y un fondo translúcido deja
+   traslucir las filas del tbody que pasan por debajo al scrollear */
+.compare-th-ministro{background:#eef7fa;border-top:3px solid var(--brand-cyan-text);}
+.compare-th-gobernador{background:var(--brand-navy);border-top:3px solid var(--brand-cyan-light);}
+
+.compare-plan-name{
+  display:block;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.35rem;
+  letter-spacing:.02em;text-transform:uppercase;color:var(--text-on-light);
+}
+.compare-th-gobernador .compare-plan-name{color:#fff;}
+.compare-plan-desc{display:block;font-size:.78rem;color:var(--muted-on-light);margin-top:4px;min-height:2.2em;}
+.compare-th-gobernador .compare-plan-desc{color:rgba(255,255,255,.7);}
+.compare-plan-price{
+  display:block;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;
+  color:var(--text-on-light);margin:12px 0 14px;
+}
+.compare-th-gobernador .compare-plan-price{color:#fff;}
+.compare-price-period{font-size:.72rem;font-weight:500;color:var(--muted-on-light);margin-left:2px;}
+.compare-th-gobernador .compare-price-period{color:rgba(255,255,255,.6);}
+
+.compare-plan-btn{width:100%;justify-content:center;}
+.compare-th-intendente .compare-plan-btn,
+.compare-cell-foot .compare-plan-btn{
+  background:transparent;color:var(--brand-cyan-text);border:1px solid var(--brand-cyan-text);
+}
+.compare-th-intendente .compare-plan-btn:hover,
+.compare-cell-foot .compare-plan-btn:hover{background:rgba(20,107,145,.08);}
+.compare-th-gobernador .compare-plan-btn{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5);}
+.compare-th-gobernador .compare-plan-btn:hover{background:rgba(255,255,255,.12);}
+.compare-th-ministro .compare-plan-btn,
+.compare-cell-foot.compare-cell-ministro .compare-plan-btn{
+  background:var(--brand-cyan-text);color:#fff;border:1px solid var(--brand-cyan-text);
+  transition:background .2s ease,transform .22s ease,box-shadow .22s ease;
+}
+.compare-th-ministro .compare-plan-btn:hover,
+.compare-cell-foot.compare-cell-ministro .compare-plan-btn:hover{
+  background:#0f5674;transform:translateY(-2px);box-shadow:0 12px 22px -12px rgba(20,107,145,.55);
+}
+.compare-plan-btn:focus-visible{outline:2px solid var(--brand-cyan);outline-offset:2px;}
+
+.compare-cat-row th{
+  background:rgba(20,41,77,.055);color:var(--text-on-light);
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.78rem;
+  letter-spacing:.07em;text-transform:uppercase;text-align:left;padding:10px 18px;
+}
+.compare-row-label{
+  text-align:left;font-weight:500;font-size:.86rem;color:var(--text-on-light);
+  padding:13px 18px;border-bottom:1px solid var(--line-light);
+}
+.compare-cell{text-align:center;padding:13px 12px;border-bottom:1px solid var(--line-light);}
+.compare-row:nth-child(even) .compare-row-label,
+.compare-row:nth-child(even) .compare-cell{background:rgba(91,107,128,.035);}
+.compare-row:hover .compare-row-label,
+.compare-row:hover .compare-cell{background:rgba(33,150,201,.07);}
+.compare-cell-ministro{background:rgba(33,150,201,.05);}
+.compare-row:nth-child(even) .compare-cell-ministro{background:rgba(33,150,201,.08);}
+.compare-check{width:19px;height:19px;color:var(--brand-cyan-text);stroke-width:2.4;}
+
+.compare-table tfoot td{padding:22px 18px 26px;border-top:1px solid var(--line-light);vertical-align:top;}
+.compare-cell-foot.compare-cell-ministro{background:rgba(33,150,201,.05);}
+
+/* — mobile: pestañas — */
+.compare-mobile{display:none;}
+.compare-tabs{display:flex;border-bottom:1px solid var(--line-light);}
+.compare-tab{
+  flex:1;background:none;border:none;border-bottom:3px solid transparent;
+  padding:16px 8px;font-family:'Barlow Condensed',sans-serif;font-weight:800;
+  font-size:.9rem;text-transform:uppercase;letter-spacing:.02em;color:var(--muted-on-light);
+  cursor:pointer;transition:color .2s ease,border-color .2s ease;
+}
+.compare-tab.active{color:var(--text-on-light);border-color:var(--brand-cyan-text);}
+.compare-tab:focus-visible{outline:2px solid var(--brand-cyan);outline-offset:-2px;}
+.compare-panel{display:none;padding:26px 22px 30px;}
+.compare-panel.active{display:block;}
+.compare-panel-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;text-transform:uppercase;color:var(--text-on-light);}
+.compare-panel-desc{font-size:.82rem;color:var(--muted-on-light);margin-top:4px;}
+.compare-panel-price{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.9rem;color:var(--text-on-light);margin:12px 0 18px;}
+.compare-panel-head .compare-plan-btn{width:100%;justify-content:center;background:var(--brand-cyan-text);color:#fff;border:1px solid var(--brand-cyan-text);}
+.compare-panel-head .compare-plan-btn:hover{background:#0f5674;}
+.compare-panel-cat{
+  margin:22px 0 8px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.75rem;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--muted-on-light);
+  padding-bottom:6px;border-bottom:1px solid var(--line-light);
+}
+.compare-panel-list{list-style:none;}
+.compare-panel-list li{display:flex;align-items:flex-start;gap:10px;padding:9px 0;font-size:.86rem;color:var(--text-on-light);}
+.compare-panel-list .compare-check{margin-top:2px;flex-shrink:0;}
+
+@media(prefers-reduced-motion:reduce){
+  .compare-tab,.compare-th-ministro .compare-plan-btn,.compare-cell-foot.compare-cell-ministro .compare-plan-btn{transition:none;}
+}
+@media(max-width:860px){
+  .compare-desktop{display:none;}
+  .compare-mobile{display:block;}
+  .compare-shell{max-width:100%;}
+}
 
 /* ── SERVICIOS (QUÉ HACEMOS) ── */
 .services-section{position:relative;background:var(--grafito2);border-top:1px solid rgba(0,213,216,.1);border-bottom:1px solid rgba(0,213,216,.1);overflow:hidden;}
@@ -624,48 +741,19 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
 <!-- PRECIOS -->
 <section class="sec sec-light sec-tech sec-tech--precios" id="precios" style="padding-top:16px;">
-  <div class="wrap reveal">
-    <span class="tag">Tres formas de acceder</span>
-    <h2>Elegí tu nivel de<br><em>suscripción.</em></h2>
-    <p class="lead">Del pulso quincenal gratuito al acceso total al laboratorio de datos de la Provincia.</p>
-    <div class="prods-grid">
-      <div class="prod-card">
-        <h3>Señal Alsina</h3>
-        <div class="who">Newsletter quincenal</div>
-        <div class="price">Gratis <small>· por tiempo limitado</small></div>
-        <ul>
-          <li>La señal de la quincena</li>
-          <li>Radar 135: un dato municipal</li>
-          <li>Un recurso aplicable por edición</li>
-        </ul>
-        <a class="btn-ghost" href="#hero-top" onclick="document.getElementById('heroEmail').focus();document.querySelector('.hero').scrollIntoView({behavior:'smooth'});return false;">Suscribirme gratis</a>
-      </div>
-      <div class="prod-card">
-        <h3>Informes</h3>
-        <div class="who">Compra individual · tienda online</div>
-        <div class="price">Desde <span data-precio="informe-desde">$25.000</span> <small>· pago único</small></div>
-        <ul>
-          <li>Recaudación PBA · bimestral</li>
-          <li>Transferencias municipales · trimestral</li>
-          <li>Informes territoriales por municipio</li>
-          <li>Entrega inmediata por mail (PDF + datos)</li>
-        </ul>
-        <a class="btn-ghost" href="/informes.html">Ver la tienda →</a>
-      </div>
-      <div class="prod-card hot">
-        <span class="pill">Recomendado</span>
-        <h3>Alsina Pro</h3>
-        <div class="who">Acceso completo al laboratorio</div>
-        <div class="price"><span data-precio="pro-mensual">$45.000</span><small>/mes · cancelás cuando querés</small></div>
-        <ul>
-          <li>Newsletter + todos los informes publicados</li>
-          <li>Monitor 135 completo, con descargas</li>
-          <li>1 informe de consultoría por mes</li>
-          <li>Datos completos de los 135 municipios</li>
-        </ul>
-        <a class="btn" href="/newsletter.html#suscripcion" data-checkout-type="pro">Suscribirme a Pro →</a>
-      </div>
+  <!-- sin .reveal: la animación de entrada deja un transform (aunque sea
+       translateY(0)) en el ancestro, y eso rompe position:sticky del
+       thead más abajo (crea un containing block nuevo). -->
+  <div class="wrap">
+    <span class="tag">Tres niveles para entender la Provincia</span>
+    <h2>Elegí cuánto querés<br><span class="compare-accent">saber</span>.</h2>
+    <p class="lead">Información, análisis y herramientas sobre la Provincia de Buenos Aires y sus 135 municipios.</p>
+
+    <div class="compare-shell">
+      <div class="compare-desktop" id="compareDesktop"></div>
+      <div class="compare-mobile" id="compareMobile"></div>
     </div>
+    <p class="compare-note">Suscripciones mensuales. Podés cambiar de nivel o cancelar cuando quieras.</p>
   </div>
 </section>
 
@@ -776,6 +864,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 <script src="/assets/js/pricing.js"></script>
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/checkout.js"></script>
+<script src="/assets/js/subscription-compare.js"></script>
 <script src="/assets/js/reveal.js"></script>
 <script src="/assets/js/sticky-cta.js"></script>
 <script src="/assets/js/informes-carousel.js"></script>
