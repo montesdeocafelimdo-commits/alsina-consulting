@@ -3,411 +3,146 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Monitor 135 — Datos de los Municipios de la Provincia de Buenos Aires | Alsina</title>
-<meta name="description" content="Datos de los 135 municipios de la provincia de Buenos Aires: transferencias, coparticipación municipios PBA, demografía, economía y resultados electorales en un mapa y tabla interactivos.">
+<title>Monitor 135 — El sistema de información municipal de Alsina</title>
+<meta name="description" content="Monitor 135: mapa, ficha, comparador y rankings de los 135 municipios de la Provincia de Buenos Aires. Transferencias, población, gobierno y economía, con fuente y período en cada dato.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://alsinaar.com/municipios-data-hub.html">
-<meta property="og:title" content="Municipios Data Hub · Buenos Aires">
-<meta property="og:description" content="Mapa interactivo y ficha completa de los 135 municipios de la provincia de Buenos Aires: transferencias, coparticipación, demografía y datos electorales.">
+<meta property="og:title" content="Monitor 135 — El sistema de información municipal de Alsina">
+<meta property="og:description" content="135 municipios, 135 realidades diferentes. Explorá, buscá y compará los datos públicos de cada distrito bonaerense.">
 <meta property="og:image" content="https://alsinaar.com/assets/og/og-default.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0e1c20">
+<link rel="canonical" href="https://alsinaar.com/municipios-data-hub.html">
 <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
 <link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
 <link rel="stylesheet" href="/assets/css/alsina.css">
+<link rel="stylesheet" href="/assets/css/monitor135.css">
 <script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
 <script src="/assets/js/analytics.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --g:#071114;--g2:#0d1c22;
-  --teal:#00D5D8;--td:#007b8a;--tm:#009aaa;
-  --surf:#eef3f8;--card:#fff;--bd:#dde6ef;
-  --t1:#0f172a;--t2:#475569;--t3:#94a3b8;
-  --green:#059669;--yellow:#b45309;--red:#dc2626;--blue:#1d4ed8;
-  --sb:214px;
-}
-html,body{height:100%;font-family:'Barlow',sans-serif;font-size:14px;background:var(--g);color:var(--t1);overflow:hidden}
-.app{display:flex;height:100vh}
-
-/* ── SIDEBAR ── */
-.sb{width:var(--sb);min-width:var(--sb);background:var(--g);display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,.08)}
-.sb-logo{display:flex;align-items:center;gap:10px;padding:17px 13px 13px;border-bottom:1px solid rgba(255,255,255,.08)}
-.lm{width:33px;height:33px;background:var(--teal);border-radius:8px;display:grid;place-items:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:var(--g);flex-shrink:0}
-.ln{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;color:#fff;letter-spacing:.06em}
-.ls{font-size:10px;color:var(--t3);margin-top:1px}
-.sb-nav{padding:8px 7px;flex:1;overflow-y:auto}
-.ss{padding:9px 8px 3px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;color:var(--t3);letter-spacing:.1em;text-transform:uppercase}
-.nb{display:flex;align-items:center;gap:7px;width:100%;padding:8px 9px;background:none;border:none;border-radius:7px;color:rgba(255,255,255,.5);font-family:'Barlow',sans-serif;font-size:12px;cursor:pointer;text-align:left;transition:.15s;margin-bottom:1px}
-.nb:hover{background:rgba(255,255,255,.07);color:#fff}
-.nb.active{background:rgba(0,213,216,.12);color:var(--teal)}
-.nb .ico{font-size:13px;width:16px;text-align:center}
-.sb-div{border-top:1px solid rgba(255,255,255,.08);margin:8px 13px}
-.sk{padding:7px 13px}
-.sk-l{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;font-family:'Barlow Condensed',sans-serif}
-.sk-v{font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700;color:#fff;line-height:1.1}
-.sk-s{font-size:10px;color:var(--t3)}
-.sb-ft{padding:11px 13px;border-top:1px solid rgba(255,255,255,.08);font-size:10px;color:var(--t3);line-height:1.5}
-
-/* ── MAIN ── */
-.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.hdr{background:var(--g);padding:12px 17px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
-.ht{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:.03em}
-.hs{font-size:11px;color:var(--t3);margin-top:1px}
-.hb{background:rgba(0,213,216,.15);border:1px solid rgba(0,213,216,.3);color:var(--teal);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;padding:3px 10px;border-radius:6px;display:none}
-
-/* ── FILTER BAR ── */
-.fb{background:#fff;border-bottom:1px solid var(--bd);padding:7px 13px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;flex-shrink:0}
-.sw{position:relative;flex:0 0 190px}
-.sw input{width:100%;padding:5px 9px;border:1.5px solid var(--bd);border-radius:7px;font-family:'Barlow',sans-serif;font-size:12px;color:var(--t1);outline:none}
-.sw input:focus{border-color:var(--tm)}
-.dd{position:absolute;top:calc(100% + 3px);left:0;right:0;background:#fff;border:1.5px solid var(--bd);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);max-height:190px;overflow-y:auto;z-index:200;display:none}
-.dd.open{display:block}
-.ddi{padding:6px 10px;font-size:12px;cursor:pointer;color:var(--t1);display:flex;align-items:center;justify-content:space-between}
-.ddi:hover{background:var(--surf)}
-.ddi.sel{color:var(--td);background:#e8f9f9}
-.cw{flex:1;display:flex;flex-wrap:wrap;gap:4px;align-items:center;min-width:60px}
-.chip{display:inline-flex;align-items:center;gap:4px;background:rgba(0,154,170,.1);border:1px solid rgba(0,154,170,.3);color:var(--td);font-size:11px;font-weight:600;font-family:'Barlow Condensed',sans-serif;padding:2px 7px;border-radius:20px}
-.chip-x{cursor:pointer;opacity:.7;font-size:13px;line-height:1}
-.chip-x:hover{opacity:1;color:var(--red)}
-.fsep{width:1px;height:25px;background:var(--bd);flex-shrink:0}
-.fg{display:flex;flex-direction:column;gap:1px;flex-shrink:0}
-.fg label{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;font-family:'Barlow Condensed',sans-serif}
-.fg select{padding:4px 7px;border:1.5px solid var(--bd);border-radius:6px;font-family:'Barlow',sans-serif;font-size:12px;color:var(--t1);background:#fff;cursor:pointer;outline:none;max-width:200px}
-.fg select:focus{border-color:var(--tm)}
-.yr-row{display:flex;gap:3px}
-.yb{padding:3px 7px;border:1.5px solid var(--bd);border-radius:5px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:var(--t2);background:#fff;cursor:pointer;transition:.15s}
-.yb.on{background:var(--teal);border-color:var(--teal);color:var(--g)}
-.yb:disabled{opacity:.35;cursor:default}
-.bc{padding:5px 9px;border:1.5px solid var(--bd);border-radius:6px;background:#fff;font-family:'Barlow',sans-serif;font-size:11px;color:var(--t2);cursor:pointer}
-.bc:hover{border-color:var(--red);color:var(--red)}
-
-/* ── SCREENS ── */
-.screen{display:none;flex:1;overflow:hidden;background:var(--surf)}
-.screen.active{display:flex}
-
-/* ── MAPA ── */
-#sc-mapa{flex-direction:column}
-.crow{flex:1;display:flex;overflow:hidden}
-.mp{flex:0 0 58%;background:var(--card);border-right:1px solid var(--bd);display:flex;flex-direction:column;overflow:hidden}
-.ph{padding:9px 13px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.pht{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--t1);text-transform:uppercase;letter-spacing:.04em}
-.phs{font-size:11px;color:var(--t3)}
-.mw{flex:1;position:relative;overflow:hidden;background:#c8e3ef;display:flex;align-items:center;justify-content:center}
-#pmap{width:100%;height:100%;display:block}
-.mtt{position:absolute;background:rgba(7,17,20,.9);color:#fff;font-size:11px;padding:7px 10px;border-radius:7px;pointer-events:none;white-space:nowrap;display:none;z-index:50;line-height:1.6}
-.mtt strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--teal)}
-.ml{position:absolute;bottom:10px;left:10px;background:rgba(255,255,255,.93);border:1px solid var(--bd);border-radius:7px;padding:7px 10px;font-size:10px}
-.mlt{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
-.mlb{width:100px;height:7px;border-radius:3px;background:linear-gradient(to right,#b8dfe8,#005f6b)}
-.mlr{display:flex;justify-content:space-between;color:var(--t3);font-size:9px;margin-top:2px;width:100px}
-.mls{display:flex;align-items:center;gap:4px;margin-top:5px;color:var(--t2);font-size:10px}
-.mld{width:9px;height:9px;border-radius:50%;background:var(--teal);border:1.5px solid var(--g);flex-shrink:0}
-.cp{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.cc{flex:1;display:flex;flex-direction:column;padding:11px 13px;overflow:hidden;min-height:0}
-.cc+.cc{border-top:1px solid var(--bd)}
-.cct{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--t1);text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.ccs{font-family:'Barlow',sans-serif;font-weight:400;font-size:10px;color:var(--t3);text-transform:none;letter-spacing:0}
-.emp{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;color:var(--t3);gap:4px;font-size:12px}
-.empi{font-size:26px;opacity:.3}
-/* KEY FIX: chart wrappers use position:relative + absolute canvas → no stretching */
-.chart-wrap{flex:1;min-height:0;position:relative}
-.chart-wrap canvas{position:absolute;inset:0;width:100%!important;height:100%!important}
-
-/* ── TABLA ── */
-#sc-tabla{flex-direction:column;background:var(--card)}
-.thd{padding:11px 17px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:9px;flex-shrink:0;flex-wrap:wrap}
-.thd h2{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--t1)}
-.trow{display:flex;align-items:center;gap:5px}
-.trow label{font-size:10px;color:var(--t3);font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.07em}
-.trow select{padding:4px 7px;border:1.5px solid var(--bd);border-radius:6px;font-family:'Barlow',sans-serif;font-size:12px;outline:none}
-.trow select:focus{border-color:var(--tm)}
-.tsrch{padding:5px 9px;border:1.5px solid var(--bd);border-radius:7px;font-family:'Barlow',sans-serif;font-size:12px;outline:none;width:180px;margin-left:auto}
-.tsrch:focus{border-color:var(--tm)}
-.tw{flex:1;overflow:auto}
-table{width:100%;border-collapse:collapse;font-size:12px}
-thead th{position:sticky;top:0;background:var(--g);color:rgba(255,255,255,.7);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:8px 11px;text-align:right;white-space:nowrap;z-index:10;cursor:pointer;user-select:none;border-right:1px solid rgba(255,255,255,.06)}
-thead th:first-child{text-align:left}
-thead th:hover{color:#fff}
-thead th.sorted{color:var(--teal)}
-tbody tr{border-bottom:1px solid var(--bd)}
-tbody tr:hover{background:var(--surf)}
-tbody td{padding:6px 11px;text-align:right;white-space:nowrap;font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--t2)}
-tbody td:first-child{text-align:left;font-family:'Barlow',sans-serif;font-weight:500;color:var(--t1)}
-.nc{color:var(--t3)!important;opacity:.45}
-
-/* ── DASHBOARD ── */
-#sc-dash{flex-direction:column}
-.dhd{background:var(--g);border-bottom:1px solid rgba(255,255,255,.08);padding:11px 17px;display:flex;align-items:center;gap:10px;flex-shrink:0}
-.dhd h2{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#fff;white-space:nowrap}
-.dhd select{padding:5px 9px;border:1.5px solid rgba(255,255,255,.15);border-radius:7px;font-family:'Barlow',sans-serif;font-size:12px;outline:none;min-width:220px;background:rgba(255,255,255,.08);color:#fff}
-.dhd select option{background:#0d1c22;color:#fff}
-.dhd select:focus{border-color:var(--teal)}
-.db{flex:1;overflow-y:auto}
-
-/* Hero banner */
-.d-hero{padding:18px 20px 16px;background:linear-gradient(135deg,#071114 0%,#0a2535 55%,#062030 100%);color:#fff;position:relative;overflow:hidden;flex-shrink:0}
-.d-hero::before{content:'';position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:rgba(0,213,216,.05);pointer-events:none}
-.d-hero::after{content:'';position:absolute;right:60px;bottom:-80px;width:180px;height:180px;border-radius:50%;background:rgba(0,213,216,.04);pointer-events:none}
-.d-hero-name{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;letter-spacing:.04em;color:#fff;margin-bottom:3px}
-.d-hero-sub{font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.02em;margin-bottom:14px}
-.d-hero-stats{display:flex;gap:0}
-.d-hs{padding:0 22px 0 0;border-right:1px solid rgba(255,255,255,.1);margin-right:22px;display:flex;flex-direction:column;gap:2px}
-.d-hs:last-child{border-right:none;margin-right:0}
-.d-hs-l{font-size:10px;color:rgba(255,255,255,.35);font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
-.d-hs-v{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;line-height:1.1}
-.d-hs-c{font-size:10px}
-.chg-up{color:#34d399}.chg-dn{color:#f87171}.chg-ne{color:rgba(255,255,255,.3)}
-
-/* KPI section */
-.d-sec{padding:14px 18px 0}
-.d-sec-ttl{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--t3);margin-bottom:9px;display:flex;align-items:center;gap:8px}
-.d-sec-ttl::after{content:'';flex:1;height:1px;background:var(--bd)}
-.kgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
-.kcard{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:11px 13px;border-left:3px solid transparent;position:relative}
-.kcard.k-teal{border-left-color:var(--teal)}
-.kcard.k-blue{border-left-color:#3b82f6}
-.kcard.k-green{border-left-color:var(--green)}
-.kcard.k-amber{border-left-color:#f59e0b}
-.kcard.k-red{border-left-color:var(--red)}
-.kcard.k-purple{border-left-color:#8b5cf6}
-.kcard.k-cyan{border-left-color:#06b6d4}
-.k-ico{font-size:17px;margin-bottom:4px;display:block}
-.k-lbl{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;font-family:'Barlow Condensed',sans-serif;line-height:1.3;margin-bottom:2px}
-.k-val{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--t1);line-height:1.1}
-.k-sub{font-size:9px;color:var(--t3);margin-top:2px}
-
-/* Charts row — FIXED HEIGHT, no stretching */
-.chart-section{padding:0 18px 12px}
-.chart-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.cbox{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:13px 14px;display:flex;flex-direction:column}
-.cbox-ttl{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--t2);margin-bottom:8px;flex-shrink:0}
-.cbox-body{height:155px;position:relative;flex-shrink:0}
-.cbox-body canvas{position:absolute;inset:0;width:100%!important;height:100%!important}
-
-/* Transfer table */
-.dtw{padding:0 18px 16px}
-.dtbl{background:var(--card);border:1px solid var(--bd);border-radius:10px;overflow:hidden}
-.dtbl-hd{padding:10px 14px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t2);border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center}
-.dtbl table{width:100%;border-collapse:collapse;font-size:11px}
-.dtbl thead th{padding:6px 12px;font-size:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-align:right;background:var(--surf);color:var(--t2);border-bottom:1px solid var(--bd)}
-.dtbl thead th:first-child{text-align:left}
-.dtbl tbody td{padding:5px 12px;text-align:right;border-bottom:1px solid var(--bd);font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--t2)}
-.dtbl tbody td:first-child{text-align:left;font-family:'Barlow',sans-serif;font-size:11px;color:var(--t1)}
-.dtbl tbody tr.total-row td{background:rgba(0,213,216,.07);font-weight:700;color:var(--t1)}
-.dtbl tbody tr:not(.total-row):hover td{background:var(--surf)}
-.mini-bar{display:inline-block;height:3px;border-radius:2px;background:linear-gradient(to right,var(--teal),var(--td));vertical-align:middle;margin-left:5px;opacity:.6}
-
-.hidden{display:none!important}
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--bd);border-radius:10px}
-
-/* ── GATES ── */
-/* El modal de captura suave (Fase 5.2) vive en assets/css/alsina.css + assets/js/gate.js */
-.gate-wrap{position:relative;flex:1;overflow:hidden;display:flex;flex-direction:column}
-/* Premium badge */
-.premium-gate{
-  display:inline-flex;align-items:center;gap:4px;
-  background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);
-  color:#f59e0b;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  padding:2px 8px;border-radius:3px;margin-left:6px;vertical-align:middle;cursor:help;
-}
-
-/* ── DASHBOARD TABS ── */
-.d-tabs{display:flex;border-bottom:1px solid var(--bd);background:var(--card);flex-shrink:0;padding:0 18px}
-.d-tab{padding:10px 16px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;cursor:pointer;border:none;border-bottom:2.5px solid transparent;color:var(--t3);background:none;transition:.15s;margin-bottom:-1px}
-.d-tab.active{color:var(--teal);border-bottom-color:var(--teal)}
-.d-tab:hover:not(.active){color:var(--t2)}
-.d-tab-content{display:none}
-.d-tab-content.active{display:block}
-
-/* ── INFO STRIP & DATA TABLE ── */
-.info-strip{background:var(--card);border-bottom:1px solid var(--bd);padding:7px 10px;display:flex;gap:7px;overflow-x:auto;flex-shrink:0;height:88px;align-items:stretch}
-.info-strip::-webkit-scrollbar{height:3px}.info-strip::-webkit-scrollbar-thumb{background:var(--bd)}
-.ims{background:var(--surf);border:1px solid var(--bd);border-radius:8px;padding:7px 10px;min-width:140px;max-width:180px;flex-shrink:0;display:flex;flex-direction:column}
-.ims-nm{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;color:var(--t1);margin-bottom:4px;white-space:normal;line-height:1.25;word-break:break-word;overflow:visible}
-.ims-row{display:flex;justify-content:space-between;align-items:baseline;margin-top:2px}
-.ims-lbl{color:var(--t3);font-size:9px;text-transform:uppercase;letter-spacing:.04em;font-family:'Barlow Condensed',sans-serif;font-weight:600}
-.ims-val{color:var(--td);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700}
-.ims-empty{display:flex;align-items:center;justify-content:center;width:100%;color:var(--t3);font-size:11px;font-style:italic}
-.dt-panel{background:var(--card);border-top:1px solid var(--bd);flex-shrink:0;max-height:150px;overflow-y:auto;display:none}
-.dt-hdr{padding:5px 10px 5px 10px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;background:rgba(7,17,20,.95);color:rgba(255,255,255,.5);position:sticky;top:0}
-.dt-panel table{width:100%;border-collapse:collapse;font-size:11px}
-.dt-panel thead th{padding:5px 10px;text-align:right;background:var(--surf);border-bottom:1px solid var(--bd);font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--t2);white-space:nowrap;position:sticky;top:31px}
-.dt-panel thead th:first-child{text-align:left}
-.dt-panel tbody td{padding:5px 10px;text-align:right;border-bottom:1px solid var(--bd);font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--t2)}
-.dt-panel tbody td:first-child{text-align:left;font-family:'Barlow',sans-serif;font-size:11px;color:var(--t1)}
-/* ── ELEC TABLE ── */
-.elec-tbl{background:var(--card);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:16px}
-.elec-tbl table{width:100%;border-collapse:collapse;font-size:11px}
-.elec-tbl thead th{padding:7px 12px;text-align:left;background:var(--g);color:rgba(255,255,255,.55);font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid rgba(255,255,255,.06)}
-.elec-tbl tbody tr{border-bottom:1px solid var(--bd)}
-.elec-tbl tbody tr:last-child{border-bottom:none}
-.elec-tbl tbody td{padding:7px 12px;vertical-align:middle}
-.elec-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle;flex-shrink:0}
-.elec-winner-banner{border-radius:8px;padding:10px 14px;margin-bottom:14px}
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 </head>
-<body data-track-event="monitor_open">
-<div class="app">
+<body class="m135" data-track-event="monitor_open">
 
-<!-- SIDEBAR -->
-<aside class="sb">
-  <div class="sb-logo">
-    <div class="lm">A</div>
-    <div><div class="ln">ALSINA</div><div class="ls">Municipios Data Hub</div></div>
-  </div>
-  <nav class="sb-nav">
-    <div class="ss">Vistas</div>
-    <button class="nb active" onclick="showScreen('mapa',this)"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg></span> Mapa &amp; Comparar</button>
-    <button class="nb" onclick="showScreen('tabla',this)"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg></span> Tabla de Datos</button>
-    <button class="nb" onclick="showScreen('dash',this)"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span> Dashboard Municipio</button>
-    <div class="ss" style="margin-top:8px">Análisis</div>
-    <a class="nb" href="nota-electoral-2027.html" style="text-decoration:none"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></span> 2027 empieza ahora</a>
-    <a class="nb" href="nota-fin-de-una-era.html" style="text-decoration:none"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></span> El fin de una era</a>
-    <a class="nb" href="alsina-mapa-politico.html" style="text-decoration:none"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg></span> Mapa de intendentes</a>
-  </nav>
-  <div class="sb-div"></div>
-  <div class="sk"><div class="sk-l">Municipios</div><div class="sk-v">135</div><div class="sk-s">Provincia de Buenos Aires</div></div>
-  <div class="sk" style="margin-top:5px"><div class="sk-l">Fuentes de datos</div><div class="sk-v">3</div><div class="sk-s">Transferencias · Datos municipales · Fiscal 2026</div></div>
-  <div class="sb-div"></div>
-  <div class="sk" style="padding:8px 13px;">
-    <div style="font-size:9px;color:rgba(0,213,216,.5);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Acceso</div>
-    <div id="accessBadge" style="font-size:10px;color:#9e9992;line-height:1.5;">
-      <svg class="ic" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> <span style="color:rgba(245,158,11,.6)">Datos avanzados</span> — suscriptores
+<!-- ═══════════ INTRO ═══════════ -->
+<div class="m135-intro" id="m135Intro">
+  <div class="m135-intro-card">
+    <div class="m135-intro-brand">
+      <div class="m135-intro-mark">A</div>
+      <div><div class="m135-intro-brandname">ALSINA</div><div class="m135-intro-brandsub">Gestión Pública, Tecnología y Territorio</div></div>
+    </div>
+    <div class="m135-intro-eyebrow">Monitor 135</div>
+    <h1 class="m135-intro-title">135 municipios.<br>135 realidades diferentes.</h1>
+    <p class="m135-intro-sub">Una radiografía pública de cómo vive, produce, recauda y gobierna cada distrito bonaerense.</p>
+    <p class="m135-intro-body">Explorá los datos de la Provincia, buscá un municipio, comparalo con distritos similares y descubrí las diferencias que los promedios esconden.</p>
+    <div class="m135-intro-actions">
+      <button class="m135-btn-primary" id="introEnterBtn">Explorar el mapa →</button>
+      <button class="m135-btn-ghost" id="introSearchBtn">Buscar un municipio</button>
+      <button class="m135-btn-ghost" id="introCompareBtn">Comparar distritos</button>
+    </div>
+    <div class="m135-intro-features">
+      <div class="m135-intro-feat"><span class="m135-intro-feat-ico">◐</span><div class="m135-intro-feat-t">Elegí y explorá</div><div class="m135-intro-feat-d">Seleccioná un municipio y accedé a su radiografía completa: finanzas, población, gobierno y economía.</div></div>
+      <div class="m135-intro-feat"><span class="m135-intro-feat-ico">▤</span><div class="m135-intro-feat-t">Compará y ranqueá</div><div class="m135-intro-feat-d">Coloreá el mapa por indicador, compará municipios equivalentes y consultá los rankings provinciales.</div></div>
+      <div class="m135-intro-feat"><span class="m135-intro-feat-ico">✓</span><div class="m135-intro-feat-t">Verificá la fuente</div><div class="m135-intro-feat-d">Cada dato muestra su fuente, período y disponibilidad — y se conecta con los informes de Alsina.</div></div>
     </div>
   </div>
-  <div class="sb-div"></div>
-  <div class="sb-ft">Transferencias: Min. Economía PBA 2023–2025<br>Demografía: Censo 2022 · SCBA<br>Gobierno: Intendentes 2025 · Padrón<br>Finanzas: Presupuesto 2026 · CUD</div>
-</aside>
+</div>
 
-<!-- MAIN -->
-<div class="main">
-  <div class="hdr">
-    <div>
-      <div class="ht" id="hdrT">Mapa &amp; Comparación de Transferencias</div>
-      <div class="hs" id="hdrS">Seleccioná municipios · 135 partidos · 2023–2025</div>
-    </div>
-    <div class="hb" id="selBadge">0 seleccionados</div>
-  </div>
-
-  <!-- FILTER BAR -->
-  <div class="fb" id="fb">
-    <div class="sw">
-      <input type="text" id="srch" placeholder="Buscar municipio…" autocomplete="off">
-      <div class="dd" id="dd"></div>
-    </div>
-    <div class="cw" id="chips"></div>
-    <div class="fsep"></div>
-    <div class="fg">
-      <label>Variable</label>
-      <select id="varSel"></select>
-    </div>
-    <div class="fsep"></div>
-    <div class="fg" id="yrFg">
-      <label>Años</label>
-      <div class="yr-row">
-        <button class="yb on" data-yr="2023">2023</button>
-        <button class="yb on" data-yr="2024">2024</button>
-        <button class="yb on" data-yr="2025">2025</button>
+<!-- ═══════════ APP ═══════════ -->
+<div class="m135-app" id="m135App">
+  <header class="m135-hdr">
+    <div class="m135-hdr-top">
+      <a class="m135-brand" href="index.html">
+        <div class="m135-brand-mark">A</div>
+        <div><div class="m135-brand-name">ALSINA</div><div class="m135-brand-sub">Gestión Pública, Tecnología y Territorio</div></div>
+      </a>
+      <div class="m135-title-block">
+        <div class="m135-title">MONITOR 135</div>
+        <div class="m135-title-sub">Sistema de información municipal</div>
+      </div>
+      <button class="m135-mob-toggle" id="mobFilterToggle">☰ Filtros</button>
+      <div class="m135-hdr-search">
+        <label for="m135Search" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Buscar municipio</label>
+        <input type="text" id="m135Search" placeholder="Buscar un municipio…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="m135SearchResults">
+        <div class="m135-hdr-results" id="m135SearchResults" role="listbox"></div>
+      </div>
+      <div class="m135-hdr-right">
+        <span class="m135-hdr-upd" id="m135LastUpdate">Actualizado agosto 2026</span>
+        <button class="m135-hdr-btn" id="btnReplayIntro">Ver presentación</button>
       </div>
     </div>
-    <div class="fsep"></div>
-    <button class="bc" id="btnClr"><svg class="ic" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg> Limpiar</button>
-  </div>
+    <div class="m135-cov-strip">
+      <div class="m135-cov-item"><div class="m135-cov-v">135</div><div class="m135-cov-l">Municipios</div></div>
+      <div class="m135-cov-item"><div class="m135-cov-v">7</div><div class="m135-cov-l">Dimensiones</div></div>
+      <div class="m135-cov-item"><div class="m135-cov-v" id="covIndicadores">—</div><div class="m135-cov-l">Indicadores</div></div>
+      <div class="m135-cov-item"><div class="m135-cov-v">1S 2026</div><div class="m135-cov-l">Último período</div></div>
+      <div class="m135-cov-item"><div class="m135-cov-v" id="covPresupuesto">62/135</div><div class="m135-cov-l">Con presupuesto 2026</div></div>
+    </div>
+  </header>
 
-  <!-- SCREEN: MAPA -->
-  <div class="screen active" id="sc-mapa">
-    <div class="crow">
-      <div class="mp">
-        <div class="ph">
-          <span class="pht">Provincia de Buenos Aires</span>
-          <span class="phs" id="mapSub">135 municipios · click para seleccionar</span>
+  <div class="m135-main">
+    <!-- MAPA -->
+    <div class="m135-mapcol">
+      <div class="m135-ctrl" id="m135Ctrl">
+        <div class="m135-ctrl-g">
+          <label>Categoría</label>
+          <select id="ctrlCategoria"></select>
         </div>
-        <div class="mw" id="mw">
-          <svg id="pmap" viewBox="0 0 680 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-            <g id="ml2"></g>
-          </svg>
-          <div class="mtt" id="mtt"></div>
-          <div class="ml">
-            <div class="mlt" id="legTtl">Total transferido</div>
-            <div class="mlb"></div>
-            <div class="mlr"><span>Menor</span><span>Mayor</span></div>
-            <div class="mls"><div class="mld"></div>Seleccionado</div>
+        <div class="m135-ctrl-g">
+          <label>Variable</label>
+          <select id="ctrlVariable"></select>
+        </div>
+        <div class="m135-ctrl-g" id="ctrlPeriodoWrap">
+          <label>Período</label>
+          <select id="ctrlPeriodo"></select>
+        </div>
+        <div class="m135-ctrl-g" id="ctrlModoWrap" style="display:none">
+          <label>Modo</label>
+          <div class="m135-pill-row">
+            <button class="m135-pill on" data-modo="total">Total</button>
+            <button class="m135-pill" data-modo="percapita">Por habitante</button>
           </div>
         </div>
+        <div class="m135-ctrl-sep"></div>
+        <div class="m135-zoom-row">
+          <button class="m135-zbtn on" id="zoomProvincia">Provincia</button>
+          <button class="m135-zbtn" id="zoomAmba">AMBA</button>
+          <button class="m135-zbtn" id="zoomReset">↺ Restablecer</button>
+          <button class="m135-zbtn" id="verComoRanking">Ver como ranking</button>
+        </div>
       </div>
-      <div class="cp">
-        <div class="info-strip" id="infoStrip">
-          <div class="ims-empty">Seleccioná municipios para ver sus datos rápidos</div>
-        </div>
-        <div class="cc">
-          <div class="cct">Comparación <span class="ccs" id="barSub"></span></div>
-          <div class="emp" id="barEmp"><div class="empi"><svg class="ic" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></div><div>Seleccioná municipios para comparar</div></div>
-          <div class="chart-wrap" id="barWrap" style="display:none"><canvas id="barC"></canvas></div>
-        </div>
-        <div class="dt-panel" id="dataTableWrap"></div>
-        <div class="cc">
-          <div class="cct">Evolución temporal <span class="ccs" id="lineSub"></span></div>
-          <div class="emp" id="lineEmp"><div class="empi"><svg class="ic" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div><div>Seleccioná municipios para ver tendencia</div></div>
-          <div class="chart-wrap" id="lineWrap" style="display:none"><canvas id="lineC"></canvas></div>
-        </div>
+      <div class="m135-mapwrap">
+        <svg id="m135map" viewBox="0 0 680 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mapa de los 135 municipios de la Provincia de Buenos Aires"></svg>
+        <div class="m135-map-hint" id="mapClearSel">✕ Limpiar selección</div>
+        <div class="m135-legend" id="m135Legend"></div>
       </div>
     </div>
-  </div>
 
-  <!-- SCREEN: TABLA -->
-  <div class="screen" id="sc-tabla">
-    <div class="thd">
-      <h2>Tabla de Datos</h2>
-      <div class="trow">
-        <label>Año</label>
-        <select id="tabYr"><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option></select>
+    <!-- PANEL -->
+    <div class="m135-panelcol">
+      <div class="m135-tabs">
+        <button class="m135-tab active" data-tab="radiografia">Radiografía</button>
+        <button class="m135-tab" data-tab="comparar">Comparar</button>
+        <button class="m135-tab" data-tab="ranking">Ranking</button>
       </div>
-      <div class="trow">
-        <label>Grupo</label>
-        <select id="tabGrp">
-          <option value="transfer">Transferencias</option>
-          <option value="extra">Datos Municipales</option>
-          <option value="geo">Demografía &amp; Territorio</option>
-          <option value="calc">Economía Municipal</option>
-          <option value="all">Todos</option>
-        </select>
-      </div>
-      <input class="tsrch" id="tabSrch" placeholder="Filtrar municipio…">
-    </div>
-    <div class="gate-wrap">
-      <div class="tw" style="filter:blur(0)"><table><thead id="tabHead"></thead><tbody id="tabBody"></tbody></table></div>
+      <div class="m135-tabpanel active" id="tab-radiografia"></div>
+      <div class="m135-tabpanel" id="tab-comparar"></div>
+      <div class="m135-tabpanel" id="tab-ranking"></div>
     </div>
   </div>
+</div>
 
-  <!-- SCREEN: DASHBOARD -->
-  <div class="screen" id="sc-dash">
-    <div class="dhd">
-      <h2>Dashboard</h2>
-      <select id="dashSel"><option value="">— Seleccioná un municipio —</option></select>
-    </div>
-    <div class="db" id="dashB">
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;color:var(--t3);gap:10px">
-        <span style="font-size:40px;opacity:.2"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span>
-        <span style="font-size:13px">Seleccioná un municipio para ver su dashboard completo</span>
-      </div>
-    </div>
-  </div>
-</div><!-- /main -->
-</div><!-- /app -->
+<div class="m135-tt" id="m135Tooltip" role="tooltip"></div>
 
 <script>
+
 const TRANS_VARS = ["Coparticipación Bruta", "Descentralización", "Juegos de Azar", "F.F.P.S. (Programas Sociales)", "F.S.A. (Tratamiento de Residuos)", "Fondo Fort. Recursos Municipales", "Fondo Inclusión Social", "Fondo de Financ. Educativo", "Fondo Fortalecimiento Fiscal Municipal", "Fdo. Infraestructura Municipal 2017", "Fdo. Ley 14890", "Total"];
 const EXTRA_VARS = ["Cantidad Empresas", "Cantidad Empresas Exportadoras", "Población", "Población con NBI", "NBI (%)", "ITAE per cápita 2019 ($)", "Participación ITAE PBA", "Recaudación per cápita 2021 ($)", "Recaudación propia 2021 ($)", "PBG 2023 (M$ const.2004)", "Var% PBG 22-23", "PBG per cápita 2023"];
 const GEO_DATA = {"VEINTICINCO DE MAYO":{"nd":"25 de Mayo","sec":"Séptima","jud":"Mercedes","reg":"Interior","cba":false,"cap":false,"p22":35563,"sup":4769.5,"den":7.5,"cat":"20.000-49.999","rp":73,"rs":21,"rd":100,"qp":3,"qs":1,"qd":4,"ppct":0.2029,"spct":1.564,"int_electo":"Ramiro Eguen","int_actual":"Ramiro Eguen","fuerza_2025":"Acción Ciudadana","elec_nac":31827,"elec_ext":268,"pres_2026":39900000000,"pres_per_hab":1121952.59,"cud_pct":0.46231},"NUEVE DE JULIO":{"nd":"9 de Julio","sec":"Cuarta","jud":"Mercedes","reg":"Interior","cba":false,"cap":false,"p22":52607,"sup":4284.1,"den":12.3,"cat":"50.000-99.999","rp":54,"rs":25,"rd":76,"qp":2,"qs":1,"qd":3,"ppct":0.3002,"spct":1.4049,"int_electo":"Maria Jose Gentile","int_actual":"Maria Jose Gentile","fuerza_2025":"Somos","elec_nac":43624,"elec_ext":445,"pres_2026":37542000000,"pres_per_hab":713631.27,"cud_pct":0.3534},"ADOLFO ALSINA":{"nd":"Adolfo Alsina","sec":"Sexta","jud":"Trenque Lauquen","reg":"Interior","cba":false,"cap":false,"p22":17552,"sup":5877.9,"den":3.0,"cat":"10.000-19.999","rp":100,"rs":10,"rd":126,"qp":4,"qs":1,"qd":5,"ppct":0.1002,"spct":1.9275,"int_electo":"Javier Andres","int_actual":"Javier Andres","fuerza_2025":"Somos","elec_nac":14378,"elec_ext":174,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.45859},"ADOLFO GONZALES CHAVES":{"nd":"Adolfo Gonzales Chaves","sec":"Sexta","jud":"Bahía Blanca","reg":"Interior","cba":false,"cap":false,"p22":12914,"sup":3859.2,"den":3.3,"cat":"10.000-19.999","rp":115,"rs":31,"rd":122,"qp":5,"qs":2,"qd":5,"ppct":0.0737,"spct":1.2655,"int_electo":"Lucia Gómez","int_actual":"Lucia Gómez","fuerza_2025":"Nuevos Aires","elec_nac":10847,"elec_ext":76,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.24058},"ALBERTI":{"nd":"Alberti","sec":"Cuarta","jud":"Mercedes","reg":"Interior","cba":false,"cap":false,"p22":12982,"sup":1125.0,"den":11.5,"cat":"10.000-19.999","rp":113,"rs":84,"rd":83,"qp":5,"qs":4,"qd":4,"ppct":0.0741,"spct":0.3689,"int_electo":"German Lago","int_actual":"German Lago","fuerza_2025":"Fuerza Patria","elec_nac":9798,"elec_ext":166,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.25526},"ALMIRANTE BROWN":{"nd":"Almirante Brown","sec":"Tercera","jud":"Lomas de Zamora","reg":"Conurbano Sur","cba":true,"cap":false,"p22":584827,"sup":129.3,"den":4522.0,"cat":"500.000 o más","rp":6,"rs":117,"rd":15,"qp":1,"qs":5,"qd":1,"ppct":3.3373,"spct":0.0424,"int_electo":"Mariano Cascallares","int_actual":"Juan Fabiani","fuerza_2025":"Fuerza Patria","elec_nac":460982,"elec_ext":30286,"pres_2026":281014462000,"pres_per_hab":480508.7,"cud_pct":2.01042},"ARRECIFES":{"nd":"Arrecifes","sec":"Segunda","jud":"San Nicolás","reg":"Interior","cba":false,"cap":false,"p22":32215,"sup":1240.7,"den":26.0,"cat":"20.000-49.999","rp":78,"rs":78,"rd":58,"qp":3,"qs":3,"qd":3,"ppct":0.1838,"spct":0.4069,"int_electo":"Juan Fernando Bouvier","int_actual":"Juan Fernando Bouvier","fuerza_2025":"LLA","elec_nac":26226,"elec_ext":364,"pres_2026":24994858270,"pres_per_hab":775876.4,"cud_pct":0.26331},"AVELLANEDA":{"nd":"Avellaneda","sec":"Tercera","jud":"Avellaneda - Lanus","reg":"Conurbano Sur","cba":true,"cap":false,"p22":367554,"sup":52.5,"den":7003.7,"cat":"250.000-499.999","rp":14,"rs":128,"rd":6,"qp":1,"qs":5,"qd":1,"ppct":2.0974,"spct":0.0172,"int_electo":"Jorge Ferraresi","int_actual":"Jorge Ferraresi","fuerza_2025":"Fuerza Patria","elec_nac":297760,"elec_ext":27674,"pres_2026":361000000000,"pres_per_hab":982168.61,"cud_pct":1.19838},"AYACUCHO":{"nd":"Ayacucho","sec":"Quinta","jud":"Dolores","reg":"Interior","cba":false,"cap":false,"p22":21977,"sup":6748.9,"den":3.3,"cat":"20.000-49.999","rp":93,"rs":5,"rd":123,"qp":4,"qs":1,"qd":5,"ppct":0.1254,"spct":2.2131,"int_electo":"Emilio Cordonnier","int_actual":"Emilio Cordonnier","fuerza_2025":"Somos","elec_nac":18622,"elec_ext":146,"pres_2026":37919278803,"pres_per_hab":1725407.42,"cud_pct":0.41972},"AZUL":{"nd":"Azul","sec":"Séptima","jud":"Azul","reg":"Interior","cba":false,"cap":false,"p22":75905,"sup":6540.3,"den":11.6,"cat":"50.000-99.999","rp":44,"rs":6,"rd":81,"qp":2,"qs":1,"qd":3,"ppct":0.4331,"spct":2.1447,"int_electo":"Nelson Sombra","int_actual":"Nelson Sombra","fuerza_2025":"Fuerza Patria","elec_nac":59429,"elec_ext":641,"pres_2026":85881974217,"pres_per_hab":1131440.28,"cud_pct":0.70491},"BAHIA BLANCA":{"nd":"Bahía Blanca","sec":"Sexta","jud":"Bahía Blanca","reg":"Interior","cba":false,"cap":false,"p22":336574,"sup":2247.5,"den":149.8,"cat":"250.000-499.999","rp":19,"rs":51,"rd":37,"qp":1,"qs":2,"qd":2,"ppct":1.9206,"spct":0.737,"int_electo":"Federico Susbielles","int_actual":"Federico Susbielles","fuerza_2025":"Fuerza Patria","elec_nac":255488,"elec_ext":10545,"pres_2026":344461123616,"pres_per_hab":1023433.55,"cud_pct":1.32772},"BALCARCE":{"nd":"Balcarce","sec":"Quinta","jud":"Mar del Plata","reg":"Interior","cba":false,"cap":false,"p22":48982,"sup":4115.3,"den":11.9,"cat":"20.000-49.999","rp":56,"rs":28,"rd":78,"qp":3,"qs":2,"qd":3,"ppct":0.2795,"spct":1.3495,"int_electo":"Esteban Reino","int_actual":"Esteban Reino","fuerza_2025":"Somos","elec_nac":41246,"elec_ext":812,"pres_2026":60423675037,"pres_per_hab":1233589.38,"cud_pct":0.51257},"BARADERO":{"nd":"Baradero","sec":"Segunda","jud":"San Nicolás","reg":"Interior","cba":false,"cap":false,"p22":40002,"sup":1591.9,"den":25.1,"cat":"20.000-49.999","rp":65,"rs":70,"rd":59,"qp":3,"qs":3,"qd":3,"ppct":0.2283,"spct":0.522,"int_electo":"Esteban Sanzio","int_actual":"Esteban Sanzio","fuerza_2025":"Fuerza Patria","elec_nac":31573,"elec_ext":706,"pres_2026":35334342103,"pres_per_hab":883314.39,"cud_pct":0.28912},"BENITO JUAREZ":{"nd":"Benito Juárez","sec":"Sexta","jud":"Azul","reg":"Interior","cba":false,"cap":false,"p22":22292,"sup":5071.9,"den":4.4,"cat":"20.000-49.999","rp":92,"rs":15,"rd":113,"qp":4,"qs":1,"qd":5,"ppct":0.1272,"spct":1.6632,"int_electo":"Juliio Cesar Marini","int_actual":"Juliio Cesar Marini","fuerza_2025":"Fuerza Patria","elec_nac":17926,"elec_ext":203,"pres_2026":45237562993,"pres_per_hab":2029318.28,"cud_pct":0.46948},"BERAZATEGUI":{"nd":"Berazategui","sec":"Tercera","jud":"Quilmes","reg":"Conurbano Sur","cba":true,"cap":false,"p22":358712,"sup":221.0,"den":1623.1,"cat":"250.000-499.999","rp":16,"rs":110,"rd":21,"qp":1,"qs":5,"qd":1,"ppct":2.047,"spct":0.0725,"int_electo":"Juan Jose Mussi","int_actual":"Carlos Balor","fuerza_2025":"Fuerza Patria","elec_nac":279672,"elec_ext":15152,"pres_2026":147306205436,"pres_per_hab":410653.13,"cud_pct":1.67827},"BERISSO":{"nd":"Berisso","sec":"Tercera","jud":"La Plata","reg":"Interior","cba":false,"cap":false,"p22":100930,"sup":137.6,"den":733.6,"cat":"100.000-249.999","rp":41,"rs":116,"rd":28,"qp":2,"qs":5,"qd":2,"ppct":0.576,"spct":0.0451,"int_electo":"Fabian Cagliardi","int_actual":"Fabian Cagliardi","fuerza_2025":"Fuerza Patria","elec_nac":83267,"elec_ext":5680,"pres_2026":73070950000,"pres_per_hab":723976.52,"cud_pct":0.72468},"BOLIVAR":{"nd":"Bolívar","sec":"Séptima","jud":"Azul","reg":"Interior","cba":false,"cap":false,"p22":37594,"sup":4912.2,"den":7.7,"cat":"20.000-49.999","rp":70,"rs":16,"rd":98,"qp":3,"qs":1,"qd":4,"ppct":0.2145,"spct":1.6108,"int_electo":"Marcos Pisano","int_actual":"Eduardo Bucca","fuerza_2025":"Fuerza Patria","elec_nac":31364,"elec_ext":402,"pres_2026":57640929444,"pres_per_hab":1533248.11,"cud_pct":0.60707},"BRAGADO":{"nd":"Bragado","sec":"Cuarta","jud":"Mercedes","reg":"Interior","cba":false,"cap":false,"p22":46504,"sup":2211.9,"den":21.0,"cat":"20.000-49.999","rp":57,"rs":52,"rd":66,"qp":3,"qs":2,"qd":3,"ppct":0.2654,"spct":0.7253,"int_electo":"Sergio Juan Barenghi","int_actual":"Sergio Juan Barenghi","fuerza_2025":"Fuerza Patria","elec_nac":37603,"elec_ext":416,"pres_2026":47000000000,"pres_per_hab":1010665.75,"cud_pct":0.552},"BRANDSEN":{"nd":"Brandsen","sec":"Tercera","jud":"La Plata","reg":"Interior","cba":false,"cap":false,"p22":32448,"sup":1126.0,"den":28.8,"cat":"20.000-49.999","rp":77,"rs":83,"rd":55,"qp":3,"qs":4,"qd":3,"ppct":0.1852,"spct":0.3692,"int_electo":"Fernando Luis Raitelli","int_actual":"Fernando Luis Raitelli","fuerza_2025":"Fuerza Patria","elec_nac":27820,"elec_ext":1045,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.18008},"CAMPANA":{"nd":"Campana","sec":"Primera","jud":"Zarate - Campana","reg":"Interior","cba":false,"cap":false,"p22":110566,"sup":954.5,"den":115.8,"cat":"100.000-249.999","rp":37,"rs":89,"rd":41,"qp":2,"qs":4,"qd":2,"ppct":0.6309,"spct":0.313,"int_electo":"Sebastián Abella","int_actual":"Sebastián Abella","fuerza_2025":"LLA","elec_nac":88743,"elec_ext":3388,"pres_2026":123948228198,"pres_per_hab":1121033.85,"cud_pct":0.78458},"CAPITAN SARMIENTO":{"nd":"Capitán Sarmiento","sec":"Segunda","jud":"San Nicolás","reg":"Interior","cba":false,"cap":false,"p22":15965,"sup":548.9,"den":29.1,"cat":"10.000-19.999","rp":107,"rs":101,"rd":54,"qp":4,"qs":4,"qd":2,"ppct":0.0911,"spct":0.18,"int_electo":"Fernanda Astorino","int_actual":"Fernanda Astorino","fuerza_2025":"LLA","elec_nac":13978,"elec_ext":221,"pres_2026":17724215198,"pres_per_hab":1110191.99,"cud_pct":0.15052},"CARLOS CASARES":{"nd":"Carlos Casares","sec":"Cuarta","jud":"Trenque Lauquen","reg":"Interior","cba":false,"cap":false,"p22":23100,"sup":2520.4,"den":9.2,"cat":"20.000-49.999","rp":88,"rs":47,"rd":92,"qp":4,"qs":2,"qd":4,"ppct":0.1318,"spct":0.8265,"int_electo":"Daniel Stadnik","int_actual":"Daniel Stadnik","fuerza_2025":"Fuerza Patria","elec_nac":20222,"elec_ext":308,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.52467},"CARLOS TEJEDOR":{"nd":"Carlos Tejedor","sec":"Cuarta","jud":"Trenque Lauquen","reg":"Interior","cba":false,"cap":false,"p22":14079,"sup":3910.7,"den":3.6,"cat":"10.000-19.999","rp":110,"rs":30,"rd":119,"qp":5,"qs":2,"qd":5,"ppct":0.0803,"spct":1.2824,"int_electo":"Maria Celia Gianini","int_actual":"Maria Celia Gianini","fuerza_2025":"Fuerza Patria","elec_nac":10110,"elec_ext":75,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.29304},"CARMEN DE ARECO":{"nd":"Carmen de Areco","sec":"Segunda","jud":"Mercedes","reg":"Interior","cba":false,"cap":false,"p22":17499,"sup":1061.3,"den":16.5,"cat":"10.000-19.999","rp":101,"rs":86,"rd":67,"qp":4,"qs":4,"qd":3,"ppct":0.0999,"spct":0.348,"int_electo":"Ivan Villagran","int_actual":"Ivan Villagran","fuerza_2025":"Fuerza Patria","elec_nac":13952,"elec_ext":177,"pres_2026":13352400000,"pres_per_hab":763037.89,"cud_pct":0.10709},"CASTELLI":{"nd":"Castelli","sec":"Quinta","jud":"Dolores","reg":"Interior","cba":false,"cap":false,"p22":9594,"sup":2063.2,"den":4.7,"cat":"Menos de 10.000","rp":125,"rs":54,"rd":111,"qp":5,"qs":2,"qd":5,"ppct":0.0547,"spct":0.6766,"int_electo":"Francisco Jose Echarren","int_actual":"Francisco Jose Echarren","fuerza_2025":"Fuerza Patria","elec_nac":7978,"elec_ext":156,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.17619},"CAÑUELAS":{"nd":"Cañuelas","sec":"Tercera","jud":"La Plata","reg":"Interior","cba":false,"cap":false,"p22":70684,"sup":1190.1,"den":59.4,"cat":"50.000-99.999","rp":47,"rs":80,"rd":45,"qp":2,"qs":3,"qd":2,"ppct":0.4034,"spct":0.3903,"int_electo":"Marisa Fassi","int_actual":"Marisa Fassi","fuerza_2025":"Fuerza Patria","elec_nac":54687,"elec_ext":3422,"pres_2026":44000000000,"pres_per_hab":622488.82,"cud_pct":0.30402},"CHACABUCO":{"nd":"Chacabuco","sec":"Cuarta","jud":"Junín","reg":"Interior","cba":false,"cap":false,"p22":52731,"sup":2287.4,"den":23.1,"cat":"50.000-99.999","rp":53,"rs":49,"rd":64,"qp":2,"qs":2,"qd":3,"ppct":0.3009,"spct":0.7501,"int_electo":"Ruben Dario Golia","int_actual":"Ruben Dario Golia","fuerza_2025":"Fuerza Patria","elec_nac":43596,"elec_ext":1287,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.95241},"CHASCOMUS":{"nd":"Chascomús","sec":"Quinta","jud":"Dolores","reg":"Interior","cba":false,"cap":false,"p22":42452,"sup":3101.9,"den":13.7,"cat":"20.000-49.999","rp":61,"rs":38,"rd":71,"qp":3,"qs":2,"qd":3,"ppct":0.2423,"spct":1.0172,"int_electo":"Javier Gaston","int_actual":"Javier Gaston","fuerza_2025":"Fuerza Patria","elec_nac":35949,"elec_ext":672,"pres_2026":59405821073,"pres_per_hab":1399364.48,"cud_pct":0.49547},"CHIVILCOY":{"nd":"Chivilcoy","sec":"Cuarta","jud":"Mercedes","reg":"Interior","cba":false,"cap":false,"p22":70839,"sup":2057.1,"den":34.4,"cat":"50.000-99.999","rp":46,"rs":55,"rd":51,"qp":2,"qs":3,"qd":2,"ppct":0.4042,"spct":0.6746,"int_electo":"Guillermo Britos","int_actual":"Guillermo Britos","fuerza_2025":"Somos","elec_nac":60922,"elec_ext":1518,"pres_2026":64539711923,"pres_per_hab":911075.99,"cud_pct":0.69307},"COLON":{"nd":"Colón","sec":"Segunda","jud":"Pergamino","reg":"Interior","cba":false,"cap":false,"p22":27504,"sup":994.6,"den":27.7,"cat":"20.000-49.999","rp":80,"rs":88,"rd":57,"qp":3,"qs":4,"qd":3,"ppct":0.157,"spct":0.3262,"int_electo":"Waldemar Audilio Giordano","int_actual":"Waldemar Audilio Giordano","fuerza_2025":"Fuerza Patria","elec_nac":22372,"elec_ext":215,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.35068},"CORONEL DORREGO":{"nd":"Coronel Dorrego","sec":"Sexta","jud":"Bahía Blanca","reg":"Interior","cba":false,"cap":false,"p22":15968,"sup":1622.6,"den":9.8,"cat":"10.000-19.999","rp":106,"rs":65,"rd":91,"qp":4,"qs":3,"qd":4,"ppct":0.0911,"spct":0.5321,"int_electo":"Juan Carlos Chalde","int_actual":"Juan Carlos Chalde","fuerza_2025":"Somos","elec_nac":13932,"elec_ext":167,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.39807},"CORONEL PRINGLES":{"nd":"Coronel Pringles","sec":"Sexta","jud":"Bahía Blanca","reg":"Interior","cba":false,"cap":false,"p22":24420,"sup":5257.1,"den":4.6,"cat":"20.000-49.999","rp":87,"rs":14,"rd":112,"qp":4,"qs":1,"qd":5,"ppct":0.1394,"spct":1.7239,"int_electo":"Lisandro Matzkin","int_actual":"Lisandro Matzkin","fuerza_2025":"LLA","elec_nac":20486,"elec_ext":165,"pres_2026":29808657087,"pres_per_hab":1220665.73,"cud_pct":0.40655},"CORONEL ROSALES":{"nd":"Coronel Rosales","sec":"Sexta","jud":"Bahía Blanca","reg":"Interior","cba":false,"cap":false,"p22":67503,"sup":5831.5,"den":11.6,"cat":"50.000-99.999","rp":49,"rs":11,"rd":82,"qp":2,"qs":1,"qd":4,"ppct":0.3852,"spct":1.9123,"int_electo":"Rodrigo Lionel Aristimuño","int_actual":"Rodrigo Lionel Aristimuño","fuerza_2025":"Fuerza Patria","elec_nac":52104,"elec_ext":651,"pres_2026":44468531920,"pres_per_hab":658763.79,"cud_pct":0.344},"CORONEL SUAREZ":{"nd":"Coronel Suárez","sec":"Sexta","jud":"Bahía Blanca","reg":"Interior","cba":false,"cap":false,"p22":42110,"sup":6006.8,"den":7.0,"cat":"20.000-49.999","rp":62,"rs":8,"rd":102,"qp":3,"qs":1,"qd":4,"ppct":0.2403,"spct":1.9698,"int_electo":"Ricardo Moccero","int_actual":"Ricardo Moccero","fuerza_2025":"Movimiento para la Victoria","elec_nac":35188,"elec_ext":399,"pres_2026":56260015943,"pres_per_hab":1336025.08,"cud_pct":0.6706},"DAIREAUX":{"nd":"Daireaux","sec":"Sexta","jud":"Trenque Lauquen","reg":"Interior","cba":false,"cap":false,"p22":18422,"sup":3827.5,"den":4.8,"cat":"10.000-19.999","rp":97,"rs":32,"rd":110,"qp":4,"qs":2,"qd":5,"ppct":0.1051,"spct":1.2551,"int_electo":"Esteban Acerbo","int_actual":"María Serra","fuerza_2025":"Fuerza Patria","elec_nac":15370,"elec_ext":158,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.4387},"DOLORES":{"nd":"Dolores","sec":"Quinta","jud":"Dolores","reg":"Interior","cba":false,"cap":false,"p22":32032,"sup":1973.1,"den":16.2,"cat":"20.000-49.999","rp":79,"rs":57,"rd":69,"qp":3,"qs":3,"qd":3,"ppct":0.1828,"spct":0.647,"int_electo":"Juan Pablo Garcia","int_actual":"Juan Pablo Garcia","fuerza_2025":"Fuerza Patria","elec_nac":25774,"elec_ext":328,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.49045},"ENSENADA":{"nd":"Ensenada","sec":"Tercera","jud":"La Plata","reg":"Interior","cba":false,"cap":false,"p22":63997,"sup":99.9,"den":640.4,"cat":"50.000-99.999","rp":51,"rs":120,"rd":29,"qp":2,"qs":5,"qd":2,"ppct":0.3652,"spct":0.0328,"int_electo":"Mario Secco","int_actual":"Mario Secco","fuerza_2025":"Fuerza Patria","elec_nac":59231,"elec_ext":3447,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.28041},"ESCOBAR":{"nd":"Escobar","sec":"Primera","jud":"Zarate - Campana","reg":"Interior","cba":false,"cap":false,"p22":256268,"sup":303.8,"den":843.7,"cat":"250.000-499.999","rp":25,"rs":107,"rd":26,"qp":1,"qs":4,"qd":1,"ppct":1.4624,"spct":0.0996,"int_electo":"Ariel Sujarchuk","int_actual":"Ariel Sujarchuk","fuerza_2025":"Fuerza Patria","elec_nac":204417,"elec_ext":14737,"pres_2026":299462800000,"pres_per_hab":1168553.23,"cud_pct":1.7861},"ESTEBAN ECHEVERRIA":{"nd":"Esteban Echeverría","sec":"Tercera","jud":"Lomas de Zamora","reg":"Conurbano Sur","cba":true,"cap":false,"p22":338480,"sup":120.2,"den":2815.5,"cat":"250.000-499.999","rp":18,"rs":119,"rd":19,"qp":1,"qs":5,"qd":1,"ppct":1.9315,"spct":0.0394,"int_electo":"Fernando Gray","int_actual":"Fernando Gray","fuerza_2025":"Fuerza Patria","elec_nac":245355,"elec_ext":34484,"pres_2026":151756000000,"pres_per_hab":448345.54,"cud_pct":1.56854},"EXALTACION DE LA CRUZ":{"nd":"Exaltacion de la Cruz","sec":"","jud":"Zarate - Campana","reg":"Interior","cba":false,"cap":false,"p22":40159,"sup":634.2,"den":63.3,"cat":"20.000-49.999","rp":64,"rs":100,"rd":44,"qp":3,"qs":4,"qd":2,"ppct":0.2292,"spct":0.208,"int_electo":"Diego Nanni","int_actual":"Diego Nanni","fuerza_2025":"Fuerza Patria","elec_nac":34059,"elec_ext":2441,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.45705},"EZEIZA":{"nd":"Ezeiza","sec":"Tercera","jud":"Lomas de Zamora","reg":"Conurbano Sur","cba":true,"cap":false,"p22":201511,"sup":236.8,"den":850.9,"cat":"100.000-249.999","rp":26,"rs":109,"rd":24,"qp":1,"qs":5,"qd":1,"ppct":1.1499,"spct":0.0777,"int_electo":"Gastón Granados","int_actual":"Gastón Granados","fuerza_2025":"Fuerza Patria","elec_nac":150299,"elec_ext":15408,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.62144},"FLORENCIO VARELA":{"nd":"Florencio Varela","sec":"Tercera","jud":"Quilmes","reg":"Conurbano Sur","cba":true,"cap":false,"p22":496433,"sup":189.9,"den":2614.2,"cat":"250.000-499.999","rp":9,"rs":112,"rd":20,"qp":1,"qs":5,"qd":1,"ppct":2.8329,"spct":0.0623,"int_electo":"Andrés Watson","int_actual":"Andrés Watson","fuerza_2025":"Fuerza Patria","elec_nac":341450,"elec_ext":28558,"pres_2026":159582501241,"pres_per_hab":321458.29,"cud_pct":1.99},"FLORENTINO AMEGHINO":{"nd":"Florentino Ameghino","sec":"Cuarta","jud":"Junín","reg":"Interior","cba":false,"cap":false,"p22":10790,"sup":1808.6,"den":6.0,"cat":"10.000-19.999","rp":122,"rs":61,"rd":105,"qp":5,"qs":3,"qd":4,"ppct":0.0616,"spct":0.5931,"int_electo":"Nahuel Mittelbach","int_actual":"Nahuel Mittelbach","fuerza_2025":"Somos","elec_nac":8106,"elec_ext":102,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.18284},"GENERAL ALVARADO":{"nd":"General Alvarado","sec":"Quinta","jud":"Mar del Plata","reg":"Interior","cba":false,"cap":false,"p22":45526,"sup":1614.4,"den":28.2,"cat":"20.000-49.999","rp":58,"rs":67,"rd":56,"qp":3,"qs":3,"qd":3,"ppct":0.2598,"spct":0.5294,"int_electo":"Sebastian Ianatuony","int_actual":"Sebastian Ianatuony","fuerza_2025":"Fuerza Patria","elec_nac":40134,"elec_ext":941,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.37807},"GENERAL ALVEAR":{"nd":"General Alvear","sec":"Séptima","jud":"Azul","reg":"Interior","cba":false,"cap":false,"p22":13031,"sup":3384.1,"den":3.9,"cat":"10.000-19.999","rp":112,"rs":36,"rd":115,"qp":5,"qs":2,"qd":5,"ppct":0.0744,"spct":1.1097,"int_electo":"Ramon Capra","int_actual":"Ramon Capra","fuerza_2025":"Somos","elec_nac":9005,"elec_ext":87,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.22943},"GENERAL ARENALES":{"nd":"General Arenales","sec":"Cuarta","jud":"Junín","reg":"Interior","cba":false,"cap":false,"p22":16350,"sup":1482.6,"den":11.0,"cat":"10.000-19.999","rp":105,"rs":73,"rd":85,"qp":4,"qs":3,"qd":4,"ppct":0.0933,"spct":0.4862,"int_electo":"Erica Revilla","int_actual":"Erica Revilla","fuerza_2025":"Somos","elec_nac":15306,"elec_ext":175,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.22683},"GENERAL BELGRANO":{"nd":"General Belgrano","sec":"Quinta","jud":"Dolores","reg":"Interior","cba":false,"cap":false,"p22":20791,"sup":1843.2,"den":11.3,"cat":"20.000-49.999","rp":94,"rs":59,"rd":84,"qp":4,"qs":3,"qd":4,"ppct":0.1186,"spct":0.6044,"int_electo":"Osvaldo Dinapoli","int_actual":"Osvaldo Dinapoli","fuerza_2025":"Somos","elec_nac":17009,"elec_ext":329,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.26931},"GENERAL GUIDO":{"nd":"General Guido","sec":"Quinta","jud":"Dolores","reg":"Interior","cba":false,"cap":false,"p22":3174,"sup":2329.9,"den":1.4,"cat":"Menos de 10.000","rp":134,"rs":48,"rd":134,"qp":5,"qs":2,"qd":5,"ppct":0.0181,"spct":0.764,"int_electo":"Carlos Rocha","int_actual":"Carlos Rocha","fuerza_2025":"Fuerza Patria","elec_nac":2987,"elec_ext":64,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.09319},"GENERAL LAS HERAS":{"nd":"General Las Heras","sec":"Primera","jud":"Mercedes","reg":"Interior","cba":false,"cap":false,"p22":18022,"sup":720.1,"den":25.0,"cat":"10.000-19.999","rp":99,"rs":97,"rd":60,"qp":4,"qs":4,"qd":3,"ppct":0.1028,"spct":0.2361,"int_electo":"Javier Osuna","int_actual":"Javier Osuna","fuerza_2025":"Fuerza Patria","elec_nac":14566,"elec_ext":353,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.16448},"GENERAL LAVALLE":{"nd":"General Lavalle","sec":"Quinta","jud":"Dolores","reg":"Interior","cba":false,"cap":false,"p22":4870,"sup":2598.7,"den":1.9,"cat":"Menos de 10.000","rp":132,"rs":45,"rd":133,"qp":5,"qs":2,"qd":5,"ppct":0.0278,"spct":0.8522,"int_electo":"Nahuel Guardia","int_actual":"Nahuel Guardia","fuerza_2025":"Somos","elec_nac":5408,"elec_ext":310,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.12741},"GENERAL MADARIAGA":{"nd":"General Madariaga","sec":"Quinta","jud":"Dolores","reg":"Interior","cba":false,"cap":false,"p22":22624,"sup":2978.3,"den":7.6,"cat":"20.000-49.999","rp":90,"rs":41,"rd":99,"qp":4,"qs":2,"qd":4,"ppct":0.1291,"spct":0.9767,"int_electo":"Carlos Santoro","int_actual":"Carlos Santoro","fuerza_2025":"Somos","elec_nac":20115,"elec_ext":594,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.29744},"GENERAL PAZ":{"nd":"General Paz","sec":"Quinta","jud":"La Plata","reg":"Interior","cba":false,"cap":false,"p22":14207,"sup":1197.5,"den":11.9,"cat":"10.000-19.999","rp":109,"rs":79,"rd":79,"qp":5,"qs":3,"qd":3,"ppct":0.0811,"spct":0.3927,"int_electo":"Juan Manuel Alvarez","int_actual":"Juan Manuel Alvarez","fuerza_2025":"Fuerza Patria","elec_nac":11954,"elec_ext":243,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.30088},"GENERAL PINTO":{"nd":"General Pinto","sec":"Cuarta","jud":"Junín","reg":"Interior","cba":false,"cap":false,"p22":12941,"sup":2541.4,"den":5.1,"cat":"10.000-19.999","rp":114,"rs":46,"rd":107,"qp":5,"qs":2,"qd":4,"ppct":0.0738,"spct":0.8334,"int_electo":"Freddy Zavatarelli","int_actual":"Freddy Zavatarelli","fuerza_2025":"Fuerza Patria","elec_nac":10295,"elec_ext":68,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.29531},"GENERAL PUEYRREDON":{"nd":"General Pueyrredón","sec":"Quinta","jud":"Mar del Plata","reg":"Interior","cba":false,"cap":false,"p22":667082,"sup":1460.7,"den":456.7,"cat":"500.000 o más","rp":4,"rs":74,"rd":31,"qp":1,"qs":3,"qd":2,"ppct":3.8067,"spct":0.479,"int_electo":"Guillermo Montenegro","int_actual":"Agustín Neme","fuerza_2025":"LLA","elec_nac":575613,"elec_ext":20564,"pres_2026":521996792000,"pres_per_hab":782507.69,"cud_pct":2.13342},"GENERAL RODRIGUEZ":{"nd":"General Rodríguez","sec":"Primera","jud":"Moreno  -  General Rodriguez","reg":"Interior","cba":false,"cap":false,"p22":142709,"sup":360.1,"den":396.3,"cat":"100.000-249.999","rp":32,"rs":104,"rd":33,"qp":2,"qs":4,"qd":2,"ppct":0.8144,"spct":0.1181,"int_electo":"Mauro García","int_actual":"Mauro García","fuerza_2025":"Fuerza Patria","elec_nac":99080,"elec_ext":12994,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.53529},"GENERAL SAN MARTIN":{"nd":"General San Martín","sec":"Primera","jud":"San Martin","reg":"Conurbano Norte/Oeste","cba":true,"cap":false,"p22":450575,"sup":55.8,"den":8082.1,"cat":"250.000-499.999","rp":11,"rs":126,"rd":4,"qp":1,"qs":5,"qd":1,"ppct":2.5712,"spct":0.0183,"int_electo":"Fernando Moreira","int_actual":"Fernando Moreira","fuerza_2025":"Fuerza Patria","elec_nac":378476,"elec_ext":57433,"pres_2026":333000000000,"pres_per_hab":739055.65,"cud_pct":2.24351},"GENERAL VIAMONTE":{"nd":"General Viamonte","sec":"Cuarta","jud":"Junín","reg":"Interior","cba":false,"cap":false,"p22":22649,"sup":2145.3,"den":10.6,"cat":"20.000-49.999","rp":89,"rs":53,"rd":88,"qp":4,"qs":2,"qd":4,"ppct":0.1292,"spct":0.7035,"int_electo":"Franco Flexas","int_actual":"Franco Flexas","fuerza_2025":"Somos","elec_nac":15875,"elec_ext":88,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.39628},"GENERAL VILLEGAS":{"nd":"General Villegas","sec":"Cuarta","jud":"Trenque Lauquen","reg":"Interior","cba":false,"cap":false,"p22":35251,"sup":7232.8,"den":4.9,"cat":"20.000-49.999","rp":74,"rs":4,"rd":109,"qp":3,"qs":1,"qd":5,"ppct":0.2012,"spct":2.3718,"int_electo":"Gilberto Alegre","int_actual":"Gilberto Alegre","fuerza_2025":"Somos","elec_nac":25866,"elec_ext":295,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.66304},"GENERAL LA MADRID":{"nd":"General la Madrid","sec":"","jud":"Azul","reg":"Interior","cba":false,"cap":false,"p22":11618,"sup":4811.4,"den":2.4,"cat":"10.000-19.999","rp":120,"rs":19,"rd":130,"qp":5,"qs":1,"qd":5,"ppct":0.0663,"spct":1.5778,"int_electo":"Martin Randazzo","int_actual":"Martin Randazzo","fuerza_2025":"Somos","elec_nac":9868,"elec_ext":81,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.35992},"GUAMINI":{"nd":"Guaminí","sec":"Sexta","jud":"Trenque Lauquen","reg":"Interior","cba":false,"cap":false,"p22":11801,"sup":4826.8,"den":2.4,"cat":"10.000-19.999","rp":117,"rs":18,"rd":131,"qp":5,"qs":1,"qd":5,"ppct":0.0673,"spct":1.5828,"int_electo":"Jose Nobre Ferreira","int_actual":"Jose Nobre Ferreira","fuerza_2025":"Fuerza Patria","elec_nac":10079,"elec_ext":123,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.34023},"HIPOLITO YRIGOYEN":{"nd":"Hipólito Yrigoyen","sec":"Cuarta","jud":"Trenque Lauquen","reg":"Interior","cba":false,"cap":false,"p22":10661,"sup":1629.0,"den":6.5,"cat":"10.000-19.999","rp":124,"rs":64,"rd":103,"qp":5,"qs":3,"qd":4,"ppct":0.0608,"spct":0.5342,"int_electo":"Luis Pugnaloni","int_actual":"Luis Pugnaloni","fuerza_2025":"Fuerza Patria","elec_nac":8282,"elec_ext":91,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.18059},"HURLINGHAM":{"nd":"Hurlingham","sec":"Primera","jud":"Morón","reg":"Conurbano Oeste","cba":true,"cap":false,"p22":185641,"sup":35.4,"den":5239.7,"cat":"100.000-249.999","rp":27,"rs":134,"rd":13,"qp":1,"qs":5,"qd":1,"ppct":1.0594,"spct":0.0116,"int_electo":"Damian Selci","int_actual":"Damian Selci","fuerza_2025":"Fuerza Patria","elec_nac":158216,"elec_ext":12574,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.83248},"ITUZAINGO":{"nd":"Ituzaingó","sec":"Primera","jud":"Morón","reg":"Conurbano Oeste","cba":true,"cap":false,"p22":180232,"sup":38.2,"den":4713.2,"cat":"100.000-249.999","rp":28,"rs":133,"rd":14,"qp":2,"qs":5,"qd":1,"ppct":1.0285,"spct":0.0125,"int_electo":"Pablo Catriel Descalzo","int_actual":"Pablo Catriel Descalzo","fuerza_2025":"Fuerza Patria","elec_nac":149383,"elec_ext":6652,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.52523},"JOSE C. PAZ":{"nd":"José C. Paz","sec":"Primera","jud":"San Martin","reg":"Conurbano Noroeste","cba":true,"cap":false,"p22":326992,"sup":50.2,"den":6519.0,"cat":"250.000-499.999","rp":22,"rs":130,"rd":8,"qp":1,"qs":5,"qd":1,"ppct":1.866,"spct":0.0165,"int_electo":"Mario Ishii","int_actual":"Lorena Espina","fuerza_2025":"Fuerza Patria","elec_nac":233079,"elec_ext":21006,"pres_2026":170000000000,"pres_per_hab":519890.39,"cud_pct":1.8771},"JUNIN":{"nd":"Junín","sec":"Cuarta","jud":"Junín","reg":"Interior","cba":false,"cap":false,"p22":103787,"sup":2253.2,"den":46.1,"cat":"100.000-249.999","rp":38,"rs":50,"rd":47,"qp":2,"qs":2,"qd":2,"ppct":0.5923,"spct":0.7389,"int_electo":"Pablo Petrecca","int_actual":"Juan Fiorini","fuerza_2025":"Somos","elec_nac":82988,"elec_ext":962,"pres_2026":60160520000,"pres_per_hab":579653.71,"cud_pct":0.3902},"LA COSTA":{"nd":"La Costa","sec":"Quinta","jud":"Dolores","reg":"Interior","cba":false,"cap":false,"p22":100689,"sup":252.6,"den":398.6,"cat":"100.000-249.999","rp":42,"rs":108,"rd":32,"qp":2,"qs":4,"qd":2,"ppct":0.5746,"spct":0.0828,"int_electo":"Juan De Jesús","int_actual":"Juan De Jesús","fuerza_2025":"Fuerza Patria","elec_nac":83039,"elec_ext":5927,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":1.52219},"LA MATANZA":{"nd":"La Matanza","sec":"Tercera","jud":"La Matanza","reg":"Conurbano Oeste","cba":true,"cap":false,"p22":1841247,"sup":329.2,"den":5592.8,"cat":"500.000 o más","rp":1,"rs":105,"rd":11,"qp":1,"qs":4,"qd":1,"ppct":10.507,"spct":0.108,"int_electo":"Fernando Espinoza","int_actual":"Fernando Espinoza","fuerza_2025":"Fuerza Patria","elec_nac":1057458,"elec_ext":142910,"pres_2026":460165913347,"pres_per_hab":249920.79,"cud_pct":6.58306},"LA PLATA":{"nd":"La Plata","sec":"Capital/Octava","jud":"La Plata","reg":"Interior","cba":false,"cap":true,"p22":768470,"sup":942.2,"den":815.6,"cat":"500.000 o más","rp":2,"rs":92,"rd":27,"qp":1,"qs":4,"qd":1,"ppct":4.3852,"spct":0.309,"int_electo":"Julio Alak","int_actual":"Julio Alak","fuerza_2025":"Fuerza Patria","elec_nac":576691,"elec_ext":63148,"pres_2026":462290471915,"pres_per_hab":601572.57,"cud_pct":3.16983},"LANUS":{"nd":"Lanús","sec":"Tercera","jud":"Avellaneda - Lanus","reg":"Conurbano Sur","cba":true,"cap":false,"p22":461267,"sup":48.4,"den":9540.2,"cat":"250.000-499.999","rp":10,"rs":131,"rd":1,"qp":1,"qs":5,"qd":1,"ppct":2.6322,"spct":0.0159,"int_electo":"Julian Alvarez","int_actual":"Julian Alvarez","fuerza_2025":"Fuerza Patria","elec_nac":375477,"elec_ext":28244,"pres_2026":259797588554,"pres_per_hab":563226.05,"cud_pct":1.63819},"LAPRIDA":{"nd":"Laprida","sec":"Sexta","jud":"Azul","reg":"Interior","cba":false,"cap":false,"p22":11646,"sup":3455.0,"den":3.4,"cat":"10.000-19.999","rp":119,"rs":34,"rd":121,"qp":5,"qs":2,"qd":5,"ppct":0.0665,"spct":1.133,"int_electo":"Alfredo Fisher","int_actual":"Alfredo Fisher","fuerza_2025":"Fuerza Patria","elec_nac":9962,"elec_ext":56,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.28502},"LAS FLORES":{"nd":"Las Flores","sec":"Quinta","jud":"Azul","reg":"Interior","cba":false,"cap":false,"p22":27239,"sup":3340.3,"den":8.2,"cat":"20.000-49.999","rp":81,"rs":37,"rd":95,"qp":3,"qs":2,"qd":4,"ppct":0.1554,"spct":1.0954,"int_electo":"Alberto Gelene","int_actual":"Alberto Gelene","fuerza_2025":"Fuerza Patria","elec_nac":22588,"elec_ext":252,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.27626},"LEANDRO N. ALEM":{"nd":"Leandro N. Alem","sec":"Cuarta","jud":"Junín","reg":"Interior","cba":false,"cap":false,"p22":17266,"sup":1603.5,"den":10.8,"cat":"10.000-19.999","rp":102,"rs":69,"rd":86,"qp":4,"qs":3,"qd":4,"ppct":0.0985,"spct":0.5258,"int_electo":"Carlos Ferraris","int_actual":"Carlos Ferraris","fuerza_2025":"Fuerza Patria","elec_nac":15253,"elec_ext":119,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.29463},"LEZAMA":{"nd":"Lezama","sec":"Quinta","jud":"Dolores","reg":"Interior","cba":false,"cap":false,"p22":6221,"sup":1102.0,"den":5.6,"cat":"Menos de 10.000","rp":131,"rs":85,"rd":106,"qp":5,"qs":4,"qd":4,"ppct":0.0355,"spct":0.3614,"int_electo":"Arnaldo Harispe","int_actual":"Myriam Mongay","fuerza_2025":"Somos","elec_nac":5034,"elec_ext":106,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.11622},"LINCOLN":{"nd":"Lincoln","sec":"Cuarta","jud":"Junín","reg":"Interior","cba":false,"cap":false,"p22":45506,"sup":5781.5,"den":7.9,"cat":"20.000-49.999","rp":59,"rs":12,"rd":96,"qp":3,"qs":1,"qd":4,"ppct":0.2597,"spct":1.8959,"int_electo":"Salvador Serenal","int_actual":"Salvador Serenal","fuerza_2025":"Somos","elec_nac":38730,"elec_ext":276,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.60342},"LOBERIA":{"nd":"Lobería","sec":"","jud":"Necochea","reg":"Interior","cba":false,"cap":false,"p22":18243,"sup":4755.7,"den":3.8,"cat":"10.000-19.999","rp":98,"rs":22,"rd":118,"qp":4,"qs":1,"qd":5,"ppct":0.1041,"spct":1.5595,"int_electo":"Pablo Javier Barrena","int_actual":"Pablo Javier Barrena","fuerza_2025":"Somos","elec_nac":14855,"elec_ext":92,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.3312},"LOBOS":{"nd":"Lobos","sec":"Tercera","jud":"La Plata","reg":"Interior","cba":false,"cap":false,"p22":41760,"sup":1724.4,"den":24.2,"cat":"20.000-49.999","rp":63,"rs":63,"rd":62,"qp":3,"qs":3,"qd":3,"ppct":0.2383,"spct":0.5655,"int_electo":"Jorge Etcheverry","int_actual":"Jorge Etcheverry","fuerza_2025":"LLA","elec_nac":33382,"elec_ext":821,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.18414},"LOMAS DE ZAMORA":{"nd":"Lomas de Zamora","sec":"Tercera","jud":"Lomas de Zamora","reg":"Conurbano Sur","cba":true,"cap":false,"p22":690323,"sup":87.3,"den":7907.5,"cat":"500.000 o más","rp":3,"rs":122,"rd":5,"qp":1,"qs":5,"qd":1,"ppct":3.9393,"spct":0.0286,"int_electo":"Federico Otermin","int_actual":"Federico Otermin","fuerza_2025":"Fuerza Patria","elec_nac":519157,"elec_ext":66799,"pres_2026":480834988472,"pres_per_hab":696536.24,"cud_pct":3.0485},"LUJAN":{"nd":"Luján","sec":"Primera","jud":"Mercedes","reg":"Interior","cba":false,"cap":false,"p22":111008,"sup":777.1,"den":142.8,"cat":"100.000-249.999","rp":36,"rs":96,"rd":40,"qp":2,"qs":4,"qd":2,"ppct":0.6335,"spct":0.2548,"int_electo":"Leonardo Boto","int_actual":"Leonardo Boto","fuerza_2025":"Fuerza Patria","elec_nac":97986,"elec_ext":2527,"pres_2026":106500000000,"pres_per_hab":959390.31,"cud_pct":0.75184},"MAGDALENA":{"nd":"Magdalena","sec":"Tercera","jud":"La Plata","reg":"Interior","cba":false,"cap":false,"p22":26830,"sup":1785.3,"den":15.0,"cat":"20.000-49.999","rp":83,"rs":62,"rd":70,"qp":4,"qs":3,"qd":3,"ppct":0.1531,"spct":0.5854,"int_electo":"Lisandro Fabian Hourcade","int_actual":"Lisandro Fabian Hourcade","fuerza_2025":"Somos","elec_nac":16379,"elec_ext":379,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.32864},"MAIPU":{"nd":"Maipú","sec":"Quinta","jud":"Dolores","reg":"Interior","cba":false,"cap":false,"p22":11323,"sup":2601.7,"den":4.4,"cat":"10.000-19.999","rp":121,"rs":44,"rd":114,"qp":5,"qs":2,"qd":5,"ppct":0.0646,"spct":0.8532,"int_electo":"Matías Rappallini","int_actual":"Matías Rappallini","fuerza_2025":"Somos","elec_nac":10212,"elec_ext":100,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.24649},"MALVINAS ARGENTINAS":{"nd":"Malvinas Argentinas","sec":"Primera","jud":"San Martin","reg":"Conurbano Noroeste","cba":true,"cap":false,"p22":350674,"sup":63.1,"den":5558.3,"cat":"250.000-499.999","rp":17,"rs":125,"rd":12,"qp":1,"qs":5,"qd":1,"ppct":2.0011,"spct":0.0207,"int_electo":"Leo Nardini","int_actual":"Leo Nardini","fuerza_2025":"Fuerza Patria","elec_nac":285415,"elec_ext":13133,"pres_2026":422127315214,"pres_per_hab":1203759.95,"cud_pct":3.17276},"MAR CHIQUITA":{"nd":"Mar Chiquita","sec":"Quinta","jud":"Mar del Plata","reg":"Interior","cba":false,"cap":false,"p22":33110,"sup":3096.7,"den":10.7,"cat":"20.000-49.999","rp":75,"rs":39,"rd":87,"qp":3,"qs":2,"qd":4,"ppct":0.1889,"spct":1.0155,"int_electo":"Walter Wischnivetzky","int_actual":"Walter Wischnivetzky","fuerza_2025":"Fuerza Patria","elec_nac":33065,"elec_ext":905,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.51108},"MARCOS PAZ":{"nd":"Marcos Paz","sec":"Primera","jud":"Mercedes","reg":"Interior","cba":false,"cap":false,"p22":67011,"sup":455.1,"den":147.2,"cat":"50.000-99.999","rp":50,"rs":102,"rd":39,"qp":2,"qs":4,"qd":2,"ppct":0.3824,"spct":0.1492,"int_electo":"Ricardo Curuchet","int_actual":"Ricardo Curuchet","fuerza_2025":"Fuerza Patria","elec_nac":50660,"elec_ext":3181,"pres_2026":60000000000,"pres_per_hab":895375.39,"cud_pct":0.49056},"MERCEDES":{"nd":"Mercedes","sec":"Primera","jud":"Mercedes","reg":"Interior","cba":false,"cap":false,"p22":72980,"sup":1049.5,"den":69.5,"cat":"50.000-99.999","rp":45,"rs":87,"rd":43,"qp":2,"qs":4,"qd":2,"ppct":0.4165,"spct":0.3442,"int_electo":"Juan Ignacio Ustarroz","int_actual":"Juan Ignacio Ustarroz","fuerza_2025":"Fuerza Patria","elec_nac":58987,"elec_ext":898,"pres_2026":49000000000,"pres_per_hab":671416.83,"cud_pct":0.65572},"MERLO":{"nd":"Merlo","sec":"Primera","jud":"Morón","reg":"Conurbano Oeste","cba":true,"cap":false,"p22":582486,"sup":173.1,"den":3364.4,"cat":"500.000 o más","rp":7,"rs":114,"rd":17,"qp":1,"qs":5,"qd":1,"ppct":3.3239,"spct":0.0568,"int_electo":"Gustavo Menendez","int_actual":"Gustavo Menendez","fuerza_2025":"Fuerza Patria","elec_nac":434550,"elec_ext":30186,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":2.96058},"MONTE":{"nd":"Monte","sec":"Quinta","jud":"La Plata","reg":"Interior","cba":false,"cap":false,"p22":24868,"sup":1847.5,"den":13.5,"cat":"20.000-49.999","rp":86,"rs":58,"rd":72,"qp":4,"qs":3,"qd":3,"ppct":0.1419,"spct":0.6058,"int_electo":"José Castro","int_actual":"José Castro","fuerza_2025":"Somos","elec_nac":20755,"elec_ext":799,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.1393},"MONTE HERMOSO":{"nd":"Monte Hermoso","sec":"Sexta","jud":"Bahía Blanca","reg":"Interior","cba":false,"cap":false,"p22":8465,"sup":209.0,"den":40.5,"cat":"Menos de 10.000","rp":129,"rs":111,"rd":49,"qp":5,"qs":5,"qd":2,"ppct":0.0483,"spct":0.0685,"int_electo":"Hernan Fabio Arranz","int_actual":"Hernan Fabio Arranz","fuerza_2025":"Fuerza Patria","elec_nac":9459,"elec_ext":470,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.18718},"MORENO":{"nd":"Moreno","sec":"Primera","jud":"Moreno  -  General Rodriguez","reg":"Conurbano Oeste","cba":true,"cap":false,"p22":576632,"sup":186.1,"den":3098.0,"cat":"500.000 o más","rp":8,"rs":113,"rd":18,"qp":1,"qs":5,"qd":1,"ppct":3.2905,"spct":0.061,"int_electo":"Mariel Fernandez","int_actual":"Mariel Fernandez","fuerza_2025":"Fuerza Patria","elec_nac":372309,"elec_ext":47011,"pres_2026":481595000000,"pres_per_hab":835186.05,"cud_pct":2.19588},"MORON":{"nd":"Morón","sec":"Primera","jud":"Morón","reg":"Conurbano Oeste","cba":true,"cap":false,"p22":331183,"sup":55.7,"den":5950.1,"cat":"250.000-499.999","rp":20,"rs":127,"rd":9,"qp":1,"qs":5,"qd":1,"ppct":1.8899,"spct":0.0183,"int_electo":"Lucas Ghi","int_actual":"Lucas Ghi","fuerza_2025":"Fuerza Patria","elec_nac":279897,"elec_ext":16382,"pres_2026":272000000000,"pres_per_hab":821298.19,"cud_pct":1.08322},"NAVARRO":{"nd":"Navarro","sec":"Primera","jud":"Mercedes","reg":"Interior","cba":false,"cap":false,"p22":19899,"sup":1617.6,"den":12.3,"cat":"10.000-19.999","rp":95,"rs":66,"rd":77,"qp":4,"qs":3,"qd":3,"ppct":0.1136,"spct":0.5305,"int_electo":"Facundo Diz","int_actual":"Facundo Diz","fuerza_2025":"Fuerza Patria","elec_nac":15946,"elec_ext":243,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.21962},"NECOCHEA":{"nd":"Necochea","sec":"Quinta","jud":"Necochea","reg":"Interior","cba":false,"cap":false,"p22":102110,"sup":4791.6,"den":21.3,"cat":"100.000-249.999","rp":39,"rs":20,"rd":65,"qp":2,"qs":1,"qd":3,"ppct":0.5827,"spct":1.5713,"int_electo":"Arturo Rojas","int_actual":"Arturo Rojas","fuerza_2025":"Nueva Necochea","elec_nac":87250,"elec_ext":1661,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.71164},"OLAVARRIA":{"nd":"Olavarría","sec":"Séptima","jud":"Azul","reg":"Interior","cba":false,"cap":false,"p22":125751,"sup":7658.8,"den":16.4,"cat":"100.000-249.999","rp":34,"rs":3,"rd":68,"qp":2,"qs":1,"qd":3,"ppct":0.7176,"spct":2.5115,"int_electo":"Maximiliano Wesner","int_actual":"Maximiliano Wesner","fuerza_2025":"Fuerza Patria","elec_nac":99434,"elec_ext":1653,"pres_2026":138287923000,"pres_per_hab":1099696.41,"cud_pct":1.01347},"PATAGONES":{"nd":"Patagones","sec":"Sexta","jud":"Bahía Blanca","reg":"Interior","cba":false,"cap":false,"p22":37646,"sup":13569.7,"den":2.8,"cat":"20.000-49.999","rp":69,"rs":1,"rd":127,"qp":3,"qs":1,"qd":5,"ppct":0.2148,"spct":4.4498,"int_electo":"Ricardo Evaristo Marino","int_actual":"Ricardo Evaristo Marino","fuerza_2025":"Fuerza Patria","elec_nac":28927,"elec_ext":1310,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.72998},"PEHUAJO":{"nd":"Pehuajó","sec":"Cuarta","jud":"Trenque Lauquen","reg":"Interior","cba":false,"cap":false,"p22":44783,"sup":4531.9,"den":9.9,"cat":"20.000-49.999","rp":60,"rs":23,"rd":90,"qp":3,"qs":1,"qd":4,"ppct":0.2556,"spct":1.4861,"int_electo":"Pablo Zurro","int_actual":"Pablo Zurro","fuerza_2025":"Fuerza Patria","elec_nac":36546,"elec_ext":310,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.74124},"PELLEGRINI":{"nd":"Pellegrini","sec":"Sexta","jud":"Trenque Lauquen","reg":"Interior","cba":false,"cap":false,"p22":7143,"sup":1820.2,"den":3.9,"cat":"Menos de 10.000","rp":130,"rs":60,"rd":116,"qp":5,"qs":3,"qd":5,"ppct":0.0408,"spct":0.5969,"int_electo":"Sofia Magdalena Gambier","int_actual":"Sofia Magdalena Gambier","fuerza_2025":"Somos","elec_nac":5270,"elec_ext":56,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.15865},"PERGAMINO":{"nd":"Pergamino","sec":"Segunda","jud":"Pergamino","reg":"Interior","cba":false,"cap":false,"p22":115340,"sup":3010.2,"den":38.3,"cat":"100.000-249.999","rp":35,"rs":40,"rd":50,"qp":2,"qs":2,"qd":2,"ppct":0.6582,"spct":0.9871,"int_electo":"Javier Martinez","int_actual":"Javier Martinez","fuerza_2025":"Hechos","elec_nac":92836,"elec_ext":1345,"pres_2026":74718307000,"pres_per_hab":647809.15,"cud_pct":0.43329},"PILA":{"nd":"Pila","sec":"Quinta","jud":"Dolores","reg":"Interior","cba":false,"cap":false,"p22":4642,"sup":3453.0,"den":1.3,"cat":"Menos de 10.000","rp":133,"rs":35,"rd":135,"qp":5,"qs":2,"qd":5,"ppct":0.0265,"spct":1.1323,"int_electo":"Gustavo Walker","int_actual":"Gustavo Walker","fuerza_2025":"Fuerza Patria","elec_nac":3660,"elec_ext":64,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.15236},"PILAR":{"nd":"Pilar","sec":"Primera","jud":"San Isidro","reg":"Interior","cba":false,"cap":false,"p22":394754,"sup":383.0,"den":1030.7,"cat":"250.000-499.999","rp":13,"rs":103,"rd":23,"qp":1,"qs":4,"qd":1,"ppct":2.2526,"spct":0.1256,"int_electo":"Federico De Achaval","int_actual":"Federico De Achaval","fuerza_2025":"Fuerza Patria","elec_nac":287769,"elec_ext":33163,"pres_2026":488609779242,"pres_per_hab":1237757.64,"cud_pct":2.41838},"PINAMAR":{"nd":"Pinamar","sec":"Quinta","jud":"Dolores","reg":"Interior","cba":false,"cap":false,"p22":39449,"sup":66.9,"den":589.8,"cat":"20.000-49.999","rp":67,"rs":124,"rd":30,"qp":3,"qs":5,"qd":2,"ppct":0.2251,"spct":0.0219,"int_electo":"Juan Manuel Ibarguren","int_actual":"Juan Manuel Ibarguren","fuerza_2025":"LLA","elec_nac":31923,"elec_ext":5420,"pres_2026":75951000000,"pres_per_hab":1925295.95,"cud_pct":0.39153},"PRESIDENTE PERON":{"nd":"Presidente Perón","sec":"Tercera","jud":"La Plata","reg":"Interior","cba":false,"cap":false,"p22":102106,"sup":120.7,"den":845.7,"cat":"100.000-249.999","rp":40,"rs":118,"rd":25,"qp":2,"qs":5,"qd":1,"ppct":0.5827,"spct":0.0396,"int_electo":"Blanca Cantero","int_actual":"Blanca Cantero","fuerza_2025":"Fuerza Patria","elec_nac":75162,"elec_ext":9525,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.44498},"PUNTA INDIO":{"nd":"Punta Indio","sec":"Tercera","jud":"La Plata","reg":"Interior","cba":false,"cap":false,"p22":12297,"sup":1550.7,"den":7.9,"cat":"10.000-19.999","rp":116,"rs":72,"rd":97,"qp":5,"qs":3,"qd":4,"ppct":0.0702,"spct":0.5085,"int_electo":"Daniel Angueira","int_actual":"Daniel Angueira","fuerza_2025":"Fuerza Patria","elec_nac":10470,"elec_ext":334,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.21996},"PUAN":{"nd":"Puán","sec":"Sexta","jud":"Bahía Blanca","reg":"Interior","cba":false,"cap":false,"p22":16613,"sup":6370.9,"den":2.6,"cat":"10.000-19.999","rp":104,"rs":7,"rd":128,"qp":4,"qs":1,"qd":5,"ppct":0.0948,"spct":2.0892,"int_electo":"Diego Reyes","int_actual":"Diego Reyes","fuerza_2025":"Potencia PBA","elec_nac":14175,"elec_ext":146,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.58771},"QUILMES":{"nd":"Quilmes","sec":"Tercera","jud":"Quilmes","reg":"Conurbano Sur","cba":true,"cap":false,"p22":633391,"sup":91.5,"den":6923.1,"cat":"500.000 o más","rp":5,"rs":121,"rd":7,"qp":1,"qs":5,"qd":1,"ppct":3.6144,"spct":0.03,"int_electo":"Mayra Mendoza","int_actual":"Eva Mieri","fuerza_2025":"Fuerza Patria","elec_nac":480256,"elec_ext":44831,"pres_2026":504890000000,"pres_per_hab":797122.16,"cud_pct":1.99122},"RAMALLO":{"nd":"Ramallo","sec":"Segunda","jud":"San Nicolás","reg":"Interior","cba":false,"cap":false,"p22":39730,"sup":951.5,"den":41.8,"cat":"20.000-49.999","rp":66,"rs":90,"rd":48,"qp":3,"qs":4,"qd":2,"ppct":0.2267,"spct":0.312,"int_electo":"Mauro David Poletti","int_actual":"Mauro David Poletti","fuerza_2025":"Fuerza Patria","elec_nac":31646,"elec_ext":318,"pres_2026":47603204249,"pres_per_hab":1198167.74,"cud_pct":0.22533},"RAUCH":{"nd":"Rauch","sec":"Quinta","jud":"Azul","reg":"Interior","cba":false,"cap":false,"p22":16635,"sup":4315.3,"den":3.9,"cat":"10.000-19.999","rp":103,"rs":24,"rd":117,"qp":4,"qs":1,"qd":5,"ppct":0.0949,"spct":1.4151,"int_electo":"Maximiliano Suescun","int_actual":"Maximiliano Suescun","fuerza_2025":"Somos","elec_nac":14085,"elec_ext":95,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.27562},"RIVADAVIA":{"nd":"Rivadavia","sec":"Cuarta","jud":"Trenque Lauquen","reg":"Interior","cba":false,"cap":false,"p22":19849,"sup":3954.9,"den":5.0,"cat":"10.000-19.999","rp":96,"rs":29,"rd":108,"qp":4,"qs":2,"qd":4,"ppct":0.1133,"spct":1.2969,"int_electo":"Juan Alberto Martinez","int_actual":"Juan Alberto Martinez","fuerza_2025":"Fuerza Patria","elec_nac":14971,"elec_ext":152,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.39294},"ROJAS":{"nd":"Rojas","sec":"Segunda","jud":"Junín","reg":"Interior","cba":false,"cap":false,"p22":25627,"sup":1978.9,"den":13.0,"cat":"20.000-49.999","rp":85,"rs":56,"rd":74,"qp":4,"qs":3,"qd":3,"ppct":0.1462,"spct":0.6489,"int_electo":"Roman Bouvier","int_actual":"Roman Bouvier","fuerza_2025":"Hechos","elec_nac":21106,"elec_ext":187,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.31636},"ROQUE PEREZ":{"nd":"Roque Perez","sec":"","jud":"La Plata","reg":"Interior","cba":false,"cap":false,"p22":13977,"sup":1572.2,"den":8.9,"cat":"10.000-19.999","rp":111,"rs":71,"rd":94,"qp":5,"qs":3,"qd":4,"ppct":0.0798,"spct":0.5156,"int_electo":"Maximiliano Oscar Sciaini","int_actual":"Maximiliano Oscar Sciaini","fuerza_2025":"Fuerza Patria","elec_nac":11621,"elec_ext":183,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.19553},"SAAVEDRA":{"nd":"Saavedra","sec":"Sexta","jud":"Bahía Blanca","reg":"Interior","cba":false,"cap":false,"p22":22537,"sup":3541.5,"den":6.4,"cat":"20.000-49.999","rp":91,"rs":33,"rd":104,"qp":4,"qs":2,"qd":4,"ppct":0.1286,"spct":1.1613,"int_electo":"Matías Nebot","int_actual":"Matías Nebot","fuerza_2025":"Todos por Saavedra","elec_nac":18669,"elec_ext":330,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.46034},"SALADILLO":{"nd":"Saladillo","sec":"Séptima","jud":"La Plata","reg":"Interior","cba":false,"cap":false,"p22":35656,"sup":2685.2,"den":13.3,"cat":"20.000-49.999","rp":72,"rs":43,"rd":73,"qp":3,"qs":2,"qd":3,"ppct":0.2035,"spct":0.8805,"int_electo":"Jose Luis Salomon","int_actual":"Jose Luis Salomon","fuerza_2025":"Somos","elec_nac":29532,"elec_ext":588,"pres_2026":29814329611,"pres_per_hab":836165.85,"cud_pct":0.29818},"SALLIQUELO":{"nd":"Salliqueló","sec":"Sexta","jud":"Trenque Lauquen","reg":"Interior","cba":false,"cap":false,"p22":9427,"sup":794.0,"den":11.9,"cat":"Menos de 10.000","rp":126,"rs":95,"rd":80,"qp":5,"qs":4,"qd":3,"ppct":0.0538,"spct":0.2604,"int_electo":"Ariel Horacio Succurro","int_actual":"Ariel Horacio Succurro","fuerza_2025":"Fuerza Patria","elec_nac":7848,"elec_ext":89,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.16346},"SALTO":{"nd":"Salto","sec":"Segunda","jud":"Mercedes","reg":"Interior","cba":false,"cap":false,"p22":39425,"sup":1611.1,"den":24.5,"cat":"20.000-49.999","rp":68,"rs":68,"rd":61,"qp":3,"qs":3,"qd":3,"ppct":0.225,"spct":0.5283,"int_electo":"Ricardo Alessandro","int_actual":"Ricardo Alessandro","fuerza_2025":"Fuerza Patria","elec_nac":30967,"elec_ext":439,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.27067},"SAN ANDRES DE GILES":{"nd":"San Andrés de Giles","sec":"Segunda","jud":"Mercedes","reg":"Interior","cba":false,"cap":false,"p22":26510,"sup":1132.0,"den":23.4,"cat":"20.000-49.999","rp":84,"rs":82,"rd":63,"qp":4,"qs":4,"qd":3,"ppct":0.1513,"spct":0.3712,"int_electo":"Miguel Gesualdi","int_actual":"Miguel Gesualdi","fuerza_2025":"Fuerza Patria","elec_nac":21299,"elec_ext":500,"pres_2026":18600000000,"pres_per_hab":701622.03,"cud_pct":0.35301},"SAN ANTONIO DE ARECO":{"nd":"San Antonio de Areco","sec":"Segunda","jud":"Mercedes","reg":"Interior","cba":false,"cap":false,"p22":26897,"sup":857.6,"den":31.4,"cat":"20.000-49.999","rp":82,"rs":94,"rd":52,"qp":4,"qs":4,"qd":2,"ppct":0.1535,"spct":0.2812,"int_electo":"Francisco Ratto","int_actual":"Francisco Ratto","fuerza_2025":"LLA","elec_nac":21194,"elec_ext":553,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.21658},"SAN CAYETANO":{"nd":"San Cayetano","sec":"","jud":"Necochea","reg":"Interior","cba":false,"cap":false,"p22":8994,"sup":2757.5,"den":3.3,"cat":"Menos de 10.000","rp":128,"rs":42,"rd":124,"qp":5,"qs":2,"qd":5,"ppct":0.0513,"spct":0.9043,"int_electo":"Miguel Angel Gargaglione","int_actual":"Miguel Angel Gargaglione","fuerza_2025":"Somos","elec_nac":7436,"elec_ext":60,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.27905},"SAN FERNANDO":{"nd":"San Fernando","sec":"Primera","jud":"San Isidro","reg":"Conurbano Norte","cba":true,"cap":false,"p22":171616,"sup":877.1,"den":195.7,"cat":"100.000-249.999","rp":29,"rs":93,"rd":36,"qp":2,"qs":4,"qd":2,"ppct":0.9793,"spct":0.2876,"int_electo":"Juan Andreotti","int_actual":"Juan Andreotti","fuerza_2025":"Fuerza Patria","elec_nac":137506,"elec_ext":11101,"pres_2026":244138924675,"pres_per_hab":1422588.36,"cud_pct":0.89792},"SAN ISIDRO":{"nd":"San Isidro","sec":"Primera","jud":"San Isidro","reg":"Conurbano Norte","cba":true,"cap":false,"p22":297282,"sup":51.4,"den":5779.2,"cat":"250.000-499.999","rp":23,"rs":129,"rd":10,"qp":1,"qs":5,"qd":1,"ppct":1.6964,"spct":0.0169,"int_electo":"Ramon Lanus","int_actual":"Ramon Lanus","fuerza_2025":"LLA","elec_nac":270890,"elec_ext":20121,"pres_2026":333052543695,"pres_per_hab":1120325.29,"cud_pct":1.78688},"SAN MIGUEL":{"nd":"San Miguel","sec":"Primera","jud":"San Martin","reg":"Conurbano Noroeste","cba":true,"cap":false,"p22":328835,"sup":82.8,"den":3971.4,"cat":"250.000-499.999","rp":21,"rs":123,"rd":16,"qp":1,"qs":5,"qd":1,"ppct":1.8765,"spct":0.0272,"int_electo":"Jaime Méndez","int_actual":"Jaime Méndez","fuerza_2025":"Primero San Miguel","elec_nac":250967,"elec_ext":17550,"pres_2026":221558017532,"pres_per_hab":673766.53,"cud_pct":1.86998},"SAN NICOLAS":{"nd":"San Nicolás","sec":"Segunda","jud":"San Nicolás","reg":"Interior","cba":false,"cap":false,"p22":167824,"sup":652.3,"den":257.3,"cat":"100.000-249.999","rp":30,"rs":99,"rd":34,"qp":2,"qs":4,"qd":2,"ppct":0.9577,"spct":0.2139,"int_electo":"Santiago Passaglia","int_actual":"Santiago Passaglia","fuerza_2025":"Hechos","elec_nac":129231,"elec_ext":1912,"pres_2026":132625134534,"pres_per_hab":790263.22,"cud_pct":0.58987},"SAN PEDRO":{"nd":"San Pedro","sec":"Segunda","jud":"San Nicolás","reg":"Interior","cba":false,"cap":false,"p22":68613,"sup":1319.3,"den":52.0,"cat":"50.000-99.999","rp":48,"rs":75,"rd":46,"qp":2,"qs":3,"qd":2,"ppct":0.3915,"spct":0.4326,"int_electo":"Cecilio Salazar","int_actual":"Cecilio Salazar","fuerza_2025":"Fuerza Patria","elec_nac":55498,"elec_ext":534,"pres_2026":57000000000,"pres_per_hab":830746.36,"cud_pct":0.60954},"SAN VICENTE":{"nd":"San Vicente","sec":"Tercera","jud":"La Plata","reg":"Interior","cba":false,"cap":false,"p22":98215,"sup":656.3,"den":149.7,"cat":"50.000-99.999","rp":43,"rs":98,"rd":38,"qp":2,"qs":4,"qd":2,"ppct":0.5605,"spct":0.2152,"int_electo":"Nicolas Mantegazza","int_actual":"Nicolas Mantegazza","fuerza_2025":"Fuerza Patria","elec_nac":69599,"elec_ext":4315,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.37209},"SUIPACHA":{"nd":"Suipacha","sec":"Primera","jud":"Mercedes","reg":"Interior","cba":false,"cap":false,"p22":11786,"sup":943.9,"den":12.5,"cat":"10.000-19.999","rp":118,"rs":91,"rd":75,"qp":5,"qs":4,"qd":3,"ppct":0.0673,"spct":0.3095,"int_electo":"Juan Luis Mancini","int_actual":"Juan Luis Mancini","fuerza_2025":"Fuerza Patria","elec_nac":10065,"elec_ext":140,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.16673},"TANDIL":{"nd":"Tandil","sec":"Quinta","jud":"Azul","reg":"Interior","cba":false,"cap":false,"p22":145575,"sup":4836.5,"den":30.1,"cat":"100.000-249.999","rp":31,"rs":17,"rd":53,"qp":2,"qs":1,"qd":2,"ppct":0.8307,"spct":1.586,"int_electo":"Miguel Angel Lunghi","int_actual":"Miguel Angel Lunghi","fuerza_2025":"Somos","elec_nac":117853,"elec_ext":2058,"pres_2026":152650000000,"pres_per_hab":1048600.38,"cud_pct":1.01156},"TAPALQUE":{"nd":"Tapalqué","sec":"Séptima","jud":"Azul","reg":"Interior","cba":false,"cap":false,"p22":10783,"sup":4149.2,"den":2.6,"cat":"10.000-19.999","rp":123,"rs":27,"rd":129,"qp":5,"qs":1,"qd":5,"ppct":0.0615,"spct":1.3606,"int_electo":"Gustavo Cocconi","int_actual":"Gustavo Cocconi","fuerza_2025":"Fuerza Patria","elec_nac":8918,"elec_ext":95,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.28079},"TIGRE":{"nd":"Tigre","sec":"Primera","jud":"San Isidro","reg":"Conurbano Norte","cba":true,"cap":false,"p22":446949,"sup":304.4,"den":1468.5,"cat":"250.000-499.999","rp":12,"rs":106,"rd":22,"qp":1,"qs":4,"qd":1,"ppct":2.5505,"spct":0.0998,"int_electo":"Julio Zamora","int_actual":"Julio Zamora","fuerza_2025":"Somos","elec_nac":338554,"elec_ext":24871,"pres_2026":578906001955,"pres_per_hab":1295239.51,"cud_pct":1.7895},"TORDILLO":{"nd":"Tordillo","sec":"Quinta","jud":"Dolores","reg":"Interior","cba":false,"cap":false,"p22":2542,"sup":1295.6,"den":2.0,"cat":"Menos de 10.000","rp":135,"rs":76,"rd":132,"qp":5,"qs":3,"qd":5,"ppct":0.0145,"spct":0.4249,"int_electo":"Hector Anibal Olivera","int_actual":"Hector Anibal Olivera","fuerza_2025":"Fuerza Patria","elec_nac":2431,"elec_ext":39,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.06327},"TORNQUIST":{"nd":"Tornquist","sec":"Sexta","jud":"Bahía Blanca","reg":"Interior","cba":false,"cap":false,"p22":14810,"sup":4149.3,"den":3.6,"cat":"10.000-19.999","rp":108,"rs":26,"rd":120,"qp":4,"qs":1,"qd":5,"ppct":0.0845,"spct":1.3607,"int_electo":"Sergio Fabian Bordoni","int_actual":"Estefania Bordoni","fuerza_2025":"Fuerza Patria","elec_nac":16117,"elec_ext":520,"pres_2026":31515252000,"pres_per_hab":2127971.1,"cud_pct":0.45831},"TRENQUE LAUQUEN":{"nd":"Trenque Lauquen","sec":"Cuarta","jud":"Trenque Lauquen","reg":"Interior","cba":false,"cap":false,"p22":49309,"sup":5509.2,"den":9.0,"cat":"20.000-49.999","rp":55,"rs":13,"rd":93,"qp":3,"qs":1,"qd":4,"ppct":0.2814,"spct":1.8066,"int_electo":"Francisco Recoulat","int_actual":"Francisco Recoulat","fuerza_2025":"Somos","elec_nac":42261,"elec_ext":470,"pres_2026":86704835294,"pres_per_hab":1758397.76,"cud_pct":0.75942},"TRES ARROYOS":{"nd":"Tres Arroyos","sec":"Sexta","jud":"Bahía Blanca","reg":"Interior","cba":false,"cap":false,"p22":62426,"sup":5962.9,"den":10.5,"cat":"50.000-99.999","rp":52,"rs":9,"rd":89,"qp":2,"qs":1,"qd":4,"ppct":0.3562,"spct":1.9554,"int_electo":"Pablo Humberto Garate","int_actual":"Pablo Humberto Garate","fuerza_2025":"Fuerza Patria","elec_nac":53947,"elec_ext":845,"pres_2026":79890154575,"pres_per_hab":1279757.71,"cud_pct":0.64268},"TRES LOMAS":{"nd":"Tres Lomas","sec":"Sexta","jud":"Trenque Lauquen","reg":"Interior","cba":false,"cap":false,"p22":9164,"sup":1262.5,"den":7.3,"cat":"Menos de 10.000","rp":127,"rs":77,"rd":101,"qp":5,"qs":3,"qd":4,"ppct":0.0523,"spct":0.414,"int_electo":"Luciano Spinolo","int_actual":"Luciano Spinolo","fuerza_2025":"Somos","elec_nac":6952,"elec_ext":72,"pres_2026":0,"pres_per_hab":0.0,"cud_pct":0.15733},"TRES DE FEBRERO":{"nd":"Tres de Febrero","sec":"Primera","jud":"San Martin","reg":"Conurbano Oeste","cba":true,"cap":false,"p22":364176,"sup":43.0,"den":8461.3,"cat":"250.000-499.999","rp":15,"rs":132,"rd":2,"qp":1,"qs":5,"qd":1,"ppct":2.0782,"spct":0.0141,"int_electo":"Diego Valenzuela","int_actual":"Rodrigo Aybar","fuerza_2025":"LLA","elec_nac":284774,"elec_ext":29669,"pres_2026":189429000000,"pres_per_hab":520157.84,"cud_pct":0.99991},"VICENTE LOPEZ":{"nd":"Vicente López","sec":"Primera","jud":"San Isidro","reg":"Conurbano Norte","cba":true,"cap":false,"p22":282281,"sup":33.8,"den":8358.9,"cat":"250.000-499.999","rp":24,"rs":135,"rd":3,"qp":1,"qs":5,"qd":1,"ppct":1.6108,"spct":0.0111,"int_electo":"Soledad Martinez","int_actual":"Soledad Martinez","fuerza_2025":"LLA","elec_nac":230596,"elec_ext":19717,"pres_2026":362143765971,"pres_per_hab":1282919.38,"cud_pct":1.52525},"VILLA GESELL":{"nd":"Villa Gesell","sec":"Quinta","jud":"Dolores","reg":"Interior","cba":false,"cap":false,"p22":37463,"sup":165.5,"den":226.4,"cat":"20.000-49.999","rp":71,"rs":115,"rd":35,"qp":3,"qs":5,"qd":2,"ppct":0.2138,"spct":0.0543,"int_electo":"Gustavo Barrera","int_actual":"Gustavo Barrera","fuerza_2025":"Fuerza Patria","elec_nac":33973,"elec_ext":3102,"pres_2026":61609288752,"pres_per_hab":1644536.98,"cud_pct":0.4682},"VILLARINO":{"nd":"Villarino","sec":"Sexta","jud":"Bahía Blanca","reg":"Interior","cba":false,"cap":false,"p22":32717,"sup":10099.9,"den":3.2,"cat":"20.000-49.999","rp":76,"rs":2,"rd":125,"qp":3,"qs":1,"qd":5,"ppct":0.1867,"spct":3.312,"int_electo":"Carlos Bevilacqua","int_actual":"Carlos Bevilacqua","fuerza_2025":"Acción por Villarino","elec_nac":25085,"elec_ext":3770,"pres_2026":34236305303,"pres_per_hab":1046437.79,"cud_pct":0.53047},"ZARATE":{"nd":"Zárate","sec":"Segunda","jud":"Zarate - Campana","reg":"Interior","cba":false,"cap":false,"p22":132221,"sup":1188.9,"den":111.2,"cat":"100.000-249.999","rp":33,"rs":81,"rd":42,"qp":2,"qs":3,"qd":2,"ppct":0.7545,"spct":0.3899,"int_electo":"Marcelo Matzkin","int_actual":"Marcelo Matzkin","fuerza_2025":"LLA","elec_nac":103528,"elec_ext":2344,"pres_2026":101500000000,"pres_per_hab":767654.15,"cud_pct":0.54929}};
@@ -559,894 +294,9 @@ const isExtra = v => EXTRA_VARS.includes(v) || GEO_VARS.includes(v) || CALC_FIXE
 function getGeoVal(m,v){const g=GEO_DATA[m];if(!g)return null;if(v==="Población 2022")return g.p22;if(v==="Superficie km²")return g.sup;if(v==="Densidad 2022")return g.den;if(v==="Presupuesto 2026 ($)")return g.pres_2026||null;if(v==="Presupuesto per cápita 2026")return g.pres_per_hab||null;if(v==="CUD (%)")return g.cud_pct||null;if(v==="Electores totales")return g.elec_nac!=null?(g.elec_nac+(g.elec_ext||0)):null;return null;}
 function getCalcVal(m,yr,v){const g=GEO_DATA[m];const pop=g?.p22;if(!g||!pop)return null;if(v==="Coparticipación per cápita"){const c=DATA[yr]?.[m]?.['Coparticipación Bruta'];return c!=null?c/pop:null;}if(v==="Transferencias per cápita"){const t=DATA[yr]?.[m]?.['Total'];return t!=null?t/pop:null;}if(v==="Empresas cada 1.000 hab"){const e=EXTRA[m]?.['Cantidad Empresas'];return e!=null?(e/pop)*1000:null;}if(v==="Índice de Dependencia Fiscal (%)"){const t=DATA['2025']?.[m]?.['Total'];const b=g.pres_2026;if(!t||!b)return null;return Math.min((t/b)*100,100);}return null;}
 
-// ── STATE
-let sel = [], activeVar = 'Total', activeYrs = new Set(['2023','2024','2025']);
-let barInst = null, lineInst = null, dBar = null, dLine = null, dDough = null;
 
-// ── HELPERS
-function getVal(m, yr, v) { if(GEO_VARS.includes(v)) return getGeoVal(m,v); if(CALC_YEARLY_VARS.includes(v)||CALC_FIXED_VARS.includes(v)) return getCalcVal(m,yr,v); return EXTRA_VARS.includes(v) ? (EXTRA[m]?.[v] ?? null) : (DATA[yr]?.[m]?.[v] ?? null); }
-
-function fmt(v, vn) {
-  if (v === null || v === undefined) return '—';
-  if (vn === 'NBI (%)') return v.toFixed(2) + '%';
-  if (vn === 'CUD (%)') return v.toFixed(5) + '%';
-  if (vn === 'PBG 2023 (M$ const.2004)') return '$' + v.toLocaleString('es-AR', {maximumFractionDigits:0}) + ' M';
-  if (vn === 'Var% PBG 22-23') return (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
-  if (vn === 'PBG per cápita 2023') return '$' + Math.round(v).toLocaleString('es-AR');
-  if (vn === 'Participación ITAE PBA') return (v * 100).toFixed(4) + '%';
-  if (['Cantidad Empresas','Cantidad Empresas Exportadoras','Población','Población con NBI','Población 2022','Electores totales'].includes(vn))
-    return Math.round(v).toLocaleString('es-AR');
-  if (vn === 'Superficie km²') return v.toLocaleString('es-AR') + ' km²';
-  if (vn === 'Densidad 2022') return v.toFixed(1) + ' hab/km²';
-  if (vn === 'Presupuesto per cápita 2026') return '$' + Math.round(v).toLocaleString('es-AR');
-  if (vn === 'Empresas cada 1.000 hab') return v.toFixed(2) + ' emp/1K hab';
-  if (vn === 'Índice de Dependencia Fiscal (%)') return v.toFixed(1) + '%';
-  if (CALC_YEARLY_VARS.includes(vn)) { const a2=Math.abs(v); if(a2>=1e9) return '$'+(v/1e9).toFixed(2)+'B'; if(a2>=1e6) return '$'+(v/1e6).toFixed(1)+'M'; if(a2>=1e3) return '$'+Math.round(v/1e3)+'K'; return '$'+v.toFixed(0); }
-  const a = Math.abs(v);
-  if (a >= 1e9) return '$' + (v/1e9).toFixed(2) + 'B';
-  if (a >= 1e6) return '$' + (v/1e6).toFixed(1) + 'M';
-  if (a >= 1e3) return '$' + Math.round(v/1e3) + 'K';
-  return '$' + v.toFixed(0);
-}
-function fmtFull(v, vn) {
-  if (v === null || v === undefined) return '—';
-  if (vn === 'NBI (%)') return v.toFixed(2) + '%';
-  if (vn === 'CUD (%)') return v.toFixed(5) + '%';
-  if (vn === 'PBG 2023 (M$ const.2004)') return '$' + v.toLocaleString('es-AR', {maximumFractionDigits:0}) + ' M';
-  if (vn === 'Var% PBG 22-23') return (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
-  if (vn === 'PBG per cápita 2023') return '$' + Math.round(v).toLocaleString('es-AR');
-  if (vn === 'Participación ITAE PBA') return (v*100).toFixed(4) + '%';
-  if (['Cantidad Empresas','Cantidad Empresas Exportadoras','Población','Población con NBI','Población 2022','Electores totales'].includes(vn))
-    return Math.round(v).toLocaleString('es-AR');
-  if (vn === 'Superficie km²') return v.toLocaleString('es-AR') + ' km²';
-  if (vn === 'Densidad 2022') return v.toFixed(1) + ' hab/km²';
-  if (vn === 'Presupuesto per cápita 2026') return '$' + Math.round(v).toLocaleString('es-AR');
-  if (vn === 'Empresas cada 1.000 hab') return v.toFixed(2) + ' emp/1K hab';
-  if (vn === 'Índice de Dependencia Fiscal (%)') return v.toFixed(1) + '%';
-  if (CALC_YEARLY_VARS.includes(vn)) return '$' + Math.round(v).toLocaleString('es-AR');
-  return '$' + Math.round(v).toLocaleString('es-AR');
-}
-function pctChg(a, b) { if (!b || !a) return null; return ((a - b) / Math.abs(b) * 100).toFixed(1); }
-function valColor(t) {
-  const r = Math.round(184 - t*184), g = Math.round(223 - t*(223-95)), b = Math.round(232 - t*(232-107));
-  return `rgb(${r},${g},${b})`;
-}
-function norm(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toUpperCase(); }
-
-// ── SCREEN ROUTING
-function showScreen(id, btn) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nb').forEach(b => b.classList.remove('active'));
-  document.getElementById('sc-' + id).classList.add('active');
-  btn.classList.add('active');
-  const T = {
-    mapa:  ['Mapa &amp; Comparación', '135 partidos · click para seleccionar y comparar'],
-    tabla: ['Tabla de Datos',          'Transferencias y datos municipales · todos los partidos'],
-    dash:  ['Dashboard por Municipio', 'Vista integrada con indicadores, gráficos y tablas'],
-  };
-  document.getElementById('hdrT').innerHTML = T[id][0];
-  document.getElementById('hdrS').textContent = T[id][1];
-  document.getElementById('fb').style.display = id === 'mapa' ? '' : 'none';
-  document.getElementById('selBadge').style.display = (id === 'mapa' && sel.length) ? '' : 'none';
-  if (id === 'tabla') renderTabla();
-  if (id === 'dash')  initDash();
-}
-
-// ── MAP
-function buildMap() {
-  const layer = document.getElementById('ml2');
-  layer.innerHTML = '';
-  const yr = [...activeYrs].sort().pop() || '2025';
-  const vals = MUNIS.filter(m => PATHS[m]).map(m => getVal(m, yr, activeVar)).filter(v => v !== null);
-  const minV = Math.min(...vals), maxV = Math.max(...vals);
-  MUNIS.forEach(m => {
-    if (!PATHS[m]) return;
-    const isSel = sel.includes(m);
-    const val = getVal(m, yr, activeVar);
-    const t = (val !== null && maxV > minV) ? (val - minV) / (maxV - minV) : 0.2;
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('d', PATHS[m]);
-    path.setAttribute('fill', isSel ? 'rgba(0,213,216,0.75)' : valColor(t));
-    path.setAttribute('stroke', isSel ? '#071114' : 'rgba(255,255,255,0.5)');
-    path.setAttribute('stroke-width', isSel ? 1.5 : 0.5);
-    path.style.cursor = 'pointer';
-    path.dataset.m = m;
-    path.addEventListener('mouseenter', e => showTip(e, m, val));
-    path.addEventListener('mousemove',  e => moveTip(e));
-    path.addEventListener('mouseleave', hideTip);
-    path.addEventListener('click', () => toggleSel(m));
-    layer.appendChild(path);
-  });
-  sel.forEach(m => { const el = layer.querySelector(`[data-m="${m}"]`); if (el) layer.appendChild(el); });
-  const sv = activeVar.length > 24 ? activeVar.slice(0, 24) + '…' : activeVar;
-  document.getElementById('legTtl').textContent = sv;
-}
-
-function showTip(e, m, val) {
-  const t = document.getElementById('mtt');
-  t.innerHTML = `<strong>${DN[m]}</strong>${activeVar}: ${fmtFull(val, activeVar)}`;
-  t.style.display = 'block'; posTip(e);
-}
-function moveTip(e) { posTip(e); }
-function hideTip() { document.getElementById('mtt').style.display = 'none'; }
-function posTip(e) {
-  const t = document.getElementById('mtt'), r = document.getElementById('mw').getBoundingClientRect();
-  let x = e.clientX - r.left + 14, y = e.clientY - r.top - 14;
-  if (x + 230 > r.width) x -= 240;
-  if (y + 65 > r.height) y -= 70;
-  t.style.left = x + 'px'; t.style.top = y + 'px';
-}
-
-function toggleSel(m) { const i = sel.indexOf(m); if (i >= 0) sel.splice(i, 1); else sel.push(m); refresh(); }
-function removeSel(m) { sel = sel.filter(x => x !== m); refresh(); }
-function clearAll() { sel = []; document.getElementById('srch').value = ''; refresh(); }
-
-function renderChips() {
-  const w = document.getElementById('chips'); w.innerHTML = '';
-  sel.forEach(m => {
-    const c = document.createElement('div'); c.className = 'chip';
-    c.innerHTML = `${DN[m]} <span class="chip-x" data-m="${m}">×</span>`;
-    w.appendChild(c);
-  });
-  w.querySelectorAll('.chip-x').forEach(x => x.addEventListener('click', () => removeSel(x.dataset.m)));
-  const b = document.getElementById('selBadge');
-  b.textContent = sel.length + ' seleccionado' + (sel.length !== 1 ? 's' : '');
-  b.style.display = sel.length ? '' : 'none';
-}
-
-function buildDd(q) {
-  const dd = document.getElementById('dd'), qn = norm(q.trim());
-  if (!qn) { dd.classList.remove('open'); return; }
-  const hits = MUNIS.filter(m => norm(m).includes(qn)).slice(0, 8);
-  if (!hits.length) { dd.classList.remove('open'); return; }
-  dd.innerHTML = '';
-  hits.forEach(m => {
-    const d = document.createElement('div');
-    d.className = 'ddi' + (sel.includes(m) ? ' sel' : '');
-    d.innerHTML = `${DN[m]}${sel.includes(m) ? '<span style="color:var(--teal);font-size:11px">✓</span>' : ''}`;
-    d.onclick = () => { toggleSel(m); document.getElementById('srch').value = ''; dd.classList.remove('open'); };
-    dd.appendChild(d);
-  });
-  dd.classList.add('open');
-}
-
-function buildVarSel() {
-  const s = document.getElementById('varSel');
-  function mkGrp(label, vars, defaultSel) {
-    const g = document.createElement('optgroup'); g.label = label;
-    vars.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; if (v === defaultSel) o.selected = true; g.appendChild(o); });
-    return g;
-  }
-  // Categorized by 6 areas
-  const FINANZAS_VARS = TRANS_VARS;
-  const ECONOMIA_VARS = [...CALC_YEARLY_VARS, ...CALC_FIXED_VARS];
-  const PRODUCTIVO_VARS = ["Cantidad Empresas","Cantidad Empresas Exportadoras","ITAE per cápita 2019 ($)","Participación ITAE PBA","Recaudación per cápita 2021 ($)","Recaudación propia 2021 ($)"];
-  const VULNERAB_VARS   = ["Población con NBI","NBI (%)"];
-  const DEMO_VARS       = ["Población 2022","Superficie km²","Densidad 2022","Electores totales"];
-  const INFRA_VARS      = ["Presupuesto 2026 ($)","Presupuesto per cápita 2026","CUD (%)"];
-  s.appendChild(mkGrp('── Finanzas Públicas (transferencias por año)', FINANZAS_VARS, 'Total'));
-  s.appendChild(mkGrp('── Economía Municipal (per cápita / calculadas)', ECONOMIA_VARS, null));
-  s.appendChild(mkGrp('── Desarrollo Productivo', PRODUCTIVO_VARS, null));
-  s.appendChild(mkGrp('── Vulnerabilidad Social', VULNERAB_VARS, null));
-  s.appendChild(mkGrp('── Demografía & Territorio', DEMO_VARS, null));
-  s.appendChild(mkGrp('── Infraestructura & Presupuesto', INFRA_VARS, null));
-  s.addEventListener('change', e => { activeVar = e.target.value; updateYrState(); refresh(); });
-}
-
-function updateYrState() {
-  const ext = isExtra(activeVar);
-  document.querySelectorAll('.yb').forEach(b => b.disabled = ext);
-  document.getElementById('yrFg').style.opacity = ext ? '0.4' : '1';
-}
-
-function buildYrToggles() {
-  document.querySelectorAll('.yb').forEach(b => {
-    b.addEventListener('click', () => {
-      if (b.disabled) return;
-      const yr = b.dataset.yr;
-      if (activeYrs.has(yr)) { if (activeYrs.size > 1) { activeYrs.delete(yr); b.classList.remove('on'); } }
-      else { activeYrs.add(yr); b.classList.add('on'); }
-      refresh();
-    });
-  });
-}
-
-// ── MAPA CHARTS
-function renderBarChart() {
-  const el = document.getElementById('barC'), wr = document.getElementById('barWrap'), em = document.getElementById('barEmp');
-  if (!sel.length) { wr.style.display = 'none'; em.style.display = ''; if (barInst) { barInst.destroy(); barInst = null; } return; }
-  wr.style.display = ''; em.style.display = 'none';
-  if (barInst) barInst.destroy();
-  const ext = isExtra(activeVar);
-  const yrs = ext ? ['Dato actual'] : YEARS.filter(y => activeYrs.has(y));
-  document.getElementById('barSub').textContent = '· ' + activeVar + (ext ? ' (municipal)' : ' · ' + yrs.join(', '));
-  const colors = ['rgba(0,213,216,.8)', 'rgba(59,130,246,.8)', 'rgba(16,185,129,.8)'];
-  const bc = ['#00D5D8', '#3b82f6', '#10b981'];
-  const datasets = ext
-    ? [{ label: activeVar, data: sel.map(m => getVal(m, null, activeVar) ?? 0), backgroundColor: colors[0], borderColor: bc[0], borderWidth: 1.5, borderRadius: 4 }]
-    : yrs.map((yr, i) => ({ label: yr, data: sel.map(m => getVal(m, yr, activeVar) ?? 0), backgroundColor: colors[i % 3], borderColor: bc[i % 3], borderWidth: 1.5, borderRadius: 4 }));
-  barInst = new Chart(el, { type: 'bar', data: { labels: sel.map(m => DN[m].split(' ').slice(0, 2).join(' ')), datasets },
-    options: { responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { labels: { font: { family: CF, size: 11 }, color: '#475569', boxWidth: 10 } },
-        tooltip: { callbacks: { title: ctx => DN[sel[ctx[0].dataIndex]], label: ctx => ` ${ctx.dataset.label}: ${fmtFull(ctx.raw, activeVar)}` } } },
-      scales: { x: { ticks: { font: { family: CF, size: 10 }, color: '#475569' }, grid: { display: false } },
-                y: { ticks: { font: { family: CF, size: 10 }, color: '#475569', callback: v => fmt(v, activeVar) }, grid: { color: '#f1f5f9' } } } }
-  });
-}
-
-function renderLineChart() {
-  const el = document.getElementById('lineC'), wr = document.getElementById('lineWrap'), em = document.getElementById('lineEmp');
-  const ext = isExtra(activeVar);
-  if (!sel.length || ext) {
-    wr.style.display = 'none'; em.style.display = '';
-    em.querySelector('div:last-child').textContent = ext ? 'Variable sin serie temporal' : 'Seleccioná municipios para ver tendencia';
-    if (lineInst) { lineInst.destroy(); lineInst = null; } return;
-  }
-  wr.style.display = ''; em.style.display = 'none';
-  if (lineInst) lineInst.destroy();
-  const yrs = YEARS.filter(y => activeYrs.has(y));
-  document.getElementById('lineSub').textContent = '· ' + activeVar;
-  lineInst = new Chart(el, { type: 'line',
-    data: { labels: yrs, datasets: sel.map((m, i) => ({ label: DN[m].split(' ').slice(0, 2).join(' '),
-      data: yrs.map(yr => getVal(m, yr, activeVar)), borderColor: PAL[i % PAL.length],
-      backgroundColor: PAL[i % PAL.length] + '20', borderWidth: 2, pointRadius: 4, pointHoverRadius: 6, tension: .35, fill: false })) },
-    options: { responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { labels: { font: { family: CF, size: 11 }, color: '#475569', boxWidth: 10 } },
-        tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${fmtFull(ctx.raw, activeVar)}` } } },
-      scales: { x: { ticks: { font: { family: CF, size: 11 }, color: '#475569' }, grid: { display: false } },
-                y: { ticks: { font: { family: CF, size: 10 }, color: '#475569', callback: v => fmt(v, activeVar) }, grid: { color: '#f1f5f9' } } } }
-  });
-}
-
-// ── TABLA
-let tabSort = { col: 'Total', dir: -1 };
-function renderTabla() {
-  const yr = document.getElementById('tabYr').value;
-  const grp = document.getElementById('tabGrp').value;
-  const q = norm(document.getElementById('tabSrch').value.trim());
-  const cols = grp === 'transfer' ? TRANS_VARS : grp === 'extra' ? EXTRA_VARS : grp === 'geo' ? GEO_VARS : grp === 'calc' ? [...CALC_YEARLY_VARS, ...CALC_FIXED_VARS] : [...TRANS_VARS, ...EXTRA_VARS, ...GEO_VARS, ...CALC_YEARLY_VARS, ...CALC_FIXED_VARS];
-  const head = document.getElementById('tabHead'); head.innerHTML = '';
-  const tr = document.createElement('tr');
-  ['Municipio', ...cols].forEach(c => {
-    const th = document.createElement('th'); th.textContent = c;
-    if (tabSort.col === c) th.classList.add('sorted');
-    th.onclick = () => { tabSort.dir = tabSort.col === c ? tabSort.dir * -1 : -1; tabSort.col = c; renderTabla(); };
-    tr.appendChild(th);
-  });
-  head.appendChild(tr);
-  let rows = MUNIS.filter(m => !q || norm(m).includes(q));
-  rows.sort((a, b) => {
-    if (tabSort.col === 'Municipio') return tabSort.dir * a.localeCompare(b);
-    const av = GEO_VARS.includes(tabSort.col) ? (getGeoVal(a,tabSort.col)??-Infinity) : isExtra(tabSort.col) ? (EXTRA[a]?.[tabSort.col] ?? -Infinity) : (getVal(a, yr, tabSort.col) ?? -Infinity);
-    const bv = GEO_VARS.includes(tabSort.col) ? (getGeoVal(b,tabSort.col)??-Infinity) : isExtra(tabSort.col) ? (EXTRA[b]?.[tabSort.col] ?? -Infinity) : (getVal(b, yr, tabSort.col) ?? -Infinity);
-    return tabSort.dir * (bv - av);
-  });
-  const body = document.getElementById('tabBody'); body.innerHTML = '';
-  rows.forEach(m => {
-    const r = document.createElement('tr');
-    const td0 = document.createElement('td'); td0.textContent = DN[m]; r.appendChild(td0);
-    cols.forEach(c => {
-      const td = document.createElement('td');
-      const val = GEO_VARS.includes(c) ? getGeoVal(m,c) : isExtra(c) ? (EXTRA[m]?.[c] ?? null) : getVal(m, yr, c);
-      if (val === null || val === undefined) { td.textContent = '—'; td.classList.add('nc'); }
-      else { td.textContent = fmt(val, c); td.title = fmtFull(val, c); }
-      r.appendChild(td);
-    });
-    body.appendChild(r);
-  });
-}
-
-// ── DASHBOARD
-function initDash() {
-  const s = document.getElementById('dashSel');
-  if (s.options.length <= 1) MUNIS.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = DN[m]; s.appendChild(o); });
-  if (sel.length && s.value === '') { s.value = sel[0]; renderDash(); }
-}
-
-function dashTab(btn, tabId) {
-  document.querySelectorAll('.d-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.d-tab-content').forEach(t => { if(t) t.classList.remove('active'); });
-  if(btn) btn.classList.add('active');
-  const el = document.getElementById(tabId);
-  if(el) el.classList.add('active');
-  if(tabId === 'dt-trans') renderDashCharts();
-  if(tabId === 'dt-elec') setTimeout(_renderElecCharts, 50);
-}
-
-function renderDashCharts() {
-  const m = window._dashM;
-  if(!m) return;
-  [dBar, dLine, dDough].forEach(c => { if (c) c.destroy(); });
-  dBar = dLine = dDough = null;
-  const elBar = document.getElementById('dBarC');
-  const elLine = document.getElementById('dLineC');
-  const elDough = document.getElementById('dDoughC');
-  if(!elBar) return;
-
-  dBar = new Chart(elBar, { type: 'bar',
-    data: { labels: YEARS,
-      datasets: [{ label: 'Total', data: YEARS.map(yr => getVal(m,yr,'Total') ?? 0),
-        backgroundColor: ['rgba(94,234,212,.8)','rgba(147,197,253,.8)','rgba(110,231,183,.8)'],
-        borderColor: ['#5eead4','#93c5fd','#6ee7b7'], borderWidth: 1.5, borderRadius: 6 }] },
-    options: { responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => fmtFull(ctx.raw,'Total') } } },
-      scales: { x: { ticks: { font: { family: CF, size: 11 } }, grid: { display: false } },
-                y: { ticks: { font: { family: CF, size: 10 }, callback: v => fmt(v,'Total') }, grid: { color: '#f1f5f9' } } } }
-  });
-  dLine = new Chart(elLine, { type: 'line',
-    data: { labels: YEARS, datasets: [
-      { label: 'Coparticipación', data: YEARS.map(yr => getVal(m,yr,'Coparticipación Bruta')),
-        borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,.12)', borderWidth: 2.5, pointRadius: 5, tension: .4, fill: true },
-      { label: 'Total', data: YEARS.map(yr => getVal(m,yr,'Total')),
-        borderColor: '#00D5D8', backgroundColor: 'rgba(0,213,216,.08)', borderWidth: 2.5, pointRadius: 5, tension: .4, fill: true }
-    ]},
-    options: { responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { labels: { font: { family: CF, size: 10 }, color: '#475569', boxWidth: 9, padding: 8 } },
-        tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${fmtFull(ctx.raw,'Total')}` } } },
-      scales: { x: { ticks: { font: { family: CF, size: 11 } }, grid: { display: false } },
-                y: { ticks: { font: { family: CF, size: 10 }, callback: v => fmt(v,'Total') }, grid: { color: '#f1f5f9' } } } }
-  });
-  const pieVars = TRANS_VARS.filter(v => v !== 'Total');
-  const pieColors = ['#00D5D8','#3b82f6','#10b981','#f59e0b','#ef4444','#8b5cf6','#06b6d4','#84cc16','#f97316','#ec4899','#14b8a6'];
-  dDough = new Chart(elDough, { type: 'doughnut',
-    data: { labels: pieVars.map(v => v.length > 18 ? v.slice(0,18)+'…' : v),
-      datasets: [{ data: pieVars.map(v => getVal(m,'2025',v) ?? 0),
-        backgroundColor: pieColors, borderWidth: 2, borderColor: '#fff' }] },
-    options: { responsive: true, maintainAspectRatio: false, cutout: '52%',
-      plugins: { legend: { position: 'right', labels: { font: { family: CF, size: 8.5 }, boxWidth: 9, padding: 4 } },
-        tooltip: { callbacks: { label: ctx => {
-          const tot = getVal(m,'2025','Total') || 1;
-          return ` ${fmt(ctx.raw,'Total')} (${(ctx.raw/tot*100).toFixed(1)}%)`;
-        }}} } }
-  });
-}
-
-function renderDash() {
-  const m = document.getElementById('dashSel').value;
-  if (!m) return;
-  window._dashM = m;
-  [dBar, dLine, dDough].forEach(c => { if (c) c.destroy(); });
-  dBar = dLine = dDough = null;
-
-  const g = GEO_DATA[m] || {};
-  const v25 = getVal(m,'2025','Total'), v24 = getVal(m,'2024','Total'), v23 = getVal(m,'2023','Total');
-  const ex = EXTRA[m] || {};
-
-  function realVar(vNew, vOld, yr) {
-    if (!vNew || !vOld || !IPC_ANUAL[yr]) return null;
-    return ((vNew/vOld) / IPC_ANUAL[yr] - 1) * 100;
-  }
-  const rv25 = realVar(v25, v24, '2025');
-  const rv24 = realVar(v24, v23, '2024');
-
-  function chgReal(rv) {
-    if (rv === null) return '<span class="chg-ne">—</span>';
-    const cls = rv > 0 ? 'chg-up' : 'chg-dn';
-    return `<span class="${cls}">${rv > 0 ? '▲' : '▼'} ${Math.abs(rv).toFixed(1)}% real</span>`;
-  }
-
-  function regionBadge(reg, cba) {
-    const color = cba ? '#ef4444' : '#3b82f6';
-    const label = cba ? 'Conurbano' : (reg || '');
-    return `<span style="background:${color}22;color:${color};border:1px solid ${color}44;border-radius:4px;padding:1px 8px;font-size:10px;font-weight:700;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em">${label}</span>`;
-  }
-
-  // ── HERO
-  let html = `<div class="d-hero">
-    <div class="d-hero-name">${g.nd || DN[m]}</div>
-    <div class="d-hero-sub" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-      Provincia de Buenos Aires &nbsp;${regionBadge(g.reg, g.cba)}
-    </div>
-    <div class="d-hero-stats" style="margin-top:14px">
-      <div class="d-hs"><div class="d-hs-l">Población 2022</div><div class="d-hs-v" style="color:#5eead4">${g.p22 ? g.p22.toLocaleString('es-AR') : '—'}</div><div class="d-hs-c" style="font-size:10px;color:rgba(255,255,255,.35)">${g.cat || ''}</div></div>
-      <div class="d-hs"><div class="d-hs-l">Transferido 2025</div><div class="d-hs-v" style="color:#93c5fd">${fmt(v25,'Total')}</div><div class="d-hs-c">${chgReal(rv25)}</div></div>
-      <div class="d-hs"><div class="d-hs-l">Transferido 2024</div><div class="d-hs-v" style="color:#fcd34d">${fmt(v24,'Total')}</div><div class="d-hs-c">${chgReal(rv24)}</div></div>
-      <div class="d-hs"><div class="d-hs-l">Sección Electoral</div><div class="d-hs-v" style="color:#c4b5fd;font-size:17px">${g.sec || '—'}</div><div class="d-hs-c" style="font-size:10px;color:rgba(255,255,255,.35)">${g.jud || ''}</div></div>
-      ${g.int_electo ? `<div class="d-hs"><div class="d-hs-l">Intendente electo</div><div class="d-hs-v" style="color:#fdba74;font-size:14px;line-height:1.2">${g.int_electo}</div><div class="d-hs-c" style="font-size:10px;color:rgba(255,255,255,.35)">${g.fuerza_2025 || ''}</div></div>` : ''}
-    </div>
-  </div>`;
-
-  // ── TABS
-  html += `<div class="d-tabs">
-    <button class="d-tab active" onclick="dashTab(this,'dt-trans')"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg> Transferencias</button>
-    <button class="d-tab" onclick="dashTab(this,'dt-demo')"><svg class="ic" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg> Demografía</button>
-    <button class="d-tab" onclick="dashTab(this,'dt-elec')"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg> Electoral</button>
-  </div>`;
-
-  // ── TAB: TRANSFERENCIAS (default active)
-  const nf = n => n != null ? `<span style="color:${n>0?'var(--green)':'var(--red)'}"><strong>${n>0?'▲':'▼'} ${Math.abs(n).toFixed(1)}%</strong></span>` : '<span style="color:var(--t3)">Base</span>';
-  const nn = n => n != null ? `<span style="color:${n>0?'var(--green)':'var(--red)'}">${n>0?'▲':'▼'} ${Math.abs(n)}%</span>` : '<span style="color:var(--t3)">Base</span>';
-
-  html += `<div class="d-tab-content active" id="dt-trans">`;
-  html += `<div class="d-sec"><div class="d-sec-ttl">Evolución de Transferencias Totales</div></div>
-  <div class="chart-section"><div class="chart-row">
-    <div class="cbox"><div class="cbox-ttl"><svg class="ic" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg> Total transferido 2023–2025</div><div class="cbox-body"><canvas id="dBarC"></canvas></div></div>
-    <div class="cbox"><div class="cbox-ttl"><svg class="ic" viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg> Coparticipación vs Total</div><div class="cbox-body"><canvas id="dLineC"></canvas></div></div>
-    <div class="cbox"><div class="cbox-ttl"><svg class="ic" viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg> Composición 2025</div><div class="cbox-body"><canvas id="dDoughC"></canvas></div></div>
-  </div></div>`;
-
-  const nomPct25 = pctChg(v25, v24), nomPct24 = pctChg(v24, v23);
-  html += `<div class="dtw"><div class="dtbl">
-    <div class="dtbl-hd">
-      <span>Total de Transferencias · Variación REAL</span>
-      <span style="font-size:10px;color:var(--t3)">Deflactor IPC: 2024 → 117,8% · 2025 → 117% est. (INDEC)</span>
-    </div>
-    <table><thead><tr>
-      <th style="text-align:left">Año</th>
-      <th>Total transferido</th>
-      <th>Var. nominal</th>
-      <th>Var. REAL</th>
-    </tr></thead><tbody>
-      <tr class="total-row"><td><strong>2025</strong></td><td>${fmt(v25,'Total')}</td><td>${nn(nomPct25)}</td><td>${nf(rv25)}</td></tr>
-      <tr class="total-row"><td><strong>2024</strong></td><td>${fmt(v24,'Total')}</td><td>${nn(nomPct24)}</td><td>${nf(rv24)}</td></tr>
-      <tr class="total-row"><td><strong>2023</strong></td><td>${fmt(v23,'Total')}</td><td><span style="color:var(--t3)">Base</span></td><td><span style="color:var(--t3)">Base</span></td></tr>
-    </tbody></table>
-  </div></div>`;
-  html += `</div>`; // /dt-trans
-
-  // ── TAB: DEMOGRAFÍA
-  const pop10 = ex['Población'], nbi = ex['NBI (%)'], emp = ex['Cantidad Empresas'];
-  const expE = ex['Cantidad Empresas Exportadoras'], itae = ex['ITAE per cápita 2019 ($)'];
-  const rec = ex['Recaudación propia 2021 ($)'], recPc = ex['Recaudación per cápita 2021 ($)'];
-
-  html += `<div class="d-tab-content" id="dt-demo">`;
-  html += `<div class="d-sec"><div class="d-sec-ttl">Demografía · Censo 2022</div>
-  <div class="kgrid">
-    <div class="kcard k-blue"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div class="k-lbl">Población</div><div class="k-val">${g.p22 ? g.p22.toLocaleString('es-AR') : '—'}</div><div class="k-sub">Censo 2022 · Rank ${g.rp||'—'}/135</div></div>
-    <div class="kcard k-teal"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.4 2.4 0 0 1 0-3.4l2.6-2.6a2.4 2.4 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg></span><div class="k-lbl">Superficie</div><div class="k-val">${g.sup ? g.sup.toLocaleString('es-AR') + ' km²' : '—'}</div><div class="k-sub">Rank ${g.rs||'—'}/135 · ${g.spct ? (g.spct).toFixed(2)+'% PBA' : ''}</div></div>
-    <div class="kcard k-purple"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span><div class="k-lbl">Densidad</div><div class="k-val">${g.den ? g.den + ' hab/km²' : '—'}</div><div class="k-sub">Rank ${g.rd||'—'}/135</div></div>
-    <div class="kcard k-amber"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><div class="k-lbl">Categoría</div><div class="k-val" style="font-size:13px">${g.cat || '—'}</div><div class="k-sub">Quintil ${g.qp||'—'}/5 · ${g.ppct ? (g.ppct).toFixed(2)+'% PBA' : ''}</div></div>
-  </div></div>`;
-
-  html += `<div class="d-sec"><div class="d-sec-ttl">Territorio · Estructura Político-Institucional</div>
-  <div class="kgrid">
-    <div class="kcard k-teal"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg></span><div class="k-lbl">Sección Electoral</div><div class="k-val" style="font-size:15px">${g.sec || '—'}</div><div class="k-sub">PBA</div></div>
-    <div class="kcard k-blue"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></span><div class="k-lbl">Departamento Judicial</div><div class="k-val" style="font-size:14px">${g.jud || '—'}</div></div>
-    <div class="kcard k-green"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg></span><div class="k-lbl">Región</div><div class="k-val" style="font-size:15px">${g.reg || '—'}</div><div class="k-sub">${g.cba ? 'Conurbano bonaerense (24 partidos)' : 'Interior provincial'}</div></div>
-    <div class="kcard ${g.cap ? 'k-amber' : 'k-red'}"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></span><div class="k-lbl">${g.cap ? 'Capital Provincial' : 'Tipo de partido'}</div><div class="k-val" style="font-size:13px">${g.cap ? 'Capital' : g.cba ? 'Conurbano' : 'Interior'}</div></div>
-  </div></div>`;
-
-  html += `<div class="d-sec"><div class="d-sec-ttl">Gobierno Municipal · 2025</div>
-  <div class="kgrid" style="grid-template-columns:repeat(3,1fr)">
-    <div class="kcard k-amber"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21V13h6v8"/></svg></span><div class="k-lbl">Intendente Electo</div><div class="k-val" style="font-size:13px;line-height:1.25">${g.int_electo || '—'}</div><div class="k-sub">${g.int_actual && g.int_actual !== g.int_electo ? 'Actual: ' + g.int_actual : 'Continuidad'}</div></div>
-    <div class="kcard k-purple"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span><div class="k-lbl">Fuerza Política 2025</div><div class="k-val" style="font-size:14px">${g.fuerza_2025 || '—'}</div><div class="k-sub">Elecciones municipales 2025</div></div>
-    <div class="kcard k-blue"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg></span><div class="k-lbl">Padrón Electoral</div><div class="k-val">${g.elec_nac ? (g.elec_nac + (g.elec_ext||0)).toLocaleString('es-AR') : '—'}</div><div class="k-sub">Nac: ${g.elec_nac ? g.elec_nac.toLocaleString('es-AR') : '—'} · Ext: ${g.elec_ext ? g.elec_ext.toLocaleString('es-AR') : '—'}</div></div>
-  </div></div>`;
-
-  html += `<div class="d-sec"><div class="d-sec-ttl">Finanzas Municipales · Presupuesto 2026</div>
-  <div class="kgrid" style="grid-template-columns:repeat(3,1fr)">
-    <div class="kcard k-teal"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg></span><div class="k-lbl">Presupuesto 2026</div><div class="k-val" style="font-size:13px">${g.pres_2026 > 0 ? '$' + (g.pres_2026/1e9).toLocaleString('es-AR',{maximumFractionDigits:1}) + ' B' : '—'}</div><div class="k-sub">${g.pres_2026 > 0 ? '$' + g.pres_2026.toLocaleString('es-AR') : 'Sin dato'}</div></div>
-    <div class="kcard k-green"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><div class="k-lbl">Presupuesto per Cápita</div><div class="k-val">${g.pres_per_hab > 0 ? '$' + Math.round(g.pres_per_hab).toLocaleString('es-AR') : '—'}</div><div class="k-sub">Por habitante (2026)</div></div>
-    <div class="kcard k-cyan"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span><div class="k-lbl">CUD (Copart. Única)</div><div class="k-val">${g.cud_pct > 0 ? g.cud_pct.toFixed(5) + '%' : '—'}</div><div class="k-sub">% de la copart. provincial</div></div>
-  </div></div>`;
-
-  html += `<div class="d-sec"><div class="d-sec-ttl">Indicadores Sociales y Económicos</div>
-  <div class="kgrid">
-    <div class="kcard k-red"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg></span><div class="k-lbl">NBI</div><div class="k-val">${nbi != null ? nbi.toFixed(2) + '%' : '—'}</div><div class="k-sub">${ex['Población con NBI'] ? Math.round(ex['Población con NBI']).toLocaleString('es-AR') + ' hab. (Censo 2010)' : ''}</div></div>
-    <div class="kcard k-amber"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/></svg></span><div class="k-lbl">Empresas totales</div><div class="k-val">${emp ? Math.round(emp).toLocaleString('es-AR') : '—'}</div><div class="k-sub">2019</div></div>
-    <div class="kcard k-green"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M2 21h20"/><path d="M4 21 6 10h12l2 11"/><path d="M12 10V3"/><path d="M12 3h4l-4 4"/></svg></span><div class="k-lbl">Empresas Export.</div><div class="k-val">${expE != null ? Math.round(expE).toLocaleString('es-AR') : '—'}</div><div class="k-sub">${emp && expE ? ((expE/emp*100).toFixed(1) + '% del total') : '2019'}</div></div>
-    <div class="kcard k-purple"><span class="k-ico"><svg class="ic" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21V13h6v8"/></svg></span><div class="k-lbl">Recaud. Propia</div><div class="k-val">${rec ? fmt(rec,'Total') : '—'}</div><div class="k-sub">2021</div></div>
-  </div></div>`;
-  html += `</div>`; // /dt-demo
-
-  // ── TAB: ELECTORAL
-  html += `<div class="d-tab-content" id="dt-elec">` + renderElecTab(m, g) + `</div>`;
-
-  document.getElementById('dashB').innerHTML = html;
-  renderDashCharts();
-}
-
-// ── RENDER INFO STRIP
-function renderInfoStrip() {
-  const el = document.getElementById('infoStrip');
-  if (!el) return;
-  if (!sel.length) {
-    el.innerHTML = '<div class="ims-empty">Seleccioná municipios para ver sus datos rápidos</div>';
-    return;
-  }
-  el.innerHTML = sel.map(m => {
-    const g = GEO_DATA[m] || {};
-    const v25 = getVal(m,'2025','Total');
-    return `<div class="ims">
-      <div class="ims-nm">${g.nd||DN[m]}</div>
-      <div class="ims-row"><span class="ims-lbl">Pob. 2022</span><span class="ims-val">${g.p22 ? g.p22.toLocaleString('es-AR') : '—'}</span></div>
-      <div class="ims-row"><span class="ims-lbl">Superficie</span><span class="ims-val">${g.sup ? g.sup.toLocaleString('es-AR') + ' km²' : '—'}</span></div>
-      <div class="ims-row"><span class="ims-lbl">Transf. 2025</span><span class="ims-val">${fmt(v25,'Total')}</span></div>
-    </div>`;
-  }).join('');
-}
-
-// ── RENDER DATA TABLE
-function renderDataTable() {
-  const el = document.getElementById('dataTableWrap');
-  if (!el) return;
-  if (!sel.length) { el.innerHTML = ''; el.style.display = 'none'; return; }
-  el.style.display = '';
-  const yr = [...activeYrs].sort().pop() || '2025';
-  const showVarCol = activeVar !== 'Población 2022'; // avoid duplicate col
-  let h = `<div class="dt-hdr"><span>Valores · municipios seleccionados</span><span>${activeVar} · ${GEO_VARS.includes(activeVar)||EXTRA_VARS.includes(activeVar) ? 'Dato fijo' : yr}</span></div>
-  <table><thead><tr>
-    <th>Municipio</th>
-    ${showVarCol ? `<th style="text-align:right;color:var(--teal)">${activeVar}</th>` : ''}
-    <th style="text-align:right">Pob. 2022</th>
-    <th style="text-align:right">Sup. km²</th>
-    <th style="text-align:right">Total 2025</th>
-  </tr></thead><tbody>`;
-  sel.forEach(m => {
-    const g = GEO_DATA[m] || {};
-    const val = getVal(m, yr, activeVar);
-    const v25 = getVal(m,'2025','Total');
-    h += `<tr>
-      <td>${g.nd||DN[m]}</td>
-      ${showVarCol ? `<td style="text-align:right;color:var(--td);font-weight:700">${fmt(val, activeVar)}</td>` : ''}
-      <td style="text-align:right">${g.p22 ? g.p22.toLocaleString('es-AR') : '—'}</td>
-      <td style="text-align:right">${g.sup ? g.sup.toLocaleString('es-AR') : '—'}</td>
-      <td style="text-align:right">${fmt(v25,'Total')}</td>
-    </tr>`;
-  });
-  h += '</tbody></table>';
-  el.innerHTML = h;
-}
-
-// ── RENDER ELECTORAL TAB
-function renderElecTab(m, g) {
-  if (!window._elecDataReady) {
-    let _r=0; const _w=setInterval(()=>{ _r++;
-      if(window._elecDataReady||_r>80){ clearInterval(_w);
-        const el=document.getElementById('dt-elec');
-        if(el&&el.classList.contains('active')){ el.innerHTML=renderElecTab(m,g); setTimeout(_renderElecCharts,60); }
-      }
-    },100);
-    return '<div style="padding:24px;color:#64748b;font-size:12px">Cargando datos electorales...</div>';
-  }
-  const mData = window.electoralData[m] || {};
-  const ALL_YRS = ['2013','2015','2017','2019','2021','2023','2025'];
-  const INT_YRS = ['2015','2019','2023'];
-  if (!Object.keys(mData).length) return '<div style="padding:24px;color:#64748b;font-size:12px">Sin datos electorales disponibles para este municipio.</div>';
-
-  const forceWins={};
-  INT_YRS.filter(yr=>mData[yr]).forEach(yr=>{ const f=mData[yr]?.fuerzas?.[0]?.nombre; if(f) forceWins[f]=(forceWins[f]||0)+1; });
-  const topEntry = Object.entries(forceWins).sort((a,b)=>b[1]-a[1])[0];
-  const last23 = mData['2023']?.fuerzas?.[0];
-  const last19 = mData['2019']?.fuerzas?.[0];
-  const changed = last23&&last19&&last23.nombre!==last19.nombre;
-  const intOnlyCount = INT_YRS.filter(yr=>mData[yr]).length;
-  window._elecChartData = { m, mData };
-  const secNum = window.electoralMuniSec[m] || '';
-  const secLabel = SEC_MAP[secNum] || g.sec || secNum;
-
-  const TBADGE = {
-    intendente:  'background:#FEF3C7;color:#92400E;',
-    concejales:  'background:#EFF6FF;color:#1D4ED8;',
-    legislativas:'background:#EDE9FE;color:#5B21B6;',
-  };
-
-  let h = '<div class="d-sec" style="padding:14px 0 0">';
-
-  // 1. BANNER
-  if (topEntry) {
-    const bc = last23?.color || '#64748b';
-    const firstYr = INT_YRS.find(yr=>mData[yr]) || '2015';
-    h += `<div style="background:${bc}14;border:1px solid ${bc}35;border-radius:6px;padding:10px 14px;margin-bottom:14px;font-size:12px">
-      <div style="color:#0f172a;font-weight:600">Fuerza dominante ${firstYr}–2023: <span style="color:${bc}">${topEntry[0]}</span> · ganó ${topEntry[1]} de ${intOnlyCount} elecciones de intendente · Sección ${secLabel}</div>`;
-    if (changed) h += `<div style="margin-top:4px;color:#475569">Cambió de <span style="color:${last19.color};font-weight:600">${last19.nombre}</span> a <span style="color:${last23.color};font-weight:600">${last23.nombre}</span> en 2023</div>`;
-    if (mData['2023']?.intendente) h += `<div style="margin-top:3px;color:#475569">Intendente electo 2023: <strong style="color:#0f172a">${mData['2023'].intendente}</strong></div>`;
-    h += '</div>';
-  }
-
-  // 2. TABLE
-  function fCell(f) {
-    if(!f) return '<td style="padding:4px 8px;color:#94a3b8;font-size:11px">—</td>';
-    return `<td style="padding:4px 8px"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${f.color};margin-right:4px;vertical-align:middle"></span><span style="font-size:11px;font-weight:600;color:#0f172a">${f.nombre}</span><span style="color:#94a3b8;font-size:10px;margin-left:3px">${f.pct}%</span></td>`;
-  }
-  h += '<div style="overflow:auto"><table style="width:100%;border-collapse:collapse;font-size:12px">';
-  h += '<thead><tr style="border-bottom:1px solid #dde6ef">';
-  ['Año','Tipo','1ª Fuerza','2ª Fuerza','3ª Fuerza','Part.%'].forEach((col,i)=>
-    h+=`<th style="padding:5px 8px;text-align:${i===5?'right':'left'};color:#64748b;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap">${col}</th>`
-  );
-  h += '</tr></thead><tbody>';
-  ALL_YRS.forEach(yr=>{
-    const d = mData[yr];
-    const wc = d?.fuerzas?.[0]?.color||'#e2e8f0';
-    const tipo = d?.tipo || (ELECTION_TYPES[yr]?.tipo||'');
-    const bS = TBADGE[tipo]||TBADGE.legislativas;
-    let yrCell = `<div style="font-weight:700;color:#0f172a;font-size:12px">${yr}</div>`;
-    if(d?.intendente && tipo==='intendente') yrCell += `<div style="font-size:9px;color:#94a3b8;margin-top:1px;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${d.intendente}</div>`;
-    if (!d) {
-      h += `<tr style="border-bottom:1px solid #f1f5f9;opacity:.4"><td style="padding:4px 8px">${yrCell}</td><td colspan="5" style="padding:4px 8px;color:#94a3b8;font-size:11px">Sin datos</td></tr>`;
-      return;
-    }
-    h += `<tr style="border-bottom:1px solid #f1f5f9;border-left:3px solid ${wc}">
-      <td style="padding:4px 8px">${yrCell}</td>
-      <td style="padding:4px 8px"><span style="${bS}font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;white-space:nowrap">${d.label}</span></td>
-      ${fCell(d.fuerzas?.[0])}${fCell(d.fuerzas?.[1])}${fCell(d.fuerzas?.[2])}
-      <td style="padding:4px 8px;text-align:right;font-size:11px;color:#94a3b8">${d.participacion?d.participacion.toFixed(1)+'%':'—'}</td>
-    </tr>`;
-  });
-  h += '</tbody></table></div>';
-
-  // 3. LINE CHART
-  h += '<div style="margin:16px 0 4px;font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em">Evolución histórica % votos · 2013–2025</div>';
-  h += '<div style="position:relative;height:190px;margin-bottom:4px"><canvas id="elecLineChart"></canvas></div>';
-  h += '<div style="font-size:9px;color:#94a3b8;margin-bottom:12px">Fuente: Junta Electoral PBA · ⭐ = año con elección de intendente · ● punto relleno = intendente · ○ hueco = concejales/legislativas</div>';
-
-  // 4. PANEL 2025
-  if (mData['2025']) {
-    const f25 = mData['2025'].fuerzas||[];
-    const leader25 = f25[0];
-    h += `<div style="background:#f8fafc;border:1px solid #dde6ef;border-radius:6px;padding:10px 14px;margin-bottom:14px">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap">
-        <span style="font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.05em">Legislativas 2025</span>
-        <span style="font-size:10px;color:#94a3b8">Dato de concejales — sin elección de intendente</span>`;
-    if(g.fuerza_2025==='LLA') h+=`<span style="background:#ede9fe;border:1px solid #c4b5fd;color:#5b21b6;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;text-transform:uppercase;letter-spacing:.04em">LLA lidera en 2025</span>`;
-    h += `</div>`;
-    f25.slice(0,3).forEach(f=>{
-      const w=Math.min(Math.round(f.pct*0.85),98);
-      h+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-        <div style="width:130px;text-align:right;font-size:10px;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${f.nombre}</div>
-        <div style="flex:1;background:#e2e8f0;border-radius:2px;height:10px">
-          <div style="width:${w}%;background:${f.color};height:100%;border-radius:2px"></div>
-        </div>
-        <div style="width:38px;font-size:10px;color:#0f172a;text-align:right;font-weight:600">${f.pct}%</div>
-      </div>`;
-    });
-    h += '</div>';
-  }
-
-  // 5. INT vs PRES CHART
-  h += '<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Intendente vs Presidente · 2015–2023</div>';
-  h += '<div style="position:relative;height:175px;margin-bottom:4px"><canvas id="elecCompChart"></canvas></div>';
-  h += '<div style="font-size:9px;color:#94a3b8;margin-bottom:14px">Sólido = resultado intendente municipal · Semi-transparente = resultado presidencial PBA</div>';
-
-  // 6. COMPETITIVENESS
-  h += '<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">Índice de competitividad</div>';
-  h += '<div style="display:flex;gap:10px;margin-bottom:6px">';
-  let competLabels=[];
-  INT_YRS.forEach(yr=>{
-    const d=mData[yr]; if(!d||!d.fuerzas||d.fuerzas.length<2){
-      h+=`<div style="flex:1;background:#f8fafc;border:1px solid #dde6ef;border-radius:6px;padding:10px;text-align:center"><div style="font-size:10px;color:#94a3b8">Margen ${yr}</div><div style="font-size:18px;font-weight:700;color:#94a3b8;margin:4px 0">—</div></div>`;
-      return;
-    }
-    const margin = Math.round((d.fuerzas[0].pct-d.fuerzas[1].pct)*10)/10;
-    const [bg,bd,tc,word] = margin<5
-      ? ['#fef2f2','#fecaca','#dc2626','Muy competitivo']
-      : margin<10
-      ? ['#fffbeb','#fde68a','#b45309','Competitivo']
-      : ['#f0fdf4','#bbf7d0','#166534','Holgado'];
-    competLabels.push(word);
-    h+=`<div style="flex:1;background:${bg};border:1px solid ${bd};border-radius:6px;padding:10px;text-align:center">
-      <div style="font-size:10px;color:#64748b">Margen ${yr}</div>
-      <div style="font-size:20px;font-weight:700;color:${tc};margin:4px 0">+${margin}pts</div>
-      <div style="font-size:9px;color:${tc};text-transform:uppercase;letter-spacing:.04em;font-weight:700">${word}</div>
-    </div>`;
-  });
-  h += '</div>';
-  if(competLabels.length){
-    const freq={}; competLabels.forEach(l=>freq[l]=(freq[l]||0)+1);
-    const dominant=Object.entries(freq).sort((a,b)=>b[1]-a[1])[0][0];
-    const dc={'Holgado':'#166534','Muy competitivo':'#dc2626','Competitivo':'#b45309'}[dominant]||'#64748b';
-    h+=`<div style="font-size:11px;color:${dc};margin-bottom:14px">Municipio históricamente <strong>${dominant.toLowerCase()}</strong> · &lt;5pts: muy competitivo · 5–10pts: competitivo · &ge;10pts: holgado</div>`;
-  }
-
-  // 8. PESO PROPIO (before seccional/participacion grid)
-  if(mData['2023']?.fuerzas?.length) {
-    const winner23 = mData['2023'].fuerzas[0];
-    const presRef = PRES_PBA['2023']?.find(f=>f.n===winner23.nombre);
-    if(presRef) {
-      const delta = Math.round((winner23.pct - presRef.p)*10)/10;
-      const abs = Math.abs(delta);
-      const [dc,msg] = delta>3
-        ? [winner23.color, `El intendente electo superó al resultado presidencial de su espacio por +${abs} pts — peso propio alto`]
-        : delta<-3
-        ? ['#dc2626', `El intendente electo estuvo ${abs} pts por debajo del resultado presidencial de su espacio`]
-        : ['#64748b', 'Resultado alineado con el arrastre nacional'];
-      h += `<div style="background:#f8fafc;border:1px solid #dde6ef;border-radius:6px;padding:10px 14px;margin-bottom:14px">
-        <div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Peso propio del intendente · 2023</div>
-        <div style="font-size:12px;color:${dc};font-weight:500">${msg}</div>
-        <div style="font-size:10px;color:#94a3b8;margin-top:3px">${winner23.nombre}: ${winner23.pct}% local vs ${presRef.p}% prov. PBA</div>
-      </div>`;
-    }
-  }
-
-  // 7+9. SECCIONAL (left) + PARTICIPATION CHART (right) — side by side
-  const secFuerzas = window.electoralSeccional[secNum];
-  const muniF23 = mData['2023']?.fuerzas||[];
-
-  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px">';
-
-  // LEFT: seccional
-  if(muniF23.length && secFuerzas) {
-    h += '<div>';
-    h += '<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">Comparación seccional · 2023</div>';
-    function miniBar(fuerzas, title) {
-      let s=`<div style="background:#f8fafc;border:1px solid #dde6ef;border-radius:6px;padding:10px;margin-bottom:8px">
-        <div style="font-size:10px;font-weight:600;color:#475569;margin-bottom:8px">${title}</div>`;
-      fuerzas.slice(0,3).forEach(f=>{
-        const w=Math.min(Math.round(f.pct),98);
-        s+=`<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">
-          <div style="flex:1;font-size:10px;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${f.nombre}</div>
-          <div style="width:55px;background:#e2e8f0;border-radius:2px;height:7px">
-            <div style="width:${w}%;background:${f.color};height:100%;border-radius:2px"></div>
-          </div>
-          <div style="width:32px;font-size:10px;color:#0f172a;text-align:right;font-weight:600">${f.pct}%</div>
-        </div>`;
-      });
-      return s+'</div>';
-    }
-    h += miniBar(muniF23, `${g.nd||m} en 2023`);
-    h += miniBar(secFuerzas, `Promedio Sección ${secLabel} en 2023`);
-    h += '</div>';
-  } else {
-    h += '<div></div>';
-  }
-
-  // RIGHT: participation chart
-  h += '<div>';
-  h += '<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Participación · 2013–2025</div>';
-  h += '<div style="position:relative;height:155px"><canvas id="elecPartChart"></canvas></div>';
-  h += '<div style="font-size:9px;color:#94a3b8;margin-top:4px">⭐ = año con elección de intendente</div>';
-  h += '</div>';
-
-  h += '</div>'; // end grid
-
-  h += '</div>';
-  return h;
-}
-
-function _renderElecCharts() {
-  const cd = window._elecChartData;
-  if (!cd) return;
-  const { mData } = cd;
-  const ALL_YRS = ['2013','2015','2017','2019','2021','2023','2025'];
-  const INT_YRS_SET = new Set(['2015','2019','2023']);
-  const FORCE_COLORS = {'PJ / Peronismo':'#2563eb','Juntos x el Cambio':'#eab308','La Libertad Avanza':'#7c3aed','Somos / Hechos':'#ec4899','Frente Renovador':'#0891b2','UCR / Progresistas':'#ea580c','Izquierda / FIT':'#dc2626','Vecinal/Local':'#16a34a'};
-  const axisStyle = { ticks:{color:'#64748b',font:{size:10}}, grid:{color:'rgba(0,0,0,0.06)'} };
-
-  // CHART 1: Evolution line
-  const lc = document.getElementById('elecLineChart');
-  if (lc) {
-    if (lc._ci) lc._ci.destroy();
-    const forceMax={};
-    ALL_YRS.forEach(yr=>(mData[yr]?.fuerzas||[]).forEach(f=>{ forceMax[f.nombre]=Math.max(forceMax[f.nombre]||0,f.pct); }));
-    const forces = Object.entries(forceMax).filter(([,v])=>v>=10).sort((a,b)=>b[1]-a[1]).map(([n])=>n).slice(0,5);
-    const datasets = forces.map(force=>{
-      const color = FORCE_COLORS[force]||'#64748b';
-      const data = ALL_YRS.map(yr=>(mData[yr]?.fuerzas||[]).find(f=>f.nombre===force)?.pct??null);
-      return {
-        label:force, data, borderColor:color, borderWidth:2,
-        backgroundColor:color+'15',
-        pointRadius: ALL_YRS.map(yr=>data[ALL_YRS.indexOf(yr)]!==null?4.5:0),
-        pointBackgroundColor: ALL_YRS.map(yr=>INT_YRS_SET.has(yr)?color:'#fff'),
-        pointBorderColor: ALL_YRS.map(yr=>color),
-        pointBorderWidth:2,
-        tension:0.25, spanGaps:true, fill:false
-      };
-    });
-    lc._ci = new Chart(lc, { type:'line', data:{ labels:ALL_YRS, datasets },
-      options:{ responsive:true, maintainAspectRatio:false, animation:{duration:400},
-        plugins:{ legend:{ position:'bottom', labels:{ color:'#475569', font:{size:10}, boxWidth:12, padding:8 }},
-          tooltip:{ callbacks:{ label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y}%`,
-            afterLabel:ctx=>{ const yr=ALL_YRS[ctx.dataIndex]; return mData[yr]?.intendente?`Intendente: ${mData[yr].intendente}`:''; }
-          }}
-        },
-        scales:{ x:{...axisStyle}, y:{...axisStyle, min:0, max:100, ticks:{...axisStyle.ticks, callback:v=>v+'%'}} }
-      }
-    });
-  }
-
-  // CHART 2: Intendente vs Presidente stacked bars
-  const cc = document.getElementById('elecCompChart');
-  if (cc) {
-    if (cc._ci) cc._ci.destroy();
-    const CMP_YRS = ['2015','2019','2023'];
-    const allForces=new Set();
-    CMP_YRS.forEach(yr=>{ (mData[yr]?.fuerzas||[]).forEach(f=>allForces.add(f.nombre)); (PRES_PBA[yr]||[]).forEach(f=>allForces.add(f.n)); });
-    const forces=[...allForces].filter(f=>f!=='Vecinal/Local');
-    const intDs = forces.map(f=>({ label:f, stack:'I',
-      data: CMP_YRS.map(yr=>(mData[yr]?.fuerzas||[]).find(x=>x.nombre===f)?.pct||0),
-      backgroundColor:(FORCE_COLORS[f]||'#6b7280')+'cc', borderColor:FORCE_COLORS[f]||'#6b7280', borderWidth:1.5 }));
-    const presDs = forces.map(f=>({ label:f+' (Pres.)', stack:'P',
-      data: CMP_YRS.map(yr=>(PRES_PBA[yr]||[]).find(x=>x.n===f)?.p||0),
-      backgroundColor:(FORCE_COLORS[f]||'#6b7280')+'40', borderColor:FORCE_COLORS[f]||'#6b7280', borderWidth:1 }));
-    cc._ci = new Chart(cc, { type:'bar', data:{ labels:CMP_YRS, datasets:[...intDs,...presDs] },
-      options:{ responsive:true, maintainAspectRatio:false, animation:{duration:400},
-        plugins:{ legend:{display:false},
-          tooltip:{ callbacks:{ title:([ctx])=>ctx.label,
-            label:ctx=>`${ctx.dataset.stack==='I'?'Intendente':'Pres. PBA'} · ${ctx.dataset.label.replace(' (Pres.)','')}: ${ctx.parsed.y}%`
-          }}
-        },
-        scales:{ x:{...axisStyle, stacked:true}, y:{...axisStyle, stacked:true, min:0, max:100, ticks:{...axisStyle.ticks, callback:v=>v+'%'}} }
-      }
-    });
-  }
-
-  // CHART 3: Participation area (compact)
-  const pc = document.getElementById('elecPartChart');
-  if (pc) {
-    if (pc._ci) pc._ci.destroy();
-    const data = ALL_YRS.map(yr=>mData[yr]?.participacion??null);
-    pc._ci = new Chart(pc, { type:'line',
-      data:{ labels:ALL_YRS, datasets:[{ label:'Participación', data,
-        borderColor:'#0891b2', backgroundColor:'rgba(8,145,178,0.1)',
-        fill:true, borderWidth:2,
-        pointRadius:4,
-        pointBackgroundColor: ALL_YRS.map(yr=>INT_YRS_SET.has(yr)?'#0891b2':'#fff'),
-        pointBorderColor:'#0891b2', pointBorderWidth:2,
-        tension:0.25, spanGaps:true }]
-      },
-      options:{ responsive:true, maintainAspectRatio:false, animation:{duration:400},
-        plugins:{ legend:{display:false},
-          tooltip:{ callbacks:{ label:ctx=>`${ctx.parsed.y}%`,
-            afterLabel:ctx=>{ const yr=ALL_YRS[ctx.dataIndex]; return INT_YRS_SET.has(yr)?'Año con elección de intendente':''; }
-          }}
-        },
-        scales:{
-          x:{ ticks:{color:'#64748b',font:{size:9},maxRotation:0}, grid:{color:'rgba(0,0,0,0.05)'} },
-          y:{ ...axisStyle, min:40, max:100, ticks:{...axisStyle.ticks, callback:v=>v+'%',stepSize:20} }
-        }
-      }
-    });
-  }
-}
-
-// ── MAIN REFRESH
-function refresh() {
-  renderChips(); buildMap(); renderBarChart(); renderLineChart();
-  renderInfoStrip(); renderDataTable();
-  document.getElementById('mapSub').textContent =
-    sel.length ? `${sel.length} seleccionado(s) · click para más` : '135 municipios · click para seleccionar';
-}
-
-// ── INIT
-buildVarSel(); buildYrToggles(); buildMap();
-document.getElementById('srch').addEventListener('input', e => buildDd(e.target.value));
-document.getElementById('srch').addEventListener('keydown', e => { if (e.key === 'Escape') { document.getElementById('dd').classList.remove('open'); e.target.value = ''; } });
-document.addEventListener('click', e => { if (!e.target.closest('.sw')) document.getElementById('dd').classList.remove('open'); });
-document.getElementById('btnClr').addEventListener('click', clearAll);
-document.getElementById('tabYr').addEventListener('change', renderTabla);
-document.getElementById('tabGrp').addEventListener('change', renderTabla);
-document.getElementById('tabSrch').addEventListener('input', renderTabla);
-document.getElementById('dashSel').addEventListener('change', renderDash);
-
-// ════════════════════════════════════════
-// GATE SYSTEM — Feature 3
-// El mapa y la tabla comparativa son de acceso 100% libre (Fase 5.1).
-// Solo la ficha con datos avanzados queda para suscriptores Pro.
-// ════════════════════════════════════════
-const GATE_KEY_PREMIUM = 'alsina_unlock_premium';
-
-function initGates() {
-  updateAccessBadge();
-}
-
-function updateAccessBadge() {
-  const badge = document.getElementById('accessBadge');
-  if (!badge) return;
-  const premiumOpen = !!localStorage.getItem(GATE_KEY_PREMIUM);
-  badge.innerHTML = `
-    ${premiumOpen ? '<svg class="ic" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>' : '<svg class="ic" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>'} <span style="color:rgba(245,158,11,.6)">Datos avanzados</span> — ${premiumOpen ? 'activo' : 'solo suscriptores'}
-  `;
-}
-
-// Premium gate stub — se muestra en dashboard para datos avanzados
-function renderPremiumGate(containerEl, label) {
-  const isPremium = !!localStorage.getItem(GATE_KEY_PREMIUM);
-  if (isPremium) return; // TODO: verificar con token firmado cuando se integre el pago
-  containerEl.innerHTML += `
-    <div style="margin:12px 0;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:12px 16px;display:flex;align-items:center;gap:12px;">
-      <span style="font-size:1.1rem;"><svg class="ic" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-      <div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#f59e0b;margin-bottom:3px;">${label} — Solo suscriptores</div>
-        <div style="font-size:10px;color:rgba(148,163,184,.6);line-height:1.5;">
-          Accedé a los datos avanzados con la suscripción Alsina Pro.
-          <a href="/newsletter.html#suscripcion" style="color:rgba(245,158,11,.7);text-decoration:none;"> Ver planes →</a>
-        </div>
-      </div>
-    </div>`;
-}
-
-initGates();
 </script>
+<script src="/assets/js/monitor135-app.js"></script>
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/gate.js"></script>
 <script>AlsinaGate.initSoftGate({ interactionEl: document.body });</script>
