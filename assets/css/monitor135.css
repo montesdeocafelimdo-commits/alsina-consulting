@@ -191,6 +191,7 @@ body.m135{font-family:'Barlow',sans-serif;font-size:14px;color:var(--t1);backgro
 .m135-vtag{font-size:8.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:1px 5px;border-radius:3px;margin-left:6px;vertical-align:middle}
 .m135-vtag.of{background:rgba(0,123,138,.1);color:var(--teal-d)}
 .m135-vtag.al{background:rgba(240,169,62,.15);color:#a5680d}
+.m135-vtag.flag{background:rgba(224,82,82,.12);color:var(--coral-d)}
 
 .m135-empty-dim{font-size:.78rem;color:var(--t3);font-style:italic;padding:8px 0}
 .m135-related{margin-top:16px}

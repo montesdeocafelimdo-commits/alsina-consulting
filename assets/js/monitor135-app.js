@@ -10,6 +10,7 @@
   'use strict';
 
   let PATCH = null;
+  let PATCH_EDU = null;
   let CATEGORIES = [];
   let VAR_INDEX = {};
   let state = {
@@ -127,7 +128,27 @@
           { id: 'nbi', label: 'Necesidades Básicas Insatisfechas', unidad: '%', tipo: 'div_alert', periodo: 'Censo 2010', fuente: 'INDEC', descripcion: 'Porcentaje de población con NBI. Dato no actualizado por el Censo 2022.', get: m => { const v = EXTRA[m] && EXTRA[m]['NBI (%)']; return v == null ? null : v / 100; } },
         ]
       },
-      { id: 'educacion', label: 'Educación', vars: [], comingSoon: true },
+      {
+        id: 'educacion', label: 'Educación', vars: [
+          { id: 'edu_matricula_total', label: 'Matrícula total', unidad: 'alumnos', tipo: 'seq', periodo: '2025', fuente: 'DGCyE PBA — Anuario Estadístico 2025', descripcion: 'Total de alumnos matriculados en todos los niveles y sectores.', get: m => eduVal(m, 'edu_matricula_total') },
+          { id: 'edu_var_matricula_2015_2025', label: 'Variación de matrícula total 2015–2025', unidad: '%', tipo: 'div', periodo: '2015–2025', fuente: 'DGCyE PBA', descripcion: 'Variación porcentual de la matrícula total entre 2015 y 2025.', get: m => eduVal(m, 'edu_var_matricula_2015_2025'), getFlag: m => eduFlag(m, 'edu_var_matricula_2015_2025') },
+          { id: 'edu_var_secundaria_2019_2025', label: 'Variación de matrícula secundaria 2019–2025', unidad: '%', tipo: 'div', periodo: '2019–2025', fuente: 'DGCyE PBA', descripcion: 'Variación porcentual de la matrícula de nivel secundario entre 2019 y 2025.', get: m => eduVal(m, 'edu_var_secundaria_2019_2025'), getFlag: m => eduFlag(m, 'edu_var_secundaria_2019_2025') },
+          { id: 'edu_alumnos_por_sede', label: 'Alumnos por sede educativa', unidad: 'alumnos/sede', tipo: 'seq', periodo: '2025', fuente: 'DGCyE PBA — Nómina de Unidades de Servicio', descripcion: 'Matrícula total dividida por la cantidad de sedes únicas (edificios escolares).', get: m => eduVal(m, 'edu_alumnos_por_sede'), getFlag: m => eduFlag(m, 'edu_alumnos_por_sede') },
+          { id: 'edu_alumnos_por_seccion', label: 'Alumnos por sección', unidad: 'alumnos/sección', tipo: 'seq', periodo: '2025', fuente: 'DGCyE PBA', descripcion: 'Matrícula total dividida por la cantidad de secciones (aulas/grados).', get: m => eduVal(m, 'edu_alumnos_por_seccion'), getFlag: m => eduFlag(m, 'edu_alumnos_por_seccion') },
+          { id: 'edu_var_unidades_2015_2025', label: 'Variación de unidades de servicio 2015–2025', unidad: '%', tipo: 'div', periodo: '2015–2025', fuente: 'DGCyE PBA', descripcion: 'Variación porcentual de la cantidad de unidades de servicio educativo entre 2015 y 2025.', get: m => eduVal(m, 'edu_var_unidades_2015_2025'), getFlag: m => eduFlag(m, 'edu_var_unidades_2015_2025') },
+          { id: 'edu_brecha_matricula_red', label: 'Brecha matrícula/red', unidad: 'p.p.', tipo: 'div', periodo: '2015–2025', fuente: 'Cálculo Alsina', descripcion: 'Variación de matrícula 2015–2025 menos variación de unidades de servicio 2015–2025. Positiva: la matrícula creció más rápido que la red. Negativa: la oferta creció más rápido que la matrícula, o la matrícula se contrajo.', get: m => eduVal(m, 'edu_brecha_matricula_red') },
+          { id: 'edu_abandono_secundario', label: 'Abandono interanual secundario', unidad: '%', tipo: 'div_alert', periodo: '2024–2025', fuente: 'DGCyE PBA', descripcion: 'Tasa de abandono interanual del nivel secundario. Puede ser negativa cuando el retorno de alumnos supera al abandono neto entre años — no es un error de carga.', get: m => eduVal(m, 'edu_abandono_secundario'), getFlag: m => eduFlag(m, 'edu_abandono_secundario') },
+          { id: 'edu_promocion_secundaria', label: 'Promoción efectiva secundaria', unidad: '%', tipo: 'seq', periodo: '2024–2025', fuente: 'DGCyE PBA', descripcion: 'Porcentaje de alumnos promovidos de manera efectiva en el nivel secundario.', get: m => eduVal(m, 'edu_promocion_secundaria') },
+          { id: 'edu_sobreedad_secundaria', label: 'Sobreedad secundaria', unidad: '%', tipo: 'seq', periodo: '2025', fuente: 'DGCyE PBA', descripcion: 'Porcentaje de alumnos con edad superior a la esperada para el año que cursan, nivel secundario.', get: m => eduVal(m, 'edu_sobreedad_secundaria') },
+          { id: 'edu_participacion_estatal', label: 'Participación de matrícula estatal', unidad: '%', tipo: 'seq', periodo: '2025', fuente: 'DGCyE PBA', descripcion: 'Porcentaje de la matrícula total que asiste a establecimientos de gestión estatal.', get: m => eduVal(m, 'edu_participacion_estatal') },
+        ],
+        groups: [
+          { label: 'Demanda educativa', varIds: ['edu_matricula_total', 'edu_var_matricula_2015_2025', 'edu_var_secundaria_2019_2025'] },
+          { label: 'Presión sobre la red', varIds: ['edu_alumnos_por_sede', 'edu_alumnos_por_seccion', 'edu_var_unidades_2015_2025', 'edu_brecha_matricula_red'] },
+          { label: 'Trayectorias educativas', varIds: ['edu_abandono_secundario', 'edu_promocion_secundaria', 'edu_sobreedad_secundaria'] },
+          { label: 'Configuración del sistema', varIds: ['edu_participacion_estatal'] },
+        ],
+      },
       { id: 'salud', label: 'Salud', vars: [], comingSoon: true },
       {
         id: 'gobierno', label: 'Gobierno y Elecciones', vars: [
@@ -147,6 +168,13 @@
     if (p && p.valor != null) return p.valor;
     return (GEO_DATA[m] && GEO_DATA[m].p22) || null;
   }
+  // ── Educación: assets/data/monitor135-educacion.json (aditivo, ver PATCH_EDU) ──
+  function edu(m, campo) {
+    const rec = PATCH_EDU && PATCH_EDU.municipios[m] && PATCH_EDU.municipios[m][campo];
+    return rec || null;
+  }
+  function eduVal(m, campo) { const r = edu(m, campo); return r ? r.valor : null; }
+  function eduFlag(m, campo) { const r = edu(m, campo); return r ? (r.quality_flag || null) : null; }
 
   // ── stats por variable ──────────────────────────────────────
   function computeStats(varDef) {
@@ -272,10 +300,19 @@
     $('#zoomReset').addEventListener('click', () => setZoom('provincia'));
     $('#verComoRanking').addEventListener('click', () => switchTab('ranking'));
 
-    fetch('/assets/data/monitor135-municipios.json')
-      .then(r => r.json())
-      .then(data => {
+    Promise.all([
+      fetch('/assets/data/monitor135-municipios.json').then(r => r.json()),
+      fetch('/assets/data/monitor135-educacion.json').then(r => r.json()).catch(err => {
+        // La dimensión de Educación es aditiva: si su archivo no carga, el
+        // resto de Monitor 135 (finanzas, población, economía, gobierno,
+        // mapa electoral) debe seguir funcionando igual.
+        console.error('Monitor 135: no se pudo cargar la base de Educación', err);
+        return null;
+      }),
+    ])
+      .then(([data, edu]) => {
         PATCH = data;
+        PATCH_EDU = edu;
         boot();
       })
       .catch(err => {
@@ -411,7 +448,24 @@
       return;
     }
     sel.disabled = false;
-    sel.innerHTML = cat.vars.map(v => `<option value="${v.id}" ${v.id === state.variable ? 'selected' : ''}>${esc(v.label)}</option>`).join('');
+    const opt = v => `<option value="${v.id}" ${v.id === state.variable ? 'selected' : ''}>${esc(v.label)}</option>`;
+    if (cat.groups && cat.groups.length) {
+      // selector jerárquico dentro de una misma categoría (ej. Educación:
+      // Demanda / Presión sobre la red / Trayectorias / Configuración),
+      // sin agregar un tercer <select> ni tocar el layout de m135-ctrl.
+      const byId = {}; cat.vars.forEach(v => { byId[v.id] = v; });
+      const grouped = new Set();
+      let html = cat.groups.map(g => {
+        const vars = g.varIds.map(id => byId[id]).filter(Boolean);
+        vars.forEach(v => grouped.add(v.id));
+        return vars.length ? `<optgroup label="${esc(g.label)}">${vars.map(opt).join('')}</optgroup>` : '';
+      }).join('');
+      const rest = cat.vars.filter(v => !grouped.has(v.id));
+      if (rest.length) html += rest.map(opt).join('');
+      sel.innerHTML = html;
+    } else {
+      sel.innerHTML = cat.vars.map(opt).join('');
+    }
   }
   function wireCtrl() {
     $('#ctrlCategoria').addEventListener('change', e => {
@@ -471,9 +525,11 @@
         const diffText = isSigned ? fmtValue(varDef, diff) : (diff >= 0 ? '+' : '−') + fmtValue(varDef, Math.abs(diff));
         diffRow = `<div class="m135-tt-row">Vs. mediana provincial: ${esc(diffText)}</div>`;
       }
+      const flag = varDef.getFlag ? varDef.getFlag(m) : null;
+      const flagRow = flag ? `<div class="m135-tt-row" style="color:#f0a93e">Estado de calidad: dato a revisar</div>` : '';
       tip.innerHTML = `<div class="m135-tt-name">${esc(dn(m))}</div>
         <div class="m135-tt-row">${esc(varDef.label)}: <strong>${esc(fmtValue(varDef, v))}</strong></div>
-        ${v == null ? '<div class="m135-tt-row" style="color:#f0a93e">Sin dato disponible</div>' : `<div class="m135-tt-row">Período: ${esc(varDef.periodo)}</div>${diffRow}`}`;
+        ${v == null ? '<div class="m135-tt-row" style="color:#f0a93e">Sin dato disponible</div>' : `<div class="m135-tt-row">Período: ${esc(varDef.periodo)}</div>${diffRow}${flagRow}`}`;
       tip.classList.add('show');
       moveTip(e);
     }
@@ -615,7 +671,7 @@
       ${accordion('Población y Territorio', renderPoblacionBlock(m), '', accId.poblacion !== selCatId)}
       ${accordion('Economía y Producción', renderEconomiaBlock(m), '', accId.economia !== selCatId)}
       ${accordion('Gobierno y Elecciones', renderGobiernoBlock(m), '', accId.gobierno !== selCatId)}
-      ${accordion('Educación', '<div class="m135-empty-dim">Sin datos disponibles todavía. Próxima etapa de incorporación.</div>', '', accId.educacion !== selCatId)}
+      ${accordion('Educación', renderEducacionBlock(m), eduCoverageLabel(m), accId.educacion !== selCatId)}
       ${accordion('Salud', '<div class="m135-empty-dim">Sin datos disponibles todavía. Próxima etapa de incorporación.</div>', '', accId.salud !== selCatId)}
       ${accordion('Información Pública', '<div class="m135-empty-dim">Sin datos disponibles todavía. Requiere metodología propia de Alsina, aún no publicada.</div>', '', accId.info_publica !== selCatId)}
 
@@ -704,6 +760,57 @@
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);margin-bottom:8px">Historial electoral · 2013-2025</div>
       ${renderElecHistory(m, g)}
     </div>`;
+    return html;
+  }
+
+  // ── Educación ───────────────────────────────────────────────
+  const EDU_FLAG_TAGS = {
+    tasa_negativa: ['Verificar: tasa negativa', 'flag'],
+    base_reducida: ['Base inicial reducida', 'flag'],
+    valor_extremo: ['Valor atípico', 'flag'],
+  };
+  function eduRowTag(m, campo, isCalc) {
+    const flag = eduFlag(m, campo);
+    if (flag && EDU_FLAG_TAGS[flag]) return EDU_FLAG_TAGS[flag];
+    return isCalc ? ['Cálculo Alsina', 'al'] : ['Dato oficial', 'of'];
+  }
+  function eduCoverageLabel(m) {
+    const ids = ['edu_matricula_total', 'edu_abandono_secundario', 'edu_promocion_secundaria', 'edu_participacion_estatal'];
+    const n = ids.filter(id => eduVal(m, id) != null).length;
+    return PATCH_EDU ? `${n}/${ids.length} disponibles` : '';
+  }
+  function renderEducacionBlock(m) {
+    if (!PATCH_EDU || !PATCH_EDU.municipios[m]) return '<div class="m135-empty-dim">Sin datos educativos disponibles para este municipio.</div>';
+    let html = '';
+    html += vrow('Matrícula total (2025)', eduVal(m, 'edu_matricula_total') != null ? fmtNum(eduVal(m, 'edu_matricula_total')) + ' alumnos' : null, eduRowTag(m, 'edu_matricula_total', false));
+    html += vrow('Variación de matrícula 2015–2025', eduVal(m, 'edu_var_matricula_2015_2025') != null ? fmtPct(eduVal(m, 'edu_var_matricula_2015_2025'), 2) : null, eduRowTag(m, 'edu_var_matricula_2015_2025', true));
+    html += vrow('Variación matrícula secundaria 2019–2025', eduVal(m, 'edu_var_secundaria_2019_2025') != null ? fmtPct(eduVal(m, 'edu_var_secundaria_2019_2025'), 2) : null, eduRowTag(m, 'edu_var_secundaria_2019_2025', true));
+
+    const brecha = edu(m, 'edu_brecha_matricula_red');
+    html += vrow('Brecha matrícula/red 2015–2025', brecha && brecha.valor != null ? fmtPct(brecha.valor, 2) + ' p.p.' : null, eduRowTag(m, 'edu_brecha_matricula_red', true));
+    if (brecha && brecha.componente_matricula != null && brecha.componente_unidades != null) {
+      html += `<div class="m135-vrow" style="padding-left:14px"><span class="m135-vrow-l" style="color:var(--t3);font-size:.76rem">— de la cual: matrícula ${esc(fmtPct(brecha.componente_matricula, 2))}, unidades de servicio ${esc(fmtPct(brecha.componente_unidades, 2))}</span></div>`;
+    }
+
+    html += vrow('Alumnos por sede educativa', eduVal(m, 'edu_alumnos_por_sede') != null ? fmtNum(eduVal(m, 'edu_alumnos_por_sede'), 1) : null, eduRowTag(m, 'edu_alumnos_por_sede', true));
+    html += vrow('Alumnos por sección', eduVal(m, 'edu_alumnos_por_seccion') != null ? fmtNum(eduVal(m, 'edu_alumnos_por_seccion'), 1) : null, eduRowTag(m, 'edu_alumnos_por_seccion', true));
+    html += vrow('Variación de unidades de servicio 2015–2025', eduVal(m, 'edu_var_unidades_2015_2025') != null ? fmtPct(eduVal(m, 'edu_var_unidades_2015_2025'), 2) : null, eduRowTag(m, 'edu_var_unidades_2015_2025', true));
+
+    html += vrow('Abandono interanual secundario', eduVal(m, 'edu_abandono_secundario') != null ? fmtPct(eduVal(m, 'edu_abandono_secundario'), 2) : null, eduRowTag(m, 'edu_abandono_secundario', false));
+    html += vrow('Promoción efectiva secundaria', eduVal(m, 'edu_promocion_secundaria') != null ? fmtPctPlain(eduVal(m, 'edu_promocion_secundaria'), 2) : null, eduRowTag(m, 'edu_promocion_secundaria', false));
+    html += vrow('Sobreedad secundaria', eduVal(m, 'edu_sobreedad_secundaria') != null ? fmtPctPlain(eduVal(m, 'edu_sobreedad_secundaria'), 2) : null, eduRowTag(m, 'edu_sobreedad_secundaria', false));
+    html += vrow('Participación de matrícula estatal', eduVal(m, 'edu_participacion_estatal') != null ? fmtPctPlain(eduVal(m, 'edu_participacion_estatal'), 1) : null, eduRowTag(m, 'edu_participacion_estatal', false));
+
+    html += vrow('Sedes educativas únicas', eduVal(m, 'edu_sedes_2025') != null ? fmtNum(eduVal(m, 'edu_sedes_2025')) : null, eduRowTag(m, 'edu_sedes_2025', false));
+    html += vrow('Unidades de servicio', eduVal(m, 'edu_unidades_servicio_2025') != null ? fmtNum(eduVal(m, 'edu_unidades_servicio_2025')) : null, eduRowTag(m, 'edu_unidades_servicio_2025', false));
+    html += vrow('Establecimientos (2026)', eduVal(m, 'edu_establecimientos_2026') != null ? fmtNum(eduVal(m, 'edu_establecimientos_2026')) : null, eduRowTag(m, 'edu_establecimientos_2026', false));
+    html += vrow('Actos de expansión registrados', eduVal(m, 'edu_actos_expansion_total') != null ? fmtNum(eduVal(m, 'edu_actos_expansion_total')) : null, eduRowTag(m, 'edu_actos_expansion_total', false));
+    html += vrow('Último año con acto de expansión', eduVal(m, 'edu_ultimo_anio_expansion') != null ? String(Math.round(eduVal(m, 'edu_ultimo_anio_expansion'))) : null, eduRowTag(m, 'edu_ultimo_anio_expansion', false));
+
+    const flagNote = edu(m, 'edu_abandono_secundario');
+    if (flagNote && flagNote.nota_metodologica) {
+      html += `<div class="m135-alsina-read" style="margin-top:12px"><strong>Nota metodológica.</strong> ${esc(flagNote.nota_metodologica)}</div>`;
+    }
     return html;
   }
 
@@ -1017,6 +1124,15 @@
       { l: 'Presupuesto por habitante 2026', f: m => { const p = PATCH.municipios[m] && PATCH.municipios[m].presupuesto_2026; return p && p.estado === 'disponible' ? p.valor_per_capita : null; }, fmt: v => v == null ? null : '$' + Math.round(v).toLocaleString('es-AR'), bar: true },
       { l: 'CUD', f: m => { const c = PATCH.municipios[m] && PATCH.municipios[m].cud_pct_2026; return c && c.estado === 'disponible' ? c.valor : null; }, fmt: v => v == null ? null : v.toFixed(5) + '%' },
       { l: 'Intendente / fuerza', f: m => { const g = GEO_DATA[m]; return g ? [g.int_actual, g.fuerza_2025].filter(Boolean).join(' · ') : null; }, fmt: v => v },
+      { l: 'Matrícula total (2025)', f: m => eduVal(m, 'edu_matricula_total'), fmt: v => v == null ? null : fmtNum(v) + ' alumnos' },
+      { l: 'Variación de matrícula 2015–2025', f: m => eduVal(m, 'edu_var_matricula_2015_2025'), fmt: v => v == null ? null : fmtPct(v, 2), bar: true },
+      { l: 'Brecha matrícula/red 2015–2025', f: m => eduVal(m, 'edu_brecha_matricula_red'), fmt: v => v == null ? null : fmtPct(v, 2) + ' p.p.', bar: true },
+      { l: 'Alumnos por sede educativa', f: m => eduVal(m, 'edu_alumnos_por_sede'), fmt: v => v == null ? null : fmtNum(v, 1) },
+      { l: 'Alumnos por sección', f: m => eduVal(m, 'edu_alumnos_por_seccion'), fmt: v => v == null ? null : fmtNum(v, 1) },
+      { l: 'Abandono interanual secundario', f: m => eduVal(m, 'edu_abandono_secundario'), fmt: v => v == null ? null : fmtPct(v, 2) },
+      { l: 'Promoción efectiva secundaria', f: m => eduVal(m, 'edu_promocion_secundaria'), fmt: v => v == null ? null : fmtPctPlain(v, 2) },
+      { l: 'Sobreedad secundaria', f: m => eduVal(m, 'edu_sobreedad_secundaria'), fmt: v => v == null ? null : fmtPctPlain(v, 2) },
+      { l: 'Participación de matrícula estatal', f: m => eduVal(m, 'edu_participacion_estatal'), fmt: v => v == null ? null : fmtPctPlain(v, 1) },
     ];
     let html = '<table class="m135-cmp-table"><thead><tr><th>Indicador</th>' + state.compare.map(m => `<th>${esc(dn(m))}</th>`).join('') + '</tr></thead><tbody>';
     rows.forEach(r => {
@@ -1102,13 +1218,18 @@
       });
       const withData = list.map(m => ({ m, v: varDef.get(m) })).filter(x => x.v != null);
       const without = list.length - withData.length;
-      const sorted = withData.slice().sort((a, b) => varDef.tipo === 'seq_inv' ? a.v - b.v : b.v - a.v);
+      // Los municipios con quality_flag:'valor_extremo' se conservan en la
+      // base (ficha/comparador) pero no compiten en el ranking público —
+      // ver assets/data/monitor135-educacion.json → control_de_calidad.
+      const excluded = varDef.getFlag ? withData.filter(x => varDef.getFlag(x.m) === 'valor_extremo') : [];
+      const ranked = varDef.getFlag ? withData.filter(x => varDef.getFlag(x.m) !== 'valor_extremo') : withData;
+      const sorted = ranked.slice().sort((a, b) => varDef.tipo === 'seq_inv' ? a.v - b.v : b.v - a.v);
       const vals = withData.map(x => x.v);
       const avg = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
       const med = median(vals);
       const maxAbs = Math.max(...vals.map(v => Math.abs(v)), 1);
 
-      let h = `<div class="m135-rank-summary"><span>${withData.length} con dato</span><span>${without} sin dato</span><span>Promedio: <b>${esc(fmtValue(varDef, avg))}</b></span><span>Mediana: <b>${esc(fmtValue(varDef, med))}</b></span></div>`;
+      let h = `<div class="m135-rank-summary"><span>${withData.length} con dato</span><span>${without} sin dato</span>${excluded.length ? `<span>${excluded.length} excluidos por control de calidad</span>` : ''}<span>Promedio: <b>${esc(fmtValue(varDef, avg))}</b></span><span>Mediana: <b>${esc(fmtValue(varDef, med))}</b></span></div>`;
       h += '<div class="m135-rank-list">';
       sorted.forEach((x, i) => {
         const w = Math.abs(x.v) / maxAbs * 100;
