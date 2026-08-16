@@ -79,9 +79,13 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .sec-title h2{font-size:clamp(1.5rem,2.6vw,1.9rem);color:var(--text-on-light);}
 .sec-dark .sec-title h2{color:var(--crema);}
 
-/* ── PUBLICACIÓN DESTACADA ── */
-#featuredWrap{margin-bottom:48px;}
-a.featured-pub{display:grid;grid-template-columns:1.1fr 1fr;gap:0;background:var(--card-light);border:1px solid var(--line-light);border-radius:12px;overflow:hidden;text-decoration:none;transition:border-color .2s,box-shadow .2s;box-shadow:0 1px 2px rgba(11,37,56,.04);}
+/* ── PUBLICACIÓN(ES) DESTACADA(S) ── */
+.featured-carousel{margin-bottom:48px;}
+.featured-carousel .gallery4-toolbar{margin-bottom:12px;}
+.featured-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;border-radius:12px;}
+.featured-track::-webkit-scrollbar{display:none;}
+@media(prefers-reduced-motion:reduce){.featured-track{scroll-behavior:auto;}}
+a.featured-pub{flex:0 0 100%;scroll-snap-align:start;display:grid;grid-template-columns:1.1fr 1fr;gap:0;background:var(--card-light);border:1px solid var(--line-light);border-radius:12px;overflow:hidden;text-decoration:none;transition:border-color .2s,box-shadow .2s;box-shadow:0 1px 2px rgba(11,37,56,.04);}
 .featured-pub:hover{border-color:var(--brand-cyan);box-shadow:0 8px 28px rgba(11,37,56,.1);}
 .featured-pub .nota-card-cover{min-height:280px;max-height:420px;}
 .featured-pub .featured-kicker{display:block;font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--brand-cyan-text);margin-bottom:6px;}
@@ -191,7 +195,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     { "@type": "ListItem", "position": 4, "item": { "@type": "Report", "name": "Radiografía del Estado PBA", "url": "https://alsinaar.com/alsina-radiografia-pba.html" } },
     { "@type": "ListItem", "position": 5, "item": { "@type": "Article", "name": "Anatomía de la dependencia", "url": "https://alsinaar.com/alsina-nota-finanzas-pba.html" } },
     { "@type": "ListItem", "position": 6, "item": { "@type": "Article", "name": "2027 empieza ahora", "url": "https://alsinaar.com/nota-electoral-2027.html" } },
-    { "@type": "ListItem", "position": 7, "item": { "@type": "Article", "name": "Más pesos, menos margen: el balance fiscal bonaerense del primer semestre", "url": "https://alsinaar.com/alsina-balance-fiscal-1s2026.html", "author": {"@type":"Person","name":"Gastón Corti"}, "datePublished": "2026-08-11" } },
+    { "@type": "ListItem", "position": 7, "item": { "@type": "Article", "name": "Más de 4 de cada 5 municipios recibieron menos recursos en términos reales", "url": "https://alsinaar.com/alsina-balance-fiscal-1s2026.html", "author": {"@type":"Person","name":"Gastón Corti"}, "datePublished": "2026-08-11" } },
     { "@type": "ListItem", "position": 8, "item": { "@type": "CreativeWorkSeries", "name": "Recaudación tributaria PBA", "url": "https://alsinaar.com/alsina-recaudacion-tributaria-pba.html" } },
     { "@type": "ListItem", "position": 9, "item": { "@type": "CreativeWorkSeries", "name": "Transferencias a municipios", "url": "https://alsinaar.com/alsina-informe-transferencias.html" } }
   ]
@@ -248,8 +252,15 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 <!-- BIBLIOTECA: destacado + filtros + grilla -->
 <section class="sec-light" aria-labelledby="pubHeading">
   <div class="wrap reveal">
-    <h2 id="featuredHeading" class="visually-hidden">Publicación destacada</h2>
-    <div id="featuredWrap"><div id="featuredPub"></div></div>
+    <h2 id="featuredHeading" class="visually-hidden">Publicaciones destacadas</h2>
+    <div id="featuredCarousel" class="featured-carousel">
+      <div class="gallery4-toolbar" id="featuredToolbar" hidden>
+        <button type="button" class="gallery4-arrow" id="featuredPrev" aria-label="Publicación destacada anterior"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
+        <button type="button" class="gallery4-arrow" id="featuredNext" aria-label="Siguiente publicación destacada"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="featured-track" id="featuredTrack"></div>
+      <div class="gallery4-dots" id="featuredDots" hidden></div>
+    </div>
 
     <h2 id="pubHeading" class="visually-hidden">Publicaciones</h2>
 
