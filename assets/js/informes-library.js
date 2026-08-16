@@ -59,7 +59,9 @@
       : '';
     const metaBits = [];
     if (authorText || dateText) {
-      metaBits.push(`<div class="nota-card-meta2">${[authorText, dateText].filter(Boolean).join(' · ')}</div>`);
+      const authorHTML = authorText ? `<span class="nota-card-author">${authorText}</span>` : '';
+      const sep = authorText && dateText ? ' · ' : '';
+      metaBits.push(`<div class="nota-card-meta2">${authorHTML}${sep}${dateText || ''}</div>`);
     }
     const kicker = featured ? '<span class="featured-kicker">Publicación destacada</span>' : '';
     return `${cover}<div class="nota-card-body${featured ? ' featured-body' : ''}">
