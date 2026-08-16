@@ -57,6 +57,11 @@ const INFORMES = [
     subtitulo: 'El régimen de inversiones y su impacto municipal.',
     img: '/assets/img/informes/super-rigi.jpg',
     href: '/alsina-informe-super-rigi.html' },
+  { id: 'balance-fiscal-1s2026', cat: ['destacados', 'economico'],
+    titulo: 'Más de 4 de cada 5 municipios recibieron menos recursos en términos reales',
+    subtitulo: '112 de los 135 municipios bonaerenses perdieron poder de compra durante el primer semestre de 2026.',
+    img: '/assets/img/informes/balance-fiscal-1s2026.jpg',
+    href: '/alsina-balance-fiscal-1s2026.html' },
   { id: 'informes-territoriales', cat: ['demanda'],
     titulo: 'Informes territoriales',
     subtitulo: 'Análisis integral de un municipio o sección, a pedido.',
@@ -85,6 +90,9 @@ const INFORMES = [
       a.className = 'gallery4-card';
       a.href = it.href;
 
+      const cover = document.createElement('div');
+      cover.className = 'gallery4-cover';
+
       const img = document.createElement('img');
       img.className = 'gallery4-img';
       img.src = it.img;
@@ -92,16 +100,13 @@ const INFORMES = [
       img.height = 360;
       img.alt = `Portada del informe: ${it.titulo}`;
       img.loading = idx < 2 ? 'eager' : 'lazy';
-
-      const overlay = document.createElement('div');
-      overlay.className = 'gallery4-overlay';
-      overlay.setAttribute('aria-hidden', 'true');
+      cover.appendChild(img);
 
       const body = document.createElement('div');
       body.className = 'gallery4-body';
       body.innerHTML = `<h3>${it.titulo}</h3><p>${it.subtitulo}</p><span class="gallery4-cta">Ver informe ${arrowIcon}</span>`;
 
-      a.append(img, overlay, body);
+      a.append(cover, body);
       track.appendChild(a);
     });
 
