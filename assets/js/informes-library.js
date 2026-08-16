@@ -20,7 +20,6 @@
     'pbg-municipal': 'Portada: no todos los municipios crecen igual',
   };
 
-  const featuredPub = PUBS.find((p) => p.featured);
   const arrowIcon = '<svg class="ic-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
   function formatDate(iso) {
@@ -56,7 +55,7 @@
     const authorText = pub.author && pub.author.length ? pub.author.join(' y ') : null;
     const alt = ALT_OVERRIDES[pub.id] || `Portada del informe: ${pub.title}`;
     const cover = pub.coverImage
-      ? `<div class="nota-card-cover"><img src="${pub.coverImage}" alt="${alt}" loading="${featured ? 'eager' : 'lazy'}" width="${featured ? 1200 : 1050}" height="${featured ? 630 : 787}"></div>`
+      ? `<div class="nota-card-cover"><img src="${pub.coverImage}" alt="${alt}" loading="${featured ? 'eager' : 'lazy'}" width="${featured ? 1200 : 1050}" height="${featured ? 900 : 787}"></div>`
       : '';
     const metaBits = [];
     if (authorText || dateText) {
@@ -77,14 +76,74 @@
   }
 
   function renderFeatured() {
-    const wrap = document.getElementById('featuredPub');
-    if (!wrap || !featuredPub) { if (wrap) wrap.remove(); return; }
-    const a = document.createElement('a');
-    a.className = 'nota-card has-cover featured-pub';
-    a.href = featuredPub.url;
-    a.innerHTML = cardHTML(featuredPub, true);
-    wrap.innerHTML = '';
-    wrap.appendChild(a);
+    const carousel = document.getElementById('featuredCarousel');
+    const track = document.getElementById('featuredTrack');
+    if (!carousel || !track) return;
+
+    const featuredPubs = PUBS.filter((p) => p.featured);
+    if (!featuredPubs.length) { carousel.remove(); return; }
+
+    track.innerHTML = '';
+    featuredPubs.forEach((pub) => {
+      const a = document.createElement('a');
+      a.className = 'nota-card has-cover featured-pub';
+      a.href = pub.url;
+      a.innerHTML = cardHTML(pub, true);
+      track.appendChild(a);
+    });
+
+    const toolbar = document.getElementById('featuredToolbar');
+    const dotsWrap = document.getElementById('featuredDots');
+    const prevBtn = document.getElementById('featuredPrev');
+    const nextBtn = document.getElementById('featuredNext');
+    const multiple = featuredPubs.length > 1;
+    if (toolbar) toolbar.hidden = !multiple;
+    if (dotsWrap) dotsWrap.hidden = !multiple;
+    if (!multiple) return; // una sola destacada: sin controles de navegación
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const scrollBehavior = reduceMotion ? 'auto' : 'smooth';
+    const cards = Array.from(track.querySelectorAll('.featured-pub'));
+
+    dotsWrap.innerHTML = '';
+    const dots = cards.map((_, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'gallery4-dot' + (i === 0 ? ' active' : '');
+      b.setAttribute('aria-label', `Ir a la publicación destacada ${i + 1}`);
+      b.addEventListener('click', () => scrollToSlide(i));
+      dotsWrap.appendChild(b);
+      return b;
+    });
+
+    function slideStep() {
+      const slide = track.querySelector('.featured-pub');
+      return slide ? slide.getBoundingClientRect().width : 0;
+    }
+    function scrollToSlide(i) {
+      track.scrollTo({ left: i * slideStep(), behavior: scrollBehavior });
+    }
+    function updateArrows() {
+      const atStart = track.scrollLeft <= 4;
+      const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
+      if (prevBtn) prevBtn.disabled = atStart;
+      if (nextBtn) nextBtn.disabled = atEnd;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const idx = cards.indexOf(entry.target);
+        dots.forEach((d, n) => d.classList.toggle('active', n === idx));
+      });
+    }, { root: track, threshold: 0.6 });
+    cards.forEach((c) => io.observe(c));
+
+    if (prevBtn) prevBtn.addEventListener('click', () => track.scrollBy({ left: -slideStep(), behavior: scrollBehavior }));
+    if (nextBtn) nextBtn.addEventListener('click', () => track.scrollBy({ left: slideStep(), behavior: scrollBehavior }));
+    track.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
+    updateArrows();
   }
 
   const DEFAULT_FORMAT = 'note';

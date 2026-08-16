@@ -120,8 +120,8 @@ window.ALSINA_PUBLICATIONS = [
   {
     id: 'balance-fiscal-1s2026',
     slug: 'balance-fiscal-1s-2026',
-    title: 'Más pesos, menos margen: el balance fiscal bonaerense del primer semestre',
-    summary: 'La Provincia de Buenos Aires recibió más pesos nominales en el primer semestre de 2026, pero perdieron contra la inflación: cae la recaudación propia, lo que gira la Nación y lo que llega a los 135 municipios. Con herramienta interactiva por municipio.',
+    title: 'Más de 4 de cada 5 municipios recibieron menos recursos en términos reales',
+    summary: '112 de los 135 municipios bonaerenses perdieron poder de compra durante el primer semestre de 2026.',
     format: 'note',
     primaryTopic: 'public-finance',
     secondaryTags: ['balance fiscal', '135 municipios'],
@@ -131,9 +131,9 @@ window.ALSINA_PUBLICATIONS = [
     publishedAt: '2026-08-11',
     period: '1er semestre 2026',
     frequency: null,
-    coverImage: null,
+    coverImage: '/assets/img/informes/balance-fiscal-1s2026.jpg',
     url: '/alsina-balance-fiscal-1s2026.html',
-    featured: false,
+    featured: true,
     status: 'published',
   },
   {
