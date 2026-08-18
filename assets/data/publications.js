@@ -23,6 +23,27 @@ window.ALSINA_PUBLICATIONS = [
     status: 'published',
   },
   {
+    id: 'un-empleo-cada-23-vecinos',
+    slug: 'un-empleo-cada-23-vecinos',
+    title: 'Un empleo cada 23 vecinos',
+    summary: 'El conurbano sumó 849.562 habitantes en siete años y apenas 37.214 empleos privados registrados. En el resto de la Provincia, la relación fue de uno cada siete. Con herramienta interactiva de los 134 municipios bonaerenses.',
+    format: 'note',
+    primaryTopic: 'municipalities-territory',
+    secondaryTags: ['empleo', 'conurbano', 'industria'],
+    accessType: 'free',
+    requiredPlan: null,
+    author: null,
+    publishedAt: '2026-08-18',
+    period: null,
+    frequency: null,
+    // TODO: sin portada propia todavía — pendiente de imagen (ver conversación de publicación).
+    // Sumar acá y a assets/js/informes-carousel.js en cuanto exista.
+    coverImage: null,
+    url: '/nota-un-empleo-cada-23-vecinos.html',
+    featured: false,
+    status: 'published',
+  },
+  {
     id: 'presupuesto-impositiva-2026',
     slug: 'presupuesto-impositiva-pba-2026',
     title: 'Presupuesto e Impositiva PBA 2026',
