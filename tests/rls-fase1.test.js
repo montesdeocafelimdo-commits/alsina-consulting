@@ -17,9 +17,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
+// Nombres modernos de Supabase (SUPABASE_PUBLISHABLE_KEY / SUPABASE_SECRET_KEY)
+// con fallback a los nombres legacy, igual que api/_lib/supabaseAdmin.js.
 const SUPABASE_URL = process.env.SUPABASE_URL;
-const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const ANON_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const SERVICE_ROLE_KEY = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 const hasLiveProject = Boolean(SUPABASE_URL && ANON_KEY);
 
@@ -81,6 +83,60 @@ test('plan_prices: nunca hay dos versiones "disponibles para altas" simultáneas
   for (const [planId, amounts] of byPlan) {
     assert.equal(amounts.size, 1, `el plan ${planId} tiene más de un precio "disponible para altas" a la vez — viola AD-02`);
   }
+});
+
+test('accounts: RLS "own_account_select" — el dueño ve su cuenta, anon no la ve', {
+  skip: !hasLiveProject || !SERVICE_ROLE_KEY ? 'requiere SUPABASE_URL + SUPABASE_SECRET_KEY de un proyecto real' : false,
+}, async (t) => {
+  const { anon, service } = await getClients();
+  const stamp = Date.now();
+  const email = `claude-rls-fixture-${stamp}@example.invalid`;
+  let userId = null;
+
+  t.after(async () => {
+    // Limpieza garantizada del fixture, corra lo que corra arriba.
+    if (userId) {
+      await service.from('accounts').delete().eq('owner_profile_id', userId);
+      await service.auth.admin.deleteUser(userId);
+    }
+  });
+
+  const { data: created, error: createError } = await service.auth.admin.createUser({
+    email,
+    email_confirm: true,
+    user_metadata: { source: 'claude-rls-fixture' },
+  });
+  assert.equal(createError, null, `no se pudo crear el usuario de fixture: ${createError?.message}`);
+  userId = created.user.id;
+
+  // profiles se llena solo si hay un trigger auth.users->profiles (todavía
+  // no existe en FASE 1 — se agrega en FASE 2). Lo insertamos a mano acá
+  // para poder probar accounts de forma aislada.
+  const { error: profileError } = await service
+    .from('profiles')
+    .insert({ id: userId, email });
+  assert.equal(profileError, null, `no se pudo insertar el profile de fixture: ${profileError?.message}`);
+
+  const { data: account, error: accountError } = await service
+    .from('accounts')
+    .insert({ owner_profile_id: userId })
+    .select('id')
+    .single();
+  assert.equal(accountError, null, `no se pudo crear la cuenta de fixture: ${accountError?.message}`);
+
+  const { data: anonView, error: anonError } = await anon
+    .from('accounts')
+    .select('id')
+    .eq('id', account.id);
+  assert.equal(anonError, null);
+  assert.deepEqual(anonView, [], 'anon no debería poder leer la cuenta de otra persona');
+
+  const { data: serviceView, error: serviceError } = await service
+    .from('accounts')
+    .select('id')
+    .eq('id', account.id);
+  assert.equal(serviceError, null);
+  assert.equal(serviceView.length, 1, 'service_role sí debe poder leer cualquier cuenta');
 });
 
 if (!hasLiveProject) {
