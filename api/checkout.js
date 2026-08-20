@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseAdmin } from './_lib/supabaseAdmin.js';
 
 // Deben coincidir con assets/js/pricing.js — si cambian los precios,
 // actualizar en los dos lugares (client-side para mostrar, acá para cobrar).
@@ -37,7 +37,13 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Tipo inválido' });
   }
 
-  const supa = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+  let supa;
+  try {
+    supa = getSupabaseAdmin();
+  } catch (err) {
+    console.error('Supabase admin client error:', err.message);
+    return res.status(500).json({ error: 'Error de configuración del servidor' });
+  }
   const paymentsEnabled = process.env.PAYMENTS_ENABLED === 'true';
 
   // ── Pagos apagados (default): captura como lista de espera, mismo
