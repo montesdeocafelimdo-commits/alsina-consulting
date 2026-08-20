@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseAdmin } from './_lib/supabaseAdmin.js';
 
 const SITE_URL = process.env.SITE_URL || 'https://alsinaar.com';
 
@@ -9,10 +9,13 @@ export default async function handler(req, res) {
     return res.redirect(`${SITE_URL}/newsletter.html?confirmed=error`);
   }
 
-  const supa = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
+  let supa;
+  try {
+    supa = getSupabaseAdmin();
+  } catch (err) {
+    console.error('Supabase admin client error:', err.message);
+    return res.redirect(`${SITE_URL}/newsletter.html?confirmed=error`);
+  }
 
   const { data, error } = await supa
     .from('contacts')

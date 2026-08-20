@@ -1,5 +1,5 @@
-import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
+import { getSupabaseAdmin } from './_lib/supabaseAdmin.js';
 
 const SITE_URL = process.env.SITE_URL || 'https://alsinaar.com';
 
@@ -18,10 +18,13 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Email inválido' });
   }
 
-  const supa = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
+  let supa;
+  try {
+    supa = getSupabaseAdmin();
+  } catch (err) {
+    console.error('Supabase admin client error:', err.message);
+    return res.status(500).json({ error: 'Error de configuración del servidor' });
+  }
 
   const { data: existing } = await supa
     .from('contacts')

@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseAdmin } from './_lib/supabaseAdmin.js';
 
 // Deben coincidir con assets/js/pricing.js — si cambian los precios,
 // actualizar en los dos lugares (client-side para mostrar, acá para cobrar).
@@ -11,12 +11,24 @@ const SITE_URL = process.env.SITE_URL || 'https://alsinaar.com';
 
 async function waitlist(supa, clean, type, resource) {
   const tag = `waitlist:${type}${resource ? ':' + resource : ''}`;
-  await supa
+
+  const { error: contactError } = await supa
     .from('contacts')
     .upsert({ email: clean, source: tag }, { onConflict: 'email', ignoreDuplicates: true });
-  await supa
+  if (contactError) {
+    // Nunca propagar mensaje/código/detalle de Supabase al cliente — solo
+    // al log del servidor, y solo lo mínimo (nunca la key administrativa).
+    console.error('Waitlist error (contacts):', contactError.message);
+    throw new Error('waitlist_write_failed');
+  }
+
+  const { error: unlockError } = await supa
     .from('unlocks')
     .upsert({ email: clean, resource: tag }, { onConflict: 'email,resource', ignoreDuplicates: true });
+  if (unlockError) {
+    console.error('Waitlist error (unlocks):', unlockError.message);
+    throw new Error('waitlist_write_failed');
+  }
 }
 
 export default async function handler(req, res) {
@@ -37,7 +49,13 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Tipo inválido' });
   }
 
-  const supa = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+  let supa;
+  try {
+    supa = getSupabaseAdmin();
+  } catch (err) {
+    console.error('Supabase admin client error:', err.message);
+    return res.status(500).json({ error: 'Error de configuración del servidor' });
+  }
   const paymentsEnabled = process.env.PAYMENTS_ENABLED === 'true';
 
   // ── Pagos apagados (default): captura como lista de espera, mismo
