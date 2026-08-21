@@ -271,7 +271,7 @@ table.history td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);}
 
   document.getElementById('editorialToggle').addEventListener('change', async (e) => {
     try {
-      await window.AlsinaAuth.authedFetch('/api/account/preferences', {
+      await window.AlsinaAuth.authedFetch('/api/account', {
         method: 'PATCH', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ editorialOptIn: e.target.checked }),
       });

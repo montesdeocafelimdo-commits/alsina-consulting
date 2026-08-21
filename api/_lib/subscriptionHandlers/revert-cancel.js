@@ -1,5 +1,5 @@
-import { getSupabaseAdmin } from '../_lib/supabaseAdmin.js';
-import { requireAuthenticatedAccount } from '../_lib/auth.js';
+import { getSupabaseAdmin } from '../supabaseAdmin.js';
+import { requireAuthenticatedAccount } from '../auth.js';
 
 // ALSINA — revertir una cancelación antes de que sea efectiva (AD-12).
 // Conserva plan, aniversario y precio fundador — no se tocan (nunca se

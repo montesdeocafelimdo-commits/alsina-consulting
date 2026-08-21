@@ -8,12 +8,30 @@ import { getEntitlements } from './_lib/capabilities.js';
 // parámetro del request.
 
 export default async function handler(req, res) {
-  if (req.method !== 'GET') return res.status(405).json({ error: 'method_not_allowed' });
+  if (req.method !== 'GET' && req.method !== 'PATCH') return res.status(405).json({ error: 'method_not_allowed' });
 
   const account = await requireAuthenticatedAccount(req, res);
   if (!account) return;
 
   const supa = getSupabaseAdmin();
+
+  // PATCH: solo preferencia editorial hoy (AD-04 — desuscribirse del
+  // newsletter nunca toca el plan Concejal ni Monitor 135; los mensajes
+  // transaccionales nunca dependen de esto). Antes vivía en su propio
+  // archivo (api/account/preferences.js) — se unificó acá por el límite
+  // de 12 Serverless Functions del plan Hobby de Vercel.
+  if (req.method === 'PATCH') {
+    const { editorialOptIn } = req.body || {};
+    if (typeof editorialOptIn !== 'boolean') return res.status(400).json({ error: 'valor_invalido' });
+    const { error } = await supa
+      .from('email_preferences')
+      .upsert({ account_id: account.accountId, editorial_opt_in: editorialOptIn }, { onConflict: 'account_id' });
+    if (error) {
+      console.error('account PATCH: error:', error.message);
+      return res.status(500).json({ error: 'error_interno' });
+    }
+    return res.status(200).json({ status: 'ok', editorialOptIn });
+  }
 
   const { data: subscription, error: subError } = await supa
     .from('subscriptions')

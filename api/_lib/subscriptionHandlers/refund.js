@@ -1,5 +1,5 @@
-import { getSupabaseAdmin } from '../_lib/supabaseAdmin.js';
-import { requireSuperAdmin } from '../_lib/adminAuth.js';
+import { getSupabaseAdmin } from '../supabaseAdmin.js';
+import { requireSuperAdmin } from '../adminAuth.js';
 
 // ALSINA — reembolso manual (AD-13, AD-17). Solo super_admin (Felipe) —
 // los partners no modifican pagos ni reembolsos. Idempotente vía

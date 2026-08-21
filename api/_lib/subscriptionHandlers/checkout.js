@@ -1,6 +1,6 @@
-import { getSupabaseAdmin } from '../_lib/supabaseAdmin.js';
-import { requireAuthenticatedAccount } from '../_lib/auth.js';
-import { getActivePlanPrice } from '../_lib/plans.js';
+import { getSupabaseAdmin } from '../supabaseAdmin.js';
+import { requireAuthenticatedAccount } from '../auth.js';
+import { getActivePlanPrice } from '../plans.js';
 
 // ALSINA — alta/upgrade de un plan pago (Intendente, Gobernador) vía
 // Mercado Pago. Concejal NO pasa por acá — se asigna automáticamente al

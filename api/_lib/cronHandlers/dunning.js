@@ -1,5 +1,5 @@
-import { getSupabaseAdmin } from '../_lib/supabaseAdmin.js';
-import { sendEmail, templates } from '../_lib/email.js';
+import { getSupabaseAdmin } from '../supabaseAdmin.js';
+import { sendEmail, templates } from '../email.js';
 
 // ALSINA — cron diario de gracia/suspensión (AD-10) y de cancelaciones
 // programadas que ya se hicieron efectivas (AD-12). Mercado Pago ejecuta

@@ -1,6 +1,6 @@
-import { getSupabaseAdmin } from '../_lib/supabaseAdmin.js';
-import { requireAuthenticatedAccount } from '../_lib/auth.js';
-import { cancelAtPeriodEnd } from '../_lib/subscriptionActions.js';
+import { getSupabaseAdmin } from '../supabaseAdmin.js';
+import { requireAuthenticatedAccount } from '../auth.js';
+import { cancelAtPeriodEnd } from '../subscriptionActions.js';
 
 // ALSINA — cancelación autoservicio (AD-12). Sin llamada, sin
 // documentación, sin contacto comercial. Se aplica al final del período

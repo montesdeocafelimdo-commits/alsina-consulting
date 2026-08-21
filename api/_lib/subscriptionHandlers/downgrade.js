@@ -1,7 +1,7 @@
-import { getSupabaseAdmin } from '../_lib/supabaseAdmin.js';
-import { requireAuthenticatedAccount } from '../_lib/auth.js';
-import { getActivePlanPrice } from '../_lib/plans.js';
-import { cancelAtPeriodEnd } from '../_lib/subscriptionActions.js';
+import { getSupabaseAdmin } from '../supabaseAdmin.js';
+import { requireAuthenticatedAccount } from '../auth.js';
+import { getActivePlanPrice } from '../plans.js';
+import { cancelAtPeriodEnd } from '../subscriptionActions.js';
 
 // ALSINA — downgrade (AD-11): Gobernador→Intendente, Gobernador→Concejal,
 // Intendente→Concejal. Efectivo al próximo aniversario (paid_through),

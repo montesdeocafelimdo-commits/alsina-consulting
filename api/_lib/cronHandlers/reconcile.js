@@ -1,4 +1,4 @@
-import { getSupabaseAdmin } from '../_lib/supabaseAdmin.js';
+import { getSupabaseAdmin } from '../supabaseAdmin.js';
 
 // ALSINA — reconciliación periódica contra Mercado Pago (AD-16: "Mercado
 // Pago... son fuentes de contraste, no el único historial"; objetivo

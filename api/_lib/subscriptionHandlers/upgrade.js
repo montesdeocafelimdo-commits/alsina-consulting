@@ -1,6 +1,6 @@
-import { getSupabaseAdmin } from '../_lib/supabaseAdmin.js';
-import { requireAuthenticatedAccount } from '../_lib/auth.js';
-import { getActivePlanPrice } from '../_lib/plans.js';
+import { getSupabaseAdmin } from '../supabaseAdmin.js';
+import { requireAuthenticatedAccount } from '../auth.js';
+import { getActivePlanPrice } from '../plans.js';
 
 // ALSINA — upgrade Intendente → Gobernador (AD-11). Único camino de
 // upgrade soportado (Concejal → pago es un alta nueva, ver

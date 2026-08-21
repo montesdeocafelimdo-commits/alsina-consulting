@@ -1,6 +1,6 @@
-import { getSupabaseAdmin } from '../_lib/supabaseAdmin.js';
-import { requireAuthenticatedAccount } from '../_lib/auth.js';
-import { getPriceById } from '../_lib/plans.js';
+import { getSupabaseAdmin } from '../supabaseAdmin.js';
+import { requireAuthenticatedAccount } from '../auth.js';
+import { getPriceById } from '../plans.js';
 
 // ALSINA — revertir un downgrade pago-a-pago pendiente (Gobernador ->
 // Intendente) antes de su fecha efectiva (AD-11). El caso ->Concejal se
