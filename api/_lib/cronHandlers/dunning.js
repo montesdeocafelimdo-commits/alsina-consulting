@@ -199,6 +199,20 @@ export default async function handler(req, res) {
         target_table: 'subscriptions', target_id: sub.id,
         before: { plan: sub.plans?.name }, after: { plan: newPlan?.name },
       });
+
+      const { data: acc } = await supa.from('accounts').select('owner_profile_id').eq('id', sub.account_id).maybeSingle();
+      const { data: ownerProfile } = acc
+        ? await supa.from('profiles').select('email').eq('id', acc.owner_profile_id).maybeSingle()
+        : { data: null };
+      if (ownerProfile?.email) {
+        await sendEmail({
+          to: ownerProfile.email,
+          subject: `Ahora sos ${newPlan?.name || 'Concejal'}`,
+          html: templates.planChanged(newPlan?.name || 'Concejal'),
+          templateKey: 'plan_changed_downgrade',
+          accountId: sub.account_id,
+        });
+      }
       summary.downgradesFinalized = (summary.downgradesFinalized || 0) + 1;
     }
   } catch (err) {

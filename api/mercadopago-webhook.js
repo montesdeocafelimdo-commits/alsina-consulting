@@ -292,6 +292,23 @@ async function handlePaymentEvent(supa, dataId) {
           accountId,
         });
       }
+    } else if (isUpgradeConfirmation) {
+      // La suscripción ya estaba activa (Intendente) — el pago que se
+      // acaba de aprobar es el upgrade a Gobernador, no una renovación.
+      const { data: acc } = await supa.from('accounts').select('owner_profile_id').eq('id', accountId).maybeSingle();
+      const { data: ownerProfile } = acc
+        ? await supa.from('profiles').select('email').eq('id', acc.owner_profile_id).maybeSingle()
+        : { data: null };
+      if (ownerProfile?.email) {
+        const { data: newPlan } = await supa.from('plans').select('name').eq('id', price?.plan_id).maybeSingle();
+        await sendEmail({
+          to: ownerProfile.email,
+          subject: `Ahora sos ${newPlan?.name || planSlug}`,
+          html: templates.planChanged(newPlan?.name || planSlug),
+          templateKey: 'plan_changed_upgrade',
+          accountId,
+        });
+      }
     }
 
     return { summary: `subscription ${subscription.id} -> active, paid_through ${paidThrough.toISOString()}`, handled: true };
