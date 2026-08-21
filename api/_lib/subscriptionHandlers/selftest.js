@@ -186,19 +186,23 @@ export default async function selftest(req, res) {
     fail++;
     results.push({ ok: false, name: 'EXCEPCION', extra: err.message });
   } finally {
+    const cleanupErrors = [];
     try {
       if (accountId) {
-        await admin.from('entitlements').delete().eq('account_id', accountId);
-        await admin.from('subscriptions').delete().eq('account_id', accountId);
-        await admin.from('email_preferences').delete().eq('account_id', accountId);
-        await admin.from('accounts').delete().eq('id', accountId);
+        let r;
+        r = await admin.from('entitlements').delete().eq('account_id', accountId); if (r.error) cleanupErrors.push(['entitlements', r.error.message]);
+        r = await admin.from('subscriptions').delete().eq('account_id', accountId); if (r.error) cleanupErrors.push(['subscriptions', r.error.message]);
+        r = await admin.from('email_preferences').delete().eq('account_id', accountId); if (r.error) cleanupErrors.push(['email_preferences', r.error.message]);
+        r = await admin.from('accounts').delete().eq('id', accountId); if (r.error) cleanupErrors.push(['accounts', r.error.message]);
       }
       if (userId) {
-        await admin.from('profiles').delete().eq('id', userId);
-        await admin.auth.admin.deleteUser(userId);
+        const r = await admin.from('profiles').delete().eq('id', userId);
+        if (r.error) cleanupErrors.push(['profiles', r.error.message]);
+        const { error: deleteUserError } = await admin.auth.admin.deleteUser(userId);
+        if (deleteUserError) cleanupErrors.push(['auth.deleteUser', deleteUserError.message]);
       }
       const { data: remainingProfiles } = await admin.from('profiles').select('id').eq('email', email);
-      results.push({ cleanup: true, remainingProfiles: remainingProfiles?.length ?? 'n/a' });
+      results.push({ cleanup: true, remainingProfiles: remainingProfiles?.length ?? 'n/a', cleanupErrors });
     } catch (cleanupErr) {
       results.push({ cleanup: false, error: cleanupErr.message, fixtureEmail: email });
     }
