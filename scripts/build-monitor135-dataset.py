@@ -28,7 +28,12 @@ así que ese tramo NO se recalcula acá — ver metodología para el
 tratamiento que se le da en la interfaz (nominal se conserva, "real" se
 marca como pendiente de validación en vez de mostrar el número viejo).
 
-Salida: assets/data/monitor135-municipios.json
+Salida: private/data/monitor135-municipios.json
+
+NOTA (FASE 5, AD-19): este dataset dejó de ser un archivo estático público
+el 2026-08-21 — se sirve exclusivamente vía /api/monitor135/data.js,
+filtrado por capacidad. Si en algún momento se vuelve a generar hacia
+assets/data/, ese archivo queda servido sin ninguna protección de nuevo.
 """
 import csv
 import json
@@ -37,7 +42,7 @@ import openpyxl
 
 MASTER_CSV = 'Info_Municipios_nueva/pba_municipios_master_v2.csv'
 TRANS_XLSX = 'Base_transferencias_135_municipios_PBA_completa.xlsx'
-OUT_JSON = 'assets/data/monitor135-municipios.json'
+OUT_JSON = 'private/data/monitor135-municipios.json'
 
 IPC = {'Enero': 0.324, 'Febrero': 0.331, 'Marzo': 0.326, 'Abril': 0.324, 'Mayo': 0.332, 'Junio': 0.335}
 MESES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio']
