@@ -30,6 +30,32 @@ export default async function selftest(req, res) {
   const admin = getSupabaseAdmin();
   const anon = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_PUBLISHABLE_KEY, { auth: { persistSession: false } });
 
+  // Auto-limpieza de fixtures huérfanos de una corrida anterior que se
+  // haya cortado a mitad de camino (ej. el bug de email_outbox
+  // encontrado la primera vez que corrió esto en Preview). Identificable
+  // solo por el patrón de email — nunca toca cuentas reales.
+  const orphanSweep = [];
+  try {
+    const { data: orphanProfiles } = await admin
+      .from('profiles').select('id, email')
+      .or('email.ilike.claude-selftest-%@example.invalid,email.ilike.claude-checkpoint-test-%@example.invalid');
+    for (const p of orphanProfiles || []) {
+      const { data: acc } = await admin.from('accounts').select('id').eq('owner_profile_id', p.id).maybeSingle();
+      if (acc) {
+        await admin.from('entitlements').delete().eq('account_id', acc.id);
+        await admin.from('subscriptions').delete().eq('account_id', acc.id);
+        await admin.from('email_preferences').delete().eq('account_id', acc.id);
+        await admin.from('email_outbox').delete().eq('account_id', acc.id);
+        await admin.from('accounts').delete().eq('id', acc.id);
+      }
+      await admin.from('profiles').delete().eq('id', p.id);
+      await admin.auth.admin.deleteUser(p.id);
+      orphanSweep.push(p.email);
+    }
+  } catch (sweepErr) {
+    orphanSweep.push(`sweep_error: ${sweepErr.message}`);
+  }
+
   const STAMP = Date.now();
   const email = `claude-selftest-${STAMP}@example.invalid`;
   const password = `Test-${STAMP}-!Aa1`;
@@ -213,5 +239,5 @@ export default async function selftest(req, res) {
     }
   }
 
-  return res.status(200).json({ pass, fail, results });
+  return res.status(200).json({ pass, fail, orphanSweep, results });
 }
