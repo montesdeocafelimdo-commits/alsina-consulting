@@ -193,6 +193,11 @@ export default async function selftest(req, res) {
         r = await admin.from('entitlements').delete().eq('account_id', accountId); if (r.error) cleanupErrors.push(['entitlements', r.error.message]);
         r = await admin.from('subscriptions').delete().eq('account_id', accountId); if (r.error) cleanupErrors.push(['subscriptions', r.error.message]);
         r = await admin.from('email_preferences').delete().eq('account_id', accountId); if (r.error) cleanupErrors.push(['email_preferences', r.error.message]);
+        // cancelAtPeriodEnd() manda un email real (sendEmail -> email_outbox
+        // registra el intento) — su FK a accounts hay que limpiarla antes,
+        // si no accounts/profiles/auth.users quedan bloqueados en cadena.
+        r = await admin.from('email_outbox').delete().eq('account_id', accountId); if (r.error) cleanupErrors.push(['email_outbox', r.error.message]);
+        r = await admin.from('audit_logs').delete().eq('target_id', accountId); if (r.error) cleanupErrors.push(['audit_logs', r.error.message]);
         r = await admin.from('accounts').delete().eq('id', accountId); if (r.error) cleanupErrors.push(['accounts', r.error.message]);
       }
       if (userId) {
