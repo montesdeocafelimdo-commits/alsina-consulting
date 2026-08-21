@@ -42,6 +42,113 @@ function normalizeSubscriptionStatus(mpStatus) {
   }
 }
 
+async function handleRejectedSubscriptionPayment(supa, dataId, payment, externalRef) {
+  // AD-10: un pago rechazado de una renovación abre (o mantiene) la
+  // gracia de 5 días. No reinicia la gracia si ya estaba abierta, ni
+  // reenvía el primer aviso — grace_started_at es la única fuente de
+  // verdad de "cuándo empezó" (idempotente ante reintentos/duplicados).
+  const [, accountId] = externalRef.split(':');
+  const { data: subscription } = await supa
+    .from('subscriptions')
+    .select('id, account_id, status, grace_started_at, plans(name)')
+    .eq('account_id', accountId)
+    .maybeSingle();
+  if (!subscription) {
+    console.error('[mercadopago-webhook] payment rechazado sin subscription local:', accountId);
+    return { summary: 'payment rechazado sin subscription local', handled: false };
+  }
+
+  // payments.status solo admite pending/approved/rejected/refunded/disputed
+  // (constraint de la base) — mapear los estados de MP que no coinciden 1:1.
+  const paymentStatus = payment.status === 'refunded' ? 'refunded' : 'rejected';
+  await supa.from('payments').insert({
+    account_id: accountId,
+    subscription_id: subscription.id,
+    provider: 'mercadopago',
+    provider_payment_id: String(dataId),
+    amount: payment.transaction_amount,
+    currency: payment.currency_id || 'ARS',
+    status: paymentStatus,
+  });
+
+  // Solo abre gracia si la suscripción venía activa/en gracia — un pago
+  // rechazado sobre una suscripción ya suspendida/cancelada no reabre nada.
+  if (!['active', 'past_due', 'grace_period'].includes(subscription.status)) {
+    return { summary: `payment rechazado ignorado, status actual=${subscription.status}`, handled: true };
+  }
+
+  const alreadyInGrace = !!subscription.grace_started_at;
+  if (!alreadyInGrace) {
+    await supa
+      .from('subscriptions')
+      .update({ status: 'past_due', grace_started_at: new Date().toISOString() })
+      .eq('id', subscription.id);
+
+    const { data: acc } = await supa.from('accounts').select('owner_profile_id').eq('id', accountId).maybeSingle();
+    const { data: ownerProfile } = acc
+      ? await supa.from('profiles').select('email').eq('id', acc.owner_profile_id).maybeSingle()
+      : { data: null };
+    if (ownerProfile?.email) {
+      await sendEmail({
+        to: ownerProfile.email,
+        subject: 'Hubo un problema con tu pago',
+        html: templates.paymentFailedFirstNotice(subscription.plans?.name || 'tu plan'),
+        templateKey: 'payment_failed_first_notice',
+        accountId,
+      });
+    }
+    return { summary: `subscription ${subscription.id} -> past_due (día 0, aviso enviado)`, handled: true };
+  }
+
+  return { summary: `subscription ${subscription.id} ya en gracia, pago rechazado no cambia nada más`, handled: true };
+}
+
+async function handleChargedBackPayment(supa, dataId, payment, externalRef) {
+  // AD-13: contracargo — marcar el pago disputed, suspender el acceso
+  // pago de inmediato (sin pasar por la gracia de 5 días, que es para
+  // pagos simplemente rechazados, no para disputas ya iniciadas ante el
+  // banco), mantener Concejal, alertar al administrador, conservar
+  // evidencia. La resolución final (a favor de Alsina o del usuario) es
+  // un paso manual documentado en 10-production-readiness-checklist.md —
+  // este handler dejar el caso en un estado seguro y auditado, no lo cierra.
+  const [, accountId] = externalRef.split(':');
+  const { data: subscription } = await supa
+    .from('subscriptions')
+    .select('id, account_id, status, plans(name)')
+    .eq('account_id', accountId)
+    .maybeSingle();
+  if (!subscription) {
+    console.error('[mercadopago-webhook] contracargo sin subscription local:', accountId);
+    return { summary: 'contracargo sin subscription local', handled: false };
+  }
+
+  await supa.from('payments').upsert(
+    {
+      account_id: accountId,
+      subscription_id: subscription.id,
+      provider: 'mercadopago',
+      provider_payment_id: String(dataId),
+      amount: payment.transaction_amount,
+      currency: payment.currency_id || 'ARS',
+      status: 'disputed',
+    },
+    { onConflict: 'provider_payment_id' }
+  );
+
+  await supa.from('subscriptions').update({ status: 'disputed' }).eq('id', subscription.id);
+  await supa.rpc('recalculate_plan_entitlements', { p_account_id: accountId });
+
+  await supa.from('audit_logs').insert({
+    actor_role: 'system',
+    action: 'chargeback_received',
+    target_table: 'subscriptions',
+    target_id: subscription.id,
+    after: { provider_payment_id: String(dataId), amount: payment.transaction_amount },
+  });
+
+  return { summary: `subscription ${subscription.id} -> disputed (contracargo, revisión manual pendiente)`, handled: true };
+}
+
 async function handlePaymentEvent(supa, dataId) {
   const r = await fetch(`https://api.mercadopago.com/v1/payments/${dataId}`, {
     headers: { Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}` },
@@ -50,6 +157,12 @@ async function handlePaymentEvent(supa, dataId) {
   const externalRef = payment.external_reference || '';
 
   if (payment.status !== 'approved') {
+    if (externalRef.startsWith('sub:') && payment.status === 'charged_back') {
+      return handleChargedBackPayment(supa, dataId, payment, externalRef);
+    }
+    if (externalRef.startsWith('sub:') && ['rejected', 'cancelled', 'refunded'].includes(payment.status)) {
+      return handleRejectedSubscriptionPayment(supa, dataId, payment, externalRef);
+    }
     return { summary: `payment ${dataId} status=${payment.status}`, handled: false };
   }
 
@@ -61,12 +174,34 @@ async function handlePaymentEvent(supa, dataId) {
 
     const { data: subscription } = await supa
       .from('subscriptions')
-      .select('id, account_id, plan_id, status, plans(name)')
+      .select('id, account_id, plan_id, price_id, status, provider_subscription_id, pending_provider_subscription_id, plans(name)')
       .eq('account_id', accountId)
       .maybeSingle();
     if (!subscription) {
       console.error('[mercadopago-webhook] payment sub:* sin subscription local:', accountId);
       return { summary: 'payment sin subscription local', handled: false };
+    }
+
+    // AD-11 — upgrade: este pago aprobado corresponde a un plan/precio
+    // distinto del que factura hoy la cuenta. Cancelar la preapproval
+    // anterior (deja de facturar el plan viejo) y adoptar la nueva como
+    // provider_subscription_id vigente — recién ahora, con el pago ya
+    // aprobado, nunca antes (si este pago hubiera fallado, no se llega
+    // a este código y nada de esto se toca).
+    const isUpgradeConfirmation = priceId && priceId !== subscription.price_id;
+    if (isUpgradeConfirmation && subscription.provider_subscription_id) {
+      try {
+        const { MercadoPagoConfig, PreApproval } = await import('mercadopago');
+        const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
+        await new PreApproval(client).update({ id: subscription.provider_subscription_id, body: { status: 'cancelled' } });
+      } catch (mpErr) {
+        console.error('[mercadopago-webhook] no se pudo cancelar la preapproval anterior tras upgrade:', mpErr?.message || mpErr);
+        await supa.from('audit_logs').insert({
+          actor_role: 'system', action: 'mp_cancel_previous_failed_on_upgrade',
+          target_table: 'subscriptions', target_id: subscription.id,
+          after: { previousProviderSubscriptionId: subscription.provider_subscription_id, error: String(mpErr?.message || mpErr).slice(0, 300) },
+        });
+      }
     }
 
     if (price && Number(payment.transaction_amount) !== Number(price.amount)) {
@@ -96,15 +231,41 @@ async function handlePaymentEvent(supa, dataId) {
     });
 
     const wasAlreadyActive = subscription.status === 'active';
+    const wasRecovering = ['past_due', 'suspended'].includes(subscription.status);
     await supa
       .from('subscriptions')
       .update({
         status: 'active',
+        // AD-03: el plan/precio que queda vigente es el de ESTE pago
+        // aprobado (price/plan resueltos desde plan_prices, nunca del
+        // frontend) — cubre alta nueva, renovación (idempotente, mismos
+        // valores) y confirmación de upgrade (valores nuevos) con una
+        // sola rama de código.
+        plan_id: price ? price.plan_id : subscription.plan_id,
+        price_id: priceId,
+        provider_subscription_id: isUpgradeConfirmation && subscription.pending_provider_subscription_id
+          ? subscription.pending_provider_subscription_id
+          : subscription.provider_subscription_id,
+        pending_provider_subscription_id: null,
         paid_through: paidThrough.toISOString(),
         current_period_start: new Date().toISOString(),
+        // AD-10: "si el pago se recupera... se restaura el plan" — limpiar
+        // todo rastro de la gracia/suspensión anterior, para que un
+        // próximo rechazo futuro abra una gracia nueva de cero.
         grace_started_at: null,
+        grace_notice_final_sent_at: null,
+        suspended_at: null,
       })
       .eq('id', subscription.id);
+
+    if (isUpgradeConfirmation) {
+      await supa.from('audit_logs').insert({
+        actor_role: 'system', action: 'upgrade_confirmed',
+        target_table: 'subscriptions', target_id: subscription.id,
+        before: { plan_id: subscription.plan_id, price_id: subscription.price_id },
+        after: { plan_id: price?.plan_id, price_id: priceId },
+      });
+    }
 
     await supa.from('subscription_periods').insert({
       subscription_id: subscription.id,
@@ -116,7 +277,6 @@ async function handlePaymentEvent(supa, dataId) {
     await supa.rpc('recalculate_plan_entitlements', { p_account_id: accountId });
 
     if (!wasAlreadyActive) {
-      // Buscar el email del dueño de la cuenta para la bienvenida.
       const { data: acc } = await supa.from('accounts').select('owner_profile_id').eq('id', accountId).maybeSingle();
       const { data: ownerProfile } = acc
         ? await supa.from('profiles').select('email').eq('id', acc.owner_profile_id).maybeSingle()
@@ -124,9 +284,11 @@ async function handlePaymentEvent(supa, dataId) {
       if (ownerProfile?.email) {
         await sendEmail({
           to: ownerProfile.email,
-          subject: `Bienvenido a Alsina ${subscription.plans?.name || planSlug}`,
-          html: templates.subscriptionActive(subscription.plans?.name || planSlug),
-          templateKey: 'subscription_active',
+          subject: wasRecovering ? `Tu acceso a Alsina ${subscription.plans?.name || planSlug} se restableció` : `Bienvenido a Alsina ${subscription.plans?.name || planSlug}`,
+          html: wasRecovering
+            ? templates.paymentRecovered(subscription.plans?.name || planSlug)
+            : templates.subscriptionActive(subscription.plans?.name || planSlug),
+          templateKey: wasRecovering ? 'payment_recovered' : 'subscription_active',
           accountId,
         });
       }

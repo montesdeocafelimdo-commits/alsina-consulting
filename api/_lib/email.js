@@ -91,6 +91,10 @@ export const templates = {
     `<p>Seguimos sin poder cobrar tu suscripción a ${planName}. Si no se regulariza, mañana perdés el acceso a los beneficios pagos (conservás Concejal).</p>
      <p><a href="https://alsinaar.com/cuenta.html" style="color:#00D5D8;">Actualizar medio de pago →</a></p>`
   ),
+  paymentRecovered: (planName) => shell(
+    'Tu acceso se restableció',
+    `<p>Pudimos procesar el pago pendiente de ${planName} y tu acceso pago está activo de nuevo, sin cambios en tu plan ni en tu precio.</p>`
+  ),
   suspended: (planName) => shell(
     'Tu suscripción quedó suspendida',
     `<p>No se pudo regularizar el pago de ${planName} y tu acceso pago quedó suspendido. Conservás tu cuenta Concejal sin cambios.</p>

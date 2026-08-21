@@ -100,7 +100,7 @@ export default async function handler(req, res) {
             pending: `${SITE_URL}/informes.html?compra=pendiente`,
           },
           auto_return: 'approved',
-          notification_url: `${SITE_URL}/api/webhook`,
+          notification_url: `${SITE_URL}/api/mercadopago-webhook`,
         },
       });
       return res.status(200).json({ status: 'ok', checkoutUrl: result.init_point });
