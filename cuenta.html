@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi cuenta — Alsina</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0e1c20">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="stylesheet" href="/assets/css/alsina.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --grafito:#0e1c20;--grafito2:#152830;--grafito3:#1e2f35;
+  --turquesa:#00D5D8;--cian:#008C9A;--crema:#F3EFE7;--concreto:#9e9992;
+  --verde:#52C78C;--rojo:#E05252;--amarillo:#E0B152;
+}
+body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;min-height:100vh;}
+nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:14px 48px;background:rgba(14,28,32,0.97);box-shadow:0 1px 0 rgba(0,213,216,0.1);backdrop-filter:blur(8px);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-mark{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.2em;color:var(--crema);}
+.nav-link{font-size:.72rem;color:var(--turquesa);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(0,213,216,.3);padding:6px 14px;}
+.nav-link:hover{background:rgba(0,213,216,.08);}
+
+.wrap{max-width:760px;margin:0 auto;padding:48px 24px 80px;}
+.hgroup{margin-bottom:32px;}
+.hgroup h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;}
+.hgroup p{color:var(--concreto);margin-top:6px;font-size:.9rem;}
+
+#loginGate{display:none;text-align:center;padding:60px 20px;}
+#loginGate.show{display:block;}
+#loginGate form{max-width:340px;margin:20px auto 0;display:flex;}
+#loginGate input{flex:1;background:var(--grafito2);border:1px solid rgba(255,255,255,.15);color:var(--crema);padding:12px;font-size:.9rem;}
+#loginGate button{background:var(--turquesa);color:var(--grafito);border:none;padding:0 18px;font-weight:700;cursor:pointer;}
+
+#appRoot{display:none;}
+#appRoot.show{display:block;}
+
+.card{background:var(--grafito2);border:1px solid rgba(255,255,255,.06);padding:26px 28px;margin-bottom:20px;}
+.card h2{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.15rem;margin-bottom:16px;}
+.row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.86rem;}
+.row:last-child{border-bottom:none;}
+.row .label{color:var(--concreto);}
+.row .value{font-weight:600;text-align:right;}
+.pill{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:2px;}
+.pill.active{background:rgba(82,199,140,.15);color:var(--verde);}
+.pill.warn{background:rgba(224,177,82,.15);color:var(--amarillo);}
+.pill.bad{background:rgba(224,82,82,.15);color:var(--rojo);}
+
+.notice{padding:14px 16px;font-size:.85rem;line-height:1.5;margin-bottom:16px;border-left:3px solid var(--amarillo);background:rgba(224,177,82,.08);}
+.notice.bad{border-color:var(--rojo);background:rgba(224,82,82,.08);}
+
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;}
+.btn2{padding:10px 18px;font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border:1px solid rgba(255,255,255,.2);background:transparent;color:var(--crema);cursor:pointer;text-decoration:none;display:inline-block;}
+.btn2:hover{border-color:var(--turquesa);color:var(--turquesa);}
+.btn2.danger:hover{border-color:var(--rojo);color:var(--rojo);}
+.btn2.primary{background:var(--turquesa);color:var(--grafito);border-color:var(--turquesa);}
+.btn2.primary:hover{background:#3de0e2;color:var(--grafito);}
+.btn2[disabled]{opacity:.5;cursor:wait;}
+
+.toggle{display:flex;align-items:center;gap:10px;font-size:.85rem;}
+.toggle input{width:16px;height:16px;}
+
+.action-status{font-size:.8rem;margin-top:10px;min-height:1.2em;}
+.action-status.ok{color:var(--verde);}
+.action-status.err{color:var(--rojo);}
+
+table.history{width:100%;border-collapse:collapse;font-size:.82rem;}
+table.history th{text-align:left;color:var(--concreto);font-weight:600;padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.1);}
+table.history td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);}
+.empty{color:var(--concreto);font-size:.85rem;text-align:center;padding:16px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><svg viewBox="0 0 26 26" fill="none" width="28"><path d="M13 2L1.5 24H5.5L13 11L20.5 24H24.5L13 2Z" fill="#00D5D8"/></svg><div class="nav-mark">ALSINA</div></a>
+  <a href="/" class="nav-link">← Volver al sitio</a>
+</nav>
+
+<div class="wrap">
+  <div class="hgroup"><h1>Mi cuenta</h1><p>Tu plan, tu suscripción y tus datos.</p></div>
+
+  <div id="loginGate">
+    <p style="color:var(--concreto);margin-bottom:6px;">Iniciá sesión con tu mail — te mandamos un link, sin contraseña.</p>
+    <form id="loginForm">
+      <input type="email" id="loginEmail" placeholder="tu@mail.com" required>
+      <button type="submit" class="btn2 primary" style="text-transform:none;font-weight:700;">Enviar link</button>
+    </form>
+    <div class="action-status" id="loginStatus" style="text-align:center;"></div>
+  </div>
+
+  <div id="appRoot">
+    <div class="notice" id="statusNotice" style="display:none;"></div>
+
+    <div class="card">
+      <h2>Tu plan</h2>
+      <div class="row"><span class="label">Email</span><span class="value" id="fEmail">—</span></div>
+      <div class="row"><span class="label">Plan</span><span class="value" id="fPlan">—</span></div>
+      <div class="row"><span class="label">Estado</span><span class="value" id="fStatus">—</span></div>
+      <div class="row"><span class="label">Precio</span><span class="value" id="fPrice">—</span></div>
+      <div class="row" id="rowPaidThrough" style="display:none;"><span class="label">Acceso pago hasta</span><span class="value" id="fPaidThrough">—</span></div>
+      <div class="actions" id="planActions"></div>
+      <div class="action-status" id="planActionStatus"></div>
+    </div>
+
+    <div class="card">
+      <h2>Preferencias</h2>
+      <label class="toggle"><input type="checkbox" id="editorialToggle"> Recibir la Señal Alsina por mail (quincenal)</label>
+      <p style="color:var(--concreto);font-size:.75rem;margin-top:8px;">Los avisos de seguridad, cuenta y pagos siempre llegan, aunque desactives esto.</p>
+    </div>
+
+    <div class="card">
+      <h2>Historial de pagos</h2>
+      <div id="historyWrap"><div class="empty">Sin pagos todavía.</div></div>
+    </div>
+
+    <div class="card">
+      <h2>Sesión</h2>
+      <button class="btn2" id="logoutBtn">Cerrar sesión</button>
+    </div>
+  </div>
+</div>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/auth.js"></script>
+<script>
+(async function () {
+  await window.ALSINA_CONFIG_READY;
+  const session = await window.AlsinaAuth.getSession();
+
+  if (!session) {
+    document.getElementById('loginGate').classList.add('show');
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const status = document.getElementById('loginStatus');
+      const btn = e.target.querySelector('button');
+      btn.disabled = true;
+      try {
+        await window.AlsinaAuth.signInWithMagicLink(email);
+        status.className = 'action-status ok';
+        status.textContent = '¡Listo! Revisá tu mail y hacé clic en el link.';
+      } catch (err) {
+        status.className = 'action-status err';
+        status.textContent = 'No pudimos enviar el mail. Probá de nuevo.';
+        btn.disabled = false;
+      }
+    });
+    return;
+  }
+
+  document.getElementById('appRoot').classList.add('show');
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await window.AlsinaAuth.signOut();
+    location.reload();
+  });
+
+  const PLAN_LABEL = { concejal: 'Concejal', intendente: 'Intendente', gobernador: 'Gobernador' };
+  const STATUS_LABEL = {
+    active: ['Activo', 'active'], past_due: ['Pago pendiente', 'warn'], grace_period: ['En gracia', 'warn'],
+    suspended: ['Suspendido', 'bad'], cancel_at_period_end: ['Se cancela pronto', 'warn'],
+    canceled: ['Cancelado', 'bad'], disputed: ['En disputa', 'bad'], incomplete: ['Incompleto', 'warn'], pending: ['Pendiente', 'warn'],
+  };
+  const money = (n, c) => n ? `$${Number(n).toLocaleString('es-AR')} ${c || 'ARS'}/mes` : 'Gratis';
+
+  async function loadAccount() {
+    const r = await window.AlsinaAuth.authedFetch('/api/account');
+    if (!r.ok) throw new Error('No se pudo cargar tu cuenta.');
+    return r.json();
+  }
+
+  async function render() {
+    const acc = await loadAccount();
+
+    document.getElementById('fEmail').textContent = acc.email;
+    document.getElementById('fPlan').textContent = acc.planName + (acc.isFounderPrice ? ' (precio fundador)' : '');
+    const [label, cls] = STATUS_LABEL[acc.status] || [acc.status, ''];
+    document.getElementById('fStatus').innerHTML = `<span class="pill ${cls}">${label}</span>`;
+    document.getElementById('fPrice').textContent = money(acc.priceAmount, acc.priceCurrency);
+    document.getElementById('editorialToggle').checked = !!acc.editorialOptIn;
+
+    if (acc.paidThrough && acc.plan !== 'concejal') {
+      document.getElementById('rowPaidThrough').style.display = 'flex';
+      document.getElementById('fPaidThrough').textContent = new Date(acc.paidThrough).toLocaleDateString('es-AR');
+    }
+
+    const notice = document.getElementById('statusNotice');
+    if (acc.status === 'cancel_at_period_end') {
+      notice.style.display = 'block'; notice.className = 'notice';
+      notice.textContent = `Tu suscripción se cancela el ${acc.paidThrough ? new Date(acc.paidThrough).toLocaleDateString('es-AR') : 'fin de tu período pagado'}. Después pasás a Concejal.`;
+    } else if (acc.status === 'past_due' || acc.status === 'grace_period') {
+      notice.style.display = 'block'; notice.className = 'notice bad';
+      notice.textContent = 'Hubo un problema con tu último pago. Tenés unos días de gracia antes de perder el acceso pago — regularizalo desde Mercado Pago o esperá el próximo intento automático.';
+    } else if (acc.status === 'suspended') {
+      notice.style.display = 'block'; notice.className = 'notice bad';
+      notice.textContent = 'Tu acceso pago está suspendido por falta de pago. Conservás Concejal. Volvé a suscribirte desde Planes para recuperar el acceso.';
+    } else {
+      notice.style.display = 'none';
+    }
+
+    renderActions(acc);
+    renderHistory(acc.paymentsHistory || []);
+  }
+
+  function renderActions(acc) {
+    const wrap = document.getElementById('planActions');
+    const statusEl = document.getElementById('planActionStatus');
+    wrap.innerHTML = '';
+    statusEl.textContent = '';
+
+    function addBtn(label, cls, onClick) {
+      const b = document.createElement('button');
+      b.className = 'btn2 ' + cls;
+      b.textContent = label;
+      b.addEventListener('click', async () => {
+        b.disabled = true;
+        statusEl.className = 'action-status'; statusEl.textContent = '';
+        try {
+          await onClick();
+        } catch (err) {
+          statusEl.className = 'action-status err';
+          statusEl.textContent = err.message || 'Algo salió mal. Probá de nuevo.';
+          b.disabled = false;
+        }
+      });
+      wrap.appendChild(b);
+      return b;
+    }
+
+    async function post(url, body) {
+      const r = await window.AlsinaAuth.authedFetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body || {}) });
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(data.error || 'error');
+      return data;
+    }
+
+    addBtn('Ver planes', 'primary', async () => { window.location.href = '/planes.html'; });
+
+    if (acc.plan === 'concejal') return;
+
+    if (acc.status === 'cancel_at_period_end') {
+      addBtn('Revertir cancelación', '', async () => { await post('/api/subscriptions/revert-cancel'); statusEl.className='action-status ok'; statusEl.textContent='Listo, tu plan sigue activo.'; render(); });
+      return;
+    }
+
+    if (!['active', 'past_due', 'grace_period'].includes(acc.status)) return;
+
+    if (acc.plan === 'gobernador') {
+      addBtn('Cambiar a Intendente', '', async () => { const d = await post('/api/subscriptions/downgrade', { targetPlan: 'intendente' }); statusEl.className='action-status ok'; statusEl.textContent=`Programado: pasás a Intendente el ${d.effectiveAt ? new Date(d.effectiveAt).toLocaleDateString('es-AR') : 'próximo aniversario'}.`; render(); });
+    }
+    addBtn('Cambiar a Concejal', '', async () => { const d = await post('/api/subscriptions/downgrade', { targetPlan: 'concejal' }); statusEl.className='action-status ok'; statusEl.textContent=`Confirmado: pasás a Concejal el ${d.paidThrough ? new Date(d.paidThrough).toLocaleDateString('es-AR') : 'fin de tu período'}.`; render(); });
+    addBtn('Cancelar suscripción', 'danger', async () => {
+      if (!confirm('¿Cancelar tu suscripción? Mantenés el acceso hasta el fin de tu período ya pagado.')) throw new Error('');
+      const d = await post('/api/subscriptions/cancel');
+      statusEl.className='action-status ok'; statusEl.textContent=`Cancelación confirmada, código ${d.cancellationCode}.`;
+      render();
+    });
+  }
+
+  function renderHistory(payments) {
+    const wrap = document.getElementById('historyWrap');
+    if (!payments.length) { wrap.innerHTML = '<div class="empty">Sin pagos todavía.</div>'; return; }
+    const rows = payments.map(p => `<tr><td>${new Date(p.created_at).toLocaleDateString('es-AR')}</td><td>$${Number(p.amount).toLocaleString('es-AR')} ${p.currency}</td><td>${p.status}</td></tr>`).join('');
+    wrap.innerHTML = `<table class="history"><thead><tr><th>Fecha</th><th>Importe</th><th>Estado</th></tr></thead><tbody>${rows}</tbody></table>`;
+  }
+
+  document.getElementById('editorialToggle').addEventListener('change', async (e) => {
+    try {
+      await window.AlsinaAuth.authedFetch('/api/account/preferences', {
+        method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ editorialOptIn: e.target.checked }),
+      });
+    } catch (err) { e.target.checked = !e.target.checked; }
+  });
+
+  try {
+    await render();
+  } catch (err) {
+    document.getElementById('appRoot').innerHTML = '<div class="card"><p style="color:var(--rojo)">No pudimos cargar tu cuenta. Recargá la página.</p></div>';
+  }
+})();
+</script>
+</body>
+</html>

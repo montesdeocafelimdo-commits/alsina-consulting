@@ -1,22 +1,20 @@
-/* ALSINA — fuente única de precios.
-   Cambiar acá impacta todas las páginas que incluyan este script. Si
-   cambia informeDesde, actualizar también: api/checkout.js (PRICES) y
-   el JSON-LD de Product en informes.html (el precio no puede leerse
-   de JS porque los crawlers de datos estructurados no ejecutan
-   scripts de forma confiable). */
+/* ALSINA — fuente única de precios de VISUALIZACIÓN (AD-01/AD-02/AD-03).
+   Estos valores son solo para mostrar texto en la página — nunca se
+   envían al backend ni determinan lo que se cobra: el importe real lo
+   resuelve el servidor desde plan_prices (ver api/_lib/plans.js). Si
+   cambia un precio acá y no en la base, lo que se muestra y lo que se
+   cobra van a divergir — mantenerlos sincronizados a mano hasta que esta
+   página también lea /api/plans (pendiente, no crítico mientras
+   PAYMENTS_ENABLED=false). */
 window.ALSINA_PRICING = {
   informeDesde: '$25.000',
-  proMensual: '$45.000',
-  intendenteMensual: 'Gratis',
-  ministroMensual: '$25.000',
+  concejalMensual: 'Gratis',
+  intendenteMensual: '$25.000',
   gobernadorMensual: '$45.000',
 };
 
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-precio="informe-desde"]').forEach(el => {
     el.textContent = window.ALSINA_PRICING.informeDesde;
-  });
-  document.querySelectorAll('[data-precio="pro-mensual"]').forEach(el => {
-    el.textContent = window.ALSINA_PRICING.proMensual;
   });
 });

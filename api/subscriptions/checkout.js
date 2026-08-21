@@ -34,7 +34,19 @@ export default async function handler(req, res) {
   if (!paymentsEnabled) {
     // Mismo criterio que el resto del sitio: con pagos apagados, no se
     // llama nunca a la API de Mercado Pago (AD-07 / README-PAGOS.md).
-    return res.status(503).json({ error: 'pagos_no_habilitados' });
+    // A diferencia de un visitante anónimo, quien pide esto ya tiene
+    // cuenta — se registra el interés igual, para poder avisarle cuando
+    // los pagos se activen.
+    try {
+      const supa = getSupabaseAdmin();
+      await supa.from('contacts').upsert(
+        { email: account.email, source: `waitlist:${planSlug}` },
+        { onConflict: 'email', ignoreDuplicates: true }
+      );
+    } catch (err) {
+      console.error('checkout: no se pudo registrar waitlist:', err.message);
+    }
+    return res.status(503).json({ error: 'pagos_no_habilitados', waitlisted: true });
   }
   if (!process.env.MP_ACCESS_TOKEN) {
     console.error('PAYMENTS_ENABLED=true pero falta MP_ACCESS_TOKEN');
