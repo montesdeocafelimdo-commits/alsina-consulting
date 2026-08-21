@@ -39,7 +39,7 @@ export default async function handler(req, res) {
   try {
     const { data: dueForFinalNotice, error } = await supa
       .from('subscriptions')
-      .select('id, account_id, grace_started_at, plans(name)')
+      .select('id, account_id, grace_started_at, plans!plan_id(name)')
       .eq('status', 'past_due')
       .is('grace_notice_final_sent_at', null)
       .not('grace_started_at', 'is', null);
@@ -77,7 +77,7 @@ export default async function handler(req, res) {
   try {
     const { data: dueForSuspension, error } = await supa
       .from('subscriptions')
-      .select('id, account_id, grace_started_at, plans(name)')
+      .select('id, account_id, grace_started_at, plans!plan_id(name)')
       .eq('status', 'past_due')
       .not('grace_started_at', 'is', null);
     if (error) throw error;
@@ -181,7 +181,7 @@ export default async function handler(req, res) {
   try {
     const { data: dueForDowngrade, error } = await supa
       .from('subscriptions')
-      .select('id, account_id, pending_plan_id, pending_price_id, plans(name)')
+      .select('id, account_id, pending_plan_id, pending_price_id, plans!plan_id(name)')
       .eq('status', 'active')
       .not('pending_plan_id', 'is', null)
       .lte('paid_through', new Date().toISOString());

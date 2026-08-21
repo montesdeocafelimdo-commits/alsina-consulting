@@ -38,8 +38,8 @@ export default async function handler(req, res) {
     .select(`
       status, provider, anniversary_day, current_period_start, paid_through,
       grace_started_at, suspended_at, cancel_requested_at, canceled_at, cancellation_code,
-      plans ( slug, name ),
-      plan_prices ( amount, currency, is_founder )
+      plans!plan_id ( slug, name ),
+      plan_prices!price_id ( amount, currency, is_founder )
     `)
     .eq('account_id', account.accountId)
     .maybeSingle();

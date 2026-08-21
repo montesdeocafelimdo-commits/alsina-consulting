@@ -29,7 +29,7 @@ export default async function handler(req, res) {
 
   const { data: subs, error } = await supa
     .from('subscriptions')
-    .select('status, plans(slug), plan_prices(amount, currency)');
+    .select('status, plans!plan_id(slug), plan_prices!price_id(amount, currency)');
   if (error) {
     console.error('admin/metrics: error leyendo subscriptions:', error.message);
     return res.status(500).json({ error: 'error_interno' });

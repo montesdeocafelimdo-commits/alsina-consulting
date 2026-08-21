@@ -15,6 +15,9 @@
     },
     "api/monitor135/data.js": {
       "includeFiles": "private/**"
+    },
+    "api/subscriptions/[action].js": {
+      "includeFiles": "private/**"
     }
   },
   "crons": [

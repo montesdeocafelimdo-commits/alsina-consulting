@@ -36,7 +36,7 @@ export default async function handler(req, res) {
   const supa = getSupabaseAdmin();
   const { data: subscription, error } = await supa
     .from('subscriptions')
-    .select('id, status, provider, provider_subscription_id, plans(slug, name)')
+    .select('id, status, provider, provider_subscription_id, plans!plan_id(slug, name)')
     .eq('account_id', account.accountId)
     .maybeSingle();
   if (error || !subscription) return res.status(404).json({ error: 'sin_suscripcion' });

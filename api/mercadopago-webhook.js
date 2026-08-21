@@ -50,7 +50,7 @@ async function handleRejectedSubscriptionPayment(supa, dataId, payment, external
   const [, accountId] = externalRef.split(':');
   const { data: subscription } = await supa
     .from('subscriptions')
-    .select('id, account_id, status, grace_started_at, plans(name)')
+    .select('id, account_id, status, grace_started_at, plans!plan_id(name)')
     .eq('account_id', accountId)
     .maybeSingle();
   if (!subscription) {
@@ -114,7 +114,7 @@ async function handleChargedBackPayment(supa, dataId, payment, externalRef) {
   const [, accountId] = externalRef.split(':');
   const { data: subscription } = await supa
     .from('subscriptions')
-    .select('id, account_id, status, plans(name)')
+    .select('id, account_id, status, plans!plan_id(name)')
     .eq('account_id', accountId)
     .maybeSingle();
   if (!subscription) {
@@ -174,7 +174,7 @@ async function handlePaymentEvent(supa, dataId) {
 
     const { data: subscription } = await supa
       .from('subscriptions')
-      .select('id, account_id, plan_id, price_id, status, provider_subscription_id, pending_provider_subscription_id, plans(name)')
+      .select('id, account_id, plan_id, price_id, status, provider_subscription_id, pending_provider_subscription_id, plans!plan_id(name)')
       .eq('account_id', accountId)
       .maybeSingle();
     if (!subscription) {
