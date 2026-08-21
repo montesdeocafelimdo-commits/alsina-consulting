@@ -16,3 +16,4 @@ prompt_*.md
 electoral_data_normalized.json
 informes/alsina-*.html
 supabase/.temp/
+.env*
