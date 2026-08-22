@@ -179,11 +179,6 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
       <input type="email" class="plan-inline-input" id="intendenteSignupEmail" placeholder="tu@mail.com" required aria-required="true">
       <button type="submit" class="plan-inline-btn">Continuar →</button>
     </form>
-    <form class="plan-inline-form" id="intendentePayerForm" data-plan="intendente">
-      <label for="intendentePayerEmail" class="visually-hidden">Email para pagar en Mercado Pago</label>
-      <input type="email" class="plan-inline-input" id="intendentePayerEmail" placeholder="Email con el que pagás en MP">
-      <button type="submit" class="plan-inline-btn">Ir a pagar →</button>
-    </form>
     <div class="plan-form-status" id="intendenteStatus" role="status" aria-live="polite"></div>
   </div>
 
@@ -205,11 +200,6 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
       <label for="gobernadorSignupEmail" class="visually-hidden">Tu email</label>
       <input type="email" class="plan-inline-input" id="gobernadorSignupEmail" placeholder="tu@mail.com" required aria-required="true">
       <button type="submit" class="plan-inline-btn">Continuar →</button>
-    </form>
-    <form class="plan-inline-form" id="gobernadorPayerForm" data-plan="gobernador">
-      <label for="gobernadorPayerEmail" class="visually-hidden">Email para pagar en Mercado Pago</label>
-      <input type="email" class="plan-inline-input" id="gobernadorPayerEmail" placeholder="Email con el que pagás en MP">
-      <button type="submit" class="plan-inline-btn">Ir a pagar →</button>
     </form>
     <div class="plan-form-status" id="gobernadorStatus" role="status" aria-live="polite"></div>
   </div>
@@ -385,7 +375,6 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
     const targetPlan = btn.getAttribute('data-plan-target');
     const statusEl = document.getElementById(targetPlan + 'Status');
     const signupForm = document.getElementById(targetPlan + 'SignupForm');
-    const payerForm = document.getElementById(targetPlan + 'PayerForm');
 
     if (session && !account) {
       // La sesión existe pero /api/account falló — no lo dejamos como un
@@ -413,7 +402,7 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
           localStorage.setItem(PENDING_KEY, JSON.stringify({ plan: targetPlan, payerEmail: email }));
           await window.AlsinaAuth.signInWithMagicLink(email, `/planes.html?autocheckout=${targetPlan}`);
           statusEl.className = 'plan-form-status ok';
-          statusEl.textContent = `¡Listo! Revisá tu mail — al confirmar volvés derecho a pagar ${PLAN_LABEL[targetPlan]}. Si vas a pagar con otro mail en Mercado Pago, lo pedimos en el siguiente paso.`;
+          statusEl.textContent = `¡Listo! Revisá tu mail — al confirmar volvés derecho a pagar ${PLAN_LABEL[targetPlan]}.`;
           if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('direct_paid_signup', { plan: targetPlan });
         } catch (err) {
           statusEl.className = 'plan-form-status err';
@@ -460,25 +449,12 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
     if (targetRank > currentRank) {
       const isUpgrade = account.plan === 'intendente' && targetPlan === 'gobernador';
       btn.textContent = isUpgrade ? 'Upgrade a Gobernador →' : 'Suscribirme →';
-      // El email de la cuenta Alsina puede no ser el de Mercado Pago
-      // (mucha gente usa mails distintos) — se confirma acá, prefilled,
-      // en vez de asumirlo y que el checkout de MP quede trabado.
-      const payerInput = document.getElementById(targetPlan + 'PayerEmail');
-      payerInput.value = account.email;
-      btn.addEventListener('click', () => {
-        payerForm.classList.add('show');
-        statusEl.className = 'plan-form-status';
-        statusEl.textContent = 'Confirmá con qué email vas a pagar en Mercado Pago (puede ser distinto al de tu cuenta).';
-        payerInput.focus();
-      });
-      payerForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const payerEmail = payerInput.value.trim() || account.email;
-        const formBtn = payerForm.querySelector('button');
-        formBtn.disabled = true;
-        const ok = await fireCheckout(targetPlan, payerEmail, isUpgrade, statusEl, btn);
-        if (!ok) formBtn.disabled = false;
-      });
+      // Un solo click, sin pedir nada extra — quien pague en Mercado
+      // Pago lo hace con la cuenta de MP que tenga en ese momento, sea
+      // cual sea su email. payer_email va igual porque la API de MP lo
+      // exige para crear la suscripción (identificador del suscriptor
+      // de su lado), pero no se le pregunta nada a la persona por esto.
+      btn.addEventListener('click', () => fireCheckout(targetPlan, account.email, isUpgrade, statusEl, btn));
     } else if (account.pendingPlan === targetPlan) {
       btn.textContent = `Ya programado → Mi cuenta`;
       btn.className = 'plan-cta ghost';

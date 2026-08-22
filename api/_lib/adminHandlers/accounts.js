@@ -4,8 +4,9 @@ import { requireSuperAdmin } from '../adminAuth.js';
 // ALSINA — listado/búsqueda de cuentas individuales (AD-17: exclusivo de
 // super_admin — "partner solo accede a métricas agregadas... no ve
 // nombres, emails... pagos individuales"). Nunca expuesto al rol partner.
-// query: ?q=email (búsqueda parcial, opcional) — sin q, trae las más
-// recientes primero, con límite.
+// query: ?q=email (búsqueda parcial, opcional), ?onlyPaying=true (default
+// del panel: "mis suscriptores" = Intendente/Gobernador, no Concejal).
+// Sin q, trae las cuentas más recientes primero, con límite.
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'method_not_allowed' });
@@ -15,8 +16,9 @@ export default async function handler(req, res) {
 
   const supa = getSupabaseAdmin();
   const q = (req.query?.q || '').trim().toLowerCase();
+  const onlyPaying = req.query?.onlyPaying === 'true';
 
-  let profileQuery = supa.from('profiles').select('id, email, created_at').order('created_at', { ascending: false }).limit(50);
+  let profileQuery = supa.from('profiles').select('id, email, created_at').order('created_at', { ascending: false }).limit(200);
   if (q) profileQuery = profileQuery.ilike('email', `%${q}%`);
   const { data: profiles, error: profilesError } = await profileQuery;
   if (profilesError) return res.status(500).json({ error: 'error_interno' });
@@ -46,6 +48,8 @@ export default async function handler(req, res) {
     });
   }
 
+  const filtered = onlyPaying ? rows.filter((r) => r.plan && r.plan !== 'concejal') : rows;
+
   res.setHeader('Cache-Control', 'private, no-store');
-  return res.status(200).json({ accounts: rows });
+  return res.status(200).json({ accounts: filtered });
 }

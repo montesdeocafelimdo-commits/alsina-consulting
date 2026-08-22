@@ -86,6 +86,19 @@ table.accounts td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);
     wrap.innerHTML = `
       <h1>Panel administrativo</h1>
       <div class="role">Rol: ${m.role} · Generado ${new Date(m.generatedAt).toLocaleString('es-AR')}</div>
+      ${role === 'super_admin' ? `
+      <div class="card">
+        <h2>Mis suscriptores</h2>
+        <div class="searchRow">
+          <label for="accSearch" class="visually-hidden">Buscar por email</label>
+          <input type="search" id="accSearch" placeholder="Buscar por email…">
+          <button id="accSearchBtn">Buscar</button>
+        </div>
+        <label style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:#9e9992;margin-bottom:14px;">
+          <input type="checkbox" id="accShowAll"> Mostrar todas las cuentas (incluye Concejal, gratis)
+        </label>
+        <div id="accountsWrap"><p style="color:#9e9992;font-size:.82rem;">Cargando…</p></div>
+      </div>` : ''}
       <div class="grid">
         <div class="tile"><div class="num">${m.totalAccounts ?? '—'}</div><div class="lbl">Cuentas totales</div></div>
         <div class="tile"><div class="num">${m.newAccounts30d ?? '—'}</div><div class="lbl">Altas últimos 30 días</div></div>
@@ -95,19 +108,9 @@ table.accounts td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);
       <div class="card"><h2>Por plan</h2>${byPlan || '<p style="color:#9e9992;font-size:.82rem;">Sin datos.</p>'}</div>
       <div class="card"><h2>Por estado</h2>${byStatus || '<p style="color:#9e9992;font-size:.82rem;">Sin datos.</p>'}</div>
       <p style="color:#9e9992;font-size:.72rem;margin-bottom:24px;">Segmentos con menos de 5 cuentas se agrupan en "otros" — nunca se muestra un dato individual acá.</p>
-      ${role === 'super_admin' ? `
-      <div class="card">
-        <h2>Cuentas</h2>
-        <div class="searchRow">
-          <label for="accSearch" class="visually-hidden">Buscar por email</label>
-          <input type="search" id="accSearch" placeholder="Buscar por email…">
-          <button id="accSearchBtn">Buscar</button>
-        </div>
-        <div id="accountsWrap"><p style="color:#9e9992;font-size:.82rem;">Cargando…</p></div>
-      </div>` : ''}
     `;
 
-    if (role === 'super_admin') await loadAccounts('');
+    if (role === 'super_admin') await loadAccounts('', false);
   } catch (err) {
     wrap.innerHTML = `<div class="msg err">No pudimos cargar el panel. Recargá la página.</div>`;
     return;
@@ -119,23 +122,27 @@ table.accounts td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);
     canceled: ['Cancelado', 'bad'], disputed: ['En disputa', 'bad'], incomplete: ['Incompleto', ''],
   };
 
-  async function loadAccounts(q) {
+  async function loadAccounts(q, showAll) {
     const wrapEl = document.getElementById('accountsWrap');
     if (!wrapEl) return;
     wrapEl.innerHTML = '<p style="color:#9e9992;font-size:.82rem;">Cargando…</p>';
     try {
-      const r = await window.AlsinaAuth.authedFetch('/api/admin/accounts?q=' + encodeURIComponent(q || ''));
+      const params = new URLSearchParams({ q: q || '', onlyPaying: showAll ? 'false' : 'true' });
+      const r = await window.AlsinaAuth.authedFetch('/api/admin/accounts?' + params.toString());
       if (!r.ok) throw new Error('http_' + r.status);
       const data = await r.json();
-      renderAccounts(data.accounts || []);
+      renderAccounts(data.accounts || [], showAll);
     } catch (err) {
       wrapEl.innerHTML = '<p class="err" style="font-size:.82rem;">No se pudieron cargar las cuentas.</p>';
     }
   }
 
-  function renderAccounts(accounts) {
+  function renderAccounts(accounts, showAll) {
     const wrapEl = document.getElementById('accountsWrap');
-    if (!accounts.length) { wrapEl.innerHTML = '<p style="color:#9e9992;font-size:.82rem;">Sin resultados.</p>'; return; }
+    if (!accounts.length) {
+      wrapEl.innerHTML = `<p style="color:#9e9992;font-size:.82rem;">${showAll ? 'Sin resultados.' : 'Todavía no hay suscriptores pagos. Tildá "Mostrar todas las cuentas" para ver también Concejal.'}</p>`;
+      return;
+    }
 
     const rows = accounts.map((a) => {
       const [label, cls] = STATUS_LABEL[a.status] || [a.status || '—', ''];
@@ -145,7 +152,7 @@ table.accounts td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);
         <td>${a.planName || '—'}</td>
         <td><span class="pill ${cls}">${label}</span>${a.hasPendingDowngrade ? ' <span class="pill warn">downgrade pend.</span>' : ''}</td>
         <td>${a.paidThrough ? new Date(a.paidThrough).toLocaleDateString('es-AR') : '—'}</td>
-        <td>${canCancel ? `<button class="btn3" data-action="cancel">Dar de baja</button>` : ''}
+        <td>${canCancel ? `<button class="btn3" data-action="cancel">Rescindir</button>` : ''}
           <div class="rowStatus"></div>
         </td>
       </tr>`;
@@ -161,9 +168,9 @@ table.accounts td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);
         const tr = btn.closest('tr');
         const accountId = tr.dataset.accountId;
         const statusEl = tr.querySelector('.rowStatus');
-        const reason = prompt('Motivo de la baja administrativa (queda auditado):');
+        const reason = prompt('Motivo de la rescisión (queda auditado con tu usuario):');
         if (!reason || reason.trim().length < 3) return;
-        if (!confirm('¿Dar de baja esta suscripción ahora mismo? Corta el cobro automático y el acceso pago de inmediato — no espera al fin del período.')) return;
+        if (!confirm('¿Rescindir esta suscripción ahora mismo? Corta el cobro automático y el acceso pago de inmediato — no espera al fin del período.')) return;
         btn.disabled = true;
         statusEl.className = 'rowStatus';
         statusEl.textContent = '';
@@ -175,11 +182,11 @@ table.accounts td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);
           const data = await r.json().catch(() => ({}));
           if (!r.ok) throw new Error(data.error || 'error');
           statusEl.className = 'rowStatus ok';
-          statusEl.textContent = 'Dada de baja.';
+          statusEl.textContent = 'Rescindida.';
           btn.remove();
         } catch (err) {
           statusEl.className = 'rowStatus err';
-          statusEl.textContent = err.message || 'No se pudo dar de baja.';
+          statusEl.textContent = err.message || 'No se pudo rescindir.';
           btn.disabled = false;
         }
       });
@@ -187,9 +194,11 @@ table.accounts td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);
   }
 
   const searchBtn = document.getElementById('accSearchBtn');
+  const showAllBox = document.getElementById('accShowAll');
   if (searchBtn) {
-    searchBtn.addEventListener('click', () => loadAccounts(document.getElementById('accSearch').value));
-    document.getElementById('accSearch').addEventListener('keydown', (e) => { if (e.key === 'Enter') loadAccounts(e.target.value); });
+    searchBtn.addEventListener('click', () => loadAccounts(document.getElementById('accSearch').value, showAllBox.checked));
+    document.getElementById('accSearch').addEventListener('keydown', (e) => { if (e.key === 'Enter') loadAccounts(e.target.value, showAllBox.checked); });
+    showAllBox.addEventListener('change', () => loadAccounts(document.getElementById('accSearch').value, showAllBox.checked));
   }
 })();
 </script>
