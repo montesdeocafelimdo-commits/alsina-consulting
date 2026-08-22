@@ -81,6 +81,34 @@ export default async function selftest(req, res) {
     accountId = acc?.id;
     check('trigger on_auth_user_created creó account', !!accountId);
 
+    // ── redirect URLs de Supabase: el magic link real de un usuario en
+    // este mismo Preview tiene que volver acá, no a producción ni a
+    // localhost. generateLink() nunca manda el mail — solo devuelve el
+    // link que se generaría, así se verifica sin gastar cuota ni
+    // spamear a nadie. Si Supabase no tiene esta URL en su allowlist de
+    // Redirect URLs, la ignora silenciosamente y cae al site_url por
+    // defecto — por eso se compara el resultado real, no solo "no tiró error".
+    {
+      const host = req.headers['x-forwarded-host'] || req.headers.host || 'alsina-pagos-preview.vercel.app';
+      const previewOrigin = `https://${host}`;
+      const requestedRedirect = `${previewOrigin}/cuenta.html`;
+      const { data: linkData, error: linkErr } = await admin.auth.admin.generateLink({
+        type: 'magiclink', email, options: { redirectTo: requestedRedirect },
+      });
+      if (linkErr) {
+        check('Supabase redirect URLs: generateLink no falló', false, { error: linkErr.message });
+      } else {
+        const actionLink = linkData?.properties?.action_link || '';
+        let redirectParam = null;
+        try { redirectParam = new URL(actionLink).searchParams.get('redirect_to'); } catch (e) { /* noop */ }
+        check(
+          `Supabase redirect URLs incluye ${previewOrigin} (redirect_to del link generado coincide)`,
+          redirectParam === requestedRedirect,
+          { requestedRedirect, redirectParamRecibido: redirectParam }
+        );
+      }
+    }
+
     // ── cuenta recién creada: Concejal activo ──
     {
       const req2 = { method: 'GET', headers: authHeaders };
@@ -183,10 +211,26 @@ export default async function selftest(req, res) {
       check('DB: status vuelve a active tras revert', sub?.status === 'active', sub);
     }
 
-    // downgrade Gobernador -> Intendente pendiente (sin preapproval real, provider null -> no llama a MP)
+    // ── matriz de accesos, punto Gobernador: única capacidad que
+    // Intendente NO tiene es la exportación de datos ──
     const { data: gobernadorPlan } = await admin.from('plans').select('id').eq('slug', 'gobernador').maybeSingle();
     const { data: gobernadorPrice } = await admin.from('plan_prices').select('id').eq('plan_id', gobernadorPlan.id).eq('available_for_new_signups', true).limit(1).maybeSingle();
-    await admin.from('subscriptions').update({ plan_id: gobernadorPlan.id, price_id: gobernadorPrice.id, provider: null, provider_subscription_id: null }).eq('account_id', accountId);
+    await admin.from('subscriptions').update({ plan_id: gobernadorPlan.id, price_id: gobernadorPrice.id, status: 'active', provider: null, provider_subscription_id: null }).eq('account_id', accountId);
+    await admin.rpc('recalculate_plan_entitlements', { p_account_id: accountId });
+    {
+      const req2 = { method: 'GET', headers: authHeaders, query: { dataset: 'municipios' } };
+      const res2 = mockRes();
+      await monitorHandler(req2, res2);
+      check('Monitor (gobernador) -> access full', res2._json?.access?.level === 'full', res2._json?.access);
+    }
+    {
+      const req2 = { method: 'GET', headers: authHeaders, query: { dataset: 'municipios', export: 'true' } };
+      const res2 = mockRes();
+      await monitorHandler(req2, res2);
+      check('Monitor (gobernador) -> export permitido (403 para Concejal/Intendente ya se probó arriba)', res2._status === 200, res2._json);
+    }
+
+    // downgrade Gobernador -> Intendente pendiente (sin preapproval real, provider null -> no llama a MP)
     {
       const req2 = { method: 'POST', headers: authHeaders, body: { targetPlan: 'intendente' } };
       const res2 = mockRes();

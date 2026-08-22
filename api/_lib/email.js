@@ -10,9 +10,15 @@ import { getSupabaseAdmin } from './supabaseAdmin.js';
 // en sí es síncrono todavía — el reintento automático por cron es trabajo
 // de FASE 8, no implementado en esta pasada.
 
+// Dominio verificado en Resend: nw.alsinaar.com (alsinaar.com sin el
+// subdominio no está verificado — mandar desde ahí rebota). "newletter"
+// va sin la segunda "s" a propósito, así lo pidió Alsina — no es un
+// typo a corregir. El Reply-To sigue siendo la casilla de siempre
+// (@alsinaar.com, sin el subdominio) — ahí es donde llegan las
+// respuestas de la gente, no al dominio de envío.
 export const SENDERS = {
-  editorial: 'Señal Alsina <newsletter@alsinaar.com>',
-  transactional: 'Alsina <info@alsinaar.com>',
+  editorial: { from: 'Alsina <newletter@nw.alsinaar.com>', replyTo: 'newletter@alsinaar.com' },
+  transactional: { from: 'Alsina <info@nw.alsinaar.com>', replyTo: 'info@alsinaar.com' },
 };
 
 /**
@@ -21,7 +27,7 @@ export const SENDERS = {
  */
 export async function sendEmail({ to, subject, html, templateKey, accountId = null, channel = 'transactional' }) {
   const supa = getSupabaseAdmin();
-  const from = channel === 'editorial' ? SENDERS.editorial : SENDERS.transactional;
+  const sender = channel === 'editorial' ? SENDERS.editorial : SENDERS.transactional;
 
   const { data: outboxRow, error: insertError } = await supa
     .from('email_outbox')
@@ -34,7 +40,7 @@ export async function sendEmail({ to, subject, html, templateKey, accountId = nu
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const { error: sendError } = await resend.emails.send({ from, to, subject, html });
+    const { error: sendError } = await resend.emails.send({ from: sender.from, to, subject, html, reply_to: sender.replyTo });
     if (sendError) throw new Error(sendError.message || 'resend_error');
 
     if (outboxRow) {
