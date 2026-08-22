@@ -62,21 +62,26 @@ export default async function handler(req, res) {
 
   const supa = getSupabaseAdmin();
 
-  // Registrar la intención ANTES de llamar a Mercado Pago — la suscripción
-  // queda 'incomplete' (sin entitlements todavía, ver
-  // recalculate_plan_entitlements) hasta que el webhook confirme el pago.
-  const { data: subscription, error: subError } = await supa
+  // IMPORTANTE (bug real encontrado probando en vivo): esto ANTES escribía
+  // plan_id/price_id/status='incomplete' acá, antes de que Mercado Pago
+  // confirmara nada. El efecto: la cuenta se mostraba como "ya sos
+  // Intendente" en /planes.html apenas alguien tocaba "Suscribirme" —
+  // aunque el pago nunca se hubiera completado (se abandonó el checkout,
+  // MP lo rechazó, etc.) — y bloqueaba reintentar. El webhook YA resuelve
+  // plan_id/price_id de forma independiente desde external_reference
+  // (ver api/mercadopago-webhook.js) — no hace falta pre-escribirlos acá.
+  // Esta cuenta sigue siendo la que ya tenía (Concejal, activa) hasta que
+  // el pago se confirme de verdad.
+  const { data: existing, error: subError } = await supa
     .from('subscriptions')
-    .upsert(
-      { account_id: account.accountId, plan_id: plan.id, price_id: price.id, status: 'incomplete', provider: 'mercadopago' },
-      { onConflict: 'account_id' }
-    )
     .select('id')
-    .single();
-  if (subError) {
-    console.error('checkout: error creando subscription incomplete:', subError.message);
+    .eq('account_id', account.accountId)
+    .maybeSingle();
+  if (subError || !existing) {
+    console.error('checkout: no se encontró subscription existente:', subError?.message);
     return res.status(500).json({ error: 'error_interno' });
   }
+  const subscription = existing;
 
   try {
     const { MercadoPagoConfig, PreApproval } = await import('mercadopago');
