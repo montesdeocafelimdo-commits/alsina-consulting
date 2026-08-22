@@ -39,8 +39,13 @@ export default async function handler(req, res) {
   if (req.query?.raw === 'true') return res.status(200).json({ raw: search });
 
   const processed = [];
-  for (const payment of results) {
-    const dataId = String(payment.id);
+  for (const authorizedPayment of results) {
+    // authorized_payments/search devuelve un ID propio (el de la fila
+    // de "pago autorizado" de la suscripción) distinto del ID real del
+    // recurso Payment de Mercado Pago — el que hace falta es el anidado
+    // en payment.id, que es el que existe en /v1/payments/:id.
+    const dataId = authorizedPayment.payment?.id ? String(authorizedPayment.payment.id) : null;
+    if (!dataId) { processed.push({ authorizedPaymentId: authorizedPayment.id, skipped: 'sin_payment_id_anidado' }); continue; }
     const dedupKey = `mercadopago:payment:${dataId}`;
     const { data: existingEvent } = await supa.from('payment_provider_events').select('id, processed').eq('dedup_key', dedupKey).maybeSingle();
     if (existingEvent?.processed) { processed.push({ dataId, skipped: 'ya_procesado' }); continue; }
