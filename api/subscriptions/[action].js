@@ -14,6 +14,7 @@ import testMagicLink from '../_lib/subscriptionHandlers/testMagicLink.js';
 import diagRecent from '../_lib/subscriptionHandlers/diagRecent.js';
 import reprocessPayment from '../_lib/subscriptionHandlers/reprocessPayment.js';
 import diagPreapproval from '../_lib/subscriptionHandlers/diagPreapproval.js';
+import restoreAccess from '../_lib/subscriptionHandlers/restoreAccess.js';
 
 // ALSINA — un solo archivo de ruta dinámica para /api/subscriptions/*.
 //
@@ -46,6 +47,7 @@ const ACTIONS = {
   'diag-recent': diagRecent,
   'reprocess-payment': reprocessPayment,
   'diag-preapproval': diagPreapproval,
+  'restore-access': restoreAccess,
 };
 
 export default async function handler(req, res) {
