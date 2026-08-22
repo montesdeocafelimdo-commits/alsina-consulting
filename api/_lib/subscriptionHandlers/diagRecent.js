@@ -18,8 +18,8 @@ export default async function handler(req, res) {
 
   const { data: events, error: eventsError } = await supa
     .from('payment_provider_events')
-    .select('id, provider, event_type, provider_event_id, dedup_key, processed, processed_at, error, payload_sanitized, created_at')
-    .order('created_at', { ascending: false })
+    .select('id, provider, event_type, provider_event_id, dedup_key, processed, processed_at, error, payload_sanitized, received_at')
+    .order('received_at', { ascending: false })
     .limit(15);
 
   const { data: subs, error: subsError } = await supa

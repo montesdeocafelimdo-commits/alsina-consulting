@@ -12,6 +12,23 @@ import { sendEmail, templates } from './_lib/email.js';
 
 const SITE_URL = process.env.SITE_URL || 'https://alsinaar.com';
 
+// BUG real del SDK oficial `mercadopago` (probado en producción, primer
+// pago real: Mercado Pago rechazaba el 100% de las notificaciones con
+// TimestampOutOfTolerance). El "ts" que manda Mercado Pago en
+// x-signature viene en SEGUNDOS (formato estándar unix, 10 dígitos),
+// pero WebhookSignatureValidator.validate() lo trata como si fueran
+// milisegundos al calcular el drift contra toleranceSeconds — la
+// comparación queda ~1000x desfasada y falla siempre, sin importar la
+// demora real. Se resuelve NO pasándole toleranceSeconds a la librería
+// (así solo valida la firma HMAC en sí, que no tiene este bug) y
+// calculando la tolerancia acá mismo, con las unidades correctas.
+const TOLERANCE_SECONDS = 300;
+
+function parseTsSeconds(xSignature) {
+  const match = /(?:^|,)\s*ts=(\d+)/.exec(xSignature || '');
+  return match ? Number(match[1]) : null;
+}
+
 function verifySignature(req, secret) {
   try {
     WebhookSignatureValidator.validate({
@@ -19,13 +36,22 @@ function verifySignature(req, secret) {
       xRequestId: req.headers['x-request-id'],
       dataId: req.body?.data?.id || req.query?.['data.id'] || req.query?.id,
       secret,
-      toleranceSeconds: 300,
+      // Sin toleranceSeconds a propósito — ver nota arriba.
     });
-    return true;
   } catch (err) {
     console.error('[mercadopago-webhook] firma rechazada:', err?.reason || err?.message || 'unknown');
     return false;
   }
+
+  const tsSeconds = parseTsSeconds(req.headers['x-signature']);
+  if (tsSeconds !== null) {
+    const driftSeconds = Math.abs(Date.now() / 1000 - tsSeconds);
+    if (driftSeconds > TOLERANCE_SECONDS) {
+      console.error('[mercadopago-webhook] firma rechazada: timestamp fuera de tolerancia (drift=' + Math.round(driftSeconds) + 's)');
+      return false;
+    }
+  }
+  return true;
 }
 
 // authorized -> active es el único mapeo no ambiguo; 'paused' de MP no
@@ -149,7 +175,7 @@ async function handleChargedBackPayment(supa, dataId, payment, externalRef) {
   return { summary: `subscription ${subscription.id} -> disputed (contracargo, revisión manual pendiente)`, handled: true };
 }
 
-async function handlePaymentEvent(supa, dataId) {
+export async function handlePaymentEvent(supa, dataId) {
   const r = await fetch(`https://api.mercadopago.com/v1/payments/${dataId}`, {
     headers: { Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}` },
   });
