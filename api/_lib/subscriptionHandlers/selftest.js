@@ -107,6 +107,22 @@ export default async function selftest(req, res) {
           { requestedRedirect, redirectParamRecibido: redirectParam }
         );
       }
+
+      // Segundo chequeo: ¿el site_url por defecto del proyecto (el que
+      // usa cuando el redirect pedido no está en la allowlist) es
+      // razonable, o cayó a localhost? Esto solo importa si el chequeo
+      // de arriba falló — si el de arriba pasó, no hace falta.
+      const prodRedirect = 'https://alsinaar.com/cuenta.html';
+      const { data: prodLinkData } = await admin.auth.admin.generateLink({
+        type: 'magiclink', email, options: { redirectTo: prodRedirect },
+      });
+      let prodRedirectParam = null;
+      try { prodRedirectParam = new URL(prodLinkData?.properties?.action_link || '').searchParams.get('redirect_to'); } catch (e) { /* noop */ }
+      check(
+        'Supabase redirect URLs incluye https://alsinaar.com (producción)',
+        prodRedirectParam === prodRedirect,
+        { prodRedirect, prodRedirectParamRecibido: prodRedirectParam }
+      );
     }
 
     // ── cuenta recién creada: Concejal activo ──
