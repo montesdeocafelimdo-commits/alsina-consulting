@@ -300,9 +300,14 @@
     $('#zoomReset').addEventListener('click', () => setZoom('provincia'));
     $('#verComoRanking').addEventListener('click', () => switchTab('ranking'));
 
+    // FASE 5 (AD-19): el dataset ya no es un archivo estático — pasa por
+    // /api/monitor135/data, que filtra según la capacidad real de quien
+    // pide (resuelta server-side desde la sesión, nunca por el frontend).
+    const authedFetch = (window.AlsinaAuth && window.AlsinaAuth.authedFetch) || fetch;
+
     Promise.all([
-      fetch('/assets/data/monitor135-municipios.json').then(r => r.json()),
-      fetch('/assets/data/monitor135-educacion.json').then(r => r.json()).catch(err => {
+      authedFetch('/api/monitor135/data?dataset=municipios').then(r => r.json()),
+      authedFetch('/api/monitor135/data?dataset=educacion').then(r => r.json()).catch(err => {
         // La dimensión de Educación es aditiva: si su archivo no carga, el
         // resto de Monitor 135 (finanzas, población, economía, gobierno,
         // mapa electoral) debe seguir funcionando igual.
@@ -311,6 +316,13 @@
       }),
     ])
       .then(([data, edu]) => {
+        if (data.access && data.access.level === 'none') {
+          $('#tab-radiografia').innerHTML =
+            '<div style="padding:40px 20px;text-align:center;">' +
+            '<p style="color:var(--concreto,#9e9992);font-size:.95rem;margin-bottom:16px;">Monitor 135 es un beneficio de cuenta — sumate gratis a Concejal para ver los indicadores.</p>' +
+            '<a href="/planes.html" class="btn">Crear mi cuenta gratis →</a></div>';
+          return;
+        }
         PATCH = data;
         PATCH_EDU = edu;
         boot();

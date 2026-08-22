@@ -1,17 +1,30 @@
 {
+  "rewrites": [
+    { "source": "/api/webhook", "destination": "/api/mercadopago-webhook" }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "POST, OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" }
       ]
     }
   ],
   "functions": {
     "api/informe.js": {
       "includeFiles": "private/**"
+    },
+    "api/monitor135/data.js": {
+      "includeFiles": "private/**"
+    },
+    "api/subscriptions/[action].js": {
+      "includeFiles": "private/**"
     }
-  }
+  },
+  "crons": [
+    { "path": "/api/cron/dunning", "schedule": "0 13 * * *" },
+    { "path": "/api/cron/reconcile", "schedule": "0 14 * * *" }
+  ]
 }

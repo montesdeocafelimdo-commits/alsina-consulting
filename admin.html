@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel — Alsina</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0e1c20">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0e1c20;color:#F3EFE7;font-family:'Barlow',sans-serif;min-height:100vh;}
+nav{padding:14px 48px;background:rgba(14,28,32,.97);border-bottom:1px solid rgba(0,213,216,.15);display:flex;justify-content:space-between;align-items:center;}
+.mark{font-family:'Barlow Condensed',sans-serif;font-weight:900;letter-spacing:.2em;font-size:1.1rem;}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px;}
+h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.9rem;margin-bottom:4px;}
+.role{color:#9e9992;font-size:.85rem;margin-bottom:28px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px;}
+.tile{background:#152830;border:1px solid rgba(255,255,255,.06);padding:20px;}
+.tile .num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:#00D5D8;}
+.tile .lbl{font-size:.78rem;color:#9e9992;margin-top:4px;}
+.card{background:#152830;border:1px solid rgba(255,255,255,.06);padding:22px;margin-bottom:16px;}
+.card h2{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;margin-bottom:14px;}
+.bar-row{display:flex;align-items:center;gap:10px;font-size:.82rem;padding:6px 0;}
+.bar-row .k{width:120px;color:#9e9992;flex-shrink:0;}
+.bar-row .v{font-weight:700;}
+.msg{text-align:center;padding:80px 20px;color:#9e9992;}
+a:focus-visible{outline:2px solid #00D5D8;outline-offset:2px;}
+.err{color:#E05252;}
+</style>
+</head>
+<body>
+<nav><div class="mark">ALSINA · PANEL</div><a href="/" style="color:#00D5D8;font-size:.78rem;text-decoration:none;">← Sitio</a></nav>
+<div class="wrap" id="wrap">
+  <div class="msg" id="msg" role="status" aria-live="polite">Cargando…</div>
+</div>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/auth.js"></script>
+<script>
+(async function () {
+  await window.ALSINA_CONFIG_READY;
+  const session = await window.AlsinaAuth.getSession();
+  const wrap = document.getElementById('wrap');
+
+  if (!session) {
+    wrap.innerHTML = `<div class="msg">Este panel requiere sesión de administrador.<br><br>
+      <a href="/cuenta.html" style="color:#00D5D8;">Iniciar sesión →</a></div>`;
+    return;
+  }
+
+  try {
+    const r = await window.AlsinaAuth.authedFetch('/api/admin/metrics');
+    if (r.status === 403) {
+      wrap.innerHTML = `<div class="msg err">Tu cuenta no tiene acceso administrativo.</div>`;
+      return;
+    }
+    if (!r.ok) throw new Error('http_' + r.status);
+    const m = await r.json();
+
+    const byPlan = Object.entries(m.subscriptionsByPlan || {}).map(([k, v]) => `<div class="bar-row"><span class="k">${k}</span><span class="v">${v}</span></div>`).join('');
+    const byStatus = Object.entries(m.subscriptionsByStatus || {}).map(([k, v]) => `<div class="bar-row"><span class="k">${k}</span><span class="v">${v}</span></div>`).join('');
+
+    wrap.innerHTML = `
+      <h1>Métricas agregadas</h1>
+      <div class="role">Rol: ${m.role} · Generado ${new Date(m.generatedAt).toLocaleString('es-AR')}</div>
+      <div class="grid">
+        <div class="tile"><div class="num">${m.totalAccounts ?? '—'}</div><div class="lbl">Cuentas totales</div></div>
+        <div class="tile"><div class="num">${m.newAccounts30d ?? '—'}</div><div class="lbl">Altas últimos 30 días</div></div>
+        <div class="tile"><div class="num">${m.cancellationsFinalized30d ?? '—'}</div><div class="lbl">Bajas efectivas 30 días</div></div>
+        <div class="tile"><div class="num">$${Number(m.mrrArs || 0).toLocaleString('es-AR')}</div><div class="lbl">MRR (ARS)</div></div>
+      </div>
+      <div class="card"><h2>Por plan</h2>${byPlan || '<p style="color:#9e9992;font-size:.82rem;">Sin datos.</p>'}</div>
+      <div class="card"><h2>Por estado</h2>${byStatus || '<p style="color:#9e9992;font-size:.82rem;">Sin datos.</p>'}</div>
+      <p style="color:#9e9992;font-size:.72rem;">Segmentos con menos de 5 cuentas se agrupan en "otros" — nunca se muestra un dato individual acá.</p>
+    `;
+  } catch (err) {
+    wrap.innerHTML = `<div class="msg err">No pudimos cargar las métricas. Recargá la página.</div>`;
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,27 +1,29 @@
-/* ALSINA — tabla comparativa de suscripción (Intendente / Ministro / Gobernador).
-   Vainilla JS: un solo array de datos alimenta tanto la tabla de escritorio
-   como las pestañas de mobile, para no duplicar el contenido a mano.
-   Editar PLANS/CATEGORIES acá alcanza para actualizar ambas vistas. */
+/* ALSINA — tabla comparativa de suscripción (Concejal / Intendente / Gobernador).
+   Nombres, precios y beneficios según 11-approved-decisions.md (AD-01,
+   AD-18, AD-19, AD-21) — no reintroducir "Ministro"/"Pro" ni beneficios
+   retirados (informe legislativo mensual, radar regulatorio/tributario
+   como promesa separada). Vainilla JS: un solo array de datos alimenta
+   tanto la tabla de escritorio como las pestañas de mobile. */
 const COMPARE_PLANS = [
   {
-    id: 'intendente',
-    name: 'Nivel Intendente',
-    desc: 'Para seguir las principales señales',
-    priceKey: 'intendenteMensual',
+    id: 'concejal',
+    name: 'Concejal',
+    desc: 'Para entrar sin costo',
+    priceKey: 'concejalMensual',
     priceSuffix: '',
+    btnLabel: 'Registrarme gratis',
+  },
+  {
+    id: 'intendente',
+    name: 'Intendente',
+    desc: 'Para seguir la gestión con datos completos',
+    priceKey: 'intendenteMensual',
+    priceSuffix: '/mes',
     btnLabel: 'Elegir Intendente',
   },
   {
-    id: 'ministro',
-    name: 'Nivel Ministro',
-    desc: 'Para profundizar en la gestión',
-    priceKey: 'ministroMensual',
-    priceSuffix: '/mes',
-    btnLabel: 'Elegir Ministro',
-  },
-  {
     id: 'gobernador',
-    name: 'Nivel Gobernador',
+    name: 'Gobernador',
     desc: 'Para acceder a todo el laboratorio',
     priceKey: 'gobernadorMensual',
     priceSuffix: '/mes',
@@ -34,41 +36,34 @@ const COMPARE_CATEGORIES = [
     name: 'Contenidos y análisis',
     items: [
       { label: 'Señal Alsina: newsletter quincenal', tiers: [1, 1, 1] },
-      { label: 'Notas de coyuntura fiscal y productiva', tiers: [1, 1, 1] },
+      { label: 'Notas e informes públicos', tiers: [1, 1, 1] },
       { label: 'Informe de recaudación de la PBA', tiers: [0, 1, 1] },
       { label: 'Informe de transferencias municipales', tiers: [0, 1, 1] },
-      { label: 'Informe legislativo mensual', tiers: [0, 1, 1] },
       { label: 'Acceso al archivo completo de informes', tiers: [0, 0, 1] },
+      { label: 'Informes premium (PBG Municipal, Un empleo cada 23 vecinos)', tiers: [0, 0, 1] },
     ],
   },
   {
     name: 'Monitor 135',
     items: [
-      { label: 'Indicadores principales de los 135 municipios', tiers: [1, 1, 1] },
-      { label: 'Radar electoral municipal', tiers: [1, 1, 1] },
-      { label: 'Radar fiscal municipal', tiers: [1, 1, 1] },
-      { label: 'Radar productivo municipal', tiers: [1, 1, 1] },
-      { label: 'Fichas municipales completas', tiers: [0, 1, 1] },
+      { label: 'Ingreso al Monitor 135 e indicadores principales', tiers: [1, 1, 1] },
+      { label: 'Resumen electoral, fiscal y productivo', tiers: [1, 1, 1] },
+      { label: 'Consulta municipal completa', tiers: [0, 1, 1] },
+      { label: 'Indicadores fiscales municipales avanzados', tiers: [0, 1, 1] },
       { label: 'Comparación entre municipios', tiers: [0, 1, 1] },
-      { label: 'Acceso completo a todos los indicadores', tiers: [0, 0, 1] },
     ],
   },
   {
     name: 'Datos y herramientas',
     items: [
       { label: 'Visualizaciones interactivas', tiers: [1, 1, 1] },
-      { label: 'Descarga de informes', tiers: [0, 1, 1] },
-      { label: 'Datos completos de los 135 municipios', tiers: [0, 0, 1] },
       { label: 'Descarga de bases de datos', tiers: [0, 0, 1] },
-      { label: 'Tableros comparativos intermunicipales', tiers: [0, 0, 1] },
+      { label: 'Exportación de datos del Monitor', tiers: [0, 0, 1] },
     ],
   },
   {
-    name: 'Análisis territorial',
+    name: 'Otros',
     items: [
-      { label: 'Informes territoriales por municipio o sección', tiers: [0, 1, 1] },
-      { label: 'Radar tributario de la Provincia', tiers: [0, 0, 1] },
-      { label: 'Radar regulatorio y legislativo sectorial', tiers: [0, 0, 1] },
       { label: 'Acceso anticipado a nuevos productos', tiers: [0, 0, 1] },
     ],
   },
@@ -79,7 +74,10 @@ const COMPARE_CATEGORIES = [
   const mobileWrap = document.getElementById('compareMobile');
   if (!desktopWrap || !mobileWrap) return;
 
-  const CHECKOUT_HREF = '/newsletter.html#suscripcion';
+  // La tienda real (con el estado de cuenta y el checkout de verdad) es
+  // /planes.html — esta tabla es solo comparación visual, no procesa
+  // altas ni cobros (ver planes.html para el flujo funcional completo).
+  const CHECKOUT_HREF = '/planes.html';
   const checkIcon = (label) =>
     `<svg class="ic compare-check" viewBox="0 0 24 24" role="img" aria-label="${label}"><polyline points="20 6 9 17 4 12"/></svg>`;
   const checkIconDecorative = () =>
@@ -93,10 +91,7 @@ const COMPARE_CATEGORIES = [
   function ctaButton(plan, extraClass) {
     const a = document.createElement('a');
     a.className = `btn compare-plan-btn ${extraClass || ''}`.trim();
-    a.href = CHECKOUT_HREF;
-    a.dataset.checkoutType = 'pro';
-    a.dataset.checkoutResource = plan.id;
-    a.dataset.checkoutKeepLabel = '1';
+    a.href = `${CHECKOUT_HREF}#${plan.id}`;
     a.textContent = plan.btnLabel;
     return a;
   }

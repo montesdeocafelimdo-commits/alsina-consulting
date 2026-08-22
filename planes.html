@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planes — Alsina</title>
+<meta name="description" content="Concejal, Intendente y Gobernador: elegí tu nivel de acceso a los informes, el Monitor 135 y la Señal Alsina.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alsinaar.com/planes.html">
+<meta property="og:title" content="Planes — Alsina">
+<meta property="og:description" content="Concejal, Intendente y Gobernador: elegí tu nivel de acceso a los informes, el Monitor 135 y la Señal Alsina.">
+<meta name="theme-color" content="#0e1c20">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="stylesheet" href="/assets/css/alsina.css">
+<script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
+<script src="/assets/js/analytics.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --grafito:#0e1c20;--grafito2:#152830;--grafito3:#1e2f35;
+  --turquesa:#00D5D8;--cian:#008C9A;
+  --crema:#F3EFE7;--concreto:#9e9992;
+  --verde:#52C78C;--rojo:#E05252;--amarillo:#E0B152;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;overflow-x:hidden;}
+
+nav{
+  position:sticky;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 48px;background:rgba(14,28,32,0.97);
+  box-shadow:0 1px 0 rgba(0,213,216,0.1);backdrop-filter:blur(8px);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-mark{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.2em;color:var(--crema);}
+.nav-tagline{font-size:.58rem;color:rgba(183,178,170,.72);letter-spacing:.12em;text-transform:uppercase;}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.nav-link{font-size:.72rem;color:var(--turquesa);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(0,213,216,.3);padding:6px 14px;transition:all .2s;}
+.nav-link:hover{background:rgba(0,213,216,.08);border-color:var(--turquesa);}
+#navAccountState{font-size:.7rem;color:var(--concreto);}
+
+.hero{padding:64px 48px 24px;max-width:1100px;margin:0 auto;text-align:center;}
+.hero-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--turquesa);margin-bottom:14px;}
+.hero-headline{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.02;letter-spacing:-.01em;margin-bottom:16px;}
+.hero-headline em{font-style:normal;color:var(--turquesa);}
+.hero-sub{font-size:1.02rem;color:var(--concreto);max-width:640px;margin:0 auto;line-height:1.6;}
+
+.account-banner{max-width:760px;margin:28px auto 0;padding:14px 22px;background:var(--grafito2);border:1px solid rgba(0,213,216,.2);font-size:.85rem;color:var(--concreto);display:none;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.account-banner.show{display:flex;}
+.account-banner strong{color:var(--crema);}
+.account-banner a{color:var(--turquesa);text-decoration:none;font-weight:600;}
+
+.status-banner{max-width:760px;margin:20px auto 0;padding:16px 22px;font-size:.88rem;line-height:1.5;display:none;border-left:3px solid var(--turquesa);background:var(--grafito2);}
+.status-banner.show{display:block;}
+.status-banner.ok{border-color:var(--verde);}
+.status-banner.err{border-color:var(--rojo);}
+
+.pricing{max-width:1180px;margin:52px auto 0;padding:0 32px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;transition:opacity .2s;}
+.pricing[aria-busy="true"]{opacity:.45;pointer-events:none;}
+.pricing[aria-busy="true"] .plan-cta{cursor:wait;}
+@media(max-width:900px){.pricing{grid-template-columns:1fr;max-width:520px;}}
+.plan-card{background:var(--grafito2);border:1px solid rgba(255,255,255,.06);padding:32px 26px;display:flex;flex-direction:column;position:relative;}
+.plan-card.featured{border-color:var(--turquesa);box-shadow:0 0 0 1px var(--turquesa),0 20px 60px rgba(0,213,216,.08);}
+.plan-tag{position:absolute;top:-11px;left:26px;background:var(--turquesa);color:var(--grafito);font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;}
+.plan-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;letter-spacing:.02em;margin-bottom:6px;}
+.plan-price{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.6rem;line-height:1;margin:10px 0 4px;}
+.plan-price small{font-size:1rem;font-weight:600;color:var(--concreto);}
+.plan-price-note{font-size:.72rem;color:var(--concreto);margin-bottom:22px;min-height:1.2em;}
+.plan-features{list-style:none;flex:1;margin-bottom:24px;}
+.plan-features li{display:flex;align-items:flex-start;gap:10px;font-size:.85rem;color:var(--concreto);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.plan-features li.locked{color:rgba(158,153,146,.55);}
+.plan-features .icon{flex-shrink:0;width:16px;text-align:center;}
+.plan-features li.locked .icon{color:var(--amarillo);}
+.plan-features li:not(.locked) .icon{color:var(--verde);}
+.plan-cta{display:block;width:100%;text-align:center;padding:13px;font-size:.85rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border:none;cursor:pointer;transition:all .15s;text-decoration:none;}
+.plan-cta.primary{background:var(--turquesa);color:var(--grafito);}
+.plan-cta.primary:hover{background:#3de0e2;}
+.plan-cta.ghost{background:transparent;color:var(--turquesa);border:1px solid rgba(0,213,216,.4);}
+.plan-cta.ghost:hover{background:rgba(0,213,216,.08);}
+.plan-cta.current{background:transparent;color:var(--verde);border:1px solid var(--verde);cursor:default;}
+.plan-cta[disabled]{opacity:.55;cursor:wait;}
+.plan-inline-form{display:none;gap:0;margin-top:10px;}
+.plan-inline-form.show{display:flex;}
+.plan-inline-input{flex:1;background:var(--grafito);border:1px solid rgba(255,255,255,.15);color:var(--crema);padding:11px 12px;font-size:.85rem;font-family:inherit;}
+.plan-inline-input:focus-visible{outline:2px solid var(--turquesa);outline-offset:1px;border-color:var(--turquesa);}
+
+/* accesibilidad: foco siempre visible en todo elemento interactivo */
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--turquesa);outline-offset:2px;}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
+.plan-inline-btn{background:var(--turquesa);color:var(--grafito);border:none;padding:0 16px;font-size:.8rem;font-weight:700;cursor:pointer;}
+.plan-form-status{font-size:.76rem;margin-top:8px;min-height:1.2em;}
+.plan-form-status.ok{color:var(--verde);}
+.plan-form-status.err{color:var(--rojo);}
+
+.faq{max-width:760px;margin:72px auto;padding:0 32px;}
+.faq h2{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.6rem;margin-bottom:24px;text-align:center;}
+.faq-item{border-bottom:1px solid rgba(255,255,255,.08);padding:16px 0;}
+.faq-item summary{cursor:pointer;font-weight:600;font-size:.92rem;}
+.faq-item p{margin-top:10px;font-size:.85rem;color:var(--concreto);line-height:1.6;}
+
+footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
+.footer-inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-brand{display:flex;align-items:center;gap:8px;}
+.footer-brandname{font-family:'Barlow Condensed',sans-serif;font-weight:900;letter-spacing:.15em;font-size:.95rem;}
+.footer-links{display:flex;gap:20px;}
+.footer-links a{color:var(--concreto);text-decoration:none;font-size:.8rem;}
+.footer-links a:hover{color:var(--turquesa);}
+.footer-copy{font-size:.72rem;color:rgba(158,153,146,.5);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg viewBox="0 0 26 26" fill="none" width="28"><path d="M13 2L1.5 24H5.5L13 11L20.5 24H24.5L13 2Z" fill="#00D5D8"/></svg>
+    <div><div class="nav-mark">ALSINA</div><div class="nav-tagline">Análisis · Estrategia · Impacto</div></div>
+  </a>
+  <div class="nav-right">
+    <span id="navAccountState"></span>
+    <a href="/" class="nav-link">← Volver al sitio</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Planes Alsina</div>
+  <h1 class="hero-headline">Elegí tu nivel<br>de <em>acceso.</em></h1>
+  <p class="hero-sub">Concejal es gratis y siempre lo va a ser. Intendente y Gobernador suman el Monitor 135 completo, informes premium y descarga de datos.</p>
+
+  <div class="account-banner" id="accountBanner" role="status" aria-live="polite"></div>
+  <div class="status-banner" id="statusBanner" role="status" aria-live="polite"></div>
+</section>
+
+<section class="pricing" id="pricing" aria-busy="true">
+  <!-- Concejal -->
+  <div class="plan-card" data-plan="concejal">
+    <div class="plan-name">Concejal</div>
+    <div class="plan-price">$0</div>
+    <div class="plan-price-note">Gratis, para siempre</div>
+    <ul class="plan-features">
+      <li><span class="icon">✓</span> Señal Alsina (newsletter quincenal)</li>
+      <li><span class="icon">✓</span> Ingreso al Monitor 135 + indicadores principales</li>
+      <li><span class="icon">✓</span> Resumen electoral, fiscal y productivo</li>
+      <li><span class="icon">✓</span> Notas e informes públicos</li>
+      <li class="locked"><span class="icon">🔒</span> Consulta municipal completa</li>
+      <li class="locked"><span class="icon">🔒</span> Indicadores avanzados y comparación entre municipios</li>
+    </ul>
+    <button class="plan-cta primary" data-action="signup">Registrarme gratis →</button>
+    <form class="plan-inline-form" id="concejalForm">
+      <label for="concejalEmail" class="visually-hidden">Tu email</label>
+      <input type="email" class="plan-inline-input" id="concejalEmail" placeholder="tu@mail.com" required aria-required="true">
+      <button type="submit" class="plan-inline-btn">Enviar</button>
+    </form>
+    <div class="plan-form-status" id="concejalStatus" role="status" aria-live="polite"></div>
+  </div>
+
+  <!-- Intendente -->
+  <div class="plan-card featured" data-plan="intendente">
+    <div class="plan-tag">Precio fundador</div>
+    <div class="plan-name">Intendente</div>
+    <div class="plan-price">$25.000<small>/mes</small></div>
+    <div class="plan-price-note">Precio final, impuestos incluidos</div>
+    <ul class="plan-features">
+      <li><span class="icon">✓</span> Todo lo de Concejal</li>
+      <li><span class="icon">✓</span> Monitor 135 completo (consulta e indicadores avanzados)</li>
+      <li><span class="icon">✓</span> Comparación entre municipios</li>
+      <li><span class="icon">✓</span> Balance fiscal e Indicadores fiscales municipales</li>
+      <li><span class="icon">✓</span> Recaudación tributaria y Transferencias a municipios</li>
+      <li class="locked"><span class="icon">🔒</span> Descarga y exportación de bases</li>
+      <li class="locked"><span class="icon">🔒</span> Archivo completo de informes</li>
+    </ul>
+    <button class="plan-cta primary" data-action="checkout" data-plan-target="intendente">Suscribirme →</button>
+    <div class="plan-form-status" id="intendenteStatus" role="status" aria-live="polite"></div>
+  </div>
+
+  <!-- Gobernador -->
+  <div class="plan-card" data-plan="gobernador">
+    <div class="plan-tag">Precio fundador</div>
+    <div class="plan-name">Gobernador</div>
+    <div class="plan-price">$45.000<small>/mes</small></div>
+    <div class="plan-price-note">Precio final, impuestos incluidos</div>
+    <ul class="plan-features">
+      <li><span class="icon">✓</span> Todo lo de Intendente</li>
+      <li><span class="icon">✓</span> Descarga y exportación de bases completas</li>
+      <li><span class="icon">✓</span> Archivo completo de informes</li>
+      <li><span class="icon">✓</span> Acceso anticipado a nuevos productos</li>
+      <li><span class="icon">✓</span> Informes premium (PBG Municipal, Un empleo cada 23 vecinos)</li>
+    </ul>
+    <button class="plan-cta primary" data-action="checkout" data-plan-target="gobernador">Suscribirme →</button>
+    <div class="plan-form-status" id="gobernadorStatus" role="status" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="faq">
+  <h2>Preguntas frecuentes</h2>
+  <details class="faq-item">
+    <summary>¿Los precios pueden subir?</summary>
+    <p>Si el precio de lista sube en el futuro, tu precio de fundador se mantiene mientras tu cuenta siga en el mismo plan y tu suscripción esté activa.</p>
+  </details>
+  <details class="faq-item">
+    <summary>¿Puedo cancelar cuando quiera?</summary>
+    <p>Sí, es autoservicio desde tu cuenta — sin llamadas ni trámites. Mantenés el acceso hasta el final de tu período ya pagado, sin devolución proporcional.</p>
+  </details>
+  <details class="faq-item">
+    <summary>¿Hay prueba gratis en los planes pagos?</summary>
+    <p>No — Concejal cumple esa función, sin costo y sin límite de tiempo. Intendente y Gobernador se cobran desde el primer día.</p>
+  </details>
+  <details class="faq-item">
+    <summary>¿Cómo pago?</summary>
+    <p>A través de Mercado Pago, con débito automático mensual en la fecha en que te suscribiste.</p>
+  </details>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <svg viewBox="0 0 22 22" fill="none" width="20"><path d="M11 1.5L1 20.5H5.5L11 10L16.5 20.5H21L11 1.5Z" fill="#00D5D8"/></svg>
+      <div class="footer-brandname">ALSINA</div>
+    </div>
+    <div class="footer-links">
+      <a href="/">Inicio</a>
+      <a href="/cuenta.html">Mi cuenta</a>
+      <a href="mailto:info@alsinaar.com">Contacto</a>
+    </div>
+    <div class="footer-copy">© 2026 Alsina · alsinaar.com</div>
+  </div>
+</footer>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/auth.js"></script>
+<script>
+(async function () {
+  const PLAN_ORDER = { concejal: 0, intendente: 1, gobernador: 2 };
+  const PLAN_LABEL = { concejal: 'Concejal', intendente: 'Intendente', gobernador: 'Gobernador' };
+
+  function showBanner(el, html, cls) {
+    el.innerHTML = html;
+    el.className = el.className.split(' ')[0] + ' show' + (cls ? ' ' + cls : '');
+  }
+
+  // ── estados post-redirect de Mercado Pago ──
+  (function renderStatusFromQuery() {
+    const p = new URLSearchParams(location.search);
+    const banner = document.getElementById('statusBanner');
+    if (p.get('checkout') === 'pendiente' || p.get('upgrade') === 'pendiente') {
+      showBanner(banner, 'Estamos confirmando tu pago con Mercado Pago. Puede tardar unos segundos — actualizá esta página o revisá <a href="/cuenta.html" style="color:var(--turquesa)">tu cuenta</a> en un momento.', '');
+    } else if (p.get('compra') === 'ok') {
+      showBanner(banner, '¡Listo! Tu pago se acreditó.', 'ok');
+    } else if (p.get('compra') === 'error') {
+      showBanner(banner, 'El pago no se pudo completar. Podés intentar de nuevo cuando quieras.', 'err');
+    }
+  })();
+
+  await window.ALSINA_CONFIG_READY;
+  const paymentsEnabled = !!(window.ALSINA_CONFIG && window.ALSINA_CONFIG.PAYMENTS_ENABLED);
+
+  const session = await window.AlsinaAuth.getSession();
+  let account = null;
+  if (session) {
+    try {
+      const r = await window.AlsinaAuth.authedFetch('/api/account');
+      if (r.ok) account = await r.json();
+    } catch (e) { /* seguimos como si no hubiera cuenta resuelta */ }
+  }
+
+  const navState = document.getElementById('navAccountState');
+  if (session && account) {
+    navState.textContent = `${account.email} · ${account.planName}`;
+  } else if (session) {
+    navState.textContent = 'Cargando tu cuenta…';
+  }
+
+  const accountBanner = document.getElementById('accountBanner');
+  if (account) {
+    let extra = '';
+    if (account.status === 'cancel_at_period_end') {
+      extra = ` — tu baja se hace efectiva el ${account.paidThrough ? new Date(account.paidThrough).toLocaleDateString('es-AR') : ''}. <a href="/cuenta.html">Revertir</a>`;
+    } else if (account.status === 'past_due') {
+      extra = ' — hay un problema con tu último pago. <a href="/cuenta.html">Regularizar</a>';
+    } else if (account.status === 'suspended') {
+      extra = ' — tu acceso pago está suspendido. <a href="/cuenta.html">Reactivar</a>';
+    }
+    showBanner(accountBanner, `Sesión iniciada como <strong>${account.email}</strong> · Plan actual: <strong>${account.planName}</strong>${extra} · <a href="/cuenta.html">Ir a mi cuenta →</a>`);
+  }
+
+  document.getElementById('pricing').removeAttribute('aria-busy');
+
+  // ── Concejal: alta / ya logueado ──
+  const concejalBtn = document.querySelector('[data-plan="concejal"] [data-action="signup"]');
+  const concejalForm = document.getElementById('concejalForm');
+  const concejalStatus = document.getElementById('concejalStatus');
+  if (session) {
+    concejalBtn.textContent = 'Ya tenés cuenta';
+    concejalBtn.className = 'plan-cta current';
+    concejalBtn.disabled = true;
+  } else {
+    concejalBtn.addEventListener('click', () => concejalForm.classList.add('show'));
+    concejalForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('concejalEmail').value.trim();
+      const btn = concejalForm.querySelector('button');
+      btn.disabled = true;
+      try {
+        await window.AlsinaAuth.signInWithMagicLink(email);
+        concejalStatus.className = 'plan-form-status ok';
+        concejalStatus.textContent = '¡Listo! Revisá tu mail y hacé clic en el link para confirmar tu cuenta Concejal.';
+        if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('concejal_signup', { location: 'planes' });
+      } catch (err) {
+        concejalStatus.className = 'plan-form-status err';
+        concejalStatus.textContent = 'No pudimos enviar el mail. Probá de nuevo en un momento.';
+        btn.disabled = false;
+      }
+    });
+  }
+
+  // ── Intendente / Gobernador: checkout, upgrade o "ya sos" ──
+  document.querySelectorAll('[data-action="checkout"]').forEach((btn) => {
+    const targetPlan = btn.getAttribute('data-plan-target');
+    const statusEl = document.getElementById(targetPlan + 'Status');
+
+    if (session && !account) {
+      // La sesión existe pero /api/account falló — no lo dejamos como un
+      // botón mudo: estado de error explícito y reintentable.
+      btn.textContent = 'No se pudo cargar tu cuenta — reintentar';
+      btn.className = 'plan-cta ghost';
+      btn.disabled = false;
+      btn.addEventListener('click', () => location.reload());
+      return;
+    }
+
+    if (!session) {
+      btn.textContent = 'Creá tu cuenta primero ↑';
+      btn.addEventListener('click', () => {
+        concejalForm.classList.add('show');
+        document.querySelector('[data-plan="concejal"]').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        statusEl.className = 'plan-form-status';
+        statusEl.textContent = 'Primero creá tu cuenta gratis (arriba) — después volvés acá para suscribirte.';
+      });
+      return;
+    }
+
+    if (!account) return; // todavía resolviendo
+
+    const currentRank = PLAN_ORDER[account.plan] ?? 0;
+    const targetRank = PLAN_ORDER[targetPlan];
+
+    if (account.plan === targetPlan) {
+      btn.textContent = 'Tu plan actual';
+      btn.className = 'plan-cta current';
+      btn.disabled = true;
+      return;
+    }
+
+    if (!paymentsEnabled) {
+      btn.textContent = 'Sumarme a la lista de espera';
+      btn.className = 'plan-cta ghost';
+      btn.addEventListener('click', async () => {
+        btn.disabled = true;
+        try {
+          const r = await window.AlsinaAuth.authedFetch('/api/subscriptions/checkout', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ planSlug: targetPlan }),
+          });
+          statusEl.className = 'plan-form-status ok';
+          statusEl.textContent = r.status === 503 ? 'Anotado — te avisamos apenas se active el cobro.' : 'Anotado.';
+        } catch (e) {
+          statusEl.className = 'plan-form-status err';
+          statusEl.textContent = 'No pudimos registrar tu interés. Probá de nuevo.';
+          btn.disabled = false;
+        }
+      });
+      return;
+    }
+
+    if (targetRank > currentRank) {
+      const isUpgrade = account.plan === 'intendente' && targetPlan === 'gobernador';
+      btn.textContent = isUpgrade ? 'Upgrade a Gobernador →' : 'Suscribirme →';
+      btn.addEventListener('click', async () => {
+        btn.disabled = true; btn.textContent = 'Redirigiendo a Mercado Pago…';
+        try {
+          const endpoint = isUpgrade ? '/api/subscriptions/upgrade' : '/api/subscriptions/checkout';
+          const body = isUpgrade ? {} : { planSlug: targetPlan };
+          const r = await window.AlsinaAuth.authedFetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+          const data = await r.json();
+          if (!r.ok || !data.checkoutUrl) throw new Error(data.error || 'error');
+          window.location.href = data.checkoutUrl;
+        } catch (err) {
+          statusEl.className = 'plan-form-status err';
+          statusEl.textContent = 'No pudimos iniciar el pago. Probá de nuevo en un momento.';
+          btn.disabled = false; btn.textContent = isUpgrade ? 'Upgrade a Gobernador →' : 'Suscribirme →';
+        }
+      });
+    } else if (account.pendingPlan === targetPlan) {
+      btn.textContent = `Ya programado → Mi cuenta`;
+      btn.className = 'plan-cta ghost';
+      btn.addEventListener('click', () => { window.location.href = '/cuenta.html'; });
+    } else {
+      btn.textContent = `Cambiar a ${PLAN_LABEL[targetPlan]}`;
+      btn.className = 'plan-cta ghost';
+      btn.addEventListener('click', () => { window.location.href = '/cuenta.html'; });
+    }
+  });
+})();
+</script>
+</body>
+</html>

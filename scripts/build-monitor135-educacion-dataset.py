@@ -28,7 +28,9 @@ neto, metodológicamente posible), variaciones % sobre una base inicial
 chica, y valores extremos en alumnos por sede/sección — todas quedan
 marcadas con `quality_flag`, nunca ocultas ni "corregidas".
 
-Salida: assets/data/monitor135-educacion.json
+Salida: private/data/monitor135-educacion.json (dataset protegido, servido
+solo vía /api/monitor135/data — ver AD-19: deja de ser un JSON estático
+público en assets/data/).
 """
 import csv
 import json
@@ -38,7 +40,7 @@ import openpyxl
 
 XLSX = 'Mega_Base_Alsina_Educacion_PBA_v1.xlsx'
 MASTER_CSV = 'Info_Municipios_nueva/pba_municipios_master_v2.csv'
-OUT_JSON = 'assets/data/monitor135-educacion.json'
+OUT_JSON = 'private/data/monitor135-educacion.json'
 
 FUENTE = 'DGCyE PBA — Mega Base Educación Alsina'
 
