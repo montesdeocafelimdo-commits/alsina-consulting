@@ -28,8 +28,25 @@ h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.9rem;ma
 .bar-row .k{width:120px;color:#9e9992;flex-shrink:0;}
 .bar-row .v{font-weight:700;}
 .msg{text-align:center;padding:80px 20px;color:#9e9992;}
-a:focus-visible{outline:2px solid #00D5D8;outline-offset:2px;}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid #00D5D8;outline-offset:2px;}
 .err{color:#E05252;}
+.searchRow{display:flex;gap:8px;margin-bottom:14px;}
+.searchRow input{flex:1;background:#0e1c20;border:1px solid rgba(255,255,255,.15);color:#F3EFE7;padding:9px 12px;font-size:.85rem;}
+.searchRow button{background:#00D5D8;color:#0e1c20;border:none;padding:0 16px;font-weight:700;cursor:pointer;font-size:.82rem;}
+table.accounts{width:100%;border-collapse:collapse;font-size:.8rem;}
+table.accounts th{text-align:left;color:#9e9992;font-weight:600;padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.1);}
+table.accounts td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle;}
+.pill{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:2px;}
+.pill.active{background:rgba(82,199,140,.15);color:#52C78C;}
+.pill.warn{background:rgba(224,177,82,.15);color:#E0B152;}
+.pill.bad{background:rgba(224,82,82,.15);color:#E05252;}
+.btn3{background:transparent;border:1px solid rgba(224,82,82,.4);color:#E05252;padding:5px 10px;font-size:.72rem;cursor:pointer;}
+.btn3:hover{background:rgba(224,82,82,.1);}
+.btn3[disabled]{opacity:.5;cursor:wait;}
+.rowStatus{font-size:.72rem;margin-top:2px;}
+.rowStatus.ok{color:#52C78C;}
+.rowStatus.err{color:#E05252;}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
 </style>
 </head>
 <body>
@@ -52,6 +69,7 @@ a:focus-visible{outline:2px solid #00D5D8;outline-offset:2px;}
     return;
   }
 
+  let role = null;
   try {
     const r = await window.AlsinaAuth.authedFetch('/api/admin/metrics');
     if (r.status === 403) {
@@ -60,12 +78,13 @@ a:focus-visible{outline:2px solid #00D5D8;outline-offset:2px;}
     }
     if (!r.ok) throw new Error('http_' + r.status);
     const m = await r.json();
+    role = m.role;
 
     const byPlan = Object.entries(m.subscriptionsByPlan || {}).map(([k, v]) => `<div class="bar-row"><span class="k">${k}</span><span class="v">${v}</span></div>`).join('');
     const byStatus = Object.entries(m.subscriptionsByStatus || {}).map(([k, v]) => `<div class="bar-row"><span class="k">${k}</span><span class="v">${v}</span></div>`).join('');
 
     wrap.innerHTML = `
-      <h1>Métricas agregadas</h1>
+      <h1>Panel administrativo</h1>
       <div class="role">Rol: ${m.role} · Generado ${new Date(m.generatedAt).toLocaleString('es-AR')}</div>
       <div class="grid">
         <div class="tile"><div class="num">${m.totalAccounts ?? '—'}</div><div class="lbl">Cuentas totales</div></div>
@@ -75,10 +94,102 @@ a:focus-visible{outline:2px solid #00D5D8;outline-offset:2px;}
       </div>
       <div class="card"><h2>Por plan</h2>${byPlan || '<p style="color:#9e9992;font-size:.82rem;">Sin datos.</p>'}</div>
       <div class="card"><h2>Por estado</h2>${byStatus || '<p style="color:#9e9992;font-size:.82rem;">Sin datos.</p>'}</div>
-      <p style="color:#9e9992;font-size:.72rem;">Segmentos con menos de 5 cuentas se agrupan en "otros" — nunca se muestra un dato individual acá.</p>
+      <p style="color:#9e9992;font-size:.72rem;margin-bottom:24px;">Segmentos con menos de 5 cuentas se agrupan en "otros" — nunca se muestra un dato individual acá.</p>
+      ${role === 'super_admin' ? `
+      <div class="card">
+        <h2>Cuentas</h2>
+        <div class="searchRow">
+          <label for="accSearch" class="visually-hidden">Buscar por email</label>
+          <input type="search" id="accSearch" placeholder="Buscar por email…">
+          <button id="accSearchBtn">Buscar</button>
+        </div>
+        <div id="accountsWrap"><p style="color:#9e9992;font-size:.82rem;">Cargando…</p></div>
+      </div>` : ''}
     `;
+
+    if (role === 'super_admin') await loadAccounts('');
   } catch (err) {
-    wrap.innerHTML = `<div class="msg err">No pudimos cargar las métricas. Recargá la página.</div>`;
+    wrap.innerHTML = `<div class="msg err">No pudimos cargar el panel. Recargá la página.</div>`;
+    return;
+  }
+
+  const STATUS_LABEL = {
+    active: ['Activo', 'active'], past_due: ['Pago pendiente', 'warn'], grace_period: ['En gracia', 'warn'],
+    suspended: ['Suspendido', 'bad'], cancel_at_period_end: ['Se cancela', 'warn'],
+    canceled: ['Cancelado', 'bad'], disputed: ['En disputa', 'bad'], incomplete: ['Incompleto', ''],
+  };
+
+  async function loadAccounts(q) {
+    const wrapEl = document.getElementById('accountsWrap');
+    if (!wrapEl) return;
+    wrapEl.innerHTML = '<p style="color:#9e9992;font-size:.82rem;">Cargando…</p>';
+    try {
+      const r = await window.AlsinaAuth.authedFetch('/api/admin/accounts?q=' + encodeURIComponent(q || ''));
+      if (!r.ok) throw new Error('http_' + r.status);
+      const data = await r.json();
+      renderAccounts(data.accounts || []);
+    } catch (err) {
+      wrapEl.innerHTML = '<p class="err" style="font-size:.82rem;">No se pudieron cargar las cuentas.</p>';
+    }
+  }
+
+  function renderAccounts(accounts) {
+    const wrapEl = document.getElementById('accountsWrap');
+    if (!accounts.length) { wrapEl.innerHTML = '<p style="color:#9e9992;font-size:.82rem;">Sin resultados.</p>'; return; }
+
+    const rows = accounts.map((a) => {
+      const [label, cls] = STATUS_LABEL[a.status] || [a.status || '—', ''];
+      const canCancel = a.accountId && a.plan !== 'concejal' && !['canceled', 'incomplete'].includes(a.status);
+      return `<tr data-account-id="${a.accountId || ''}">
+        <td>${a.email}</td>
+        <td>${a.planName || '—'}</td>
+        <td><span class="pill ${cls}">${label}</span>${a.hasPendingDowngrade ? ' <span class="pill warn">downgrade pend.</span>' : ''}</td>
+        <td>${a.paidThrough ? new Date(a.paidThrough).toLocaleDateString('es-AR') : '—'}</td>
+        <td>${canCancel ? `<button class="btn3" data-action="cancel">Dar de baja</button>` : ''}
+          <div class="rowStatus"></div>
+        </td>
+      </tr>`;
+    }).join('');
+
+    wrapEl.innerHTML = `<div style="overflow-x:auto;"><table class="accounts">
+      <thead><tr><th>Email</th><th>Plan</th><th>Estado</th><th>Pago hasta</th><th></th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>`;
+
+    wrapEl.querySelectorAll('button[data-action="cancel"]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const tr = btn.closest('tr');
+        const accountId = tr.dataset.accountId;
+        const statusEl = tr.querySelector('.rowStatus');
+        const reason = prompt('Motivo de la baja administrativa (queda auditado):');
+        if (!reason || reason.trim().length < 3) return;
+        if (!confirm('¿Dar de baja esta suscripción ahora mismo? Corta el cobro automático y el acceso pago de inmediato — no espera al fin del período.')) return;
+        btn.disabled = true;
+        statusEl.className = 'rowStatus';
+        statusEl.textContent = '';
+        try {
+          const r = await window.AlsinaAuth.authedFetch('/api/admin/cancel-subscription', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ accountId, reason }),
+          });
+          const data = await r.json().catch(() => ({}));
+          if (!r.ok) throw new Error(data.error || 'error');
+          statusEl.className = 'rowStatus ok';
+          statusEl.textContent = 'Dada de baja.';
+          btn.remove();
+        } catch (err) {
+          statusEl.className = 'rowStatus err';
+          statusEl.textContent = err.message || 'No se pudo dar de baja.';
+          btn.disabled = false;
+        }
+      });
+    });
+  }
+
+  const searchBtn = document.getElementById('accSearchBtn');
+  if (searchBtn) {
+    searchBtn.addEventListener('click', () => loadAccounts(document.getElementById('accSearch').value));
+    document.getElementById('accSearch').addEventListener('keydown', (e) => { if (e.key === 'Enter') loadAccounts(e.target.value); });
   }
 })();
 </script>

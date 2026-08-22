@@ -1,5 +1,5 @@
-import { getSupabaseAdmin } from '../_lib/supabaseAdmin.js';
-import { requireAdmin } from '../_lib/adminAuth.js';
+import { getSupabaseAdmin } from '../supabaseAdmin.js';
+import { requireAdmin } from '../adminAuth.js';
 
 // ALSINA — métricas agregadas para el panel administrativo (AD-17).
 // super_admin y partner ven exactamente lo mismo acá: nada de esto es

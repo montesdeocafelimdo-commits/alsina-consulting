@@ -9,6 +9,7 @@ import selftest from '../_lib/subscriptionHandlers/selftest.js';
 import ensureMpPlans from '../_lib/subscriptionHandlers/ensureMpPlans.js';
 import sendTestEmail from '../_lib/subscriptionHandlers/sendTestEmail.js';
 import fixIncomplete from '../_lib/subscriptionHandlers/fixIncomplete.js';
+import grantAdmin from '../_lib/subscriptionHandlers/grantAdmin.js';
 
 // ALSINA — un solo archivo de ruta dinámica para /api/subscriptions/*.
 //
@@ -36,6 +37,7 @@ const ACTIONS = {
   'ensure-mp-plans': ensureMpPlans,
   'send-test-email': sendTestEmail,
   'fix-incomplete': fixIncomplete,
+  'grant-admin': grantAdmin,
 };
 
 export default async function handler(req, res) {
