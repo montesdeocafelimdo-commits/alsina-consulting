@@ -60,7 +60,9 @@ nav{
 .status-banner.ok{border-color:var(--verde);}
 .status-banner.err{border-color:var(--rojo);}
 
-.pricing{max-width:1180px;margin:52px auto 0;padding:0 32px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.pricing{max-width:1180px;margin:52px auto 0;padding:0 32px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;transition:opacity .2s;}
+.pricing[aria-busy="true"]{opacity:.45;pointer-events:none;}
+.pricing[aria-busy="true"] .plan-cta{cursor:wait;}
 @media(max-width:900px){.pricing{grid-template-columns:1fr;max-width:520px;}}
 .plan-card{background:var(--grafito2);border:1px solid rgba(255,255,255,.06);padding:32px 26px;display:flex;flex-direction:column;position:relative;}
 .plan-card.featured{border-color:var(--turquesa);box-shadow:0 0 0 1px var(--turquesa),0 20px 60px rgba(0,213,216,.08);}
@@ -85,7 +87,11 @@ nav{
 .plan-inline-form{display:none;gap:0;margin-top:10px;}
 .plan-inline-form.show{display:flex;}
 .plan-inline-input{flex:1;background:var(--grafito);border:1px solid rgba(255,255,255,.15);color:var(--crema);padding:11px 12px;font-size:.85rem;font-family:inherit;}
-.plan-inline-input:focus{outline:none;border-color:var(--turquesa);}
+.plan-inline-input:focus-visible{outline:2px solid var(--turquesa);outline-offset:1px;border-color:var(--turquesa);}
+
+/* accesibilidad: foco siempre visible en todo elemento interactivo */
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--turquesa);outline-offset:2px;}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
 .plan-inline-btn{background:var(--turquesa);color:var(--grafito);border:none;padding:0 16px;font-size:.8rem;font-weight:700;cursor:pointer;}
 .plan-form-status{font-size:.76rem;margin-top:8px;min-height:1.2em;}
 .plan-form-status.ok{color:var(--verde);}
@@ -125,11 +131,11 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
   <h1 class="hero-headline">Elegí tu nivel<br>de <em>acceso.</em></h1>
   <p class="hero-sub">Concejal es gratis y siempre lo va a ser. Intendente y Gobernador suman el Monitor 135 completo, informes premium y descarga de datos.</p>
 
-  <div class="account-banner" id="accountBanner"></div>
-  <div class="status-banner" id="statusBanner"></div>
+  <div class="account-banner" id="accountBanner" role="status" aria-live="polite"></div>
+  <div class="status-banner" id="statusBanner" role="status" aria-live="polite"></div>
 </section>
 
-<section class="pricing" id="pricing">
+<section class="pricing" id="pricing" aria-busy="true">
   <!-- Concejal -->
   <div class="plan-card" data-plan="concejal">
     <div class="plan-name">Concejal</div>
@@ -145,10 +151,11 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
     </ul>
     <button class="plan-cta primary" data-action="signup">Registrarme gratis →</button>
     <form class="plan-inline-form" id="concejalForm">
-      <input type="email" class="plan-inline-input" id="concejalEmail" placeholder="tu@mail.com" required>
+      <label for="concejalEmail" class="visually-hidden">Tu email</label>
+      <input type="email" class="plan-inline-input" id="concejalEmail" placeholder="tu@mail.com" required aria-required="true">
       <button type="submit" class="plan-inline-btn">Enviar</button>
     </form>
-    <div class="plan-form-status" id="concejalStatus"></div>
+    <div class="plan-form-status" id="concejalStatus" role="status" aria-live="polite"></div>
   </div>
 
   <!-- Intendente -->
@@ -167,7 +174,7 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
       <li class="locked"><span class="icon">🔒</span> Archivo completo de informes</li>
     </ul>
     <button class="plan-cta primary" data-action="checkout" data-plan-target="intendente">Suscribirme →</button>
-    <div class="plan-form-status" id="intendenteStatus"></div>
+    <div class="plan-form-status" id="intendenteStatus" role="status" aria-live="polite"></div>
   </div>
 
   <!-- Gobernador -->
@@ -184,7 +191,7 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
       <li><span class="icon">✓</span> Informes premium (PBG Municipal, Un empleo cada 23 vecinos)</li>
     </ul>
     <button class="plan-cta primary" data-action="checkout" data-plan-target="gobernador">Suscribirme →</button>
-    <div class="plan-form-status" id="gobernadorStatus"></div>
+    <div class="plan-form-status" id="gobernadorStatus" role="status" aria-live="polite"></div>
   </div>
 </section>
 
@@ -280,6 +287,8 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
     showBanner(accountBanner, `Sesión iniciada como <strong>${account.email}</strong> · Plan actual: <strong>${account.planName}</strong>${extra} · <a href="/cuenta.html">Ir a mi cuenta →</a>`);
   }
 
+  document.getElementById('pricing').removeAttribute('aria-busy');
+
   // ── Concejal: alta / ya logueado ──
   const concejalBtn = document.querySelector('[data-plan="concejal"] [data-action="signup"]');
   const concejalForm = document.getElementById('concejalForm');
@@ -312,6 +321,16 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
   document.querySelectorAll('[data-action="checkout"]').forEach((btn) => {
     const targetPlan = btn.getAttribute('data-plan-target');
     const statusEl = document.getElementById(targetPlan + 'Status');
+
+    if (session && !account) {
+      // La sesión existe pero /api/account falló — no lo dejamos como un
+      // botón mudo: estado de error explícito y reintentable.
+      btn.textContent = 'No se pudo cargar tu cuenta — reintentar';
+      btn.className = 'plan-cta ghost';
+      btn.disabled = false;
+      btn.addEventListener('click', () => location.reload());
+      return;
+    }
 
     if (!session) {
       btn.textContent = 'Creá tu cuenta primero ↑';
@@ -375,6 +394,10 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
           btn.disabled = false; btn.textContent = isUpgrade ? 'Upgrade a Gobernador →' : 'Suscribirme →';
         }
       });
+    } else if (account.pendingPlan === targetPlan) {
+      btn.textContent = `Ya programado → Mi cuenta`;
+      btn.className = 'plan-cta ghost';
+      btn.addEventListener('click', () => { window.location.href = '/cuenta.html'; });
     } else {
       btn.textContent = `Cambiar a ${PLAN_LABEL[targetPlan]}`;
       btn.className = 'plan-cta ghost';

@@ -5,18 +5,19 @@ import { cancelAtPeriodEnd } from '../subscriptionActions.js';
 
 // ALSINA — downgrade (AD-11): Gobernador→Intendente, Gobernador→Concejal,
 // Intendente→Concejal. Efectivo al próximo aniversario (paid_through),
-// sin devolución proporcional. Se mantiene el plan actual hasta esa
-// fecha. Revertible antes de la fecha efectiva.
+// sin devolución proporcional. Se mantiene el plan actual (con TODOS sus
+// beneficios) hasta esa fecha. Revertible antes de la fecha efectiva.
 //
 // →Concejal es, en los hechos, una cancelación (AD-12) — se delega al
 // mismo mecanismo (api/_lib/subscriptionActions.js) para no duplicar ni
-// divergir. →Intendente (desde Gobernador) sigue siendo un plan pago: no
-// se crea una preapproval nueva (Mercado Pago no permite autorizar un
-// cobro nuevo sin que el usuario pase por un checkout), se actualiza el
-// importe de la preapproval EXISTENTE — Mercado Pago aplica ese cambio
-// recién en el próximo cobro, nunca retroactivo. Confirmar este
-// comportamiento contra la documentación/API real de Mercado Pago antes
-// de activar pagos (ver 10-production-readiness-checklist.md).
+// divergir.
+//
+// →Intendente (desde Gobernador) sigue siendo un plan pago. Acá SOLO se
+// guarda la intención (pending_plan_id/pending_price_id) — no se toca
+// Mercado Pago en absoluto en este momento. El cambio real (consultar el
+// estado real en MP, actualizar el importe, verificar, recién ahí
+// cambiar el plan local) lo hace finalizePendingDowngrade() desde
+// api/cron/dunning cuando paid_through se cumple — nunca antes.
 
 const DOWNGRADE_TARGETS = new Set(['intendente', 'concejal']);
 
@@ -60,31 +61,18 @@ export default async function handler(req, res) {
     }
   }
 
-  // Gobernador -> Intendente: sigue pago, no requiere PAYMENTS_ENABLED
-  // para *programar* el cambio, pero si hay preapproval real hay que
-  // poder tocarla — sin token no se puede garantizar el próximo cobro.
+  // Gobernador -> Intendente: solo se programa. Nada de Mercado Pago
+  // acá — ver finalizePendingDowngrade() en api/_lib/subscriptionActions.js.
   const resolved = await getActivePlanPrice('intendente');
   if (!resolved) return res.status(500).json({ error: 'plan_no_disponible' });
   const { plan, price } = resolved;
 
-  if (subscription.provider === 'mercadopago' && subscription.provider_subscription_id) {
-    if (!process.env.MP_ACCESS_TOKEN) return res.status(500).json({ error: 'pagos_no_configurados' });
-    try {
-      const { MercadoPagoConfig, PreApproval } = await import('mercadopago');
-      const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
-      await new PreApproval(client).update({
-        id: subscription.provider_subscription_id,
-        body: { auto_recurring: { transaction_amount: Number(price.amount) } },
-      });
-    } catch (mpErr) {
-      console.error('downgrade: no se pudo actualizar el importe en Mercado Pago:', mpErr?.message || mpErr);
-      return res.status(500).json({ error: 'no_se_pudo_programar_el_downgrade' });
-    }
-  }
-
   const { error: updateError } = await supa
     .from('subscriptions')
-    .update({ pending_plan_id: plan.id, pending_price_id: price.id })
+    .update({
+      pending_plan_id: plan.id, pending_price_id: price.id,
+      pending_downgrade_attempts: 0, pending_downgrade_last_error: null, pending_downgrade_failed_at: null,
+    })
     .eq('id', subscription.id);
   if (updateError) {
     console.error('downgrade: error guardando cambio pendiente:', updateError.message);

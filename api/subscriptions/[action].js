@@ -6,6 +6,7 @@ import revertCancel from '../_lib/subscriptionHandlers/revert-cancel.js';
 import revertDowngrade from '../_lib/subscriptionHandlers/revert-downgrade.js';
 import upgrade from '../_lib/subscriptionHandlers/upgrade.js';
 import selftest from '../_lib/subscriptionHandlers/selftest.js';
+import ensureMpPlans from '../_lib/subscriptionHandlers/ensureMpPlans.js';
 
 // ALSINA — un solo archivo de ruta dinámica para /api/subscriptions/*.
 //
@@ -30,6 +31,7 @@ const ACTIONS = {
   // api/_lib/subscriptionHandlers/selftest.js. No es una acción de
   // negocio; no aparece en ningún lugar del frontend.
   selftest,
+  'ensure-mp-plans': ensureMpPlans,
 };
 
 export default async function handler(req, res) {

@@ -28,13 +28,14 @@ h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.9rem;ma
 .bar-row .k{width:120px;color:#9e9992;flex-shrink:0;}
 .bar-row .v{font-weight:700;}
 .msg{text-align:center;padding:80px 20px;color:#9e9992;}
+a:focus-visible{outline:2px solid #00D5D8;outline-offset:2px;}
 .err{color:#E05252;}
 </style>
 </head>
 <body>
 <nav><div class="mark">ALSINA · PANEL</div><a href="/" style="color:#00D5D8;font-size:.78rem;text-decoration:none;">← Sitio</a></nav>
 <div class="wrap" id="wrap">
-  <div class="msg" id="msg">Cargando…</div>
+  <div class="msg" id="msg" role="status" aria-live="polite">Cargando…</div>
 </div>
 
 <script src="/assets/js/config.js"></script>

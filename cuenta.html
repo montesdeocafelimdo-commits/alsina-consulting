@@ -73,29 +73,46 @@ table.history{width:100%;border-collapse:collapse;font-size:.82rem;}
 table.history th{text-align:left;color:var(--concreto);font-weight:600;padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.1);}
 table.history td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);}
 .empty{color:var(--concreto);font-size:.85rem;text-align:center;padding:16px;}
+
+/* accesibilidad: foco siempre visible, nunca solo color */
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--turquesa);outline-offset:2px;}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
+#loadingState{text-align:center;padding:80px 20px;color:var(--concreto);}
+
+@media (max-width:480px){
+  #loginGate form{flex-direction:column;gap:8px;}
+  #loginGate input{border-right:1px solid rgba(255,255,255,.15) !important;}
+  .row{flex-wrap:wrap;}
+  .actions{flex-direction:column;align-items:stretch;}
+  .btn2{width:100%;text-align:center;}
+}
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="/" class="nav-logo"><svg viewBox="0 0 26 26" fill="none" width="28"><path d="M13 2L1.5 24H5.5L13 11L20.5 24H24.5L13 2Z" fill="#00D5D8"/></svg><div class="nav-mark">ALSINA</div></a>
+  <a href="/" class="nav-logo"><svg viewBox="0 0 26 26" fill="none" width="28" aria-hidden="true"><path d="M13 2L1.5 24H5.5L13 11L20.5 24H24.5L13 2Z" fill="#00D5D8"/></svg><div class="nav-mark">ALSINA</div></a>
   <a href="/" class="nav-link">← Volver al sitio</a>
 </nav>
 
 <div class="wrap">
   <div class="hgroup"><h1>Mi cuenta</h1><p>Tu plan, tu suscripción y tus datos.</p></div>
 
+  <div id="loadingState" role="status" aria-live="polite">Cargando tu cuenta…</div>
+
   <div id="loginGate">
+    <label for="loginEmail" class="visually-hidden">Tu email</label>
     <p style="color:var(--concreto);margin-bottom:6px;">Iniciá sesión con tu mail — te mandamos un link, sin contraseña.</p>
     <form id="loginForm">
-      <input type="email" id="loginEmail" placeholder="tu@mail.com" required>
+      <input type="email" id="loginEmail" placeholder="tu@mail.com" required aria-required="true">
       <button type="submit" class="btn2 primary" style="text-transform:none;font-weight:700;">Enviar link</button>
     </form>
-    <div class="action-status" id="loginStatus" style="text-align:center;"></div>
+    <div class="action-status" id="loginStatus" style="text-align:center;" role="status" aria-live="polite"></div>
   </div>
 
   <div id="appRoot">
-    <div class="notice" id="statusNotice" style="display:none;"></div>
+    <div class="notice" id="statusNotice" style="display:none;" role="status" aria-live="polite"></div>
+    <div class="notice bad" id="downgradeErrorNotice" style="display:none;" role="alert"></div>
 
     <div class="card">
       <h2>Tu plan</h2>
@@ -105,7 +122,7 @@ table.history td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);}
       <div class="row"><span class="label">Precio</span><span class="value" id="fPrice">—</span></div>
       <div class="row" id="rowPaidThrough" style="display:none;"><span class="label">Acceso pago hasta</span><span class="value" id="fPaidThrough">—</span></div>
       <div class="actions" id="planActions"></div>
-      <div class="action-status" id="planActionStatus"></div>
+      <div class="action-status" id="planActionStatus" role="status" aria-live="polite"></div>
     </div>
 
     <div class="card">
@@ -132,6 +149,7 @@ table.history td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);}
 (async function () {
   await window.ALSINA_CONFIG_READY;
   const session = await window.AlsinaAuth.getSession();
+  document.getElementById('loadingState').style.display = 'none';
 
   if (!session) {
     document.getElementById('loginGate').classList.add('show');
@@ -199,8 +217,19 @@ table.history td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);}
     } else if (acc.status === 'suspended') {
       notice.style.display = 'block'; notice.className = 'notice bad';
       notice.textContent = 'Tu acceso pago está suspendido por falta de pago. Conservás Concejal. Volvé a suscribirte desde Planes para recuperar el acceso.';
+    } else if (acc.pendingPlan) {
+      notice.style.display = 'block'; notice.className = 'notice';
+      notice.textContent = `Programado: pasás a ${acc.pendingPlanName} el ${acc.paidThrough ? new Date(acc.paidThrough).toLocaleDateString('es-AR') : 'próximo aniversario'}. Hasta esa fecha conservás ${acc.planName} completo.`;
     } else {
       notice.style.display = 'none';
+    }
+
+    const errNotice = document.getElementById('downgradeErrorNotice');
+    if (acc.pendingDowngradeHasError) {
+      errNotice.style.display = 'block';
+      errNotice.textContent = 'No pudimos confirmar tu cambio de plan con Mercado Pago todavía. Seguimos intentando automáticamente — tu plan actual no cambió. Si se repite, escribinos a info@alsinaar.com.';
+    } else {
+      errNotice.style.display = 'none';
     }
 
     renderActions(acc);
@@ -249,6 +278,18 @@ table.history td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);}
     }
 
     if (!['active', 'past_due', 'grace_period'].includes(acc.status)) return;
+
+    if (acc.pendingPlan) {
+      // Solo puede ser 'intendente' — el downgrade a Concejal usa
+      // cancel_at_period_end (rama de arriba), pending_plan_id es
+      // exclusivo del downgrade pago-a-pago Gobernador→Intendente.
+      addBtn(`Revertir cambio a ${acc.pendingPlanName}`, '', async () => {
+        await post('/api/subscriptions/revert-downgrade');
+        statusEl.className = 'action-status ok'; statusEl.textContent = `Listo, seguís en ${acc.planName}.`;
+        render();
+      });
+      return;
+    }
 
     if (acc.plan === 'gobernador') {
       addBtn('Cambiar a Intendente', '', async () => { const d = await post('/api/subscriptions/downgrade', { targetPlan: 'intendente' }); statusEl.className='action-status ok'; statusEl.textContent=`Programado: pasás a Intendente el ${d.effectiveAt ? new Date(d.effectiveAt).toLocaleDateString('es-AR') : 'próximo aniversario'}.`; render(); });

@@ -1,6 +1,6 @@
 import { getSupabaseAdmin } from '../supabaseAdmin.js';
 import { requireAuthenticatedAccount } from '../auth.js';
-import { getActivePlanPrice } from '../plans.js';
+import { getActivePlanPrice, resolveProviderPlanId, ensureMpPlan } from '../plans.js';
 
 // ALSINA — alta/upgrade de un plan pago (Intendente, Gobernador) vía
 // Mercado Pago. Concejal NO pasa por acá — se asigna automáticamente al
@@ -83,20 +83,39 @@ export default async function handler(req, res) {
     const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
     const preapproval = new PreApproval(client);
 
-    const result = await preapproval.create({
-      body: {
-        reason: `Alsina ${plan.name} — suscripción mensual`,
-        external_reference: `sub:${account.accountId}:${planSlug}:${price.id}`,
-        payer_email: account.email,
-        back_url: `${SITE_URL}/cuenta.html?checkout=pendiente`,
-        auto_recurring: {
-          frequency: 1,
-          frequency_type: 'months',
-          transaction_amount: Number(price.amount),
-          currency_id: price.currency,
-        },
-      },
-    });
+    // AD-01/AD-23: usar la definición recurrente ya creada en Mercado
+    // Pago (preapproval_plan) en vez de un auto_recurring ad-hoc en cada
+    // alta — separa completamente los recursos de prueba de los
+    // productivos (ensureMpPlan elige la columna según el token real del
+    // entorno) y evita que dos altas del mismo plan terminen con
+    // configuraciones ligeramente distintas en MP. Se crea sola la
+    // primera vez que hace falta (idempotente) si todavía no existe.
+    let providerPlanId = resolveProviderPlanId(price);
+    if (!providerPlanId) {
+      const ensured = await ensureMpPlan(planSlug);
+      if (ensured.status === 'ok') providerPlanId = ensured.providerPlanId;
+      else console.warn('checkout: no se pudo asegurar el preapproval_plan, sigue con auto_recurring ad-hoc:', ensured.error);
+    }
+
+    const body = {
+      reason: `Alsina ${plan.name} — suscripción mensual`,
+      external_reference: `sub:${account.accountId}:${planSlug}:${price.id}`,
+      payer_email: account.email,
+      back_url: `${SITE_URL}/cuenta.html?checkout=pendiente`,
+    };
+    if (providerPlanId) {
+      body.preapproval_plan_id = providerPlanId;
+    } else {
+      // Resiliencia: si por lo que sea no hay (ni se pudo crear) un
+      // preapproval_plan, no se bloquea el alta — se arma el cobro ad-hoc
+      // con el mismo importe/moneda que ya resolvió el servidor.
+      body.auto_recurring = {
+        frequency: 1, frequency_type: 'months',
+        transaction_amount: Number(price.amount), currency_id: price.currency,
+      };
+    }
+
+    const result = await preapproval.create({ body });
 
     await supa
       .from('subscriptions')

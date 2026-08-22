@@ -1,5 +1,6 @@
 import { getSupabaseAdmin } from '../supabaseAdmin.js';
 import { sendEmail, templates } from '../email.js';
+import { finalizePendingDowngrade } from '../subscriptionActions.js';
 
 // ALSINA — cron diario de gracia/suspensión (AD-10) y de cancelaciones
 // programadas que ya se hicieron efectivas (AD-12). Mercado Pago ejecuta
@@ -178,42 +179,40 @@ export default async function handler(req, res) {
   }
 
   // ── downgrades pago-a-pago programados que llegaron a su paid_through (AD-11) ──
+  // finalizePendingDowngrade() consulta el estado real en Mercado Pago,
+  // actualiza el importe, lo verifica, y solo entonces cambia el plan
+  // local — si algo falla, no toca el plan y deja el error explícito en
+  // pending_downgrade_last_error/pending_downgrade_failed_at para que
+  // este mismo cron reintente mañana (pending_plan_id sigue seteado).
   try {
     const { data: dueForDowngrade, error } = await supa
       .from('subscriptions')
-      .select('id, account_id, pending_plan_id, pending_price_id, plans!plan_id(name)')
+      .select('id, account_id, plan_id, provider, provider_subscription_id, pending_plan_id, pending_price_id, pending_downgrade_attempts')
       .eq('status', 'active')
       .not('pending_plan_id', 'is', null)
       .lte('paid_through', new Date().toISOString());
     if (error) throw error;
 
     for (const sub of dueForDowngrade || []) {
-      const { data: newPlan } = await supa.from('plans').select('name').eq('id', sub.pending_plan_id).maybeSingle();
-      await supa
-        .from('subscriptions')
-        .update({ plan_id: sub.pending_plan_id, price_id: sub.pending_price_id, pending_plan_id: null, pending_price_id: null })
-        .eq('id', sub.id);
-      await supa.rpc('recalculate_plan_entitlements', { p_account_id: sub.account_id });
-      await supa.from('audit_logs').insert({
-        actor_role: 'system', action: 'downgrade_finalized',
-        target_table: 'subscriptions', target_id: sub.id,
-        before: { plan: sub.plans?.name }, after: { plan: newPlan?.name },
-      });
-
-      const { data: acc } = await supa.from('accounts').select('owner_profile_id').eq('id', sub.account_id).maybeSingle();
-      const { data: ownerProfile } = acc
-        ? await supa.from('profiles').select('email').eq('id', acc.owner_profile_id).maybeSingle()
-        : { data: null };
-      if (ownerProfile?.email) {
-        await sendEmail({
-          to: ownerProfile.email,
-          subject: `Ahora sos ${newPlan?.name || 'Concejal'}`,
-          html: templates.planChanged(newPlan?.name || 'Concejal'),
-          templateKey: 'plan_changed_downgrade',
-          accountId: sub.account_id,
-        });
+      const result = await finalizePendingDowngrade(supa, sub);
+      if (result.status === 'ok') {
+        const { data: acc } = await supa.from('accounts').select('owner_profile_id').eq('id', sub.account_id).maybeSingle();
+        const { data: ownerProfile } = acc
+          ? await supa.from('profiles').select('email').eq('id', acc.owner_profile_id).maybeSingle()
+          : { data: null };
+        if (ownerProfile?.email) {
+          await sendEmail({
+            to: ownerProfile.email,
+            subject: `Ahora sos ${result.newPlanName || 'Intendente'}`,
+            html: templates.planChanged(result.newPlanName || 'Intendente'),
+            templateKey: 'plan_changed_downgrade',
+            accountId: sub.account_id,
+          });
+        }
+        summary.downgradesFinalized = (summary.downgradesFinalized || 0) + 1;
+      } else {
+        summary.errors.push({ stage: 'finalize_downgrade', subscriptionId: sub.id, ...result });
       }
-      summary.downgradesFinalized = (summary.downgradesFinalized || 0) + 1;
     }
   } catch (err) {
     console.error('[cron/dunning] error finalizando downgrades:', err.message);

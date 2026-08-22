@@ -1,11 +1,15 @@
 import { getSupabaseAdmin } from '../supabaseAdmin.js';
 import { requireAuthenticatedAccount } from '../auth.js';
-import { getPriceById } from '../plans.js';
 
 // ALSINA — revertir un downgrade pago-a-pago pendiente (Gobernador ->
 // Intendente) antes de su fecha efectiva (AD-11). El caso ->Concejal se
 // revierte con api/subscriptions/revert-cancel.js (es la misma
 // cancelación programada, ver api/subscriptions/downgrade.js).
+//
+// Como downgrade.js ya no toca Mercado Pago al programar el cambio
+// (corrección AD-11: se verifica recién en el aniversario), revertir acá
+// es puramente local — no hay nada que deshacer en MP porque nunca se
+// tocó nada ahí. Siempre disponible mientras el downgrade siga pendiente.
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'method_not_allowed' });
@@ -16,7 +20,7 @@ export default async function handler(req, res) {
   const supa = getSupabaseAdmin();
   const { data: subscription, error } = await supa
     .from('subscriptions')
-    .select('id, price_id, provider, provider_subscription_id, pending_plan_id, pending_price_id, paid_through')
+    .select('id, pending_plan_id, paid_through')
     .eq('account_id', account.accountId)
     .maybeSingle();
   if (error || !subscription) return res.status(404).json({ error: 'sin_suscripcion' });
@@ -25,25 +29,12 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'el_downgrade_ya_fue_efectivo' });
   }
 
-  const currentPrice = await getPriceById(subscription.price_id);
-  if (subscription.provider === 'mercadopago' && subscription.provider_subscription_id && currentPrice) {
-    if (!process.env.MP_ACCESS_TOKEN) return res.status(500).json({ error: 'pagos_no_configurados' });
-    try {
-      const { MercadoPagoConfig, PreApproval } = await import('mercadopago');
-      const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
-      await new PreApproval(client).update({
-        id: subscription.provider_subscription_id,
-        body: { auto_recurring: { transaction_amount: Number(currentPrice.amount) } },
-      });
-    } catch (mpErr) {
-      console.error('revert-downgrade: no se pudo restaurar el importe en Mercado Pago:', mpErr?.message || mpErr);
-      return res.status(500).json({ error: 'no_se_pudo_revertir' });
-    }
-  }
-
   const { error: updateError } = await supa
     .from('subscriptions')
-    .update({ pending_plan_id: null, pending_price_id: null })
+    .update({
+      pending_plan_id: null, pending_price_id: null,
+      pending_downgrade_attempts: 0, pending_downgrade_last_error: null, pending_downgrade_failed_at: null,
+    })
     .eq('id', subscription.id);
   if (updateError) return res.status(500).json({ error: 'error_interno' });
 

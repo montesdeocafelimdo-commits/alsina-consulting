@@ -38,8 +38,10 @@ export default async function handler(req, res) {
     .select(`
       status, provider, anniversary_day, current_period_start, paid_through,
       grace_started_at, suspended_at, cancel_requested_at, canceled_at, cancellation_code,
+      pending_plan_id, pending_downgrade_failed_at,
       plans!plan_id ( slug, name ),
-      plan_prices!price_id ( amount, currency, is_founder )
+      plan_prices!price_id ( amount, currency, is_founder ),
+      pending_plan:plans!pending_plan_id ( slug, name )
     `)
     .eq('account_id', account.accountId)
     .maybeSingle();
@@ -76,6 +78,9 @@ export default async function handler(req, res) {
     paidThrough: subscription?.paid_through || null,
     cancelRequestedAt: subscription?.cancel_requested_at || null,
     canceledAt: subscription?.canceled_at || null,
+    pendingPlan: subscription?.pending_plan?.slug || null,
+    pendingPlanName: subscription?.pending_plan?.name || null,
+    pendingDowngradeHasError: !!subscription?.pending_downgrade_failed_at,
     editorialOptIn: emailPrefs?.editorial_opt_in ?? true,
     capabilities: Array.from(entitlements.entries()).map(([key, level]) => ({ key, level })),
     paymentsHistory: payments || [],
