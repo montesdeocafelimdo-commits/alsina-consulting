@@ -92,17 +92,20 @@ export default async function handler(req, res) {
     // preapproval_plan (que igual se crea/guarda aparte vía ensureMpPlan
     // para llevar el registro del lado servidor, ver api/_lib/plans.js,
     // pero no se usa acá).
-    // payer_email NO se manda (encontrado probando en real): Mercado
-    // Pago exige que quien confirma esté logueado con ESE email exacto
-    // — si la cuenta de Alsina y el comprador (más aún en modo TEST, con
-    // el email fijo del comprador de prueba) no coinciden, el botón
-    // "Confirmar" queda inhabilitado sin ningún error visible. La cuenta
-    // que se acredita la determina external_reference server-side, no
-    // el email del pagador — no hace falta que coincidan.
+    // payer_email es obligatorio para la API de Mercado Pago (probado:
+    // sin él, PreApproval.create() rechaza con "payer_email is
+    // required" — se intentó sacarlo y no funciona). Se manda el email
+    // de la cuenta Alsina. Si en el checkout de MP el botón "Confirmar"
+    // queda inhabilitado, lo más probable es que el comprador de prueba
+    // con el que se inició sesión en Mercado Pago tenga un email
+    // distinto de este — MP en modo suscripción pide que coincidan. La
+    // cuenta que se acredita en Alsina la determina external_reference,
+    // nunca el email, pero MP igual exige el match para dejar confirmar.
     const result = await preapproval.create({
       body: {
         reason: `Alsina ${plan.name} — suscripción mensual`,
         external_reference: `sub:${account.accountId}:${planSlug}:${price.id}`,
+        payer_email: account.email,
         back_url: `${SITE_URL}/cuenta.html?checkout=pendiente`,
         auto_recurring: {
           frequency: 1, frequency_type: 'months',
