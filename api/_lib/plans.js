@@ -56,6 +56,16 @@ const SITE_URL = process.env.SITE_URL || 'https://alsinaar.com';
  * crea una suscripción de cliente ni genera un cobro, un preapproval_plan
  * es solo una plantilla. Nunca mezcla el ID de prueba con el de
  * producción (columnas separadas, ver migración 20260822100000).
+ *
+ * NOTA (encontrado probando checkout real): el checkout/upgrade actual
+ * NO usa el preapproval_plan_id devuelto acá para crear la preapproval
+ * del cliente — PreApproval.create() con preapproval_plan_id exige
+ * card_token_id (tarjeta ya tokenizada), no sirve para el flujo de
+ * "redirigir a la web de Mercado Pago". checkout.js/upgrade.js siguen
+ * con auto_recurring ad-hoc. Esta función queda para dejar el registro
+ * server-side del plan (lo que pidió Alsina explícitamente) y como base
+ * para un futuro flujo con Bricks/Card Form que sí tokenice del lado del
+ * cliente antes de llamar acá.
  */
 export async function ensureMpPlan(planSlug) {
   const resolved = await getActivePlanPrice(planSlug);

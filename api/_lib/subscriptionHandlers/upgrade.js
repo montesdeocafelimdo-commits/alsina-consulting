@@ -1,6 +1,6 @@
 import { getSupabaseAdmin } from '../supabaseAdmin.js';
 import { requireAuthenticatedAccount } from '../auth.js';
-import { getActivePlanPrice, resolveProviderPlanId, ensureMpPlan } from '../plans.js';
+import { getActivePlanPrice } from '../plans.js';
 
 // ALSINA — upgrade Intendente → Gobernador (AD-11). Único camino de
 // upgrade soportado (Concejal → pago es un alta nueva, ver
@@ -60,29 +60,21 @@ export default async function handler(req, res) {
     const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
     const preapproval = new PreApproval(client);
 
-    let providerPlanId = resolveProviderPlanId(price);
-    if (!providerPlanId) {
-      const ensured = await ensureMpPlan('gobernador');
-      if (ensured.status === 'ok') providerPlanId = ensured.providerPlanId;
-      else console.warn('upgrade: no se pudo asegurar el preapproval_plan, sigue con auto_recurring ad-hoc:', ensured.error);
-    }
-
-    const body = {
-      reason: `Alsina ${plan.name} — suscripción mensual (upgrade)`,
-      external_reference: `sub:${account.accountId}:gobernador:${price.id}`,
-      payer_email: account.email,
-      back_url: `${SITE_URL}/cuenta.html?upgrade=pendiente`,
-    };
-    if (providerPlanId) {
-      body.preapproval_plan_id = providerPlanId;
-    } else {
-      body.auto_recurring = {
-        frequency: 1, frequency_type: 'months',
-        transaction_amount: Number(price.amount), currency_id: price.currency,
-      };
-    }
-
-    const result = await preapproval.create({ body });
+    // Ver la nota en api/_lib/subscriptionHandlers/checkout.js: MP exige
+    // card_token_id si se pasa preapproval_plan_id — no sirve para
+    // redirigir a la web de MP. Auto_recurring ad-hoc, mismo criterio.
+    const result = await preapproval.create({
+      body: {
+        reason: `Alsina ${plan.name} — suscripción mensual (upgrade)`,
+        external_reference: `sub:${account.accountId}:gobernador:${price.id}`,
+        payer_email: account.email,
+        back_url: `${SITE_URL}/cuenta.html?upgrade=pendiente`,
+        auto_recurring: {
+          frequency: 1, frequency_type: 'months',
+          transaction_amount: Number(price.amount), currency_id: price.currency,
+        },
+      },
+    });
 
     await supa.from('subscriptions').update({ pending_provider_subscription_id: String(result.id) }).eq('id', subscription.id);
 
