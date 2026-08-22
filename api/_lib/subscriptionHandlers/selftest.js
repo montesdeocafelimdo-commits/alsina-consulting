@@ -66,7 +66,7 @@ export default async function selftest(req, res) {
     else { fail++; results.push({ ok: false, name, extra }); }
   }
 
-  let userId, accountId;
+  let userId, accountId, createdProviderSubscriptionId = null;
   try {
     const { data: created, error: createErr } = await admin.auth.admin.createUser({ email, password, email_confirm: true });
     if (createErr) throw new Error('createUser: ' + createErr.message);
@@ -134,7 +134,14 @@ export default async function selftest(req, res) {
       const req2 = { method: 'POST', headers: authHeaders, body: { planSlug: 'intendente' } };
       const res2 = mockRes();
       await checkoutHandler(req2, res2);
-      check('checkout con PAYMENTS_ENABLED=false -> 503 + waitlisted', res2._status === 503 && res2._json?.waitlisted === true, res2._json);
+      if (process.env.PAYMENTS_ENABLED === 'true') {
+        check('checkout (pagos activos) -> 200 + checkoutUrl real de Mercado Pago', res2._status === 200 && typeof res2._json?.checkoutUrl === 'string' && res2._json.checkoutUrl.includes('mercadopago'), res2._json);
+        const { data: sub } = await admin.from('subscriptions').select('provider_subscription_id').eq('account_id', accountId).maybeSingle();
+        createdProviderSubscriptionId = sub?.provider_subscription_id || null;
+        check('checkout: guardó provider_subscription_id real', !!createdProviderSubscriptionId, sub);
+      } else {
+        check('checkout con PAYMENTS_ENABLED=false -> 503 + waitlisted', res2._status === 503 && res2._json?.waitlisted === true, res2._json);
+      }
     }
 
     // ── upgrade manual a Intendente activo, para probar cancel/downgrade/revert reales ──
@@ -214,6 +221,19 @@ export default async function selftest(req, res) {
   } finally {
     const cleanupErrors = [];
     try {
+      if (createdProviderSubscriptionId && process.env.MP_ACCESS_TOKEN) {
+        // Cancela en Mercado Pago la preapproval de prueba que este mismo
+        // run creó (checkout real con pagos activos) — nunca cobra nada
+        // (el buyer de prueba no llegó a autorizar), pero no la deja
+        // colgada en el panel de MP.
+        try {
+          const { MercadoPagoConfig, PreApproval } = await import('mercadopago');
+          const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
+          await new PreApproval(client).update({ id: createdProviderSubscriptionId, body: { status: 'cancelled' } });
+        } catch (mpCleanupErr) {
+          cleanupErrors.push(['mp_cancel_test_preapproval', mpCleanupErr?.message || String(mpCleanupErr)]);
+        }
+      }
       if (accountId) {
         let r;
         r = await admin.from('entitlements').delete().eq('account_id', accountId); if (r.error) cleanupErrors.push(['entitlements', r.error.message]);
