@@ -55,6 +55,14 @@ export default async function handler(req, res) {
   }
   const { plan, price } = resolved;
 
+  // Ver la nota en checkout.js: el email de la cuenta Alsina y el de la
+  // cuenta de Mercado Pago no tienen por qué coincidir.
+  const { payerEmail } = req.body || {};
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const resolvedPayerEmail = (typeof payerEmail === 'string' && EMAIL_RE.test(payerEmail.trim()))
+    ? payerEmail.trim()
+    : account.email;
+
   try {
     const { MercadoPagoConfig, PreApproval } = await import('mercadopago');
     const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
@@ -63,14 +71,13 @@ export default async function handler(req, res) {
     // Ver la nota en api/_lib/subscriptionHandlers/checkout.js: MP exige
     // card_token_id si se pasa preapproval_plan_id — no sirve para
     // redirigir a la web de MP. Auto_recurring ad-hoc, mismo criterio.
-    // payer_email es obligatorio (ver nota en checkout.js) — si el
-    // comprador logueado en MP tiene otro email, "Confirmar" queda
-    // inhabilitado ahí, no acá.
+    // payer_email es obligatorio (ver nota en checkout.js) — usa el que
+    // la persona confirmó, no necesariamente el de su cuenta Alsina.
     const result = await preapproval.create({
       body: {
         reason: `Alsina ${plan.name} — suscripción mensual (upgrade)`,
         external_reference: `sub:${account.accountId}:gobernador:${price.id}`,
-        payer_email: account.email,
+        payer_email: resolvedPayerEmail,
         back_url: `${SITE_URL}/cuenta.html?upgrade=pendiente`,
         auto_recurring: {
           frequency: 1, frequency_type: 'months',

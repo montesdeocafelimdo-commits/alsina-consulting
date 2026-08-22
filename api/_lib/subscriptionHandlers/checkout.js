@@ -25,10 +25,22 @@ export default async function handler(req, res) {
   const account = await requireAuthenticatedAccount(req, res);
   if (!account) return; // requireAuthenticatedAccount ya respondió 401
 
-  const { planSlug } = req.body || {};
+  const { planSlug, payerEmail } = req.body || {};
   if (!PAYABLE_PLANS.has(planSlug)) {
     return res.status(400).json({ error: 'plan_invalido' });
   }
+  // El email de la cuenta Alsina y el de la cuenta de Mercado Pago con
+  // la que alguien paga no tienen por qué coincidir — mucha gente usa
+  // mails distintos para cada cosa, y Mercado Pago pide que el checkout
+  // se confirme logueado con el mismo email que payer_email. Se deja
+  // elegir cuál mandar; si no llega nada, se usa el de la cuenta
+  // (comportamiento de siempre). Nunca determina qué cuenta de Alsina se
+  // acredita — eso lo sigue haciendo exclusivamente external_reference,
+  // resuelto server-side, nunca el email.
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const resolvedPayerEmail = (typeof payerEmail === 'string' && EMAIL_RE.test(payerEmail.trim()))
+    ? payerEmail.trim()
+    : account.email;
 
   const paymentsEnabled = process.env.PAYMENTS_ENABLED === 'true';
   if (!paymentsEnabled) {
@@ -99,18 +111,16 @@ export default async function handler(req, res) {
     // pero no se usa acá).
     // payer_email es obligatorio para la API de Mercado Pago (probado:
     // sin él, PreApproval.create() rechaza con "payer_email is
-    // required" — se intentó sacarlo y no funciona). Se manda el email
-    // de la cuenta Alsina. Si en el checkout de MP el botón "Confirmar"
-    // queda inhabilitado, lo más probable es que el comprador de prueba
-    // con el que se inició sesión en Mercado Pago tenga un email
-    // distinto de este — MP en modo suscripción pide que coincidan. La
-    // cuenta que se acredita en Alsina la determina external_reference,
-    // nunca el email, pero MP igual exige el match para dejar confirmar.
+    // required"). Va el email que la persona confirmó que va a usar
+    // para pagar (resolvedPayerEmail) — puede ser distinto al de su
+    // cuenta Alsina. Si en el checkout de MP el botón "Confirmar" queda
+    // inhabilitado, es porque el logueado en MP no coincide con este
+    // valor — por eso se lo dejamos elegir en vez de asumirlo.
     const result = await preapproval.create({
       body: {
         reason: `Alsina ${plan.name} — suscripción mensual`,
         external_reference: `sub:${account.accountId}:${planSlug}:${price.id}`,
-        payer_email: account.email,
+        payer_email: resolvedPayerEmail,
         back_url: `${SITE_URL}/cuenta.html?checkout=pendiente`,
         auto_recurring: {
           frequency: 1, frequency_type: 'months',

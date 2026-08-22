@@ -174,6 +174,16 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
       <li class="locked"><span class="icon">🔒</span> Archivo completo de informes</li>
     </ul>
     <button class="plan-cta primary" data-action="checkout" data-plan-target="intendente">Suscribirme →</button>
+    <form class="plan-inline-form" id="intendenteSignupForm" data-plan="intendente">
+      <label for="intendenteSignupEmail" class="visually-hidden">Tu email</label>
+      <input type="email" class="plan-inline-input" id="intendenteSignupEmail" placeholder="tu@mail.com" required aria-required="true">
+      <button type="submit" class="plan-inline-btn">Continuar →</button>
+    </form>
+    <form class="plan-inline-form" id="intendentePayerForm" data-plan="intendente">
+      <label for="intendentePayerEmail" class="visually-hidden">Email para pagar en Mercado Pago</label>
+      <input type="email" class="plan-inline-input" id="intendentePayerEmail" placeholder="Email con el que pagás en MP">
+      <button type="submit" class="plan-inline-btn">Ir a pagar →</button>
+    </form>
     <div class="plan-form-status" id="intendenteStatus" role="status" aria-live="polite"></div>
   </div>
 
@@ -191,6 +201,16 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
       <li><span class="icon">✓</span> Informes premium (PBG Municipal, Un empleo cada 23 vecinos)</li>
     </ul>
     <button class="plan-cta primary" data-action="checkout" data-plan-target="gobernador">Suscribirme →</button>
+    <form class="plan-inline-form" id="gobernadorSignupForm" data-plan="gobernador">
+      <label for="gobernadorSignupEmail" class="visually-hidden">Tu email</label>
+      <input type="email" class="plan-inline-input" id="gobernadorSignupEmail" placeholder="tu@mail.com" required aria-required="true">
+      <button type="submit" class="plan-inline-btn">Continuar →</button>
+    </form>
+    <form class="plan-inline-form" id="gobernadorPayerForm" data-plan="gobernador">
+      <label for="gobernadorPayerEmail" class="visually-hidden">Email para pagar en Mercado Pago</label>
+      <input type="email" class="plan-inline-input" id="gobernadorPayerEmail" placeholder="Email con el que pagás en MP">
+      <button type="submit" class="plan-inline-btn">Ir a pagar →</button>
+    </form>
     <div class="plan-form-status" id="gobernadorStatus" role="status" aria-live="polite"></div>
   </div>
 </section>
@@ -289,6 +309,49 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
 
   document.getElementById('pricing').removeAttribute('aria-busy');
 
+  const PENDING_KEY = 'alsina_pending_checkout';
+
+  async function fireCheckout(targetPlan, payerEmail, isUpgrade, statusEl, btn) {
+    if (btn) { btn.disabled = true; btn.textContent = 'Redirigiendo a Mercado Pago…'; }
+    try {
+      const endpoint = isUpgrade ? '/api/subscriptions/upgrade' : '/api/subscriptions/checkout';
+      const body = isUpgrade ? { payerEmail } : { planSlug: targetPlan, payerEmail };
+      const r = await window.AlsinaAuth.authedFetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await r.json();
+      if (!r.ok || !data.checkoutUrl) throw new Error(data.error || 'error');
+      window.location.href = data.checkoutUrl;
+      return true;
+    } catch (err) {
+      if (statusEl) {
+        statusEl.className = 'plan-form-status err';
+        statusEl.textContent = 'No pudimos iniciar el pago. Probá de nuevo en un momento.';
+      }
+      if (btn) { btn.disabled = false; btn.textContent = isUpgrade ? 'Upgrade a Gobernador →' : 'Suscribirme →'; }
+      return false;
+    }
+  }
+
+  // ── volver de un magic link pedido directo desde un plan pago: crear
+  // la cuenta ya deja Concejal (AD-04, es automático e irreversible por
+  // diseño) pero acá seguimos derecho al checkout del plan que la
+  // persona realmente quería, sin pedirle un segundo click ──
+  const autocheckoutPlan = new URLSearchParams(location.search).get('autocheckout');
+  if (autocheckoutPlan && session && account) {
+    let pending = null;
+    try { pending = JSON.parse(localStorage.getItem(PENDING_KEY) || 'null'); } catch (e) { /* noop */ }
+    localStorage.removeItem(PENDING_KEY);
+    history.replaceState({}, '', '/planes.html');
+    if (pending && pending.plan === autocheckoutPlan && ['intendente', 'gobernador'].includes(autocheckoutPlan) && paymentsEnabled) {
+      const banner = document.getElementById('statusBanner');
+      showBanner(banner, `¡Cuenta creada! Redirigiendo a Mercado Pago para completar ${PLAN_LABEL[autocheckoutPlan]}…`);
+      const autoStatusEl = document.getElementById(autocheckoutPlan + 'Status');
+      const ok = await fireCheckout(autocheckoutPlan, pending.payerEmail || account.email, false, autoStatusEl, null);
+      if (!ok) {
+        showBanner(banner, `Tu cuenta ya está creada, pero no pudimos iniciar el pago de ${PLAN_LABEL[autocheckoutPlan]} automáticamente. Probá con el botón "Suscribirme" más abajo.`, 'err');
+      }
+    }
+  }
+
   // ── Concejal: alta / ya logueado ──
   const concejalBtn = document.querySelector('[data-plan="concejal"] [data-action="signup"]');
   const concejalForm = document.getElementById('concejalForm');
@@ -317,10 +380,12 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
     });
   }
 
-  // ── Intendente / Gobernador: checkout, upgrade o "ya sos" ──
+  // ── Intendente / Gobernador: alta directa, checkout, upgrade o "ya sos" ──
   document.querySelectorAll('[data-action="checkout"]').forEach((btn) => {
     const targetPlan = btn.getAttribute('data-plan-target');
     const statusEl = document.getElementById(targetPlan + 'Status');
+    const signupForm = document.getElementById(targetPlan + 'SignupForm');
+    const payerForm = document.getElementById(targetPlan + 'PayerForm');
 
     if (session && !account) {
       // La sesión existe pero /api/account falló — no lo dejamos como un
@@ -333,12 +398,28 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
     }
 
     if (!session) {
-      btn.textContent = 'Creá tu cuenta primero ↑';
-      btn.addEventListener('click', () => {
-        concejalForm.classList.add('show');
-        document.querySelector('[data-plan="concejal"]').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        statusEl.className = 'plan-form-status';
-        statusEl.textContent = 'Primero creá tu cuenta gratis (arriba) — después volvés acá para suscribirte.';
+      // Alta directa a un plan pago (pedido explícito: no forzar pasar
+      // por Concejal como paso separado). Un solo email crea la cuenta
+      // (AD-04 sigue vigente puertas adentro — el trigger deja Concejal
+      // igual, pero acá no se detiene a mostrarlo) y el magic link
+      // vuelve derecho a completar ESTE checkout.
+      btn.addEventListener('click', () => signupForm.classList.add('show'));
+      signupForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById(targetPlan + 'SignupEmail').value.trim();
+        const formBtn = signupForm.querySelector('button');
+        formBtn.disabled = true;
+        try {
+          localStorage.setItem(PENDING_KEY, JSON.stringify({ plan: targetPlan, payerEmail: email }));
+          await window.AlsinaAuth.signInWithMagicLink(email, `/planes.html?autocheckout=${targetPlan}`);
+          statusEl.className = 'plan-form-status ok';
+          statusEl.textContent = `¡Listo! Revisá tu mail — al confirmar volvés derecho a pagar ${PLAN_LABEL[targetPlan]}. Si vas a pagar con otro mail en Mercado Pago, lo pedimos en el siguiente paso.`;
+          if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('direct_paid_signup', { plan: targetPlan });
+        } catch (err) {
+          statusEl.className = 'plan-form-status err';
+          statusEl.textContent = 'No pudimos enviar el mail. Probá de nuevo en un momento.';
+          formBtn.disabled = false;
+        }
       });
       return;
     }
@@ -379,20 +460,24 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
     if (targetRank > currentRank) {
       const isUpgrade = account.plan === 'intendente' && targetPlan === 'gobernador';
       btn.textContent = isUpgrade ? 'Upgrade a Gobernador →' : 'Suscribirme →';
-      btn.addEventListener('click', async () => {
-        btn.disabled = true; btn.textContent = 'Redirigiendo a Mercado Pago…';
-        try {
-          const endpoint = isUpgrade ? '/api/subscriptions/upgrade' : '/api/subscriptions/checkout';
-          const body = isUpgrade ? {} : { planSlug: targetPlan };
-          const r = await window.AlsinaAuth.authedFetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-          const data = await r.json();
-          if (!r.ok || !data.checkoutUrl) throw new Error(data.error || 'error');
-          window.location.href = data.checkoutUrl;
-        } catch (err) {
-          statusEl.className = 'plan-form-status err';
-          statusEl.textContent = 'No pudimos iniciar el pago. Probá de nuevo en un momento.';
-          btn.disabled = false; btn.textContent = isUpgrade ? 'Upgrade a Gobernador →' : 'Suscribirme →';
-        }
+      // El email de la cuenta Alsina puede no ser el de Mercado Pago
+      // (mucha gente usa mails distintos) — se confirma acá, prefilled,
+      // en vez de asumirlo y que el checkout de MP quede trabado.
+      const payerInput = document.getElementById(targetPlan + 'PayerEmail');
+      payerInput.value = account.email;
+      btn.addEventListener('click', () => {
+        payerForm.classList.add('show');
+        statusEl.className = 'plan-form-status';
+        statusEl.textContent = 'Confirmá con qué email vas a pagar en Mercado Pago (puede ser distinto al de tu cuenta).';
+        payerInput.focus();
+      });
+      payerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const payerEmail = payerInput.value.trim() || account.email;
+        const formBtn = payerForm.querySelector('button');
+        formBtn.disabled = true;
+        const ok = await fireCheckout(targetPlan, payerEmail, isUpgrade, statusEl, btn);
+        if (!ok) formBtn.disabled = false;
       });
     } else if (account.pendingPlan === targetPlan) {
       btn.textContent = `Ya programado → Mi cuenta`;

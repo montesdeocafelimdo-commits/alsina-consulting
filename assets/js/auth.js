@@ -26,9 +26,12 @@
 
   // Alta = login: un solo email, un solo botón, en todos lados del sitio.
   // No pide contraseña — el link de confirmación es la autenticación.
-  async function signInWithMagicLink(email) {
+  // redirectPath opcional: a dónde vuelve el link (default /cuenta.html).
+  // Lo usa planes.html para volver a sí misma y retomar un checkout que
+  // quedó pendiente de crear la cuenta (alta directa a un plan pago).
+  async function signInWithMagicLink(email, redirectPath) {
     const supa = await getClient();
-    const redirectTo = `${window.location.origin}/cuenta.html`;
+    const redirectTo = `${window.location.origin}${redirectPath || '/cuenta.html'}`;
     const { error } = await supa.auth.signInWithOtp({
       email,
       options: { emailRedirectTo: redirectTo },
