@@ -208,13 +208,23 @@ export async function handlePaymentEvent(supa, dataId) {
       return { summary: 'payment sin subscription local', handled: false };
     }
 
-    // AD-11 — upgrade: este pago aprobado corresponde a un plan/precio
-    // distinto del que factura hoy la cuenta. Cancelar la preapproval
-    // anterior (deja de facturar el plan viejo) y adoptar la nueva como
-    // provider_subscription_id vigente — recién ahora, con el pago ya
-    // aprobado, nunca antes (si este pago hubiera fallado, no se llega
-    // a este código y nada de esto se toca).
-    const isUpgradeConfirmation = priceId && priceId !== subscription.price_id;
+    // AD-11 — upgrade: SOLO si esta cuenta tiene un upgrade realmente en
+    // curso (pending_provider_subscription_id lo pone únicamente
+    // api/_lib/subscriptionHandlers/upgrade.js, y se limpia al usarse).
+    //
+    // BUG REAL encontrado con el primer pago real de producción: antes
+    // esto se inferís comparando priceId contra subscription.price_id —
+    // pero un alta nueva (Concejal → Intendente, primera vez que se paga
+    // algo) TAMBIÉN tiene un priceId distinto al que ya tenía la cuenta
+    // (el de Concejal). Con esa comparación, cualquier alta nueva se
+    // detectaba como "upgrade" y cancelaba en Mercado Pago la preapproval
+    // que ACABABA de aprobarse y cobrarse — canceló la suscripción recién
+    // pagada de un cliente real. pending_provider_subscription_id es la
+    // única señal que distingue de verdad un upgrade en curso de un alta
+    // nueva — cancelar la preapproval anterior (deja de facturar el plan
+    // viejo) y adoptar la nueva como provider_subscription_id vigente
+    // recién ahora, con el pago ya aprobado, nunca antes.
+    const isUpgradeConfirmation = !!subscription.pending_provider_subscription_id;
     if (isUpgradeConfirmation && subscription.provider_subscription_id) {
       try {
         const { MercadoPagoConfig, PreApproval } = await import('mercadopago');
@@ -256,7 +266,6 @@ export async function handlePaymentEvent(supa, dataId) {
       status: 'approved',
     });
 
-    const wasAlreadyActive = subscription.status === 'active';
     const wasRecovering = ['past_due', 'suspended'].includes(subscription.status);
     await supa
       .from('subscriptions')
@@ -302,38 +311,54 @@ export async function handlePaymentEvent(supa, dataId) {
 
     await supa.rpc('recalculate_plan_entitlements', { p_account_id: accountId });
 
-    if (!wasAlreadyActive) {
+    // BUG REAL corregido junto con isUpgradeConfirmation: "wasAlreadyActive"
+    // (subscription.status === 'active' ANTES de este pago) es true para
+    // CUALQUIER alta paga nueva, porque toda cuenta ya es Concejal-activa
+    // desde que se registra — el primer pago real de producción no mandó
+    // ningún email de bienvenida por esto exacto. La señal correcta es si
+    // el PLAN cambió (plan_id de antes vs. el de este pago), no el status.
+    const oldPlanId = subscription.plan_id;
+    const newPlanId = price ? price.plan_id : subscription.plan_id;
+    const planChanged = oldPlanId !== newPlanId;
+
+    if (planChanged || wasRecovering) {
       const { data: acc } = await supa.from('accounts').select('owner_profile_id').eq('id', accountId).maybeSingle();
       const { data: ownerProfile } = acc
         ? await supa.from('profiles').select('email').eq('id', acc.owner_profile_id).maybeSingle()
         : { data: null };
+      const { data: newPlan } = planChanged ? await supa.from('plans').select('name').eq('id', newPlanId).maybeSingle() : { data: null };
+      const planName = newPlan?.name || subscription.plans?.name || planSlug;
+
       if (ownerProfile?.email) {
-        await sendEmail({
-          to: ownerProfile.email,
-          subject: wasRecovering ? `Tu acceso a Alsina ${subscription.plans?.name || planSlug} se restableció` : `Bienvenido a Alsina ${subscription.plans?.name || planSlug}`,
-          html: wasRecovering
-            ? templates.paymentRecovered(subscription.plans?.name || planSlug)
-            : templates.subscriptionActive(subscription.plans?.name || planSlug),
-          templateKey: wasRecovering ? 'payment_recovered' : 'subscription_active',
-          accountId,
-        });
-      }
-    } else if (isUpgradeConfirmation) {
-      // La suscripción ya estaba activa (Intendente) — el pago que se
-      // acaba de aprobar es el upgrade a Gobernador, no una renovación.
-      const { data: acc } = await supa.from('accounts').select('owner_profile_id').eq('id', accountId).maybeSingle();
-      const { data: ownerProfile } = acc
-        ? await supa.from('profiles').select('email').eq('id', acc.owner_profile_id).maybeSingle()
-        : { data: null };
-      if (ownerProfile?.email) {
-        const { data: newPlan } = await supa.from('plans').select('name').eq('id', price?.plan_id).maybeSingle();
-        await sendEmail({
-          to: ownerProfile.email,
-          subject: `Ahora sos ${newPlan?.name || planSlug}`,
-          html: templates.planChanged(newPlan?.name || planSlug),
-          templateKey: 'plan_changed_upgrade',
-          accountId,
-        });
+        if (wasRecovering) {
+          await sendEmail({
+            to: ownerProfile.email,
+            subject: `Tu acceso a Alsina ${planName} se restableció`,
+            html: templates.paymentRecovered(planName),
+            templateKey: 'payment_recovered',
+            accountId,
+          });
+        } else if (isUpgradeConfirmation) {
+          // Ya tenía un plan pago activo (Intendente) — este pago
+          // confirma el upgrade a Gobernador, no es una alta nueva.
+          await sendEmail({
+            to: ownerProfile.email,
+            subject: `Ahora sos ${planName}`,
+            html: templates.planChanged(planName),
+            templateKey: 'plan_changed_upgrade',
+            accountId,
+          });
+        } else {
+          // Alta paga nueva: primera vez que esta cuenta paga algo
+          // (Concejal → Intendente/Gobernador). Onboarding real.
+          await sendEmail({
+            to: ownerProfile.email,
+            subject: `Bienvenido a Alsina ${planName}`,
+            html: templates.subscriptionActive(planName),
+            templateKey: 'subscription_active',
+            accountId,
+          });
+        }
       }
     }
 
