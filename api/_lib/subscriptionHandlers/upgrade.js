@@ -63,11 +63,12 @@ export default async function handler(req, res) {
     // Ver la nota en api/_lib/subscriptionHandlers/checkout.js: MP exige
     // card_token_id si se pasa preapproval_plan_id — no sirve para
     // redirigir a la web de MP. Auto_recurring ad-hoc, mismo criterio.
+    // Tampoco se manda payer_email — mismo motivo (bloquea "Confirmar"
+    // si no coincide con quien está logueado en MP).
     const result = await preapproval.create({
       body: {
         reason: `Alsina ${plan.name} — suscripción mensual (upgrade)`,
         external_reference: `sub:${account.accountId}:gobernador:${price.id}`,
-        payer_email: account.email,
         back_url: `${SITE_URL}/cuenta.html?upgrade=pendiente`,
         auto_recurring: {
           frequency: 1, frequency_type: 'months',
