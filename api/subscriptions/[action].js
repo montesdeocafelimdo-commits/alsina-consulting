@@ -11,6 +11,7 @@ import sendTestEmail from '../_lib/subscriptionHandlers/sendTestEmail.js';
 import fixIncomplete from '../_lib/subscriptionHandlers/fixIncomplete.js';
 import grantAdmin from '../_lib/subscriptionHandlers/grantAdmin.js';
 import testMagicLink from '../_lib/subscriptionHandlers/testMagicLink.js';
+import diagRecent from '../_lib/subscriptionHandlers/diagRecent.js';
 
 // ALSINA — un solo archivo de ruta dinámica para /api/subscriptions/*.
 //
@@ -40,6 +41,7 @@ const ACTIONS = {
   'fix-incomplete': fixIncomplete,
   'grant-admin': grantAdmin,
   'test-magic-link': testMagicLink,
+  'diag-recent': diagRecent,
 };
 
 export default async function handler(req, res) {
