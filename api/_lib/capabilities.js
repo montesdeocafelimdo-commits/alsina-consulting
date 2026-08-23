@@ -16,6 +16,34 @@ export async function getEntitlements(accountId) {
   if (!accountId) return new Map();
 
   const supa = getSupabaseAdmin();
+
+  // "Ver como" de super_admin (AD-17): nunca toca subscriptions ni
+  // cobra nada — sustituye qué entitlements se le resuelven a ESE admin
+  // para poder probar cada plan navegando. Cualquier otra cuenta sigue
+  // el camino normal de abajo.
+  const { data: account } = await supa.from('accounts').select('owner_profile_id').eq('id', accountId).maybeSingle();
+  if (account) {
+    const { data: adminRow } = await supa
+      .from('admin_users')
+      .select('role, view_as_plan')
+      .eq('profile_id', account.owner_profile_id)
+      .maybeSingle();
+    if (adminRow?.role === 'super_admin' && adminRow.view_as_plan) {
+      const { data: viewPlan } = await supa.from('plans').select('id').eq('slug', adminRow.view_as_plan).maybeSingle();
+      if (viewPlan) {
+        const { data: pf, error: pfError } = await supa.from('plan_features').select('level, features(key)').eq('plan_id', viewPlan.id);
+        if (!pfError) {
+          const viewMap = new Map();
+          for (const row of pf || []) {
+            const key = row.features?.key;
+            if (key) viewMap.set(key, row.level);
+          }
+          return viewMap;
+        }
+      }
+    }
+  }
+
   const nowIso = new Date().toISOString();
   const { data, error } = await supa
     .from('entitlements')

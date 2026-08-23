@@ -46,6 +46,11 @@ table.accounts td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);
 .rowStatus{font-size:.72rem;margin-top:2px;}
 .rowStatus.ok{color:#52C78C;}
 .rowStatus.err{color:#E05252;}
+.viewAsRow{display:flex;gap:8px;flex-wrap:wrap;}
+.viewAsBtn{background:transparent;border:1px solid rgba(255,255,255,.2);color:#F3EFE7;padding:8px 16px;font-size:.8rem;cursor:pointer;border-radius:20px;}
+.viewAsBtn:hover{border-color:#00D5D8;}
+.viewAsBtn.active{background:#00D5D8;color:#0e1c20;border-color:#00D5D8;font-weight:700;}
+.viewAsBtn[disabled]{opacity:.5;cursor:wait;}
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
 </style>
 </head>
@@ -88,6 +93,11 @@ table.accounts td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);
       <div class="role">Rol: ${m.role} · Generado ${new Date(m.generatedAt).toLocaleString('es-AR')}</div>
       ${role === 'super_admin' ? `
       <div class="card">
+        <h2>Ver el sitio como</h2>
+        <p style="color:#9e9992;font-size:.78rem;margin-bottom:12px;">Nunca toca tu suscripción real ni genera ningún cobro — solo cambia qué ves vos al navegar el Monitor 135 y los informes, para probar cada plan.</p>
+        <div class="viewAsRow" id="viewAsRow"></div>
+      </div>
+      <div class="card">
         <h2>Mis suscriptores</h2>
         <div class="searchRow">
           <label for="accSearch" class="visually-hidden">Buscar por email</label>
@@ -110,7 +120,10 @@ table.accounts td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);
       <p style="color:#9e9992;font-size:.72rem;margin-bottom:24px;">Segmentos con menos de 5 cuentas se agrupan en "otros" — nunca se muestra un dato individual acá.</p>
     `;
 
-    if (role === 'super_admin') await loadAccounts('', false);
+    if (role === 'super_admin') {
+      renderViewAs(m.viewAsPlan);
+      await loadAccounts('', false);
+    }
   } catch (err) {
     wrap.innerHTML = `<div class="msg err">No pudimos cargar el panel. Recargá la página.</div>`;
     return;
@@ -135,6 +148,36 @@ table.accounts td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);
     } catch (err) {
       wrapEl.innerHTML = '<p class="err" style="font-size:.82rem;">No se pudieron cargar las cuentas.</p>';
     }
+  }
+
+  function renderViewAs(currentPlan) {
+    const row = document.getElementById('viewAsRow');
+    if (!row) return;
+    const options = [
+      { value: null, label: 'Mi plan real' },
+      { value: 'concejal', label: 'Concejal' },
+      { value: 'intendente', label: 'Intendente' },
+      { value: 'gobernador', label: 'Gobernador' },
+    ];
+    row.innerHTML = options.map((o) =>
+      `<button type="button" class="viewAsBtn${(currentPlan || null) === o.value ? ' active' : ''}" data-plan="${o.value ?? ''}">${o.label}</button>`
+    ).join('');
+    row.querySelectorAll('.viewAsBtn').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const plan = btn.dataset.plan || null;
+        row.querySelectorAll('.viewAsBtn').forEach((b) => (b.disabled = true));
+        try {
+          const r = await window.AlsinaAuth.authedFetch('/api/admin/set-view-as', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ plan }),
+          });
+          if (!r.ok) throw new Error();
+          renderViewAs(plan);
+        } catch (err) {
+          row.querySelectorAll('.viewAsBtn').forEach((b) => (b.disabled = false));
+        }
+      });
+    });
   }
 
   function renderAccounts(accounts, showAll) {

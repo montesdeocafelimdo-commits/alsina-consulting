@@ -751,21 +751,87 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
 <!-- PRECIOS -->
 <section class="sec sec-light sec-tech sec-tech--precios" id="precios" style="padding-top:16px;">
-  <!-- sin .reveal: la animación de entrada deja un transform (aunque sea
-       translateY(0)) en el ancestro, y eso rompe position:sticky del
-       thead más abajo (crea un containing block nuevo). -->
   <div class="wrap">
     <span class="tag">Tres niveles para entender la Provincia</span>
     <h2>Elegí cuánto querés<br><span class="compare-accent">saber</span>.</h2>
-    <p class="lead">Información, análisis y herramientas sobre la Provincia de Buenos Aires y sus 135 municipios.</p>
+    <p class="lead">Concejal es gratis y siempre lo va a ser. Intendente y Gobernador suman el Monitor 135 completo, informes premium y descarga de datos — precio final, fundador, para siempre mientras sigas en el plan.</p>
 
-    <div class="compare-shell">
-      <div class="compare-desktop" id="compareDesktop"></div>
-      <div class="compare-mobile" id="compareMobile"></div>
+    <div class="p3-grid">
+      <div class="p3-card">
+        <div class="p3-name">Concejal</div>
+        <div class="p3-desc">Para entrar sin costo</div>
+        <div class="p3-price">$0</div>
+        <div class="p3-note">Gratis, para siempre</div>
+        <ul class="p3-list">
+          <li>Señal Alsina quincenal</li>
+          <li>Monitor 135 + indicadores principales</li>
+          <li>Notas e informes públicos</li>
+        </ul>
+        <a class="p3-cta p3-cta-ghost" href="/planes.html">Registrarme gratis →</a>
+      </div>
+
+      <div class="p3-card">
+        <div class="p3-badge p3-badge-light">Precio fundador</div>
+        <div class="p3-name">Intendente</div>
+        <div class="p3-desc">Para seguir la gestión con datos completos</div>
+        <div class="p3-price">$25.000<span>/mes</span></div>
+        <div class="p3-note">Precio final, impuestos incluidos</div>
+        <ul class="p3-list">
+          <li>Monitor 135 completo, sin recortes</li>
+          <li>Comparación entre municipios</li>
+          <li>Balance fiscal, recaudación y transferencias</li>
+        </ul>
+        <a class="p3-cta p3-cta-outline" href="/planes.html">Elegir Intendente →</a>
+      </div>
+
+      <div class="p3-card p3-card-featured">
+        <div class="p3-badge p3-badge-accent">Acceso completo</div>
+        <div class="p3-name">Gobernador</div>
+        <div class="p3-desc">El laboratorio de datos entero, sin límites — para quien decide con toda la información.</div>
+        <div class="p3-price">$45.000<span>/mes</span></div>
+        <div class="p3-note">Precio final, impuestos incluidos</div>
+        <ul class="p3-list">
+          <li>Todo lo de Intendente, más:</li>
+          <li><strong>Descarga y exportación de bases completas</strong></li>
+          <li><strong>Archivo completo de informes</strong></li>
+          <li><strong>Informes premium</strong> (PBG Municipal, Un empleo cada 23 vecinos)</li>
+          <li>Acceso anticipado a cada producto nuevo</li>
+        </ul>
+        <a class="p3-cta p3-cta-solid" href="/planes.html">Elegir Gobernador →</a>
+      </div>
     </div>
     <p class="compare-note">Suscripciones mensuales. Podés cambiar de nivel o cancelar cuando quieras.</p>
   </div>
 </section>
+
+<style>
+.p3-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:36px 0 20px;align-items:stretch;}
+@media(max-width:900px){.p3-grid{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto;}}
+.p3-card{background:var(--card-light);border:1px solid var(--line-light);border-radius:16px;padding:30px 26px;display:flex;flex-direction:column;position:relative;}
+.p3-card-featured{background:var(--brand-navy);border-color:var(--brand-navy);color:#fff;box-shadow:0 20px 50px rgba(20,41,77,.25);transform:translateY(-6px);}
+.p3-badge{display:inline-block;font-size:.66rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:12px;width:fit-content;}
+.p3-badge-light{background:rgba(33,150,201,.12);color:var(--brand-cyan-text);}
+.p3-badge-accent{background:var(--brand-cyan);color:var(--brand-navy);}
+.p3-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;margin-bottom:4px;}
+.p3-desc{font-size:.82rem;color:var(--muted-on-light);margin-bottom:16px;min-height:2.4em;}
+.p3-card-featured .p3-desc{color:rgba(255,255,255,.72);}
+.p3-price{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.4rem;line-height:1;}
+.p3-price span{font-size:.95rem;font-weight:600;color:var(--muted-on-light);}
+.p3-card-featured .p3-price span{color:rgba(255,255,255,.65);}
+.p3-note{font-size:.7rem;color:var(--muted-on-light);margin:4px 0 20px;}
+.p3-card-featured .p3-note{color:rgba(255,255,255,.55);}
+.p3-list{list-style:none;flex:1;margin-bottom:22px;padding:0;}
+.p3-list li{font-size:.85rem;padding:7px 0;border-bottom:1px solid var(--line-light);color:var(--ink3,#334);}
+.p3-list li:last-child{border-bottom:none;}
+.p3-card-featured .p3-list li{border-bottom-color:rgba(255,255,255,.12);color:rgba(255,255,255,.88);}
+.p3-cta{display:block;text-align:center;padding:13px;font-size:.82rem;font-weight:700;letter-spacing:.03em;border-radius:8px;text-decoration:none;transition:all .15s;}
+.p3-cta-ghost{background:transparent;color:var(--brand-navy);border:1px solid var(--line-light);}
+.p3-cta-ghost:hover{border-color:var(--brand-cyan);color:var(--brand-cyan-text);}
+.p3-cta-outline{background:transparent;color:var(--brand-navy);border:1.5px solid var(--brand-navy);}
+.p3-cta-outline:hover{background:var(--brand-navy);color:#fff;}
+.p3-cta-solid{background:var(--brand-cyan);color:var(--brand-navy);border:1.5px solid var(--brand-cyan);}
+.p3-cta-solid:hover{background:#fff;border-color:#fff;}
+</style>
 
 <!-- SERVICIOS (QUÉ HACEMOS) -->
 <section class="sec services-section" id="servicios">
@@ -871,10 +937,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   </div>
 </footer>
 
-<script src="/assets/js/pricing.js"></script>
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/checkout.js"></script>
-<script src="/assets/js/subscription-compare.js"></script>
 <script src="/assets/js/reveal.js"></script>
 <script src="/assets/js/sticky-cta.js"></script>
 <script src="/assets/js/informes-carousel.js"></script>

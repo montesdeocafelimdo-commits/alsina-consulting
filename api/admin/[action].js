@@ -1,6 +1,7 @@
 import metrics from '../_lib/adminHandlers/metrics.js';
 import accounts from '../_lib/adminHandlers/accounts.js';
 import cancelSubscription from '../_lib/adminHandlers/cancelSubscription.js';
+import setViewAs from '../_lib/adminHandlers/setViewAs.js';
 
 // ALSINA — ruta dinámica para /api/admin/* (mismo motivo que
 // api/subscriptions/[action].js: límite de 12 Serverless Functions).
@@ -10,6 +11,7 @@ const ACTIONS = {
   metrics,
   accounts,
   'cancel-subscription': cancelSubscription,
+  'set-view-as': setViewAs,
 };
 
 export default async function handler(req, res) {

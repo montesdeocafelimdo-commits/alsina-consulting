@@ -58,9 +58,16 @@ export default async function handler(req, res) {
     .eq('action', 'cancellation_finalized')
     .gte('created_at', since30d);
 
-  res.setHeader('Cache-Control', 'private, max-age=60');
+  let viewAsPlan = null;
+  if (admin.role === 'super_admin') {
+    const { data: adminRow } = await supa.from('admin_users').select('view_as_plan').eq('profile_id', admin.profileId).maybeSingle();
+    viewAsPlan = adminRow?.view_as_plan || null;
+  }
+
+  res.setHeader('Cache-Control', 'private, no-store');
   return res.status(200).json({
     role: admin.role,
+    viewAsPlan,
     generatedAt: new Date().toISOString(),
     totalAccounts: totalAccounts ?? null,
     newAccounts30d: newAccounts30d ?? null,
