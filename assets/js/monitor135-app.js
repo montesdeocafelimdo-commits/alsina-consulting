@@ -450,7 +450,7 @@
   // ── CONTROLES ───────────────────────────────────────────────
   function renderCtrl() {
     const catSel = $('#ctrlCategoria');
-    catSel.innerHTML = CATEGORIES.map(c => `<option value="${c.id}" ${c.id === state.categoria ? 'selected' : ''}>${esc(c.label)}${c.comingSoon ? ' (próximamente)' : ''}</option>`).join('');
+    catSel.innerHTML = CATEGORIES.map(c => `<option value="${c.id}" ${c.id === state.categoria ? 'selected' : ''}>${esc(c.label)}${c.comingSoon ? ' (próximamente)' : ''}${isLockedCategory(c.id) ? ' 🔒 Intendente' : ''}</option>`).join('');
     renderVarSelect();
     const periodoWrap = $('#ctrlPeriodoWrap');
     const varDef = VAR_INDEX[state.variable];
@@ -467,7 +467,8 @@
       return;
     }
     sel.disabled = false;
-    const opt = v => `<option value="${v.id}" ${v.id === state.variable ? 'selected' : ''}>${esc(v.label)}</option>`;
+    const locked = isLockedCategory(cat.id);
+    const opt = v => `<option value="${v.id}" ${v.id === state.variable ? 'selected' : ''}>${esc(v.label)}${locked ? ' 🔒 Intendente' : ''}</option>`;
     if (cat.groups && cat.groups.length) {
       // selector jerárquico dentro de una misma categoría (ej. Educación:
       // Demanda / Presión sobre la red / Trayectorias / Configuración),
@@ -701,6 +702,7 @@
     const varDef = VAR_INDEX[state.variable];
     if (!varDef) return '';
     const v = varDef.get(m);
+    const catLocked = isLockedCategory(state.categoria);
     let cmpRow = '';
     if (v != null && mapStats && mapStats.median != null && varDef.tipo !== 'qual') {
       const diff = v - mapStats.median;
@@ -708,11 +710,16 @@
       const diffText = isSigned ? fmtValue(varDef, diff) : (diff >= 0 ? '+' : '−') + fmtValue(varDef, Math.abs(diff));
       cmpRow = `<div class="m135-datosel-cmp">Vs. mediana provincial: ${esc(diffText)}</div>`;
     }
+    // catLocked → el dato no llegó al navegador porque el plan no lo
+    // incluye (AD-19), no porque falte el dato oficial — el mensaje no
+    // debe confundir una cosa con la otra.
+    const naText = catLocked ? 'Datos disponibles en el plan Intendente' : 'Sin dato oficial disponible';
     return `
       <div class="m135-datosel">
         <div class="m135-datosel-l">${esc(varDef.label)}</div>
-        <div class="m135-datosel-v ${v == null ? 'na' : ''}">${v == null ? 'Sin dato oficial disponible' : esc(fmtValue(varDef, v))}</div>
+        <div class="m135-datosel-v ${v == null ? 'na' : ''}">${v == null ? naText : esc(fmtValue(varDef, v))}</div>
         <div class="m135-datosel-meta">Período: ${esc(varDef.periodo || '—')}${cmpRow}</div>
+        ${catLocked ? `<a class="m135-locked-cta" href="/planes.html">Ver con Intendente →</a>` : ''}
       </div>`;
   }
   function coverageLabel(arr) { const n = arr.filter(Boolean).length; return `${n}/${arr.length} disponibles`; }
@@ -748,6 +755,11 @@
     gobierno: ['Intendente actual', 'Fuerza política', 'Electores nacionales', 'Historial electoral 2013-2025'],
     educacion: ['Matrícula total (2025)', 'Variación de matrícula 2015-2025', 'Abandono interanual secundario', 'Promoción efectiva secundaria', 'Participación de matrícula estatal'],
   };
+  // Una categoría entera está bloqueada para Concejal si tiene entrada en
+  // LOCKED_LABELS — mismo criterio que usa renderFicha() para elegir entre
+  // el bloque real y lockedTeaser(). Los selectores del mapa (categoría y
+  // variable) usan esto para avisar ANTES de hacer clic, no solo después.
+  function isLockedCategory(catId) { return IS_BASIC_ACCESS && LOCKED_LABELS.hasOwnProperty(catId); }
 
   function renderFinanzasBlock(m, t1s, tjun, presupuesto, rec) {
     let html = '';
