@@ -45,6 +45,8 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .nav-links a{font-size:.78rem;color:rgba(243,239,231,.65);text-decoration:none;letter-spacing:.03em;transition:color .2s;}
 .nav-links a:hover{color:var(--turquesa);}
 .nav-cta{flex-shrink:0;}
+.nav-account{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid rgba(243,239,231,.25);color:rgba(243,239,231,.75);text-decoration:none;transition:all .2s;}
+.nav-account:hover{color:var(--turquesa);border-color:var(--turquesa);background:rgba(0,213,216,.08);}
 .nav-burger{display:none;flex-shrink:0;background:none;border:none;color:var(--crema);cursor:pointer;padding:6px;}
 .nav-burger svg{width:24px;height:24px;}
 .nav-mobile{display:none;background:var(--grafito2);border-bottom:1px solid rgba(0,213,216,.12);padding:8px 24px 18px;}
@@ -54,6 +56,7 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 @media(max-width:860px){
   .nav-links{display:none;}
   .nav-cta{display:none;}
+  .nav-account{display:none;}
   .nav-burger{display:block;}
 }
 
@@ -504,8 +507,13 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
       <li><a href="/productos.html">Productos</a></li>
       <li><a href="#precios">Suscripción</a></li>
       <li><a href="/consultoria.html">Consultoría</a></li>
-      <li><a href="/cuenta.html">Mi cuenta</a></li>
     </ul>
+    <a href="/cuenta.html" class="nav-account" aria-label="Mi cuenta" title="Mi cuenta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+    </a>
     <a class="btn nav-cta" href="#precios">Suscribirme</a>
     <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navMobile">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>

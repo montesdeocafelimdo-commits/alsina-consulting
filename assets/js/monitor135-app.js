@@ -11,6 +11,12 @@
 
   let PATCH = null;
   let PATCH_EDU = null;
+  // AD-19: "los niveles inferiores ven las funciones/indicadores
+  // bloqueados, con nombre... candado, plan requerido y CTA — pero el
+  // navegador nunca recibe el valor o dataset protegido." access.level
+  // ya viene resuelto server-side (api/monitor135/data.js) — acá solo se
+  // decide qué mostrar, nunca qué autorizar.
+  let IS_BASIC_ACCESS = false;
   let CATEGORIES = [];
   let VAR_INDEX = {};
   let state = {
@@ -334,6 +340,7 @@
   });
 
   function boot() {
+    IS_BASIC_ACCESS = !!(PATCH.access && PATCH.access.level === 'basic');
     buildRegistry();
     const nInd = CATEGORIES.reduce((a, c) => a + c.vars.length, 0);
     $('#covIndicadores').textContent = nInd;
@@ -679,11 +686,11 @@
       ${renderDatoSeleccionado(m)}
       ${reading ? `<div class="m135-alsina-read" style="margin-bottom:16px"><strong>Lectura de Alsina.</strong> ${esc(reading)}</div>` : ''}
 
-      ${accordion('Finanzas y Transferencias', renderFinanzasBlock(m, t1s, tjun, presupuesto, rec), coverageLabel([t1s, presupuesto && presupuesto.estado === 'disponible']), accId.finanzas !== selCatId)}
+      ${accordion('Finanzas y Transferencias', IS_BASIC_ACCESS ? lockedTeaser(LOCKED_LABELS.finanzas) : renderFinanzasBlock(m, t1s, tjun, presupuesto, rec), IS_BASIC_ACCESS ? '🔒 Intendente' : coverageLabel([t1s, presupuesto && presupuesto.estado === 'disponible']), accId.finanzas !== selCatId)}
       ${accordion('Población y Territorio', renderPoblacionBlock(m), '', accId.poblacion !== selCatId)}
-      ${accordion('Economía y Producción', renderEconomiaBlock(m), '', accId.economia !== selCatId)}
-      ${accordion('Gobierno y Elecciones', renderGobiernoBlock(m), '', accId.gobierno !== selCatId)}
-      ${accordion('Educación', renderEducacionBlock(m), eduCoverageLabel(m), accId.educacion !== selCatId)}
+      ${accordion('Economía y Producción', IS_BASIC_ACCESS ? lockedTeaser(LOCKED_LABELS.economia) : renderEconomiaBlock(m), IS_BASIC_ACCESS ? '🔒 Intendente' : '', accId.economia !== selCatId)}
+      ${accordion('Gobierno y Elecciones', IS_BASIC_ACCESS ? lockedTeaser(LOCKED_LABELS.gobierno) : renderGobiernoBlock(m), IS_BASIC_ACCESS ? '🔒 Intendente' : '', accId.gobierno !== selCatId)}
+      ${accordion('Educación', IS_BASIC_ACCESS ? lockedTeaser(LOCKED_LABELS.educacion) : renderEducacionBlock(m), IS_BASIC_ACCESS ? '🔒 Intendente' : eduCoverageLabel(m), accId.educacion !== selCatId)}
       ${accordion('Salud', '<div class="m135-empty-dim">Sin datos disponibles todavía. Próxima etapa de incorporación.</div>', '', accId.salud !== selCatId)}
       ${accordion('Información Pública', '<div class="m135-empty-dim">Sin datos disponibles todavía. Requiere metodología propia de Alsina, aún no publicada.</div>', '', accId.info_publica !== selCatId)}
 
@@ -719,6 +726,28 @@
   function vrow(label, value, tag) {
     return `<div class="m135-vrow"><span class="m135-vrow-l">${esc(label)}</span><span class="m135-vrow-r ${value == null ? 'na' : ''}">${value == null ? 'Sin dato oficial disponible' : esc(value)}${tag ? `<span class="m135-vtag ${tag[1]}">${esc(tag[0])}</span>` : ''}</span></div>`;
   }
+
+  // AD-19: candado por indicador — se listan los NOMBRES (nunca los
+  // valores, que ni siquiera llegan al navegador para Concejal) de lo
+  // que se desbloquea con Intendente, más un único CTA al final del
+  // bloque.
+  function lockedRow(label) {
+    return `<div class="m135-vrow m135-vrow-locked"><span class="m135-vrow-l">🔒 ${esc(label)}</span><span class="m135-vrow-r na">Plan Intendente</span></div>`;
+  }
+  function lockedTeaser(labels) {
+    return labels.map(lockedRow).join('') +
+      `<a class="m135-locked-cta" href="/planes.html">Ver con Intendente →</a>`;
+  }
+
+  // Mismos nombres de fila que cada render*Block de abajo — solo el
+  // rótulo, nunca el valor (AD-19). Mantener sincronizado si se agrega
+  // un indicador nuevo a alguno de esos bloques.
+  const LOCKED_LABELS = {
+    finanzas: ['Transferido 1S 2026', 'Transferido 1S 2025', 'Variación real 1S', 'Ranking provincial 1S', 'Presupuesto 2026', 'Presupuesto por habitante', 'CUD (coparticipación)'],
+    economia: ['Empresas (2019)', 'Empresas exportadoras (2019)', 'PBG municipal (2023)', 'Variación PBG 2022-2023', 'Recaudación propia (2021)', 'NBI (Censo 2010)'],
+    gobierno: ['Intendente actual', 'Fuerza política', 'Electores nacionales', 'Historial electoral 2013-2025'],
+    educacion: ['Matrícula total (2025)', 'Variación de matrícula 2015-2025', 'Abandono interanual secundario', 'Promoción efectiva secundaria', 'Participación de matrícula estatal'],
+  };
 
   function renderFinanzasBlock(m, t1s, tjun, presupuesto, rec) {
     let html = '';
