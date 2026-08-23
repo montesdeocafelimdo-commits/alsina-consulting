@@ -10,15 +10,13 @@ import { getSupabaseAdmin } from './supabaseAdmin.js';
 // en sí es síncrono todavía — el reintento automático por cron es trabajo
 // de FASE 8, no implementado en esta pasada.
 
-// Dominio verificado en Resend: nw.alsinaar.com (alsinaar.com sin el
-// subdominio no está verificado — mandar desde ahí rebota). "newletter"
-// va sin la segunda "s" a propósito, así lo pidió Alsina — no es un
-// typo a corregir. El Reply-To sigue siendo la casilla de siempre
-// (@alsinaar.com, sin el subdominio) — ahí es donde llegan las
-// respuestas de la gente, no al dominio de envío.
+// Dominio verificado en Resend: alsinaar.com directo (antes se usaba el
+// subdominio nw.alsinaar.com como workaround mientras el dominio real
+// todavía no estaba verificado — ya no hace falta). From y Reply-To
+// coinciden, mismo dominio.
 export const SENDERS = {
-  editorial: { from: 'Alsina <newletter@nw.alsinaar.com>', replyTo: 'newletter@alsinaar.com' },
-  transactional: { from: 'Alsina <info@nw.alsinaar.com>', replyTo: 'info@alsinaar.com' },
+  editorial: { from: 'Alsina <newsletter@alsinaar.com>', replyTo: 'newsletter@alsinaar.com' },
+  transactional: { from: 'Alsina <info@alsinaar.com>', replyTo: 'info@alsinaar.com' },
 };
 
 /**
