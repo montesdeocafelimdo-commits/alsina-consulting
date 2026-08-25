@@ -9,6 +9,8 @@
 <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
 <link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
 <link rel="stylesheet" href="/assets/css/alsina.css">
+<script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
+<script src="/assets/js/analytics.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -19,7 +21,7 @@
   --turquesa:#00D5D8;--cian:#008C9A;--crema:#F3EFE7;--concreto:#9e9992;
   --verde:#52C78C;--rojo:#E05252;--amarillo:#E0B152;
 }
-body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;min-height:100vh;}
+body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;min-height:100vh;overflow-x:hidden;}
 nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:14px 48px;background:rgba(14,28,32,0.97);box-shadow:0 1px 0 rgba(0,213,216,0.1);backdrop-filter:blur(8px);}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .nav-mark{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.2em;color:var(--crema);}
@@ -39,6 +41,15 @@ nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-co
 
 #appRoot{display:none;}
 #appRoot.show{display:block;}
+
+/* ── Bienvenida (primera visita tras confirmar el mail, ?welcome=1) ──
+   Markup/paleta del sistema ".aa-*" (ver assets/css/alsina.css) —
+   fondo técnico marfil + ficha de acceso navy, según el Manual de
+   Identidad Visual de Alsina. Vive fuera de ".wrap" para poder ir a
+   ancho completo, con su propio fondo, sin tocar el nav ni el panel
+   normal de cuenta (que sigue con la paleta oscura de siempre). */
+#welcomeScreen{display:none;}
+#welcomeScreen.show{display:block;}
 
 .card{background:var(--grafito2);border:1px solid rgba(255,255,255,.06);padding:26px 28px;margin-bottom:20px;}
 .card h2{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.15rem;margin-bottom:16px;}
@@ -79,6 +90,9 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
 #loadingState{text-align:center;padding:80px 20px;color:var(--concreto);}
 
+@media (max-width:600px){
+  nav{padding:12px 20px;}
+}
 @media (max-width:480px){
   #loginGate form{flex-direction:column;gap:8px;}
   #loginGate input{border-right:1px solid rgba(255,255,255,.15) !important;}
@@ -95,8 +109,19 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
   <a href="/" class="nav-link">← Volver al sitio</a>
 </nav>
 
+<div id="welcomeScreen" class="aa-page">
+  <span class="aa-corner aa-corner-tl" aria-hidden="true">34.8037° S<br>58.3816° O</span>
+  <span class="aa-corner aa-corner-tr" aria-hidden="true">// NODO <span id="welcomeNodo">001</span></span>
+  <span class="aa-corner aa-corner-bl" aria-hidden="true"><b>ARG</b>· · ·</span>
+  <span class="aa-corner aa-corner-br" aria-hidden="true">INTELIGENCIA TERRITORIAL</span>
+  <div class="aa-hero">
+    <div class="aa-message" id="welcomeMessage"></div>
+    <div class="aa-card" id="welcomeCard"></div>
+  </div>
+</div>
+
 <div class="wrap">
-  <div class="hgroup"><h1>Mi cuenta</h1><p>Tu plan, tu suscripción y tus datos.</p></div>
+  <div class="hgroup" id="mainHgroup"><h1>Mi cuenta</h1><p>Tu plan, tu suscripción y tus datos.</p></div>
 
   <div id="loadingState" role="status" aria-live="polite">Cargando tu cuenta…</div>
 
@@ -145,6 +170,8 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/auth.js"></script>
+<script src="/assets/js/plans-catalog.js"></script>
+<script src="/assets/js/aa-access-card.js"></script>
 <script>
 (async function () {
   await window.ALSINA_CONFIG_READY;
@@ -172,13 +199,85 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
     return;
   }
 
-  document.getElementById('appRoot').classList.add('show');
   document.getElementById('logoutBtn').addEventListener('click', async () => {
     await window.AlsinaAuth.signOut();
     location.reload();
   });
 
   const PLAN_LABEL = { concejal: 'Concejal', intendente: 'Intendente', gobernador: 'Gobernador' };
+
+  // ── Bienvenida (primera visita tras confirmar el mail, ?welcome=1) ──
+  // Exclusiva: mientras se muestra, oculta el panel de cuenta completo
+  // (queda disponible al toque en "Ver el detalle completo de tu cuenta").
+  // No obliga a nada — la nav ("← Volver al sitio") sigue disponible.
+  const WELCOME_CONTENT = {
+    concejal: {
+      priceLabel: 'Gratis',
+      primary: { label: 'Navegar la página →', href: '/' },
+      secondary: { label: 'Mejorar tu plan de suscripción →', href: '/planes.html' },
+    },
+    intendente: {
+      priceLabel: null, // se completa con el precio real de la cuenta
+      primary: { label: 'Navegar la página →', href: '/' },
+      secondary: { label: 'Subir a Gobernador →', href: '/planes.html?highlight=gobernador' },
+    },
+    gobernador: {
+      priceLabel: null,
+      primary: { label: 'Ver Monitor 135 →', href: '/municipios-data-hub.html' },
+      secondary: { label: 'Ver nuestros informes →', href: '/informes.html' },
+      tertiary: { label: 'Contactar al equipo para servicios personalizados →', href: 'mailto:info@alsinaar.com?subject=Servicios%20personalizados%20%E2%80%94%20Gobernador' },
+    },
+  };
+
+  function showWelcome(acc) {
+    const content = WELCOME_CONTENT[acc.plan] || WELCOME_CONTENT.concejal;
+    const priceText = content.priceLabel || money(acc.priceAmount, acc.priceCurrency);
+    const tertiaryHtml = content.tertiary
+      ? `<a href="${content.tertiary.href}" class="aa-tertiary">${content.tertiary.label}</a>`
+      : '';
+
+    document.getElementById('welcomeMessage').innerHTML = `
+      <div class="aa-eyebrow">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Cuenta confirmada
+      </div>
+      <h1 class="aa-title">Listo. Ya sos parte de Alsina.</h1>
+      <p class="aa-lead">Tu cuenta está activa con el plan:</p>
+      <div class="aa-plan-chip"><b>${acc.planName}</b><span>${priceText}</span></div>
+      <div class="aa-ctas">
+        <a href="${content.primary.href}" class="aa-btn aa-btn-primary">${content.primary.label}</a>
+        <a href="${content.secondary.href}" class="aa-btn aa-btn-ghost" id="welcomeSecondaryCta">${content.secondary.label}</a>
+      </div>
+      ${tertiaryHtml}
+      <button type="button" class="aa-footlink" id="welcomeSeeAccount">Ver el detalle completo de tu cuenta →</button>
+    `;
+
+    const accessNumber = String((window.ALSINA_PLAN_ORDER.indexOf(acc.plan) + 1) || 1).padStart(3, '0');
+    document.getElementById('welcomeNodo').textContent = accessNumber;
+    window.AlsinaAccessCard.renderAccessCard(document.getElementById('welcomeCard'), {
+      planSlug: acc.plan,
+      accessNumber,
+      statusLabel: 'Activo',
+      priceText,
+      isFounderPrice: !!acc.isFounderPrice,
+      showLocked: false,
+    });
+
+    document.getElementById('mainHgroup').style.display = 'none';
+    document.getElementById('welcomeScreen').classList.add('show');
+    if (acc.plan !== 'gobernador' && window.AlsinaAnalytics) {
+      document.getElementById('welcomeSecondaryCta').addEventListener('click', () => {
+        window.AlsinaAnalytics.trackEvent('upgrade_clicked', { from: acc.plan, location: 'welcome' });
+      });
+    }
+    document.getElementById('welcomeSeeAccount').addEventListener('click', () => {
+      history.replaceState({}, '', '/cuenta.html');
+      document.getElementById('welcomeScreen').classList.remove('show');
+      document.getElementById('mainHgroup').style.display = '';
+      document.getElementById('appRoot').classList.add('show');
+    });
+    if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('email_confirmation_completed', { plan: acc.plan });
+  }
   const STATUS_LABEL = {
     active: ['Activo', 'active'], past_due: ['Pago pendiente', 'warn'], grace_period: ['En gracia', 'warn'],
     suspended: ['Suspendido', 'bad'], cancel_at_period_end: ['Se cancela pronto', 'warn'],
@@ -192,8 +291,19 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
     return r.json();
   }
 
+  let firstRender = true;
   async function render() {
     const acc = await loadAccount();
+
+    if (firstRender) {
+      firstRender = false;
+      const isWelcome = new URLSearchParams(location.search).get('welcome') === '1';
+      if (isWelcome) {
+        showWelcome(acc);
+      } else {
+        document.getElementById('appRoot').classList.add('show');
+      }
+    }
 
     document.getElementById('fEmail').textContent = acc.email;
     document.getElementById('fPlan').textContent = acc.planName + (acc.isFounderPrice ? ' (precio fundador)' : '');
@@ -322,6 +432,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
   try {
     await render();
   } catch (err) {
+    document.getElementById('appRoot').classList.add('show');
     document.getElementById('appRoot').innerHTML = '<div class="card"><p style="color:var(--rojo)">No pudimos cargar tu cuenta. Recargá la página.</p></div>';
   }
 })();

@@ -403,3 +403,203 @@
 @media(max-width:640px){
   .gallery4-toolbar{ display:none; }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   FICHA DE ACCESO ALSINA (.aa-*) — auditoría de identidad visual
+   2026-08-25, sobre Manual_Estetica_Alsina_Ultra_Detallado.
+   Sistema compartido por las 6 pantallas de plan (bienvenida y
+   landing de cada plan en cuenta.html / planes.html): fondo
+   técnico marfil + ficha navy de acceso + cian como señal.
+   Paleta exacta del manual, con namespace propio (--aa-*, .aa-*)
+   para no tocar ningún token ni clase ya en uso en el resto del
+   sitio. No define lógica: solo presentación. ══════════════════ */
+:root{
+  --aa-navy:#071D2B;        /* navy principal — títulos, texto de alto impacto */
+  --aa-noche:#0B2538;       /* azul noche — fondo de la ficha oscura */
+  --aa-cian:#00C7D4;        /* cian Alsina — acento, líneas, nodos, botones */
+  --aa-teal:#008E9B;        /* teal institucional — variantes de barras/iconos */
+  --aa-marfil:#F4EFE6;      /* marfil técnico — fondo de página claro */
+  --aa-blanco-roto:#F7F2EA; /* blanco roto — cards/superficies claras */
+  --aa-gris:#A8B1B8;        /* gris cartográfico — líneas técnicas, microtexto */
+  --aa-rojo:#C83A3A;        /* rojo alerta — usar poco */
+  --aa-navy-muted:rgba(7,29,43,.6);
+}
+
+.aa-page{
+  position:relative;
+  background:var(--aa-marfil);
+  color:var(--aa-navy);
+  overflow:hidden;
+  isolation:isolate;
+}
+/* retícula técnica muy sutil en toda la página — la textura de fondo
+   del manual (4.1): "líneas de plano, retículas... en gris muy suave". */
+.aa-page::before{
+  content:'';
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(7,29,43,.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(7,29,43,.028) 1px, transparent 1px);
+  background-size:64px 64px;
+}
+/* microelementos cartográficos concentrados en las esquinas — el manual
+   pide "centro limpio" (4.1): decorativos, aria-hidden, nunca informativos. */
+.aa-corner{
+  position:absolute;z-index:0;pointer-events:none;
+  font-family:'Barlow',monospace,sans-serif;
+  font-size:.66rem;letter-spacing:.08em;color:var(--aa-gris);
+  line-height:1.5;
+}
+.aa-corner b{ display:block;color:var(--aa-navy-muted);font-weight:600; }
+.aa-corner-tl{ top:28px;left:28px; }
+.aa-corner-tr{ top:28px;right:32px;text-align:right; }
+.aa-corner-bl{ bottom:24px;left:28px; }
+.aa-corner-br{ bottom:24px;right:32px;text-align:right;writing-mode:vertical-rl; }
+.aa-corner-tl::before{
+  content:'';position:absolute;top:-6px;left:-14px;width:11px;height:11px;
+  border:1px solid var(--aa-gris);border-radius:50%;
+}
+.aa-corner-tr::after{
+  content:'';position:absolute;top:2px;right:-16px;width:6px;height:6px;
+  background:var(--aa-cian);border-radius:50%;opacity:.6;
+}
+@media(max-width:720px){ .aa-corner{ display:none; } }
+
+.aa-hero{
+  position:relative;z-index:2;
+  max-width:1180px;margin:0 auto;padding:88px 40px;
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:64px;align-items:center;
+}
+/* minmax(0,…) en vez de solo 1fr: sin esto, una columna de grid no
+   encoge por debajo del min-content de lo que tiene adentro (botones,
+   títulos largos) y termina desbordando la página en mobile. */
+.aa-message{ max-width:52ch;min-width:0;width:100%;box-sizing:border-box; }
+.aa-eyebrow{
+  display:flex;align-items:center;gap:8px;
+  font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--aa-teal);margin-bottom:18px;
+}
+.aa-eyebrow .ic{ width:15px;height:15px;stroke-width:3; }
+.aa-title{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(2.1rem,4vw,2.9rem);line-height:1.04;letter-spacing:-.01em;
+  color:var(--aa-navy);margin-bottom:16px;text-wrap:balance;
+}
+.aa-lead{ font-size:.98rem;color:rgba(7,29,43,.68);line-height:1.65;margin-bottom:8px; }
+.aa-plan-chip{
+  display:inline-flex;align-items:baseline;gap:10px;
+  background:var(--aa-blanco-roto);border:1px solid rgba(7,29,43,.14);
+  border-left:3px solid var(--aa-cian);
+  padding:10px 18px;margin:16px 0 28px;
+}
+.aa-plan-chip b{
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.25rem;
+  color:var(--aa-navy);letter-spacing:.01em;
+}
+.aa-plan-chip span{ font-size:.76rem;color:var(--aa-teal);text-transform:uppercase;letter-spacing:.05em;font-weight:700; }
+.aa-ctas{ display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px; }
+.aa-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 22px;font-size:.83rem;font-weight:700;letter-spacing:.03em;
+  border-radius:2px;text-decoration:none;cursor:pointer;
+  transition:background .15s,color .15s,border-color .15s,transform .15s;
+  font-family:'Barlow',sans-serif;
+}
+.aa-btn-primary{ background:var(--aa-navy);color:#fff;border:1px solid var(--aa-navy); }
+.aa-btn-primary:hover{ background:var(--aa-cian);border-color:var(--aa-cian);color:var(--aa-navy);transform:translateY(-1px); }
+.aa-btn-ghost{ background:transparent;color:var(--aa-navy);border:1px solid rgba(7,29,43,.3); }
+.aa-btn-ghost:hover{ border-color:var(--aa-navy);background:rgba(7,29,43,.04); }
+.aa-btn[disabled]{ opacity:.55;cursor:wait; }
+.aa-tertiary{
+  display:inline-block;font-size:.8rem;color:var(--aa-navy-muted);
+  text-decoration:underline;text-underline-offset:3px;margin-bottom:22px;
+}
+.aa-tertiary:hover{ color:var(--aa-teal); }
+.aa-footlink{
+  display:block;font-size:.78rem;color:var(--aa-navy-muted);text-decoration:none;
+  background:none;border:none;cursor:pointer;padding:0;font-family:inherit;
+}
+.aa-footlink:hover{ color:var(--aa-teal); }
+.aa-status-line{ font-size:.8rem;margin-top:4px;min-height:1.2em;color:var(--aa-navy-muted); }
+.aa-status-line.ok{ color:#1f7a4d; }
+.aa-status-line.err{ color:var(--aa-rojo); }
+
+/* ── ficha técnica (columna derecha) ── */
+.aa-card{
+  position:relative;z-index:2;
+  background:linear-gradient(165deg,var(--aa-noche) 0%,var(--aa-navy) 100%);
+  border:1px solid rgba(0,199,212,.22);
+  padding:30px 32px 26px;color:#EDEFF2;
+  box-shadow:0 30px 70px -30px rgba(7,29,43,.5);
+}
+.aa-card::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,199,212,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,199,212,.05) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+.aa-card-head{
+  position:relative;display:flex;align-items:center;justify-content:space-between;
+  padding-bottom:16px;margin-bottom:18px;border-bottom:1px dashed rgba(0,199,212,.25);
+  font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--aa-cian);
+}
+.aa-card-lock{
+  width:26px;height:26px;border-radius:50%;border:1px solid rgba(0,199,212,.4);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.aa-card-lock .ic{ width:13px;height:13px; }
+.aa-card-label{ position:relative;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--aa-cian);margin-bottom:6px; }
+.aa-card-planname{
+  position:relative;font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:2.4rem;line-height:1;color:#fff;letter-spacing:.01em;
+}
+.aa-card-meta{ position:relative;display:flex;align-items:center;gap:10px;margin-top:8px;font-size:.82rem;color:rgba(237,239,242,.65); }
+.aa-pill{
+  display:inline-block;font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:2px;background:rgba(82,199,140,.18);color:#6fe3ac;
+}
+.aa-card-divider{ position:relative;height:1px;background:linear-gradient(90deg,rgba(0,199,212,.4),transparent);margin:20px 0 16px; }
+.aa-card-access-label{ position:relative;font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--aa-cian);margin-bottom:12px; }
+.aa-access-list{ position:relative;list-style:none;margin:0 0 20px;padding:0; }
+.aa-access-row{
+  display:flex;align-items:center;gap:12px;padding:9px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);font-size:.85rem;
+}
+.aa-access-row:last-child{ border-bottom:none; }
+.aa-access-ic{
+  width:28px;height:28px;border-radius:6px;flex-shrink:0;
+  background:rgba(0,199,212,.1);border:1px solid rgba(0,199,212,.25);
+  display:flex;align-items:center;justify-content:center;color:var(--aa-cian);
+}
+.aa-access-ic .ic{ width:14px;height:14px; }
+.aa-access-row span.aa-access-txt{ flex:1;color:#EDEFF2; }
+.aa-access-dot{ width:7px;height:7px;border-radius:50%;background:var(--aa-cian);flex-shrink:0; }
+.aa-access-row.aa-soon .aa-access-ic{ background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.15);color:var(--aa-gris); }
+.aa-access-row.aa-soon span.aa-access-txt{ color:rgba(237,239,242,.55); }
+.aa-access-row.aa-soon .aa-access-dot{ background:transparent;border:1px solid var(--aa-gris); }
+.aa-soon-tag{
+  margin-left:8px;font-size:.6rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--aa-gris);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:1px 7px;
+}
+/* señal decorativa — nodos/líneas ambientales, nunca datos reales */
+.aa-signal{ position:relative;height:34px;margin-bottom:18px;opacity:.75; }
+.aa-signal svg{ width:100%;height:100%; }
+.aa-card-tagline{
+  position:relative;font-size:.72rem;letter-spacing:.03em;line-height:1.5;
+  color:rgba(237,239,242,.55);text-transform:uppercase;
+}
+.aa-card-tagline strong{ color:#fff; }
+
+.aa-card{ min-width:0;width:100%;box-sizing:border-box; }
+
+@media(max-width:860px){
+  .aa-hero{ grid-template-columns:minmax(0,1fr);gap:36px;padding:56px 22px; }
+  .aa-message{ max-width:none; }
+  .aa-card{ padding:26px 22px 22px; }
+  .aa-card-planname{ font-size:2rem; }
+}
+@media(max-width:480px){
+  .aa-ctas{ flex-direction:column;align-items:stretch; }
+  .aa-btn{ justify-content:center; }
+}
