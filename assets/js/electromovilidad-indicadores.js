@@ -176,7 +176,7 @@
       formula: 'BEV + PHEV.',
       utilidad: 'Es la base correcta para dimensionar demanda de carga — no debe reemplazarse por el total de "electrificados" (que además incluye HEV y MHEV, que no cargan externamente).',
       limitacion: 'No indica dónde circula ni dónde carga habitualmente cada vehículo.',
-      enDashboard: true, enFicha: true,
+      enDashboard: true, enFicha: true, enMapa: true,
     },
     {
       key: 'enchufablesPorCeroKm', categoria: 'electromovilidad', nombre: 'Participación de enchufables sobre los 0 km', unidad: '%',

@@ -14,7 +14,8 @@ recomendación de inversión — ver la sección de cierre del propio informe.
 | `informe-electromovilidad-zona-norte.html` | Página del informe. Sin datos hardcodeados: todo lo renderiza `electromovilidad-app.js`. |
 | `assets/js/electromovilidad-app.js` | Toda la lógica de render (síntesis, dashboard, mapa, explorador, infraestructura, institucional, glosario, metodología). |
 | `assets/js/electromovilidad-indicadores.js` | Config pública y centralizada de indicadores (nombre, unidad, fórmula, utilidad, limitación). Único lugar donde se define un indicador. |
-| `assets/data/zona-norte-partidos.json` | Geometría SVG real (pública, no sensible) de los 10 partidos — extraída de `alsina-mapa-politico.html`. |
+| `assets/data/zona-norte-partidos.json` | Geometría real (pública, no sensible) de los 10 partidos — límites del WFS del IGN (capa `ign:departamento`, catastro ARBA), simplificados con Douglas-Peucker para uso web. |
+| `scripts/build-zona-norte-geometria.mjs` | Script reproducible que descarga esa geometría en vivo del WFS del IGN y regenera el archivo de arriba (`npm run build:zona-norte-geo`). Solo hace falta correrlo si IGN/ARBA actualiza algún límite catastral — no tiene relación con las actualizaciones mensuales de DNRPA. |
 | `scripts/data/electromovilidad-institucional.json` | Contenido institucional/normativo, editorial, de autoría manual. Se edita a mano. |
 | `scripts/build-electromovilidad-data.mjs` | Script reproducible: lee el Excel fuente + el JSON institucional y genera el dataset privado. |
 | `private/data/electromovilidad-zona-norte.json` | **Dataset privado generado.** Nunca se edita a mano ni se expone como estático — solo lo lee `api/monitor135/data.js`. |

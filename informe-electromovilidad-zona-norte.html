@@ -91,19 +91,68 @@ table.em-table td:first-child{text-align:left;font-weight:700;}
 table.em-table tr:hover td{background:rgba(0,199,212,.06);}
 table.em-table tbody tr{cursor:pointer;}
 
-/* ── mapa ── */
-.em-map-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:start;margin-top:22px;}
+/* ── mapa como interfaz principal ── */
+.em-h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;margin:40px 0 6px;}
+.em-explore-layout{display:grid;grid-template-columns:7fr 3fr;gap:24px;align-items:start;margin-top:22px;}
 .em-map-box{background:#fff;border:1px solid rgba(7,29,43,.1);padding:20px;position:relative;}
 .em-map-box svg{width:100%;height:auto;display:block;}
 .em-map-box path{stroke:#F4EFE6;stroke-width:1.4;cursor:pointer;transition:opacity .15s;}
 .em-map-box path:hover{opacity:.75;}
-.em-map-box path.selected{stroke:var(--aa-navy,#071D2B);stroke-width:2.6;}
 .em-map-legend{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:.72rem;color:var(--aa-navy-muted,rgba(7,29,43,.65));}
 .em-legend-scale{flex:1;height:10px;background:linear-gradient(90deg,#d7f2f4,#071D2B);}
+.em-map-footnote{font-size:.76rem;color:var(--aa-navy-muted,rgba(7,29,43,.6));line-height:1.55;margin-top:12px;}
 .em-tooltip{position:fixed;z-index:500;background:var(--aa-navy,#071D2B);color:#fff;padding:10px 14px;font-size:.76rem;line-height:1.5;pointer-events:none;max-width:240px;display:none;box-shadow:0 12px 30px rgba(7,29,43,.3);}
 .em-tooltip b{color:var(--aa-cian,#00C7D4);}
-.em-map-side h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;margin-bottom:10px;}
-.em-map-side p{font-size:.8rem;color:var(--aa-navy-muted,rgba(7,29,43,.65));line-height:1.55;margin-bottom:14px;}
+
+/* ── panel contextual (aparece al elegir un municipio en el mapa) ── */
+.em-context-panel{background:#fff;border:1px solid rgba(7,29,43,.1);border-top:3px solid var(--aa-cian,#00C7D4);padding:22px;min-height:280px;}
+.em-context-empty{font-size:.85rem;color:var(--aa-navy-muted,rgba(7,29,43,.6));line-height:1.6;}
+.em-context-panel h4{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;margin-bottom:2px;}
+.em-context-indicator{font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--aa-teal,#008E9B);font-weight:700;margin-bottom:14px;}
+.em-context-value{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.1rem;line-height:1;color:var(--aa-navy,#071D2B);}
+.em-context-sub{font-size:.78rem;color:var(--aa-navy-muted,rgba(7,29,43,.62));margin:4px 0 16px;line-height:1.5;}
+.em-context-complementarios{border-top:1px solid rgba(7,29,43,.08);padding-top:12px;margin-top:4px;}
+.em-context-complementarios .row{display:flex;justify-content:space-between;font-size:.78rem;padding:5px 0;}
+.em-context-complementarios .row .l{color:var(--aa-navy-muted,rgba(7,29,43,.6));}
+.em-context-complementarios .row .v{font-weight:700;}
+.em-context-def{font-size:.76rem;color:var(--aa-navy-muted,rgba(7,29,43,.65));line-height:1.55;margin:14px 0;padding:10px 12px;background:rgba(0,199,212,.06);border-left:2px solid var(--aa-cian,#00C7D4);}
+.em-context-actions{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
+.em-context-actions button{font-family:'Barlow',sans-serif;font-weight:700;font-size:.78rem;padding:10px 14px;cursor:pointer;border:1px solid var(--aa-navy,#071D2B);background:transparent;color:var(--aa-navy,#071D2B);}
+.em-context-actions button.primary{background:var(--aa-navy,#071D2B);color:#fff;}
+.em-context-actions button:disabled{opacity:.45;cursor:default;}
+.em-badge-compare{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--aa-navy,#071D2B);color:#fff;font-size:.66rem;font-weight:800;margin-right:6px;flex-shrink:0;}
+
+/* ── comparador (hasta 3 municipios) ── */
+.em-muni-chip.compare-1, .em-muni-chip.compare-2, .em-muni-chip.compare-3{color:#fff;border-color:transparent;}
+.em-muni-chip.compare-1{background:#071D2B;}
+.em-muni-chip.compare-2{background:#008E9B;}
+.em-muni-chip.compare-3{background:#00C7D4;color:#071D2B;}
+.em-comparador-empty{font-size:.85rem;color:var(--aa-navy-muted,rgba(7,29,43,.6));padding:20px 0;}
+.em-comparador-grid{display:grid;gap:1px;background:rgba(7,29,43,.1);margin-top:16px;border:1px solid rgba(7,29,43,.1);}
+.em-comparador-row{display:grid;background:#fff;}
+.em-comparador-row .lbl{padding:10px 14px;font-size:.76rem;color:var(--aa-navy-muted,rgba(7,29,43,.65));background:rgba(7,29,43,.02);display:flex;align-items:center;}
+.em-comparador-row .cell{padding:10px 14px;font-size:.83rem;font-weight:700;text-align:right;font-variant-numeric:tabular-nums;position:relative;}
+.em-comparador-scale{position:relative;height:5px;background:rgba(7,29,43,.08);margin-top:6px;}
+.em-comparador-scale .dot{position:absolute;top:-3px;width:11px;height:11px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(7,29,43,.3);transform:translateX(-50%);}
+.em-comparador-scale .marker{position:absolute;top:-8px;width:1px;height:21px;background:rgba(7,29,43,.35);}
+
+/* ── matriz de calor ── */
+table.em-matrix td{font-weight:600;}
+table.em-matrix td.hl{outline:2px solid var(--aa-navy,#071D2B);outline-offset:-2px;}
+
+/* ── scatter / gráfico relacional ── */
+.em-scatter-box{background:#fff;border:1px solid rgba(7,29,43,.1);padding:16px;}
+.em-scatter-box svg{width:100%;height:auto;display:block;}
+.em-scatter-axis{stroke:rgba(7,29,43,.25);stroke-width:1;}
+.em-scatter-grid{stroke:rgba(7,29,43,.06);stroke-width:1;}
+.em-scatter-label{font-size:9px;fill:var(--aa-navy-muted,rgba(7,29,43,.55));font-family:'Barlow',sans-serif;}
+.em-scatter-point{cursor:pointer;stroke:#fff;stroke-width:1.5;transition:opacity .15s;}
+.em-scatter-point:hover{opacity:.8;}
+.em-scatter-muni-label{font-size:9.5px;font-weight:700;fill:var(--aa-navy,#071D2B);font-family:'Barlow',sans-serif;pointer-events:none;}
+
+/* ── ficha: escalas comparativas ── */
+.em-mini-scale{position:relative;height:4px;background:rgba(7,29,43,.1);margin-top:5px;}
+.em-mini-scale .fill{position:absolute;top:-2px;width:8px;height:8px;border-radius:50%;background:var(--aa-cian,#00C7D4);border:1.5px solid var(--aa-navy,#071D2B);transform:translateX(-50%);}
 
 /* ── ficha municipal (panel lateral) ── */
 .em-ficha-overlay{position:fixed;inset:0;background:rgba(7,29,43,.4);z-index:900;display:none;}
@@ -174,7 +223,8 @@ footer{padding:36px 32px;background:#0e1c20;color:#9e9992;margin-top:0;}
 .footer-inner a{color:#00D5D8;text-decoration:none;}
 
 @media(max-width:860px){
-  .em-map-layout{grid-template-columns:1fr;}
+  .em-explore-layout{grid-template-columns:1fr;}
+  .em-comparador-row .lbl, .em-comparador-row .cell{padding:8px 8px;font-size:.72rem;}
   .em-kpi-grid{grid-template-columns:repeat(2,1fr);}
   .em-ficha{width:100%;}
   .em-section{padding:40px 0;}
@@ -244,53 +294,22 @@ a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{o
     </div>
   </section>
 
-  <!-- 3 · DASHBOARD CUANTITATIVO -->
-  <section class="em-section" id="dashboard">
+  <!-- 3+4 · EXPLORACIÓN TERRITORIAL (mapa como interfaz principal) -->
+  <section class="em-section" id="mapa">
     <div class="em-wrap">
-      <div class="em-kicker">Dashboard</div>
-      <h2 class="em-h2">Comparar los diez municipios</h2>
-      <p class="em-lead">Elegí un indicador y alterná entre valores absolutos y valores por habitante. Hacé clic en un municipio de la tabla para abrir su ficha completa.</p>
+      <div class="em-kicker">Mapa</div>
+      <h2 class="em-h2">Explorar el territorio</h2>
+      <p class="em-lead">Elegí una variable para colorear el mapa. Hacé clic en un municipio para ver su detalle, compararlo con otros o abrir su ficha completa.</p>
 
       <div class="em-filters">
-        <select class="em-select" id="emCategoriaFiltro" aria-label="Filtrar por tipo de indicador"></select>
-        <select class="em-select" id="emIndicadorSelect" aria-label="Indicador a comparar"></select>
+        <select class="em-select" id="emMapaVariable" aria-label="Variable del mapa"></select>
         <div class="em-chip-group" role="group" aria-label="Unidad">
           <button type="button" class="em-chip active" data-modo="absoluto">Valores absolutos</button>
           <button type="button" class="em-chip" data-modo="habitante">Por habitante</button>
         </div>
       </div>
-      <div class="em-muni-chips" id="emMuniChips"></div>
 
-      <div class="em-barchart" id="emBarChart"></div>
-
-      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;margin:32px 0 12px;">Tabla completa</h3>
-      <div class="em-table-wrap">
-        <table class="em-table" id="emTable"></table>
-      </div>
-
-      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;margin:36px 0 6px;">Evolución demográfica 2010–2022</h3>
-      <p class="em-lead" style="margin-bottom:10px;">Población por municipio en ambos censos.</p>
-      <div class="em-barchart" id="emDemoChart"></div>
-
-      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;margin:36px 0 6px;">Composición BEV / PHEV</h3>
-      <p class="em-lead" style="margin-bottom:10px;">BEV y PHEV no se suman a los híbridos no enchufables (HEV/MHEV): son las dos únicas tecnologías que requieren carga externa.</p>
-      <div class="em-barchart" id="emBevPhevChart"></div>
-
-      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;margin:36px 0 6px;">Enchufables radicados vs. sitios de carga identificados</h3>
-      <div class="em-barchart" id="emComparacionChart"></div>
-    </div>
-  </section>
-
-  <!-- 4 · MAPA CUANTITATIVO -->
-  <section class="em-section" id="mapa">
-    <div class="em-wrap">
-      <div class="em-kicker">Mapa</div>
-      <h2 class="em-h2">Zona Norte, municipio por municipio</h2>
-      <p class="em-lead">Polígonos reales de los diez partidos. Pasá el cursor para ver el valor; hacé clic para abrir la ficha completa.</p>
-      <div class="em-filters">
-        <select class="em-select" id="emMapaVariable" aria-label="Variable del mapa"></select>
-      </div>
-      <div class="em-map-layout">
+      <div class="em-explore-layout">
         <div class="em-map-box">
           <svg id="emSvgMap" viewBox="0 0 100 100"></svg>
           <div class="em-map-legend">
@@ -298,13 +317,38 @@ a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{o
             <div class="em-legend-scale"></div>
             <span id="emLegendMax">—</span>
           </div>
+          <p class="em-map-footnote" id="emMapaCeroNota">Cuando el valor es cero, significa "sin sitios identificados en el relevamiento utilizado" — no "ausencia comprobada". El inventario de carga es un mínimo, no exhaustivo.</p>
         </div>
-        <div class="em-map-side">
-          <h3>Cómo leer el mapa</h3>
-          <p>La escala de color se recalcula para cada variable: el municipio más oscuro tiene el valor más alto <em>de esa variable</em>, no necesariamente del resto.</p>
-          <p id="emMapaCeroNota">Cuando el valor es cero, significa "sin sitios identificados en el relevamiento utilizado" — no "ausencia comprobada". El inventario de carga es un mínimo, no exhaustivo.</p>
-        </div>
+        <aside class="em-context-panel" id="emContextPanel"></aside>
       </div>
+
+      <h3 class="em-h3">Ranking — <span id="emRankingLabel"></span></h3>
+      <div class="em-barchart" id="emBarChart"></div>
+
+      <h3 class="em-h3">Comparar hasta tres municipios</h3>
+      <p class="em-lead" id="emComparadorHint" style="margin-bottom:10px;">Seleccioná municipios desde el mapa (botón "Agregar a comparación") o directamente acá.</p>
+      <div class="em-muni-chips" id="emMuniChips"></div>
+      <div id="emComparador"></div>
+
+      <h3 class="em-h3">Matriz comparativa</h3>
+      <p class="em-lead" style="margin-bottom:10px;">Color relativo dentro de cada columna — no es un ranking ni un índice general. Hacé clic en un encabezado para ordenar.</p>
+      <div class="em-filters">
+        <select class="em-select" id="emMatrizFamilia" aria-label="Familia de indicadores"></select>
+      </div>
+      <div class="em-table-wrap">
+        <table class="em-table em-matrix" id="emMatrizTable"></table>
+      </div>
+
+      <h3 class="em-h3">Relación entre variables</h3>
+      <p class="em-lead" style="margin-bottom:10px;">Tamaño del punto: valor fiscal estimado del mercado 0&nbsp;km. Color: crecimiento poblacional 2010–2022.</p>
+      <div class="em-filters">
+        <select class="em-select" id="emScatterX" aria-label="Variable eje X"></select>
+        <select class="em-select" id="emScatterY" aria-label="Variable eje Y"></select>
+      </div>
+      <div class="em-scatter-box">
+        <svg id="emScatterSvg" viewBox="0 0 640 440" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+      <p class="em-lead" id="emScatterNote" style="margin-top:8px;"></p>
     </div>
   </section>
 
