@@ -7,11 +7,15 @@
     "node": "24.x"
   },
   "scripts": {
-    "test": "node --test \"tests/**/*.test.js\""
+    "test": "node --test \"tests/**/*.test.js\"",
+    "build:electromovilidad": "node scripts/build-electromovilidad-data.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
     "mercadopago": "^3.2.0",
     "resend": "^4.0.0"
+  },
+  "devDependencies": {
+    "xlsx": "^0.18.5"
   }
 }
