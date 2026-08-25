@@ -134,6 +134,17 @@ export default async function handler(req, res) {
       .update({ provider_subscription_id: String(result.id) })
       .eq('id', subscription.id);
 
+    // Registro aditivo para poder detectar y recordar checkouts abandonados
+    // (ver docs/subscriptions-audit/14-*.md, punto 3C) — no reemplaza ni
+    // pisa nada de `subscriptions`, es solo una fila histórica del intento.
+    const { error: intentError } = await supa.from('checkout_intents').insert({
+      account_id: account.accountId,
+      email: resolvedPayerEmail,
+      plan_slug: planSlug,
+      provider_subscription_id: String(result.id),
+    });
+    if (intentError) console.error('checkout: no se pudo registrar checkout_intents:', intentError.message);
+
     return res.status(200).json({ status: 'ok', checkoutUrl: result.init_point });
   } catch (err) {
     console.error('Mercado Pago checkout (subscriptions) error:', err?.message || err);

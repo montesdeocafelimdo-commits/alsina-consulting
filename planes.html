@@ -74,9 +74,21 @@ nav{
 .plan-features{list-style:none;flex:1;margin-bottom:24px;}
 .plan-features li{display:flex;align-items:flex-start;gap:10px;font-size:.85rem;color:var(--concreto);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);}
 .plan-features li.locked{color:rgba(158,153,146,.55);}
+.plan-features li.soon{color:rgba(158,153,146,.7);}
 .plan-features .icon{flex-shrink:0;width:16px;text-align:center;}
 .plan-features li.locked .icon{color:var(--amarillo);}
-.plan-features li:not(.locked) .icon{color:var(--verde);}
+.plan-features li.soon .icon{color:var(--concreto);}
+.plan-features li:not(.locked):not(.soon) .icon{color:var(--verde);}
+.plan-features li.soon em{font-style:normal;margin-left:6px;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--concreto);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:1px 7px;}
+.plan-card.highlight-pulse{animation:plan-pulse 1.6s ease-out 2;}
+@keyframes plan-pulse{0%,100%{box-shadow:none;}50%{box-shadow:0 0 0 3px rgba(0,213,216,.5);}}
+@media(prefers-reduced-motion:reduce){.plan-card.highlight-pulse{animation:none;}}
+
+.plan-custom{max-width:1180px;margin:24px auto 0;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.08);}
+.plan-custom strong{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;color:var(--crema);margin-bottom:2px;}
+.plan-custom span{font-size:.82rem;color:var(--concreto);}
+.plan-custom a{flex-shrink:0;font-size:.8rem;font-weight:700;color:var(--concreto);text-decoration:underline;text-underline-offset:3px;}
+.plan-custom a:hover{color:var(--turquesa);}
 .plan-cta{display:block;width:100%;text-align:center;padding:13px;font-size:.85rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border:none;cursor:pointer;transition:all .15s;text-decoration:none;}
 .plan-cta.primary{background:var(--turquesa);color:var(--grafito);}
 .plan-cta.primary:hover{background:#3de0e2;}
@@ -165,7 +177,7 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
     <div class="plan-price">$25.000<small>/mes</small></div>
     <div class="plan-price-note">Precio final, impuestos incluidos</div>
     <ul class="plan-features">
-      <li><span class="icon">✓</span> Todo lo de Concejal</li>
+      <li><span class="icon">✓</span> Todo lo de Concejal, más:</li>
       <li><span class="icon">✓</span> Monitor 135 completo (consulta e indicadores avanzados)</li>
       <li><span class="icon">✓</span> Comparación entre municipios</li>
       <li><span class="icon">✓</span> Balance fiscal e Indicadores fiscales municipales</li>
@@ -194,6 +206,8 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
       <li><span class="icon">✓</span> Archivo completo de informes</li>
       <li><span class="icon">✓</span> Acceso anticipado a nuevos productos</li>
       <li><span class="icon">✓</span> Informes premium (PBG Municipal, Un empleo cada 23 vecinos)</li>
+      <li class="soon"><span class="icon">◷</span> Brief Gobernador mensual <em>Próximamente</em></li>
+      <li class="soon"><span class="icon">◷</span> Alertas y seguimiento de municipios <em>Próximamente</em></li>
     </ul>
     <button class="plan-cta primary" data-action="checkout" data-plan-target="gobernador">Suscribirme →</button>
     <form class="plan-inline-form" id="gobernadorSignupForm" data-plan="gobernador">
@@ -204,6 +218,14 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
     <div class="plan-form-status" id="gobernadorStatus" role="status" aria-live="polite"></div>
   </div>
 </section>
+
+<div class="plan-custom">
+  <div>
+    <strong>¿Necesitás información específica?</strong>
+    <span>Desarrollamos análisis, bases y herramientas a medida para organizaciones, empresas e instituciones.</span>
+  </div>
+  <a href="mailto:info@alsinaar.com?subject=Informaci%C3%B3n%20a%20medida">Solicitar información a medida →</a>
+</div>
 
 <section class="faq">
   <h2>Preguntas frecuentes</h2>
@@ -299,6 +321,20 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
 
   document.getElementById('pricing').removeAttribute('aria-busy');
 
+  // ── deep link desde la bienvenida de Intendente ("Subir a Gobernador →") ──
+  const highlightPlan = new URLSearchParams(location.search).get('highlight');
+  if (highlightPlan) {
+    const card = document.querySelector(`[data-plan="${highlightPlan}"]`);
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.classList.add('highlight-pulse');
+    }
+  }
+
+  document.querySelectorAll('.plan-card').forEach((card) => {
+    if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('plan_viewed', { plan: card.dataset.plan });
+  });
+
   const PENDING_KEY = 'alsina_pending_checkout';
 
   async function fireCheckout(targetPlan, payerEmail, isUpgrade, statusEl, btn) {
@@ -309,6 +345,7 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
       const r = await window.AlsinaAuth.authedFetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
       const data = await r.json();
       if (!r.ok || !data.checkoutUrl) throw new Error(data.error || 'error');
+      if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('checkout_started', { plan: targetPlan, upgrade: !!isUpgrade });
       window.location.href = data.checkoutUrl;
       return true;
     } catch (err) {
@@ -351,17 +388,21 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
     concejalBtn.className = 'plan-cta current';
     concejalBtn.disabled = true;
   } else {
-    concejalBtn.addEventListener('click', () => concejalForm.classList.add('show'));
+    concejalBtn.addEventListener('click', () => {
+      concejalForm.classList.add('show');
+      if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('plan_selected', { plan: 'concejal', location: 'planes' });
+    });
     concejalForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('concejalEmail').value.trim();
       const btn = concejalForm.querySelector('button');
       btn.disabled = true;
+      if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('signup_started', { plan: 'concejal', location: 'planes' });
       try {
-        await window.AlsinaAuth.signInWithMagicLink(email);
+        await window.AlsinaAuth.signInWithMagicLink(email, '/cuenta.html?welcome=1');
         concejalStatus.className = 'plan-form-status ok';
         concejalStatus.textContent = '¡Listo! Revisá tu mail y hacé clic en el link para confirmar tu cuenta Concejal.';
-        if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('concejal_signup', { location: 'planes' });
+        if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('signup_completed', { plan: 'concejal', location: 'planes' });
       } catch (err) {
         concejalStatus.className = 'plan-form-status err';
         concejalStatus.textContent = 'No pudimos enviar el mail. Probá de nuevo en un momento.';
@@ -392,7 +433,10 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
       // (AD-04 sigue vigente puertas adentro — el trigger deja Concejal
       // igual, pero acá no se detiene a mostrarlo) y el magic link
       // vuelve derecho a completar ESTE checkout.
-      btn.addEventListener('click', () => signupForm.classList.add('show'));
+      btn.addEventListener('click', () => {
+        signupForm.classList.add('show');
+        if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('plan_selected', { plan: targetPlan, location: 'planes' });
+      });
       signupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = document.getElementById(targetPlan + 'SignupEmail').value.trim();
@@ -454,7 +498,10 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
       // cual sea su email. payer_email va igual porque la API de MP lo
       // exige para crear la suscripción (identificador del suscriptor
       // de su lado), pero no se le pregunta nada a la persona por esto.
-      btn.addEventListener('click', () => fireCheckout(targetPlan, account.email, isUpgrade, statusEl, btn));
+      btn.addEventListener('click', () => {
+        if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent(isUpgrade ? 'upgrade_clicked' : 'plan_selected', { from: account.plan, to: targetPlan, location: 'planes' });
+        fireCheckout(targetPlan, account.email, isUpgrade, statusEl, btn);
+      });
     } else if (account.pendingPlan === targetPlan) {
       btn.textContent = `Ya programado → Mi cuenta`;
       btn.className = 'plan-cta ghost';

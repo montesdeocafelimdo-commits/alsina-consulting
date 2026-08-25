@@ -126,7 +126,7 @@ function buildWelcomeEmail(confirmUrl) {
       <div style="font-size:12px;color:#9e9992;">${s}</div>
     </div>`).join('')}
     <div style="margin-top:20px;font-size:11px;color:rgba(158,153,146,0.4);">
-      Frecuencia: quincenal · Por ahora gratis · En unos meses pasa a premium.
+      Frecuencia: quincenal · Gratis, incluida en el plan Concejal de Alsina.
     </div>
   </div>
 

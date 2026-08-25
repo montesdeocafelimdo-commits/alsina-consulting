@@ -119,10 +119,10 @@
       gate.className = 'alsina-scroll-gate';
 
       const body = paymentsEnabled
-        ? `<div class="alsina-scroll-gate-title">Seguí leyendo con Alsina Pro</div>
-           <p class="alsina-scroll-gate-sub">Este informe completo es exclusivo para suscriptores. Sumate a Alsina Pro o comprá este informe individual.</p>
+        ? `<div class="alsina-scroll-gate-title">Seguí leyendo con tu cuenta Alsina</div>
+           <p class="alsina-scroll-gate-sub">Este informe completo es exclusivo para cuentas Alsina. Sumate gratis a Concejal o comprá este informe individual.</p>
            <div class="alsina-scroll-gate-actions">
-             <a class="btn" href="/index.html#precios">Suscribirme a Pro →</a>
+             <a class="btn" href="/planes.html">Crear mi cuenta →</a>
              <a class="btn-ghost" href="/informes.html">Comprar este informe →</a>
            </div>`
         : `<div class="alsina-scroll-gate-title">Dejá tu mail y seguí leyendo gratis</div>

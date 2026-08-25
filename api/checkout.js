@@ -2,9 +2,14 @@ import { getSupabaseAdmin } from './_lib/supabaseAdmin.js';
 
 // Deben coincidir con assets/js/pricing.js — si cambian los precios,
 // actualizar en los dos lugares (client-side para mostrar, acá para cobrar).
+// NOTA: este endpoint solo vende informes sueltos (pago único). Las
+// suscripciones a Concejal/Intendente/Gobernador NO pasan por acá — ver
+// api/_lib/subscriptionHandlers/checkout.js. Existió acá un tipo 'pro'
+// (suscripción única "Alsina Pro", precio hardcodeado) que nunca tuvo
+// manejo en el webhook ni ningún botón que lo llamara — se retiró en la
+// auditoría de nomenclatura de 2026-08-25 (no reintroducir "Alsina Pro").
 const PRICES = {
   informe: 25000, // ARS, "desde"
-  pro: 45000, // ARS / mes
 };
 
 const SITE_URL = process.env.SITE_URL || 'https://alsinaar.com';
@@ -45,7 +50,7 @@ export default async function handler(req, res) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean)) {
     return res.status(400).json({ error: 'Email inválido' });
   }
-  if (type !== 'informe' && type !== 'pro') {
+  if (type !== 'informe') {
     return res.status(400).json({ error: 'Tipo inválido' });
   }
 
@@ -77,49 +82,29 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { MercadoPagoConfig, Preference, PreApproval } = await import('mercadopago');
+    const { MercadoPagoConfig, Preference } = await import('mercadopago');
     const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
 
-    if (type === 'informe') {
-      const preference = new Preference(client);
-      const result = await preference.create({
-        body: {
-          items: [
-            {
-              title: `Informe ALSINA — ${resource || 'informe'}`,
-              quantity: 1,
-              unit_price: PRICES.informe,
-              currency_id: 'ARS',
-            },
-          ],
-          payer: { email: clean },
-          external_reference: `informe:${resource}:${clean}`,
-          back_urls: {
-            success: `${SITE_URL}/informes.html?compra=ok`,
-            failure: `${SITE_URL}/informes.html?compra=error`,
-            pending: `${SITE_URL}/informes.html?compra=pendiente`,
-          },
-          auto_return: 'approved',
-          notification_url: `${SITE_URL}/api/mercadopago-webhook`,
-        },
-      });
-      return res.status(200).json({ status: 'ok', checkoutUrl: result.init_point });
-    }
-
-    // type === 'pro' — suscripción mensual vía Preapproval
-    const preapproval = new PreApproval(client);
-    const result = await preapproval.create({
+    const preference = new Preference(client);
+    const result = await preference.create({
       body: {
-        reason: 'Alsina Pro — suscripción mensual',
-        external_reference: `pro:${clean}`,
-        payer_email: clean,
-        back_url: `${SITE_URL}/index.html?pro=ok`,
-        auto_recurring: {
-          frequency: 1,
-          frequency_type: 'months',
-          transaction_amount: PRICES.pro,
-          currency_id: 'ARS',
+        items: [
+          {
+            title: `Informe ALSINA — ${resource || 'informe'}`,
+            quantity: 1,
+            unit_price: PRICES.informe,
+            currency_id: 'ARS',
+          },
+        ],
+        payer: { email: clean },
+        external_reference: `informe:${resource}:${clean}`,
+        back_urls: {
+          success: `${SITE_URL}/informes.html?compra=ok`,
+          failure: `${SITE_URL}/informes.html?compra=error`,
+          pending: `${SITE_URL}/informes.html?compra=pendiente`,
         },
+        auto_return: 'approved',
+        notification_url: `${SITE_URL}/api/mercadopago-webhook`,
       },
     });
     return res.status(200).json({ status: 'ok', checkoutUrl: result.init_point });
