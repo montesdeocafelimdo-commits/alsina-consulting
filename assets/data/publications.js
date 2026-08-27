@@ -36,9 +36,7 @@ window.ALSINA_PUBLICATIONS = [
     publishedAt: '2026-08-18',
     period: null,
     frequency: null,
-    // TODO: sin portada propia todavía — pendiente de imagen (ver conversación de publicación).
-    // Sumar acá y a assets/js/informes-carousel.js en cuanto exista.
-    coverImage: null,
+    coverImage: '/assets/img/informes/un-empleo-cada-23-vecinos.jpg',
     url: '/nota-un-empleo-cada-23-vecinos.html',
     featured: false,
     status: 'published',
