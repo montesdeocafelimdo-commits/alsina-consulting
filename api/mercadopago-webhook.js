@@ -293,6 +293,19 @@ export async function handlePaymentEvent(supa, dataId) {
       })
       .eq('id', subscription.id);
 
+    // Cierra el intento de checkout abandonado, si había uno (solo aplica
+    // al alta/checkout directo, no al upgrade — ver
+    // api/_lib/subscriptionHandlers/checkout.js). No fatal: un error acá
+    // nunca debe afectar el pago ya aprobado.
+    if (!isUpgradeConfirmation && subscription.provider_subscription_id) {
+      const { error: intentCloseError } = await supa
+        .from('checkout_intents')
+        .update({ status: 'completed', checkout_completed_at: new Date().toISOString() })
+        .eq('provider_subscription_id', subscription.provider_subscription_id)
+        .eq('status', 'started');
+      if (intentCloseError) console.error('[mercadopago-webhook] no se pudo cerrar checkout_intents:', intentCloseError.message);
+    }
+
     if (isUpgradeConfirmation) {
       await supa.from('audit_logs').insert({
         actor_role: 'system', action: 'upgrade_confirmed',

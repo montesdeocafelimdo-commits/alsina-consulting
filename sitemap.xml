@@ -5,7 +5,7 @@
   <url><loc>https://alsinaar.com/municipios-data-hub.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://alsinaar.com/newsletter.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://alsinaar.com/consultoria.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://alsinaar.com/que-es-alsina.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://alsinaar.com/quienes-somos</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://alsinaar.com/alsina-mapa-politico.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://alsinaar.com/radar-fiscal/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://alsinaar.com/radar-fiscal/laboratorio</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -16,6 +16,7 @@
   <url><loc>https://alsinaar.com/alsina-informe-super-rigi.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
   <url><loc>https://alsinaar.com/alsina-informe-transferencias.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://alsinaar.com/alsina-pbg-pba.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://alsinaar.com/informe-electromovilidad-zona-norte.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
   <url><loc>https://alsinaar.com/alsina-radiografia-pba.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
   <url><loc>https://alsinaar.com/nota-electoral-2027.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://alsinaar.com/alsina-diagnostico-servicio.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>

@@ -4,14 +4,16 @@
    el dominio alsinaar.com — este script y el <script> de carga en el
    <head> de cada página ya están listos, cero cambios de código.
 
-   Eventos mínimos (Fase 8.3):
-   - newsletter_signup {location: hero|final|modal|sticky}
-   - monitor_open
-   - informes_view
-   - waitlist_signup {resource}
-   - checkout_start {type, resource}
-   - checkout_success
-   - pro_click */
+   Eventos del funnel de suscripción (auditoría 2026-08-25, ver
+   docs/subscriptions-audit/14-*.md):
+   - signup_started / signup_completed {location, plan}
+   - email_confirmation_completed
+   - plan_viewed {plan}
+   - plan_selected {plan}
+   - checkout_started / checkout_completed / checkout_abandoned {plan}
+   - upgrade_clicked {from, to}
+   - monitor_open / informes_view
+   - waitlist_signup {resource} / checkout_start {type, resource} (informes sueltos, api/checkout.js) */
 window.plausible =
   window.plausible ||
   function () {
@@ -28,16 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const pageEvent = document.body.dataset.trackEvent;
   if (pageEvent) trackEvent(pageEvent);
 
-  // Cualquier botón/link de Alsina Pro dispara pro_click, esté o no
-  // activado el checkout real.
-  document.querySelectorAll('[data-checkout-type="pro"]').forEach((el) => {
-    el.addEventListener('click', () => trackEvent('pro_click'));
-  });
-
-  // Vuelta desde Mercado Pago tras un pago aprobado (back_urls de
-  // api/checkout.js) — ver ?compra=ok en informes.html y ?pro=ok en index.html.
+  // Vuelta desde Mercado Pago tras un pago aprobado (back_url de
+  // api/checkout.js, informes sueltos) — ver ?compra=ok en informes.html.
   const params = new URLSearchParams(location.search);
-  if (params.get('compra') === 'ok' || params.get('pro') === 'ok') {
+  if (params.get('compra') === 'ok') {
     trackEvent('checkout_success');
   }
 });

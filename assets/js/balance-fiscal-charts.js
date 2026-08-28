@@ -113,8 +113,8 @@
       data:{
         labels:['Ene','Feb','Mar','Abr','May','Jun'],
         datasets:[
-          { label:'Total Nación → Provincia', data:[-5.83,-6.80,-2.43,-2.51,7.45,-1.94], borderColor:TEAL, backgroundColor:TEAL, tension:.25, pointRadius:3 },
-          { label:'CFI neta', data:[-21.9,-36.8,-34.2,10.9,35.3,9.9], borderColor:RISK, backgroundColor:RISK, tension:.25, pointRadius:3 }
+          { label:'Total Nación → Provincia', data:[-5.83,-6.80,-2.43,-2.51,7.45,-3.78], borderColor:TEAL, backgroundColor:TEAL, tension:.25, pointRadius:3 },
+          { label:'CFI neta', data:[-21.9,-36.8,-34.2,10.9,35.3,7.83], borderColor:RISK, backgroundColor:RISK, tension:.25, pointRadius:3 }
         ]
       },
       options:{

@@ -1,0 +1,138 @@
+{
+  "_nota": "Contenido editorial de autoría manual — no se genera desde el Excel. build-electromovilidad-data.mjs lo fusiona tal cual dentro de private/data/electromovilidad-zona-norte.json. Extraído y despojado de lenguaje comercial/promocional del informe de trabajo interno 'Electromovilidad_Municipal_Alsina_2026.pdf' (corte 25/08/2026, fuentes [1]-[20] de ese documento). Editar acá, no en el JSON generado.",
+
+  "contextoNacional": {
+    "anio2025": { "hev": 23222, "phev": null, "mhev": null, "bev": null, "total": 26632, "nota": "Total de vehículos electrificados patentados en 2025 (HEV+MHEV+PHEV+BEV); el desglose por tecnología publicado corresponde al 1S 2026." },
+    "primerSemestre2026": { "hev": 23222, "phev": 8979, "mhev": 6160, "bev": 3877, "total": 42238, "enchufables": 12856 },
+    "definicion": "Electrificados incluye HEV, MHEV, PHEV y BEV. Enchufables = PHEV + BEV: el universo que efectivamente requiere conexión a un punto de carga externo. Los HEV y MHEV reducen consumo pero no usan un puerto externo.",
+    "fuente": { "nombre": "SIOMAA / ACARA — síntesis sectorial de patentamientos", "url": "https://econojournal.com.ar/renovables-te/el-patentamiento-de-vehiculos-electricos-crecio-339-interanual-en-el-primer-semestre/", "fechaConsulta": "2026-08-25" },
+    "alcance": "Cifras nacionales, conteo de vehículos completos (no ponderado por titularidad). No comparables en magnitud directa con los totales de Zona Norte, que están ponderados por porcentaje de titularidad y acotados a 10 partidos."
+  },
+
+  "actoresPorNivel": [
+    {
+      "nivel": "Nación",
+      "actores": [
+        { "nombre": "Política automotriz e importaciones", "funcion": "Régimen de importación y cupos de vehículos electrificados.", "relacionCarga": "Indirecta: determina la oferta de vehículos enchufables disponible.", "fuente": "https://www.argentina.gob.ar/noticias/se-asignaron-50-mil-autos-electricos-e-hibridos-para-la-importacion-sin-arancel-para-2026", "fechaConsulta": "2026-08-25" },
+        { "nombre": "Seguridad eléctrica y normalización", "funcion": "Estándares técnicos de instalaciones y equipamiento eléctrico.", "relacionCarga": "Directa: normaliza la instalación de cargadores.", "fuente": null, "fechaConsulta": "2026-08-25" },
+        { "nombre": "ENRE", "funcion": "Regulación del área de distribución de Edenor/Edesur.", "relacionCarga": "Directa: regula a la distribuidora que conecta cada sitio de carga.", "fuente": "https://mapadelestado.gba.gob.ar/organismos/2250/organigrama", "fechaConsulta": "2026-08-25" },
+        { "nombre": "Registro Nacional de Infraestructura de Carga", "funcion": "Creado por Res. 817/2023; derogado por Res. 22/2025.", "relacionCarga": "Directa — hoy inexistente: no hay registro oficial nacional de cargadores.", "fuente": "https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-22-2025-408832/texto", "fechaConsulta": "2026-08-25" }
+      ]
+    },
+    {
+      "nivel": "Provincia de Buenos Aires",
+      "actores": [
+        { "nombre": "Ministerio de Transporte", "funcion": "Cartera con competencia sobre movilidad y transporte provincial.", "relacionCarga": "Directa: impulsa/coordina iniciativas de electromovilidad.", "fuente": "https://mapadelestado.gba.gob.ar/organismos/2250/organigrama", "fechaConsulta": "2026-08-25" },
+        { "nombre": "Subsecretaría de Transporte Terrestre", "funcion": "Área técnica de transporte terrestre dentro del Ministerio de Transporte.", "relacionCarga": "Directa.", "fuente": "https://mapadelestado.gba.gob.ar/organismos/2250/organigrama", "fechaConsulta": "2026-08-25" },
+        { "nombre": "Ministerio de Energía (PBA)", "funcion": "Política energética provincial.", "relacionCarga": "Directa: factibilidad y planificación de red eléctrica para carga.", "fuente": null, "fechaConsulta": "2026-08-25" },
+        { "nombre": "Ministerio de Ambiente (PBA)", "funcion": "Aptitud ambiental de proyectos.", "relacionCarga": "Indirecta: interviene en habilitaciones con componente ambiental.", "fuente": null, "fechaConsulta": "2026-08-25" },
+        { "nombre": "ARBA", "funcion": "Administración tributaria provincial (patentes, sellos, ingresos brutos).", "relacionCarga": "Indirecta: régimen fiscal aplicable a vehículos y, eventualmente, a operadores.", "fuente": "https://www.arba.gov.ar/", "fechaConsulta": "2026-08-25" }
+      ]
+    },
+    {
+      "nivel": "CABA",
+      "actores": [
+        { "nombre": "Ministerio de Movilidad e Infraestructura / Secretaría de Transporte", "funcion": "Autoridad de aplicación del Programa de Electromovilidad Porteña.", "relacionCarga": "Directa: otorga los permisos de uso del espacio público para cargadores.", "fuente": "https://boletinoficial.buenosaires.gob.ar/normativaba/norma/816669", "fechaConsulta": "2026-08-25" }
+      ]
+    },
+    {
+      "nivel": "Municipio",
+      "actores": [
+        { "nombre": "Intendencia / coordinación de gobierno", "funcion": "Define prioridades políticas y coordina áreas internas.", "relacionCarga": "Indirecta.", "fuente": null, "fechaConsulta": "2026-08-25" },
+        { "nombre": "Espacio Público / Planeamiento / Obras", "funcion": "Dominio del suelo, geometría del sitio, accesibilidad y obra civil.", "relacionCarga": "Directa: define dónde puede instalarse un cargador en espacio público.", "fuente": null, "fechaConsulta": "2026-08-25" },
+        { "nombre": "Tránsito / Movilidad", "funcion": "Reserva de espacio, señalización, fiscalización y rotación vehicular.", "relacionCarga": "Directa.", "fuente": null, "fechaConsulta": "2026-08-25" },
+        { "nombre": "Legal y Técnica + Concejo Deliberante", "funcion": "Redacción y aprobación de permisos, convenios o concesiones.", "relacionCarga": "Directa: instrumento jurídico que habilita la instalación.", "fuente": null, "fechaConsulta": "2026-08-25" },
+        { "nombre": "Hacienda / Ingresos Públicos", "funcion": "Cobro de tasas, cánones e impuestos municipales.", "relacionCarga": "Indirecta.", "fuente": null, "fechaConsulta": "2026-08-25" },
+        { "nombre": "Ambiente (municipal)", "funcion": "Evaluación ambiental de proyectos locales.", "relacionCarga": "Indirecta.", "fuente": null, "fechaConsulta": "2026-08-25" }
+      ]
+    },
+    {
+      "nivel": "Red eléctrica",
+      "actores": [
+        { "nombre": "Edenor", "funcion": "Distribuidora de energía eléctrica en gran parte de Zona Norte.", "relacionCarga": "Directa: factibilidad, potencia disponible, medición y obra de conexión de cada sitio.", "fuente": null, "fechaConsulta": "2026-08-25" }
+      ]
+    },
+    {
+      "nivel": "Operadores identificados",
+      "actores": [
+        { "nombre": "Chargebox", "funcion": "Operador de red de carga con presencia relevada en la región.", "relacionCarga": "Directa: instala y opera puntos de carga.", "fuente": "https://chargeboxnet.com/nuestra-red-de-carga-mayo-2026/", "fechaConsulta": "2026-08-25" },
+        { "nombre": "YPF (Estaciones del Futuro)", "funcion": "Red de carga asociada a estaciones de servicio.", "relacionCarga": "Directa.", "fuente": "https://estacionesdelfuturo.ypf.com/", "fechaConsulta": "2026-08-25" },
+        { "nombre": "Shell Recharge", "funcion": "Red de carga asociada a estaciones de servicio.", "relacionCarga": "Directa.", "fuente": "https://www.shell.com.ar/conductores/shell-recharge.html", "fechaConsulta": "2026-08-25" }
+      ]
+    }
+  ],
+
+  "normativa": {
+    "nacional": [
+      { "nombre": "Derogación del Registro Nacional de Infraestructura de Carga", "detalle": "El registro había sido creado por Resolución 817/2023 y fue derogado por Resolución 22/2025. Hoy no existe un registro oficial nacional de cargadores.", "fuente": "https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-22-2025-408832/texto", "fechaConsulta": "2026-08-25" },
+      { "nombre": "Cupo 2026 de importación sin arancel", "detalle": "50.000 unidades electrificadas (eléctricos e híbridos) asignadas para importación sin arancel en 2026.", "fuente": "https://www.argentina.gob.ar/noticias/se-asignaron-50-mil-autos-electricos-e-hibridos-para-la-importacion-sin-arancel-para-2026", "fechaConsulta": "2026-08-25" }
+    ],
+    "caba": [
+      { "nombre": "Resolución Conjunta 1/SECT/25 (modificada en 2026 por Res. Conj. 1/SECT/26)", "detalle": "Marco administrativo y técnico del Programa de Electromovilidad Porteña: permiso de uso precario, provisional y revocable del espacio público (primeros permisos publicados a 5 años); 180 días corridos para instalar una vez otorgado; instalación, operación, mantenimiento, seguro, garantía y retiro a cargo del permisionario; ubicación en veredas de parques/plazas no emblemáticos y frente a edificios públicos o locales comerciales, nunca sobre calzada.", "fuente": "https://boletinoficial.buenosaires.gob.ar/normativaba/norma/816669", "fechaConsulta": "2026-08-25" },
+      { "nombre": "Primer permiso otorgado — Puerto Madero", "detalle": "Resolución 97/SECT/26: permisos a Chargebox/LatEnergy en Azucena Villaflor 351 y Rosario Vera Peñaloza 380.", "fuente": "https://documentosboletinoficial.buenosaires.gob.ar/publico/ck_PE-RES-MMIGC-SECT-97-26-7374.pdf", "fechaConsulta": "2026-08-25" }
+    ],
+    "provincial": [
+      { "proyecto": "D-1194/26-27", "impulsor": "Ricardo Lissalde", "contenido": "Régimen a 10 años; crédito fiscal según potencia; Ingresos Brutos; interoperabilidad; preinstalación obligatoria; mapa abierto de cargadores.", "estado": "En comisión (al 25/8/2026)", "observacion": "Su fundamentación cita una 'Resolución 1037/2021' para el registro nacional de cargadores que no corresponde: el registro real fue creado por Res. 817/2023 y derogado por Res. 22/2025.", "fuente": "https://www.hcdiputados-ba.gov.ar/index.php?alcance=0&Nº=1194&origen=D+++&page=proyectos&periodo=26-27&search=proyecto", "fechaConsulta": "2026-08-25" },
+      { "proyecto": "D-546/26-27", "impulsor": "Ricardo Lissalde", "contenido": "Plan Provincial de Electromovilidad: red de carga, industria, compras públicas y asistencia a municipios.", "estado": "En comisión (al 25/8/2026)", "fuente": "https://www.hcdiputados-ba.gov.ar/index.php?alcance=0&Nº=546&origen=D+++&page=proyectos&periodo=26-27&search=proyecto", "fechaConsulta": "2026-08-25" },
+      { "proyecto": "D-2262/26-27", "impulsor": "Juan Martín Malpeli", "contenido": "Segunda vida y gestión de baterías de vehículos eléctricos.", "estado": "En trámite (al 25/8/2026)", "fuente": "https://www.hcdiputados-ba.gov.ar/index.php?alcance=0&Nº=2263&origen=D+++&page=proyectos&periodo=26-27&search=proyecto", "fechaConsulta": "2026-08-25" },
+      { "proyecto": "D-2263/26-27", "impulsor": "Juan Martín Malpeli", "contenido": "Reserva y protección de espacios señalizados para carga de vehículos eléctricos y PHEV.", "estado": "En trámite (al 25/8/2026)", "fuente": "https://www.hcdiputados-ba.gov.ar/index.php?alcance=0&Nº=2263&origen=D+++&page=proyectos&periodo=26-27&search=proyecto", "fechaConsulta": "2026-08-25" },
+      { "proyecto": "D-1585/26-27", "impulsor": "Bloque La Libertad Avanza", "contenido": "VTV específica para vehículos eléctricos, híbridos y conversiones.", "estado": "En trámite (al 25/8/2026)", "fuente": "https://www.hcdiputados-ba.gov.ar/index.php?alcance=0&Nº=1585&origen=D+++&page=proyectos&periodo=26-27&search=proyecto", "fechaConsulta": "2026-08-25" }
+    ],
+    "notaProyectosLegislativos": "Ningún proyecto provincial reseñado aquí tiene sanción: son iniciativas en distinto grado de tratamiento parlamentario, no derecho vigente. Su estado puede cambiar; conviene revalidarlo contra la fuente oficial antes de citarlo."
+  },
+
+  "competenciasMunicipales": [
+    { "area": "Espacio público", "competencia": "Dominio del suelo donde se emplaza un cargador (vereda, plaza, predio municipal)." },
+    { "area": "Tránsito y movilidad", "competencia": "Reserva de espacio, señalización, fiscalización y rotación del estacionamiento asociado." },
+    { "area": "Habilitaciones", "competencia": "Habilitación comercial/administrativa del sitio y, cuando corresponda, del operador." },
+    { "area": "Obras", "competencia": "Obra civil, accesibilidad y conexión física del sitio." },
+    { "area": "Ambiente", "competencia": "Evaluación de impacto ambiental cuando el municipio lo requiera." },
+    { "area": "Energía", "competencia": "Coordinación con la distribuidora para factibilidad y potencia disponible en el punto de conexión." },
+    { "area": "Legal y Técnica / Concejo Deliberante", "competencia": "Instrumento jurídico (permiso, convenio, licitación o concesión), plazo, revocabilidad, canon y responsabilidades." }
+  ],
+
+  "evidenciaInfraestructura": {
+    "notaGeneral": "Sitios identificados por nombre a partir de redes de operadores (Chargebox, YPF, Shell) y fichas puntuales de PlugShare, revisados al 25/8/2026. No existe, a esa fecha, un registro oficial nacional consolidado. Es un inventario mínimo, no exhaustivo: un sitio publicado no garantiza que esté operativo, y 'sitio' no equivale necesariamente a una cantidad determinada de conectores.",
+    "porMunicipio": {
+      "Vicente López": ["YPF Libertador/Melo", "Carrefour", "McDonald's", "Norcenter", "SportClub Al Río"],
+      "San Isidro": ["Chargebox Béccar", "Kansas Acassuso", "McDonald's", "Puma"],
+      "Tigre": ["Centro Comercial Nordelta", "Starbucks (Nordelta)", "Kansas (Nordelta)", "Casa Giulia (Nordelta)", "Remeros Plaza (Nordelta)"],
+      "Pilar": ["Sheraton Pilar", "Kansas", "Tortugas Open Mall", "Pilar Walk", "Shell Paseo Pilar", "Audi Zentrum"],
+      "Escobar": ["Puertos", "Shell Ruta 9 km 54"],
+      "San Fernando": [],
+      "San Miguel": [],
+      "General San Martín": [],
+      "Malvinas Argentinas": [],
+      "José C. Paz": []
+    },
+    "notaSinNombre": "Cuando la cantidad mínima relevada (ver ficha municipal) es mayor a la cantidad de sitios nombrados en esta lista, la diferencia corresponde a sitios identificados en el conteo agregado de la fuente pero sin nombre de establecimiento verificado en esta revisión."
+  },
+
+  "fuentes": [
+    { "id": 1, "titulo": "CABA · Programa Electromovilidad Porteña, Res. Conj. 1/SECT/25", "url": "https://boletinoficial.buenosaires.gob.ar/normativaba/norma/816669" },
+    { "id": 2, "titulo": "CABA · actualización 2026, Res. Conj. 1/SECT/26", "url": "https://boletinoficial.buenosaires.gob.ar/normativaba/norma/858736" },
+    { "id": 3, "titulo": "CABA · Anexo técnico 2026", "url": "https://documentosboletinoficial.buenosaires.gob.ar/publico/PE-RES-MMIGC-MEPHUGC-SECT-1-26-ANX.pdf" },
+    { "id": 4, "titulo": "CABA · Anexo administrativo 2026", "url": "https://documentosboletinoficial.buenosaires.gob.ar/publico/PE-RES-MMIGC-MEPHUGC-SECT-1-26-ANX-1.pdf" },
+    { "id": 5, "titulo": "CABA · primer permiso Puerto Madero, Res. 97/SECT/26", "url": "https://documentosboletinoficial.buenosaires.gob.ar/publico/ck_PE-RES-MMIGC-SECT-97-26-7374.pdf" },
+    { "id": 6, "titulo": "PBA · Proyecto D-1194/26-27", "url": "https://www.hcdiputados-ba.gov.ar/index.php?alcance=0&Nº=1194&origen=D+++&page=proyectos&periodo=26-27&search=proyecto" },
+    { "id": 7, "titulo": "PBA · Proyecto D-546/26-27", "url": "https://www.hcdiputados-ba.gov.ar/index.php?alcance=0&Nº=546&origen=D+++&page=proyectos&periodo=26-27&search=proyecto" },
+    { "id": 8, "titulo": "PBA · Proyectos D-2262 y D-2263/26-27", "url": "https://www.hcdiputados-ba.gov.ar/index.php?alcance=0&Nº=2263&origen=D+++&page=proyectos&periodo=26-27&search=proyecto" },
+    { "id": 9, "titulo": "PBA · Proyecto D-1585/26-27", "url": "https://www.hcdiputados-ba.gov.ar/index.php?alcance=0&Nº=1585&origen=D+++&page=proyectos&periodo=26-27&search=proyecto" },
+    { "id": 10, "titulo": "Nación · derogación Registro de Infraestructura de Carga, Res. 22/2025", "url": "https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-22-2025-408832/texto" },
+    { "id": 11, "titulo": "Nación · cupo 2026 de 50.000 electrificados sin arancel", "url": "https://www.argentina.gob.ar/noticias/se-asignaron-50-mil-autos-electricos-e-hibridos-para-la-importacion-sin-arancel-para-2026" },
+    { "id": 12, "titulo": "SIOMAA/ACARA · patentamientos 2025 y 1S 2026", "url": "https://econojournal.com.ar/renovables-te/el-patentamiento-de-vehiculos-electricos-crecio-339-interanual-en-el-primer-semestre/" },
+    { "id": 13, "titulo": "Chargebox · red de carga, mayo 2026", "url": "https://chargeboxnet.com/nuestra-red-de-carga-mayo-2026/" },
+    { "id": 14, "titulo": "YPF · Estaciones del Futuro", "url": "https://estacionesdelfuturo.ypf.com/" },
+    { "id": 15, "titulo": "Shell Recharge Argentina", "url": "https://www.shell.com.ar/conductores/shell-recharge.html" },
+    { "id": 16, "titulo": "PBA · población municipal, Censo 2022", "url": "https://datos.estadistica.ec.gba.gov.ar/dataset/poblacion-total-superficie-densidad-y-porcentaje-de-poblacion-urbana-por-municipio" },
+    { "id": 17, "titulo": "PBA · Ley Orgánica de las Municipalidades", "url": "https://normas.gba.gob.ar/documentos/OVG48SW0.html" },
+    { "id": 18, "titulo": "PBA · dominio público municipal, Dec.-Ley 9533/80", "url": "https://www.argentina.gob.ar/normativa/provincial/decreto_ley-9533-123456789-0abc-defg-335-9000bvorpyel/actualizacion" },
+    { "id": 19, "titulo": "CABA · organigrama", "url": "https://buenosaires.gob.ar/organigrama" },
+    { "id": 20, "titulo": "PBA · organigrama Ministerio de Transporte", "url": "https://mapadelestado.gba.gob.ar/organismos/2250/organigrama" },
+    { "id": 21, "titulo": "DNRPA · microdatos de inscripciones iniciales", "url": "https://datos.gob.ar/dataset/justicia-inscripciones-iniciales-autos" },
+    { "id": 22, "titulo": "DNRPA · microdatos de transferencias", "url": "https://datos.gob.ar/dataset/justicia-transferencias-autos" },
+    { "id": 23, "titulo": "DNRPA · tabla de valuaciones vigente desde agosto de 2026", "url": "https://www.dnrpa.gov.ar/valuacion/valuaciones.php" },
+    { "id": 24, "titulo": "GeoRef · normalización de localidades y partidos", "url": "https://apis.datos.gob.ar/georef/" },
+    { "id": 25, "titulo": "SIOMAA · referencias sectoriales", "url": "https://www.siomaa.com/eshop" }
+  ]
+}

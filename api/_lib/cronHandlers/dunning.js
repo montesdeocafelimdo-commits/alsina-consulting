@@ -219,6 +219,82 @@ export default async function handler(req, res) {
     summary.errors.push({ stage: 'finalize_downgrade', error: err.message });
   }
 
+  // ── checkout abandonado (Intendente/Gobernador, 24h sin completar) ──
+  // Auditoría de conversión 2026-08-25, punto 3C. Un solo recordatorio,
+  // con doble verificación antes de mandarlo: si ya está activo en
+  // nuestra base, o si Mercado Pago ya lo muestra autorizado (el webhook
+  // puede estar por procesarlo), NO se manda nada — se deja para que el
+  // webhook o el cron de reconcile lo cierren naturalmente.
+  const PLAN_NAME = { intendente: 'Intendente', gobernador: 'Gobernador' };
+  try {
+    const cutoff = new Date(now - 24 * 60 * 60 * 1000).toISOString();
+    const { data: abandoned, error } = await supa
+      .from('checkout_intents')
+      .select('id, account_id, email, plan_slug, provider_subscription_id, checkout_started_at')
+      .eq('status', 'started')
+      .lte('checkout_started_at', cutoff);
+    if (error) throw error;
+
+    summary.abandonmentRemindersSent = 0;
+    for (const intent of abandoned || []) {
+      // 1) ¿Ya está activo en nuestra base? (completó por otra vía, o el
+      //    webhook lo cerró pero esta fila quedó vieja por algún motivo).
+      const { data: sub } = await supa
+        .from('subscriptions')
+        .select('status, plan_id, plans!plan_id(slug)')
+        .eq('account_id', intent.account_id)
+        .maybeSingle();
+      if (sub && sub.status === 'active' && sub.plans?.slug === intent.plan_slug) {
+        await supa.from('checkout_intents').update({ status: 'completed', checkout_completed_at: new Date().toISOString() }).eq('id', intent.id);
+        continue;
+      }
+
+      // 2) Verificación directa contra Mercado Pago antes de mandar nada.
+      if (intent.provider_subscription_id && process.env.MP_ACCESS_TOKEN) {
+        try {
+          const { MercadoPagoConfig, PreApproval } = await import('mercadopago');
+          const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
+          const preapproval = await new PreApproval(client).get({ id: intent.provider_subscription_id });
+          if (preapproval?.status === 'authorized') {
+            // MP ya lo aprobó — el webhook todavía no lo procesó. No
+            // mandar el recordatorio; se resuelve solo en el próximo
+            // webhook o en el cron de reconcile.
+            continue;
+          }
+        } catch (mpErr) {
+          console.error('[cron/dunning] no se pudo verificar preapproval de checkout_intents:', mpErr?.message || mpErr);
+          summary.errors.push({ stage: 'checkout_abandoned_verify', intentId: intent.id, error: mpErr?.message });
+          continue; // ante la duda, no se manda — se reintenta mañana
+        }
+      }
+
+      // 3) Verificado que sigue sin completarse: un único recordatorio.
+      const { data: acc } = await supa.from('accounts').select('owner_profile_id').eq('id', intent.account_id).maybeSingle();
+      const { data: ownerProfile } = acc
+        ? await supa.from('profiles').select('email').eq('id', acc.owner_profile_id).maybeSingle()
+        : { data: null };
+      const toEmail = ownerProfile?.email || intent.email;
+
+      if (toEmail) {
+        await sendEmail({
+          to: toEmail,
+          subject: `Tu suscripción a ${PLAN_NAME[intent.plan_slug] || intent.plan_slug} todavía no se completó`,
+          html: templates.checkoutAbandoned(PLAN_NAME[intent.plan_slug] || intent.plan_slug),
+          templateKey: 'checkout_abandoned',
+          accountId: intent.account_id,
+        });
+      }
+      await supa
+        .from('checkout_intents')
+        .update({ status: 'reminder_sent', abandonment_email_sent_at: new Date().toISOString() })
+        .eq('id', intent.id);
+      summary.abandonmentRemindersSent++;
+    }
+  } catch (err) {
+    console.error('[cron/dunning] error en recordatorio de checkout abandonado:', err.message);
+    summary.errors.push({ stage: 'checkout_abandoned', error: err.message });
+  }
+
   console.log('[cron/dunning]', JSON.stringify(summary));
   return res.status(200).json(summary);
 }

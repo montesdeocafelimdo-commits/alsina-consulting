@@ -113,4 +113,9 @@ export const templates = {
     `Ahora sos ${planName}`,
     `<p>Tu cambio de plan ya está activo.</p>`
   ),
+  checkoutAbandoned: (planName) => shell(
+    `Tu suscripción a ${planName} todavía no se completó`,
+    `<p>Empezaste a suscribirte a ${planName} pero el pago no se terminó de confirmar. Tu cuenta sigue como estaba — podés retomarlo cuando quieras, no perdiste nada.</p>
+     <p><a href="https://alsinaar.com/planes.html" style="color:#00D5D8;">Continuar suscripción →</a></p>`
+  ),
 };

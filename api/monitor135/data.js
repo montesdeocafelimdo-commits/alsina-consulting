@@ -1,7 +1,7 @@
 import { readFile } from 'fs/promises';
 import path from 'path';
 import { getAuthenticatedAccount } from '../_lib/auth.js';
-import { getEntitlements, hasCapability } from '../_lib/capabilities.js';
+import { getEntitlements, hasCapability, getResourceAccessLevel } from '../_lib/capabilities.js';
 
 // ALSINA — Monitor 135, dataset protegido (AD-19, FASE 5).
 // Reemplaza a los archivos estáticos /assets/data/monitor135-*.json —
@@ -13,10 +13,28 @@ import { getEntitlements, hasCapability } from '../_lib/capabilities.js';
 //
 // "El navegador nunca recibe el valor o dataset protegido: no implementar
 //  seguridad mediante blur/CSS sobre datos ya descargados." (AD-19)
+//
+// Este archivo también sirve OTROS datasets privados no relacionados con
+// Monitor 135 (ver RESOURCE_GATED_DATASETS más abajo) — es una decisión
+// de infraestructura, no de diseño: ver el comentario junto a esa
+// constante.
 
 const DATASETS = {
   municipios: 'private/data/monitor135-municipios.json',
   educacion: 'private/data/monitor135-educacion.json',
+  'electromovilidad-zona-norte': 'private/data/electromovilidad-zona-norte.json',
+};
+
+// Recursos que NO son Monitor 135 pero comparten este mismo endpoint por
+// una razón de infraestructura, no de diseño: Vercel Hobby tiene un
+// límite de 12 Serverless Functions y el proyecto ya está en ese límite
+// (ver api/subscriptions/[action].js y api/admin/[action].js, que existen
+// como routers por el mismo motivo). En vez de sumar una función nueva,
+// estos datasets se sirven acá con su PROPIA capacidad — nunca con las de
+// Monitor 135 — resuelta genéricamente vía getResourceAccessLevel (AD-22),
+// exactamente como se resolvería si tuvieran su propio endpoint.
+const RESOURCE_GATED_DATASETS = {
+  'electromovilidad-zona-norte': 'informe-electromovilidad-zona-norte',
 };
 
 // Primer recorte basic/full — allowlist deliberadamente conservador
@@ -54,9 +72,31 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'method_not_allowed' });
 
-  const datasetKey = req.query?.dataset === 'educacion' ? 'educacion' : 'municipios';
+  const requestedDataset = req.query?.dataset;
+  const datasetKey = requestedDataset === 'educacion'
+    ? 'educacion'
+    : (requestedDataset && DATASETS[requestedDataset]) ? requestedDataset : 'municipios';
 
   const account = await getAuthenticatedAccount(req); // null si es visitante
+
+  // ── datasets gateados por su propio recurso (no por Monitor 135) ──
+  const resourceSlug = RESOURCE_GATED_DATASETS[datasetKey];
+  if (resourceSlug) {
+    const level = await getResourceAccessLevel(account?.accountId || null, resourceSlug);
+    if (level !== 'full') {
+      return res.status(200).json({ access: { level: 'none', requiresPlan: 'gobernador' }, data: null });
+    }
+    let gatedDataset;
+    try {
+      gatedDataset = await readDataset(datasetKey);
+    } catch (err) {
+      console.error(`monitor135/data: error leyendo dataset "${datasetKey}":`, err.message);
+      return res.status(500).json({ error: 'error_interno' });
+    }
+    res.setHeader('Cache-Control', 'private, max-age=0, no-store');
+    return res.status(200).json({ access: { level: 'full', requiresPlan: null }, data: gatedDataset });
+  }
+
   const entitlements = await getEntitlements(account?.accountId || null);
   const hasBasic = hasCapability(entitlements, 'monitor_basic_view', 'basic');
   const hasFull = hasCapability(entitlements, 'monitor_full_view', 'basic');

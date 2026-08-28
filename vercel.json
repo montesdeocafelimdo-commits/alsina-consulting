@@ -1,6 +1,10 @@
 {
   "rewrites": [
-    { "source": "/api/webhook", "destination": "/api/mercadopago-webhook" }
+    { "source": "/api/webhook", "destination": "/api/mercadopago-webhook" },
+    { "source": "/quienes-somos", "destination": "/quienes-somos.html" }
+  ],
+  "redirects": [
+    { "source": "/que-es-alsina.html", "destination": "/quienes-somos", "permanent": true }
   ],
   "headers": [
     {

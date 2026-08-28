@@ -273,12 +273,11 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
   border-bottom:1px solid var(--line-light);
 }
 .compare-th-plan{text-align:center;}
-.compare-th-product,
-.compare-th-intendente{background:var(--card-light);}
-.compare-th-intendente{border-top:3px solid var(--brand-cyan);}
-/* sólido, no rgba: el thead queda sticky y un fondo translúcido deja
-   traslucir las filas del tbody que pasan por debajo al scrollear */
-.compare-th-ministro{background:#eef7fa;border-top:3px solid var(--brand-cyan-text);}
+.compare-th-product{background:var(--card-light);}
+/* Intendente es el plan destacado de la tabla — sólido, no rgba: el
+   thead queda sticky y un fondo translúcido deja traslucir las filas
+   del tbody que pasan por debajo al scrollear. */
+.compare-th-intendente{background:#eef7fa;border-top:3px solid var(--brand-cyan-text);}
 .compare-th-gobernador{background:var(--brand-navy);border-top:3px solid var(--brand-cyan-light);}
 
 .compare-plan-name{
@@ -297,21 +296,19 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .compare-th-gobernador .compare-price-period{color:rgba(255,255,255,.6);}
 
 .compare-plan-btn{width:100%;justify-content:center;}
-.compare-th-intendente .compare-plan-btn,
 .compare-cell-foot .compare-plan-btn{
   background:transparent;color:var(--brand-cyan-text);border:1px solid var(--brand-cyan-text);
 }
-.compare-th-intendente .compare-plan-btn:hover,
 .compare-cell-foot .compare-plan-btn:hover{background:rgba(20,107,145,.08);}
 .compare-th-gobernador .compare-plan-btn{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5);}
 .compare-th-gobernador .compare-plan-btn:hover{background:rgba(255,255,255,.12);}
-.compare-th-ministro .compare-plan-btn,
-.compare-cell-foot.compare-cell-ministro .compare-plan-btn{
+.compare-th-intendente .compare-plan-btn,
+.compare-cell-foot.compare-cell-intendente .compare-plan-btn{
   background:var(--brand-cyan-text);color:#fff;border:1px solid var(--brand-cyan-text);
   transition:background .2s ease,transform .22s ease,box-shadow .22s ease;
 }
-.compare-th-ministro .compare-plan-btn:hover,
-.compare-cell-foot.compare-cell-ministro .compare-plan-btn:hover{
+.compare-th-intendente .compare-plan-btn:hover,
+.compare-cell-foot.compare-cell-intendente .compare-plan-btn:hover{
   background:#0f5674;transform:translateY(-2px);box-shadow:0 12px 22px -12px rgba(20,107,145,.55);
 }
 .compare-plan-btn:focus-visible{outline:2px solid var(--brand-cyan);outline-offset:2px;}
@@ -330,12 +327,12 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .compare-row:nth-child(even) .compare-cell{background:rgba(91,107,128,.035);}
 .compare-row:hover .compare-row-label,
 .compare-row:hover .compare-cell{background:rgba(33,150,201,.07);}
-.compare-cell-ministro{background:rgba(33,150,201,.05);}
-.compare-row:nth-child(even) .compare-cell-ministro{background:rgba(33,150,201,.08);}
+.compare-cell-intendente{background:rgba(33,150,201,.05);}
+.compare-row:nth-child(even) .compare-cell-intendente{background:rgba(33,150,201,.08);}
 .compare-check{width:19px;height:19px;color:var(--brand-cyan-text);stroke-width:2.4;}
 
 .compare-table tfoot td{padding:22px 18px 26px;border-top:1px solid var(--line-light);vertical-align:top;}
-.compare-cell-foot.compare-cell-ministro{background:rgba(33,150,201,.05);}
+.compare-cell-foot.compare-cell-intendente{background:rgba(33,150,201,.05);}
 
 /* — mobile: pestañas — */
 .compare-mobile{display:none;}
@@ -365,7 +362,7 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .compare-panel-list .compare-check{margin-top:2px;flex-shrink:0;}
 
 @media(prefers-reduced-motion:reduce){
-  .compare-tab,.compare-th-ministro .compare-plan-btn,.compare-cell-foot.compare-cell-ministro .compare-plan-btn{transition:none;}
+  .compare-tab,.compare-th-intendente .compare-plan-btn,.compare-cell-foot.compare-cell-intendente .compare-plan-btn{transition:none;}
 }
 @media(max-width:860px){
   .compare-desktop{display:none;}
@@ -526,6 +523,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     <a href="#precios">Suscripción</a>
     <a href="/consultoria.html">Consultoría</a>
     <a href="/cuenta.html">Mi cuenta</a>
+    <a href="/quienes-somos">Quiénes somos</a>
     <a class="btn nav-cta" href="#precios">Suscribirme</a>
   </div>
 </nav>
@@ -569,12 +567,13 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     <div class="kicker">Radiografía integral de la provincia de Buenos Aires</div>
     <h1>Comprender la Provincia <em>para transformarla.</em></h1>
     <p class="sub">Relevamos, sistematizamos y analizamos las finanzas, la gestión, la política y el territorio de la PBA y sus 135 municipios — y lo convertimos en conocimiento útil para decidir.</p>
-    <form id="heroForm" class="capture-dark" onsubmit="handleSubscribe(event,'hero')">
+    <form id="heroForm" class="capture-dark" onsubmit="handleConcejalSignup(event,'hero')">
       <input type="email" id="heroEmail" placeholder="tu@mail.com" required aria-label="Tu email">
-      <button type="submit" class="btn" id="heroBtn">Suscribirme gratis</button>
+      <button type="submit" class="btn" id="heroBtn">Crear mi cuenta gratis →</button>
     </form>
     <div class="form-status" id="heroStatus"></div>
-    <p class="micro"><b>Newsletter quincenal, gratis hasta septiembre 2026.</b> Los suscriptores fundadores mantienen beneficios cuando pase a premium.</p>
+    <p class="micro"><b>Plan Concejal, gratis para siempre.</b> Incluye Señal Alsina (newsletter quincenal), Monitor 135 e informes públicos — sin tarjeta, sin vencimiento.</p>
+    <a class="btn-ghost" href="/quienes-somos" style="margin-top:20px;">Quiénes somos →</a>
   </div>
 </section>
 
@@ -617,7 +616,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
           <button type="button" id="muniBannerReset">✕ Volver a la vista general</button>
         </div>
         <a class="btn mon-cta" href="/municipios-data-hub.html">Abrir el Monitor 135 →</a>
-        <p class="micro" style="color:var(--muted-on-light);margin-top:14px;">Acceso básico gratis con tu mail · Ficha completa y descargas para suscriptores Pro.</p>
+        <p class="micro" style="color:var(--muted-on-light);margin-top:14px;">Indicadores principales gratis con tu cuenta Concejal · Ficha completa y comparación entre municipios con Intendente.</p>
       </div>
 
       <a class="mon-preview" id="monitorDash" href="/municipios-data-hub.html">
@@ -744,7 +743,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     </div>
     <div class="rep-cta">
       <a class="btn" href="/informes.html">Ver todos los informes →</a>
-      <span class="micro" style="color:var(--muted-on-light);">Compra individual próximamente · Incluidos sin límite en Alsina Pro.</span>
+      <span class="micro" style="color:var(--muted-on-light);">Compra individual próximamente · Informes premium incluidos en Gobernador.</span>
     </div>
   </div>
 </section>
@@ -754,16 +753,16 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   <div class="wrap">
     <span class="tag">Tres niveles para entender la Provincia</span>
     <h2>Elegí cuánto querés<br><span class="compare-accent">saber</span>.</h2>
-    <p class="lead">Concejal es gratis y siempre lo va a ser. Intendente y Gobernador suman el Monitor 135 completo, informes premium y descarga de datos — precio final, fundador, para siempre mientras sigas en el plan.</p>
+    <p class="lead">Concejal es gratis y siempre lo va a ser. Intendente y Gobernador suman el Monitor 135 completo, informes premium y descarga de datos, a precio fundador.</p>
 
     <div class="p3-grid">
       <div class="p3-card">
         <div class="p3-name">Concejal</div>
         <div class="p3-desc">Para entrar sin costo</div>
         <div class="p3-price">Gratis</div>
-        <div class="p3-note">Para siempre</div>
+        <div class="p3-note">Siempre gratis</div>
         <ul class="p3-list">
-          <li>Newsletter</li>
+          <li>Señal Alsina (newsletter quincenal)</li>
           <li>Monitor 135 + indicadores principales</li>
           <li>Notas e informes públicos</li>
         </ul>
@@ -777,9 +776,10 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
         <div class="p3-price">$25.000<span>/mes</span></div>
         <div class="p3-note">Precio final, impuestos incluidos</div>
         <ul class="p3-list">
-          <li>Monitor 135 completo, sin recortes</li>
-          <li>Comparación entre municipios</li>
-          <li>Balance fiscal, recaudación y transferencias</li>
+          <li>Todo lo de Concejal, más:</li>
+          <li><strong>Monitor 135 completo, sin recortes</strong></li>
+          <li><strong>Comparación entre municipios</strong></li>
+          <li><strong>Balance fiscal, recaudación y transferencias</strong></li>
         </ul>
         <a class="p3-cta p3-cta-outline" href="/planes.html">Elegir Intendente →</a>
       </div>
@@ -797,11 +797,21 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
           <li><strong>Informes premium</strong></li>
           <li><strong>Prioridad en pedidos de informes a medida</strong></li>
           <li>Acceso anticipado a cada producto nuevo</li>
+          <li>Brief Gobernador mensual <span class="p3-soon">Próximamente</span></li>
+          <li>Alertas y seguimiento de municipios <span class="p3-soon">Próximamente</span></li>
         </ul>
         <a class="p3-cta p3-cta-solid" href="/planes.html">Elegir Gobernador →</a>
       </div>
     </div>
     <p class="compare-note">Suscripciones mensuales. Podés cambiar de nivel o cancelar cuando quieras.</p>
+
+    <div class="p3-custom">
+      <div>
+        <strong>¿Necesitás información específica?</strong>
+        <span>Desarrollamos análisis, bases y herramientas a medida para organizaciones, empresas e instituciones.</span>
+      </div>
+      <a href="mailto:info@alsinaar.com?subject=Informaci%C3%B3n%20a%20medida">Solicitar información a medida →</a>
+    </div>
   </div>
 </section>
 
@@ -833,6 +843,12 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 .p3-cta-outline:hover{background:var(--brand-navy);color:#fff;}
 .p3-cta-solid{background:var(--brand-cyan);color:var(--brand-navy);border:1.5px solid var(--brand-cyan);}
 .p3-cta-solid:hover{background:#fff;border-color:#fff;}
+.p3-soon{display:inline-block;margin-left:6px;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:1px 7px;vertical-align:middle;}
+.p3-custom{max-width:1180px;margin:28px auto 0;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line-light);}
+.p3-custom strong{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;color:var(--text-on-light);margin-bottom:2px;}
+.p3-custom span{font-size:.82rem;color:var(--muted-on-light);}
+.p3-custom a{flex-shrink:0;font-size:.8rem;font-weight:700;color:var(--muted-on-light);text-decoration:underline;text-underline-offset:3px;}
+.p3-custom a:hover{color:var(--brand-cyan-text);}
 </style>
 
 <!-- SERVICIOS (QUÉ HACEMOS) -->
@@ -841,7 +857,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   <div class="wrap reveal">
     <span class="tag" style="color:var(--turquesa);">Productos ALSINA</span>
     <h2>Nueve productos.<br><em>Un solo método.</em></h2>
-    <p class="lead" style="color:rgba(243,239,231,.65);">Consultoría de gestión pública organizada en tres frentes: cómo funciona el municipio por dentro, de dónde salen los recursos y hacia dónde va, y cómo se comunica y compite.</p>
+    <p class="lead" style="color:rgba(243,239,231,.65);">Consultoría de gestión pública organizada en tres frentes: cómo funciona el municipio por dentro, de dónde salen los recursos y hacia dónde van, y cómo se comunica y compite.</p>
     <div class="services-grid">
       <article class="service-card">
         <div class="sc-icon"><svg class="ic" viewBox="0 0 24 24"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 21 7 3 7"/></svg></div>
@@ -900,8 +916,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
       </a>
       <a class="publish-link" href="#hero-top" onclick="document.getElementById('heroEmail').focus();document.querySelector('.hero').scrollIntoView({behavior:'smooth'});return false;">
         <strong>Señal Alsina</strong>
-        <span>Newsletter quincenal sobre la PBA.</span>
-        <em>Suscribirme →</em>
+        <span>Newsletter quincenal sobre la PBA, incluida en el plan Concejal.</span>
+        <em>Crear mi cuenta gratis →</em>
       </a>
     </div>
   </div>
@@ -911,10 +927,10 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 <section class="final-cta">
   <div class="wrap reveal">
     <h2>La Provincia no espera.<br><em>La señal tampoco.</em></h2>
-    <p class="sub">Sumate antes de septiembre y quedate con el precio de fundadores.</p>
-    <form id="finalForm" class="capture-dark" onsubmit="handleSubscribe(event,'final')">
+    <p class="sub">Creá tu cuenta Concejal gratis y sumate a la Señal Alsina de paso.</p>
+    <form id="finalForm" class="capture-dark" onsubmit="handleConcejalSignup(event,'final')">
       <input type="email" id="finalEmail" placeholder="tu@mail.com" required aria-label="Tu email">
-      <button type="submit" class="btn" id="finalBtn">Suscribirme gratis</button>
+      <button type="submit" class="btn" id="finalBtn">Crear mi cuenta gratis →</button>
     </form>
     <div class="form-status" id="finalStatus"></div>
   </div>
@@ -933,14 +949,14 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
       <a href="/newsletter.html">Newsletter</a>
       <a href="#precios">Suscripción</a>
       <a href="/consultoria.html">Consultoría</a>
-      <a href="/que-es-alsina.html">Qué es ALSINA</a>
+      <a href="/quienes-somos">Quiénes somos</a>
     </div>
     <div>newsletter@alsinaar.com · © 2026</div>
   </div>
 </footer>
 
 <script src="/assets/js/config.js"></script>
-<script src="/assets/js/checkout.js"></script>
+<script src="/assets/js/auth.js"></script>
 <script src="/assets/js/reveal.js"></script>
 <script src="/assets/js/sticky-cta.js"></script>
 <script src="/assets/js/informes-carousel.js"></script>
@@ -1264,8 +1280,8 @@ navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
   navBurger.setAttribute('aria-expanded', 'false');
 }));
 
-// ── SUBSCRIBE ──
-async function handleSubscribe(e, prefix) {
+// ── ALTA CONCEJAL (AD-04: Señal Alsina = crear la cuenta Concejal) ──
+async function handleConcejalSignup(e, prefix) {
   e.preventDefault();
   const emailEl = document.getElementById(prefix + 'Email');
   const btnEl = document.getElementById(prefix + 'Btn');
@@ -1277,28 +1293,15 @@ async function handleSubscribe(e, prefix) {
   btnEl.textContent = 'Enviando…';
   statusEl.className = 'form-status';
   statusEl.textContent = '';
+  if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('signup_started', { location: prefix, plan: 'concejal' });
 
   try {
-    const r = await fetch('/api/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
-    });
-    const data = await r.json();
-
-    if (data.status === 'ok') {
-      localStorage.setItem('alsina_email_given', '1');
-      if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('newsletter_signup', { location: prefix });
-      statusEl.className = 'form-status ok';
-      statusEl.textContent = '¡Listo! Revisá tu mail para confirmar la suscripción.';
-      emailEl.value = '';
-    } else if (data.status === 'already_subscribed') {
-      localStorage.setItem('alsina_email_given', '1');
-      statusEl.className = 'form-status warn';
-      statusEl.textContent = 'Ya estás en la lista. Si no confirmaste, revisá tu carpeta de spam.';
-    } else {
-      throw new Error(data.error || 'Error desconocido');
-    }
+    await window.AlsinaAuth.signInWithMagicLink(email, '/cuenta.html?welcome=1');
+    localStorage.setItem('alsina_email_given', '1');
+    if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('signup_completed', { location: prefix, plan: 'concejal' });
+    statusEl.className = 'form-status ok';
+    statusEl.textContent = '¡Listo! Revisá tu mail y hacé clic en el link para activar tu cuenta.';
+    emailEl.value = '';
   } catch (err) {
     statusEl.className = 'form-status err';
     statusEl.textContent = 'Algo salió mal. Intentá de nuevo en un momento.';

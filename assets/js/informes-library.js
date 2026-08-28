@@ -12,7 +12,7 @@
     'municipalities-territory': 'Municipios y territorio',
     'state-public-management': 'Estado y gestión pública',
   };
-  const PLAN_LABELS = { intendente: 'Nivel Intendente', ministro: 'Nivel Ministro', gobernador: 'Nivel Gobernador' };
+  const PLAN_LABELS = { intendente: 'Nivel Intendente', gobernador: 'Nivel Gobernador' };
   const ALT_OVERRIDES = {
     'fin-de-una-era': 'Portada: una ley de hace 10 años puede provocar el mayor recambio simultáneo de intendentes',
     'presupuesto-impositiva-2026': 'Portada: ¿Quién paga la cuenta en 2026? Presupuesto e Impositiva PBA',

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electromovilidad en el territorio — Zona Norte | Alsina</title>
+<meta name="description" content="Mercado automotor, infraestructura de carga y capacidades institucionales en diez municipios de Zona Norte. Informe privado de Alsina, plan Gobernador.">
+<meta name="robots" content="index, nofollow">
+<meta name="theme-color" content="#F4EFE6">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="stylesheet" href="/assets/css/alsina.css">
+<script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
+<script src="/assets/js/analytics.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--aa-marfil,#F4EFE6);color:var(--aa-navy,#071D2B);font-family:'Barlow',sans-serif;overflow-x:hidden;}
+
+/* ── nav ── */
+nav{position:sticky;top:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:14px 40px;background:#0e1c20;box-shadow:0 1px 0 rgba(0,213,216,.12);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-mark{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;letter-spacing:.2em;color:#F3EFE7;}
+.nav-link{font-size:.7rem;color:#00D5D8;text-decoration:none;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(0,213,216,.3);padding:6px 14px;}
+.nav-link:hover{background:rgba(0,213,216,.08);}
+
+.em-wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+.em-section{padding:56px 0;border-top:1px solid rgba(7,29,43,.08);position:relative;}
+.em-section:first-of-type{border-top:none;}
+.em-kicker{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--aa-teal,#008E9B);margin-bottom:10px;}
+.em-h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.6rem,3.2vw,2.3rem);line-height:1.05;margin-bottom:14px;text-wrap:balance;}
+.em-lead{font-size:.95rem;color:rgba(7,29,43,.68);line-height:1.65;max-width:74ch;margin-bottom:6px;}
+
+/* ── portada ── */
+.em-cover{position:relative;overflow:hidden;isolation:isolate;padding:0;}
+.em-cover::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(7,29,43,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(7,29,43,.04) 1px,transparent 1px);background-size:56px 56px;}
+.em-cover-inner{position:relative;z-index:2;max-width:900px;margin:0 auto;padding:88px 32px 64px;text-align:left;}
+.em-badge-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
+.em-badge{display:inline-flex;align-items:center;gap:6px;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border:1px solid rgba(7,29,43,.25);color:var(--aa-navy-muted,rgba(7,29,43,.6));}
+.em-badge.privado{background:var(--aa-navy,#071D2B);color:#fff;border-color:var(--aa-navy,#071D2B);}
+.em-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.4rem,5.5vw,4rem);line-height:.98;letter-spacing:-.01em;margin-bottom:18px;text-wrap:balance;}
+.em-title em{font-style:normal;color:var(--aa-teal,#008E9B);}
+.em-subtitle{font-size:1.05rem;color:rgba(7,29,43,.72);line-height:1.6;max-width:60ch;margin-bottom:28px;}
+.em-cover-meta{display:flex;flex-wrap:wrap;gap:22px;font-size:.78rem;color:var(--aa-navy-muted,rgba(7,29,43,.6));margin-bottom:26px;}
+.em-cover-meta b{color:var(--aa-navy,#071D2B);font-weight:700;}
+.em-disclaimer{border-left:3px solid var(--aa-cian,#00C7D4);background:rgba(0,199,212,.06);padding:14px 18px;font-size:.84rem;line-height:1.6;color:var(--aa-navy-muted,rgba(7,29,43,.7));max-width:64ch;}
+
+/* ── síntesis (KPIs) ── */
+.em-kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-top:28px;}
+.em-kpi{background:#fff;border:1px solid rgba(7,29,43,.1);padding:20px 20px 16px;position:relative;}
+.em-kpi-label{font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--aa-teal,#008E9B);margin-bottom:8px;min-height:2.4em;}
+.em-kpi-value{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.9rem;line-height:1;color:var(--aa-navy,#071D2B);}
+.em-kpi-note{font-size:.72rem;color:var(--aa-navy-muted,rgba(7,29,43,.55));margin-top:8px;}
+.em-info-btn{position:absolute;top:16px;right:14px;width:20px;height:20px;border-radius:50%;border:1px solid rgba(7,29,43,.3);background:transparent;color:var(--aa-navy-muted,rgba(7,29,43,.6));font-size:.68rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Barlow',sans-serif;}
+.em-info-btn:hover{border-color:var(--aa-navy,#071D2B);color:var(--aa-navy,#071D2B);}
+.em-info-panel{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed rgba(7,29,43,.15);font-size:.76rem;line-height:1.55;color:var(--aa-navy-muted,rgba(7,29,43,.68));}
+.em-info-panel.show{display:block;}
+.em-info-panel dt{font-weight:700;color:var(--aa-navy,#071D2B);margin-top:6px;}
+.em-info-panel dt:first-child{margin-top:0;}
+
+/* ── filtros del dashboard ── */
+.em-filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 26px;}
+.em-select{background:#fff;border:1px solid rgba(7,29,43,.25);color:var(--aa-navy,#071D2B);padding:9px 14px;font-family:'Barlow',sans-serif;font-size:.82rem;cursor:pointer;}
+.em-chip-group{display:inline-flex;border:1px solid rgba(7,29,43,.25);}
+.em-chip{background:transparent;border:none;padding:9px 16px;font-family:'Barlow',sans-serif;font-weight:700;font-size:.78rem;color:var(--aa-navy-muted,rgba(7,29,43,.6));cursor:pointer;}
+.em-chip.active{background:var(--aa-navy,#071D2B);color:#fff;}
+.em-muni-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.em-muni-chip{border:1px solid rgba(7,29,43,.22);background:#fff;padding:6px 12px;font-size:.74rem;font-family:'Barlow',sans-serif;font-weight:600;color:var(--aa-navy-muted,rgba(7,29,43,.65));cursor:pointer;}
+.em-muni-chip.active{background:var(--aa-cian,#00C7D4);border-color:var(--aa-cian,#00C7D4);color:var(--aa-navy,#071D2B);}
+
+/* ── gráfico de barras horizontales ── */
+.em-barchart{margin:20px 0;}
+.em-bar-row{display:grid;grid-template-columns:160px 1fr 90px;align-items:center;gap:10px;padding:6px 0;font-size:.78rem;}
+.em-bar-name{color:var(--aa-navy,#071D2B);font-weight:600;}
+.em-bar-track{background:rgba(7,29,43,.06);height:16px;position:relative;}
+.em-bar-fill{background:var(--aa-cian,#00C7D4);height:100%;transition:width .3s ease;}
+.em-bar-val{text-align:right;font-variant-numeric:tabular-nums;color:var(--aa-navy-muted,rgba(7,29,43,.65));}
+
+/* ── tabla ordenable ── */
+.em-table-wrap{overflow-x:auto;border:1px solid rgba(7,29,43,.1);}
+table.em-table{width:100%;border-collapse:collapse;font-size:.78rem;min-width:920px;}
+table.em-table th{background:var(--aa-navy,#071D2B);color:#fff;text-align:right;font-weight:700;padding:10px 12px;white-space:nowrap;cursor:pointer;user-select:none;}
+table.em-table th:first-child{text-align:left;cursor:default;}
+table.em-table th.sorted::after{content:' ▾';}
+table.em-table th.sorted.asc::after{content:' ▴';}
+table.em-table td{padding:9px 12px;text-align:right;border-bottom:1px solid rgba(7,29,43,.06);font-variant-numeric:tabular-nums;}
+table.em-table td:first-child{text-align:left;font-weight:700;}
+table.em-table tr:hover td{background:rgba(0,199,212,.06);}
+table.em-table tbody tr{cursor:pointer;}
+
+/* ── mapa como interfaz principal ── */
+.em-h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;margin:40px 0 6px;}
+.em-explore-layout{display:grid;grid-template-columns:7fr 3fr;gap:24px;align-items:start;margin-top:22px;}
+.em-map-box{background:#fff;border:1px solid rgba(7,29,43,.1);padding:20px;position:relative;}
+.em-map-box svg{width:100%;height:auto;display:block;}
+.em-map-box path{stroke:#F4EFE6;stroke-width:1.4;cursor:pointer;transition:opacity .15s;}
+.em-map-box path:hover{opacity:.75;}
+.em-map-legend{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:.72rem;color:var(--aa-navy-muted,rgba(7,29,43,.65));}
+.em-legend-scale{flex:1;height:10px;background:linear-gradient(90deg,#d7f2f4,#071D2B);}
+.em-map-footnote{font-size:.76rem;color:var(--aa-navy-muted,rgba(7,29,43,.6));line-height:1.55;margin-top:12px;}
+.em-tooltip{position:fixed;z-index:500;background:var(--aa-navy,#071D2B);color:#fff;padding:10px 14px;font-size:.76rem;line-height:1.5;pointer-events:none;max-width:240px;display:none;box-shadow:0 12px 30px rgba(7,29,43,.3);}
+.em-tooltip b{color:var(--aa-cian,#00C7D4);}
+
+/* ── panel contextual (aparece al elegir un municipio en el mapa) ── */
+.em-context-panel{background:#fff;border:1px solid rgba(7,29,43,.1);border-top:3px solid var(--aa-cian,#00C7D4);padding:22px;min-height:280px;}
+.em-context-empty{font-size:.85rem;color:var(--aa-navy-muted,rgba(7,29,43,.6));line-height:1.6;}
+.em-context-panel h4{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;margin-bottom:2px;}
+.em-context-indicator{font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--aa-teal,#008E9B);font-weight:700;margin-bottom:14px;}
+.em-context-value{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.1rem;line-height:1;color:var(--aa-navy,#071D2B);}
+.em-context-sub{font-size:.78rem;color:var(--aa-navy-muted,rgba(7,29,43,.62));margin:4px 0 16px;line-height:1.5;}
+.em-context-complementarios{border-top:1px solid rgba(7,29,43,.08);padding-top:12px;margin-top:4px;}
+.em-context-complementarios .row{display:flex;justify-content:space-between;font-size:.78rem;padding:5px 0;}
+.em-context-complementarios .row .l{color:var(--aa-navy-muted,rgba(7,29,43,.6));}
+.em-context-complementarios .row .v{font-weight:700;}
+.em-context-def{font-size:.76rem;color:var(--aa-navy-muted,rgba(7,29,43,.65));line-height:1.55;margin:14px 0;padding:10px 12px;background:rgba(0,199,212,.06);border-left:2px solid var(--aa-cian,#00C7D4);}
+.em-context-actions{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
+.em-context-actions button{font-family:'Barlow',sans-serif;font-weight:700;font-size:.78rem;padding:10px 14px;cursor:pointer;border:1px solid var(--aa-navy,#071D2B);background:transparent;color:var(--aa-navy,#071D2B);}
+.em-context-actions button.primary{background:var(--aa-navy,#071D2B);color:#fff;}
+.em-context-actions button:disabled{opacity:.45;cursor:default;}
+.em-badge-compare{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--aa-navy,#071D2B);color:#fff;font-size:.66rem;font-weight:800;margin-right:6px;flex-shrink:0;}
+
+/* ── comparador (hasta 3 municipios) ── */
+.em-muni-chip.compare-1, .em-muni-chip.compare-2, .em-muni-chip.compare-3{color:#fff;border-color:transparent;}
+.em-muni-chip.compare-1{background:#071D2B;}
+.em-muni-chip.compare-2{background:#008E9B;}
+.em-muni-chip.compare-3{background:#00C7D4;color:#071D2B;}
+.em-comparador-empty{font-size:.85rem;color:var(--aa-navy-muted,rgba(7,29,43,.6));padding:20px 0;}
+.em-comparador-grid{display:grid;gap:1px;background:rgba(7,29,43,.1);margin-top:16px;border:1px solid rgba(7,29,43,.1);}
+.em-comparador-row{display:grid;background:#fff;}
+.em-comparador-row .lbl{padding:10px 14px;font-size:.76rem;color:var(--aa-navy-muted,rgba(7,29,43,.65));background:rgba(7,29,43,.02);display:flex;align-items:center;}
+.em-comparador-row .cell{padding:10px 14px;font-size:.83rem;font-weight:700;text-align:right;font-variant-numeric:tabular-nums;position:relative;}
+.em-comparador-scale{position:relative;height:5px;background:rgba(7,29,43,.08);margin-top:6px;}
+.em-comparador-scale .dot{position:absolute;top:-3px;width:11px;height:11px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(7,29,43,.3);transform:translateX(-50%);}
+.em-comparador-scale .marker{position:absolute;top:-8px;width:1px;height:21px;background:rgba(7,29,43,.35);}
+
+/* ── matriz de calor ── */
+table.em-matrix td{font-weight:600;}
+table.em-matrix td.hl{outline:2px solid var(--aa-navy,#071D2B);outline-offset:-2px;}
+
+/* ── scatter / gráfico relacional ── */
+.em-scatter-box{background:#fff;border:1px solid rgba(7,29,43,.1);padding:16px;}
+.em-scatter-box svg{width:100%;height:auto;display:block;}
+.em-scatter-axis{stroke:rgba(7,29,43,.25);stroke-width:1;}
+.em-scatter-grid{stroke:rgba(7,29,43,.06);stroke-width:1;}
+.em-scatter-label{font-size:9px;fill:var(--aa-navy-muted,rgba(7,29,43,.55));font-family:'Barlow',sans-serif;}
+.em-scatter-point{cursor:pointer;stroke:#fff;stroke-width:1.5;transition:opacity .15s;}
+.em-scatter-point:hover{opacity:.8;}
+.em-scatter-muni-label{font-size:9.5px;font-weight:700;fill:var(--aa-navy,#071D2B);font-family:'Barlow',sans-serif;pointer-events:none;}
+
+/* ── ficha: escalas comparativas ── */
+.em-mini-scale{position:relative;height:4px;background:rgba(7,29,43,.1);margin-top:5px;}
+.em-mini-scale .fill{position:absolute;top:-2px;width:8px;height:8px;border-radius:50%;background:var(--aa-cian,#00C7D4);border:1.5px solid var(--aa-navy,#071D2B);transform:translateX(-50%);}
+
+/* ── ficha municipal (panel lateral) ── */
+.em-ficha-overlay{position:fixed;inset:0;background:rgba(7,29,43,.4);z-index:900;display:none;}
+.em-ficha-overlay.show{display:block;}
+.em-ficha{position:fixed;top:0;right:0;bottom:0;width:min(480px,100%);background:#F7F2EA;z-index:901;transform:translateX(100%);transition:transform .25s ease;overflow-y:auto;box-shadow:-20px 0 50px rgba(7,29,43,.25);}
+.em-ficha.show{transform:translateX(0);}
+.em-ficha-head{position:sticky;top:0;background:var(--aa-navy,#071D2B);color:#fff;padding:22px 24px;display:flex;justify-content:space-between;align-items:flex-start;}
+.em-ficha-head h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.7rem;}
+.em-ficha-close{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;width:30px;height:30px;cursor:pointer;flex-shrink:0;}
+.em-ficha-body{padding:22px 24px 60px;}
+.em-ficha-row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid rgba(7,29,43,.08);font-size:.83rem;}
+.em-ficha-row .l{color:var(--aa-navy-muted,rgba(7,29,43,.6));}
+.em-ficha-row .v{font-weight:700;text-align:right;}
+.em-ficha-row .v small{display:block;font-weight:400;color:var(--aa-navy-muted,rgba(7,29,43,.55));font-size:.72rem;margin-top:2px;}
+.em-ficha-group{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.03em;color:var(--aa-teal,#008E9B);margin:22px 0 4px;}
+.em-ficha-group:first-child{margin-top:0;}
+.em-ficha-list{list-style:none;font-size:.82rem;line-height:1.9;}
+.em-ficha-list li::before{content:'— ';color:var(--aa-cian,#00C7D4);}
+
+/* ── explorador ── */
+.em-explorer-filters{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0;}
+.em-explorer-filters input[type=text]{background:#fff;border:1px solid rgba(7,29,43,.25);padding:9px 14px;font-family:'Barlow',sans-serif;font-size:.82rem;flex:1;min-width:160px;}
+
+/* ── institucional ── */
+.em-actor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px;}
+.em-actor-card{background:#fff;border:1px solid rgba(7,29,43,.1);border-top:3px solid var(--aa-cian,#00C7D4);padding:18px 20px;}
+.em-actor-card h4{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;text-transform:uppercase;letter-spacing:.03em;color:var(--aa-navy,#071D2B);margin-bottom:10px;}
+.em-actor-item{font-size:.8rem;line-height:1.6;padding:8px 0;border-bottom:1px solid rgba(7,29,43,.06);}
+.em-actor-item:last-child{border-bottom:none;}
+.em-actor-item b{display:block;color:var(--aa-navy,#071D2B);}
+.em-actor-item .fn{color:var(--aa-navy-muted,rgba(7,29,43,.62));}
+.em-actor-item a{color:var(--aa-teal,#008E9B);font-size:.72rem;}
+
+.em-norm-table{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:16px;}
+.em-norm-table th{text-align:left;background:rgba(7,29,43,.04);padding:8px 10px;font-weight:700;}
+.em-norm-table td{padding:8px 10px;border-bottom:1px solid rgba(7,29,43,.07);vertical-align:top;}
+
+/* ── glosario ── */
+.em-glossary-item{border-bottom:1px solid rgba(7,29,43,.1);padding:16px 0;}
+.em-glossary-item summary{cursor:pointer;font-weight:700;font-size:.92rem;list-style:none;}
+.em-glossary-item summary::-webkit-details-marker{display:none;}
+.em-glossary-item summary::before{content:'+ ';color:var(--aa-cian,#00C7D4);font-weight:900;}
+.em-glossary-item[open] summary::before{content:'– ';}
+.em-glossary-body{margin-top:10px;font-size:.82rem;line-height:1.7;color:var(--aa-navy-muted,rgba(7,29,43,.68));}
+.em-glossary-body dt{font-weight:700;color:var(--aa-navy,#071D2B);margin-top:8px;}
+.em-glossary-body dt:first-child{margin-top:0;}
+
+/* ── metodología / fuentes ── */
+.em-source-list{list-style:none;font-size:.8rem;line-height:2;}
+.em-source-list a{color:var(--aa-teal,#008E9B);}
+
+/* ── cierre ── */
+.em-close{background:var(--aa-navy,#071D2B);color:#F3EFE7;}
+.em-close .em-h2, .em-close .em-kicker{color:#fff;}
+.em-close .em-lead{color:rgba(243,239,231,.8);}
+
+/* ── bloqueo (sin permiso) ── */
+#emLocked{display:none;min-height:70vh;align-items:center;justify-content:center;text-align:center;padding:60px 24px;}
+#emLocked.show{display:flex;}
+.em-lock-box{max-width:480px;}
+.em-lock-icon{width:52px;height:52px;border-radius:50%;border:1px solid rgba(7,29,43,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
+#emLoading{min-height:50vh;display:flex;align-items:center;justify-content:center;color:var(--aa-navy-muted,rgba(7,29,43,.6));}
+#emReport{display:none;}
+#emReport.show{display:block;}
+
+footer{padding:36px 32px;background:#0e1c20;color:#9e9992;margin-top:0;}
+.footer-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:.78rem;}
+.footer-inner a{color:#00D5D8;text-decoration:none;}
+
+@media(max-width:860px){
+  .em-explore-layout{grid-template-columns:1fr;}
+  .em-comparador-row .lbl, .em-comparador-row .cell{padding:8px 8px;font-size:.72rem;}
+  .em-kpi-grid{grid-template-columns:repeat(2,1fr);}
+  .em-ficha{width:100%;}
+  .em-section{padding:40px 0;}
+  .em-cover-inner{padding:56px 20px 40px;}
+}
+@media(max-width:480px){
+  .em-kpi-grid{grid-template-columns:1fr 1fr;}
+  .em-bar-row{grid-template-columns:100px 1fr 60px;font-size:.7rem;}
+}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--aa-cian,#00C7D4);outline-offset:2px;}
+</style>
+</head>
+<body data-track-event="electromovilidad_open">
+
+<nav>
+  <a href="/" class="nav-logo"><svg viewBox="0 0 26 26" fill="none" width="26" aria-hidden="true"><path d="M13 2L1.5 24H5.5L13 11L20.5 24H24.5L13 2Z" fill="#00D5D8"/></svg><div class="nav-mark">ALSINA</div></a>
+  <a href="/informes.html" class="nav-link">← Volver a informes</a>
+</nav>
+
+<div id="emLoading">Cargando informe…</div>
+
+<div id="emLocked">
+  <div class="em-lock-box">
+    <div class="em-lock-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#071D2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="10" x="5" y="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+    <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.8rem;margin-bottom:12px;">Informe privado — plan Gobernador</h1>
+    <p style="color:rgba(7,29,43,.68);font-size:.92rem;line-height:1.6;margin-bottom:24px;">
+      "Electromovilidad en el territorio" es un informe interactivo exclusivo del plan Gobernador: mercado automotor,
+      infraestructura de carga y capacidades institucionales en diez municipios de Zona Norte.
+    </p>
+    <div id="emLockedActions" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="/planes.html" class="aa-btn aa-btn-primary" style="background:#071D2B;color:#fff;padding:13px 24px;text-decoration:none;font-weight:700;font-size:.83rem;">Ver plan Gobernador →</a>
+      <a href="/informes.html" class="aa-btn aa-btn-ghost" style="border:1px solid rgba(7,29,43,.3);color:#071D2B;padding:13px 24px;text-decoration:none;font-weight:700;font-size:.83rem;">Ver informes públicos</a>
+    </div>
+  </div>
+</div>
+
+<div id="emReport">
+
+  <!-- 1 · PORTADA -->
+  <section class="em-cover">
+    <div class="em-cover-inner">
+      <div class="em-badge-row">
+        <span class="em-badge privado">Informe privado</span>
+        <span class="em-badge">Plan Gobernador</span>
+        <span class="em-badge" id="emCoverUpdated">Actualizado —</span>
+      </div>
+      <h1 class="em-title">Electromovilidad<br>en el <em>territorio.</em></h1>
+      <p class="em-subtitle">Mercado automotor, infraestructura de carga y capacidades institucionales en Zona Norte.</p>
+      <div class="em-cover-meta">
+        <span>Cobertura temporal: <b>enero–julio de 2026</b></span>
+        <span id="emCoverCorte">Corte de información: —</span>
+      </div>
+      <div class="em-disclaimer">
+        Los datos permiten describir el mercado y la infraestructura existente. No constituyen una recomendación
+        comercial o de inversión.
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · SÍNTESIS GENERAL -->
+  <section class="em-section" id="sintesis">
+    <div class="em-wrap">
+      <div class="em-kicker">Zona Norte · diez municipios</div>
+      <h2 class="em-h2">Síntesis general</h2>
+      <p class="em-lead">Magnitudes agregadas del conjunto de los diez municipios en el período. Cada cifra puede desplegarse para ver qué mide, cómo se calculó y qué no permite concluir.</p>
+      <div class="em-kpi-grid" id="emKpiGrid"></div>
+    </div>
+  </section>
+
+  <!-- 3+4 · EXPLORACIÓN TERRITORIAL (mapa como interfaz principal) -->
+  <section class="em-section" id="mapa">
+    <div class="em-wrap">
+      <div class="em-kicker">Mapa</div>
+      <h2 class="em-h2">Explorar el territorio</h2>
+      <p class="em-lead">Elegí una variable para colorear el mapa. Hacé clic en un municipio para ver su detalle, compararlo con otros o abrir su ficha completa.</p>
+
+      <div class="em-filters">
+        <select class="em-select" id="emMapaVariable" aria-label="Variable del mapa"></select>
+        <div class="em-chip-group" role="group" aria-label="Unidad">
+          <button type="button" class="em-chip active" data-modo="absoluto">Valores absolutos</button>
+          <button type="button" class="em-chip" data-modo="habitante">Por habitante</button>
+        </div>
+      </div>
+
+      <div class="em-explore-layout">
+        <div class="em-map-box">
+          <svg id="emSvgMap" viewBox="0 0 100 100"></svg>
+          <div class="em-map-legend">
+            <span id="emLegendMin">—</span>
+            <div class="em-legend-scale"></div>
+            <span id="emLegendMax">—</span>
+          </div>
+          <p class="em-map-footnote" id="emMapaCeroNota">Cuando el valor es cero, significa "sin sitios identificados en el relevamiento utilizado" — no "ausencia comprobada". El inventario de carga es un mínimo, no exhaustivo.</p>
+        </div>
+        <aside class="em-context-panel" id="emContextPanel"></aside>
+      </div>
+
+      <h3 class="em-h3">Ranking — <span id="emRankingLabel"></span></h3>
+      <div class="em-barchart" id="emBarChart"></div>
+
+      <h3 class="em-h3">Comparar hasta tres municipios</h3>
+      <p class="em-lead" id="emComparadorHint" style="margin-bottom:10px;">Seleccioná municipios desde el mapa (botón "Agregar a comparación") o directamente acá.</p>
+      <div class="em-muni-chips" id="emMuniChips"></div>
+      <div id="emComparador"></div>
+
+      <h3 class="em-h3">Matriz comparativa</h3>
+      <p class="em-lead" style="margin-bottom:10px;">Color relativo dentro de cada columna — no es un ranking ni un índice general. Hacé clic en un encabezado para ordenar.</p>
+      <div class="em-filters">
+        <select class="em-select" id="emMatrizFamilia" aria-label="Familia de indicadores"></select>
+      </div>
+      <div class="em-table-wrap">
+        <table class="em-table em-matrix" id="emMatrizTable"></table>
+      </div>
+
+      <h3 class="em-h3">Relación entre variables</h3>
+      <p class="em-lead" style="margin-bottom:10px;">Tamaño del punto: valor fiscal estimado del mercado 0&nbsp;km. Color: crecimiento poblacional 2010–2022.</p>
+      <div class="em-filters">
+        <select class="em-select" id="emScatterX" aria-label="Variable eje X"></select>
+        <select class="em-select" id="emScatterY" aria-label="Variable eje Y"></select>
+      </div>
+      <div class="em-scatter-box">
+        <svg id="emScatterSvg" viewBox="0 0 640 440" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+      <p class="em-lead" id="emScatterNote" style="margin-top:8px;"></p>
+    </div>
+  </section>
+
+  <!-- 6 · EXPLORADOR DE MODELOS -->
+  <section class="em-section" id="explorador">
+    <div class="em-wrap">
+      <div class="em-kicker">Detalle</div>
+      <h2 class="em-h2">Explorador de modelos BEV y PHEV</h2>
+      <p class="em-lead" id="emExplorerCount">Unidades ponderadas radicadas por municipio, marca y modelo.</p>
+      <div class="em-disclaimer" style="margin-bottom:16px;">Las unidades pueden ser fraccionarias: los registros con cotitularidad fueron ponderados según el porcentaje de titularidad de cada persona.</div>
+      <div class="em-explorer-filters">
+        <div class="em-chip-group" role="group" aria-label="Tecnología">
+          <button type="button" class="em-chip active" data-tech="todas">Todas</button>
+          <button type="button" class="em-chip" data-tech="BEV">BEV</button>
+          <button type="button" class="em-chip" data-tech="PHEV">PHEV</button>
+        </div>
+        <select class="em-select" id="emExplorerMuni" aria-label="Filtrar por municipio"></select>
+        <select class="em-select" id="emExplorerMarca" aria-label="Filtrar por marca"></select>
+        <input type="text" id="emExplorerSearch" placeholder="Buscar modelo…">
+      </div>
+      <div class="em-table-wrap">
+        <table class="em-table" id="emExplorerTable"></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · INFRAESTRUCTURA -->
+  <section class="em-section" id="infraestructura">
+    <div class="em-wrap">
+      <div class="em-kicker">Infraestructura</div>
+      <h2 class="em-h2">Sitios de carga identificados</h2>
+      <p class="em-lead">Inventario mínimo por nombre de establecimiento, no exhaustivo. No hay, a la fecha de corte, un registro oficial nacional consolidado.</p>
+      <div class="em-disclaimer" style="margin-bottom:20px;">
+        Un sitio publicado no garantiza que esté operativo hoy. "Sitio" no equivale necesariamente a una cantidad de conectores.
+        Cuando solo se cuenta con una cantidad agregada y no con el nombre del establecimiento, se muestra el número sin inventar un nombre ni una ubicación.
+      </div>
+      <div class="em-actor-grid" id="emInfraGrid"></div>
+    </div>
+  </section>
+
+  <!-- 8 · MAPA INSTITUCIONAL -->
+  <section class="em-section" id="institucional">
+    <div class="em-wrap">
+      <div class="em-kicker">Marco institucional y normativo</div>
+      <h2 class="em-h2">Quién interviene en cada nivel</h2>
+      <p class="em-lead">Actores y competencias relacionados con la instalación de infraestructura de carga, por nivel de gobierno. No incluye ubicaciones físicas de cargadores.</p>
+      <div class="em-actor-grid" id="emActoresGrid"></div>
+
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;margin:36px 0 6px;">Normativa vigente</h3>
+      <table class="em-norm-table" id="emNormativaVigente"></table>
+
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;margin:36px 0 6px;">Proyectos legislativos provinciales</h3>
+      <p class="em-lead" style="margin-bottom:6px;">Ninguno tiene sanción: son iniciativas en distinto grado de tratamiento parlamentario.</p>
+      <table class="em-norm-table" id="emNormativaProyectos"></table>
+
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;margin:36px 0 6px;">Competencias municipales típicas</h3>
+      <div class="em-actor-grid" id="emCompetenciasGrid"></div>
+    </div>
+  </section>
+
+  <!-- 9 · GLOSARIO -->
+  <section class="em-section" id="glosario">
+    <div class="em-wrap">
+      <div class="em-kicker">Cómo leer los datos</div>
+      <h2 class="em-h2">Glosario de indicadores</h2>
+      <div id="emGlossaryList"></div>
+    </div>
+  </section>
+
+  <!-- 10 · METODOLOGÍA Y FUENTES -->
+  <section class="em-section" id="metodologia">
+    <div class="em-wrap">
+      <div class="em-kicker">Metodología</div>
+      <h2 class="em-h2">De dónde salen estos datos</h2>
+
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;margin:18px 0 8px;">Contexto nacional (referencia, no Zona Norte)</h3>
+      <table class="em-norm-table" id="emContextoNacionalTabla"></table>
+      <p class="em-lead" style="margin-top:10px;">Las cifras nacionales cuentan vehículos completos. Los datos de Zona Norte de este informe están ponderados por porcentaje de titularidad y acotados a diez partidos: no son comparables en magnitud directa.</p>
+
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;margin:28px 0 8px;">Aclaraciones metodológicas</h3>
+      <ul class="em-source-list" id="emAclaraciones" style="list-style:disc;padding-left:20px;"></ul>
+
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;margin:28px 0 8px;">Fuentes</h3>
+      <ol class="em-source-list" id="emFuentesList"></ol>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section class="em-section em-close">
+    <div class="em-wrap">
+      <div class="em-kicker">Cierre</div>
+      <h2 class="em-h2">Qué permite observar la información</h2>
+      <p class="em-lead" style="max-width:76ch;">
+        Los diez municipios de Zona Norte muestran diferencias de escala en su mercado automotor, de intensidad en las
+        radicaciones por habitante, de composición entre BEV y PHEV, y de cobertura en la infraestructura de carga
+        identificada. Estas diferencias son observables en los datos disponibles; no permiten, por sí solas, concluir
+        dónde conviene instalar infraestructura. Esa decisión requiere información adicional sobre circulación real,
+        potencia eléctrica disponible, estacionamiento, regulación local, costos de conexión y demanda efectiva —
+        ninguno de los cuales forma parte de este informe.
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<div class="em-tooltip" id="emTooltip"></div>
+<div class="em-ficha-overlay" id="emFichaOverlay"></div>
+<aside class="em-ficha" id="emFicha" role="dialog" aria-modal="true" aria-labelledby="emFichaTitle"></aside>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2026 Alsina · Informe privado, plan Gobernador</span>
+    <a href="/cuenta.html">Mi cuenta</a>
+  </div>
+</footer>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/auth.js"></script>
+<script src="/assets/js/electromovilidad-indicadores.js"></script>
+<script src="/assets/js/electromovilidad-app.js"></script>
+</body>
+</html>
