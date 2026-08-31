@@ -106,6 +106,39 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .qs-light .qs-statement,.qs-light2 .qs-statement{color:var(--text-on-light);}
 .qs-dark .qs-statement,.qs-dark2 .qs-statement{color:var(--crema);}
 
+/* eyebrow global (.tag, de alsina.css) sobre fondo crema: el color por
+   default (--brand-cyan) no llega a AA ahí — mismo criterio que ya usa
+   .sec-light .tag, adaptado a los mundos .qs-light/.qs-light2. */
+.qs-light .tag,.qs-light2 .tag{color:var(--brand-cyan-text);}
+
+/* bajada grande reutilizable (hero de Quiénes Somos y subtítulo de
+   "Nosotros lo ordenamos") — un escalón entre el H1/H2 y el cuerpo. */
+.qs-somos-lead{font-family:'Barlow',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1.6;max-width:640px;margin-bottom:22px;}
+.qs-light .qs-somos-lead,.qs-light2 .qs-somos-lead{color:var(--text-on-light);}
+.qs-dark .qs-somos-lead,.qs-dark2 .qs-somos-lead{color:var(--crema);}
+.qs-somos-body{max-width:640px;margin-bottom:28px;}
+
+/* fila de "dimensiones" con divisores — mismo patrón que .qs-decl
+   (franjas separadas por un borde), pero con lugar para una etiqueta +
+   una descripción en vez de una sola frase corta. La reutilizan la
+   escena "Nosotros lo ordenamos" y el tríptico de productos. */
+.qs-dims{display:flex;flex-wrap:wrap;margin-bottom:44px;}
+.qs-dims-item{flex:1 1 200px;padding:0 28px;border-left:1px solid rgba(22,35,63,.16);}
+.qs-dims-item:first-child{padding-left:0;border-left:none;}
+.qs-dims a.qs-dims-item{text-decoration:none;color:inherit;display:block;transition:opacity .2s ease;}
+.qs-dims a.qs-dims-item:hover{opacity:.7;}
+.qs-dims-label{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;font-size:1.05rem;letter-spacing:.02em;margin-bottom:8px;}
+.qs-light .qs-dims-label,.qs-light2 .qs-dims-label{color:var(--brand-cyan-text);}
+.qs-dark .qs-dims-label,.qs-dark2 .qs-dims-label{color:var(--turquesa);}
+.qs-dims-desc{font-size:.92rem;line-height:1.55;}
+.qs-light .qs-dims-desc,.qs-light2 .qs-dims-desc{color:var(--muted-on-light);}
+.qs-dark .qs-dims-desc,.qs-dark2 .qs-dims-desc{color:rgba(243,239,231,.72);}
+@media(max-width:760px){
+  .qs-dims{flex-direction:column;gap:20px;}
+  .qs-dims-item{flex:0 1 auto;border-left:none;border-top:1px solid rgba(22,35,63,.16);padding:18px 0 0;}
+  .qs-dims-item:first-child{border-top:none;padding-top:0;}
+}
+
 @media(prefers-reduced-motion:reduce){
   .qs-scene *{transition:none!important;animation:none!important;}
 }
@@ -125,6 +158,16 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
   background-size:52px 52px;
   -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.9),rgba(0,0,0,.15));
   mask-image:linear-gradient(180deg,rgba(0,0,0,.9),rgba(0,0,0,.15));
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HERO — QUIÉNES SOMOS (nueva puerta de entrada, antes del ensayo)
+   ══════════════════════════════════════════════════════════════ */
+.qs-somos h1{font-size:clamp(2.3rem,5.4vw,4rem);margin:18px 0 22px;max-width:760px;}
+.qs-somos-chips{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 36px;}
+.qs-somos-cta{margin-top:6px;}
+@media(max-width:860px){
+  .qs-somos-chips{gap:8px;}
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -236,7 +279,7 @@ nav{position:sticky;top:0;z-index:300;background:rgba(14,28,32,.94);backdrop-fil
 .qs-decl-item:first-child{padding-left:0;border-left:none;}
 @media(max-width:760px){
   .qs-decl{flex-direction:column;gap:18px;}
-  .qs-decl-item{border-left:none;border-top:1px solid rgba(22,35,63,.16);padding:18px 0 0;}
+  .qs-decl-item{flex:0 1 auto;border-left:none;border-top:1px solid rgba(22,35,63,.16);padding:18px 0 0;}
   .qs-decl-item:first-child{border-top:none;padding-top:0;}
 }
 
@@ -352,24 +395,48 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 
 <main>
 
-<!-- ══════════════ ESCENA 01 — ESCALA ══════════════ -->
-<!-- la clase "hero" no trae estilos propios acá: es solo el ancla que
-     assets/js/sticky-cta.js usa para medir cuánto scroll hace falta
-     antes de mostrar el botón flotante de suscripción (si no la
+<!-- ══════════════ HERO — QUIÉNES SOMOS ══════════════ -->
+<!-- primera sección de contenido de la página: responde "qué es Alsina"
+     antes de entrar al ensayo sobre la Provincia. La clase "hero" es el
+     ancla que assets/js/sticky-cta.js usa para medir cuánto scroll hace
+     falta antes de mostrar el botón flotante de suscripción (si no la
      encuentra, mide contra el <nav> y el botón aparecería casi al
-     instante). -->
-<section class="qs-scene qs-light qs-scale hero" id="escala">
+     instante) — antes vivía en la escena de Escala, ahora se muda acá
+     porque esta es la escena que realmente abre la página. -->
+<section class="qs-scene qs-light qs-somos hero" id="quienes-somos">
+  <div class="wrap qs-scene-inner">
+    <span class="tag">Quiénes somos</span>
+    <h1>Somos un grupo<br>de profesionales.</h1>
+    <p class="qs-somos-lead">Especialistas en datos, gestión pública, industria, política, economía, desarrollo territorial, tecnología y comunicación.</p>
+    <p class="qs-somos-body">Trabajamos para ordenar información dispersa, conectar dimensiones que suelen analizarse por separado y construir herramientas que permitan comprender mejor la Provincia de Buenos Aires.</p>
+    <div class="qs-somos-chips reveal" aria-label="Áreas de especialización">
+      <span class="layer">Datos</span>
+      <span class="layer">Gestión pública</span>
+      <span class="layer">Industria</span>
+      <span class="layer">Política</span>
+      <span class="layer">Economía</span>
+      <span class="layer">Desarrollo territorial</span>
+      <span class="layer">Tecnología</span>
+      <span class="layer">Comunicación</span>
+    </div>
+    <p class="qs-statement reveal">La Provincia es un laberinto.<br>Nosotros queremos entenderlo.</p>
+    <a class="btn-ghost btn-ghost-onlight qs-somos-cta" href="#laberinto">Ver cómo lo hacemos ↓</a>
+  </div>
+</section>
+
+<!-- ══════════════ ESCENA 01 — EL PROBLEMA / ESCALA ══════════════ -->
+<section class="qs-scene qs-light qs-scale" id="laberinto">
   <svg class="qs-map-bg qs-map-bg--scale" viewBox="0 0 680 800" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
     <path id="qsMapScale"></path>
   </svg>
   <div class="wrap qs-scene-inner">
     <div class="qs-scale-grid">
       <div>
-        <span class="qs-idx">01 / 08 — Escala</span>
-        <h1>La Provincia de Buenos Aires<br><em>no es una provincia más.</em></h1>
+        <span class="qs-idx">01 / 08 — El problema</span>
+        <h2>La Provincia de Buenos Aires<br>es un <em>laberinto.</em></h2>
         <div class="qs-lead reveal">
-          <p>La provincia de Buenos Aires concentra el 37,9% de la población argentina. Es la más poblada del país y una de las de mayor extensión territorial.</p>
-          <p>Pero su escala no se explica solamente por su tamaño. Su territorio está organizado a través de múltiples sistemas administrativos que se superponen, se cruzan y responden a lógicas diferentes.</p>
+          <p>Casi 4 de cada 10 argentinos —el 37,9% de la población del país— viven en un territorio organizado por 135 municipios y múltiples capas institucionales, administrativas, territoriales y políticas que se superponen.</p>
+          <p>En el medio hay que gobernar, invertir, producir, comunicar y decidir. La información dispersa es apenas una consecuencia de esa complejidad — no el problema de fondo.</p>
         </div>
         <p class="qs-statement reveal">Entender Buenos Aires exige entender todas esas capas al mismo tiempo.</p>
       </div>
@@ -488,8 +555,8 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     <span class="qs-idx">05 / 08 — La consecuencia</span>
     <div class="qs-govern-grid">
       <div class="reveal">
-        <h2>Cuando la información está dispersa,<br>gobernar se vuelve más difícil.</h2>
-        <p>Sin un diagnóstico compartido es más complejo coordinar políticas públicas, asignar recursos, evaluar resultados, establecer prioridades y anticipar problemas.</p>
+        <h2>Cuando las estructuras y la información<br>no dialogan, gobernar se vuelve más difícil.</h2>
+        <p>Gobernar, invertir, producir, comunicar y decidir sobre ese territorio exige coordinar políticas públicas, asignar recursos, evaluar resultados y anticipar problemas sobre estructuras que no siempre dialogan entre sí.</p>
         <p>No porque falten datos.</p>
         <p><strong>Porque muchas veces falta una forma de leerlos juntos.</strong></p>
       </div>
@@ -504,10 +571,12 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
 <section class="qs-scene qs-light qs-appears" id="alsina">
   <div class="wrap qs-scene-inner">
     <span class="qs-idx">06 / 08 — La respuesta</span>
-    <h2 class="reveal">Alsina nace para ordenar<br>esa complejidad.</h2>
-    <div class="qs-lead reveal">
-      <p>Relevamos, organizamos, sistematizamos y analizamos información pública dispersa para transformarla en conocimiento útil.</p>
-      <p>Construimos diagnósticos, indicadores, herramientas de seguimiento y planes de acción que permiten identificar problemas, establecer prioridades y mejorar la calidad de las decisiones públicas.</p>
+    <h2 class="reveal">Nosotros lo ordenamos.</h2>
+    <p class="qs-somos-lead reveal">Trabajamos sobre tres dimensiones complementarias.</p>
+    <div class="qs-dims reveal">
+      <div class="qs-dims-item"><div class="qs-dims-label">Datos</div><div class="qs-dims-desc">Relevamos, organizamos y sistematizamos.</div></div>
+      <div class="qs-dims-item"><div class="qs-dims-label">Lectura</div><div class="qs-dims-desc">Cruzamos, comparamos y analizamos.</div></div>
+      <div class="qs-dims-item"><div class="qs-dims-label">Seguimiento</div><div class="qs-dims-desc">Detectamos qué cambia, dónde cambia y por qué importa.</div></div>
     </div>
     <div class="qs-decl reveal">
       <div class="qs-decl-item">Datos para <em>ver.</em></div>
@@ -559,6 +628,21 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
         <span class="qs-mon-evidence-cta">Explorar el Monitor 135 en vivo →</span>
       </a>
     </div>
+    <div class="qs-dims reveal" style="margin-top:56px;">
+      <a class="qs-dims-item" href="/municipios-data-hub.html">
+        <div class="qs-dims-label">Monitor 135</div>
+        <div class="qs-dims-desc">Los 135 municipios en un solo tablero.</div>
+      </a>
+      <a class="qs-dims-item" href="/informes.html">
+        <div class="qs-dims-label">Informes</div>
+        <div class="qs-dims-desc">Investigaciones para comprender qué está pasando.</div>
+      </a>
+      <a class="qs-dims-item" href="/newsletter.html">
+        <div class="qs-dims-label">Señal Alsina</div>
+        <div class="qs-dims-desc">Seguimiento de los cambios que vale la pena mirar.</div>
+      </a>
+    </div>
+    <p class="qs-somos-body reveal">Y herramientas y análisis específicos para gobiernos, organizaciones y empresas — <a href="/productos.html" style="color:var(--brand-cyan-text);font-weight:700;text-decoration:none;">ver todos los productos →</a></p>
   </div>
 </section>
 
@@ -569,9 +653,12 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
     <span class="qs-idx">08 / 08 — Para quiénes</span>
     <h2 class="reveal">Alsina es para quienes necesitan<br><em>entender</em> antes de <em>decidir.</em></h2>
     <div class="qs-forwhom-grid reveal">
-      <p>Funcionarios provinciales y municipales<br>Intendentes<br>Concejales<br>Equipos técnicos<br>Legisladores</p>
-      <p>Periodistas<br>Investigadores<br>Universidades<br>Organizaciones de la sociedad civil<br>Ciudadanos</p>
+      <div><div class="qs-dims-label">Gobiernos</div><p>Intendentes · funcionarios · equipos técnicos</p></div>
+      <div><div class="qs-dims-label">Política</div><p>Concejales · legisladores · candidatos · equipos</p></div>
+      <div><div class="qs-dims-label">Conocimiento</div><p>Periodistas · investigadores · universidades</p></div>
+      <div><div class="qs-dims-label">Organizaciones</div><p>Instituciones · empresas · sociedad civil</p></div>
     </div>
+    <p class="qs-somos-body reveal">En definitiva, Alsina es para cualquiera que necesite comprender mejor la Provincia.</p>
     <div class="qs-chain reveal">
       <div class="qs-chain-step">Mejor información<br>permite mejores diagnósticos.</div>
       <div class="qs-chain-arrow">↓</div>
