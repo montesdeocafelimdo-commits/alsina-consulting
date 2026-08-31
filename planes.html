@@ -493,14 +493,33 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
     if (targetRank > currentRank) {
       const isUpgrade = account.plan === 'intendente' && targetPlan === 'gobernador';
       btn.textContent = isUpgrade ? 'Upgrade a Gobernador →' : 'Suscribirme →';
-      // Un solo click, sin pedir nada extra — quien pague en Mercado
-      // Pago lo hace con la cuenta de MP que tenga en ese momento, sea
-      // cual sea su email. payer_email va igual porque la API de MP lo
-      // exige para crear la suscripción (identificador del suscriptor
-      // de su lado), pero no se le pregunta nada a la persona por esto.
+      // BUG REAL encontrado en producción: acá se mandaba siempre
+      // account.email como payer_email, asumiendo que es el mismo mail
+      // con el que la persona paga en Mercado Pago. Mercado Pago exige
+      // que quien completa el checkout esté logueado en MP con ESE
+      // mail exacto — si su cuenta de MP usa otro (algo muy común), el
+      // pago rechaza con "Tu e-mail no coincide con el de la
+      // suscripción". El backend (api/_lib/subscriptionHandlers/
+      // checkout.js) ya soportaba un payerEmail distinto — acá nunca se
+      // le preguntaba a la persona cuál usar. Ahora se reutiliza el
+      // mismo formulario inline de alta (signupForm/SignupEmail) para
+      // confirmarlo antes de ir a MP, precargado con account.email.
+      const emailInput = document.getElementById(targetPlan + 'SignupEmail');
       btn.addEventListener('click', () => {
         if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent(isUpgrade ? 'upgrade_clicked' : 'plan_selected', { from: account.plan, to: targetPlan, location: 'planes' });
-        fireCheckout(targetPlan, account.email, isUpgrade, statusEl, btn);
+        emailInput.value = account.email;
+        emailInput.placeholder = 'Email con el que vas a pagar en MP';
+        signupForm.classList.add('show');
+        emailInput.focus();
+        emailInput.select();
+      });
+      signupForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const payerEmail = emailInput.value.trim();
+        const formBtn = signupForm.querySelector('button');
+        formBtn.disabled = true;
+        const ok = await fireCheckout(targetPlan, payerEmail, isUpgrade, statusEl, btn);
+        if (!ok) formBtn.disabled = false;
       });
     } else if (account.pendingPlan === targetPlan) {
       btn.textContent = `Ya programado → Mi cuenta`;
