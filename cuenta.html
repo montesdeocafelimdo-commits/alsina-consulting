@@ -230,9 +230,30 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
     },
   };
 
+  // Precio de lista de cada plan pago, solo para poder mostrar la
+  // landing de bienvenida con el plan recién comprado (?plan=) aunque la
+  // cuenta en la base todavía no lo refleje (ver nota en "override" más
+  // abajo) — debe coincidir con PLAN_AMOUNT de planes.html.
+  const PLAN_PRICE = { intendente: 25000, gobernador: 45000 };
+
   function showWelcome(acc) {
-    const content = WELCOME_CONTENT[acc.plan] || WELCOME_CONTENT.concejal;
-    const priceText = content.priceLabel || money(acc.priceAmount, acc.priceCurrency);
+    // Con tarjeta tokenizada (planes.html), el checkout ya no es un
+    // redirect de Mercado Pago que vuelve recién cuando el pago está
+    // confirmado — la tarjeta puede quedar autorizada mientras el cobro
+    // real todavía lo procesa Mercado Pago de forma asíncrona (a veces
+    // recién horas después, ver webhook). Por eso planes.html manda acá
+    // con ?plan=<elegido> apenas la tarjeta queda autorizada: se muestra
+    // esa landing de una vez (así funciona igual que antes, de cara a
+    // quien paga) aunque acc.plan (la cuenta real) todavía no haya
+    // cambiado — se actualiza sola en cuanto el webhook confirma el pago.
+    const planOverride = new URLSearchParams(location.search).get('plan');
+    const usingOverride = !!(planOverride && WELCOME_CONTENT[planOverride] && acc.plan !== planOverride);
+    const planKey = usingOverride ? planOverride : acc.plan;
+    const content = WELCOME_CONTENT[planKey] || WELCOME_CONTENT.concejal;
+    const planName = usingOverride ? PLAN_LABEL[planKey] : acc.planName;
+    const priceText = usingOverride
+      ? money(PLAN_PRICE[planKey], 'ARS')
+      : (content.priceLabel || money(acc.priceAmount, acc.priceCurrency));
     const tertiaryHtml = content.tertiary
       ? `<a href="${content.tertiary.href}" class="aa-tertiary">${content.tertiary.label}</a>`
       : '';
@@ -244,7 +265,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
       </div>
       <h1 class="aa-title">Listo. Ya sos parte de Alsina.</h1>
       <p class="aa-lead">Tu cuenta está activa con el plan:</p>
-      <div class="aa-plan-chip"><b>${acc.planName}</b><span>${priceText}</span></div>
+      <div class="aa-plan-chip"><b>${planName}</b><span>${priceText}</span></div>
       <div class="aa-ctas">
         <a href="${content.primary.href}" class="aa-btn aa-btn-primary">${content.primary.label}</a>
         <a href="${content.secondary.href}" class="aa-btn aa-btn-ghost" id="welcomeSecondaryCta">${content.secondary.label}</a>
@@ -253,10 +274,10 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
       <button type="button" class="aa-footlink" id="welcomeSeeAccount">Ver el detalle completo de tu cuenta →</button>
     `;
 
-    const accessNumber = String((window.ALSINA_PLAN_ORDER.indexOf(acc.plan) + 1) || 1).padStart(3, '0');
+    const accessNumber = String((window.ALSINA_PLAN_ORDER.indexOf(planKey) + 1) || 1).padStart(3, '0');
     document.getElementById('welcomeNodo').textContent = accessNumber;
     window.AlsinaAccessCard.renderAccessCard(document.getElementById('welcomeCard'), {
-      planSlug: acc.plan,
+      planSlug: planKey,
       accessNumber,
       statusLabel: 'Activo',
       priceText,
@@ -266,9 +287,9 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 
     document.getElementById('mainHgroup').style.display = 'none';
     document.getElementById('welcomeScreen').classList.add('show');
-    if (acc.plan !== 'gobernador' && window.AlsinaAnalytics) {
+    if (planKey !== 'gobernador' && window.AlsinaAnalytics) {
       document.getElementById('welcomeSecondaryCta').addEventListener('click', () => {
-        window.AlsinaAnalytics.trackEvent('upgrade_clicked', { from: acc.plan, location: 'welcome' });
+        window.AlsinaAnalytics.trackEvent('upgrade_clicked', { from: planKey, location: 'welcome' });
       });
     }
     document.getElementById('welcomeSeeAccount').addEventListener('click', () => {
@@ -277,7 +298,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
       document.getElementById('mainHgroup').style.display = '';
       document.getElementById('appRoot').classList.add('show');
     });
-    if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('email_confirmation_completed', { plan: acc.plan });
+    if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('email_confirmation_completed', { plan: planKey });
   }
   const STATUS_LABEL = {
     active: ['Activo', 'active'], past_due: ['Pago pendiente', 'warn'], grace_period: ['En gracia', 'warn'],

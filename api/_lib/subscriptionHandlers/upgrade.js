@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'pagos_no_configurados' });
   }
 
-  const { payerEmail, cardToken } = req.body || {};
+  const { payerEmail, cardToken, deviceId } = req.body || {};
   if (!cardToken) return res.status(400).json({ error: 'falta_token_de_tarjeta' });
 
   const supa = getSupabaseAdmin();
@@ -66,6 +66,7 @@ export default async function handler(req, res) {
     accountId: account.accountId,
     payerEmail: resolvedPayerEmail,
     cardToken,
+    deviceId: typeof deviceId === 'string' ? deviceId : null,
     reasonLabel: 'Alsina Gobernador — suscripción mensual (upgrade)',
   });
 

@@ -494,6 +494,29 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
     return mpInstance;
   }
 
+  // Device ID de Mercado Pago (huella antifraude): el propio SDK de arriba
+  // ya la genera sola en window.MP_DEVICE_SESSION_ID apenas se instancia
+  // MercadoPago(publicKey) — no hace falta cargar security.js aparte (ver
+  // docs de MP: "si usás el JS SDK, no hace falta agregar el código de
+  // seguridad por separado"). El bug real que esto corrige: sin mandar
+  // este dato, Mercado Pago no tiene con qué evaluar el riesgo real de la
+  // operación y la trata como "anónima" — encontrado en producción
+  // (2026-08-31) cuando el primer cobro real de un cliente real fue
+  // rechazado con cc_rejected_high_risk. Puede tardar un instante en
+  // completarse tras crear la instancia — se espera hasta 3s antes de
+  // tokenizar, y si nunca aparece se sigue igual sin el dato (mejor
+  // intentar el pago sin Device ID que no dejar pagar a nadie).
+  async function getDeviceId() {
+    await getMp();
+    if (window.MP_DEVICE_SESSION_ID) return window.MP_DEVICE_SESSION_ID;
+    for (let i = 0; i < 30; i++) {
+      await new Promise((r) => setTimeout(r, 100));
+      if (window.MP_DEVICE_SESSION_ID) return window.MP_DEVICE_SESSION_ID;
+    }
+    console.warn('MP_DEVICE_SESSION_ID no estuvo disponible a tiempo — se sigue sin Device ID.');
+    return null;
+  }
+
   async function initCardForm(targetPlan, onSubmitCallback) {
     if (cardForms[targetPlan]) return cardForms[targetPlan];
     const mp = await getMp();
@@ -542,23 +565,32 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
       paymentStatusEl.textContent = '';
       try {
         const endpoint = isUpgrade ? '/api/subscriptions/upgrade' : '/api/subscriptions/checkout';
+        const deviceId = await getDeviceId();
         const body = isUpgrade
-          ? { payerEmail: formData.cardholderEmail, cardToken: formData.token }
-          : { planSlug: targetPlan, payerEmail: formData.cardholderEmail, cardToken: formData.token };
+          ? { payerEmail: formData.cardholderEmail, cardToken: formData.token, deviceId }
+          : { planSlug: targetPlan, payerEmail: formData.cardholderEmail, cardToken: formData.token, deviceId };
         const r = await window.AlsinaAuth.authedFetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
         const data = await r.json();
         if (!r.ok) throw new Error(data.error || 'El pago no pudo procesarse.');
         if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('checkout_started', { plan: targetPlan, upgrade: !!isUpgrade });
         if (data.status === 'ok') {
+          // 'ok' = el mandato de cobro quedó autorizado (tarjeta válida).
+          // El cobro real puede tardar en confirmarse del lado de
+          // Mercado Pago (ver api/_lib/mpCardPreapproval.js) — por eso la
+          // landing de bienvenida recibe el plan por query param
+          // (?plan=) en vez de depender de que la cuenta ya lo refleje:
+          // así la persona ve la bienvenida a su plan de una, y la
+          // cuenta se actualiza sola de fondo en cuanto el webhook
+          // confirme el pago.
           paymentStatusEl.className = 'plan-payment-status ok';
           paymentStatusEl.textContent = `¡Listo! Ya sos ${PLAN_LABEL[targetPlan]}. Redirigiendo a tu cuenta…`;
           if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('checkout_completed', { plan: targetPlan, upgrade: !!isUpgrade });
-          setTimeout(() => { window.location.href = '/cuenta.html'; }, 1400);
+          const dest = `/cuenta.html?welcome=1&plan=${targetPlan}`;
+          setTimeout(() => { window.location.href = dest; }, 1400);
         } else {
-          // 'pending': Mercado Pago creó la suscripción pero todavía no
-          // la confirma de forma síncrona (verificación adicional del
-          // banco, demora, etc.) — no es un rechazo, el webhook la va a
-          // terminar de resolver en segundos.
+          // 'pending': ni siquiera el mandato quedó confirmado todavía
+          // (verificación adicional del banco, demora, etc.) — no es un
+          // rechazo, el webhook lo va a terminar de resolver en segundos.
           paymentStatusEl.className = 'plan-payment-status ok';
           paymentStatusEl.textContent = 'Estamos confirmando el pago con Mercado Pago — puede tardar unos segundos. Revisá tu cuenta en un momento.';
           paymentBtn.textContent = 'Confirmar pago →';

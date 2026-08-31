@@ -35,7 +35,7 @@ export default async function handler(req, res) {
   const account = await requireAuthenticatedAccount(req, res);
   if (!account) return; // requireAuthenticatedAccount ya respondió 401
 
-  const { planSlug, payerEmail, cardToken } = req.body || {};
+  const { planSlug, payerEmail, cardToken, deviceId } = req.body || {};
   if (!PAYABLE_PLANS.has(planSlug)) {
     return res.status(400).json({ error: 'plan_invalido' });
   }
@@ -105,6 +105,7 @@ export default async function handler(req, res) {
     accountId: account.accountId,
     payerEmail: resolvedPayerEmail,
     cardToken,
+    deviceId: typeof deviceId === 'string' ? deviceId : null,
     reasonLabel: `Alsina ${planSlug} — suscripción mensual`,
   });
 
@@ -128,9 +129,14 @@ export default async function handler(req, res) {
   });
   if (intentError) console.error('checkout: no se pudo registrar checkout_intents:', intentError.message);
 
-  // status 'ok' = Mercado Pago ya autorizó el cobro (síncrono, sin
-  // redirect). 'pending' = la preapproval quedó creada pero MP todavía
-  // no confirma — el webhook la va a resolver; el front debe avisarle a
-  // la persona que puede tardar un momento, no asumir éxito ni fallo.
+  // status 'ok' = el MANDATO de cobro quedó autorizado (la tarjeta es
+  // válida y Mercado Pago la puede debitar) — esto NO significa que el
+  // primer cobro real ya se haya efectuado (bug real encontrado en
+  // producción el 2026-08-31: una preapproval "authorized" puede tardar
+  // horas en tener su primer cobro real). 'pending' = ni siquiera el
+  // mandato quedó confirmado todavía. En ningún caso de los dos el front
+  // debe decirle a la persona "ya sos {plan}" — eso solo pasa cuando el
+  // webhook confirma el cobro real y cambia el plan (ver
+  // api/mercadopago-webhook.js).
   return res.status(200).json({ status: result.status === 'ok' ? 'ok' : 'pending', plan: result.planName });
 }

@@ -43,14 +43,14 @@ function friendlyError(err) {
 }
 
 /**
- * @param {{ planSlug: string, accountId: string, payerEmail: string, cardToken: string, reasonLabel: string }} params
+ * @param {{ planSlug: string, accountId: string, payerEmail: string, cardToken: string, reasonLabel: string, deviceId?: string|null }} params
  * @returns {Promise<
- *   | { status: 'ok', preapprovalId: string, planName: string }
+ *   | { status: 'ok', preapprovalId: string, planName: string }   // mandato autorizado — el cobro real todavía puede tardar, no asumir plan activo
  *   | { status: 'pending', preapprovalId: string, mpStatus: string }
  *   | { status: 'error', error: string }
  * >}
  */
-export async function createCardPreapproval({ planSlug, accountId, payerEmail, cardToken, reasonLabel }) {
+export async function createCardPreapproval({ planSlug, accountId, payerEmail, cardToken, reasonLabel, deviceId }) {
   if (!cardToken) return { status: 'error', error: 'falta_token_de_tarjeta' };
 
   const resolved = await getActivePlanPrice(planSlug);
@@ -83,15 +83,36 @@ export async function createCardPreapproval({ planSlug, accountId, payerEmail, c
         status: 'authorized',
         back_url: `${SITE_URL}/cuenta.html`,
       },
+      // Device ID (huella antifraude de Mercado Pago, ver planes.html /
+      // getDeviceId): sin esto, Mercado Pago no tiene señal de riesgo real
+      // y trata el pago como anónimo — se comprobó en producción que eso
+      // deriva en rechazos cc_rejected_high_risk en el primer cobro de una
+      // tarjeta nueva contra un cobrador nuevo (2026-08-31). meliSessionId
+      // es el nombre que usa el SDK para mandar el header X-Meli-Session-Id
+      // que pide Mercado Pago (ver mercadopago/dist/types.d.ts, Options).
+      ...(deviceId ? { requestOptions: { meliSessionId: deviceId } } : {}),
     });
 
+    // OJO (bug real encontrado en el primer pago real de producción,
+    // 2026-08-31): "authorized" acá es el MANDATO de cobro recurrente
+    // (la tarjeta quedó validada y Mercado Pago la puede debitar), NO
+    // que el primer cobro real ya se haya efectuado. Se comprobó con
+    // diag-preapproval que una preapproval puede quedar "authorized"
+    // durante horas con summarized.charged_quantity/last_charged_date
+    // todavía en null — el cobro real lo dispara después, de forma
+    // asíncrona, el motor de facturación recurrente de Mercado Pago. El
+    // status 'ok' de acá NO debe traducirse en el front como "ya sos
+    // {plan}" ni activar nada — la única fuente de verdad de que el
+    // cobro real ocurrió es el webhook (api/mercadopago-webhook.js),
+    // que es quien de verdad cambia plan_id/status y manda el mail de
+    // bienvenida.
     if (result.status === 'authorized') {
       return { status: 'ok', preapprovalId: String(result.id), planName: plan.name };
     }
-    // MP creó la preapproval pero no quedó autorizada de forma síncrona
-    // (puede pasar — verificación adicional del banco, demora, etc.). No
-    // es necesariamente un rechazo: el webhook va a terminar de resolver
-    // el estado real apenas Mercado Pago lo confirme.
+    // MP creó la preapproval pero el mandato en sí no quedó autorizado de
+    // forma síncrona (puede pasar — verificación adicional del banco,
+    // demora, etc.). No es necesariamente un rechazo: el webhook va a
+    // terminar de resolver el estado real apenas Mercado Pago lo confirme.
     return { status: 'pending', preapprovalId: String(result.id), mpStatus: result.status };
   } catch (err) {
     const { detail, message } = friendlyError(err);
