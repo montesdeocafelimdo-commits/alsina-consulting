@@ -1,6 +1,6 @@
 import { getSupabaseAdmin } from '../supabaseAdmin.js';
 import { requireAuthenticatedAccount } from '../auth.js';
-import { getActivePlanPrice } from '../plans.js';
+import { createCardPreapproval } from '../mpCardPreapproval.js';
 
 // ALSINA — upgrade Intendente → Gobernador (AD-11). Único camino de
 // upgrade soportado (Concejal → pago es un alta nueva, ver
@@ -13,8 +13,11 @@ import { getActivePlanPrice } from '../plans.js';
 // preapproval vieja) lo hace api/mercadopago-webhook.js recién cuando
 // ese pago nuevo se aprueba. Si el pago falla o el usuario abandona el
 // checkout, no se modificó nada de lo que ya tenía.
-
-const SITE_URL = process.env.SITE_URL || 'https://alsinaar.com';
+//
+// CAMBIO (2026-08-31): igual que checkout.js — se dejó de redirigir a la
+// web de Mercado Pago (exigía login con el mismo email que payer_email)
+// y ahora se cobra con una tarjeta tokenizada en el propio front (ver
+// planes.html + api/_lib/mpCardPreapproval.js).
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -33,6 +36,9 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'pagos_no_configurados' });
   }
 
+  const { payerEmail, cardToken } = req.body || {};
+  if (!cardToken) return res.status(400).json({ error: 'falta_token_de_tarjeta' });
+
   const supa = getSupabaseAdmin();
   const { data: subscription, error } = await supa
     .from('subscriptions')
@@ -48,55 +54,30 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'estado_no_permite_upgrade' });
   }
 
-  const resolved = await getActivePlanPrice('gobernador');
-  if (!resolved) {
-    console.error('Sin plan_prices disponible para altas:', 'gobernador');
-    return res.status(500).json({ error: 'plan_no_disponible' });
-  }
-  const { plan, price } = resolved;
-
   // Ver la nota en checkout.js: el email de la cuenta Alsina y el de la
   // cuenta de Mercado Pago no tienen por qué coincidir.
-  const { payerEmail } = req.body || {};
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const resolvedPayerEmail = (typeof payerEmail === 'string' && EMAIL_RE.test(payerEmail.trim()))
     ? payerEmail.trim()
     : account.email;
 
-  try {
-    const { MercadoPagoConfig, PreApproval } = await import('mercadopago');
-    const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
-    const preapproval = new PreApproval(client);
+  const result = await createCardPreapproval({
+    planSlug: 'gobernador',
+    accountId: account.accountId,
+    payerEmail: resolvedPayerEmail,
+    cardToken,
+    reasonLabel: 'Alsina Gobernador — suscripción mensual (upgrade)',
+  });
 
-    // Ver la nota en api/_lib/subscriptionHandlers/checkout.js: MP exige
-    // card_token_id si se pasa preapproval_plan_id — no sirve para
-    // redirigir a la web de MP. Auto_recurring ad-hoc, mismo criterio.
-    // payer_email es obligatorio (ver nota en checkout.js) — usa el que
-    // la persona confirmó, no necesariamente el de su cuenta Alsina.
-    const result = await preapproval.create({
-      body: {
-        reason: `Alsina ${plan.name} — suscripción mensual (upgrade)`,
-        external_reference: `sub:${account.accountId}:gobernador:${price.id}`,
-        payer_email: resolvedPayerEmail,
-        back_url: `${SITE_URL}/cuenta.html?upgrade=pendiente`,
-        auto_recurring: {
-          frequency: 1, frequency_type: 'months',
-          transaction_amount: Number(price.amount), currency_id: price.currency,
-        },
-      },
-    });
-
-    await supa.from('subscriptions').update({ pending_provider_subscription_id: String(result.id) }).eq('id', subscription.id);
-
-    return res.status(200).json({
-      status: 'ok',
-      checkoutUrl: result.init_point,
-      amount: price.amount,
-      currency: price.currency,
-      notice: 'Se te va a cobrar el importe completo de Gobernador ahora — no hay crédito por lo que quedaba pagado de Intendente.',
-    });
-  } catch (err) {
-    console.error('Mercado Pago upgrade error:', err?.message || err);
-    return res.status(500).json({ error: 'Error al iniciar el upgrade. Intentá de nuevo.' });
+  if (result.status === 'error') {
+    return res.status(402).json({ error: result.error });
   }
+
+  await supa.from('subscriptions').update({ pending_provider_subscription_id: result.preapprovalId }).eq('id', subscription.id);
+
+  return res.status(200).json({
+    status: result.status === 'ok' ? 'ok' : 'pending',
+    plan: result.planName,
+    notice: 'Se te cobró el importe completo de Gobernador ahora — no hay crédito por lo que quedaba pagado de Intendente.',
+  });
 }

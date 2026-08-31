@@ -8,6 +8,7 @@ window.ALSINA_CONFIG = {
   PAYMENTS_ENABLED: false,
   SUPABASE_URL: null,
   SUPABASE_ANON_KEY: null,
+  MP_PUBLIC_KEY: null,
 };
 
 window.ALSINA_CONFIG_READY = fetch('/api/config')
@@ -16,6 +17,7 @@ window.ALSINA_CONFIG_READY = fetch('/api/config')
     window.ALSINA_CONFIG.PAYMENTS_ENABLED = !!data.paymentsEnabled;
     window.ALSINA_CONFIG.SUPABASE_URL = data.supabaseUrl || null;
     window.ALSINA_CONFIG.SUPABASE_ANON_KEY = data.supabaseAnonKey || null;
+    window.ALSINA_CONFIG.MP_PUBLIC_KEY = data.mpPublicKey || null;
     return window.ALSINA_CONFIG;
   })
   .catch(() => window.ALSINA_CONFIG);

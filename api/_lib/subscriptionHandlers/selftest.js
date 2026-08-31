@@ -179,10 +179,15 @@ export default async function selftest(req, res) {
       const res2 = mockRes();
       await checkoutHandler(req2, res2);
       if (process.env.PAYMENTS_ENABLED === 'true') {
-        check('checkout (pagos activos) -> 200 + checkoutUrl real de Mercado Pago', res2._status === 200 && typeof res2._json?.checkoutUrl === 'string' && res2._json.checkoutUrl.includes('mercadopago'), res2._json);
-        const { data: sub } = await admin.from('subscriptions').select('provider_subscription_id').eq('account_id', accountId).maybeSingle();
-        createdProviderSubscriptionId = sub?.provider_subscription_id || null;
-        check('checkout: guardó provider_subscription_id real', !!createdProviderSubscriptionId, sub);
+        // Desde el fix de tarjeta tokenizada (2026-08-31), checkout exige
+        // cardToken — este selftest corre server-side, sin navegador ni
+        // SDK de Mercado Pago, así que no puede generar un token real de
+        // tarjeta. Lo que sí se puede verificar acá es que el endpoint
+        // llega hasta ese punto (plan válido, pagos activos) y rechaza
+        // correctamente por falta de token, en vez de romper antes por
+        // cualquier otro motivo. La prueba de una preapproval real con
+        // card_token_id queda para un test manual con el Card Form.
+        check('checkout (pagos activos, sin token) -> 400 falta_token_de_tarjeta', res2._status === 400 && res2._json?.error === 'falta_token_de_tarjeta', res2._json);
       } else {
         check('checkout con PAYMENTS_ENABLED=false -> 503 + waitlisted', res2._status === 503 && res2._json?.waitlisted === true, res2._json);
       }

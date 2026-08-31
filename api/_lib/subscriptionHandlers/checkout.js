@@ -1,6 +1,6 @@
 import { getSupabaseAdmin } from '../supabaseAdmin.js';
 import { requireAuthenticatedAccount } from '../auth.js';
-import { getActivePlanPrice } from '../plans.js';
+import { createCardPreapproval } from '../mpCardPreapproval.js';
 
 // ALSINA — alta/upgrade de un plan pago (Intendente, Gobernador) vía
 // Mercado Pago. Concejal NO pasa por acá — se asigna automáticamente al
@@ -10,9 +10,19 @@ import { getActivePlanPrice } from '../plans.js';
 // aprobado): el servidor determina plan/precio/moneda a partir de
 // plan_prices — nunca se acepta un importe enviado por el navegador. El
 // cliente solo manda qué plan quiere.
+//
+// CAMBIO (2026-08-31): antes esto redirigía a la web de Mercado Pago
+// (auto_recurring ad-hoc, sin card_token_id) — ese flujo exige que quien
+// paga esté logueado en MP con el mismo email que payer_email, lo que
+// rompía pagos reales cuando el mail de la cuenta de MP no coincidía con
+// el de la cuenta Alsina (bug real reportado en producción). Ahora la
+// tarjeta se tokeniza en el propio front (Card Form de Mercado Pago, ver
+// planes.html) y acá solo se crea la preapproval con ese token — nunca
+// se le pide a nadie loguearse en ninguna cuenta de Mercado Pago. Ver
+// api/_lib/mpCardPreapproval.js para el detalle de la llamada a la API.
 
-const SITE_URL = process.env.SITE_URL || 'https://alsinaar.com';
 const PAYABLE_PLANS = new Set(['intendente', 'gobernador']);
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -25,19 +35,16 @@ export default async function handler(req, res) {
   const account = await requireAuthenticatedAccount(req, res);
   if (!account) return; // requireAuthenticatedAccount ya respondió 401
 
-  const { planSlug, payerEmail } = req.body || {};
+  const { planSlug, payerEmail, cardToken } = req.body || {};
   if (!PAYABLE_PLANS.has(planSlug)) {
     return res.status(400).json({ error: 'plan_invalido' });
   }
-  // El email de la cuenta Alsina y el de la cuenta de Mercado Pago con
-  // la que alguien paga no tienen por qué coincidir — mucha gente usa
-  // mails distintos para cada cosa, y Mercado Pago pide que el checkout
-  // se confirme logueado con el mismo email que payer_email. Se deja
-  // elegir cuál mandar; si no llega nada, se usa el de la cuenta
-  // (comportamiento de siempre). Nunca determina qué cuenta de Alsina se
-  // acredita — eso lo sigue haciendo exclusivamente external_reference,
-  // resuelto server-side, nunca el email.
-  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // El email de la cuenta Alsina y el de la cuenta de Mercado Pago con la
+  // que alguien paga no tienen por qué coincidir. Con tarjeta tokenizada
+  // esto ya no bloquea el pago (MP no exige ningún login) — pero
+  // payer_email lo sigue pidiendo la API igual, como identificador del
+  // suscriptor de su lado, así que se sigue resolviendo del mismo modo.
   const resolvedPayerEmail = (typeof payerEmail === 'string' && EMAIL_RE.test(payerEmail.trim()))
     ? payerEmail.trim()
     : account.email;
@@ -64,13 +71,11 @@ export default async function handler(req, res) {
     console.error('PAYMENTS_ENABLED=true pero falta MP_ACCESS_TOKEN');
     return res.status(500).json({ error: 'pagos_no_configurados' });
   }
-
-  const resolved = await getActivePlanPrice(planSlug);
-  if (!resolved) {
-    console.error('Sin plan_prices disponible para altas:', planSlug);
-    return res.status(500).json({ error: 'plan_no_disponible' });
+  if (!cardToken) {
+    // Solo puede pasar si el front no llegó a tokenizar la tarjeta antes
+    // de llamar acá (bug de integración) — nunca un caso normal de uso.
+    return res.status(400).json({ error: 'falta_token_de_tarjeta' });
   }
-  const { plan, price } = resolved;
 
   const supa = getSupabaseAdmin();
 
@@ -78,12 +83,12 @@ export default async function handler(req, res) {
   // plan_id/price_id/status='incomplete' acá, antes de que Mercado Pago
   // confirmara nada. El efecto: la cuenta se mostraba como "ya sos
   // Intendente" en /planes.html apenas alguien tocaba "Suscribirme" —
-  // aunque el pago nunca se hubiera completado (se abandonó el checkout,
-  // MP lo rechazó, etc.) — y bloqueaba reintentar. El webhook YA resuelve
+  // aunque el pago nunca se hubiera completado. El webhook YA resuelve
   // plan_id/price_id de forma independiente desde external_reference
-  // (ver api/mercadopago-webhook.js) — no hace falta pre-escribirlos acá.
-  // Esta cuenta sigue siendo la que ya tenía (Concejal, activa) hasta que
-  // el pago se confirme de verdad.
+  // (ver api/mercadopago-webhook.js) — no hace falta pre-escribirlos acá,
+  // y sigue sin hacer falta con tarjeta tokenizada: aunque la respuesta
+  // de Mercado Pago ya venga "authorized", el webhook es quien deja
+  // asentado el cambio real de plan/estado (única fuente de verdad).
   const { data: existing, error: subError } = await supa
     .from('subscriptions')
     .select('id')
@@ -95,59 +100,37 @@ export default async function handler(req, res) {
   }
   const subscription = existing;
 
-  try {
-    const { MercadoPagoConfig, PreApproval } = await import('mercadopago');
-    const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
-    const preapproval = new PreApproval(client);
+  const result = await createCardPreapproval({
+    planSlug,
+    accountId: account.accountId,
+    payerEmail: resolvedPayerEmail,
+    cardToken,
+    reasonLabel: `Alsina ${planSlug} — suscripción mensual`,
+  });
 
-    // IMPORTANTE (encontrado probando en real): PreApproval.create() con
-    // preapproval_plan_id es para cuando VOS ya tokenizaste una tarjeta
-    // (requiere card_token_id) — no sirve para el flujo de "redirigir a
-    // la web de Mercado Pago y que la persona cargue la tarjeta ahí".
-    // Ese flujo necesita auto_recurring ad-hoc, con el importe/moneda que
-    // ya resolvió el servidor desde plan_prices (AD-03) — nunca del
-    // preapproval_plan (que igual se crea/guarda aparte vía ensureMpPlan
-    // para llevar el registro del lado servidor, ver api/_lib/plans.js,
-    // pero no se usa acá).
-    // payer_email es obligatorio para la API de Mercado Pago (probado:
-    // sin él, PreApproval.create() rechaza con "payer_email is
-    // required"). Va el email que la persona confirmó que va a usar
-    // para pagar (resolvedPayerEmail) — puede ser distinto al de su
-    // cuenta Alsina. Si en el checkout de MP el botón "Confirmar" queda
-    // inhabilitado, es porque el logueado en MP no coincide con este
-    // valor — por eso se lo dejamos elegir en vez de asumirlo.
-    const result = await preapproval.create({
-      body: {
-        reason: `Alsina ${plan.name} — suscripción mensual`,
-        external_reference: `sub:${account.accountId}:${planSlug}:${price.id}`,
-        payer_email: resolvedPayerEmail,
-        back_url: `${SITE_URL}/cuenta.html?checkout=pendiente`,
-        auto_recurring: {
-          frequency: 1, frequency_type: 'months',
-          transaction_amount: Number(price.amount), currency_id: price.currency,
-        },
-      },
-    });
-
-    await supa
-      .from('subscriptions')
-      .update({ provider_subscription_id: String(result.id) })
-      .eq('id', subscription.id);
-
-    // Registro aditivo para poder detectar y recordar checkouts abandonados
-    // (ver docs/subscriptions-audit/14-*.md, punto 3C) — no reemplaza ni
-    // pisa nada de `subscriptions`, es solo una fila histórica del intento.
-    const { error: intentError } = await supa.from('checkout_intents').insert({
-      account_id: account.accountId,
-      email: resolvedPayerEmail,
-      plan_slug: planSlug,
-      provider_subscription_id: String(result.id),
-    });
-    if (intentError) console.error('checkout: no se pudo registrar checkout_intents:', intentError.message);
-
-    return res.status(200).json({ status: 'ok', checkoutUrl: result.init_point });
-  } catch (err) {
-    console.error('Mercado Pago checkout (subscriptions) error:', err?.message || err);
-    return res.status(500).json({ error: 'Error al iniciar el pago. Intentá de nuevo.' });
+  if (result.status === 'error') {
+    return res.status(402).json({ error: result.error });
   }
+
+  await supa
+    .from('subscriptions')
+    .update({ provider_subscription_id: result.preapprovalId })
+    .eq('id', subscription.id);
+
+  // Registro aditivo para poder detectar y recordar checkouts abandonados
+  // (ver docs/subscriptions-audit/14-*.md, punto 3C) — no reemplaza ni
+  // pisa nada de `subscriptions`, es solo una fila histórica del intento.
+  const { error: intentError } = await supa.from('checkout_intents').insert({
+    account_id: account.accountId,
+    email: resolvedPayerEmail,
+    plan_slug: planSlug,
+    provider_subscription_id: result.preapprovalId,
+  });
+  if (intentError) console.error('checkout: no se pudo registrar checkout_intents:', intentError.message);
+
+  // status 'ok' = Mercado Pago ya autorizó el cobro (síncrono, sin
+  // redirect). 'pending' = la preapproval quedó creada pero MP todavía
+  // no confirma — el webhook la va a resolver; el front debe avisarle a
+  // la persona que puede tardar un momento, no asumir éxito ni fallo.
+  return res.status(200).json({ status: result.status === 'ok' ? 'ok' : 'pending', plan: result.planName });
 }

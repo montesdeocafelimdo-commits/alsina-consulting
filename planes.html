@@ -15,7 +15,12 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
 <link rel="stylesheet" href="/assets/css/alsina.css">
 <script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
 <script src="/assets/js/analytics.js"></script>
+<!-- SDK de Mercado Pago: tokeniza la tarjeta en el navegador (Card Form,
+     ver el <script> principal más abajo) — la tarjeta nunca toca un
+     servidor de Alsina. -->
+<script src="https://sdk.mercadopago.com/js/v2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -109,6 +114,37 @@ a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{o
 .plan-form-status.ok{color:var(--verde);}
 .plan-form-status.err{color:var(--rojo);}
 
+/* ── ficha de pago (tarjeta tokenizada, Mercado Pago Card Form) ──
+   Panel claro insertado en la card oscura del plan: los campos de
+   tarjeta son iframes de Mercado Pago (Card Form) y MP no documenta
+   theming oscuro para ellos — en vez de pelear contra eso, se resuelve
+   como una "ficha de pago" con superficie clara, un patrón habitual en
+   checkouts embebidos sobre fondos oscuros. Nunca toca datos de tarjeta
+   del lado del servidor — la tokeniza el propio SDK de Mercado Pago en
+   el navegador (assets/js/mp-card-form.js). */
+.plan-payment{display:none;margin-top:14px;background:#fff;border-radius:8px;padding:16px;color:#16233f;}
+.plan-payment.show{display:block;}
+.plan-payment-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;font-size:.78rem;letter-spacing:.04em;color:#16233f;margin-bottom:12px;}
+.plan-payment-row{display:flex;gap:8px;margin-bottom:8px;}
+.plan-payment-row > *{flex:1;min-width:0;}
+.plan-payment label{display:block;font-size:.64rem;color:#5b6b80;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+.plan-payment input[type=text],.plan-payment input[type=email],.plan-payment select{
+  width:100%;height:38px;border:1px solid #d8dde3;border-radius:4px;padding:0 10px;
+  font-size:.85rem;font-family:inherit;color:#16233f;background:#fff;
+}
+.plan-payment .pp-hidden{display:none;} /* issuer/installments: la SDK los necesita en el DOM, pero una suscripción siempre es 1 cuota — se completan solos y no se muestran */
+.plan-payment .pp-iframe-field{height:38px;border:1px solid #d8dde3;border-radius:4px;padding:0 10px;display:flex;align-items:center;}
+.plan-payment input:focus-visible,.plan-payment select:focus-visible{outline:2px solid var(--turquesa);outline-offset:1px;}
+.plan-payment-btn{width:100%;margin-top:4px;background:var(--turquesa);color:var(--grafito);border:none;padding:12px;font-size:.83rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;}
+.plan-payment-btn:disabled{opacity:.6;cursor:wait;}
+.plan-payment-secure{font-size:.66rem;color:#5b6b80;margin-top:8px;text-align:center;}
+.plan-payment-status{font-size:.76rem;margin-top:8px;min-height:1.2em;}
+.plan-payment-status.ok{color:#1e8a5f;}
+.plan-payment-status.err{color:#c0392b;}
+@media(max-width:480px){
+  .plan-payment-row{flex-direction:column;gap:8px;}
+}
+
 .faq{max-width:760px;margin:72px auto;padding:0 32px;}
 .faq h2{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.6rem;margin-bottom:24px;text-align:center;}
 .faq-item{border-bottom:1px solid rgba(255,255,255,.08);padding:16px 0;}
@@ -192,6 +228,54 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
       <button type="submit" class="plan-inline-btn">Continuar →</button>
     </form>
     <div class="plan-form-status" id="intendenteStatus" role="status" aria-live="polite"></div>
+    <div class="plan-payment" id="intendentePayment" data-plan="intendente">
+      <div class="plan-payment-title">Datos de la tarjeta</div>
+      <form id="intendentePaymentForm" class="mp-card-form">
+        <div class="plan-payment-row">
+          <div>
+            <label for="intendente-form-cardNumber">Número de tarjeta</label>
+            <div class="pp-iframe-field" id="intendente-form-cardNumber"></div>
+          </div>
+        </div>
+        <div class="plan-payment-row">
+          <div>
+            <label for="intendente-form-expirationDate">Vencimiento</label>
+            <div class="pp-iframe-field" id="intendente-form-expirationDate"></div>
+          </div>
+          <div>
+            <label for="intendente-form-securityCode">CVV</label>
+            <div class="pp-iframe-field" id="intendente-form-securityCode"></div>
+          </div>
+        </div>
+        <div class="plan-payment-row">
+          <div>
+            <label for="intendente-form-cardholderName">Titular de la tarjeta</label>
+            <input type="text" id="intendente-form-cardholderName" placeholder="Como figura en la tarjeta" autocomplete="cc-name" required>
+          </div>
+        </div>
+        <div class="plan-payment-row">
+          <div style="flex:0 0 120px">
+            <label for="intendente-form-identificationType">Tipo doc.</label>
+            <select id="intendente-form-identificationType"></select>
+          </div>
+          <div>
+            <label for="intendente-form-identificationNumber">Número de documento</label>
+            <input type="text" id="intendente-form-identificationNumber" placeholder="Sin puntos" inputmode="numeric" required>
+          </div>
+        </div>
+        <div class="plan-payment-row">
+          <div>
+            <label for="intendente-form-cardholderEmail">Email de facturación</label>
+            <input type="email" id="intendente-form-cardholderEmail" placeholder="tu@mail.com" required>
+          </div>
+        </div>
+        <select id="intendente-form-issuer" class="pp-hidden"></select>
+        <select id="intendente-form-installments" class="pp-hidden"></select>
+        <button type="submit" class="plan-payment-btn" id="intendentePaymentBtn">Confirmar pago →</button>
+        <div class="plan-payment-secure">🔒 Procesado de forma segura por Mercado Pago — Alsina nunca ve ni guarda tu tarjeta.</div>
+      </form>
+      <div class="plan-payment-status" id="intendentePaymentStatus" role="status" aria-live="polite"></div>
+    </div>
   </div>
 
   <!-- Gobernador -->
@@ -216,6 +300,54 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
       <button type="submit" class="plan-inline-btn">Continuar →</button>
     </form>
     <div class="plan-form-status" id="gobernadorStatus" role="status" aria-live="polite"></div>
+    <div class="plan-payment" id="gobernadorPayment" data-plan="gobernador">
+      <div class="plan-payment-title">Datos de la tarjeta</div>
+      <form id="gobernadorPaymentForm" class="mp-card-form">
+        <div class="plan-payment-row">
+          <div>
+            <label for="gobernador-form-cardNumber">Número de tarjeta</label>
+            <div class="pp-iframe-field" id="gobernador-form-cardNumber"></div>
+          </div>
+        </div>
+        <div class="plan-payment-row">
+          <div>
+            <label for="gobernador-form-expirationDate">Vencimiento</label>
+            <div class="pp-iframe-field" id="gobernador-form-expirationDate"></div>
+          </div>
+          <div>
+            <label for="gobernador-form-securityCode">CVV</label>
+            <div class="pp-iframe-field" id="gobernador-form-securityCode"></div>
+          </div>
+        </div>
+        <div class="plan-payment-row">
+          <div>
+            <label for="gobernador-form-cardholderName">Titular de la tarjeta</label>
+            <input type="text" id="gobernador-form-cardholderName" placeholder="Como figura en la tarjeta" autocomplete="cc-name" required>
+          </div>
+        </div>
+        <div class="plan-payment-row">
+          <div style="flex:0 0 120px">
+            <label for="gobernador-form-identificationType">Tipo doc.</label>
+            <select id="gobernador-form-identificationType"></select>
+          </div>
+          <div>
+            <label for="gobernador-form-identificationNumber">Número de documento</label>
+            <input type="text" id="gobernador-form-identificationNumber" placeholder="Sin puntos" inputmode="numeric" required>
+          </div>
+        </div>
+        <div class="plan-payment-row">
+          <div>
+            <label for="gobernador-form-cardholderEmail">Email de facturación</label>
+            <input type="email" id="gobernador-form-cardholderEmail" placeholder="tu@mail.com" required>
+          </div>
+        </div>
+        <select id="gobernador-form-issuer" class="pp-hidden"></select>
+        <select id="gobernador-form-installments" class="pp-hidden"></select>
+        <button type="submit" class="plan-payment-btn" id="gobernadorPaymentBtn">Confirmar pago →</button>
+        <div class="plan-payment-secure">🔒 Procesado de forma segura por Mercado Pago — Alsina nunca ve ni guarda tu tarjeta.</div>
+      </form>
+      <div class="plan-payment-status" id="gobernadorPaymentStatus" role="status" aria-live="polite"></div>
+    </div>
   </div>
 </section>
 
@@ -337,32 +469,131 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
 
   const PENDING_KEY = 'alsina_pending_checkout';
 
-  async function fireCheckout(targetPlan, payerEmail, isUpgrade, statusEl, btn) {
-    if (btn) { btn.disabled = true; btn.textContent = 'Redirigiendo a Mercado Pago…'; }
-    try {
-      const endpoint = isUpgrade ? '/api/subscriptions/upgrade' : '/api/subscriptions/checkout';
-      const body = isUpgrade ? { payerEmail } : { planSlug: targetPlan, payerEmail };
-      const r = await window.AlsinaAuth.authedFetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-      const data = await r.json();
-      if (!r.ok || !data.checkoutUrl) throw new Error(data.error || 'error');
-      if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('checkout_started', { plan: targetPlan, upgrade: !!isUpgrade });
-      window.location.href = data.checkoutUrl;
-      return true;
-    } catch (err) {
-      if (statusEl) {
-        statusEl.className = 'plan-form-status err';
-        statusEl.textContent = 'No pudimos iniciar el pago. Probá de nuevo en un momento.';
+  // ── Mercado Pago Card Form (tarjeta tokenizada en el navegador) ──
+  // Reemplaza el redirect a la web de Mercado Pago: ese flujo exigía
+  // estar logueado en MP con el mismo email que payer_email, lo que
+  // rompía pagos reales cuando el mail de la cuenta de MP no coincidía
+  // con el de la cuenta Alsina (ver memoria de sesión 2026-08-31). Con
+  // la tarjeta tokenizada acá mismo, nadie necesita loguearse en ninguna
+  // cuenta de Mercado Pago — el problema deja de existir.
+  let mpInstance = null;
+  const cardForms = {}; // targetPlan -> instancia de mp.cardForm(), una sola vez por plan
+  // Debe coincidir con lo que ya muestra la página (.plan-price) — el
+  // Card Form solo lo usa para calcular emisor/cuotas; el importe real
+  // que se cobra lo determina siempre el servidor desde plan_prices
+  // (AD-03), nunca este valor.
+  const PLAN_AMOUNT = { intendente: 25000, gobernador: 45000 };
+
+  async function getMp() {
+    if (mpInstance) return mpInstance;
+    await window.ALSINA_CONFIG_READY;
+    const publicKey = window.ALSINA_CONFIG.MP_PUBLIC_KEY;
+    if (!publicKey) throw new Error('Mercado Pago no está configurado en este entorno.');
+    if (typeof MercadoPago === 'undefined') throw new Error('No se pudo cargar el SDK de Mercado Pago.');
+    mpInstance = new MercadoPago(publicKey, { locale: 'es-AR' });
+    return mpInstance;
+  }
+
+  async function initCardForm(targetPlan, onSubmitCallback) {
+    if (cardForms[targetPlan]) return cardForms[targetPlan];
+    const mp = await getMp();
+    const prefix = targetPlan + '-form-';
+    let cardForm;
+    cardForm = mp.cardForm({
+      amount: String(PLAN_AMOUNT[targetPlan]),
+      iframe: true,
+      form: {
+        id: targetPlan + 'PaymentForm',
+        cardNumber: { id: prefix + 'cardNumber', placeholder: 'Número de tarjeta' },
+        expirationDate: { id: prefix + 'expirationDate', placeholder: 'MM/AA' },
+        securityCode: { id: prefix + 'securityCode', placeholder: 'CVV' },
+        cardholderName: { id: prefix + 'cardholderName', placeholder: 'Como figura en la tarjeta' },
+        issuer: { id: prefix + 'issuer', placeholder: '' },
+        installments: { id: prefix + 'installments', placeholder: '' },
+        identificationType: { id: prefix + 'identificationType', placeholder: '' },
+        identificationNumber: { id: prefix + 'identificationNumber', placeholder: 'Documento' },
+        cardholderEmail: { id: prefix + 'cardholderEmail', placeholder: 'tu@mail.com' },
+      },
+      callbacks: {
+        onFormMounted: (error) => { if (error) console.error(`Card Form (${targetPlan}) no pudo montarse:`, error); },
+        onSubmit: (event) => {
+          event.preventDefault();
+          onSubmitCallback(cardForm.getCardFormData());
+        },
+      },
+    });
+    cardForms[targetPlan] = cardForm;
+    return cardForm;
+  }
+
+  // Arma el panel de pago de un plan: abrirlo (openPanel) monta el Card
+  // Form la primera vez; el submit tokeniza la tarjeta del lado del
+  // navegador y recién ahí llama al backend — la tarjeta en sí nunca
+  // pasa por un servidor de Alsina.
+  function wirePaymentPanel(targetPlan, { isUpgrade }) {
+    const panel = document.getElementById(targetPlan + 'Payment');
+    const paymentStatusEl = document.getElementById(targetPlan + 'PaymentStatus');
+    const paymentBtn = document.getElementById(targetPlan + 'PaymentBtn');
+
+    async function handleSubmit(formData) {
+      paymentBtn.disabled = true;
+      paymentBtn.textContent = 'Procesando…';
+      paymentStatusEl.className = 'plan-payment-status';
+      paymentStatusEl.textContent = '';
+      try {
+        const endpoint = isUpgrade ? '/api/subscriptions/upgrade' : '/api/subscriptions/checkout';
+        const body = isUpgrade
+          ? { payerEmail: formData.cardholderEmail, cardToken: formData.token }
+          : { planSlug: targetPlan, payerEmail: formData.cardholderEmail, cardToken: formData.token };
+        const r = await window.AlsinaAuth.authedFetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+        const data = await r.json();
+        if (!r.ok) throw new Error(data.error || 'El pago no pudo procesarse.');
+        if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('checkout_started', { plan: targetPlan, upgrade: !!isUpgrade });
+        if (data.status === 'ok') {
+          paymentStatusEl.className = 'plan-payment-status ok';
+          paymentStatusEl.textContent = `¡Listo! Ya sos ${PLAN_LABEL[targetPlan]}. Redirigiendo a tu cuenta…`;
+          if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('checkout_completed', { plan: targetPlan, upgrade: !!isUpgrade });
+          setTimeout(() => { window.location.href = '/cuenta.html'; }, 1400);
+        } else {
+          // 'pending': Mercado Pago creó la suscripción pero todavía no
+          // la confirma de forma síncrona (verificación adicional del
+          // banco, demora, etc.) — no es un rechazo, el webhook la va a
+          // terminar de resolver en segundos.
+          paymentStatusEl.className = 'plan-payment-status ok';
+          paymentStatusEl.textContent = 'Estamos confirmando el pago con Mercado Pago — puede tardar unos segundos. Revisá tu cuenta en un momento.';
+          paymentBtn.textContent = 'Confirmar pago →';
+        }
+      } catch (err) {
+        paymentStatusEl.className = 'plan-payment-status err';
+        paymentStatusEl.textContent = err.message || 'El pago no pudo procesarse. Revisá los datos de tu tarjeta o probá con otra.';
+        paymentBtn.disabled = false;
+        paymentBtn.textContent = 'Confirmar pago →';
       }
-      if (btn) { btn.disabled = false; btn.textContent = isUpgrade ? 'Upgrade a Gobernador →' : 'Suscribirme →'; }
-      return false;
     }
+
+    async function openPanel(prefillEmail) {
+      panel.classList.add('show');
+      panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      try {
+        await initCardForm(targetPlan, handleSubmit);
+        const emailField = document.getElementById(targetPlan + '-form-cardholderEmail');
+        if (emailField && prefillEmail && !emailField.value) emailField.value = prefillEmail;
+      } catch (err) {
+        paymentStatusEl.className = 'plan-payment-status err';
+        paymentStatusEl.textContent = 'No pudimos cargar el formulario de pago. Recargá la página e intentá de nuevo.';
+        console.error('initCardForm error:', err);
+      }
+    }
+
+    return { openPanel };
   }
 
   // ── volver de un magic link pedido directo desde un plan pago: crear
   // la cuenta ya deja Concejal (AD-04, es automático e irreversible por
-  // diseño) pero acá seguimos derecho al checkout del plan que la
-  // persona realmente quería, sin pedirle un segundo click ──
+  // diseño) pero acá seguimos derecho al pago del plan que la persona
+  // realmente quería, sin pedirle un segundo click de más ──
   const autocheckoutPlan = new URLSearchParams(location.search).get('autocheckout');
+  let autoOpenPayment = null;
   if (autocheckoutPlan && session && account) {
     let pending = null;
     try { pending = JSON.parse(localStorage.getItem(PENDING_KEY) || 'null'); } catch (e) { /* noop */ }
@@ -370,12 +601,8 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
     history.replaceState({}, '', '/planes.html');
     if (pending && pending.plan === autocheckoutPlan && ['intendente', 'gobernador'].includes(autocheckoutPlan) && paymentsEnabled) {
       const banner = document.getElementById('statusBanner');
-      showBanner(banner, `¡Cuenta creada! Redirigiendo a Mercado Pago para completar ${PLAN_LABEL[autocheckoutPlan]}…`);
-      const autoStatusEl = document.getElementById(autocheckoutPlan + 'Status');
-      const ok = await fireCheckout(autocheckoutPlan, pending.payerEmail || account.email, false, autoStatusEl, null);
-      if (!ok) {
-        showBanner(banner, `Tu cuenta ya está creada, pero no pudimos iniciar el pago de ${PLAN_LABEL[autocheckoutPlan]} automáticamente. Probá con el botón "Suscribirme" más abajo.`, 'err');
-      }
+      showBanner(banner, `¡Cuenta creada! Completá el pago de ${PLAN_LABEL[autocheckoutPlan]} para activar tu plan.`);
+      autoOpenPayment = { plan: autocheckoutPlan, payerEmail: pending.payerEmail || account.email };
     }
   }
 
@@ -493,34 +720,21 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
     if (targetRank > currentRank) {
       const isUpgrade = account.plan === 'intendente' && targetPlan === 'gobernador';
       btn.textContent = isUpgrade ? 'Upgrade a Gobernador →' : 'Suscribirme →';
-      // BUG REAL encontrado en producción: acá se mandaba siempre
-      // account.email como payer_email, asumiendo que es el mismo mail
-      // con el que la persona paga en Mercado Pago. Mercado Pago exige
-      // que quien completa el checkout esté logueado en MP con ESE
-      // mail exacto — si su cuenta de MP usa otro (algo muy común), el
-      // pago rechaza con "Tu e-mail no coincide con el de la
-      // suscripción". El backend (api/_lib/subscriptionHandlers/
-      // checkout.js) ya soportaba un payerEmail distinto — acá nunca se
-      // le preguntaba a la persona cuál usar. Ahora se reutiliza el
-      // mismo formulario inline de alta (signupForm/SignupEmail) para
-      // confirmarlo antes de ir a MP, precargado con account.email.
-      const emailInput = document.getElementById(targetPlan + 'SignupEmail');
+      // Antes esto mandaba a la web de Mercado Pago con account.email
+      // como payer_email, lo que exigía estar logueado en MP con ese
+      // mismo mail — rompía pagos reales cuando el mail de la cuenta de
+      // MP no coincidía con el de la cuenta Alsina (bug reportado en
+      // producción, 2026-08-31). Ahora se cobra con una tarjeta
+      // tokenizada acá mismo (wirePaymentPanel) — nadie necesita
+      // loguearse en ninguna cuenta de Mercado Pago.
+      const { openPanel } = wirePaymentPanel(targetPlan, { isUpgrade });
       btn.addEventListener('click', () => {
         if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent(isUpgrade ? 'upgrade_clicked' : 'plan_selected', { from: account.plan, to: targetPlan, location: 'planes' });
-        emailInput.value = account.email;
-        emailInput.placeholder = 'Email con el que vas a pagar en MP';
-        signupForm.classList.add('show');
-        emailInput.focus();
-        emailInput.select();
+        openPanel(account.email);
       });
-      signupForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const payerEmail = emailInput.value.trim();
-        const formBtn = signupForm.querySelector('button');
-        formBtn.disabled = true;
-        const ok = await fireCheckout(targetPlan, payerEmail, isUpgrade, statusEl, btn);
-        if (!ok) formBtn.disabled = false;
-      });
+      if (autoOpenPayment && autoOpenPayment.plan === targetPlan) {
+        openPanel(autoOpenPayment.payerEmail);
+      }
     } else if (account.pendingPlan === targetPlan) {
       btn.textContent = `Ya programado → Mi cuenta`;
       btn.className = 'plan-cta ghost';
