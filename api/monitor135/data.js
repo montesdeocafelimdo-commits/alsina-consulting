@@ -47,11 +47,60 @@ const BASIC_MUNICIPIO_FIELDS = new Set([
   'es_conurbano', 'es_capital_provincial',
   'poblacion', 'superficie_km2', 'densidad_2022_hab_km2', 'categoria_poblacional_2022',
   'gobierno', // resumen electoral (AD-19: "Resumen electoral... Sí" para todos los niveles)
+  // Pedido 2026-08-31: liberar variables interesantes de Finanzas para
+  // Concejal, para que la categoría no se vea completamente vacía. El
+  // resto de Finanzas (variación real/nominal, presupuesto, ranking)
+  // sigue exclusivo de Intendente — ver assets/js/monitor135-app.js
+  // (FREE_VARS.finanzas).
+  'cud_pct_2026',
 ]);
+
+// "Transferencias recibidas" (trans_total) y "Transferencias por
+// habitante" (trans_percapita) comparten el mismo objeto anidado
+// "transferencias.<período>" que la variación real/nominal y el
+// desglose por componente — no alcanza con un allowlist plano de un
+// solo nivel como BASIC_MUNICIPIO_FIELDS. Se reconstruye ese objeto acá
+// dejando pasar solo total_2026 por período (lo único que necesitan esas
+// dos variables) — nunca total_2025, variación, ranking, ni el desglose
+// componentes_2026/2025 (eso sigue exclusivo de Intendente).
+const BASIC_TRANSFERENCIAS_FIELDS = new Set(['total_2026']);
+
+function redactTransferencias(transferencias) {
+  if (!transferencias) return undefined;
+  const out = {};
+  for (const periodo of ['primer_semestre', 'junio']) {
+    const p = transferencias[periodo];
+    if (!p) continue;
+    out[periodo] = {};
+    for (const key of BASIC_TRANSFERENCIAS_FIELDS) {
+      if (key in p) out[periodo][key] = p[key];
+    }
+  }
+  return out;
+}
 
 function redactMunicipio(entry) {
   const basic = {};
   for (const key of BASIC_MUNICIPIO_FIELDS) {
+    if (key in entry) basic[key] = entry[key];
+  }
+  const transferencias = redactTransferencias(entry.transferencias);
+  if (transferencias) basic.transferencias = transferencias;
+  return basic;
+}
+
+// Mismo pedido, para el dataset de Educación — que tiene una forma total-
+// mente distinta (cada municipio es un objeto plano de "campo" -> valor,
+// ver assets/data/monitor135-educacion.json), así que necesita su propio
+// allowlist en vez de reusar BASIC_MUNICIPIO_FIELDS (esos nombres de
+// campo no existen acá, y antes de este cambio esto dejaba Educación en
+// blanco para Concejal, sin querer). Solo se libera 'edu_matricula_total'
+// (FREE_VARS.educacion en el frontend) — el resto exige Intendente.
+const BASIC_EDUCACION_FIELDS = new Set(['edu_matricula_total']);
+
+function redactEducacion(entry) {
+  const basic = {};
+  for (const key of BASIC_EDUCACION_FIELDS) {
     if (key in entry) basic[key] = entry[key];
   }
   return basic;
@@ -124,10 +173,11 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'error_interno' });
   }
 
+  const redact = datasetKey === 'educacion' ? redactEducacion : redactMunicipio;
   const municipiosRaw = dataset.municipios || {};
   const municipiosOut = {};
   for (const [key, entry] of Object.entries(municipiosRaw)) {
-    municipiosOut[key] = hasFull ? entry : redactMunicipio(entry);
+    municipiosOut[key] = hasFull ? entry : redact(entry);
   }
 
   res.setHeader('Cache-Control', 'private, max-age=0, no-store');

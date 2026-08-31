@@ -494,7 +494,7 @@
   // ── CONTROLES ───────────────────────────────────────────────
   function renderCtrl() {
     const catSel = $('#ctrlCategoria');
-    catSel.innerHTML = CATEGORIES.map(c => `<option value="${c.id}" ${c.id === state.categoria ? 'selected' : ''}>${esc(c.label)}${c.comingSoon ? ' (próximamente)' : ''}${isLockedCategory(c.id) ? ' 🔒 Intendente' : ''}</option>`).join('');
+    catSel.innerHTML = CATEGORIES.map(c => `<option value="${c.id}" ${c.id === state.categoria ? 'selected' : ''}>${esc(c.label)}${c.comingSoon ? ' (próximamente)' : ''}${isLockedCategory(c.id) ? ` · ${(FREE_VARS[c.id] || []).length} gratis` : ''}</option>`).join('');
     renderVarSelect();
     const periodoWrap = $('#ctrlPeriodoWrap');
     const varDef = VAR_INDEX[state.variable];
@@ -511,8 +511,7 @@
       return;
     }
     sel.disabled = false;
-    const locked = isLockedCategory(cat.id);
-    const opt = v => `<option value="${v.id}" ${v.id === state.variable ? 'selected' : ''}>${esc(v.label)}${locked ? ' 🔒 Intendente' : ''}</option>`;
+    const opt = v => `<option value="${v.id}" ${v.id === state.variable ? 'selected' : ''}>${esc(v.label)}${isLockedVariable(v) ? ' 🔒 Intendente' : ''}</option>`;
     if (cat.groups && cat.groups.length) {
       // selector jerárquico dentro de una misma categoría (ej. Educación:
       // Demanda / Presión sobre la red / Trayectorias / Configuración),
@@ -731,11 +730,11 @@
       ${renderDatoSeleccionado(m)}
       ${reading ? `<div class="m135-alsina-read" style="margin-bottom:16px"><strong>Lectura de Alsina.</strong> ${esc(reading)}</div>` : ''}
 
-      ${accordion('Finanzas y Transferencias', IS_BASIC_ACCESS ? lockedTeaser(LOCKED_LABELS.finanzas) : renderFinanzasBlock(m, t1s, tjun, presupuesto, rec), IS_BASIC_ACCESS ? '🔒 Intendente' : coverageLabel([t1s, presupuesto && presupuesto.estado === 'disponible']), accId.finanzas !== selCatId)}
+      ${accordion('Finanzas y Transferencias', IS_BASIC_ACCESS ? renderFinanzasBlockBasic(m, t1s, rec) : renderFinanzasBlock(m, t1s, tjun, presupuesto, rec), IS_BASIC_ACCESS ? '2 gratis' : coverageLabel([t1s, presupuesto && presupuesto.estado === 'disponible']), accId.finanzas !== selCatId)}
       ${accordion('Población y Territorio', renderPoblacionBlock(m), '', accId.poblacion !== selCatId)}
-      ${accordion('Economía y Producción', IS_BASIC_ACCESS ? lockedTeaser(LOCKED_LABELS.economia) : renderEconomiaBlock(m), IS_BASIC_ACCESS ? '🔒 Intendente' : '', accId.economia !== selCatId)}
-      ${accordion('Gobierno y Elecciones', IS_BASIC_ACCESS ? lockedTeaser(LOCKED_LABELS.gobierno) : renderGobiernoBlock(m), IS_BASIC_ACCESS ? '🔒 Intendente' : '', accId.gobierno !== selCatId)}
-      ${accordion('Educación', IS_BASIC_ACCESS ? lockedTeaser(LOCKED_LABELS.educacion) : renderEducacionBlock(m), IS_BASIC_ACCESS ? '🔒 Intendente' : eduCoverageLabel(m), accId.educacion !== selCatId)}
+      ${accordion('Economía y Producción', IS_BASIC_ACCESS ? renderEconomiaBlockBasic(m) : renderEconomiaBlock(m), IS_BASIC_ACCESS ? '1 gratis' : '', accId.economia !== selCatId)}
+      ${accordion('Gobierno y Elecciones', IS_BASIC_ACCESS ? renderGobiernoBlockBasic(m) : renderGobiernoBlock(m), IS_BASIC_ACCESS ? '1 gratis' : '', accId.gobierno !== selCatId)}
+      ${accordion('Educación', IS_BASIC_ACCESS ? renderEducacionBlockBasic(m) : renderEducacionBlock(m), IS_BASIC_ACCESS ? '1 gratis' : eduCoverageLabel(m), accId.educacion !== selCatId)}
       ${accordion('Salud', '<div class="m135-empty-dim">Sin datos disponibles todavía. Próxima etapa de incorporación.</div>', '', accId.salud !== selCatId)}
       ${accordion('Información Pública', '<div class="m135-empty-dim">Sin datos disponibles todavía. Requiere metodología propia de Alsina, aún no publicada.</div>', '', accId.info_publica !== selCatId)}
 
@@ -746,7 +745,7 @@
     const varDef = VAR_INDEX[state.variable];
     if (!varDef) return '';
     const v = varDef.get(m);
-    const catLocked = isLockedCategory(state.categoria);
+    const varLocked = isLockedVariable(varDef);
     let cmpRow = '';
     if (v != null && mapStats && mapStats.median != null && varDef.tipo !== 'qual') {
       const diff = v - mapStats.median;
@@ -754,16 +753,16 @@
       const diffText = isSigned ? fmtValue(varDef, diff) : (diff >= 0 ? '+' : '−') + fmtValue(varDef, Math.abs(diff));
       cmpRow = `<div class="m135-datosel-cmp">Vs. mediana provincial: ${esc(diffText)}</div>`;
     }
-    // catLocked → el dato no llegó al navegador porque el plan no lo
+    // varLocked → el dato no llegó al navegador porque el plan no lo
     // incluye (AD-19), no porque falte el dato oficial — el mensaje no
     // debe confundir una cosa con la otra.
-    const naText = catLocked ? 'Datos disponibles en el plan Intendente' : 'Sin dato oficial disponible';
+    const naText = varLocked ? 'Datos disponibles en el plan Intendente' : 'Sin dato oficial disponible';
     return `
       <div class="m135-datosel">
         <div class="m135-datosel-l">${esc(varDef.label)}</div>
         <div class="m135-datosel-v ${v == null ? 'na' : ''}">${v == null ? naText : esc(fmtValue(varDef, v))}</div>
         <div class="m135-datosel-meta">Período: ${esc(varDef.periodo || '—')}${cmpRow}</div>
-        ${catLocked ? `<a class="m135-locked-cta" href="/planes.html">Ver con Intendente →</a>` : ''}
+        ${varLocked ? `<a class="m135-locked-cta" href="/planes.html">Ver con Intendente →</a>` : ''}
       </div>`;
   }
   function coverageLabel(arr) { const n = arr.filter(Boolean).length; return `${n}/${arr.length} disponibles`; }
@@ -794,16 +793,39 @@
   // rótulo, nunca el valor (AD-19). Mantener sincronizado si se agrega
   // un indicador nuevo a alguno de esos bloques.
   const LOCKED_LABELS = {
-    finanzas: ['Transferido 1S 2026', 'Transferido 1S 2025', 'Variación real 1S', 'Ranking provincial 1S', 'Presupuesto 2026', 'Presupuesto por habitante', 'CUD (coparticipación)'],
-    economia: ['Empresas (2019)', 'Empresas exportadoras (2019)', 'PBG municipal (2023)', 'Variación PBG 2022-2023', 'Recaudación propia (2021)', 'NBI (Censo 2010)'],
-    gobierno: ['Intendente actual', 'Fuerza política', 'Electores nacionales', 'Historial electoral 2013-2025'],
-    educacion: ['Matrícula total (2025)', 'Variación de matrícula 2015-2025', 'Abandono interanual secundario', 'Promoción efectiva secundaria', 'Participación de matrícula estatal'],
+    finanzas: ['Transferido 1S 2025', 'Variación real 1S', 'Ranking provincial 1S', 'Presupuesto 2026', 'Presupuesto por habitante'],
+    economia: ['Empresas (2019)', 'Empresas exportadoras (2019)', 'Variación PBG 2022-2023', 'Recaudación propia (2021)', 'NBI (Censo 2010)'],
+    gobierno: ['Intendente actual', 'Electores nacionales', 'Historial electoral 2013-2025'],
+    educacion: ['Variación de matrícula 2015-2025', 'Abandono interanual secundario', 'Promoción efectiva secundaria', 'Participación de matrícula estatal'],
+  };
+  // Pedido 2026-08-31, urgente: variables liberadas por categoría
+  // bloqueada, para que el plan Concejal vea algo interesante de cada
+  // dimensión en vez de una categoría completamente vacía. El resto de
+  // cada categoría sigue exigiendo Intendente. 'economia' y 'gobierno' ya
+  // viajan sin ninguna protección real (EXTRA/GEO_DATA/electoralData
+  // están embebidos en este mismo HTML, ver comentarios de fuerza2023 más
+  // arriba) — acá solo se destraba la UI. 'finanzas' y 'educacion' sí
+  // necesitaron además un cambio server-side (ver api/monitor135/data.js,
+  // BASIC_MUNICIPIO_FIELDS/BASIC_TRANSFERENCIAS_FIELDS/
+  // BASIC_EDUCACION_FIELDS) porque esos datos pasan por la redacción real
+  // de FASE 5. trans_total y trans_percapita se liberan juntas porque
+  // comparten el mismo campo de origen (transferencias.<período>.
+  // total_2026) — no se puede exponer una sin la otra.
+  const FREE_VARS = {
+    finanzas: ['cud', 'trans_total', 'trans_percapita'],
+    economia: ['pbg'],
+    gobierno: ['fuerza'],
+    educacion: ['edu_matricula_total'],
   };
   // Una categoría entera está bloqueada para Concejal si tiene entrada en
   // LOCKED_LABELS — mismo criterio que usa renderFicha() para elegir entre
-  // el bloque real y lockedTeaser(). Los selectores del mapa (categoría y
-  // variable) usan esto para avisar ANTES de hacer clic, no solo después.
+  // el bloque real y el teaser mixto (ver render*BlockBasic). Los
+  // selectores del mapa (categoría y variable) usan esto para avisar
+  // ANTES de hacer clic, no solo después.
   function isLockedCategory(catId) { return IS_BASIC_ACCESS && LOCKED_LABELS.hasOwnProperty(catId); }
+  // Bloqueada variable por variable: las que no lo están, dentro de una
+  // categoría por lo demás bloqueada, son las de FREE_VARS.
+  function isLockedVariable(v) { return isLockedCategory(v.catId) && !(FREE_VARS[v.catId] || []).includes(v.id); }
 
   function renderFinanzasBlock(m, t1s, tjun, presupuesto, rec) {
     let html = '';
@@ -820,6 +842,18 @@
     html += vrow('Presupuesto 2026', presupuesto && presupuesto.estado === 'disponible' ? fmtMoneyFull(presupuesto.valor) : null, presupuesto && presupuesto.estado === 'disponible' ? ['Dato oficial', 'of'] : null);
     html += vrow('Presupuesto por habitante', presupuesto && presupuesto.estado === 'disponible' ? '$' + Math.round(presupuesto.valor_per_capita).toLocaleString('es-AR') : null);
     html += vrow('CUD (coparticipación)', (rec.cud_pct_2026 && rec.cud_pct_2026.estado === 'disponible') ? rec.cud_pct_2026.valor.toFixed(5) + '%' : null, rec.cud_pct_2026 && rec.cud_pct_2026.estado === 'disponible' ? ['Dato oficial', 'of'] : null);
+    return html;
+  }
+  // ── versiones "1 variable gratis" para Concejal (pedido 2026-08-31) ──
+  // Muestran el único indicador liberado de la categoría como fila real
+  // y el resto como filas bloqueadas (mismos rótulos que antes, en
+  // LOCKED_LABELS) — nunca mezclan "sin dato oficial" con "no incluido
+  // en tu plan" (son mensajes distintos, ver renderDatoSeleccionado).
+  function renderFinanzasBlockBasic(m, t1s, rec) {
+    let html = vrow('Transferido 1S 2026', t1s ? fmtMoneyFull(t1s.total_2026) : null, t1s ? ['Dato oficial', 'of'] : null);
+    html += vrow('CUD (coparticipación)', (rec.cud_pct_2026 && rec.cud_pct_2026.estado === 'disponible') ? rec.cud_pct_2026.valor.toFixed(5) + '%' : null, rec.cud_pct_2026 && rec.cud_pct_2026.estado === 'disponible' ? ['Dato oficial', 'of'] : null);
+    html += LOCKED_LABELS.finanzas.map(lockedRow).join('');
+    html += `<a class="m135-locked-cta" href="/planes.html">Ver con Intendente →</a>`;
     return html;
   }
   function renderPoblacionBlock(m) {
@@ -846,6 +880,13 @@
     html += vrow('NBI (Censo 2010)', ex['NBI (%)'] != null ? ex['NBI (%)'].toFixed(2) + '%' : null);
     return html;
   }
+  function renderEconomiaBlockBasic(m) {
+    const ex = EXTRA[m] || {};
+    let html = vrow('PBG municipal (2023, M$ const. 2004)', ex['PBG 2023 (M$ const.2004)'] != null ? fmtNum(ex['PBG 2023 (M$ const.2004)']) : null);
+    html += LOCKED_LABELS.economia.map(lockedRow).join('');
+    html += `<a class="m135-locked-cta" href="/planes.html">Ver con Intendente →</a>`;
+    return html;
+  }
   function renderGobiernoBlock(m) {
     const g = GEO_DATA[m] || {};
     let html = '';
@@ -858,6 +899,13 @@
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);margin-bottom:8px">Historial electoral · 2013-2025</div>
       ${renderElecHistory(m, g)}
     </div>`;
+    return html;
+  }
+  function renderGobiernoBlockBasic(m) {
+    let html = vrow('Fuerza política (2023)*', fuerza2023(m));
+    html += '<div style="font-size:.72rem;color:var(--t3);margin:2px 0 10px;">*Clasificación de Alsina: agrupa frentes y alianzas locales en espacios políticos — no es una cita textual del nombre de lista con el que compitió el intendente.</div>';
+    html += LOCKED_LABELS.gobierno.map(lockedRow).join('');
+    html += `<a class="m135-locked-cta" href="/planes.html">Ver con Intendente →</a>`;
     return html;
   }
 
@@ -909,6 +957,13 @@
     if (flagNote && flagNote.nota_metodologica) {
       html += `<div class="m135-alsina-read" style="margin-top:12px"><strong>Nota metodológica.</strong> ${esc(flagNote.nota_metodologica)}</div>`;
     }
+    return html;
+  }
+  function renderEducacionBlockBasic(m) {
+    const v = eduVal(m, 'edu_matricula_total');
+    let html = vrow('Matrícula total (2025)', v != null ? fmtNum(v) + ' alumnos' : null, eduRowTag(m, 'edu_matricula_total', false));
+    html += LOCKED_LABELS.educacion.map(lockedRow).join('');
+    html += `<a class="m135-locked-cta" href="/planes.html">Ver con Intendente →</a>`;
     return html;
   }
 
