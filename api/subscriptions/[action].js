@@ -14,6 +14,7 @@ import testMagicLink from '../_lib/subscriptionHandlers/testMagicLink.js';
 import diagRecent from '../_lib/subscriptionHandlers/diagRecent.js';
 import reprocessPayment from '../_lib/subscriptionHandlers/reprocessPayment.js';
 import diagPreapproval from '../_lib/subscriptionHandlers/diagPreapproval.js';
+import diagPayment from '../_lib/subscriptionHandlers/diagPayment.js';
 import restoreAccess from '../_lib/subscriptionHandlers/restoreAccess.js';
 import grantPlan from '../_lib/subscriptionHandlers/grantPlan.js';
 
@@ -48,6 +49,7 @@ const ACTIONS = {
   'diag-recent': diagRecent,
   'reprocess-payment': reprocessPayment,
   'diag-preapproval': diagPreapproval,
+  'diag-payment': diagPayment,
   'restore-access': restoreAccess,
   'grant-plan': grantPlan,
 };
