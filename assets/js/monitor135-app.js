@@ -36,6 +36,16 @@
   // ── formatters ──────────────────────────────────────────────
   function normSearch(s) { return s.normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
   function dn(m) { return (GEO_DATA[m] && GEO_DATA[m].nd) || (PATCH && PATCH.municipios[m] && PATCH.municipios[m].municipio) || m; }
+  // Fuerza política ganadora en la elección de INTENDENTE de 2023 (no la
+  // legislativa de 2025) — viene del CSV histórico (window.electoralData,
+  // cargado aparte en municipios-data-hub.html) y ya pasa por la misma
+  // normalización de frentes/alianzas (_normParty/PARTY_NORM) que usa el
+  // resto del sitio. null mientras ese CSV todavía no resolvió o si el
+  // municipio no tiene dato 2023 — nunca se inventa un valor.
+  function fuerza2023(m) {
+    const d = window.electoralData && window.electoralData[m] && window.electoralData[m]['2023'];
+    return (d && d.fuerzas && d.fuerzas[0] && d.fuerzas[0].nombre) || null;
+  }
   function fmtMoney(v) {
     if (v === null || v === undefined) return '—';
     const a = Math.abs(v);
@@ -51,8 +61,21 @@
   function median(arr) { const a = arr.slice().sort((x, y) => x - y); const n = a.length; if (!n) return null; return n % 2 ? a[(n - 1) / 2] : (a[n / 2 - 1] + a[n / 2]) / 2; }
   function esc(s) { return (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
-  // ── paleta cualitativa (fuerzas políticas 2025) ────────────────
-  const FUERZA_COLORS = { 'Fuerza Patria': '#2563eb', 'Somos': '#eab308', 'LLA': '#7c3aed', 'La Libertad Avanza': '#7c3aed', 'Hechos': '#ec4899' };
+  // ── paleta cualitativa (espacios políticos, elección de intendente 2023) ──
+  // Mismos nombres/colores que PARTY_NORM en municipios-data-hub.html —
+  // es la normalización de frentes/alianzas ya usada para el historial
+  // electoral, para no tener dos criterios de agrupación distintos.
+  const FUERZA_COLORS = {
+    'PJ / Peronismo': '#2563eb',
+    'Juntos x el Cambio': '#eab308',
+    'Somos / Hechos': '#ec4899',
+    'La Libertad Avanza': '#7c3aed',
+    'Frente Renovador': '#0891b2',
+    'UCR / Progresistas': '#ea580c',
+    'Izquierda / FIT': '#dc2626',
+    'Vecinal/Local': '#16a34a',
+    'Otro': '#6b7280',
+  };
   const QUAL_FALLBACK = ['#00D5D8', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#84cc16', '#f97316', '#ec4899', '#64748b'];
   const qualColorCache = {};
   function qualColor(catId, value) {
@@ -158,7 +181,7 @@
       { id: 'salud', label: 'Salud', vars: [], comingSoon: true },
       {
         id: 'gobierno', label: 'Gobierno y Elecciones', vars: [
-          { id: 'fuerza', label: 'Fuerza política de gobierno', unidad: '', tipo: 'qual', periodo: '2025-2027', fuente: 'Elecciones municipales 2025', descripcion: 'Fuerza política del intendente en ejercicio.', get: m => (GEO_DATA[m] && GEO_DATA[m].fuerza_2025) || null },
+          { id: 'fuerza', label: 'Fuerza política de gobierno', unidad: '', tipo: 'qual', periodo: '2023-2027', fuente: 'Elecciones municipales 2023 — clasificación Alsina', descripcion: 'Fuerza política bajo la cual fue electo el intendente en 2023, agrupada por espacio político. *Clasificación de Alsina: agrupa frentes y alianzas locales en espacios políticos — no es una cita textual del nombre de lista con el que compitió cada intendente.', get: m => fuerza2023(m) },
           { id: 'electores', label: 'Electores', unidad: 'personas', tipo: 'seq', periodo: '2025', fuente: 'Junta Electoral PBA', descripcion: 'Padrón electoral (nacionales + extranjeros).', get: m => { const g = GEO_DATA[m]; return g && g.elec_nac != null ? g.elec_nac + (g.elec_ext || 0) : null; } },
         ]
       },
@@ -354,6 +377,27 @@
     renderTab(state.activeTab);
     wireCtrl();
     wireMapPaths();
+    pollElecReadyThenRefresh();
+  }
+
+  // boot() no espera al CSV histórico (bsas_electoral_maestro.csv, cargado
+  // aparte en municipios-data-hub.html) — si para cuando termina de
+  // resolver ya se está mostrando la variable "fuerza" (mapa por espacio
+  // político 2023), hay que redibujar mapa/leyenda/ficha con el dato real
+  // en vez de dejarlos en "sin dato". Mismo patrón que _elecPollScheduled.
+  let _elecMapPollScheduled = false;
+  function pollElecReadyThenRefresh() {
+    if (window._elecDataReady || _elecMapPollScheduled) return;
+    _elecMapPollScheduled = true;
+    let tries = 0;
+    const iv = setInterval(() => {
+      tries++;
+      if (window._elecDataReady || tries > 80) {
+        clearInterval(iv); _elecMapPollScheduled = false;
+        if (state.variable === 'fuerza') { renderMap(); renderLegend(); }
+        if (state.activeTab === 'radiografia' && state.selected) renderRadiografia();
+      }
+    }, 100);
   }
 
   // ── INTRO (overlay sobre la app, que ya está visible de fondo) ──
@@ -806,9 +850,10 @@
     const g = GEO_DATA[m] || {};
     let html = '';
     html += vrow('Intendente actual', g.int_actual || null, g.int_actual ? ['Dato oficial', 'of'] : null);
-    html += vrow('Fuerza política', g.fuerza_2025 || null);
+    html += vrow('Fuerza política (2023)*', fuerza2023(m));
     html += vrow('Electores nacionales', g.elec_nac != null ? fmtNum(g.elec_nac) : null);
     html += vrow('Electores extranjeros', g.elec_ext != null ? fmtNum(g.elec_ext) : null);
+    html += '<div style="font-size:.72rem;color:var(--t3);margin:2px 0 0;">*Clasificación de Alsina: agrupa frentes y alianzas locales en espacios políticos — no es una cita textual del nombre de lista con el que compitió el intendente.</div>';
     html += `<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--surf)">
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);margin-bottom:8px">Historial electoral · 2013-2025</div>
       ${renderElecHistory(m, g)}
