@@ -10,7 +10,25 @@ import { handlePaymentEvent } from '../../mercadopago-webhook.js';
 // la misma lógica que el webhook real (handlePaymentEvent), con la misma
 // idempotencia vía payment_provider_events — si el webhook real llega
 // después, no duplica nada.
-// body: { provider_subscription_id } (la preapproval id).
+// body: { provider_subscription_id } (la preapproval id), force?: true.
+//
+// BUG REAL encontrado en producción (2026-08-31, primer pago con
+// tarjeta tokenizada): el webhook de Mercado Pago para el evento
+// "payment" puede llegar ANTES de que el pago termine de aprobarse del
+// lado de MP (payment.status todavía 'pending'/'in_process' en ese
+// instante) — handlePaymentEvent lo trata correctamente como "todavía
+// no", pero igual marca el evento como processed=true (se recibió y se
+// entendió, no es un error). El problema: esta misma herramienta
+// saltea cualquier dataId ya marcado processed=true ("ya_procesado"),
+// así que si Mercado Pago no reintenta ese mismo payment.id más tarde
+// (o si reintenta y el dedup_key ya existente lo bloquea antes de
+// siquiera volver a mirar el estado actual), la cuenta queda pagada de
+// verdad pero nunca se le acredita el plan. force:true bypassea ese
+// salteo — vuelve a pedir el pago real a Mercado Pago (nunca inventa
+// nada) y corre handlePaymentEvent con lo que diga AHORA, sea lo que
+// sea. Las escrituras de handlePaymentEvent en sí (payments/
+// subscriptions) son upsert/update idempotentes — repetirlas con el
+// mismo pago ya aprobado no duplica ni corrompe nada.
 
 function requireCronAuth(req, res) {
   const secret = process.env.CRON_SECRET;
@@ -23,7 +41,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'method_not_allowed' });
   if (!requireCronAuth(req, res)) return;
 
-  const { provider_subscription_id: preapprovalId } = req.body || {};
+  const { provider_subscription_id: preapprovalId, force } = req.body || {};
   if (!preapprovalId) return res.status(400).json({ error: 'provider_subscription_id_requerido' });
   if (!process.env.MP_ACCESS_TOKEN) return res.status(500).json({ error: 'pagos_no_configurados' });
 
@@ -48,7 +66,12 @@ export default async function handler(req, res) {
     if (!dataId) { processed.push({ authorizedPaymentId: authorizedPayment.id, skipped: 'sin_payment_id_anidado' }); continue; }
     const dedupKey = `mercadopago:payment:${dataId}`;
     const { data: existingEvent } = await supa.from('payment_provider_events').select('id, processed').eq('dedup_key', dedupKey).maybeSingle();
-    if (existingEvent?.processed) { processed.push({ dataId, skipped: 'ya_procesado' }); continue; }
+    // "processed" acá solo significa "se le hizo caso una vez" — puede
+    // haber sido un "todavía no está aprobado, no hago nada" legítimo en
+    // su momento (ver nota arriba). force:true vuelve a mirar el estado
+    // ACTUAL igual, en vez de confiar en que "ya procesado" == "ya
+    // resuelto para siempre".
+    if (existingEvent?.processed && !force) { processed.push({ dataId, skipped: 'ya_procesado (probá con force:true si el pago se aprobó después)' }); continue; }
 
     let eventRowId = existingEvent?.id;
     if (!eventRowId) {
