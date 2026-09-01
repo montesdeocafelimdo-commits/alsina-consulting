@@ -20,6 +20,7 @@ import grantPlan from '../_lib/subscriptionHandlers/grantPlan.js';
 import diagAccount from '../_lib/subscriptionHandlers/diagAccount.js';
 import manualSignup from '../_lib/subscriptionHandlers/manualSignup.js';
 import deleteAccount from '../_lib/subscriptionHandlers/deleteAccount.js';
+import generateLoginLink from '../_lib/subscriptionHandlers/generateLoginLink.js';
 
 // ALSINA — un solo archivo de ruta dinámica para /api/subscriptions/*.
 //
@@ -58,6 +59,7 @@ const ACTIONS = {
   'diag-account': diagAccount,
   'manual-signup': manualSignup,
   'delete-account': deleteAccount,
+  'generate-login-link': generateLoginLink,
 };
 
 export default async function handler(req, res) {
