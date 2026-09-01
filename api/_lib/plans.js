@@ -81,7 +81,17 @@ export async function ensureMpPlan(planSlug) {
   const existingId = resolveProviderPlanId(price);
   if (existingId) {
     try {
-      const found = await plansApi.get({ id: existingId });
+      // BUG REAL encontrado en producción (2026-09-01, "The template with
+      // id X does not exist"): el SDK de Mercado Pago espera acá
+      // `preApprovalPlanId`, no `id` (ver PreApprovalPlanGetData en
+      // mercadopago/dist/clients/preApprovalPlan/get/types.d.ts) — con
+      // `id` el parámetro real le llegaba `undefined` al cliente, la
+      // verificación fallaba SIEMPRE (nunca por la razón real, un 404
+      // silencioso), y esto creaba una plantilla nueva en cada checkout.
+      // Esa plantilla recién creada todavía no está disponible para
+      // preapproval.create() del lado de Mercado Pago (demora de
+      // propagación) — de ahí el rechazo en el mismo request que la creó.
+      const found = await plansApi.get({ preApprovalPlanId: existingId });
       if (found?.status === 'active') {
         return { status: 'ok', mode: 'verified', providerPlanId: existingId, testMode };
       }
