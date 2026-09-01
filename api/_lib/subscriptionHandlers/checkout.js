@@ -110,6 +110,19 @@ export default async function handler(req, res) {
   });
 
   if (result.status === 'error') {
+    // BUG REAL encontrado en producción (2026-08-31): antes esto no
+    // dejaba ningún rastro — un cliente probó 3 tarjetas, solo una llegó
+    // a crear preapproval, y de las otras dos no quedó forma de saber
+    // qué pasó (ni acá, ni en Mercado Pago, solo en los logs efímeros de
+    // Vercel). Se audita cada intento fallido, sin guardar nunca datos
+    // de la tarjeta (ni acá ni en ningún otro lado los tenemos).
+    await supa.from('audit_logs').insert({
+      actor_role: 'system',
+      action: 'card_preapproval_failed',
+      target_table: 'subscriptions',
+      target_id: subscription.id,
+      after: { planSlug, hadDeviceId: !!deviceId, mpDetail: result.detail || null, message: result.error },
+    });
     return res.status(402).json({ error: result.error });
   }
 

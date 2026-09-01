@@ -71,6 +71,15 @@ export default async function handler(req, res) {
   });
 
   if (result.status === 'error') {
+    // Ver la nota en checkout.js: sin esto, un intento fallido no dejaba
+    // ningún rastro investigable después.
+    await supa.from('audit_logs').insert({
+      actor_role: 'system',
+      action: 'card_preapproval_failed',
+      target_table: 'subscriptions',
+      target_id: subscription.id,
+      after: { planSlug: 'gobernador', upgrade: true, hadDeviceId: !!deviceId, mpDetail: result.detail || null, message: result.error },
+    });
     return res.status(402).json({ error: result.error });
   }
 

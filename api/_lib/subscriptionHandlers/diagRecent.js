@@ -34,9 +34,21 @@ export default async function handler(req, res) {
     .order('created_at', { ascending: false })
     .limit(15);
 
+  // Intentos de pago que fallaron ANTES de crear la preapproval (tarjeta
+  // rechazada, dato mal cargado, etc.) — ver checkout.js/upgrade.js. Antes
+  // de esto no quedaba ningún rastro de estos casos (bug real encontrado
+  // 2026-08-31: un cliente probó 3 tarjetas, 2 no dejaron huella).
+  const { data: failedAttempts, error: failedAttemptsError } = await supa
+    .from('audit_logs')
+    .select('target_id, action, after, created_at')
+    .eq('action', 'card_preapproval_failed')
+    .order('created_at', { ascending: false })
+    .limit(15);
+
   return res.status(200).json({
     events: events || [], eventsError: eventsError?.message || null,
     subscriptions: subs || [], subsError: subsError?.message || null,
     payments: payments || [], paymentsError: paymentsError?.message || null,
+    failedAttempts: failedAttempts || [], failedAttemptsError: failedAttemptsError?.message || null,
   });
 }

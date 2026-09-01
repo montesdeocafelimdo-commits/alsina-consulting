@@ -47,20 +47,20 @@ function friendlyError(err) {
  * @returns {Promise<
  *   | { status: 'ok', preapprovalId: string, planName: string }   // mandato autorizado — el cobro real todavía puede tardar, no asumir plan activo
  *   | { status: 'pending', preapprovalId: string, mpStatus: string }
- *   | { status: 'error', error: string }
+ *   | { status: 'error', error: string, detail?: string|null }   // detail = código interno de MP (cc_rejected_*), para auditar
  * >}
  */
 export async function createCardPreapproval({ planSlug, accountId, payerEmail, cardToken, reasonLabel, deviceId }) {
-  if (!cardToken) return { status: 'error', error: 'falta_token_de_tarjeta' };
+  if (!cardToken) return { status: 'error', error: 'falta_token_de_tarjeta', detail: null };
 
   const resolved = await getActivePlanPrice(planSlug);
-  if (!resolved) return { status: 'error', error: 'plan_no_disponible' };
+  if (!resolved) return { status: 'error', error: 'plan_no_disponible', detail: null };
   const { plan, price } = resolved;
 
   const ensured = await ensureMpPlan(planSlug);
   if (ensured.status !== 'ok') {
     console.error('createCardPreapproval: ensureMpPlan falló:', ensured.error);
-    return { status: 'error', error: 'No se pudo preparar el plan en Mercado Pago. Probá de nuevo en un momento.' };
+    return { status: 'error', error: 'No se pudo preparar el plan en Mercado Pago. Probá de nuevo en un momento.', detail: null };
   }
 
   // Mismo formato que ya esperaba api/mercadopago-webhook.js (payment):
@@ -117,6 +117,12 @@ export async function createCardPreapproval({ planSlug, accountId, payerEmail, c
   } catch (err) {
     const { detail, message } = friendlyError(err);
     console.error('createCardPreapproval error:', err?.message || err, detail ? `(${detail})` : '');
-    return { status: 'error', error: message || 'El pago no pudo procesarse. Revisá los datos de tu tarjeta o probá con otra.' };
+    // detail = el código interno de Mercado Pago (cc_rejected_high_risk,
+    // etc.) — antes solo quedaba en console.error (Vercel lo retiene poco
+    // tiempo). Se devuelve acá para que checkout.js/upgrade.js lo dejen
+    // asentado en audit_logs y quede investigable después (bug real:
+    // 2026-08-31, un cliente probó 3 tarjetas y no quedó rastro de las 2
+    // que fallaron antes de llegar a crear la preapproval).
+    return { status: 'error', error: message || 'El pago no pudo procesarse. Revisá los datos de tu tarjeta o probá con otra.', detail: detail || null };
   }
 }
