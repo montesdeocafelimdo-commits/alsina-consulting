@@ -39,7 +39,17 @@ const DECLINE_MESSAGES = {
 
 function friendlyError(err) {
   const detail = err?.cause?.[0]?.code || err?.cause?.[0]?.description || null;
-  return { detail, message: (detail && DECLINE_MESSAGES[detail]) || null };
+  // rawDetail: para cuando `detail` no matchea ningún código conocido —
+  // antes esto se perdía (solo quedaba en console.error, Vercel lo
+  // retiene poco). Se manda a audit_logs (ver checkout.js/upgrade.js)
+  // para poder ver la razón real sin acceso a los logs de Vercel. Nunca
+  // incluye datos de la tarjeta (esta librería no los tiene en ningún
+  // punto — solo el token ya tokenizado).
+  let rawDetail = null;
+  try {
+    rawDetail = JSON.stringify({ message: err?.message || null, cause: err?.cause || null }).slice(0, 500);
+  } catch (e) { rawDetail = String(err?.message || err).slice(0, 500); }
+  return { detail, message: (detail && DECLINE_MESSAGES[detail]) || null, rawDetail };
 }
 
 /**
@@ -115,14 +125,15 @@ export async function createCardPreapproval({ planSlug, accountId, payerEmail, c
     // terminar de resolver el estado real apenas Mercado Pago lo confirme.
     return { status: 'pending', preapprovalId: String(result.id), mpStatus: result.status };
   } catch (err) {
-    const { detail, message } = friendlyError(err);
+    const { detail, message, rawDetail } = friendlyError(err);
     console.error('createCardPreapproval error:', err?.message || err, detail ? `(${detail})` : '');
     // detail = el código interno de Mercado Pago (cc_rejected_high_risk,
     // etc.) — antes solo quedaba en console.error (Vercel lo retiene poco
     // tiempo). Se devuelve acá para que checkout.js/upgrade.js lo dejen
     // asentado en audit_logs y quede investigable después (bug real:
     // 2026-08-31, un cliente probó 3 tarjetas y no quedó rastro de las 2
-    // que fallaron antes de llegar a crear la preapproval).
-    return { status: 'error', error: message || 'El pago no pudo procesarse. Revisá los datos de tu tarjeta o probá con otra.', detail: detail || null };
+    // que fallaron antes de llegar a crear la preapproval). rawDetail
+    // cubre el caso en que `detail` no matchea ningún código conocido.
+    return { status: 'error', error: message || 'El pago no pudo procesarse. Revisá los datos de tu tarjeta o probá con otra.', detail: detail || null, rawDetail };
   }
 }
