@@ -17,6 +17,7 @@ import diagPreapproval from '../_lib/subscriptionHandlers/diagPreapproval.js';
 import diagPayment from '../_lib/subscriptionHandlers/diagPayment.js';
 import restoreAccess from '../_lib/subscriptionHandlers/restoreAccess.js';
 import grantPlan from '../_lib/subscriptionHandlers/grantPlan.js';
+import diagAccount from '../_lib/subscriptionHandlers/diagAccount.js';
 
 // ALSINA — un solo archivo de ruta dinámica para /api/subscriptions/*.
 //
@@ -52,6 +53,7 @@ const ACTIONS = {
   'diag-payment': diagPayment,
   'restore-access': restoreAccess,
   'grant-plan': grantPlan,
+  'diag-account': diagAccount,
 };
 
 export default async function handler(req, res) {
