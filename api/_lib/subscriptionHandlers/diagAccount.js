@@ -65,6 +65,21 @@ export default async function handler(req, res) {
     subError = r.error?.message || null;
   }
 
+  // profile.id === auth.users.id (AD-04) — útil para saber si esta
+  // persona alguna vez completó un login real (last_sign_in_at) o si
+  // el registro le quedó "confirmado" sin que ella hiciera nada (ver
+  // nota de manual-signup.js).
+  let authUser = null;
+  try {
+    const { data: authData } = await supa.auth.admin.getUserById(profile.id);
+    if (authData?.user) {
+      const u = authData.user;
+      authUser = { id: u.id, email: u.email, created_at: u.created_at, confirmed_at: u.confirmed_at || u.email_confirmed_at, last_sign_in_at: u.last_sign_in_at };
+    }
+  } catch (e) {
+    console.error('diag-account: error en getUserById:', e.message);
+  }
+
   return res.status(200).json({
     found: true,
     profile,
@@ -72,5 +87,6 @@ export default async function handler(req, res) {
     accountError: accountError?.message || null,
     subscription,
     subError,
+    authUser,
   });
 }
