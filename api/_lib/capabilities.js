@@ -7,6 +7,29 @@ import { getSupabaseAdmin } from './supabaseAdmin.js';
 
 const LEVEL_RANK = { basic: 1, full: 2 };
 
+// ── PROMO "mes de acceso libre" (pedido 2026-09-02) ──────────────────
+// Mientras esté en true, cualquier cuenta logueada (Concejal incluido)
+// resuelve TODAS las capacidades en 'full' — Monitor 135 completo,
+// cualquier informe/recurso gateado por resource_features, todo — sin
+// tocar plan_id/status real de nadie (la suscripción de fondo sigue
+// intacta: quien ya paga sigue figurando como paga, y el checkout/
+// upgrade normal sigue funcionando igual). Un visitante SIN cuenta
+// sigue viendo el adelanto normal — el pedido fue "cualquiera con la
+// suscripción gratuita", no cualquiera sin cuenta.
+//
+// A propósito NO tiene fecha de corte automática — "no le pongas un
+// timer definido, yo te voy a decir cuando lo corregimos": para
+// revertir, poner esta constante en `false` y pushear (además de sacar
+// el banner de index.html, ver comentario ahí).
+const UNLOCK_ALL_PROMO_ACTIVE = true;
+
+// Duck-types un Map<string, 'basic'|'full'> — hasCapability() solo llama
+// a .get(featureKey), nunca itera ni necesita conocer las keys de
+// antemano (no hace falta listar cada feature existente a mano).
+class UnlockAllEntitlements {
+  get(_featureKey) { return 'full'; }
+}
+
 /**
  * Devuelve un Map<feature_key, level> con todo lo que la cuenta tiene
  * habilitado hoy (plan + accesos manuales vigentes). accountId puede ser
@@ -43,6 +66,11 @@ export async function getEntitlements(accountId) {
       }
     }
   }
+
+  // Ver nota arriba (UNLOCK_ALL_PROMO_ACTIVE) — después del "ver como" de
+  // super_admin a propósito, para que esa herramienta de QA se pueda
+  // seguir usando para probar cómo se ve cada plan durante la promo.
+  if (UNLOCK_ALL_PROMO_ACTIVE) return new UnlockAllEntitlements();
 
   const nowIso = new Date().toISOString();
   const { data, error } = await supa
