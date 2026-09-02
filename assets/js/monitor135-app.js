@@ -345,11 +345,13 @@
       }),
     ])
       .then(([data, edu]) => {
+        // Pedido 2026-09-02: sacar el cartel "Suscribite gratis para
+        // ver" — quien llega hasta acá y no tiene sesión, se manda
+        // directo a crear la cuenta gratis, sin un cartel de por medio
+        // (menos fricción, y evita el mensaje redundante para cualquiera
+        // que sí esté logueado).
         if (data.access && data.access.level === 'none') {
-          $('#tab-radiografia').innerHTML =
-            '<div style="padding:40px 20px;text-align:center;">' +
-            '<p style="color:var(--concreto,#9e9992);font-size:.95rem;margin-bottom:16px;">Monitor 135 es un beneficio de cuenta — sumate gratis a Concejal para ver los indicadores.</p>' +
-            '<a href="/planes.html" class="btn">Crear mi cuenta gratis →</a></div>';
+          window.location.href = '/planes.html';
           return;
         }
         PATCH = data;
