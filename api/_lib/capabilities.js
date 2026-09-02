@@ -23,11 +23,41 @@ const LEVEL_RANK = { basic: 1, full: 2 };
 // el banner de index.html, ver comentario ahí).
 export const UNLOCK_ALL_PROMO_ACTIVE = true;
 
-// Duck-types un Map<string, 'basic'|'full'> — hasCapability() solo llama
-// a .get(featureKey), nunca itera ni necesita conocer las keys de
-// antemano (no hace falta listar cada feature existente a mano).
-class UnlockAllEntitlements {
-  get(_featureKey) { return 'full'; }
+// BUG REAL en producción (2026-09-02, unas horas después del deploy de
+// la promo): esto era una clase que solo implementaba .get() ("duck
+// types" un Map) — pero api/account.js hace
+// `Array.from(entitlements.entries())` para listar las capacidades de
+// la cuenta, y .entries() no existía acá. Resultado: /api/account
+// tiraba una excepción sin capturar para CUALQUIER cuenta logueada
+// desde que la promo se activó — lo que rompía la pantalla de
+// bienvenida (?welcome=1, que depende de /api/account) justo después
+// de que alguien confirmaba su mail. Esto es, con altísima probabilidad,
+// la causa real de "usuarios con problemas para suscribirse" reportada
+// — las cuentas se creaban bien (el trigger de Postgres no depende de
+// este endpoint), pero la persona se quedaba con la pantalla colgada
+// después de loguearse.
+//
+// Fix: un Map real (no un duck-type) con todas las features conocidas
+// en 'full' — compatible con .entries()/.keys()/.values()/for-of/
+// spread/JSON.stringify, cualquier uso futuro de Map, no solo .get().
+// Cacheado en memoria por poco tiempo (las features casi no cambian)
+// para no consultar la tabla en cada request.
+let unlockAllCache = null; // { map, fetchedAt }
+const UNLOCK_ALL_CACHE_MS = 5 * 60 * 1000;
+
+async function buildUnlockAllEntitlements(supa) {
+  if (unlockAllCache && Date.now() - unlockAllCache.fetchedAt < UNLOCK_ALL_CACHE_MS) {
+    return unlockAllCache.map;
+  }
+  const { data, error } = await supa.from('features').select('key');
+  const map = new Map();
+  if (error) {
+    console.error('getEntitlements: no se pudo listar features para la promo:', error.message);
+  } else {
+    for (const f of data || []) if (f.key) map.set(f.key, 'full');
+  }
+  unlockAllCache = { map, fetchedAt: Date.now() };
+  return map;
 }
 
 /**
@@ -70,7 +100,7 @@ export async function getEntitlements(accountId) {
   // Ver nota arriba (UNLOCK_ALL_PROMO_ACTIVE) — después del "ver como" de
   // super_admin a propósito, para que esa herramienta de QA se pueda
   // seguir usando para probar cómo se ve cada plan durante la promo.
-  if (UNLOCK_ALL_PROMO_ACTIVE) return new UnlockAllEntitlements();
+  if (UNLOCK_ALL_PROMO_ACTIVE) return buildUnlockAllEntitlements(supa);
 
   const nowIso = new Date().toISOString();
   const { data, error } = await supa
