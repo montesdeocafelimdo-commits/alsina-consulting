@@ -466,12 +466,23 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   .capture-dark button{border-radius:4px;}
 }
 
-/* ── promo "mes de acceso libre" (pedido 2026-09-02) — sacar este
-   bloque + el <div id="promoBanner"> de más abajo cuando se revierta
-   UNLOCK_ALL_PROMO_ACTIVE en api/_lib/capabilities.js ── */
-.promo-banner{background:linear-gradient(90deg,var(--turquesa),var(--brand-cyan-light));color:var(--grafito);text-align:center;padding:12px 24px;font-size:.88rem;font-weight:600;line-height:1.45;}
-.promo-banner a{color:var(--grafito);text-decoration:underline;font-weight:800;white-space:nowrap;}
-@media(max-width:640px){.promo-banner{font-size:.78rem;padding:10px 16px;}}
+/* ── promo "mes de acceso libre" (pedido 2026-09-02) — pop-up discreto
+   al entrar, ver #promoModal más abajo. Sacar este bloque + el modal +
+   su script cuando se revierta UNLOCK_ALL_PROMO_ACTIVE en
+   api/_lib/capabilities.js ── */
+.promo-modal-backdrop{position:fixed;inset:0;background:rgba(14,28,32,.55);backdrop-filter:blur(2px);z-index:900;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s ease;}
+.promo-modal-backdrop.show{opacity:1;pointer-events:auto;}
+.promo-modal{background:var(--grafito2);border:1px solid rgba(0,213,216,.25);border-radius:12px;max-width:420px;width:100%;padding:28px 28px 24px;box-shadow:0 20px 60px rgba(0,0,0,.4);position:relative;transform:translateY(8px);transition:transform .25s ease;}
+.promo-modal-backdrop.show .promo-modal{transform:translateY(0);}
+.promo-modal-close{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--concreto);font-size:1.3rem;line-height:1;cursor:pointer;padding:4px;}
+.promo-modal-close:hover{color:var(--crema);}
+.promo-modal-eyebrow{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--turquesa);margin-bottom:10px;}
+.promo-modal h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;color:var(--crema);margin-bottom:10px;line-height:1.15;}
+.promo-modal p{color:var(--concreto);font-size:.88rem;line-height:1.5;margin-bottom:20px;}
+.promo-modal-ctas{display:flex;gap:10px;flex-wrap:wrap;}
+.promo-modal-ctas a{font-size:.8rem;font-weight:700;padding:10px 16px;border-radius:6px;text-decoration:none;}
+.promo-modal-ctas .primary{background:var(--turquesa);color:var(--grafito);}
+.promo-modal-ctas .secondary{color:var(--concreto);border:1px solid rgba(255,255,255,.15);}
 </style>
 <script type="application/ld+json">
 {
@@ -537,9 +548,20 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
   </div>
 </nav>
 
-<!-- Promo "mes de acceso libre" — ver nota en el <style> de arriba para revertir -->
-<div class="promo-banner">
-  <strong>Mes de acceso libre:</strong> todos los datos de Alsina — Monitor 135 completo, informes y productos — están disponibles para explorar sin restricciones, como si tuvieras el plan Gobernador. <a href="/planes.html">Ver los planes →</a>
+<!-- Promo "mes de acceso libre" — pop-up discreto, una vez por visitante
+     (ver script al final del body). Ver nota en el <style> de arriba
+     para revertir junto con UNLOCK_ALL_PROMO_ACTIVE. -->
+<div class="promo-modal-backdrop" id="promoModalBackdrop">
+  <div class="promo-modal">
+    <button type="button" class="promo-modal-close" id="promoModalClose" aria-label="Cerrar">✕</button>
+    <div class="promo-modal-eyebrow">Mes de acceso libre</div>
+    <h3>Ahora podés navegar todo, gratis.</h3>
+    <p>Durante este mes, cualquier cuenta gratuita de Alsina accede a todo — Monitor 135 completo, informes y productos — sin restricciones, como si tuvieras el plan Gobernador.</p>
+    <div class="promo-modal-ctas">
+      <a href="#precios" class="primary" id="promoModalCta">Crear mi cuenta gratis →</a>
+      <a href="#" class="secondary" id="promoModalDismiss">Seguir explorando</a>
+    </div>
+  </div>
 </div>
 
 <main>
@@ -586,7 +608,7 @@ footer{background:var(--grafito);padding:40px 0 28px;border-top:1px solid rgba(0
       <button type="submit" class="btn" id="heroBtn">Crear mi cuenta gratis →</button>
     </form>
     <div class="form-status" id="heroStatus"></div>
-    <p class="micro"><b>Plan Concejal, gratis para siempre.</b> Incluye Señal Alsina (newsletter quincenal), Monitor 135 e informes públicos — sin tarjeta, sin vencimiento.</p>
+    <p class="micro"><b>Suscribite GRATIS a Alsina</b> para poder navegar todo durante un mes.</p>
     <a class="btn-ghost" href="/quienes-somos" style="margin-top:20px;">Quiénes somos →</a>
   </div>
 </section>
@@ -1324,6 +1346,28 @@ async function handleConcejalSignup(e, prefix) {
     btnEl.textContent = originalLabel;
   }
 }
+</script>
+
+<!-- Promo "mes de acceso libre" — pop-up discreto, una vez por visitante
+     (localStorage). Ver nota junto al modal para revertir. -->
+<script>
+(function () {
+  var KEY = 'alsina_promo_modal_seen_2026_09';
+  var backdrop = document.getElementById('promoModalBackdrop');
+  if (!backdrop) return;
+  try { if (localStorage.getItem(KEY)) return; } catch (e) { /* sin localStorage, se muestra igual esta vez */ }
+
+  function dismiss() {
+    backdrop.classList.remove('show');
+    try { localStorage.setItem(KEY, '1'); } catch (e) { /* noop */ }
+  }
+  setTimeout(function () { backdrop.classList.add('show'); }, 900);
+  document.getElementById('promoModalClose').addEventListener('click', dismiss);
+  document.getElementById('promoModalDismiss').addEventListener('click', function (e) { e.preventDefault(); dismiss(); });
+  document.getElementById('promoModalCta').addEventListener('click', dismiss);
+  backdrop.addEventListener('click', function (e) { if (e.target === backdrop) dismiss(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') dismiss(); });
+})();
 </script>
 </body>
 </html>
