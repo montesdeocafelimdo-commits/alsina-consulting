@@ -3,6 +3,7 @@ import fs from 'fs';
 import { getSupabaseAdmin } from '../supabaseAdmin.js';
 import accountHandler from '../../account.js';
 import monitorHandler from '../../monitor135/data.js';
+import { UNLOCK_ALL_PROMO_ACTIVE } from '../capabilities.js';
 import cancelHandler from './cancel.js';
 import revertCancelHandler from './revert-cancel.js';
 import downgradeHandler from './downgrade.js';
@@ -144,15 +145,20 @@ export default async function selftest(req, res) {
     }
 
     // ── Monitor 135: Concejal ve basic, visitante ve none ──
+    // (con la promo "mes de acceso libre" activa — ver capabilities.js —
+    // Concejal pasa a ver 'full' a propósito, no es una regresión).
     {
       const req2 = { method: 'GET', headers: authHeaders, query: { dataset: 'municipios' } };
       const res2 = mockRes();
       await monitorHandler(req2, res2);
-      check('Monitor (concejal) -> access basic', res2._json?.access?.level === 'basic', res2._json?.access);
-      const first = Object.values(res2._json?.municipios || {})[0];
-      const rawDataset = JSON.parse(fs.readFileSync('private/data/monitor135-municipios.json', 'utf8'));
-      const rawFirst = Object.values(rawDataset.municipios || {})[0];
-      check('Monitor: campos redactados para Concejal', first && rawFirst && Object.keys(first).length < Object.keys(rawFirst).length, { redacted: first && Object.keys(first).length, full: rawFirst && Object.keys(rawFirst).length });
+      const expectedLevel = UNLOCK_ALL_PROMO_ACTIVE ? 'full' : 'basic';
+      check(`Monitor (concejal) -> access ${expectedLevel}${UNLOCK_ALL_PROMO_ACTIVE ? ' (promo activa)' : ''}`, res2._json?.access?.level === expectedLevel, res2._json?.access);
+      if (!UNLOCK_ALL_PROMO_ACTIVE) {
+        const first = Object.values(res2._json?.municipios || {})[0];
+        const rawDataset = JSON.parse(fs.readFileSync('private/data/monitor135-municipios.json', 'utf8'));
+        const rawFirst = Object.values(rawDataset.municipios || {})[0];
+        check('Monitor: campos redactados para Concejal', first && rawFirst && Object.keys(first).length < Object.keys(rawFirst).length, { redacted: first && Object.keys(first).length, full: rawFirst && Object.keys(rawFirst).length });
+      }
     }
     {
       const req2 = { method: 'GET', headers: {}, query: { dataset: 'municipios' } };

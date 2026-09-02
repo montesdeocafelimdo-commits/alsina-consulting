@@ -21,7 +21,7 @@ const LEVEL_RANK = { basic: 1, full: 2 };
 // timer definido, yo te voy a decir cuando lo corregimos": para
 // revertir, poner esta constante en `false` y pushear (además de sacar
 // el banner de index.html, ver comentario ahí).
-const UNLOCK_ALL_PROMO_ACTIVE = true;
+export const UNLOCK_ALL_PROMO_ACTIVE = true;
 
 // Duck-types un Map<string, 'basic'|'full'> — hasCapability() solo llama
 // a .get(featureKey), nunca itera ni necesita conocer las keys de
