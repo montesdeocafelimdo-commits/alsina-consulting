@@ -1,7 +1,7 @@
 {
  "meta": {
   "generado_por": "scripts/build-monitor135-dataset.py",
-  "fecha_actualizacion": "2026-08-13",
+  "fecha_actualizacion": "2026-09-02",
   "fuentes": {
    "identidad_gobierno_demografia_presupuesto": "Info_Municipios_nueva/pba_municipios_master_v2.csv",
    "transferencias": "Base_transferencias_135_municipios_PBA_completa.xlsx"
@@ -29,8 +29,8 @@
   "cobertura": {
    "municipios_totales": 135,
    "municipios_con_transferencias_2026": 135,
-   "municipios_con_presupuesto_2026": 62,
-   "municipios_sin_presupuesto_2026": 73,
+   "municipios_con_presupuesto_2026": 130,
+   "municipios_sin_presupuesto_2026": 5,
    "municipios_con_cud_2026": 133,
    "municipios_con_intendente_2025": 133
   }
@@ -71,12 +71,12 @@
     "electores_extranjeros": null
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 39900000000.0,
+    "valor_per_capita": 1121952.59117622,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": null,
@@ -206,7 +206,7 @@
    },
    "presupuesto_2026": {
     "valor": 37542000000.0,
-    "valor_per_capita": 713631.27,
+    "valor_per_capita": 713631.265801129,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -339,12 +339,12 @@
     "electores_extranjeros": 174.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 32951301608.77,
+    "valor_per_capita": 1877353.09986155,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.45859,
@@ -473,12 +473,12 @@
     "electores_extranjeros": 76.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 19122265306.0,
+    "valor_per_capita": 1480739.14402974,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.24058,
@@ -607,12 +607,12 @@
     "electores_extranjeros": 166.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 19400000000.0,
+    "valor_per_capita": 1494376.82945617,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.25526,
@@ -742,7 +742,7 @@
    },
    "presupuesto_2026": {
     "valor": 281014462000.0,
-    "valor_per_capita": 480508.7,
+    "valor_per_capita": 480508.700863674,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -876,7 +876,7 @@
    },
    "presupuesto_2026": {
     "valor": 24994858270.0,
-    "valor_per_capita": 775876.4,
+    "valor_per_capita": 775876.401365823,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -1010,7 +1010,7 @@
    },
    "presupuesto_2026": {
     "valor": 361000000000.0,
-    "valor_per_capita": 982168.61,
+    "valor_per_capita": 982168.606517682,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -1143,8 +1143,8 @@
     "electores_extranjeros": 146.0
    },
    "presupuesto_2026": {
-    "valor": 37919278803.0,
-    "valor_per_capita": 1725407.42,
+    "valor": 37919278802.67,
+    "valor_per_capita": 1725407.41696637,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -1277,8 +1277,8 @@
     "electores_extranjeros": 641.0
    },
    "presupuesto_2026": {
-    "valor": 85881974217.0,
-    "valor_per_capita": 1131440.28,
+    "valor": 85881974216.74,
+    "valor_per_capita": 1131440.27688216,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -1411,11 +1411,11 @@
     "electores_extranjeros": 10545.0
    },
    "presupuesto_2026": {
-    "valor": 344461123616.0,
-    "valor_per_capita": 1023433.55,
+    "valor": 344461123616.4,
+    "valor_per_capita": 1023433.54987729,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
-    "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
+    "url": "https://gobiernoabierto.bahia.gob.ar/wp-content/uploads/2026/04/6-Presupuesto-de-Gastos-por-Objeto-A%C3%B1o-2026.pdf",
     "estado": "disponible"
    },
    "cud_pct_2026": {
@@ -1545,8 +1545,8 @@
     "electores_extranjeros": 812.0
    },
    "presupuesto_2026": {
-    "valor": 60423675037.0,
-    "valor_per_capita": 1233589.38,
+    "valor": 60423675037.39,
+    "valor_per_capita": 1233589.3805355,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -1679,8 +1679,8 @@
     "electores_extranjeros": 706.0
    },
    "presupuesto_2026": {
-    "valor": 35334342103.0,
-    "valor_per_capita": 883314.39,
+    "valor": 35334342102.93,
+    "valor_per_capita": 883314.386853907,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -1814,7 +1814,7 @@
    },
    "presupuesto_2026": {
     "valor": 45237562993.0,
-    "valor_per_capita": 2029318.28,
+    "valor_per_capita": 2029318.27530056,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -1947,8 +1947,8 @@
     "electores_extranjeros": 15152.0
    },
    "presupuesto_2026": {
-    "valor": 147306205436.0,
-    "valor_per_capita": 410653.13,
+    "valor": 147306205436.24,
+    "valor_per_capita": 410653.129631125,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -2082,7 +2082,7 @@
    },
    "presupuesto_2026": {
     "valor": 73070950000.0,
-    "valor_per_capita": 723976.52,
+    "valor_per_capita": 723976.518379075,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -2215,8 +2215,8 @@
     "electores_extranjeros": 402.0
    },
    "presupuesto_2026": {
-    "valor": 57640929444.0,
-    "valor_per_capita": 1533248.11,
+    "valor": 57640929444.28,
+    "valor_per_capita": 1533248.1099186,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -2350,7 +2350,7 @@
    },
    "presupuesto_2026": {
     "valor": 47000000000.0,
-    "valor_per_capita": 1010665.75,
+    "valor_per_capita": 1010665.74918287,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -2483,12 +2483,12 @@
     "electores_extranjeros": 1045.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 23719000000.0,
+    "valor_per_capita": 730984.960552268,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.18008,
@@ -2618,7 +2618,7 @@
    },
    "presupuesto_2026": {
     "valor": 123948228198.0,
-    "valor_per_capita": 1121033.85,
+    "valor_per_capita": 1121033.84582964,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -2751,8 +2751,8 @@
     "electores_extranjeros": 221.0
    },
    "presupuesto_2026": {
-    "valor": 17724215198.0,
-    "valor_per_capita": 1110191.99,
+    "valor": 17724215198.07,
+    "valor_per_capita": 1110191.99486815,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -2885,12 +2885,12 @@
     "electores_extranjeros": 308.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 34000000000.0,
+    "valor_per_capita": 1471861.47186147,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.52467,
@@ -3019,12 +3019,12 @@
     "electores_extranjeros": 75.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 18690891290.22,
+    "valor_per_capita": 1327572.36239932,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.29304,
@@ -3154,7 +3154,7 @@
    },
    "presupuesto_2026": {
     "valor": 13352400000.0,
-    "valor_per_capita": 763037.89,
+    "valor_per_capita": 763037.887879307,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -3287,12 +3287,12 @@
     "electores_extranjeros": 156.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 15140000000.0,
+    "valor_per_capita": 1578069.62685011,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.17619,
@@ -3421,12 +3421,12 @@
     "electores_extranjeros": null
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 44000000000.0,
+    "valor_per_capita": 622488.823496124,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": null,
@@ -3555,12 +3555,12 @@
     "electores_extranjeros": 1287.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 71514365730.0,
+    "valor_per_capita": 1356211.06616601,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.95241,
@@ -3689,8 +3689,8 @@
     "electores_extranjeros": 672.0
    },
    "presupuesto_2026": {
-    "valor": 59405821073.0,
-    "valor_per_capita": 1399364.48,
+    "valor": 59405821072.92,
+    "valor_per_capita": 1399364.48395647,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -3824,7 +3824,7 @@
    },
    "presupuesto_2026": {
     "valor": 64539711923.0,
-    "valor_per_capita": 911075.99,
+    "valor_per_capita": 911075.988128009,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -3957,12 +3957,12 @@
     "electores_extranjeros": 215.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 27769717015.0,
+    "valor_per_capita": 1009661.03166812,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.35068,
@@ -4091,12 +4091,12 @@
     "electores_extranjeros": 167.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 27814143000.0,
+    "valor_per_capita": 1741867.67284569,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.39807,
@@ -4225,8 +4225,8 @@
     "electores_extranjeros": 165.0
    },
    "presupuesto_2026": {
-    "valor": 29808657087.0,
-    "valor_per_capita": 1220665.73,
+    "valor": 29808657086.83,
+    "valor_per_capita": 1220665.72837142,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -4359,8 +4359,8 @@
     "electores_extranjeros": 651.0
    },
    "presupuesto_2026": {
-    "valor": 44468531920.0,
-    "valor_per_capita": 658763.79,
+    "valor": 44468531919.76,
+    "valor_per_capita": 658763.787087389,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -4493,8 +4493,8 @@
     "electores_extranjeros": 399.0
    },
    "presupuesto_2026": {
-    "valor": 56260015943.0,
-    "valor_per_capita": 1336025.08,
+    "valor": 56260015943.28,
+    "valor_per_capita": 1336025.07583187,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -4627,12 +4627,12 @@
     "electores_extranjeros": 158.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 20507500000.0,
+    "valor_per_capita": 1113207.03506677,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.4387,
@@ -4761,12 +4761,12 @@
     "electores_extranjeros": 328.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 28540000000.0,
+    "valor_per_capita": 890984.015984016,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.49045,
@@ -4895,12 +4895,12 @@
     "electores_extranjeros": 3447.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 65000000000.0,
+    "valor_per_capita": 1015672.60965358,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.28041,
@@ -5030,7 +5030,7 @@
    },
    "presupuesto_2026": {
     "valor": 299462800000.0,
-    "valor_per_capita": 1168553.23,
+    "valor_per_capita": 1168553.23333385,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -5164,7 +5164,7 @@
    },
    "presupuesto_2026": {
     "valor": 151756000000.0,
-    "valor_per_capita": 448345.54,
+    "valor_per_capita": 448345.544788466,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -5297,12 +5297,12 @@
     "electores_extranjeros": 2441.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 49890179000.0,
+    "valor_per_capita": 1242316.26783535,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.45705,
@@ -5431,12 +5431,12 @@
     "electores_extranjeros": 15408.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 109396607745.62,
+    "valor_per_capita": 542881.568478247,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.62144,
@@ -5565,8 +5565,8 @@
     "electores_extranjeros": 28558.0
    },
    "presupuesto_2026": {
-    "valor": 159582501241.0,
-    "valor_per_capita": 321458.29,
+    "valor": 159582501241.32,
+    "valor_per_capita": 321458.285894209,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -5699,12 +5699,12 @@
     "electores_extranjeros": 102.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 14592503130.17,
+    "valor_per_capita": 1352409.92865338,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.18284,
@@ -5833,12 +5833,12 @@
     "electores_extranjeros": 941.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 38216957626.95,
+    "valor_per_capita": 839453.446974256,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
-    "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "url": "https://mga.gov.ar/wp-content/uploads/Presupuesto-2026-Gasto-por-objeto.pdf",
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.37807,
@@ -5967,12 +5967,12 @@
     "electores_extranjeros": 87.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 16835787592.0,
+    "valor_per_capita": 1291979.70930857,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.22943,
@@ -6101,12 +6101,12 @@
     "electores_extranjeros": 175.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 18800000000.0,
+    "valor_per_capita": 1149847.09480122,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.22683,
@@ -6235,12 +6235,12 @@
     "electores_extranjeros": 329.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 23485800000.0,
+    "valor_per_capita": 1129613.77519119,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.26931,
@@ -6369,12 +6369,12 @@
     "electores_extranjeros": 64.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 9682701416.0,
+    "valor_per_capita": 3050630.56584751,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.09319,
@@ -6503,12 +6503,12 @@
     "electores_extranjeros": 353.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 18500000000.0,
+    "valor_per_capita": 1026523.13838642,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.16448,
@@ -6637,12 +6637,12 @@
     "electores_extranjeros": 310.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 11846339763.0,
+    "valor_per_capita": 2432513.29835729,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.12741,
@@ -6771,12 +6771,12 @@
     "electores_extranjeros": 594.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 30975757623.0,
+    "valor_per_capita": 1369154.77470827,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.29744,
@@ -6905,12 +6905,12 @@
     "electores_extranjeros": 243.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 17792227114.79,
+    "valor_per_capita": 1252356.38169846,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.30088,
@@ -7039,12 +7039,12 @@
     "electores_extranjeros": 68.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 21890000000.0,
+    "valor_per_capita": 1691523.06622363,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.29531,
@@ -7174,7 +7174,7 @@
    },
    "presupuesto_2026": {
     "valor": 521996792000.0,
-    "valor_per_capita": 782507.69,
+    "valor_per_capita": 782507.685711802,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -7307,12 +7307,12 @@
     "electores_extranjeros": 12994.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 103850000000.0,
+    "valor_per_capita": 727704.629701,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.53529,
@@ -7442,10 +7442,10 @@
    },
    "presupuesto_2026": {
     "valor": 333000000000.0,
-    "valor_per_capita": 739055.65,
+    "valor_per_capita": 739055.651112467,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
-    "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
+    "url": "https://im.sanmartin.gov.ar/uploads/1785210659-Estado%20de%20Ejecuci%C3%B3n%20de%20Gastos%20por%20Car%C3%A1cter%20Econ%C3%B3mico%20Junio%202026.pdf",
     "estado": "disponible"
    },
    "cud_pct_2026": {
@@ -7575,12 +7575,12 @@
     "electores_extranjeros": 88.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 29207020844.0,
+    "valor_per_capita": 1289550.12777606,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.39628,
@@ -7709,12 +7709,12 @@
     "electores_extranjeros": 295.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 46000000000.0,
+    "valor_per_capita": 1304927.51978667,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.66304,
@@ -7843,12 +7843,12 @@
     "electores_extranjeros": 81.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 26917794228.81,
+    "valor_per_capita": 2316904.3061465,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.35992,
@@ -7977,12 +7977,12 @@
     "electores_extranjeros": 123.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 27149821000.0,
+    "valor_per_capita": 2300637.31887128,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.34023,
@@ -8111,12 +8111,12 @@
     "electores_extranjeros": 91.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 18021278133.26,
+    "valor_per_capita": 1690392.84619266,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.18059,
@@ -8379,12 +8379,12 @@
     "electores_extranjeros": 6652.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 87409545935.0,
+    "valor_per_capita": 484983.498685028,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.52523,
@@ -8514,7 +8514,7 @@
    },
    "presupuesto_2026": {
     "valor": 170000000000.0,
-    "valor_per_capita": 519890.39,
+    "valor_per_capita": 519890.394872046,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -8648,10 +8648,10 @@
    },
    "presupuesto_2026": {
     "valor": 60160520000.0,
-    "valor_per_capita": 579653.71,
+    "valor_per_capita": 579653.713856263,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
-    "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
+    "url": "https://www.junin.gob.ar/sites/default/files/uploads/areas/finanzas/presupuesto_de_gasto_por_objeto_2026.pdf",
     "estado": "disponible"
    },
    "cud_pct_2026": {
@@ -8781,12 +8781,12 @@
     "electores_extranjeros": 5927.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 97000000000.0,
+    "valor_per_capita": 963362.432837748,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 1.52219,
@@ -8916,7 +8916,7 @@
    },
    "presupuesto_2026": {
     "valor": 460165913347.0,
-    "valor_per_capita": 249920.79,
+    "valor_per_capita": 249920.794628314,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -9050,7 +9050,7 @@
    },
    "presupuesto_2026": {
     "valor": 462290471915.0,
-    "valor_per_capita": 601572.57,
+    "valor_per_capita": 601572.568760004,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -9184,7 +9184,7 @@
    },
    "presupuesto_2026": {
     "valor": 259797588554.0,
-    "valor_per_capita": 563226.05,
+    "valor_per_capita": 563226.045986381,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -9317,12 +9317,12 @@
     "electores_extranjeros": 56.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 24219125155.0,
+    "valor_per_capita": 2079608.89189421,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.28502,
@@ -9451,12 +9451,12 @@
     "electores_extranjeros": 252.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 26000000000.0,
+    "valor_per_capita": 954513.748669188,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.27626,
@@ -9585,12 +9585,12 @@
     "electores_extranjeros": 119.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 19742812000.0,
+    "valor_per_capita": 1143450.24904436,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.29463,
@@ -9719,12 +9719,12 @@
     "electores_extranjeros": 106.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 10657821953.31,
+    "valor_per_capita": 1713200.76407491,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.11622,
@@ -9853,12 +9853,12 @@
     "electores_extranjeros": 276.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 54903901500.0,
+    "valor_per_capita": 1206520.0523008,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.60342,
@@ -9987,12 +9987,12 @@
     "electores_extranjeros": 92.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 32800000000.0,
+    "valor_per_capita": 1797949.89859124,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
-    "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "url": "https://loberia.gov.ar/sites/default/files/gastos_por_caracter_economico.pdf",
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.3312,
@@ -10121,12 +10121,12 @@
     "electores_extranjeros": 821.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 19022146268.0,
+    "valor_per_capita": 455511.165421456,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.18414,
@@ -10256,7 +10256,7 @@
    },
    "presupuesto_2026": {
     "valor": 480834988472.0,
-    "valor_per_capita": 696536.24,
+    "valor_per_capita": 696536.242414058,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -10390,10 +10390,10 @@
    },
    "presupuesto_2026": {
     "valor": 106500000000.0,
-    "valor_per_capita": 959390.31,
+    "valor_per_capita": 959390.314211588,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
-    "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
+    "url": "https://www.lujan.gob.ar/ (PDF 'presupuesto2026.pdf', 294 hojas, 27/02/2026)",
     "estado": "disponible"
    },
    "cud_pct_2026": {
@@ -10523,12 +10523,12 @@
     "electores_extranjeros": 379.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 23400000000.0,
+    "valor_per_capita": 872158.032053671,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.32864,
@@ -10657,12 +10657,12 @@
     "electores_extranjeros": 100.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 19007663265.33,
+    "valor_per_capita": 1678677.31743619,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.24649,
@@ -10792,7 +10792,7 @@
    },
    "presupuesto_2026": {
     "valor": 422127315214.0,
-    "valor_per_capita": 1203759.95,
+    "valor_per_capita": 1203759.94574448,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -10925,12 +10925,12 @@
     "electores_extranjeros": 905.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 51456967481.8,
+    "valor_per_capita": 1554121.63943824,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.51108,
@@ -11060,7 +11060,7 @@
    },
    "presupuesto_2026": {
     "valor": 60000000000.0,
-    "valor_per_capita": 895375.39,
+    "valor_per_capita": 895375.386130635,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -11194,7 +11194,7 @@
    },
    "presupuesto_2026": {
     "valor": 49000000000.0,
-    "valor_per_capita": 671416.83,
+    "valor_per_capita": 671416.826527816,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -11327,12 +11327,12 @@
     "electores_extranjeros": 30186.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 193000000000.0,
+    "valor_per_capita": 331338.435601886,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 2.96058,
@@ -11461,12 +11461,12 @@
     "electores_extranjeros": 799.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 15192000000.0,
+    "valor_per_capita": 610905.581470163,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.1393,
@@ -11595,12 +11595,12 @@
     "electores_extranjeros": 470.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 28667169000.0,
+    "valor_per_capita": 3386552.74660366,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.18718,
@@ -11730,7 +11730,7 @@
    },
    "presupuesto_2026": {
     "valor": 481595000000.0,
-    "valor_per_capita": 835186.05,
+    "valor_per_capita": 835186.045866341,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -11864,7 +11864,7 @@
    },
    "presupuesto_2026": {
     "valor": 272000000000.0,
-    "valor_per_capita": 821298.19,
+    "valor_per_capita": 821298.194653711,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -12131,12 +12131,12 @@
     "electores_extranjeros": 1661.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 103113179133.03,
+    "valor_per_capita": 1009824.49449643,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
-    "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "url": "https://necochea.gov.ar/descargas/transparencia/presupuesto/2026/Presupuesto%20de%20Gastos%20por%20Caracter%20Economico.pdf",
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.71164,
@@ -12266,7 +12266,7 @@
    },
    "presupuesto_2026": {
     "valor": 138287923000.0,
-    "valor_per_capita": 1099696.41,
+    "valor_per_capita": 1099696.40798085,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -12399,12 +12399,12 @@
     "electores_extranjeros": 1310.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 45700000000.0,
+    "valor_per_capita": 1213940.39207353,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.72998,
@@ -12533,12 +12533,12 @@
     "electores_extranjeros": 310.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 67670000000.0,
+    "valor_per_capita": 1511064.46642699,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.74124,
@@ -12667,12 +12667,12 @@
     "electores_extranjeros": 56.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 14593169544.0,
+    "valor_per_capita": 2043002.87610248,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.15865,
@@ -12802,7 +12802,7 @@
    },
    "presupuesto_2026": {
     "valor": 74718307000.0,
-    "valor_per_capita": 647809.15,
+    "valor_per_capita": 647809.146870123,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -12935,12 +12935,12 @@
     "electores_extranjeros": 64.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 20584000000.0,
+    "valor_per_capita": 4434295.56225765,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.15236,
@@ -13070,7 +13070,7 @@
    },
    "presupuesto_2026": {
     "valor": 488609779242.0,
-    "valor_per_capita": 1237757.64,
+    "valor_per_capita": 1237757.63954767,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -13204,7 +13204,7 @@
    },
    "presupuesto_2026": {
     "valor": 75951000000.0,
-    "valor_per_capita": 1925295.95,
+    "valor_per_capita": 1925295.95173515,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -13605,12 +13605,12 @@
     "electores_extranjeros": 146.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 53727430834.0,
+    "valor_per_capita": 3234059.52169987,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.58771,
@@ -13740,7 +13740,7 @@
    },
    "presupuesto_2026": {
     "valor": 504890000000.0,
-    "valor_per_capita": 797122.16,
+    "valor_per_capita": 797122.156772041,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -13874,7 +13874,7 @@
    },
    "presupuesto_2026": {
     "valor": 47603204249.0,
-    "valor_per_capita": 1198167.74,
+    "valor_per_capita": 1198167.7384596,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -14007,12 +14007,12 @@
     "electores_extranjeros": 95.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 29687000000.0,
+    "valor_per_capita": 1784610.76044485,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
-    "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "url": "http://www.rauch.mun.gba.gov.ar/web/wp-content/uploads/2026/04/presupuesto-de-gastos-2026.pdf",
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.27562,
@@ -14141,12 +14141,12 @@
     "electores_extranjeros": 152.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 27663000000.0,
+    "valor_per_capita": 1393672.22530102,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.39294,
@@ -14275,12 +14275,12 @@
     "electores_extranjeros": 187.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 32710598000.0,
+    "valor_per_capita": 1276411.51910095,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.31636,
@@ -14409,12 +14409,12 @@
     "electores_extranjeros": 183.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 17050281000.0,
+    "valor_per_capita": 1219881.30500107,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.19553,
@@ -14543,12 +14543,12 @@
     "electores_extranjeros": 330.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 38825459824.0,
+    "valor_per_capita": 1722743.03696144,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.46034,
@@ -14677,8 +14677,8 @@
     "electores_extranjeros": 588.0
    },
    "presupuesto_2026": {
-    "valor": 29814329611.0,
-    "valor_per_capita": 836165.85,
+    "valor": 29814329611.15,
+    "valor_per_capita": 836165.851782309,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -14811,12 +14811,12 @@
     "electores_extranjeros": 89.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 12347993783.16,
+    "valor_per_capita": 1309854.01327676,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.16346,
@@ -14945,12 +14945,12 @@
     "electores_extranjeros": 439.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 37824112905.0,
+    "valor_per_capita": 959394.112999366,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.27067,
@@ -15080,7 +15080,7 @@
    },
    "presupuesto_2026": {
     "valor": 18600000000.0,
-    "valor_per_capita": 701622.03,
+    "valor_per_capita": 701622.029422859,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -15213,12 +15213,12 @@
     "electores_extranjeros": 553.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 30703184044.69,
+    "valor_per_capita": 1141509.61239878,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
-    "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "url": "https://areco.ar/wp-content/uploads/2023/01/PRESUPUESTO2026.pdf",
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.21658,
@@ -15347,12 +15347,12 @@
     "electores_extranjeros": 60.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 20574490000.0,
+    "valor_per_capita": 2287579.49744274,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.27905,
@@ -15481,8 +15481,8 @@
     "electores_extranjeros": 11101.0
    },
    "presupuesto_2026": {
-    "valor": 244138924675.0,
-    "valor_per_capita": 1422588.36,
+    "valor": 244138924674.82,
+    "valor_per_capita": 1422588.36399182,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -15616,7 +15616,7 @@
    },
    "presupuesto_2026": {
     "valor": 333052543695.0,
-    "valor_per_capita": 1120325.29,
+    "valor_per_capita": 1120325.29280279,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -15749,11 +15749,11 @@
     "electores_extranjeros": 17550.0
    },
    "presupuesto_2026": {
-    "valor": 221558017532.0,
-    "valor_per_capita": 673766.53,
+    "valor": 221558017532.24,
+    "valor_per_capita": 673766.531945322,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
-    "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
+    "url": "https://www.msm.gov.ar/wp-content/uploads/2026/04/1.2-Presupuesto-de-Gastos-Aprobado-2026.pdf",
     "estado": "disponible"
    },
    "cud_pct_2026": {
@@ -15883,8 +15883,8 @@
     "electores_extranjeros": 1912.0
    },
    "presupuesto_2026": {
-    "valor": 132625134534.0,
-    "valor_per_capita": 790263.22,
+    "valor": 132625134533.92,
+    "valor_per_capita": 790263.219407951,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -16018,7 +16018,7 @@
    },
    "presupuesto_2026": {
     "valor": 57000000000.0,
-    "valor_per_capita": 830746.36,
+    "valor_per_capita": 830746.360019238,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -16285,12 +16285,12 @@
     "electores_extranjeros": 140.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 13248000000.0,
+    "valor_per_capita": 1124045.47768539,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.16673,
@@ -16420,7 +16420,7 @@
    },
    "presupuesto_2026": {
     "valor": 152650000000.0,
-    "valor_per_capita": 1048600.38,
+    "valor_per_capita": 1048600.37781212,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -16553,12 +16553,12 @@
     "electores_extranjeros": 95.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 21819121198.0,
+    "valor_per_capita": 2023474.09793193,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.28079,
@@ -16688,7 +16688,7 @@
    },
    "presupuesto_2026": {
     "valor": 578906001955.0,
-    "valor_per_capita": 1295239.51,
+    "valor_per_capita": 1295239.50597272,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -16821,12 +16821,12 @@
     "electores_extranjeros": 39.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 4520392258.0,
+    "valor_per_capita": 1778281.76947286,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.06327,
@@ -16956,7 +16956,7 @@
    },
    "presupuesto_2026": {
     "valor": 31515252000.0,
-    "valor_per_capita": 2127971.1,
+    "valor_per_capita": 2127971.1006077,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -17090,10 +17090,10 @@
    },
    "presupuesto_2026": {
     "valor": 86704835294.0,
-    "valor_per_capita": 1758397.76,
+    "valor_per_capita": 1758397.76296416,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
-    "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
+    "url": "https://www.trenquelauquen.gov.ar/wordpress/wp-content/uploads/Presupuesto-de-Gastos-por-caracter-economico.pdf",
     "estado": "disponible"
    },
    "cud_pct_2026": {
@@ -17223,11 +17223,11 @@
     "electores_extranjeros": 845.0
    },
    "presupuesto_2026": {
-    "valor": 79890154575.0,
-    "valor_per_capita": 1279757.71,
+    "valor": 79890154574.98,
+    "valor_per_capita": 1279757.70632397,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
-    "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
+    "url": "https://www.tresarroyos.gov.ar/storage/archivos/reportes_eco_fin/2026-palacio-0-698495ba24334.pdf",
     "estado": "disponible"
    },
    "cud_pct_2026": {
@@ -17357,12 +17357,12 @@
     "electores_extranjeros": 72.0
    },
    "presupuesto_2026": {
-    "valor": null,
-    "valor_per_capita": null,
+    "valor": 14534144063.58,
+    "valor_per_capita": 1586004.37184417,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
-    "estado": "no_publicado"
+    "estado": "disponible"
    },
    "cud_pct_2026": {
     "valor": 0.15733,
@@ -17492,7 +17492,7 @@
    },
    "presupuesto_2026": {
     "valor": 189429000000.0,
-    "valor_per_capita": 520157.84,
+    "valor_per_capita": 520157.835771715,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -17626,7 +17626,7 @@
    },
    "presupuesto_2026": {
     "valor": 362143765971.0,
-    "valor_per_capita": 1282919.38,
+    "valor_per_capita": 1282919.38164807,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -17759,8 +17759,8 @@
     "electores_extranjeros": 3102.0
    },
    "presupuesto_2026": {
-    "valor": 61609288752.0,
-    "valor_per_capita": 1644536.98,
+    "valor": 61609288751.65,
+    "valor_per_capita": 1644536.97652751,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -17893,8 +17893,8 @@
     "electores_extranjeros": 3770.0
    },
    "presupuesto_2026": {
-    "valor": 34236305303.0,
-    "valor_per_capita": 1046437.79,
+    "valor": 34236305302.85,
+    "valor_per_capita": 1046437.79389461,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",
@@ -18028,7 +18028,7 @@
    },
    "presupuesto_2026": {
     "valor": 101500000000.0,
-    "valor_per_capita": 767654.15,
+    "valor_per_capita": 767654.154786305,
     "periodo": 2026,
     "fuente": "Ministerio de Economía PBA — Dirección de Finanzas Municipales",
     "url": "https://www.gba.gob.ar/economia/direccion_de_finanzas_municipales",

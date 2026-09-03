@@ -267,7 +267,7 @@ n_intendente = sum(1 for m in municipios.values() if m['gobierno']['intendente_a
 out = {
     'meta': {
         'generado_por': 'scripts/build-monitor135-dataset.py',
-        'fecha_actualizacion': '2026-08-13',
+        'fecha_actualizacion': '2026-09-02',
         'fuentes': {
             'identidad_gobierno_demografia_presupuesto': MASTER_CSV,
             'transferencias': TRANS_XLSX,
