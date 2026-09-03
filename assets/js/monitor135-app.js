@@ -46,6 +46,22 @@
     const d = window.electoralData && window.electoralData[m] && window.electoralData[m]['2023'];
     return (d && d.fuerzas && d.fuerzas[0] && d.fuerzas[0].nombre) || null;
   }
+  // Fuerza política ganadora en la elección LEGISLATIVA de 2025 (pedido
+  // 2026-09-03: variable de mapa que se pueda alternar con la de 2023,
+  // "LLA es violeta, Hechos/Somos es rosa"). Mismo mecanismo que
+  // fuerza2023 — window.electoralData ya normaliza cada partido de
+  // bsas_electoral_maestro.csv con _normParty/PARTY_NORM (municipios-
+  // data-hub.html), que agrupa "ALIANZA LA LIBERTAD AVANZA" -> "La
+  // Libertad Avanza" (#7c3aed, violeta) y "ALIANZA SOMOS BUENOS AIRES"/
+  // "ESP. ABIERTO PARA EL DES. Y LA INT. SOCIAL" (Hechos) -> "Somos /
+  // Hechos" (#ec4899, rosa) — no hace falta ningún mapeo de color nuevo,
+  // ver FUERZA_COLORS más abajo. Deliberadamente NO usa GEO_DATA[m].
+  // fuerza_2025 (el campo estático que tuvo 32 errores reales, corregido
+  // el 2026-09-02) — este lee directo de la misma base ya auditada hoy.
+  function fuerza2025(m) {
+    const d = window.electoralData && window.electoralData[m] && window.electoralData[m]['2025'];
+    return (d && d.fuerzas && d.fuerzas[0] && d.fuerzas[0].nombre) || null;
+  }
   function fmtMoney(v) {
     if (v === null || v === undefined) return '—';
     const a = Math.abs(v);
@@ -80,7 +96,7 @@
   const qualColorCache = {};
   function qualColor(catId, value) {
     if (!value) return '#c9d3d8';
-    if (catId === 'fuerza' && FUERZA_COLORS[value]) return FUERZA_COLORS[value];
+    if ((catId === 'fuerza' || catId === 'fuerza2025') && FUERZA_COLORS[value]) return FUERZA_COLORS[value];
     const key = catId + '::' + value;
     if (!qualColorCache[key]) {
       const used = Object.keys(qualColorCache).filter(k => k.startsWith(catId + '::')).length;
@@ -181,7 +197,8 @@
       { id: 'salud', label: 'Salud', vars: [], comingSoon: true },
       {
         id: 'gobierno', label: 'Gobierno y Elecciones', vars: [
-          { id: 'fuerza', label: 'Fuerza política de gobierno', unidad: '', tipo: 'qual', periodo: '2023-2027', fuente: 'Elecciones municipales 2023 — clasificación Alsina', descripcion: 'Fuerza política bajo la cual fue electo el intendente en 2023, agrupada por espacio político. *Clasificación de Alsina: agrupa frentes y alianzas locales en espacios políticos — no es una cita textual del nombre de lista con el que compitió cada intendente.', get: m => fuerza2023(m) },
+          { id: 'fuerza2025', label: 'Fuerza política (2025, legislativas)', unidad: '', tipo: 'qual', periodo: '2025', fuente: 'Elecciones legislativas 2025 — clasificación Alsina', descripcion: 'Fuerza política ganadora en la elección legislativa de septiembre 2025, agrupada por espacio político. *Clasificación de Alsina: agrupa frentes y alianzas locales en espacios políticos — no es una cita textual del nombre de lista.', get: m => fuerza2025(m) },
+          { id: 'fuerza', label: 'Fuerza política (2023, intendente)', unidad: '', tipo: 'qual', periodo: '2023-2027', fuente: 'Elecciones municipales 2023 — clasificación Alsina', descripcion: 'Fuerza política bajo la cual fue electo el intendente en 2023, agrupada por espacio político. *Clasificación de Alsina: agrupa frentes y alianzas locales en espacios políticos — no es una cita textual del nombre de lista con el que compitió cada intendente.', get: m => fuerza2023(m) },
           { id: 'electores', label: 'Electores', unidad: 'personas', tipo: 'seq', periodo: '2025', fuente: 'Junta Electoral PBA', descripcion: 'Padrón electoral (nacionales + extranjeros).', get: m => { const g = GEO_DATA[m]; return g && g.elec_nac != null ? g.elec_nac + (g.elec_ext || 0) : null; } },
         ]
       },
