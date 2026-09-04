@@ -29,7 +29,13 @@ export default async function handler(req, res) {
   const domain = (domains?.data || []).find(d => d.name === 'alsinaar.com');
   if (!domain) return res.status(404).json({ error: 'dominio_no_encontrado', domains: domains?.data || [] });
 
-  const { enable } = req.body || {};
+  const { enable, trackingSubdomain, verify } = req.body || {};
+
+  if (verify) {
+    const { data: verified, error: verifyError } = await resend.domains.verify(domain.id);
+    return res.status(200).json({ status: verifyError ? 'error' : 'verify_requested', verified, verifyError: verifyError?.message || null });
+  }
+
   if (!enable) {
     // Se devuelve el objeto crudo tal cual lo manda Resend — el .d.ts
     // del SDK no declara los campos de tracking en la respuesta (solo
@@ -41,7 +47,30 @@ export default async function handler(req, res) {
     return res.status(200).json({ status: 'ok', domainRawFromList: domain, domainRawFromGet: viaGet, getError: getError?.message || null });
   }
 
-  const { data: updated, error: updateError } = await resend.domains.update({ id: domain.id, openTracking: true, clickTracking: true });
-  if (updateError) return res.status(502).json({ error: updateError.message });
-  return res.status(200).json({ status: 'enabled', updatedResponseRaw: updated });
+  // BUG REAL encontrado (2026-09-04): resend.domains.update() del SDK
+  // (v4.8.0) solo manda click_tracking/open_tracking/tls al PATCH real —
+  // nunca tracking_subdomain, aunque la API sí lo acepta y lo necesita
+  // (activar tracking exige un CNAME de tracking, que solo se genera si
+  // se manda tracking_subdomain). El .d.ts tampoco lo declara. Por eso
+  // acá se llama al REST de Resend directo, sin pasar por el SDK, para
+  // este único caso puntual.
+  const r = await fetch(`https://api.resend.com/domains/${domain.id}`, {
+    method: 'PATCH',
+    headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ open_tracking: true, click_tracking: true, tracking_subdomain: trackingSubdomain || 'links' }),
+  });
+  const body = await r.json();
+  if (!r.ok) return res.status(502).json({ error: body });
+
+  // El registro DNS "Tracking" que hay que agregar (CNAME) recién existe
+  // después de este PATCH — se devuelve el dominio actualizado (get) para
+  // verlo, junto con el paso que falta: agregar ese CNAME en el proveedor
+  // de DNS real (fuera de Resend) y después llamar acá con {"verify":true}.
+  const { data: afterUpdate } = await resend.domains.get(domain.id);
+  return res.status(200).json({
+    status: 'enabled_pending_dns',
+    patchResponse: body,
+    domainAfterUpdate: afterUpdate,
+    next: 'Agregar el registro CNAME "Tracking" que aparece en domainAfterUpdate.records en el proveedor de DNS real de alsinaar.com. Después, llamar de nuevo con {"verify":true} para que Resend lo confirme — el tracking recién queda activo cuando ese CNAME está verificado.',
+  });
 }
