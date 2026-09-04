@@ -24,7 +24,7 @@
       "includeFiles": "private/**"
     },
     "api/subscriptions/[action].js": {
-      "includeFiles": "private/**"
+      "includeFiles": "{private/**,newsletter-*.html}"
     }
   },
   "crons": [
