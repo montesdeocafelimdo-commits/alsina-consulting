@@ -26,6 +26,7 @@ import diagMe from '../_lib/subscriptionHandlers/diagMe.js';
 import diagContacts from '../_lib/subscriptionHandlers/diagContacts.js';
 import unsubscribe from '../_lib/subscriptionHandlers/unsubscribe.js';
 import sendNewsletter from '../_lib/subscriptionHandlers/sendNewsletter.js';
+import resendDomain from '../_lib/subscriptionHandlers/resendDomain.js';
 
 // ALSINA — un solo archivo de ruta dinámica para /api/subscriptions/*.
 //
@@ -70,6 +71,7 @@ const ACTIONS = {
   'diag-contacts': diagContacts,
   unsubscribe,
   'send-newsletter': sendNewsletter,
+  'resend-domain': resendDomain,
 };
 
 export default async function handler(req, res) {
