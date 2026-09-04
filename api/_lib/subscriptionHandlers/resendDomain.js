@@ -35,7 +35,10 @@ export default async function handler(req, res) {
     // del SDK no declara los campos de tracking en la respuesta (solo
     // como input de .update()), así que no se adivina el nombre exacto
     // acá (¿open_tracking? ¿openTracking?). Mejor verlo tal cual es.
-    return res.status(200).json({ status: 'ok', domainRaw: domain });
+    // Se compara list() contra get(id) — encontramos que list() puede
+    // quedar desactualizado después de un update (2026-09-04).
+    const { data: viaGet, error: getError } = await resend.domains.get(domain.id);
+    return res.status(200).json({ status: 'ok', domainRawFromList: domain, domainRawFromGet: viaGet, getError: getError?.message || null });
   }
 
   const { data: updated, error: updateError } = await resend.domains.update({ id: domain.id, openTracking: true, clickTracking: true });
