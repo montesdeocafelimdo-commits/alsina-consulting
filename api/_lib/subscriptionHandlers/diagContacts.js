@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 
   const { data: sample, error: sampleError } = await supa.from('contacts').select('*').limit(3);
 
-  const { count: total } = await supa.from('contacts').select('id', { count: 'exact', head: true });
+  const { count: total, error: totalError } = await supa.from('contacts').select('id', { count: 'exact', head: true });
   const { count: confirmed } = await supa.from('contacts').select('id', { count: 'exact', head: true }).eq('confirmed', true);
   const { count: confirmedNewsletter } = await supa.from('contacts').select('id', { count: 'exact', head: true }).eq('confirmed', true).eq('source', 'newsletter');
 
@@ -27,13 +27,22 @@ export default async function handler(req, res) {
   const sourceCounts = {};
   for (const r of bySource || []) sourceCounts[r.source] = (sourceCounts[r.source] || 0) + 1;
 
+  // Fuente alternativa: cuentas reales (Concejal+) con opt-in editorial —
+  // el "contacts" de arriba es un flujo de doble opt-in totalmente
+  // separado (api/subscribe.js) que puede no ser el mismo universo.
+  const { count: editorialOptInCount, error: epError } = await supa
+    .from('email_preferences').select('account_id', { count: 'exact', head: true }).eq('editorial_opt_in', true);
+  const { count: profilesTotal } = await supa.from('profiles').select('id', { count: 'exact', head: true });
+
   return res.status(200).json({
-    sampleRow: sample?.[0] || null,
-    sampleError: sampleError?.message || null,
-    columns: sample?.[0] ? Object.keys(sample[0]) : [],
-    total,
-    confirmed,
-    confirmedNewsletterSource: confirmedNewsletter,
-    confirmedBySource: sourceCounts,
+    contacts: {
+      sampleRow: sample?.[0] || null,
+      sampleError: sampleError?.message || null,
+      totalError: totalError?.message || null,
+      columns: sample?.[0] ? Object.keys(sample[0]) : [],
+      total, confirmed, confirmedNewsletterSource: confirmedNewsletter, confirmedBySource: sourceCounts,
+    },
+    email_preferences: { editorialOptInCount, error: epError?.message || null },
+    profiles: { total: profilesTotal },
   });
 }
