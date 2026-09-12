@@ -50,6 +50,9 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 
 }
 .lock-form input:focus{border-color:var(--turquesa);}
 .lock-note{font-size:.7rem;color:rgba(158,153,146,.4);margin-top:14px;}
+.spinner{width:26px;height:26px;border-radius:50%;border:2.5px solid rgba(0,213,216,.25);border-top-color:var(--turquesa);
+  margin:0 auto 16px;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
 footer{padding:20px 24px;border-top:1px solid rgba(0,213,216,.08);text-align:center;font-size:.72rem;color:rgba(183,178,170,.5);}
 </style>
 </head>
@@ -67,36 +70,26 @@ footer{padding:20px 24px;border-top:1px solid rgba(0,213,216,.08);text-align:cen
 </nav>
 
 <main>
-  <div class="lock-card">
-    <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+  <div class="lock-card" id="loadCard">
+    <div class="spinner" aria-hidden="true"></div>
     <div class="meta">2ª Sección · Informe territorial</div>
     <h1>Exaltación de la Cruz</h1>
-    <p>Este informe fue encargado por un cliente y es de acceso restringido. Ingresá la clave que te compartimos por mail.</p>
-    <form class="lock-form" id="lockForm">
-      <input type="password" id="lockKey" placeholder="Clave de acceso" required autofocus>
-      <button type="submit" class="btn" id="lockBtn">Acceder al informe →</button>
-    </form>
-    <div class="lock-status" id="lockStatus" style="font-size:.78rem;color:var(--rojo);margin-top:10px;min-height:16px;"></div>
-    <p class="lock-note">¿No tenés tu clave? Escribinos a <a href="mailto:newsletter@alsinaar.com" style="color:var(--turquesa);">newsletter@alsinaar.com</a></p>
+    <p id="loadMsg">Cargando el informe…</p>
   </div>
 </main>
 
 <footer>© 2026 ALSINA · alsinaar.com</footer>
 
 <script>
-document.getElementById('lockForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const key = document.getElementById('lockKey').value.trim();
-  const btn = document.getElementById('lockBtn');
-  const status = document.getElementById('lockStatus');
-  btn.disabled = true;
-  btn.textContent = 'Verificando…';
-  status.textContent = '';
+// Este informe no pide clave: queda "no listado" (nada del sitio linkea acá,
+// noindex/nofollow arriba) en vez de con gate. Ver api/informe.js — noAuth:true
+// para el slug 'exaltacion-de-la-cruz'.
+(async () => {
   try {
     const r = await fetch('/api/informe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug: 'exaltacion-de-la-cruz', key }),
+      body: JSON.stringify({ slug: 'exaltacion-de-la-cruz' }),
     });
     const html = await r.text();
     if (r.ok) {
@@ -104,16 +97,14 @@ document.getElementById('lockForm').addEventListener('submit', async (e) => {
       document.write(html);
       document.close();
     } else {
-      status.textContent = 'Clave incorrecta. Intentá de nuevo.';
-      btn.disabled = false;
-      btn.textContent = 'Acceder al informe →';
+      document.getElementById('loadCard').innerHTML =
+        '<div class="meta">2ª Sección · Informe territorial</div><h1>Exaltación de la Cruz</h1>' +
+        '<p>No se pudo cargar el informe. Escribinos a <a href="mailto:newsletter@alsinaar.com" style="color:var(--turquesa)">newsletter@alsinaar.com</a>.</p>';
     }
   } catch (err) {
-    status.textContent = 'Error de conexión. Intentá de nuevo.';
-    btn.disabled = false;
-    btn.textContent = 'Acceder al informe →';
+    document.getElementById('loadMsg').textContent = 'Error de conexión. Recargá la página.';
   }
-});
+})();
 </script>
 </body>
 </html>

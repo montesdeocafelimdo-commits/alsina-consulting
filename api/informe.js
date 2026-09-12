@@ -4,6 +4,8 @@ import path from 'path';
 
 // Un informe = un slug = un hash de clave en variable de entorno.
 // Agregar un cliente nuevo: sumar una fila acá + la env var correspondiente.
+// noAuth:true = sin clave — sólo queda "no listado" (nada linkea a la URL,
+// noindex en el <head> y en la respuesta). Usar solo si te lo piden así a propósito.
 const INFORMES = {
   olavarria: {
     file: 'private/informes/olavarria.html',
@@ -12,6 +14,7 @@ const INFORMES = {
   'exaltacion-de-la-cruz': {
     file: 'private/informes/exaltacion-de-la-cruz.html',
     hashEnv: 'INFORME_KEY_HASH_EXALTACION',
+    noAuth: true,
   },
 };
 
@@ -47,17 +50,21 @@ export default async function handler(req, res) {
   const { slug, key } = req.body || {};
   const informe = typeof slug === 'string' ? INFORMES[slug] : null;
 
-  if (!informe || !key) return denied(res, 401);
+  if (!informe) return denied(res, 401);
 
-  const expectedHash = process.env[informe.hashEnv];
-  if (!expectedHash) {
-    // Sin hash configurado en el entorno: no hay forma de validar, denegar.
-    console.error(`Falta la env var ${informe.hashEnv}`);
-    return denied(res, 401);
+  if (!informe.noAuth) {
+    if (!key) return denied(res, 401);
+
+    const expectedHash = process.env[informe.hashEnv];
+    if (!expectedHash) {
+      // Sin hash configurado en el entorno: no hay forma de validar, denegar.
+      console.error(`Falta la env var ${informe.hashEnv}`);
+      return denied(res, 401);
+    }
+
+    const providedHash = sha256(key.trim());
+    if (!safeEqual(providedHash, expectedHash)) return denied(res, 401);
   }
-
-  const providedHash = sha256(key.trim());
-  if (!safeEqual(providedHash, expectedHash)) return denied(res, 401);
 
   try {
     const filePath = path.join(process.cwd(), informe.file);
