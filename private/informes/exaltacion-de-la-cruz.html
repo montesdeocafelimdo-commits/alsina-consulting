@@ -220,27 +220,6 @@
     .nar-card p{font-size:.82rem;color:var(--ink3);line-height:1.6}
     @media(max-width:768px){.nar-grid{grid-template-columns:1fr}}
 
-    /* SIDEBAR TOC — only visible when viewport is wide enough to clear content.
-       Dos causas del bug anterior, las dos corregidas:
-       1) left:calc(50vw - 660px) + width:140px terminaba 30px DENTRO del
-          borde del contenido a cualquier ancho (el borde real del .wrap es
-          50vw - 518px, ver la misma cuenta en .espina más abajo) — pisaba
-          el título del hero letra sobre letra. Ahora deja margen real.
-       2) Con el recorrido (paradas 01-07) la lista es más alta que el hueco
-          entre la carátula y el hero; position:fixed sin tope de alto se
-          desbordaba encima de la carátula, el nav y el propio hero. Ahora
-          tiene max-height+overflow Y, sobre todo, un panel opaco propio: aunque
-          la lista sea larga, queda flotando arriba de lo demás en vez de
-          mezclarse con lo que tiene detrás. */
-    .toc-sidebar{position:fixed;left:calc(50vw - 700px);top:96px;width:150px;z-index:150;
-      max-height:calc(100vh - 116px);overflow-y:auto;
-      background:rgba(7,17,20,.92);border:1px solid rgba(0,213,216,.12);border-radius:8px;
-      padding:14px 12px 14px 14px;backdrop-filter:blur(4px)}
-    .toc-sidebar ul{list-style:none;border-left:2px solid var(--line)}
-    .toc-sidebar li a{display:block;padding:4px 0 4px 10px;font-size:.65rem;line-height:1.25;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink4);text-decoration:none;transition:color .15s,border-color .15s;border-left:2px solid transparent;margin-left:-2px}
-    .toc-sidebar li a:hover,.toc-sidebar li a.active{color:var(--tq);border-left-color:var(--tq)}
-    .toc-sidebar .toc-head{font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);padding-left:12px;margin-bottom:4px}
-    @media(max-width:1450px){.toc-sidebar{display:none}}
 
     /* COVER */
     .cover-section{position:relative;height:420px;overflow:hidden;background:var(--g)}
@@ -421,31 +400,6 @@
     <div class="cover-sub">2ª Sección Electoral · Provincia de Buenos Aires · Análisis político, fiscal y estratégico</div>
   </div>
 </div>
-
-<!-- TOC LATERAL -->
-<nav class="toc-sidebar" id="tocNav">
-  <div class="toc-head">El recorrido</div>
-  <ul>
-    <li><a href="#territorio">Entrada</a></li>
-    <li><a href="#parada-01">01 · Urna</a></li>
-    <li><a href="#electoral">↳ Historia</a></li>
-    <li><a href="#parada-02">02 · Trasvase</a></li>
-    <li><a href="#parada-03">03 · Mudanza</a></li>
-    <li><a href="#parada-04">04 · Antecedente</a></li>
-    <li><a href="#parada-05">05 · Vaciamiento</a></li>
-    <li><a href="#mapa">06 · Herramienta</a></li>
-    <li><a href="#parada-07">07 · Terreno digital</a></li>
-    <li><a href="#cierre">Cierre</a></li>
-  </ul>
-  <div class="toc-head" style="margin-top:14px">Dossier</div>
-  <ul>
-    <li><a href="#hcd">HCD</a></li>
-    <li><a href="#fiscal">Fiscal</a></li>
-    <li><a href="#economia">Economía</a></li>
-    <li><a href="#estrategia">Estrategia</a></li>
-    <li><a href="#notas">Notas</a></li>
-  </ul>
-</nav>
 
 <!-- NAV -->
 <nav>
@@ -2671,19 +2625,6 @@ slope2017();
 particChart();
 initTool();
 redesTable(); redesChart1(); redesChart2();
-// TOC sidebar active highlighting
-(function(){
-  const links = document.querySelectorAll('.toc-sidebar a');
-  const sections = Array.from(links).map(l=>document.querySelector(l.getAttribute('href')));
-  const onScroll=()=>{
-    const y=window.scrollY+120;
-    let current='';
-    sections.forEach((s,i)=>{ if(s&&s.offsetTop<=y) current=links[i].getAttribute('href'); });
-    links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')===current));
-  };
-  window.addEventListener('scroll',onScroll,{passive:true});
-  onScroll();
-})();
 </script>
 </body>
 </html>
