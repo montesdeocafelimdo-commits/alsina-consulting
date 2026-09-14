@@ -362,10 +362,10 @@ details.full-table[open] summary::after{content:'–'}
     <span>Datos: Ministerio de Economía PBA · ARBA · INDEC</span>
   </div>
   <div class="art-actions">
-    <div class="share-row" role="group" aria-label="Compartir esta nota">
-      <a class="share-btn" id="shareX" href="#" target="_blank" rel="noopener" aria-label="Compartir en X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23 22h-6.9l-5.4-6.9L4.8 22H2l8.1-9.3L1 2h7l4.9 6.3z"/></svg></a>
-      <a class="share-btn" id="shareWA" href="#" target="_blank" rel="noopener" aria-label="Compartir en WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.2-.6.9-.8 1.1-.1.2-.3.2-.5.1-1.3-.6-2.4-1.4-3.3-2.6-.2-.3-.1-.5.1-.7.2-.2.4-.5.6-.7.1-.2.1-.4 0-.6-.1-.2-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4-.2 0-.4 0-.6 0-.2 0-.5.1-.7.3-.5.5-.8 1.1-.8 1.9 0 1.9 1.4 3.7 1.6 4 .2.3 2.2 3.3 5.2 4.4 2.5.9 2.5.6 2.9.6.4 0 1.6-.6 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.1-.2-.2-.4-.3zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg></a>
-      <button class="share-btn" id="shareCopy" aria-label="Copiar enlace"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
+    <div class="share-row" data-share-text="Más de 4 de cada 5 municipios recibieron menos recursos en términos reales — Alsina" role="group" aria-label="Compartir esta nota">
+      <a class="share-btn" data-share="x" href="#" target="_blank" rel="noopener" aria-label="Compartir en X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23 22h-6.9l-5.4-6.9L4.8 22H2l8.1-9.3L1 2h7l4.9 6.3z"/></svg></a>
+      <a class="share-btn" data-share="wa" href="#" target="_blank" rel="noopener" aria-label="Compartir en WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.2-.6.9-.8 1.1-.1.2-.3.2-.5.1-1.3-.6-2.4-1.4-3.3-2.6-.2-.3-.1-.5.1-.7.2-.2.4-.5.6-.7.1-.2.1-.4 0-.6-.1-.2-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4-.2 0-.4 0-.6 0-.2 0-.5.1-.7.3-.5.5-.8 1.1-.8 1.9 0 1.9 1.4 3.7 1.6 4 .2.3 2.2 3.3 5.2 4.4 2.5.9 2.5.6 2.9.6.4 0 1.6-.6 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.1-.2-.2-.4-.3zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg></a>
+      <button class="share-btn" data-share="copy" aria-label="Copiar enlace"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
     </div>
     <span class="sep-dot">·</span>
     <a class="meta-link" href="#metodologia">Metodología</a>
@@ -744,25 +744,10 @@ const tocObserver = new IntersectionObserver(entries=>{
 },{threshold:0.2,rootMargin:'-60px 0px -70% 0px'});
 document.querySelectorAll('.chapter,.closing-band,#metodologia').forEach(el=>tocObserver.observe(el));
 
-// ── Share buttons
-(function(){
-  const url = encodeURIComponent(location.href);
-  const text = encodeURIComponent('Más de 4 de cada 5 municipios recibieron menos recursos en términos reales — Alsina');
-  const x = document.getElementById('shareX'); if(x) x.href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-  const wa = document.getElementById('shareWA'); if(wa) wa.href = `https://wa.me/?text=${text}%20${url}`;
-  const copyBtn = document.getElementById('shareCopy');
-  copyBtn?.addEventListener('click', ()=>{
-    navigator.clipboard?.writeText(location.href).then(()=>{
-      copyBtn.setAttribute('aria-label','Enlace copiado');
-      const prev = copyBtn.innerHTML;
-      copyBtn.innerHTML = '✓';
-      setTimeout(()=>{ copyBtn.innerHTML = prev; copyBtn.setAttribute('aria-label','Copiar enlace'); }, 1600);
-    });
-  });
-})();
 </script>
 <script src="/assets/js/balance-fiscal-charts.js" defer></script>
 <script src="/assets/js/balance-fiscal-tool.js" defer></script>
+<script src="/assets/js/share.js"></script>
 <script src="/assets/js/config.js"></script>
 </body>
 </html>

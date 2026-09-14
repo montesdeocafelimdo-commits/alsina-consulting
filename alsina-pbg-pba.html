@@ -55,6 +55,10 @@
     .cover-sub{font-size:.92rem;color:var(--conc);margin-top:16px;max-width:640px;line-height:1.7}
     .cover-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
     .cover-badge{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-size:.68rem;font-weight:600;padding:5px 12px;color:var(--conc);letter-spacing:.06em;text-transform:uppercase}
+    .share-row{display:flex;gap:8px;margin-top:20px;}
+    .share-btn{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:transparent;color:var(--conc);display:grid;place-items:center;cursor:pointer;transition:all .2s;text-decoration:none;}
+    .share-btn:hover{border-color:var(--tq);color:var(--tq);}
+    .share-btn svg{width:15px;height:15px;}
 
     /* SIDEBAR TOC */
     .toc-sidebar{position:fixed;left:calc(50vw - 660px);top:90px;width:136px;z-index:150}
@@ -191,6 +195,11 @@
       <span class="cover-badge">DPE-PBA</span>
       <span class="cover-badge">Metodología Top-Down</span>
       <span class="cover-badge">Cruce con datos Alsina</span>
+    </div>
+    <div class="share-row" data-share-text="Producto Bruto Geográfico · 135 Municipios PBA — Alsina" role="group" aria-label="Compartir este informe">
+      <a class="share-btn" data-share="x" href="#" target="_blank" rel="noopener" aria-label="Compartir en X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23 22h-6.9l-5.4-6.9L4.8 22H2l8.1-9.3L1 2h7l4.9 6.3z"/></svg></a>
+      <a class="share-btn" data-share="wa" href="#" target="_blank" rel="noopener" aria-label="Compartir en WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.2-.6.9-.8 1.1-.1.2-.3.2-.5.1-1.3-.6-2.4-1.4-3.3-2.6-.2-.3-.1-.5.1-.7.2-.2.4-.5.6-.7.1-.2.1-.4 0-.6-.1-.2-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4-.2 0-.4 0-.6 0-.2 0-.5.1-.7.3-.5.5-.8 1.1-.8 1.9 0 1.9 1.4 3.7 1.6 4 .2.3 2.2 3.3 5.2 4.4 2.5.9 2.5.6 2.9.6.4 0 1.6-.6 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.1-.2-.2-.4-.3zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg></a>
+      <button class="share-btn" data-share="copy" aria-label="Copiar enlace"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
     </div>
   </div>
 </div>
@@ -1281,6 +1290,7 @@ renderMap('percap');
 })();
 
 </script>
+<script src="/assets/js/share.js"></script>
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/gate.js"></script>
 <script>AlsinaGate.initScrollGate({ percent: 0.3 });</script>
