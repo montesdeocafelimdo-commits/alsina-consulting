@@ -22,9 +22,9 @@
 <script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 <script src="/assets/js/analytics.js"></script>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,600&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet"></noscript>
 <style>
 :root{
   --grafito:#0e1c20;--grafito2:#152830;--grafito3:#1e2f35;
@@ -96,6 +96,17 @@ strong.td{color:var(--cian);}
 .body-t u,.duo-card u,.prueba-note u,.regla-sub u,.cta-final-sub u,.conclusion-qs u{text-decoration:underline;text-decoration-color:var(--turquesa);text-underline-offset:3px;text-decoration-thickness:1.5px;text-decoration-skip-ink:none;}
 .body-t-dark u{text-decoration:underline;text-decoration-color:var(--cian);text-underline-offset:3px;text-decoration-thickness:1.5px;text-decoration-skip-ink:none;}
 .body-t-dark em{font-style:italic;}
+
+/* ── cita textual del fallo — tratamiento "de época", distinto del resto de la nota
+   a propósito: es un fragmento de expediente citado, no una afirmación editorial ── */
+.fallo-cita{position:relative;margin:34px 0 6px;max-width:720px;padding:32px 34px 26px 56px;
+  background:linear-gradient(180deg,#efe8d8,#e8e0cb);border-top:3px double #a3947a;border-bottom:3px double #a3947a;}
+.fallo-cita-mark{font-family:'Source Serif 4',Georgia,serif;font-weight:600;font-size:3.4rem;line-height:1;
+  color:rgba(0,140,154,.4);position:absolute;top:20px;left:16px;}
+.fallo-cita-text{font-family:'Source Serif 4',Georgia,serif;font-style:italic;font-size:1.14rem;line-height:1.62;color:#241d12;}
+.fallo-cita-fuente{margin-top:18px;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:#7d7057;}
+@media(max-width:640px){.fallo-cita{padding:28px 22px 22px 42px;}.fallo-cita-mark{font-size:2.6rem;left:10px;top:14px;}}
 
 .callout{border-left:3px solid var(--turquesa);background:rgba(0,213,216,.05);padding:16px 20px;margin:20px 0;max-width:700px;}
 .callout p{font-size:.88rem;color:var(--concreto);line-height:1.72;margin:0;}
@@ -241,6 +252,11 @@ strong.td{color:var(--cian);}
 .fuente-text{font-size:.85rem;color:var(--concreto);line-height:1.6;}
 .precedentes-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
 .precedente-chip{font-size:.72rem;color:var(--concreto);border:1px solid rgba(0,213,216,.18);padding:5px 12px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.03em;}
+.fallo-pdf-link{display:inline-flex;align-items:center;gap:9px;margin-top:14px;padding:11px 20px;background:transparent;
+  border:1px solid var(--turquesa);color:var(--turquesa);font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;transition:background .2s;}
+.fallo-pdf-link svg{width:16px;height:16px;flex-shrink:0;}
+.fallo-pdf-link:hover{background:rgba(0,213,216,.1);}
 
 footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgba(0,213,216,.1);}
 .foot-inner{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:28px;}
@@ -322,7 +338,13 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
     <p>El Tribunal Superior de Justicia de Córdoba había avalado ese cobro: consideró que la
     sola existencia de locales del banco dentro del municipio era un indicio suficiente de que
     el servicio se estaba prestando.</p>
-    <p><strong class="td">La Corte Suprema revocó esa interpretación.</strong></p>
+    <p><strong class="td">La Corte Suprema revocó esa interpretación.</strong> Así lo resolvió, exactamente en este expediente:</p>
+    <div class="fallo-cita reveal">
+      <div class="fallo-cita-mark" aria-hidden="true">“</div>
+      <p class="fallo-cita-text">En casos como el de autos, donde la descripción de la actividad gravada se hace por defecto y de modo residual, no es justo imponer al contribuyente, cuando ha negado la prestación del servicio, la carga de probar que ha sido efectivamente prestado […]</p>
+      <div class="fallo-cita-fuente">Corte Suprema de Justicia de la Nación · Considerando 6° · CSJ 652/2016/RH1</div>
+    </div>
+    <p style="margin-top:20px">En su voto, el presidente <strong class="td">Horacio Rosatti</strong> fue un paso más allá y fijó las tres condiciones que tiene que cumplir cualquier tasa municipal para ser válida — la regla que sigue.</p>
   </div>
 </section>
 
@@ -549,6 +571,10 @@ footer{background:var(--grafito);padding:44px 52px 28px;border-top:1px solid rgb
       Municipalidad de Córdoba s/ plena jurisdicción – recurso de casación». CSJ 652/2016/RH1.
       Sentencia del 10 de septiembre de 2026.</div>
     </div>
+    <a class="fallo-pdf-link" href="/assets/docs/csjn-banco-galicia-c-municipalidad-cordoba-csj-652-2016-rh1.pdf" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg>
+      Leer el fallo completo (PDF, CSJ 652/2016/RH1)
+    </a>
     <div class="sec-label" style="margin:28px 0 6px;">Precedentes mencionados en la causa</div>
     <div class="precedentes-list">
       <span class="precedente-chip">Compañía Química</span>
