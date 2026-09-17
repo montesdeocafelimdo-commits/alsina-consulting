@@ -108,6 +108,12 @@ strong{font-weight:700;color:var(--ink)}
 .open-meta{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:24px;padding-top:16px;
   border-top:1px solid var(--line);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;
   color:var(--ink4);font-weight:700}
+.byline{display:flex;align-items:center;gap:12px;margin-top:22px}
+.byline-mark{width:38px;height:38px;border-radius:50%;flex-shrink:0;background:var(--g2);
+  border:2px solid var(--tq);display:flex;align-items:center;justify-content:center;
+  font-family:var(--disp);font-weight:900;font-size:1.05rem;color:var(--tq)}
+.byline-name{font-family:var(--disp);font-weight:800;font-size:1rem;letter-spacing:.02em;
+  text-transform:uppercase;color:var(--ink)}
 .cue{display:flex;align-items:center;gap:10px;margin-top:34px;font-size:.74rem;letter-spacing:.12em;
   text-transform:uppercase;color:var(--ink4);font-weight:700}
 .cue i{display:block;width:1px;height:26px;background:var(--ink4);animation:drop 1.8s var(--ease) infinite}
@@ -418,7 +424,11 @@ html.anim .wipe.in{clip-path:inset(0 0 0 0)}
     <h1 id="h1"></h1>
     <p class="open-sub">Una provincia no es un territorio: es un conjunto de servicios con un firmante. La propuesta de Joaquín de la Torre cambia el mapa. Este informe cuenta qué pasa con las firmas.</p>
     <p class="open-nota">Lo que sigue es un martes cualquiera en la vida de una vecina de Florencio Varela. Dieciséis servicios, de las seis y media de la mañana a las siete y veinte de la tarde. Bajá despacio: cada cosa que toca se va a ir pintando con el color de quien la paga.</p>
-    <div class="open-meta"><span>Equipo Alsina</span><span>Septiembre de 2026</span></div>
+    <div class="byline">
+      <div class="byline-mark" aria-hidden="true">A</div>
+      <div class="byline-name">Equipo Alsina</div>
+    </div>
+    <div class="open-meta"><span>Septiembre de 2026</span></div>
     <div class="cue"><i></i><span>Empezar el día</span></div>
   </div>
 </header>
