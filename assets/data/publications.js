@@ -4,6 +4,25 @@
    la interfaz solo renderiza entradas con status:'published'. */
 window.ALSINA_PUBLICATIONS = [
   {
+    id: 'paga-no-construye',
+    slug: 'paga-no-construye',
+    title: 'Paga, no construye',
+    summary: 'De cada 100 pesos que el Estado nacional gasta en la provincia de Buenos Aires en 2027, 68 centavos son obra. Mapa interactivo de las 72 obras nacionales geolocalizadas y los 135 municipios.',
+    format: 'report',
+    primaryTopic: 'public-finance',
+    secondaryTags: ['presupuesto 2027', 'obra pública', 'municipios'],
+    accessType: 'free',
+    requiredPlan: null,
+    author: null,
+    publishedAt: '2026-09-21',
+    period: '2027',
+    frequency: null,
+    coverImage: null,
+    url: '/paga-no-construye.html',
+    featured: false,
+    status: 'published',
+  },
+  {
     id: 'fin-de-una-era',
     slug: 'el-fin-de-una-era',
     title: 'El fin de una era',

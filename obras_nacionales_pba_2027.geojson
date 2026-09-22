@@ -1,0 +1,2141 @@
+{
+ "type": "FeatureCollection",
+ "name": "Obras nacionales en la provincia de Buenos Aires · Proyecto de Presupuesto 2027",
+ "crs": {
+  "type": "name",
+  "properties": {
+   "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+  }
+ },
+ "metadata": {
+  "fuente_montos": "Planilla Nº12 del Anexo Estadístico y de Ubicación Geográfica, Proyecto de Ley de Presupuesto 2027 (ONP)",
+  "fuente_costo_total": "Planilla Anexa 11 · Contratación de obras de inversión con incidencia en ejercicios futuros (8 obras)",
+  "fuente_coordenadas": "API Georef, Ministerio del Interior (apis.datos.gob.ar/georef), centroides oficiales, consultada 21/09/2026",
+  "unidad": "millones de pesos corrientes",
+  "nota_sin_coordenada": "El presupuesto no declara localizacion mas fina que la provincia para estas filas. Mostrarlas como listado, no descartarlas.",
+  "obras_sin_coordenada": [
+   {
+    "id": "PBA-15",
+    "obra": "Programa MAS, AMBA - Etapa IV - Construcción y Rehabilitación de Corredores Urbanos en la Región Metropolitana de Buenos Aires",
+    "monto_millones_2027": 8000,
+    "referencia": "Región Metropolitana de Buenos Aires — partidos no declarados"
+   },
+   {
+    "id": "PBA-16",
+    "obra": "Construcción y Rehabilitación de Corredores Urbanos en la Región Metropolitana de Buenos Aires (Programa MAS, Etapa III)",
+    "monto_millones_2027": 24328,
+    "referencia": "Región Metropolitana de Buenos Aires — partidos no declarados"
+   },
+   {
+    "id": "PBA-25",
+    "obra": "Modernización y Equipamiento de Laboratorios en Materiales Avanzados, Recubiertos y Tribología",
+    "monto_millones_2027": 178,
+    "referencia": "CNEA — sin localización declarada"
+   },
+   {
+    "id": "PBA-31",
+    "obra": "Desarrollo de Prototipos de Máquinas Centrífugas para Separación Isotópica de Uranio",
+    "monto_millones_2027": 1446,
+    "referencia": "CNEA — sin localización declarada"
+   },
+   {
+    "id": "PBA-33",
+    "obra": "Mejoras y Ampliación de Instalaciones para el Desarrollo y la Producción de Elementos Combustibles",
+    "monto_millones_2027": 433,
+    "referencia": "CNEA — sin localización declarada"
+   },
+   {
+    "id": "PBA-34",
+    "obra": "Instalación para el Desarrollo y Producción de Polvos y Aleaciones de Combustibles Compuestos de Uranio de Alta y Muy Alta Densidad",
+    "monto_millones_2027": 216,
+    "referencia": "CNEA — sin localización declarada"
+   },
+   {
+    "id": "PBA-35",
+    "obra": "Mantenimiento y Reparación de Obras de Arte En Distrito Bahía Blanca (Año 2027)",
+    "monto_millones_2027": 1330,
+    "referencia": "DNV · Distrito 19 Bahía Blanca — sin punto único"
+   },
+   {
+    "id": "PBA-36",
+    "obra": "Mantenimiento y Reparación de Obras de Arte En Distrito Buenos Aires (Año 2027)",
+    "monto_millones_2027": 2090,
+    "referencia": "DNV · Distrito 1 Buenos Aires — sin punto único"
+   },
+   {
+    "id": "PBA-37",
+    "obra": "Obras de Mantenimiento En Distrito Bahía Blanca (Año 2027)",
+    "monto_millones_2027": 760,
+    "referencia": "DNV · Distrito 19 Bahía Blanca — sin punto único"
+   },
+   {
+    "id": "PBA-38",
+    "obra": "Obras de Mantenimiento En Distrito Buenos Aires (Año 2027)",
+    "monto_millones_2027": 1334,
+    "referencia": "DNV · Distrito 1 Buenos Aires — sin punto único"
+   },
+   {
+    "id": "PBA-39",
+    "obra": "Obras de Mantenimiento Por Administración En Los 24 Distritos de La Dirección Nacional de Vialidad (Año 2027)",
+    "monto_millones_2027": 7150,
+    "referencia": "DNV · los 24 distritos del país — sin punto único"
+   },
+   {
+    "id": "PBA-40",
+    "obra": "Obras de Seguridad En Distrito Bahía Blanca (Año 2027)",
+    "monto_millones_2027": 570,
+    "referencia": "DNV · Distrito 19 Bahía Blanca — sin punto único"
+   },
+   {
+    "id": "PBA-41",
+    "obra": "Obras de Seguridad En Distrito Buenos Aires (Año 2027)",
+    "monto_millones_2027": 1830,
+    "referencia": "DNV · Distrito 1 Buenos Aires — sin punto único"
+   },
+   {
+    "id": "PBA-44",
+    "obra": "Construcción Autopista Pte. Juan Domingo Perón, Provincia: Buenos Aires.",
+    "monto_millones_2027": 63766,
+    "referencia": "Traza metropolitana — partidos no declarados en el anexo"
+   },
+   {
+    "id": "PBA-66",
+    "obra": "Remodelación Repositorio Geológico",
+    "monto_millones_2027": 6,
+    "referencia": "SEGEMAR — sin localización declarada"
+   },
+   {
+    "id": "PBA-67",
+    "obra": "Fortalecimiento de las Capacidades Analíticas para la Caracterización de Materias Primas Minerales, Materiales Derivados y Residuos Sólidos de la Industria Minera",
+    "monto_millones_2027": 55,
+    "referencia": "SEGEMAR — sin localización declarada"
+   },
+   {
+    "id": "PBA-71",
+    "obra": "Refuncionalización del Pabellón para el Servicio de Rehabilitación",
+    "monto_millones_2027": 1285,
+    "referencia": "ANES — establecimiento no declarado"
+   }
+  ],
+  "monto_sin_coordenada": 114777
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -60.94643,
+     -34.59394
+    ]
+   },
+   "properties": {
+    "id": "PBA-01",
+    "obra": "Remodelación y ampliación del edificio, Juzgado Federal de Junín Cabrera 222, Junín, BS.AS.",
+    "jurisdiccion": "Poder Judicial de la Nación",
+    "entidad": "Poder Judicial de la Nación",
+    "categoria": "Justicia federal",
+    "monto_millones_2027": "140",
+    "partidos": "Junín",
+    "referencia_geografica": "Junín (localidad)",
+    "precision_geo": "localidad",
+    "financiamiento": "Recursos afectados 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "140",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0",
+    "codigo_proyecto": "68989",
+    "costo_total_millones": "2806",
+    "monto_2028": "2666",
+    "monto_2029": "0",
+    "monto_resto": "0",
+    "pct_costo_total_en_2027": "5.0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -62.27274,
+     -38.72277
+    ]
+   },
+   "properties": {
+    "id": "PBA-02",
+    "obra": "Refacción de inmueble para sede de la Defensoría de Bahía Blanca, PBA",
+    "jurisdiccion": "Ministerio Público",
+    "entidad": "Ministerio Público",
+    "categoria": "Justicia federal",
+    "monto_millones_2027": "237",
+    "partidos": "Bahía Blanca",
+    "referencia_geografica": "Bahía Blanca (localidad)",
+    "precision_geo": "localidad",
+    "financiamiento": "Recursos afectados 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "237",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -57.67546,
+     -36.31539
+    ]
+   },
+   "properties": {
+    "id": "PBA-03",
+    "obra": "Refacción de inmueble para sede de la Defensoría de Dolores, PBA",
+    "jurisdiccion": "Ministerio Público",
+    "entidad": "Ministerio Público",
+    "categoria": "Justicia federal",
+    "monto_millones_2027": "67",
+    "partidos": "Dolores",
+    "referencia_geografica": "Dolores (localidad)",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "67",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -57.54384,
+     -38.00645
+    ]
+   },
+   "properties": {
+    "id": "PBA-04",
+    "obra": "Ampliación de inmueble para sede de la Defensoría de Mar del Plata, PBA",
+    "jurisdiccion": "Ministerio Público",
+    "entidad": "Ministerio Público",
+    "categoria": "Justicia federal",
+    "monto_millones_2027": "278",
+    "partidos": "General Pueyrredón",
+    "referencia_geografica": "Mar del Plata (localidad)",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "278",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.53866,
+     -34.57791
+    ]
+   },
+   "properties": {
+    "id": "PBA-05",
+    "obra": "Impermeabilización de inmueble en la ciudad de San Martín, Provincia de Buenos Aires",
+    "jurisdiccion": "Ministerio Público",
+    "entidad": "Ministerio Público",
+    "categoria": "Justicia federal",
+    "monto_millones_2027": "11",
+    "partidos": "General San Martín",
+    "referencia_geografica": "San Martín (localidad)",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "11",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -60.2215,
+     -33.3384
+    ]
+   },
+   "properties": {
+    "id": "PBA-06",
+    "obra": "Reacondicionamiento del edificio en Garibaldi 208, San Nicolás de los Arroyos, Buenos Aires",
+    "jurisdiccion": "Ministerio Público",
+    "entidad": "Ministerio Público",
+    "categoria": "Justicia federal",
+    "monto_millones_2027": "7",
+    "partidos": "San Nicolás",
+    "referencia_geografica": "San Nicolás de los Arroyos (localidad)",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "7",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.51129,
+     -34.46988
+    ]
+   },
+   "properties": {
+    "id": "PBA-07",
+    "obra": "Reemplazo de tejas para inmueble de la ciudad de San Isidro, Provincia de Buenos Aires",
+    "jurisdiccion": "Ministerio Público",
+    "entidad": "Ministerio Público",
+    "categoria": "Justicia federal",
+    "monto_millones_2027": "6",
+    "partidos": "San Isidro",
+    "referencia_geografica": "San Isidro (localidad)",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "6",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -62.07948,
+     -38.87817
+    ]
+   },
+   "properties": {
+    "id": "PBA-08",
+    "obra": "Incorporación de Cuatro Helicópteros Navales Livianos, Base Naval Puerto Belgrano, Provincia de Buenos Aires (CACIB - S/N)",
+    "jurisdiccion": "Ministerio de Defensa",
+    "entidad": "Estado Mayor General de la Armada Argentina",
+    "categoria": "Defensa",
+    "monto_millones_2027": "37616",
+    "partidos": "Coronel Rosales",
+    "referencia_geografica": "Punta Alta (localidad) — Base Naval Puerto Belgrano",
+    "precision_geo": "localidad",
+    "financiamiento": "Crédito externo 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "37616"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -59.1369,
+     -37.3287
+    ]
+   },
+   "properties": {
+    "id": "PBA-09",
+    "obra": "Modernización y Actualización Tecnológica de la Infraestructura para la Incorporación de una Aeronave de caza multirol en la VI Brigada Aérea - Tandil - Provincia de Buenos Aires y en el Área Material Río Cuarto - Las Higueras - Provincia de Córdoba.",
+    "jurisdiccion": "Ministerio de Defensa",
+    "entidad": "Estado Mayor General de la Fuerza Aérea Argentina",
+    "categoria": "Defensa",
+    "monto_millones_2027": "10090",
+    "partidos": "Tandil",
+    "referencia_geografica": "Tandil (localidad) — VI Brigada Aérea",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "10090",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.83534,
+     -34.78432
+    ]
+   },
+   "properties": {
+    "id": "PBA-10",
+    "obra": "Construcción de viviendas sustentables en zona bioclimática Templado Cálido – Zona IIIa – Marcos Paz – Buenos Aires (GEF 4861)",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Infraestructura",
+    "categoria": "Vivienda",
+    "monto_millones_2027": "2713",
+    "partidos": "Marcos Paz",
+    "referencia_geografica": "Marcos Paz (localidad)",
+    "precision_geo": "localidad",
+    "financiamiento": "Transferencias externas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "2713",
+    "credito_externo": "0",
+    "codigo_proyecto": "153555",
+    "costo_total_millones": "2981",
+    "monto_2028": "268",
+    "monto_2029": "0",
+    "monto_resto": "0",
+    "pct_costo_total_en_2027": "91.0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.39113,
+     -34.70756
+    ]
+   },
+   "properties": {
+    "id": "PBA-11",
+    "obra": "Construcción Planta de Tratamiento Efluentes Líquidos Industriales PIC Lanús (BIRF N°7706-AC)",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Infraestructura",
+    "categoria": "Saneamiento",
+    "monto_millones_2027": "6899",
+    "partidos": "Lanús",
+    "referencia_geografica": "Lanús (localidad) — Parque Industrial",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "6899",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -59.43139,
+     -34.65073
+    ]
+   },
+   "properties": {
+    "id": "PBA-12",
+    "obra": "Complejo Federal de Condenados de Agote",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Infraestructura",
+    "categoria": "Sistema penitenciario",
+    "monto_millones_2027": "39247",
+    "partidos": "Mercedes",
+    "referencia_geografica": "Mercedes (partido) — Complejo de Agote",
+    "precision_geo": "municipio",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "39247",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -59.43139,
+     -34.65073
+    ]
+   },
+   "properties": {
+    "id": "PBA-13",
+    "obra": "Construcción Unidad 36 Complejo Federal de Condenados Agote",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Infraestructura",
+    "categoria": "Sistema penitenciario",
+    "monto_millones_2027": "6136",
+    "partidos": "Mercedes",
+    "referencia_geografica": "Mercedes (partido) — Complejo de Agote",
+    "precision_geo": "municipio",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "6136",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0",
+    "codigo_proyecto": "148764",
+    "costo_total_millones": "46136",
+    "monto_2028": "30000",
+    "monto_2029": "10000",
+    "monto_resto": "0",
+    "pct_costo_total_en_2027": "13.3"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -57.94799,
+     -34.9155
+    ]
+   },
+   "properties": {
+    "id": "PBA-14",
+    "obra": "Mejora Integral del Ferrocarril General Roca - Ramal Constitución - La Plata (BID N°2982/OC-AR - BID N°5320/OC-AR)",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Infraestructura",
+    "categoria": "Ferrocarril",
+    "monto_millones_2027": "1500",
+    "partidos": "La Plata",
+    "referencia_geografica": "Ramal Constitución–La Plata (fila PBA)",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "1500",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.52476,
+     -34.85439
+    ]
+   },
+   "properties": {
+    "id": "PBA-17",
+    "obra": "Ampliación Edilicia y Actualización de Infraestructura y Equipamiento del Área de Gestión de Residuos Radiactivos y Fuentes - Ezeiza, Prov. Buenos Aires",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Comisión Nacional de Energía Atómica (CNEA)",
+    "categoria": "Nuclear y ciencia",
+    "monto_millones_2027": "1048",
+    "partidos": "Ezeiza",
+    "referencia_geografica": "Ezeiza (localidad) — Centro Atómico Ezeiza",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "1048",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.52476,
+     -34.85439
+    ]
+   },
+   "properties": {
+    "id": "PBA-18",
+    "obra": "Desarrollo y Fabricación de Instrumentos de Caracterización de Materiales Utilizando Haces de Neutrones del RA - 10",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Comisión Nacional de Energía Atómica (CNEA)",
+    "categoria": "Nuclear y ciencia",
+    "monto_millones_2027": "9900",
+    "partidos": "Ezeiza",
+    "referencia_geografica": "Ezeiza (localidad) — Centro Atómico Ezeiza (RA-10)",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "9900",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.53866,
+     -34.57791
+    ]
+   },
+   "properties": {
+    "id": "PBA-19",
+    "obra": "Construcción de Sede del Instituto Sabato en el Centro Atómico Constituyentes, Provincia de Buenos Aires",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Comisión Nacional de Energía Atómica (CNEA)",
+    "categoria": "Nuclear y ciencia",
+    "monto_millones_2027": "1400",
+    "partidos": "General San Martín",
+    "referencia_geografica": "San Martín (localidad) — Centro Atómico Constituyentes",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "1400",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.53866,
+     -34.57791
+    ]
+   },
+   "properties": {
+    "id": "PBA-20",
+    "obra": "Desarrollo y Fabricación de Micro y Nano Dispositivos, Detectores y Sensores para uso en Aplicaciones Médicas, Energía y Memorias en el CAC, Prov. de Buenos Aires",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Comisión Nacional de Energía Atómica (CNEA)",
+    "categoria": "Nuclear y ciencia",
+    "monto_millones_2027": "196",
+    "partidos": "General San Martín",
+    "referencia_geografica": "San Martín (localidad) — Centro Atómico Constituyentes",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "196",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.53866,
+     -34.57791
+    ]
+   },
+   "properties": {
+    "id": "PBA-21",
+    "obra": "Equipamiento de Centro de Investigación y Desarrollo en el Centro Atómico Constituyentes",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Comisión Nacional de Energía Atómica (CNEA)",
+    "categoria": "Nuclear y ciencia",
+    "monto_millones_2027": "1000",
+    "partidos": "General San Martín",
+    "referencia_geografica": "San Martín (localidad) — Centro Atómico Constituyentes",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "1000",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.52476,
+     -34.85439
+    ]
+   },
+   "properties": {
+    "id": "PBA-22",
+    "obra": "Diseño, Montaje e Implementación de 7 Instrumentos del Laboratorio Argentino de Haces de Neutrones - CAE - Ezeiza - Provincia de Buenos Aires",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Comisión Nacional de Energía Atómica (CNEA)",
+    "categoria": "Nuclear y ciencia",
+    "monto_millones_2027": "10276",
+    "partidos": "Ezeiza",
+    "referencia_geografica": "Ezeiza (localidad) — Centro Atómico Ezeiza",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "10276",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.52476,
+     -34.85439
+    ]
+   },
+   "properties": {
+    "id": "PBA-23",
+    "obra": "Construcción de una Planta de Producción de Radioisótopos por Fisión en el Centro Atómico Ezeiza, Pcia. de Buenos Aires",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Comisión Nacional de Energía Atómica (CNEA)",
+    "categoria": "Nuclear y ciencia",
+    "monto_millones_2027": "1500",
+    "partidos": "Ezeiza",
+    "referencia_geografica": "Ezeiza (localidad) — Centro Atómico Ezeiza",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "1500",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.52476,
+     -34.85439
+    ]
+   },
+   "properties": {
+    "id": "PBA-24",
+    "obra": "Instalación de un Sistema de Generación Eléctrica Distribuida de 700 kW mediante Energía Solar Fotovoltaica en el Centro Atómico Ezeiza, Ezeiza, Provincia de Buenos Aires",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Comisión Nacional de Energía Atómica (CNEA)",
+    "categoria": "Nuclear y ciencia",
+    "monto_millones_2027": "250",
+    "partidos": "Ezeiza",
+    "referencia_geografica": "Ezeiza (localidad) — Centro Atómico Ezeiza",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "250",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.53866,
+     -34.57791
+    ]
+   },
+   "properties": {
+    "id": "PBA-26",
+    "obra": "Reacondicionamiento y Actualización del Circuito Experimental de Baja Presión del Centro Atómico Constituyentes",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Comisión Nacional de Energía Atómica (CNEA)",
+    "categoria": "Nuclear y ciencia",
+    "monto_millones_2027": "2527",
+    "partidos": "General San Martín",
+    "referencia_geografica": "San Martín (localidad) — Centro Atómico Constituyentes",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "2527",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.52476,
+     -34.85439
+    ]
+   },
+   "properties": {
+    "id": "PBA-27",
+    "obra": "Mantenimiento, Reparación y Adecuación de Instalaciones del Centro Atómico Ezeiza, Provincia de Buenos Aires",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Comisión Nacional de Energía Atómica (CNEA)",
+    "categoria": "Nuclear y ciencia",
+    "monto_millones_2027": "725",
+    "partidos": "Ezeiza",
+    "referencia_geografica": "Ezeiza (localidad) — Centro Atómico Ezeiza",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "725",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.52476,
+     -34.85439
+    ]
+   },
+   "properties": {
+    "id": "PBA-28",
+    "obra": "Extensión del Ciclo de Vida del Ciclotrón de Producción del Centro Atómico Ezeiza. Provincia de Buenos Aires",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Comisión Nacional de Energía Atómica (CNEA)",
+    "categoria": "Nuclear y ciencia",
+    "monto_millones_2027": "349",
+    "partidos": "Ezeiza",
+    "referencia_geografica": "Ezeiza (localidad) — Centro Atómico Ezeiza",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "349",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.52476,
+     -34.85439
+    ]
+   },
+   "properties": {
+    "id": "PBA-29",
+    "obra": "Construcción Laboratorio para Estudio de Materiales Irradiados, asociado al reactor RA-10, ubicado en el Centro Atómico Ezeiza, Partido de Ezeiza, Provincia de Buenos Aires",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Comisión Nacional de Energía Atómica (CNEA)",
+    "categoria": "Nuclear y ciencia",
+    "monto_millones_2027": "150",
+    "partidos": "Ezeiza",
+    "referencia_geografica": "Ezeiza (partido) — Centro Atómico Ezeiza",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "150",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.52476,
+     -34.85439
+    ]
+   },
+   "properties": {
+    "id": "PBA-30",
+    "obra": "Construcción de Reactor RA-10",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Comisión Nacional de Energía Atómica (CNEA)",
+    "categoria": "Nuclear y ciencia",
+    "monto_millones_2027": "39690",
+    "partidos": "Ezeiza",
+    "referencia_geografica": "Ezeiza (localidad) — Centro Atómico Ezeiza",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "39690",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.53866,
+     -34.57791
+    ]
+   },
+   "properties": {
+    "id": "PBA-32",
+    "obra": "Readecuación y Mejora de los Edificios 5 y 13, Impermeabilización de Techos y Actualización de los Tableros Eléctricos del Centro Atómico Constituyentes - San Martín - Provincia de Buenos Aires",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Comisión Nacional de Energía Atómica (CNEA)",
+    "categoria": "Nuclear y ciencia",
+    "monto_millones_2027": "935",
+    "partidos": "General San Martín",
+    "referencia_geografica": "San Martín (localidad) — Centro Atómico Constituyentes",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "935",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0",
+    "codigo_proyecto": "155052",
+    "costo_total_millones": "1981",
+    "monto_2028": "1046",
+    "monto_2029": "0",
+    "monto_resto": "0",
+    "pct_costo_total_en_2027": "47.2"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.76199,
+     -35.05384
+    ]
+   },
+   "properties": {
+    "id": "PBA-42",
+    "obra": "Pavimentación de Camino del 72, Tramo: Ruta Nacional N° 3 - Ruta Provincial N° 16. Municipalidad de Cañuelas, Provincia de Buenos Aires. (BID 5378)",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "181",
+    "partidos": "Cañuelas",
+    "referencia_geografica": "Cañuelas (localidad)",
+    "precision_geo": "localidad",
+    "financiamiento": "Crédito externo 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "181"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -60.16139,
+     -36.93272
+    ]
+   },
+   "properties": {
+    "id": "PBA-43",
+    "obra": "Ruta Nacional 226, Mejora de Intersección Acceso a Sierras Bayas, Provincia de Buenos Aires",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "373",
+    "partidos": "Olavarría",
+    "referencia_geografica": "Sierras Bayas (localidad)",
+    "precision_geo": "localidad",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "373",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.67898,
+     -35.17826
+    ]
+   },
+   "properties": {
+    "id": "PBA-45",
+    "obra": "Pavimentación de Camino del 72, Tramo: Camino del Potro (Km 0,000) - Gobernador Udaondo (Km 4,000). Municipalidad de Cañuelas, Provincia de Buenos Aires. (BID 5378)",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "40",
+    "partidos": "Cañuelas",
+    "referencia_geografica": "Camino del Potro–Gobernador Udaondo, Cañuelas",
+    "precision_geo": "tramo",
+    "tramo_lat_a": "-35.05384",
+    "tramo_lon_a": "-58.76199",
+    "tramo_lat_b": "-35.30267",
+    "tramo_lon_b": "-58.59598",
+    "financiamiento": "Crédito externo 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "40"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -58.76199,
+      -35.05384
+     ],
+     [
+      -58.59598,
+      -35.30267
+     ]
+    ]
+   },
+   "properties": {
+    "id": "PBA-45",
+    "obra": "Pavimentación de Camino del 72, Tramo: Camino del Potro (Km 0,000) - Gobernador Udaondo (Km 4,000). Municipalidad de Cañuelas, Provincia de Buenos Aires. (BID 5378)",
+    "tipo": "tramo_declarado",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "40"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -59.43139,
+     -34.65073
+    ]
+   },
+   "properties": {
+    "id": "PBA-46",
+    "obra": "Travesía Urbana, Ruta Nacional N° 5; Tramo: Travesía Mercedes. Provincia de Buenos Aires",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "2503",
+    "partidos": "Mercedes",
+    "referencia_geografica": "Mercedes (localidad) — travesía urbana RN5",
+    "precision_geo": "localidad",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "2503",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0",
+    "codigo_proyecto": "130027",
+    "costo_total_millones": "74997",
+    "monto_2028": "18574",
+    "monto_2029": "10410",
+    "monto_resto": "43509",
+    "pct_costo_total_en_2027": "3.3"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -60.39804,
+     -33.61476
+    ]
+   },
+   "properties": {
+    "id": "PBA-47",
+    "obra": "Sistema Modular de Mantenimiento, Ruta Nac. N° 188, Tramo: San Nicolás - Pergamino, Sección: Km. 2,00 - Km. 71,87, Provincia de Bs. As.",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "85",
+    "partidos": "San Nicolás; Pergamino",
+    "referencia_geografica": "RN188 San Nicolás–Pergamino",
+    "precision_geo": "tramo",
+    "tramo_lat_a": "-33.33840",
+    "tramo_lon_a": "-60.22150",
+    "tramo_lat_b": "-33.89111",
+    "tramo_lon_b": "-60.57459",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "85",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -60.2215,
+      -33.3384
+     ],
+     [
+      -60.57459,
+      -33.89111
+     ]
+    ]
+   },
+   "properties": {
+    "id": "PBA-47",
+    "obra": "Sistema Modular de Mantenimiento, Ruta Nac. N° 188, Tramo: San Nicolás - Pergamino, Sección: Km. 2,00 - Km. 71,87, Provincia de Bs. As.",
+    "tipo": "tramo_declarado",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "85"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -61.98073,
+     -34.81329
+    ]
+   },
+   "properties": {
+    "id": "PBA-48",
+    "obra": "Obra de Conservación Mejorativa, Ruta Nac. N° 188, Tramo: Junín - Gral. Villegas, Sección: Km. 163,900 - 360,950, Provincia de Bs. As.",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "94",
+    "partidos": "Junín; General Villegas",
+    "referencia_geografica": "RN188 Junín–General Villegas",
+    "precision_geo": "tramo",
+    "tramo_lat_a": "-34.59394",
+    "tramo_lon_a": "-60.94643",
+    "tramo_lat_b": "-35.03263",
+    "tramo_lon_b": "-63.01503",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "94",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -60.94643,
+      -34.59394
+     ],
+     [
+      -63.01503,
+      -35.03263
+     ]
+    ]
+   },
+   "properties": {
+    "id": "PBA-48",
+    "obra": "Obra de Conservación Mejorativa, Ruta Nac. N° 188, Tramo: Junín - Gral. Villegas, Sección: Km. 163,900 - 360,950, Provincia de Bs. As.",
+    "tipo": "tramo_declarado",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "94"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.76199,
+     -35.05384
+    ]
+   },
+   "properties": {
+    "id": "PBA-49",
+    "obra": "Sistema Modular de Mantenimiento, Ruta Nac. N° 3, Tramo: Emp. R.P. N° 21 - Cañuelas, Sección: Km. 29,000 - 64,000, Provincia de Bs. As.",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "860",
+    "partidos": "Cañuelas",
+    "referencia_geografica": "RN3 empalme RP21–Cañuelas (extremo declarado)",
+    "precision_geo": "extremo_declarado",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "860",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -62.22295,
+     -38.10128
+    ]
+   },
+   "properties": {
+    "id": "PBA-50",
+    "obra": "Construcción de Autopista Ruta Nacional N° 33, El Cholo-Tornquist, Provincia de Buenos Aires.",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "1606",
+    "partidos": "Tornquist; Bahía Blanca",
+    "referencia_geografica": "RN33 El Cholo–Tornquist (El Cholo fuera del nomenclador)",
+    "precision_geo": "extremo_declarado",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "1606",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -60.40829,
+     -35.95334
+    ]
+   },
+   "properties": {
+    "id": "PBA-51",
+    "obra": "Sistema Modular de Mantenimiento, Ruta Nacional N° 205/226, Tramo: Saladillo - Bolívar, Sección: Km. 188,56 - Km. 317,41 y Tramo: Olavarría - Bolívar, Sección: Km. 300,00 - Km. 404,50, Provincia de Buenos Aires",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "2573",
+    "partidos": "Saladillo; Bolívar; Olavarría",
+    "referencia_geografica": "RN205/226 Saladillo–Bolívar y Olavarría–Bolívar",
+    "precision_geo": "tramo",
+    "tramo_lat_a": "-35.67681",
+    "tramo_lon_a": "-59.70266",
+    "tramo_lat_b": "-36.22988",
+    "tramo_lon_b": "-61.11392",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "2573",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -59.70266,
+      -35.67681
+     ],
+     [
+      -61.11392,
+      -36.22988
+     ]
+    ]
+   },
+   "properties": {
+    "id": "PBA-51",
+    "obra": "Sistema Modular de Mantenimiento, Ruta Nacional N° 205/226, Tramo: Saladillo - Bolívar, Sección: Km. 188,56 - Km. 317,41 y Tramo: Olavarría - Bolívar, Sección: Km. 300,00 - Km. 404,50, Provincia de Buenos Aires",
+    "tipo": "tramo_declarado",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "2573"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -59.74425,
+     -34.17404
+    ]
+   },
+   "properties": {
+    "id": "PBA-52",
+    "obra": "Construcción de Autopista Ruta Nacional N° 8, Tramo Pilar - Pergamino, Provincia de Buenos Aires.",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "7",
+    "partidos": "Pilar; Pergamino",
+    "referencia_geografica": "RN8 Pilar–Pergamino",
+    "precision_geo": "tramo",
+    "tramo_lat_a": "-34.45698",
+    "tramo_lon_a": "-58.91391",
+    "tramo_lat_b": "-33.89111",
+    "tramo_lon_b": "-60.57459",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "7",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -58.91391,
+      -34.45698
+     ],
+     [
+      -60.57459,
+      -33.89111
+     ]
+    ]
+   },
+   "properties": {
+    "id": "PBA-52",
+    "obra": "Construcción de Autopista Ruta Nacional N° 8, Tramo Pilar - Pergamino, Provincia de Buenos Aires.",
+    "tipo": "tramo_declarado",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "7"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.25549,
+     -37.84638
+    ]
+   },
+   "properties": {
+    "id": "PBA-53",
+    "obra": "Const. de Banquinas Pavimentadas y Carriles de Sobrepaso En Ruta Nacional N° 226, Tramo: Intersección Con RP N° 55 (D) (Acceso a Balcarce) - Empalme RP N° 227 (I), Sección: Km. 64,22 a 120,20. Provincia de Buenos Aires",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "511",
+    "partidos": "Balcarce",
+    "referencia_geografica": "RN226 acceso a Balcarce–empalme RP227",
+    "precision_geo": "extremo_declarado",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "511",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -60.5759,
+     -37.74813
+    ]
+   },
+   "properties": {
+    "id": "PBA-54",
+    "obra": "Ruta Segura y Repavimentación En Ruta Nacional N° 226 y Ruta Nacional N° 3, Tramo: Mar Del Plata - Olavarría / Azul (Int. RN N° 226) - Coronel Dorrego, Sección: Prog. 254 - Prog. 273 / Prog. 309 - Prog. 327. Provincia de Buenos Aires.",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "240",
+    "partidos": "Azul; Coronel Dorrego; General Pueyrredón; Olavarría",
+    "referencia_geografica": "RN226/RN3 Mar del Plata–Olavarría y Azul–Coronel Dorrego",
+    "precision_geo": "tramo",
+    "tramo_lat_a": "-36.77745",
+    "tramo_lon_a": "-59.86344",
+    "tramo_lat_b": "-38.71880",
+    "tramo_lon_b": "-61.28836",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "240",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -59.86344,
+      -36.77745
+     ],
+     [
+      -61.28836,
+      -38.7188
+     ]
+    ]
+   },
+   "properties": {
+    "id": "PBA-54",
+    "obra": "Ruta Segura y Repavimentación En Ruta Nacional N° 226 y Ruta Nacional N° 3, Tramo: Mar Del Plata - Olavarría / Azul (Int. RN N° 226) - Coronel Dorrego, Sección: Prog. 254 - Prog. 273 / Prog. 309 - Prog. 327. Provincia de Buenos Aires.",
+    "tipo": "tramo_declarado",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "240"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -60.5759,
+     -37.74813
+    ]
+   },
+   "properties": {
+    "id": "PBA-55",
+    "obra": "Ruta Segura y Repavimentación en Ruta Nacional N° 3, Tramo: Azul (Int. RN N° 226) - Coronel Dorrego, Sección: PK 451,00 - PK 476,66. Provincia de Buenos Aires.",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "264",
+    "partidos": "Azul; Coronel Dorrego",
+    "referencia_geografica": "RN3 Azul–Coronel Dorrego (PK 451–476)",
+    "precision_geo": "tramo",
+    "tramo_lat_a": "-36.77745",
+    "tramo_lon_a": "-59.86344",
+    "tramo_lat_b": "-38.71880",
+    "tramo_lon_b": "-61.28836",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "264",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -59.86344,
+      -36.77745
+     ],
+     [
+      -61.28836,
+      -38.7188
+     ]
+    ]
+   },
+   "properties": {
+    "id": "PBA-55",
+    "obra": "Ruta Segura y Repavimentación en Ruta Nacional N° 3, Tramo: Azul (Int. RN N° 226) - Coronel Dorrego, Sección: PK 451,00 - PK 476,66. Provincia de Buenos Aires.",
+    "tipo": "tramo_declarado",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "264"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -60.5759,
+     -37.74813
+    ]
+   },
+   "properties": {
+    "id": "PBA-56",
+    "obra": "Ruta Segura y Repavimentación en Ruta Nacional N° 3, Tramo: Azul (Int. RN N° 226) - Coronel Dorrego, Sección: PK 550+00 - PK 589+00. Provincia de Buenos Aires.",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "414",
+    "partidos": "Azul; Coronel Dorrego",
+    "referencia_geografica": "RN3 Azul–Coronel Dorrego (PK 550–589)",
+    "precision_geo": "tramo",
+    "tramo_lat_a": "-36.77745",
+    "tramo_lon_a": "-59.86344",
+    "tramo_lat_b": "-38.71880",
+    "tramo_lon_b": "-61.28836",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "414",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -59.86344,
+      -36.77745
+     ],
+     [
+      -61.28836,
+      -38.7188
+     ]
+    ]
+   },
+   "properties": {
+    "id": "PBA-56",
+    "obra": "Ruta Segura y Repavimentación en Ruta Nacional N° 3, Tramo: Azul (Int. RN N° 226) - Coronel Dorrego, Sección: PK 550+00 - PK 589+00. Provincia de Buenos Aires.",
+    "tipo": "tramo_declarado",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "414"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -59.55911,
+     -34.70977
+    ]
+   },
+   "properties": {
+    "id": "PBA-57",
+    "obra": "Construcción de Autopista, Ruta Nacional N° 5, Tramo: Mercedes - Inicio Variante Suipacha. Provincia de Buenos Aires (CAF 11744)",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "7196",
+    "partidos": "Mercedes; Suipacha",
+    "referencia_geografica": "RN5 Mercedes–Variante Suipacha",
+    "precision_geo": "tramo",
+    "tramo_lat_a": "-34.65073",
+    "tramo_lon_a": "-59.43139",
+    "tramo_lat_b": "-34.76881",
+    "tramo_lon_b": "-59.68683",
+    "financiamiento": "Transferencias internas 30% + Crédito externo 70%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "2159",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "5037"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -59.43139,
+      -34.65073
+     ],
+     [
+      -59.68683,
+      -34.76881
+     ]
+    ]
+   },
+   "properties": {
+    "id": "PBA-57",
+    "obra": "Construcción de Autopista, Ruta Nacional N° 5, Tramo: Mercedes - Inicio Variante Suipacha. Provincia de Buenos Aires (CAF 11744)",
+    "tipo": "tramo_declarado",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "7196"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.88093,
+     -35.55656
+    ]
+   },
+   "properties": {
+    "id": "PBA-58",
+    "obra": "Construcción de Autopista, Ruta Nacional N° 3; Tramo: Fin Variante S. M. del Monte - Acc. Gorchs. Provincia de Buenos Aires (CAF 11744)",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "12214",
+    "partidos": "Monte; Saladillo",
+    "referencia_geografica": "RN3 Variante San Miguel del Monte–acceso Gorchs",
+    "precision_geo": "tramo",
+    "tramo_lat_a": "-35.44104",
+    "tramo_lon_a": "-58.80345",
+    "tramo_lat_b": "-35.67207",
+    "tramo_lon_b": "-58.95841",
+    "financiamiento": "Transferencias internas 30% + Crédito externo 70%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "3664",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "8550"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -58.80345,
+      -35.44104
+     ],
+     [
+      -58.95841,
+      -35.67207
+     ]
+    ]
+   },
+   "properties": {
+    "id": "PBA-58",
+    "obra": "Construcción de Autopista, Ruta Nacional N° 3; Tramo: Fin Variante S. M. del Monte - Acc. Gorchs. Provincia de Buenos Aires (CAF 11744)",
+    "tipo": "tramo_declarado",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "12214"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.76199,
+     -35.05384
+    ]
+   },
+   "properties": {
+    "id": "PBA-59",
+    "obra": "Construcción Variante Cañuelas, Ruta Nacional 3/205, Tramo: Au Ezeiza Cañuelas - RN N° 3 - Acceso a Cañuelas (Calle Pellegrini), Provincia de Buenos Aires.",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "1086",
+    "partidos": "Cañuelas",
+    "referencia_geografica": "Variante Cañuelas RN3/205",
+    "precision_geo": "localidad",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "1086",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -63.01503,
+     -35.03263
+    ]
+   },
+   "properties": {
+    "id": "PBA-60",
+    "obra": "Obras de Repavimentación, Ruta Nacional N° 33; Tramo: Gral Villegas - Rufino, Interprovincial",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "80",
+    "partidos": "General Villegas",
+    "referencia_geografica": "RN33 General Villegas–Rufino (extremo declarado en PBA)",
+    "precision_geo": "extremo_declarado",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "80",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.56655,
+     -34.89096
+    ]
+   },
+   "properties": {
+    "id": "PBA-61",
+    "obra": "Repavimentación Au. Ezeiza – Cañuelas, Tramo: Km 49.400 – Km 58.856, Sección: Ramal de Ingreso y Egreso y Colectora Descendente. Peaje Tristán Suárez. Provincia de Buenos Aires.",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "7",
+    "partidos": "Ezeiza",
+    "referencia_geografica": "Tristán Suárez (localidad) — peaje Au. Ezeiza–Cañuelas",
+    "precision_geo": "localidad",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "7",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -62.94873,
+     -36.12063
+    ]
+   },
+   "properties": {
+    "id": "PBA-62",
+    "obra": "Obras de Repavimentación, Ruta Nacional N° 5, Tramo: Trenque Lauquen - Pellegrini. Provincia de Buenos Aires.",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "306",
+    "partidos": "Trenque Lauquen; Pellegrini",
+    "referencia_geografica": "RN5 Trenque Lauquen–Pellegrini",
+    "precision_geo": "tramo",
+    "tramo_lat_a": "-35.97334",
+    "tramo_lon_a": "-62.73275",
+    "tramo_lat_b": "-36.26791",
+    "tramo_lon_b": "-63.16472",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "306",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -62.73275,
+      -35.97334
+     ],
+     [
+      -63.16472,
+      -36.26791
+     ]
+    ]
+   },
+   "properties": {
+    "id": "PBA-62",
+    "obra": "Obras de Repavimentación, Ruta Nacional N° 5, Tramo: Trenque Lauquen - Pellegrini. Provincia de Buenos Aires.",
+    "tipo": "tramo_declarado",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "306"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -62.64459,
+     -38.33733
+    ]
+   },
+   "properties": {
+    "id": "PBA-63",
+    "obra": "Construcción de Puente Ruta Nacional N° 35, Tramo: Km. 64,92 (Arroyo Chasicó). Bahía Blanca. Provincia de Buenos Aires.",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "123",
+    "partidos": "Bahía Blanca",
+    "referencia_geografica": "Arroyo Chasicó (localidad Chasicó) — puente RN35",
+    "precision_geo": "localidad",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "123",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0",
+    "codigo_proyecto": "152313",
+    "costo_total_millones": "4110",
+    "monto_2028": "980",
+    "monto_2029": "549",
+    "monto_resto": "2458",
+    "pct_costo_total_en_2027": "3.0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.78272,
+     -35.24744
+    ]
+   },
+   "properties": {
+    "id": "PBA-64",
+    "obra": "Repavimentación de La Ruta Nacional N° 3, Tramo: Cañuelas - San Miguel Del Monte, Sección: Km 88,00 - Km 104,60 / T-01-S-02: Km 104,83 - Km 109,00, Provincia de Buenos Aires.",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "7",
+    "partidos": "Cañuelas; Monte",
+    "referencia_geografica": "RN3 Cañuelas–San Miguel del Monte",
+    "precision_geo": "tramo",
+    "tramo_lat_a": "-35.05384",
+    "tramo_lon_a": "-58.76199",
+    "tramo_lat_b": "-35.44104",
+    "tramo_lon_b": "-58.80345",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "7",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -58.76199,
+      -35.05384
+     ],
+     [
+      -58.80345,
+      -35.44104
+     ]
+    ]
+   },
+   "properties": {
+    "id": "PBA-64",
+    "obra": "Repavimentación de La Ruta Nacional N° 3, Tramo: Cañuelas - San Miguel Del Monte, Sección: Km 88,00 - Km 104,60 / T-01-S-02: Km 104,83 - Km 109,00, Provincia de Buenos Aires.",
+    "tipo": "tramo_declarado",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "7"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -62.27274,
+     -38.72277
+    ]
+   },
+   "properties": {
+    "id": "PBA-65",
+    "obra": "Construcción de Puente s/canal Maldonado sobre Ruta Nacional N° 3, Bahía Blanca, Provincia de Buenos Aires.",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Dirección Nacional de Vialidad",
+    "categoria": "Vialidad nacional",
+    "monto_millones_2027": "137",
+    "partidos": "Bahía Blanca",
+    "referencia_geografica": "Bahía Blanca (localidad) — puente canal Maldonado RN3",
+    "precision_geo": "localidad",
+    "financiamiento": "Transferencias internas 100%",
+    "tesoro": "0",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "137",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0",
+    "codigo_proyecto": "152314",
+    "costo_total_millones": "4110",
+    "monto_2028": "976",
+    "monto_2029": "547",
+    "monto_resto": "2450",
+    "pct_costo_total_en_2027": "3.3"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.52476,
+     -34.85439
+    ]
+   },
+   "properties": {
+    "id": "PBA-68",
+    "obra": "Puesta en Valor Centro de Inspección, Perfeccionamiento e Instrucción, Ezeiza Buenos Aires",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Administración Nacional de Aviación Civil",
+    "categoria": "Aviación civil",
+    "monto_millones_2027": "65",
+    "partidos": "Ezeiza",
+    "referencia_geografica": "Ezeiza (localidad) — ANAC",
+    "precision_geo": "localidad",
+    "financiamiento": "Recursos propios 100%",
+    "tesoro": "0",
+    "propios": "65",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -60.57459,
+     -33.89111
+    ]
+   },
+   "properties": {
+    "id": "PBA-69",
+    "obra": "Construcción Depósito General de Insumos y Taller de Mantenimiento, Pergamino - Bs. As.",
+    "jurisdiccion": "Ministerio de Salud",
+    "entidad": "ANLIS Dr. Carlos Malbrán",
+    "categoria": "Salud",
+    "monto_millones_2027": "208",
+    "partidos": "Pergamino",
+    "referencia_geografica": "Pergamino (localidad)",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "208",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -57.54384,
+     -38.00645
+    ]
+   },
+   "properties": {
+    "id": "PBA-70",
+    "obra": "Remodelación Sector Galería-Aula Multifunción, Mar del Plata - Bs. As.",
+    "jurisdiccion": "Ministerio de Salud",
+    "entidad": "ANLIS Dr. Carlos Malbrán",
+    "categoria": "Salud",
+    "monto_millones_2027": "83",
+    "partidos": "General Pueyrredón",
+    "referencia_geografica": "Mar del Plata (localidad)",
+    "precision_geo": "localidad",
+    "financiamiento": "Tesoro nacional 100%",
+    "tesoro": "83",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.49791,
+     -34.85702
+    ]
+   },
+   "properties": {
+    "id": "PBA-72",
+    "obra": "Provisión e Instalación de un Sistema de Protección Contra Incendio para el Depósito Ezeiza, sito en Perito Moreno 375 - Parque Industrial Canning, Ezeiza",
+    "jurisdiccion": "Ministerio de Capital Humano",
+    "entidad": "Administración Nacional de la Seguridad Social",
+    "categoria": "Logística ANSES",
+    "monto_millones_2027": "151",
+    "partidos": "Ezeiza",
+    "referencia_geografica": "Canning (localidad) — Parque Industrial",
+    "precision_geo": "localidad",
+    "financiamiento": "Recursos propios 100%",
+    "tesoro": "0",
+    "propios": "151",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "0"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -58.1643,
+     -34.76929
+    ]
+   },
+   "properties": {
+    "id": "PBA-73",
+    "obra": "Mejora Integral del Ferrocarril General Roca - Ramal Constitución - La Plata (BID N°2982/OC-AR - BID N°5320/OC-AR) — fila INTERPROVINCIAL",
+    "jurisdiccion": "Ministerio de Economía",
+    "entidad": "Infraestructura",
+    "categoria": "Ferrocarril",
+    "monto_millones_2027": "125942",
+    "partidos": "Avellaneda; Quilmes; Berazategui; Florencio Varela; La Plata (traza no detallada en el anexo)",
+    "referencia_geografica": "Ramal Constitución–La Plata · fila clasificada como interprovincial, no imputada a PBA",
+    "precision_geo": "tramo",
+    "tramo_lat_a": "-34.62308",
+    "tramo_lon_a": "-58.38062",
+    "tramo_lat_b": "-34.91550",
+    "tramo_lon_b": "-57.94799",
+    "financiamiento": "Tesoro nacional 80% + Crédito externo 20%",
+    "tesoro": "101246",
+    "propios": "0",
+    "afectados": "0",
+    "transf_internas": "0",
+    "credito_interno": "0",
+    "transf_externas": "0",
+    "credito_externo": "24696"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -58.38062,
+      -34.62308
+     ],
+     [
+      -57.94799,
+      -34.9155
+     ]
+    ]
+   },
+   "properties": {
+    "id": "PBA-73",
+    "obra": "Mejora Integral del Ferrocarril General Roca - Ramal Constitución - La Plata (BID N°2982/OC-AR - BID N°5320/OC-AR) — fila INTERPROVINCIAL",
+    "tipo": "tramo_declarado",
+    "categoria": "Ferrocarril",
+    "monto_millones_2027": "125942"
+   }
+  }
+ ]
+}
