@@ -173,13 +173,22 @@ details.acc + details.acc{margin-top:0;border-top:1px solid var(--line)}
 #concDonut{width:min(300px,80vw);height:min(300px,80vw);flex:none}
 .donut-seg{transition:opacity .2s}
 .donut-seg:hover{opacity:.82}
-.donut-center-pct{font-family:var(--disp);font-weight:900;fill:var(--turq)}
-.donut-center-lbl{font-family:var(--mono);fill:#9E9992}
+.donut-center-pct{font-family:var(--disp);font-weight:900;fill:#A83420}
+.donut-center-lbl{font-family:var(--mono);fill:#5B6B72}
 .donut-legend{display:flex;flex-direction:column;gap:2px;flex:1;min-width:260px}
-.donut-legend-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(243,239,231,.1)}
+.donut-legend-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(20,38,43,.12)}
 .donut-legend-item .dl-swatch{width:13px;height:13px;border-radius:3px;flex:none}
-.donut-legend-item .dl-name{font-size:.9rem;color:#E9E4DB;flex:1;line-height:1.35}
-.donut-legend-item .dl-val{font-family:var(--mono);font-size:.82rem;color:#F3EFE7;white-space:nowrap;padding-left:12px}
+.donut-legend-item .dl-name{font-size:.9rem;color:#2B3F45;flex:1;line-height:1.35}
+.donut-legend-item .dl-val{font-family:var(--mono);font-size:.82rem;color:#14262B;white-space:nowrap;padding-left:12px}
+
+/* concentracion: photo grid */
+.photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}
+@media(max-width:820px){.photo-grid{grid-template-columns:repeat(2,1fr)}}
+.photo-card{border-radius:8px;overflow:hidden;background:var(--grafito2)}
+.photo-card img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+.photo-card figcaption{padding:10px 12px}
+.photo-card figcaption b{display:block;font-family:var(--disp);font-weight:800;font-size:.78rem;text-transform:uppercase;color:#F3EFE7;line-height:1.25}
+.photo-card figcaption span{display:block;font-family:var(--mono);font-size:.66rem;color:#9E9992;margin-top:4px}
 
 /* timeline (plurianualidad) */
 .tl-list{margin-top:28px;display:flex;flex-direction:column;gap:26px}
@@ -261,7 +270,7 @@ details.acc + details.acc{margin-top:0;border-top:1px solid var(--line)}
 
 /* filterable table */
 .obras-table-wrap{margin-top:32px}
-.table-scroll{margin-top:12px;overflow-x:auto;max-height:400px;overflow-y:auto;border:1px solid rgba(243,239,231,.1);border-radius:8px}
+.table-scroll{margin-top:12px;overflow-x:auto;max-height:400px;overflow-y:auto;border:1px solid rgba(243,239,231,.1);border-radius:8px;background:var(--grafito2)}
 table.obras-table{width:100%;border-collapse:collapse;font-size:.84rem;min-width:640px}
 table.obras-table th{position:sticky;top:0;background:var(--grafito2);text-align:left;padding:9px 12px;font-family:var(--disp);
   font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:.64rem;color:#E9E4DB;border-bottom:1px solid rgba(243,239,231,.15)}
@@ -285,19 +294,19 @@ table.obras-table tr:hover td{background:rgba(243,239,231,.04)}
 /* scatter (provincias) */
 .scatter-wrap{margin-top:28px}
 #provScatter{width:100%;height:auto;display:block}
-.scat-dot{cursor:pointer;stroke:rgba(8,17,20,.5);stroke-width:1;transition:opacity .2s,stroke .2s}
-.scat-dot.pba{fill:var(--turq);stroke:#F3EFE7;stroke-width:1.5}
-.scat-dot:not(.pba){fill:rgba(0,146,158,.4)}
-.scat-dot:hover{stroke:var(--turq);stroke-width:2}
-.scat-label{font-family:var(--disp);font-weight:700;font-size:12px;fill:#B7B2AA;text-transform:uppercase;letter-spacing:.02em}
-.scat-label.pba{fill:#F3EFE7;font-weight:900;font-size:15px}
-.scat-axis{stroke:rgba(243,239,231,.14);stroke-width:1}
-.scat-grid{stroke:rgba(243,239,231,.07);stroke-width:1;stroke-dasharray:2 5}
-.scat-axis-label{font-family:var(--mono);font-size:11px;fill:#9E9992}
-.scat-ref-line{stroke:var(--rojo);stroke-width:1.3;stroke-dasharray:4 4;opacity:.75}
-.scat-ref-label{font-family:var(--mono);font-size:11px;fill:var(--rojo)}
-circle.scat-size-legend{fill:none;stroke:#9E9992;stroke-width:1}
-.scat-size-legend-label{font-family:var(--mono);font-size:10px;fill:#9E9992}
+.scat-dot{cursor:pointer;stroke:rgba(20,38,43,.35);stroke-width:1;transition:opacity .2s,stroke .2s}
+.scat-dot.pba{fill:#146B91;stroke:#14262B;stroke-width:1.5}
+.scat-dot:not(.pba){fill:rgba(0,146,158,.5)}
+.scat-dot:hover{stroke:#146B91;stroke-width:2}
+.scat-label{font-family:var(--disp);font-weight:700;font-size:12px;fill:#5B6B72;text-transform:uppercase;letter-spacing:.02em}
+.scat-label.pba{fill:#14262B;font-weight:900;font-size:15px}
+.scat-axis{stroke:rgba(20,38,43,.25);stroke-width:1}
+.scat-grid{stroke:rgba(20,38,43,.1);stroke-width:1;stroke-dasharray:2 5}
+.scat-axis-label{font-family:var(--mono);font-size:11px;fill:#5B6B72}
+.scat-ref-line{stroke:var(--rojo);stroke-width:1.3;stroke-dasharray:4 4;opacity:.85}
+.scat-ref-label{font-family:var(--mono);font-size:11px;fill:#B8391F}
+circle.scat-size-legend{fill:none;stroke:#5B6B72;stroke-width:1}
+.scat-size-legend-label{font-family:var(--mono);font-size:10px;fill:#5B6B72}
 
 /* cierre */
 .cierre-cta{margin-top:32px;display:inline-flex;align-items:center;gap:10px;background:var(--azul);color:#fff;
@@ -390,16 +399,6 @@ footer.foot details.acc summary{color:#F3EFE7}
       </aside>
     </div>
 
-    <div class="roca-box rv">
-      <h4>El ramal Roca: un problema de clasificación</h4>
-      <p>La Mejora Integral del Ferrocarril General Roca, ramal Constitución–La Plata, es <strong style="color:#F3EFE7">la obra más grande de todo el presupuesto 2027: $125.942 millones</strong>. Corre entre la Ciudad y La Plata, atravesando Avellaneda, Quilmes, Berazategui y Florencio Varela — pero el anexo geográfico la clasifica como interprovincial, no bonaerense.</p>
-      <div class="roca-toggle">
-        <button class="roca-btn active" data-roca="oficial" type="button">Clasificación oficial</button>
-        <button class="roca-btn" data-roca="territorial" type="button">Criterio territorial alternativo</button>
-      </div>
-      <div class="roca-result" id="rocaResult"></div>
-    </div>
-
     <div class="obras-table-wrap rv">
       <h3 class="sub" style="color:#F3EFE7">Las 73 filas, obra por obra</h3>
       <p class="body" style="margin-top:8px;color:#E9E4DB">Filtrá por nombre de obra, categoría o municipio — el mismo buscador de arriba filtra esta tabla. Las filas en gris son las 17 sin coordenada.</p>
@@ -426,7 +425,7 @@ footer.foot details.acc summary{color:#F3EFE7}
   </div>
 </section>
 
-<section class="band-dark" id="concentracion">
+<section class="band-paper" id="concentracion">
   <div class="wrap">
     <div class="act rv">Concentración</div>
     <h2 class="title rv">Cuatro obras concentran <em>más de la mitad</em></h2>
@@ -435,7 +434,27 @@ footer.foot details.acc summary{color:#F3EFE7}
       <svg id="concDonut" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gráfico de anillo: las cuatro obras más grandes concentran el 56,2% del monto total, el resto de las 68 obras se reparte el 43,8%"></svg>
       <div class="donut-legend" id="concLegend"></div>
     </div>
-    <p class="body rv section-gap">Un reactor, una cárcel federal, cuatro helicópteros y una autopista. Tres de los cuatro son <u class="ul">activos estratégicos del Estado nacional</u> emplazados en territorio bonaerense: se construyen <strong>en</strong> la Provincia, pero no se deciden, no se gestionan ni se operan desde ningún municipio. En el otro extremo: una sola obra de vivienda en toda la provincia ($2.713 millones, Marcos Paz) y una sola de saneamiento ($6.899 millones, Lanús) — entre las dos, <span class="hl">apenas el 3% del total</span>.</p>
+    <p class="body rv section-gap">Un reactor, una cárcel federal, cuatro helicópteros y una autopista. Tres de los cuatro son <u class="ul">activos estratégicos del Estado nacional</u> emplazados en territorio bonaerense: se construyen <strong>en</strong> la Provincia, pero no se deciden, no se gestionan ni se operan desde ningún municipio.</p>
+    <div class="photo-grid rv">
+      <figure class="photo-card">
+        <img src="/assets/img/obra-nacional-pba-2027/obra-autopista.jpg" alt="Cartel de la Autopista Presidente Perón en construcción" loading="lazy">
+        <figcaption><b>Autopista Pte. Juan Domingo Perón</b><span>$63.766 M · Foto: Inforegión</span></figcaption>
+      </figure>
+      <figure class="photo-card">
+        <img src="/assets/img/obra-nacional-pba-2027/obra-ra10.jpg" alt="Visita oficial al reactor RA-10 en el Centro Atómico Ezeiza, con cartelería de CNEA e INVAP" loading="lazy">
+        <figcaption><b>Reactor RA-10, Centro Atómico Ezeiza</b><span>$39.690 M · Foto: Argentina.gob.ar / INVAP</span></figcaption>
+      </figure>
+      <figure class="photo-card">
+        <img src="/assets/img/obra-nacional-pba-2027/obra-agote.jpg" alt="Interior de un pabellón del Complejo Federal de Condenados de Agote, en Mercedes" loading="lazy">
+        <figcaption><b>Complejo Federal de Agote</b><span>$39.247 M · Foto: Municipalidad de Mercedes</span></figcaption>
+      </figure>
+      <figure class="photo-card">
+        <img src="/assets/img/obra-nacional-pba-2027/obra-belgrano.jpg" alt="Base Naval Puerto Belgrano, donde se incorporarán los helicópteros navales" loading="lazy">
+        <figcaption><b>Base Naval Puerto Belgrano</b><span>$37.616 M · Foto: Casa Rosada, CC BY 2.5 AR</span></figcaption>
+      </figure>
+    </div>
+    <p class="body rv" style="margin-top:18px;font-size:.82rem;color:var(--muted)">La foto de Puerto Belgrano muestra la base naval, no los helicópteros: todavía no fueron entregados. Las otras tres corresponden a las obras reales, verificadas contra la fuente citada en cada una.</p>
+    <p class="body rv section-gap">En el otro extremo: una sola obra de vivienda en toda la provincia ($2.713 millones, Marcos Paz) y una sola de saneamiento ($6.899 millones, Lanús) — entre las dos, <span class="hl">apenas el 3% del total</span>.</p>
     <p class="src">Fuente: Planilla Nº12, Proyecto de Ley de Presupuesto 2027 (ONP) · Millones de pesos corrientes.</p>
   </div>
 </section>
@@ -473,7 +492,21 @@ footer.foot details.acc summary{color:#F3EFE7}
   </div>
 </section>
 
-<section class="band-dark" id="provincias">
+<section class="band-paper" id="ramal-roca" style="padding-top:0">
+  <div class="wrap">
+    <div class="roca-box rv" style="margin-top:0">
+      <h4>El ramal Roca: un problema de clasificación</h4>
+      <p>La Mejora Integral del Ferrocarril General Roca, ramal Constitución–La Plata, es <strong style="color:#F3EFE7">la obra más grande de todo el presupuesto 2027: $125.942 millones</strong>. Corre entre la Ciudad y La Plata, atravesando Avellaneda, Quilmes, Berazategui y Florencio Varela — pero el anexo geográfico la clasifica como interprovincial, no bonaerense.</p>
+      <div class="roca-toggle">
+        <button class="roca-btn active" data-roca="oficial" type="button">Clasificación oficial</button>
+        <button class="roca-btn" data-roca="territorial" type="button">Criterio territorial alternativo</button>
+      </div>
+      <div class="roca-result" id="rocaResult"></div>
+    </div>
+  </div>
+</section>
+
+<section class="band-paper" id="provincias">
   <div class="wrap">
     <div class="act rv">Buenos Aires en el país</div>
     <h2 class="title rv">Concentra la mayor inversión, <em>pero queda 15ª por habitante</em></h2>
@@ -667,29 +700,25 @@ document.getElementById('cierreCta').addEventListener('click', goToSearch);
 (function(){
   const svg = document.getElementById('concDonut');
   const legend = document.getElementById('concLegend');
-  const TAXO_MAP = {
-    'Vialidad urbana metropolitana': 'territorial', 'Vialidad nacional': 'territorial',
-    'Vialidad · mantenimiento por distrito': 'territorial', 'Ferrocarril': 'territorial',
-    'Saneamiento': 'territorial', 'Vivienda': 'territorial',
-    'Nuclear y ciencia': 'estrategico', 'Defensa': 'estrategico', 'Sistema penitenciario': 'estrategico',
-    'Salud': 'social', 'Justicia federal': 'social',
-    'Aviación civil': 'equipamiento', 'Geología y minería': 'equipamiento', 'Logística ANSES': 'equipamiento',
-  };
+  // una sola familia de color (rust) en 4 tonos, rango descendente por rango; el resto en gris neutro
+  const RAMP = ['#7A2712', '#9C351E', '#C1462F', '#DE7A5C'];
   const segments = DATA.top4.map((o,i) => ({
-    label: `${i+1}. ${o.obra}`, val: o.monto, color: `var(--t-${TAXO_MAP[o.categoria] || 'equipamiento'})`,
+    label: `${i+1}. ${o.obra}`, val: o.monto, color: RAMP[i],
   }));
-  segments.push({ label: `Las demás ${DATA.restoCount} obras`, val: DATA.restoMonto, color: 'rgba(243,239,231,.16)' });
+  segments.push({ label: `Las demás ${DATA.restoCount} obras`, val: DATA.restoMonto, color: '#C9C2B4' });
 
   const cx = 120, cy = 120, r = 92, sw = 34;
   const circ = 2 * Math.PI * r;
   const total = segments.reduce((s,x)=>s+x.val,0);
   let offset = 0;
-  let svgHtml = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="rgba(243,239,231,.06)" stroke-width="${sw}"/>`;
+  let svgHtml = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="rgba(20,38,43,.07)" stroke-width="${sw}"/>`;
+  const gap = 3;
   segments.forEach((s,i) => {
     const frac = s.val / total;
     const len = frac * circ;
+    const drawLen = Math.max(len - gap, 1);
     svgHtml += `<circle class="donut-seg" cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${s.color}" stroke-width="${sw}"
-      stroke-dasharray="${len} ${circ-len}" stroke-dashoffset="${-offset}" transform="rotate(-90 ${cx} ${cy})" data-len="${len}">
+      stroke-dasharray="${drawLen} ${circ-drawLen}" stroke-dashoffset="${-offset}" transform="rotate(-90 ${cx} ${cy})" data-len="${drawLen}">
       <title>${s.label}: $${nf(s.val)} M (${nf1(frac*100)}%)</title>
     </circle>`;
     offset += len;
