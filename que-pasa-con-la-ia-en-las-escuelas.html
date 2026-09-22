@@ -1,0 +1,1491 @@
+<!doctype html>
+<html lang="es" class="anim">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>¿Qué pasa con la IA en las escuelas?, Alsina</title>
+<meta name="description" content="PISA 2025 midió qué hacen los chicos con la inteligencia artificial y qué hace la escuela con eso. No es cuánto la usan: es para qué.">
+<meta name="theme-color" content="#0e1c20">
+<meta property="og:title" content="¿Qué pasa con la IA en las escuelas?">
+<meta property="og:description" content="No es cuánto la usan: es para qué. Los chicos que más usan IA rinden mejor, y la práctica de chequearla se reparte muy desigual.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* ============ tokens: paleta de producción Alsina ============ */
+:root{
+  --g:#071114; --g2:#0e1c20; --g3:#1a2e34;
+  --tq:#00D5D8; --tq2:#008C9A;
+  --crema:#F3EFE7; --crema2:#E9E4DB; --conc:#B7B2AA; --blanco:#fff;
+  --bg2:#f8fafc; --bg3:#f1f5f9; --line:#e2e8f0;
+  --ink:#1a2a2e; --ink2:#334155; --ink3:#64748b; --ink4:#94a3b8;
+  --navy:#14294D;
+  /* series: online = violeta de marca, IA = turquesa (el hallazgo) */
+  --s-on:#7A4FBF; --s-ia:#008C9A;
+  --s-on-d:#9B6FD6; --s-ia-d:#00D5D8;
+  --alerta:#C1462F;
+  --disp:'Barlow Condensed','Barlow',system-ui,sans-serif;
+  --body:'Barlow',system-ui,-apple-system,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --wrap:1120px; --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0; background:var(--crema); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.65;
+  overflow-x:clip; /* NO hidden: rompe IntersectionObserver */
+  -webkit-font-smoothing:antialiased;
+}
+img,svg,canvas{max-width:100%; display:block}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:var(--wrap); margin:0 auto; padding-inline:20px}
+section{padding-block:clamp(54px,7vw,96px); position:relative}
+.band-dark{background:var(--g2); color:var(--crema)}
+.band-soft{background:var(--bg2)}
+.band-crema2{background:var(--crema2)}
+
+/* ============ nav ============ */
+.nav{position:sticky; top:0; z-index:60; background:rgba(7,17,20,.96); backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(255,255,255,.07)}
+.nav-in{max-width:var(--wrap); margin:0 auto; padding:11px 20px; display:flex; align-items:center;
+  justify-content:space-between; gap:16px}
+.brand{font-family:var(--disp); font-weight:900; font-size:1.02rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--crema); text-decoration:none; flex:0 0 auto}
+.brand i{color:var(--tq); font-style:normal}
+.nav-links{display:flex; gap:17px; overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-family:var(--disp); font-weight:700; font-size:.68rem; letter-spacing:.14em;
+  text-transform:uppercase; color:rgba(243,239,231,.62); text-decoration:none; white-space:nowrap;
+  padding-block:4px; transition:color .25s}
+.nav-links a:hover,.nav-links a.on{color:var(--tq)}
+@media(max-width:760px){.nav-links{display:none}}
+.prog{position:fixed; top:0; left:0; height:2px; background:var(--tq); z-index:70; width:0}
+
+/* ============ tipografía editorial ============ */
+.act{font-family:var(--disp); font-size:.76rem; font-weight:800; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--tq2); margin-bottom:13px; display:flex; align-items:center; gap:12px}
+.band-dark .act{color:var(--tq)}
+.act::before{content:""; width:0; height:2px; background:currentColor; flex:0 0 auto;
+  transition:width .6s var(--ease) .1s}
+.act.in::before, html:not(.anim) .act::before{width:26px}
+h2.title{font-family:var(--disp); font-size:clamp(30px,4.6vw,50px); font-weight:900; line-height:1.03;
+  text-transform:uppercase; color:var(--ink); text-wrap:balance; max-width:20ch; margin:0}
+.band-dark h2.title{color:var(--crema)}
+h2.title em{color:var(--tq2); font-style:normal}
+.band-dark h2.title em{color:var(--tq)}
+h3.sub{font-family:var(--disp); font-size:clamp(20px,2.6vw,27px); font-weight:800; line-height:1.15;
+  text-transform:uppercase; color:var(--ink); margin:0 0 10px; letter-spacing:.01em}
+.band-dark h3.sub{color:var(--crema)}
+.lead{font-size:1.08rem; color:var(--ink3); line-height:1.75; margin-top:16px; max-width:66ch}
+.band-dark .lead{color:var(--conc)}
+p.t{max-width:64ch; margin:0 0 15px; color:var(--ink2)}
+.band-dark p.t{color:#c9d3d6}
+p.t strong{color:var(--ink); font-weight:600}
+.band-dark p.t strong{color:var(--crema)}
+p.t .k{color:var(--tq2); font-weight:600}
+.band-dark p.t .k{color:var(--tq)}
+.src{font-family:var(--body); font-size:.72rem; color:var(--ink4); margin-top:18px; line-height:1.5; max-width:78ch}
+.band-dark .src{color:#6f8287}
+.hr{height:1px; background:var(--line); border:0; margin:0}
+.band-dark .hr{background:rgba(255,255,255,.1)}
+
+/* cifra ancla */
+.bigfig{font-family:var(--disp); font-weight:900; font-size:clamp(3rem,9vw,5.4rem); line-height:.92;
+  color:var(--tq2); letter-spacing:-.01em}
+.band-dark .bigfig{color:var(--tq)}
+.bigfig-t{font-size:1.02rem; color:var(--ink3); max-width:40ch; line-height:1.6; margin-top:12px}
+.band-dark .bigfig-t{color:var(--conc)}
+
+/* reveal */
+html.anim .rv{opacity:0; transform:translateY(20px)}
+html.anim .rv.in{opacity:1; transform:none;
+  transition:opacity .75s var(--ease) var(--d,0s), transform .75s var(--ease) var(--d,0s)}
+html.anim .wipe{clip-path:inset(0 100% 0 0)}
+html.anim .wipe.in{clip-path:inset(0); transition:clip-path 1.05s var(--ease)}
+@media (prefers-reduced-motion:reduce){
+  html.anim .rv,html.anim .rv.in{opacity:1!important;transform:none!important;transition:none!important}
+  html.anim .wipe,html.anim .wipe.in{clip-path:none!important;transition:none!important}
+}
+/* ============ portada ============ */
+.open{min-height:calc(100svh - 48px); display:flex; align-items:center; padding-block:clamp(40px,8vh,90px)}
+.open-tag{font-family:var(--disp); font-size:.74rem; font-weight:800; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--tq2); margin-bottom:18px}
+h1{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:.95;
+  font-size:clamp(46px,10.5vw,104px); margin:0; letter-spacing:-.005em; max-width:14ch; text-wrap:balance}
+h1 em{color:var(--tq2); font-style:normal}
+.open-sub{font-size:clamp(1.02rem,2vw,1.18rem); color:var(--ink2); max-width:54ch; margin-top:22px; line-height:1.6}
+.open-nota{border-left:3px solid var(--tq2); padding:4px 0 4px 16px; margin-top:26px; max-width:52ch;
+  font-size:.92rem; color:var(--ink3); line-height:1.62}
+.byline{display:flex; align-items:center; gap:12px; margin-top:28px}
+.byline-mark{width:38px; height:38px; border-radius:50%; flex-shrink:0; background:var(--g2);
+  border:2px solid var(--tq); display:flex; align-items:center; justify-content:center;
+  font-family:var(--disp); font-weight:900; font-size:1.05rem; color:var(--tq)}
+.byline-name{font-family:var(--disp); font-weight:800; font-size:1rem; letter-spacing:.02em;
+  text-transform:uppercase; color:var(--ink)}
+.byline-role{font-size:.78rem; color:var(--ink4)}
+.open-meta{font-family:var(--disp); font-size:.72rem; font-weight:700; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--tq2); margin-top:30px; padding-top:18px; border-top:1px solid var(--line)}
+.cue{display:inline-flex; align-items:center; gap:9px; margin-top:16px; font-family:var(--disp);
+  font-size:.74rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink3); text-decoration:none}
+.cue span{width:22px; height:1px; background:var(--ink4); display:block; transition:width .4s var(--ease)}
+.cue:hover span{width:34px}
+
+/* ============ acto 0: la trampa ============ */
+.fake{background:var(--blanco); border:1px solid var(--line); border-radius:4px;
+  padding:clamp(22px,3.4vw,36px); max-width:62ch; box-shadow:0 1px 2px rgba(0,0,0,.03);
+  transition:opacity .9s var(--ease), filter .9s var(--ease)}
+.fake p{margin:0 0 14px; color:var(--ink2); line-height:1.72}
+.fake p:last-child{margin-bottom:0}
+.fake.dim{opacity:.34; filter:grayscale(.35)}
+.fake .lie{background:linear-gradient(transparent 62%, rgba(193,70,47,.24) 62%);
+  background-size:0 100%; background-repeat:no-repeat; transition:background-size .5s var(--ease)}
+.fake.marked .lie{background-size:100% 100%}
+.reveal-hit{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1.04;
+  font-size:clamp(27px,5vw,46px); color:var(--ink); max-width:18ch; margin:0}
+.reveal-hit em{color:var(--alerta); font-style:normal}
+.errs{display:grid; gap:14px; margin-top:26px; max-width:60ch}
+.err{border-left:3px solid var(--alerta); background:var(--blanco); padding:15px 18px; border-radius:0 4px 4px 0}
+.err b{display:block; font-family:var(--disp); font-weight:800; font-size:1.02rem; text-transform:uppercase;
+  letter-spacing:.01em; color:var(--ink); margin-bottom:5px; line-height:1.2}
+.err span{font-size:.94rem; color:var(--ink2); line-height:1.6}
+.err span i{color:var(--tq2); font-style:normal; font-weight:600}
+.punch{font-family:var(--disp); font-weight:900; text-transform:uppercase; line-height:1;
+  font-size:clamp(38px,8.5vw,80px); color:var(--ink); margin:0; text-wrap:balance}
+.punch em{color:var(--tq2); font-style:normal}
+
+/* ============ acto 1: el formulario ============ */
+.form{background:var(--g3); border:1px solid rgba(0,213,216,.22); border-radius:5px;
+  padding:clamp(20px,3.2vw,32px); max-width:60ch; font-family:var(--mono)}
+.form-h{font-size:.78rem; line-height:1.7; color:var(--tq); border-bottom:1px dashed rgba(0,213,216,.3);
+  padding-bottom:14px; margin-bottom:18px}
+.form-i{margin-bottom:16px}
+.form-i:last-child{margin-bottom:0}
+.form-q{font-size:.88rem; color:var(--crema); line-height:1.6; margin-bottom:9px}
+.form-scale{display:flex; flex-wrap:wrap; gap:7px}
+.opt{font-family:var(--body); font-size:.72rem; padding:3px 9px; border:1px solid rgba(255,255,255,.18);
+  border-radius:99px; color:#9fb0b4}
+.form-i.hl{border-left:2px solid var(--tq); padding-left:14px; margin-left:-16px}
+.gap14{height:14px; border-left:1px dotted rgba(255,255,255,.2); margin-left:2px}
+.gap14 s{display:block; font-family:var(--body); font-size:.66rem; color:#6f8287;
+  padding-left:14px; text-decoration:none; letter-spacing:.06em}
+
+/* ============ grillas ============ */
+.two{display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vw,52px); align-items:start}
+.two.narrow{grid-template-columns:.9fr 1.1fr}
+@media(max-width:860px){.two,.two.narrow{grid-template-columns:1fr; gap:30px}}
+.stack{display:grid; gap:clamp(22px,3.2vw,38px)}
+.card{background:var(--blanco); border:1px solid var(--line); border-radius:5px; padding:clamp(18px,2.6vw,26px)}
+.band-dark .card{background:var(--g3); border-color:rgba(255,255,255,.09)}
+.legend{display:flex; flex-wrap:wrap; gap:16px; margin-top:14px; font-size:.8rem; color:var(--ink3)}
+.band-dark .legend{color:var(--conc)}
+.legend i{width:11px; height:11px; border-radius:2px; display:inline-block; margin-right:7px; vertical-align:-1px}
+.lg-on{background:var(--s-on)} .lg-ia{background:var(--s-ia)}
+.band-dark .lg-on{background:var(--s-on-d)} .band-dark .lg-ia{background:var(--s-ia-d)}
+/* ============ barras de distribución ============ */
+.dist{display:grid; gap:11px; margin-top:6px}
+.drow{display:grid; grid-template-columns:118px 1fr; gap:12px; align-items:center}
+@media(max-width:560px){.drow{grid-template-columns:86px 1fr; gap:9px}}
+.dlab{font-family:var(--disp); font-size:.78rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:.05em; color:var(--ink3); text-align:right; line-height:1.15}
+.band-dark .dlab{color:var(--conc)}
+.dbars{display:grid; gap:4px}
+.db{height:17px; display:flex; align-items:center; gap:8px}
+.db-f{height:100%; border-radius:0 2px 2px 0; width:0; transition:width 1s var(--ease) var(--d,0s)}
+.db-on .db-f{background:var(--s-on)} .db-ia .db-f{background:var(--s-ia)}
+.band-dark .db-on .db-f{background:var(--s-on-d)} .band-dark .db-ia .db-f{background:var(--s-ia-d)}
+.db-v{font-family:var(--disp); font-weight:800; font-size:.84rem; color:var(--ink2); white-space:nowrap}
+.band-dark .db-v{color:var(--crema)}
+
+/* ============ campo de puntos ============ */
+.field{position:relative}
+.field canvas{width:100%; height:auto; border-radius:4px}
+.fstat{display:flex; flex-wrap:wrap; gap:18px; margin-top:16px}
+.fstat div{flex:0 0 auto}
+.fstat b{display:block; font-family:var(--disp); font-weight:900; font-size:1.5rem; line-height:1.1}
+.fstat span{font-size:.76rem; color:var(--ink3); display:block; max-width:22ch; line-height:1.4}
+.band-dark .fstat span{color:var(--conc)}
+.sl{margin-top:26px; background:var(--blanco); border:1px solid var(--line); border-radius:5px; padding:18px 20px}
+.band-dark .sl{background:var(--g3); border-color:rgba(255,255,255,.1)}
+.sl-h{font-family:var(--disp); font-size:.72rem; font-weight:800; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--tq2); margin-bottom:12px}
+.band-dark .sl-h{color:var(--tq)}
+.segs{display:flex; gap:6px; flex-wrap:wrap}
+.seg{font-family:var(--disp); font-weight:700; font-size:.8rem; text-transform:uppercase; letter-spacing:.05em;
+  padding:7px 13px; border:1px solid var(--line); background:transparent; color:var(--ink3);
+  border-radius:99px; cursor:pointer; transition:all .22s}
+.band-dark .seg{border-color:rgba(255,255,255,.16); color:var(--conc)}
+.seg:hover{border-color:var(--tq2); color:var(--tq2)}
+.seg.on{background:var(--tq2); border-color:var(--tq2); color:#fff}
+.band-dark .seg.on{background:var(--tq); border-color:var(--tq); color:var(--g)}
+.sl-out{margin-top:14px; font-size:.92rem; color:var(--ink2); line-height:1.6}
+.band-dark .sl-out{color:#c9d3d6}
+.sl-out b{font-family:var(--disp); font-weight:900; font-size:1.75rem; color:var(--tq2); vertical-align:-2px}
+.band-dark .sl-out b{color:var(--tq)}
+
+/* ============ dibujá la curva ============ */
+.draw{position:relative; touch-action:none; cursor:crosshair; border-radius:5px; overflow:hidden}
+.draw svg{width:100%; height:auto; display:block}
+.draw-hint{position:absolute; inset:auto 0 46% 0; text-align:center; pointer-events:none;
+  font-family:var(--disp); font-weight:800; font-size:.82rem; letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(243,239,231,.5); transition:opacity .35s}
+.draw.done .draw-hint{opacity:0}
+.dbtns{display:flex; gap:9px; flex-wrap:wrap; margin-top:16px}
+.btn{font-family:var(--disp); font-weight:800; font-size:.8rem; text-transform:uppercase; letter-spacing:.1em;
+  padding:10px 18px; border-radius:3px; border:1px solid var(--tq); background:transparent; color:var(--tq);
+  cursor:pointer; transition:all .22s}
+.btn:hover:not(:disabled){background:var(--tq); color:var(--g)}
+.btn:disabled{opacity:.32; cursor:not-allowed}
+.btn.solid{background:var(--tq); color:var(--g)}
+.btn.solid:hover{background:var(--tq2); border-color:var(--tq2); color:#fff}
+.verdict{margin-top:18px; padding:16px 18px; border-left:3px solid var(--tq); background:rgba(0,213,216,.07);
+  border-radius:0 4px 4px 0; font-size:.95rem; line-height:1.65; color:#c9d3d6; display:none}
+.verdict.show{display:block}
+.verdict b{color:var(--tq)}
+
+/* ============ tira internacional ============ */
+.strip svg{width:100%; height:auto}
+/* ============ escalera capacitación ============ */
+.stair svg{width:100%; height:auto}
+/* ============ paneles provincia ============ */
+.pan{display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,2.6vw,28px)}
+@media(max-width:700px){.pan{grid-template-columns:1fr}}
+.pan-h{font-family:var(--disp); font-size:.74rem; font-weight:800; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink4); margin-bottom:14px; padding-bottom:9px;
+  border-bottom:1px solid var(--line)}
+.prow{display:grid; grid-template-columns:78px 1fr; gap:10px; align-items:center; margin-bottom:11px}
+.plab{font-family:var(--disp); font-size:.76rem; font-weight:700; text-transform:uppercase;
+  color:var(--ink3); text-align:right}
+.pbar{height:15px; display:flex; align-items:center; gap:8px}
+.pbar i{height:100%; display:block; width:0; border-radius:0 2px 2px 0; transition:width .9s var(--ease) var(--d,0s)}
+.pbar b{font-family:var(--disp); font-weight:800; font-size:.82rem; color:var(--ink2); white-space:nowrap}
+
+/* ============ nota metodológica ============ */
+.meth{background:var(--crema2); border:1px solid rgba(0,0,0,.07); border-radius:5px;
+  padding:clamp(18px,2.6vw,26px); font-size:.88rem; color:var(--ink2); line-height:1.68; max-width:74ch}
+.meth b{font-family:var(--disp); font-weight:800; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--ink); display:block; margin-bottom:8px; font-size:.86rem}
+.meth + .meth{margin-top:14px}
+
+/* ============ cierre / cta ============ */
+.cta{display:inline-flex; align-items:center; gap:10px; font-family:var(--disp); font-weight:800;
+  font-size:.86rem; letter-spacing:.12em; text-transform:uppercase; text-decoration:none;
+  background:var(--tq); color:var(--g); padding:14px 24px; border-radius:3px; transition:background .22s}
+.cta:hover{background:var(--tq2); color:#fff}
+.cta.ghost{background:transparent; color:var(--tq); border:1px solid rgba(0,213,216,.45)}
+.cta.ghost:hover{background:rgba(0,213,216,.1); color:var(--tq)}
+.ctas{display:flex; gap:12px; flex-wrap:wrap; margin-top:28px}
+.foot{background:var(--g); color:#6f8287; padding-block:38px; font-size:.8rem}
+.foot a{color:var(--conc); text-decoration:none; border-bottom:1px solid rgba(183,178,170,.3)}
+.foot a:hover{color:var(--tq); border-color:var(--tq)}
+.foot-g{display:flex; justify-content:space-between; gap:26px; flex-wrap:wrap; align-items:flex-start}
+/* ============ sistema de placas ============ */
+.sl-n{font-family:var(--disp); font-size:.72rem; font-weight:800; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--tq2); margin-bottom:14px; display:flex; align-items:center; gap:12px}
+.band-dark .sl-n{color:var(--tq)}
+.sl-n::before{content:""; width:0; height:2px; background:currentColor; flex:0 0 auto;
+  transition:width .7s var(--ease) .15s}
+.sl-n.in::before, html:not(.anim) .sl-n::before{width:28px}
+h2.sl-t{font-family:var(--disp); font-size:clamp(31px,5.2vw,58px); font-weight:900; line-height:1.02;
+  text-transform:uppercase; color:var(--ink); text-wrap:balance; max-width:18ch; margin:0 0 6px;
+  letter-spacing:-.004em}
+.band-dark h2.sl-t{color:var(--crema)}
+h2.sl-t em{color:var(--tq2); font-style:normal}
+.band-dark h2.sl-t em{color:var(--tq)}
+.sl-b{font-size:clamp(1rem,1.7vw,1.13rem); color:var(--ink3); line-height:1.66; max-width:58ch; margin:16px 0 0}
+.band-dark .sl-b{color:var(--conc)}
+.sl-b strong{color:var(--ink); font-weight:600}
+.band-dark .sl-b strong{color:var(--crema)}
+.sl-b .k{color:var(--tq2); font-weight:600}
+.band-dark .sl-b .k{color:var(--tq)}
+.sl-f{font-size:.7rem; color:var(--ink4); margin-top:20px; line-height:1.5; max-width:74ch}
+.band-dark .sl-f{color:#6f8287}
+.sl-viz{margin-top:clamp(22px,3.4vw,36px)}
+.sl-grid{display:grid; grid-template-columns:1fr 1.15fr; gap:clamp(26px,4vw,56px); align-items:center}
+.sl-grid.flip{grid-template-columns:1.15fr 1fr}
+@media(max-width:880px){.sl-grid,.sl-grid.flip{grid-template-columns:1fr; gap:26px}}
+
+/* cifra ancla dentro de placa */
+.hero-n{font-family:var(--disp); font-weight:900; font-size:clamp(3.6rem,11vw,7.4rem); line-height:.86;
+  color:var(--tq2); letter-spacing:-.02em}
+.band-dark .hero-n{color:var(--tq)}
+.hero-n small{font-size:.42em; letter-spacing:0}
+.hero-c{font-size:1rem; color:var(--ink3); max-width:34ch; line-height:1.55; margin-top:14px}
+.band-dark .hero-c{color:var(--conc)}
+
+/* ============ test del lector ============ */
+.quiz{display:grid; gap:20px; max-width:62ch}
+.qz{background:var(--blanco); border:1px solid var(--line); border-radius:5px; padding:clamp(16px,2.4vw,22px)}
+.band-dark .qz{background:var(--g3); border-color:rgba(255,255,255,.1)}
+.qz-q{font-family:var(--disp); font-weight:800; font-size:1.06rem; line-height:1.3; color:var(--ink);
+  text-transform:none; margin-bottom:13px}
+.band-dark .qz-q{color:var(--crema)}
+.qz-o{display:flex; flex-wrap:wrap; gap:7px}
+.qz-o button{font-family:var(--body); font-size:.86rem; font-weight:500; padding:8px 14px;
+  border:1px solid var(--line); background:transparent; color:var(--ink2); border-radius:99px;
+  cursor:pointer; transition:all .2s; text-align:left}
+.band-dark .qz-o button{border-color:rgba(255,255,255,.17); color:var(--conc)}
+.qz-o button:hover{border-color:var(--tq2); color:var(--tq2)}
+.band-dark .qz-o button:hover{border-color:var(--tq); color:var(--tq)}
+.qz-o button.on{background:var(--tq2); border-color:var(--tq2); color:#fff; font-weight:600}
+.band-dark .qz-o button.on{background:var(--tq); border-color:var(--tq); color:var(--g)}
+.qz-hint{font-size:.78rem; color:var(--ink4); margin-top:10px}
+.qz-go{margin-top:6px}
+
+/* resultado del test */
+.res{display:grid; gap:18px}
+.res-row{background:var(--g3); border-left:3px solid var(--tq); border-radius:0 4px 4px 0;
+  padding:16px 20px}
+.res-row h4{font-family:var(--disp); font-weight:800; font-size:.76rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--tq); margin:0 0 9px}
+.res-big{font-family:var(--disp); font-weight:900; font-size:2.1rem; line-height:1; color:var(--crema)}
+.res-t{font-size:.95rem; color:#c9d3d6; line-height:1.55; margin-top:7px}
+.res-bar{height:26px; display:flex; margin-top:12px; border-radius:3px; overflow:hidden; gap:2px}
+.res-bar i{display:block; height:100%; transition:width .9s var(--ease); position:relative}
+.res-bar i.me{outline:2px solid var(--crema); outline-offset:-2px}
+.res-leg{display:flex; flex-wrap:wrap; gap:12px; margin-top:9px; font-size:.72rem; color:#8a9b9f}
+
+/* ============ adivinanza (acto 06) ============ */
+.guess{display:grid; gap:16px; max-width:56ch}
+.gz-lab{font-size:.95rem; color:var(--conc); line-height:1.55}
+.gz-wrap{display:flex; align-items:center; gap:16px; flex-wrap:wrap}
+.gz-val{font-family:var(--disp); font-weight:900; font-size:3.2rem; color:var(--tq); line-height:1; min-width:3.6ch}
+input[type=range]{-webkit-appearance:none; appearance:none; width:100%; max-width:420px; height:4px;
+  background:rgba(255,255,255,.18); border-radius:99px; outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:26px; height:26px; border-radius:50%;
+  background:var(--tq); cursor:grab; border:3px solid var(--g2)}
+input[type=range]::-moz-range-thumb{width:26px; height:26px; border-radius:50%; background:var(--tq);
+  cursor:grab; border:3px solid var(--g2)}
+.gz-out{margin-top:18px; display:none}
+.gz-out.show{display:block}
+/* ============ el deck: se avanza de costado, como un manual ============ */
+html,body{height:100%}
+body{overflow:hidden}
+.deck{
+  display:flex; height:100svh; width:100vw;
+  overflow-x:auto; overflow-y:hidden;
+  scroll-snap-type:x mandatory; scroll-behavior:smooth;
+  scrollbar-width:none; -ms-overflow-style:none;
+}
+.deck::-webkit-scrollbar{display:none}
+.slide{
+  flex:0 0 100vw; width:100vw; height:100svh;
+  overflow-y:auto; overflow-x:hidden; scroll-snap-align:start;
+  display:flex;                      /* sin align-items: el margin auto centra y deja el tope alcanzable */
+  padding-block:clamp(70px,9vh,104px) clamp(66px,8vh,88px);
+  scrollbar-width:thin;
+}
+.slide > .wrap{width:100%; margin-block:auto}
+.slide.band-dark{background:var(--g2); color:var(--crema)}
+.slide.band-soft{background:var(--bg2)}
+.slide.band-crema2{background:var(--crema2)}
+@media (prefers-reduced-motion:reduce){.deck{scroll-behavior:auto}}
+
+/* barra inferior: paginador tipo libro */
+.bar{position:fixed; left:0; right:0; bottom:0; z-index:60; height:54px;
+  display:flex; align-items:center; gap:16px; padding-inline:20px;
+  background:rgba(252,252,251,.94); backdrop-filter:blur(8px);
+  border-top:1px solid var(--line); transition:background .4s, border-color .4s}
+body.on-dark .bar{background:rgba(7,17,20,.94); border-color:rgba(255,255,255,.09)}
+.bar-n{font-family:var(--disp); font-weight:800; font-size:.78rem; letter-spacing:.14em;
+  color:var(--ink3); white-space:nowrap; min-width:64px}
+body.on-dark .bar-n{color:var(--conc)}
+.bar-n b{color:var(--tq2); font-size:1.02rem}
+body.on-dark .bar-n b{color:var(--tq)}
+.bar-dots{display:flex; gap:6px; flex:1 1 auto; overflow-x:auto; scrollbar-width:none}
+.bar-dots::-webkit-scrollbar{display:none}
+.bar-dots button{width:22px; height:5px; border-radius:99px; border:0; padding:0; cursor:pointer;
+  background:rgba(100,116,139,.26); transition:background .25s, transform .25s; flex:0 0 auto}
+body.on-dark .bar-dots button{background:rgba(243,239,231,.22)}
+.bar-dots button.on{background:var(--tq2); transform:scaleY(1.6)}
+body.on-dark .bar-dots button.on{background:var(--tq)}
+.bar-nav{display:flex; gap:7px; flex:0 0 auto}
+.bar-nav button{width:36px; height:32px; border-radius:4px; border:1px solid var(--line);
+  background:transparent; color:var(--ink2); cursor:pointer; font-size:15px; line-height:1;
+  display:flex; align-items:center; justify-content:center; transition:all .2s}
+body.on-dark .bar-nav button{border-color:rgba(255,255,255,.18); color:var(--conc)}
+.bar-nav button:hover:not(:disabled){border-color:var(--tq2); color:var(--tq2)}
+.bar-nav button:disabled{opacity:.28; cursor:default}
+.bar-hint{font-size:.7rem; color:var(--ink4); white-space:nowrap}
+body.on-dark .bar-hint{color:#6f8287}
+@media(max-width:700px){.bar-hint{display:none} .bar{gap:10px; padding-inline:14px}}
+
+/* flechas laterales, escritorio */
+.edge{position:fixed; top:0; bottom:54px; width:64px; z-index:55; border:0; cursor:pointer;
+  background:transparent; display:flex; align-items:center; justify-content:center;
+  color:var(--ink4); font-size:26px; opacity:0; transition:opacity .25s}
+.edge:hover{opacity:1}
+body.on-dark .edge{color:var(--conc)}
+.edge.l{left:0} .edge.r{right:0}
+.edge:disabled{display:none}
+@media(max-width:900px){.edge{display:none}}
+
+/* nav superior */
+.nav{position:fixed; top:0; left:0; right:0; z-index:60}
+.prog{position:fixed; top:0; left:0; height:2px; background:var(--tq); z-index:70; width:0;
+  transition:width .35s var(--ease)}
+/* portada dentro del deck */
+.open-in{max-width:56ch}
+h1{font-size:clamp(40px,7.4vw,86px)}
+.punch{font-size:clamp(32px,6.4vw,66px)}
+
+/* veredicto y cifra dentro del texto */
+.veredicto{font-family:var(--disp); font-weight:900; text-transform:uppercase; letter-spacing:.04em;
+  font-size:clamp(28px,4.4vw,46px); color:var(--alerta); line-height:1; margin:10px 0 6px}
+.band-dark .veredicto{color:#F07A5F}
+.sl-b.big{font-size:clamp(1.06rem,1.9vw,1.28rem); max-width:44ch; line-height:1.55}
+.cifra-in{font-family:var(--disp); font-weight:900; font-size:1.55em; color:var(--tq2);
+  letter-spacing:-.01em; line-height:1; white-space:nowrap}
+.band-dark .cifra-in{color:var(--tq)}
+
+/* el test: gráfico que aparece al responder */
+.quiz-viz{min-height:320px; display:flex; flex-direction:column; justify-content:center; gap:16px}
+.qv-empty{font-size:.92rem; color:var(--ink4); max-width:32ch; line-height:1.6;
+  border-left:2px dashed var(--line); padding-left:16px}
+.qv{background:var(--blanco); border:1px solid var(--line); border-radius:5px; padding:15px 17px;
+  animation:qvIn .45s var(--ease)}
+@keyframes qvIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.qv{animation:none}}
+.qv-h{font-family:var(--disp); font-weight:800; font-size:.7rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink4); margin-bottom:9px}
+.qv-t{font-size:.9rem; color:var(--ink2); line-height:1.5; margin-top:9px}
+.qv-t b{color:var(--ink); font-weight:600}
+.qv-bar{height:30px; display:flex; gap:2px; border-radius:3px; overflow:hidden}
+.qv-bar i{display:block; height:100%; width:0; transition:width .7s var(--ease);
+  position:relative; display:flex; align-items:center; justify-content:center}
+.qv-bar i.me{outline:2px solid var(--ink); outline-offset:-2px}
+.qv-bar i span{font-family:var(--disp); font-weight:800; font-size:.72rem; color:#fff; opacity:0;
+  transition:opacity .3s .5s}
+.qv-bar i.me span{opacity:1}
+.qv-leg{display:flex; flex-wrap:wrap; gap:9px; margin-top:7px; font-size:.68rem; color:var(--ink4)}
+
+/* slider adiviná */
+.gz-slider{flex:1 1 240px; min-width:200px}
+.gz-ticks{display:flex; justify-content:space-between; font-size:.7rem; color:#6f8287; margin-top:5px}
+.gz-val{min-width:2.2ch; text-align:right}
+
+/* conclusiones */
+.concl{list-style:none; margin:24px 0 0; padding:0; display:grid; gap:14px; max-width:88ch;
+  counter-reset:c}
+.concl li{display:grid; grid-template-columns:44px 1fr; gap:16px; align-items:start}
+.concl b{font-family:var(--disp); font-weight:900; font-size:1.7rem; color:var(--tq2); line-height:1}
+.concl span{font-size:clamp(.98rem,1.5vw,1.08rem); color:var(--ink2); line-height:1.6}
+@media(max-width:620px){.concl li{grid-template-columns:32px 1fr; gap:11px}.concl b{font-size:1.3rem}}
+
+/* metodología en grilla */
+.meth-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px;
+  margin-top:20px}
+.meth-grid .meth{max-width:none; margin:0; font-size:.83rem}
+.pan-f{font-size:.74rem; color:var(--ink4); margin-top:11px; line-height:1.5}
+
+/* la placa no debe quedar apretada */
+.slide .sl-viz{margin-top:clamp(16px,2.4vw,28px)}
+.slide .sl-f{margin-top:clamp(14px,2vw,20px)}
+
+</style>
+</head>
+<body>
+
+<div class="prog" id="prog"></div>
+<nav class="nav"><div class="nav-in">
+  <a class="brand" href="#top">ALSIN<i>A</i></a>
+  <div class="nav-links">
+    <a href="#trampa">La trampa</a><a href="#test">Respondé vos</a><a href="#mito">El mito</a>
+    <a href="#paraque">Para qué</a><a href="#mundo">El mundo</a><a href="#adivina">Adiviná</a>
+    <a href="#brecha">La brecha</a><a href="#aula">El aula</a><a href="#conclusiones">Conclusiones</a>
+  </div>
+</div></nav>
+<button class="edge l edgeL" aria-label="Placa anterior">‹</button>
+<button class="edge r edgeR" aria-label="Placa siguiente">›</button>
+<div class="bar">
+  <div class="bar-n" id="barN"><b>01</b> / 16</div>
+  <div class="bar-dots" id="barDots"></div>
+  <div class="bar-hint">Rueda o flechas para avanzar</div>
+  <div class="bar-nav"><button id="bPrev" aria-label="Anterior">‹</button>
+    <button id="bNext" aria-label="Siguiente">›</button></div>
+</div><div class="deck" id="deck"><section class="slide" id="top" data-t="Portada"><div class="wrap">
+  <div class="open-in">
+    <div class="open-tag rv">Informe · Educación y tecnología en la PBA</div>
+    <h1 class="rv" style="--d:.06s">¿Qué pasa con la IA <em>en las escuelas?</em></h1>
+    <p class="open-sub rv" style="--d:.12s">No es cuánto la usan: es para qué. PISA 2025 midió por primera
+      vez qué hacen los chicos con la inteligencia artificial y qué hace la escuela con eso. Los dos
+      resultados sorprenden.</p>
+    <div class="open-nota rv" style="--d:.18s">Respondieron 11.092 estudiantes argentinos de quince
+      años en 412 escuelas; 1.966 de ellos en 81 escuelas bonaerenses.
+      Son quince placas y te vamos a pedir que contestes tres preguntas.</div>
+    <div class="byline rv" style="--d:.24s"><div class="byline-mark">A</div>
+      <div><div class="byline-name">Equipo Alsina</div>
+      <div class="byline-role">Con Felipe Montes de Oca · Trabajo Final de Maestría, CIAS</div></div></div>
+    <div class="open-meta rv" style="--d:.3s">Septiembre de 2026</div>
+    <a class="cue rv" href="#trampa" data-goto="trampa" style="--d:.34s"><span></span> Empezar</a>
+  </div></div></section>
+<section class="slide" id="trampa" data-t="La trampa"><div class="wrap"><div class="sl-n rv">00 · La trampa</div>
+  <h2 class="sl-t rv" style="--d:.04s">Leé esto <em>antes de seguir</em></h2>
+  <div class="fake rv" id="fake" style="--d:.08s; margin-top:22px">
+    <p>Los resultados de PISA 2025 confirmaron lo que muchos anticipaban.</p>
+    <p>En la Argentina, el uso de inteligencia artificial para tareas escolares se expandió de manera
+      desigual. <span class="lie" style="--ld:0s">Los estudiantes de hogares con mayor nivel socioeconómico
+      no sólo la usan más: evalúan sistemáticamente la calidad de lo que reciben.</span></p>
+    <p><span class="lie" style="--ld:1.1s">Los chicos que más usan chatbots obtienen peores resultados en
+      las pruebas</span>, un patrón que la evidencia internacional viene documentando.</p>
+    <p>La evidencia también es clara sobre qué funciona: <span class="lie" style="--ld:2.2s">las escuelas que
+      capacitaron a sus docentes forman estudiantes notablemente más críticos</span> frente a los sistemas
+      generativos.</p>
+  </div>
+  <p class="sl-f rv">Este párrafo fue generado para este informe y es falso. Seguí avanzando.</p></div></section>
+<section class="slide band-dark" id="reveal" data-t="La revelación"><div class="wrap">
+  <p class="punch rv" style="color:var(--crema)">Todo lo que acabás de leer <em>lo escribió un chatbot.</em></p>
+  <p class="sl-b rv" style="--d:.1s">Está bien redactado. Suena a informe. Y tiene tres errores.</p>
+  <div class="errs" style="max-width:64ch">
+    <div class="err rv" style="--d:.18s"><b>Error 1 · Los más ricos tampoco lo hacen seguido</b>
+      <span>En el cuartil socioeconómico más alto, la frecuencia promedio con que evalúan una IA en clase es
+      <i>2,38</i> sobre una escala de 4. Por debajo del punto medio.</span></div>
+    <div class="err rv" style="--d:.3s"><b>Error 2 · Los que más la usan rinden mejor</b>
+      <span>No peor: <i>+27 puntos</i> de
+      ciencias entre quienes la usan todos los días y quienes nunca la usaron.</span></div>
+    <div class="err rv" style="--d:.42s"><b>Error 3 · «Notablemente» es falso</b>
+      <span>Entre las escuelas que capacitaron a sus docentes y las que no, la correlación con lo que pasa
+      en el aula es <i>0,111</i>. Existe, y es diminuta.</span></div>
+  </div>
+  <p class="punch rv" style="--d:.54s; color:var(--crema); margin-top:34px">Vos tampoco <em>chequeaste.</em></p>
+  <p class="sl-b rv" style="--d:.6s">Nadie chequea. Ese es el informe.</p></div></section>
+<section class="slide band-soft" id="test" data-t="Contestá vos"><div class="wrap"><div class="sl-n rv">01 · Contestá vos</div>
+  <div class="sl-grid">
+    <div>
+      <h2 class="sl-t rv" style="--d:.04s">Antes de los datos, <em>contestá vos</em></h2>
+      <p class="sl-b rv" style="--d:.08s">Tres preguntas. Son las mismas que PISA les hizo a
+        1.966 chicos bonaerenses de quince años, traducidas.</p>
+      <div class="quiz" id="quiz" style="margin-top:20px">
+        <div class="qz" data-q="uso">
+          <div class="qz-q">¿Con qué frecuencia usás un chatbot de inteligencia artificial?</div>
+          <div class="qz-o" data-opts="uso"></div>
+          <div class="qz-hint">En PISA la pregunta dice «este año escolar» y «para tus tareas de la escuela».</div>
+        </div>
+        <div class="qz" data-q="online">
+          <div class="qz-q">¿Con qué frecuencia te hicieron <strong>chequear si es cierto lo que
+            encontraste en internet</strong>, en clase?</div>
+          <div class="qz-o" data-opts="esc"></div>
+        </div>
+        <div class="qz" data-q="ia">
+          <div class="qz-q">¿Y con qué frecuencia te hicieron <strong>chequear si es cierto lo que te
+            respondió un chatbot</strong>, en clase?</div>
+          <div class="qz-o" data-opts="esc"></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div id="quizViz" class="quiz-viz">
+        <div class="qv-empty">Cada respuesta que marques va a aparecer acá, sobre lo que contestaron
+          los chicos de la provincia.</div>
+      </div>
+    </div>
+  </div>
+  <p class="sl-f rv">Distribución ponderada de los estudiantes bonaerenses de la muestra nacional de PISA
+    2025: 1.070 respondieron la pregunta de internet y
+    826 la de inteligencia artificial. Las dos últimas son el mismo ítem con
+    distinta tecnología: mismo encabezado, misma escala, catorce renglones de distancia.</p></div></section>
+<section class="slide" id="mito" data-t="El mito"><div class="wrap"><div class="sl-n rv">02 · Mito o realidad</div>
+  <div class="sl-grid">
+    <div>
+      <h2 class="sl-t rv" style="--d:.04s">La IA nos hace <em><i>tontos</i></em></h2>
+      <div class="veredicto rv" style="--d:.08s">Falso</div>
+      <p class="sl-b rv big" style="--d:.12s">Los chicos que usan inteligencia artificial todos los días
+        sacan <span class="cifra-in">+27 puntos</span> de ciencias más que los que nunca la usaron.</p>
+      <p class="sl-b rv" style="--d:.18s">Neto del nivel socioeconómico el efecto se achica y no desaparece:
+        <span class="k">+6,2 puntos por escalón de uso</span>. En resolución
+        computacional de problemas, +7,8.</p>
+      <p class="sl-b rv" style="--d:.22s">Hay un detalle que conviene no esconder: <strong>el grupo que peor
+        rinde no es el que más usa. Es el que la usa una o dos veces al año.</strong></p>
+    </div>
+    <div class="sl-viz rv" style="--d:.14s" id="vizUso"></div>
+  </div>
+  <p class="sl-f rv">Medias ponderadas con los diez valores plausibles; barras de error del 95&nbsp;% por
+    BRR/Fay. Asociación transversal: no dice que usar IA mejore el desempeño, dice que quienes la usan más
+    no rinden menos.</p></div></section>
+<section class="slide band-dark" id="paraque" data-t="Para qué"><div class="wrap"><div class="sl-n rv">03 · El hallazgo</div>
+  <h2 class="sl-t rv" style="--d:.04s">No es cuánto la usan. <em>Es para qué.</em></h2>
+  <div class="sl-grid flip" style="margin-top:18px">
+    <div class="sl-viz rv" style="--d:.12s" id="vizFin"></div>
+    <div>
+      <div class="hero-n rv" style="--d:.16s">20<small> pts</small></div>
+      <div class="hero-c rv" style="--d:.2s">de lectura separan a un chico que usa la IA para investigar de
+        uno que la usa para redactar. Mismo nivel socioeconómico, mismo uso general.</div>
+      <p class="sl-b rv" style="--d:.26s">Cuando la inteligencia artificial <span class="k">agrega</span> un
+        paso, buscar, entender, aprender, la relación con el desempeño es positiva. Cuando
+        <span class="k">reemplaza</span> el paso, escribir el borrador, es negativa.</p>
+      <p class="sl-b rv" style="--d:.3s">No es si la usan o no. Es si la usan para pensar más o para pensar
+        menos.</p>
+    </div>
+  </div>
+  <p class="sl-f rv">Coeficientes de las cuatro finalidades en un mismo modelo, neto del índice
+    socioeconómico y unas de otras (n = 7.191). El coeficiente del índice socioeconómico
+    en ciencias, para comparar, es +30,2. Transversal y autodeclarado: es compatible
+    con que delegar la escritura desplace práctica y con que quienes ya escriben peor deleguen más.</p></div></section>
+<section class="slide band-soft" id="mundo" data-t="El mundo"><div class="wrap"><div class="sl-n rv">04 · El mundo</div>
+  <h2 class="sl-t rv" style="--d:.04s">Ningún país del mundo <em>lo enseña seguido</em></h2>
+  <div class="sl-viz rv" style="--d:.1s" id="vizIntl"></div>
+  <div class="legend rv" style="--d:.14s">
+    <span><i class="lg-on"></i>Evaluar información de internet, en clase</span>
+    <span><i class="lg-ia"></i>Evaluar salidas de IA, en clase</span></div>
+  <div class="sl-grid" style="margin-top:20px">
+    <div><div class="hero-n rv">0 <small>de 84</small></div>
+      <div class="hero-c rv" style="--d:.06s">países donde los chicos hacen «seguido» la actividad de
+        evaluar una inteligencia artificial en clase. Y tampoco ninguno con internet.</div></div>
+    <div><p class="sl-b rv" style="--d:.1s">El piso no es de la IA. Enseñar a dudar de lo que uno lee es una
+      materia que ningún sistema educativo del mundo da con frecuencia.
+      <span class="k">La inteligencia artificial sólo profundiza un problema que ya existía.</span></p>
+      <p class="sl-b rv" style="--d:.14s">La Argentina queda <strong>41ª</strong> en
+      evaluar internet, que es la mediana exacta, y <strong>52ª</strong> en evaluar
+      inteligencia artificial.</p></div>
+  </div>
+  <p class="sl-f rv">84 países con al menos 100 casos válidos en ambos ítems. Medias
+    ponderadas, escala 1 a 4.</p></div></section>
+<section class="slide band-dark" id="adivina" data-t="Adiviná"><div class="wrap"><div class="sl-n rv">05 · Adiviná</div>
+  <div class="sl-grid">
+    <div>
+      <h2 class="sl-t rv" style="--d:.04s">De diez chicos argentinos, <em>¿cuántos nunca chequearon?</em></h2>
+      <p class="sl-b rv" style="--d:.08s">Durante todo el año escolar, ¿cuántos de cada diez chicos de quince
+        años <strong>nunca hicieron en clase, ni una sola vez</strong>, la tarea de chequear si es cierto lo
+        que les responde un chatbot?</p>
+      <div class="guess rv" style="--d:.12s">
+        <div class="gz-wrap">
+          <div class="gz-val num" id="gzV">5</div>
+          <div class="gz-slider">
+            <input type="range" id="gz" min="0" max="10" step="1" value="5"
+              aria-label="Cuántos de cada diez">
+            <div class="gz-ticks"><span>0</span><span>5</span><span>10</span></div>
+          </div>
+        </div>
+        <button class="btn solid" id="gzGo">Ver la respuesta</button>
+      </div>
+    </div>
+    <div class="sl-viz rv" style="--d:.16s" id="vizAdiv"></div>
+  </div>
+  <p class="sl-f rv">Proporción ponderada que responde «nunca o casi nunca» al ítem ST436Q16DA, por cuartil
+    del índice socioeconómico. Errores estándar entre 1,5 y
+    2,1 puntos.</p></div></section>
+<section class="slide" id="brecha" data-t="La brecha"><div class="wrap"><div class="sl-n rv">06 · La brecha</div>
+  <h2 class="sl-t rv" style="--d:.04s">Con internet no importa quién sos. <em>Con la IA, sí.</em></h2>
+  <div class="sl-viz rv" style="--d:.1s" id="vizNunca"></div>
+  <div class="legend rv" style="--d:.14s">
+    <span><i class="lg-on"></i>Nunca chequeó información de internet</span>
+    <span><i class="lg-ia"></i>Nunca chequeó una inteligencia artificial</span></div>
+  <div class="sl-grid" style="margin-top:20px">
+    <div><p class="sl-b rv">La línea de internet es plana: 22,1 % en el cuartil más pobre y
+      20,2 % en el más rico. <strong>Uno de cada cinco chicos nunca lo hizo, sea rico o
+      pobre.</strong></p>
+      <p class="sl-b rv" style="--d:.05s">La de inteligencia artificial cae de 46,2 % a
+      31,3 %. Catorce puntos y medio.</p></div>
+    <div><p class="sl-b rv" style="--d:.1s">La escuela argentina ya consiguió una vez repartir con equidad la
+      práctica de desconfiar de lo que se lee. Lo hizo con una tecnología que también llegó de golpe.</p>
+      <p class="sl-b rv" style="--d:.14s"><span class="k">El problema no es de dificultad. Es de
+        difusión.</span> Lo que hay que extender ya existe adentro del sistema.</p></div>
+  </div>
+  <p class="sl-f rv">Porcentaje que responde «nunca o casi nunca» en cada ítem, por cuartil del índice
+    socioeconómico. Estimaciones ponderadas.</p></div></section>
+<section class="slide band-dark" id="aula" data-t="El aula"><div class="wrap"><div class="sl-n rv">07 · El aula</div>
+  <div class="sl-grid">
+    <div>
+      <h2 class="sl-t rv" style="--d:.04s">Los mismos chicos. <em>Distinta escuela.</em></h2>
+      <p class="sl-b rv big" style="--d:.1s">Entre los que usan inteligencia artificial todas las semanas,
+        los que además la chequean en clase sacan
+        <span class="cifra-in">+19 puntos</span> de ciencias.</p>
+      <p class="sl-b rv" style="--d:.16s">Mismo uso de la herramienta. Lo único que cambia es si la escuela
+        los puso alguna vez a dudar de lo que les devuelve.</p>
+      <p class="sl-b rv" style="--d:.2s">Enseñar a interrogar la máquina no es sólo una cuestión de equidad.
+        <span class="k">Aparece en las pruebas.</span></p>
+    </div>
+    <div class="sl-viz rv" style="--d:.12s" id="vizAula"></div>
+  </div>
+  <p class="sl-f rv">Medias ponderadas de ciencias con diez valores plausibles, entre los estudiantes que
+    usan inteligencia artificial al menos una vez por semana. n = 5.907. Asociación
+    transversal, no efecto causal: puede ser que la práctica ayude, que las escuelas que la hacen sean
+    distintas en otras cosas, o las dos.</p></div></section>
+<section class="slide band-soft" id="provincia" data-t="La provincia"><div class="wrap"><div class="sl-n rv">08 · La provincia</div>
+  <h2 class="sl-t rv" style="--d:.04s">Lo que la escuela sí cambia, <em>y lo que no</em></h2>
+  <p class="sl-b rv" style="--d:.08s">1.966 chicos bonaerenses en 81 escuelas. El
+    diseño de PISA separa los veinticuatro partidos del Conurbano del resto de la provincia, y la escuela
+    estatal de la privada.</p>
+  <div class="pan sl-viz rv" style="--d:.12s">
+    <div class="card"><div class="pan-h">Estatal contra privada, en ciencias</div><div id="panA"></div>
+      <div class="pan-f">Sobre 100 puntos, que equivalen a un desvío estándar y a más de dos años de
+        escolaridad.</div></div>
+    <div class="card"><div class="pan-h">Estatal contra privada, en chequear la IA</div><div id="panB"></div>
+      <div class="pan-f">Sobre 3 puntos, la diferencia máxima posible en una escala de 1 a 4. Los dos
+        paneles no comparten métrica: cada barra muestra qué tan grande es la diferencia dentro de su propia
+        medida.</div></div>
+  </div>
+  <p class="sl-b rv" style="--d:.2s; margin-top:22px"><strong>Saber a qué escuela fue un chico bonaerense te
+    dice casi todo sobre cuánto sabe de ciencias. Y casi nada sobre si alguien lo puso a interrogar a la
+    máquina.</strong></p>
+  <div class="meth rv" style="--d:.24s; margin-top:18px"><b>Alcance</b>La provincia de Buenos Aires no fue
+    una de las tres jurisdicciones argentinas con muestra ampliada en PISA 2025: lo fueron CABA, Córdoba y
+    Mendoza. Estas cifras describen a los 1.966 bonaerenses de la muestra nacional y no son una
+    estimación oficial de la provincia.</div></div></section>
+<section class="slide band-dark" id="director" data-t="El director"><div class="wrap"><div class="sl-n rv">09 · El director</div>
+  <div class="sl-grid">
+    <div>
+      <h2 class="sl-t rv" style="--d:.04s">La capacitación existe. <em>Casi no se ve.</em></h2>
+      <p class="sl-b rv" style="--d:.1s"><strong>80,2 % de las escuelas argentinas</strong>
+        declara que al menos algunos de sus docentes se capacitaron el año pasado en cómo manejar el acceso
+        de sus alumnos a los chatbots.</p>
+      <p class="sl-b rv" style="--d:.14s">En el aula casi no se nota. Capacitar a todos los docentes en vez
+        de a ninguno mueve la práctica 0,18 puntos, sobre una escala de 4.</p>
+      <p class="sl-b rv" style="--d:.18s"><strong>La distancia entre lo que se financia en formación y lo que
+        le llega al chico es el problema de fondo.</strong></p>
+      <p class="sl-b rv" style="--d:.22s">La asociación es real y es específica: mueve la práctica de IA y no
+        la de internet. Pero es diminuta.</p>
+    </div>
+    <div class="sl-viz rv" style="--d:.12s" id="vizStair"></div>
+  </div>
+  <p class="sl-f rv">Cuestionario del director, ítem SC265Q13DA, 323 escuelas con al menos diez
+    respondentes. El ítem pregunta por capacitación en «lidiar con el acceso de los estudiantes a chatbots»,
+    que puede incluir políticas de acceso, plagio o privacidad además de didáctica de la evaluación.</p></div></section>
+<section class="slide band-crema2" id="conclusiones" data-t="Conclusiones"><div class="wrap"><div class="sl-n rv">10 · Cinco conclusiones</div>
+  <h2 class="sl-t rv" style="--d:.04s">Cinco frases <em>para llevarse</em></h2>
+  <ol class="concl">
+    <li class="rv" style="--d:.08s"><b>1</b><span>Los chicos que más usan inteligencia artificial no rinden
+      peor: rinden mejor, 27 puntos de ciencias por encima de los que nunca la usaron.</span></li>
+    <li class="rv" style="--d:.14s"><b>2</b><span>Lo que separa a unos de otros no es cuánto la usan sino
+      para qué: usarla para investigar y usarla para redactar están a 20 puntos
+      de lectura de distancia.</span></li>
+    <li class="rv" style="--d:.2s"><b>3</b><span>Chequear lo que devuelve un chatbot es una tarea que casi no
+      se hace en clase en ningún país del mundo: cero de 84 llegan a hacerlo «seguido».</span></li>
+    <li class="rv" style="--d:.26s"><b>4</b><span>En la Argentina esa tarea se reparte muy desigual,
+      46,2 % de los chicos más pobres nunca la hizo contra 31,3 % de los más ricos, mientras
+      la misma tarea con información de internet se reparte pareja en uno de cada cinco.</span></li>
+    <li class="rv" style="--d:.32s"><b>5</b><span>Donde la escuela sí la hace, aparece en las pruebas:
+      entre los que usan IA todas las semanas, chequearla en clase vale
+      19 puntos de ciencias.</span></li>
+  </ol></div></section>
+<section class="slide band-dark" id="cierre" data-t="Cierre"><div class="wrap">
+  <p class="punch rv" style="--d:.04s; color:var(--crema)">Ya lo hicimos <em>una vez.</em></p>
+  <div class="sl-grid" style="margin-top:26px">
+    <div>
+      <p class="sl-b rv" style="--d:.1s">Los chicos van a seguir usando inteligencia artificial. Nadie lo va
+        a impedir y probablemente no habría que intentarlo.</p>
+      <p class="sl-b rv" style="--d:.14s">Lo que separa a unos de otros es para qué la usan, y si alguien en
+        la escuela los puso alguna vez a dudar de lo que les devuelve.</p>
+    </div>
+    <div>
+      <p class="sl-b rv" style="--d:.18s">Eso segundo la provincia ya lo hizo una vez, con internet, y lo
+        repartió parejo. Con la inteligencia artificial todavía no, y la diferencia se paga entera en el
+        cuartil más pobre.</p>
+      <p class="sl-b rv" style="--d:.22s">En esto ningún país del mundo está adelante. Ir primero es una
+        decisión disponible.</p>
+      <div class="ctas rv" style="--d:.26s">
+        <a class="cta" href="#metodo" data-goto="metodo">Ver la metodología</a>
+        <a class="cta ghost" href="https://www.alsinaar.com/" target="_blank" rel="noopener">Abrí el Monitor 135</a>
+      </div>
+    </div>
+  </div></div></section>
+<section class="slide band-soft" id="metodo" data-t="Metodología"><div class="wrap"><div class="sl-n rv"> · Metodología y fuentes</div>
+  <h2 class="sl-t rv" style="--d:.04s">Todo esto <em>se puede auditar</em></h2>
+  <div class="meth-grid">
+    <div class="meth rv"><b>Qué mide el instrumento</b>La variable central es ST436Q16DA, cuyo encabezado
+      completo es «This school year, how often did you do the following tasks using digital resources
+      <em>in your school lessons</em>?». Mide la frecuencia de una actividad de aula, no la práctica
+      evaluativa autónoma del estudiante ni su competencia para ejercerla. Su control, ST436Q02DA, pertenece
+      a la misma batería: mismo encabezado, misma escala, mismo contexto y mismo respondente, catorce ítems
+      antes. Cualquier diferencia entre las dos no puede venir de la formulación ni del sesgo de quien
+      responde.</div>
+    <div class="meth rv" style="--d:.04s"><b>Cobertura del módulo: la limitación principal</b>El
+      cuestionario se administró con diseño rotado y el ítem de evaluación de IA lo respondieron
+      6.261 de 11.092 estudiantes argentinos. Quienes responden no son un subconjunto
+      aleatorio: promedian 440,6 puntos en resolución computacional contra
+      346,2 de quienes no responden. Los niveles informados están sesgados hacia
+      arriba y se presentan como propios de quienes respondieron. Las comparaciones internas, entre
+      cuartiles, entre las dos prácticas y entre escuelas, se sostienen, porque el sesgo afecta a ambas
+      prácticas a la vez.</div>
+    <div class="meth rv" style="--d:.08s"><b>Estimación</b>Peso final del estudiante para todo punto
+      estimado; varianza por BRR con ajuste de Fay (k&nbsp;=&nbsp;0,5) sobre ochenta réplicas. Las
+      estimaciones de desempeño combinan los diez valores plausibles por la regla de Rubin. Ninguna celda
+      con menos de treinta casos.</div>
+    <div class="meth rv" style="--d:.12s"><b>Lo que este informe no dice</b>El diseño es transversal y
+      ninguna asociación autoriza inferencia causal: ni que usar inteligencia artificial mejore el
+      desempeño, ni que usarla para redactar lo empeore, ni que la práctica de aula produzca los diecinueve
+      puntos. Las variables de uso y práctica son autodeclaradas por el estudiante; las institucionales, por
+      el director.</div>
+    <div class="meth rv" style="--d:.16s"><b>Fuente</b>OCDE, PISA 2025 · Public Use Files, archivos del
+      estudiante y del director, publicados en septiembre de 2026. Archivo del estudiante: 755.721 casos en
+      90 países y economías. Muestra argentina: 11.092 estudiantes en 412 escuelas.
+      Contraste internacional sobre 84 países. Datos procesados el 2026-09-21.</div>
+    <div class="meth rv" style="--d:.2s"><b>Alsina</b>Análisis · Estrategia · Impacto. Comprender la
+      Provincia para transformarla. Informe elaborado a partir del capítulo empírico del Trabajo Final de
+      Maestría de Felipe Montes de Oca (CIAS). Fuente de datos:
+      <a href="https://www.oecd.org/en/data/datasets/pisa-2025-database.html" target="_blank"
+      rel="noopener">OCDE · Base de datos PISA 2025</a>.</div>
+  </div></div></section></div>
+<script>window.__D={"generado":"2026-09-21","fuente":"OCDE, PISA 2025 · Public Use Files · archivo del estudiante y del director","metodo":"Estimaciones ponderadas con el peso final del estudiante. Errores estándar por BRR con ajuste de Fay (k = 0,5) sobre 80 réplicas.","arg":{"n":11092,"escuelas":412,"online":{"v":2.295,"ee":0.017,"n":7581,"dist":[20.541,41.544,25.821,12.093]},"ia":{"v":2.11,"ee":0.025,"n":6261,"dist":[39.291,25.313,20.46,14.936]},"brecha":{"v":0.205,"ee":0.024,"ic":[0.159,0.252]},"r":{"v":0.375,"ee":0.023},"config":{"uso_alto_practica_baja":{"v":37.046,"ee":1.085},"uso_alto_practica_alta":{"v":28.745,"ee":1.041},"uso_alto_nunca":{"v":21.131,"ee":0.862},"uso_semanal":{"v":65.791,"ee":1.06}}},"cruce_uso_ia":{"pesos":[[6.1956,1.4756,0.6103,0.4465],[4.6662,2.7873,0.7844,0.3323],[7.0901,5.2978,3.4853,1.0376],[10.0098,9.1046,8.1801,3.9758],[11.1216,6.8102,7.4855,9.1034]],"uso_labels":["Nunca o casi nunca","1–2 veces al año","1–2 veces al mes","1–2 veces por semana","Todos los días"],"ia_labels":["Nunca o casi nunca","A veces","Seguido","Muy seguido"],"n":6088},"gradiente":[{"q":1,"online":{"v":2.214,"ee":0.033,"n":1603},"ia":{"v":1.87,"ee":0.041,"n":1238},"rezago":0.344},{"q":2,"online":{"v":2.261,"ee":0.033,"n":1706},"ia":{"v":2.001,"ee":0.041,"n":1375},"rezago":0.26},{"q":3,"online":{"v":2.331,"ee":0.029,"n":1858},"ia":{"v":2.173,"ee":0.038,"n":1552},"rezago":0.158},{"q":4,"online":{"v":2.384,"ee":0.041,"n":2121},"ia":{"v":2.381,"ee":0.051,"n":1902},"rezago":0.003}],"gradiente_pba":[{"q":1,"online":{"v":2.227,"ee":0.065,"n":283},"ia":{"v":1.974,"ee":0.072,"n":208},"rezago":0.253},{"q":2,"online":{"v":2.241,"ee":0.056,"n":244},"ia":{"v":1.948,"ee":0.067,"n":185},"rezago":0.293},{"q":3,"online":{"v":2.291,"ee":0.058,"n":252},"ia":{"v":2.141,"ee":0.076,"n":197},"rezago":0.15},{"q":4,"online":{"v":2.406,"ee":0.08,"n":251},"ia":{"v":2.404,"ee":0.124,"n":210},"rezago":0.002}],"intl":{"paises":[{"cnt":"JPN","online":1.888,"ia":1.518},{"cnt":"GBR","online":2.045,"ia":1.65},{"cnt":"QCI","online":1.964,"ia":1.674},{"cnt":"IRL","online":2.281,"ia":1.729},{"cnt":"FRA","online":2.0,"ia":1.776},{"cnt":"BRA","online":1.981,"ia":1.827},{"cnt":"GTM","online":2.158,"ia":1.829},{"cnt":"PRY","online":2.152,"ia":1.873},{"cnt":"MAR","online":2.051,"ia":1.881},{"cnt":"PER","online":2.092,"ia":1.889},{"cnt":"CAN","online":2.518,"ia":1.928},{"cnt":"NLD","online":2.113,"ia":1.932},{"cnt":"KEN","online":2.069,"ia":1.946},{"cnt":"PRT","online":2.122,"ia":1.946},{"cnt":"FIN","online":2.35,"ia":1.956},{"cnt":"SLV","online":2.18,"ia":1.957},{"cnt":"MNE","online":2.116,"ia":1.963},{"cnt":"USA","online":2.649,"ia":1.964},{"cnt":"JOR","online":2.14,"ia":1.99},{"cnt":"MEX","online":2.395,"ia":1.993},{"cnt":"PSE","online":2.255,"ia":2.002},{"cnt":"ECU","online":2.232,"ia":2.009},{"cnt":"BEL","online":2.009,"ia":2.019},{"cnt":"COL","online":2.256,"ia":2.042},{"cnt":"ESP","online":2.195,"ia":2.048},{"cnt":"DEU","online":2.098,"ia":2.055},{"cnt":"PHL","online":2.396,"ia":2.063},{"cnt":"SRB","online":2.032,"ia":2.071},{"cnt":"CHL","online":2.325,"ia":2.073},{"cnt":"GRC","online":2.089,"ia":2.078},{"cnt":"URY","online":2.337,"ia":2.091},{"cnt":"SVN","online":1.991,"ia":2.097},{"cnt":"ARG","online":2.295,"ia":2.11},{"cnt":"HUN","online":1.879,"ia":2.116},{"cnt":"SWE","online":2.657,"ia":2.119},{"cnt":"NZL","online":2.652,"ia":2.119},{"cnt":"MLT","online":2.154,"ia":2.123},{"cnt":"TAP","online":2.118,"ia":2.126},{"cnt":"POL","online":2.181,"ia":2.126},{"cnt":"DOM","online":2.33,"ia":2.135},{"cnt":"LUX","online":2.189,"ia":2.142},{"cnt":"ISR","online":2.251,"ia":2.149},{"cnt":"IDN","online":2.257,"ia":2.155},{"cnt":"HKG","online":2.293,"ia":2.157},{"cnt":"GEO","online":2.228,"ia":2.164},{"cnt":"THA","online":2.492,"ia":2.169},{"cnt":"VNM","online":2.397,"ia":2.174},{"cnt":"AUT","online":2.147,"ia":2.194},{"cnt":"CRI","online":2.417,"ia":2.212},{"cnt":"KOR","online":2.087,"ia":2.213},{"cnt":"QAT","online":2.299,"ia":2.215},{"cnt":"DNK","online":2.807,"ia":2.233},{"cnt":"MYS","online":2.241,"ia":2.237},{"cnt":"AUS","online":2.733,"ia":2.239},{"cnt":"KGZ","online":2.457,"ia":2.249},{"cnt":"BGR","online":2.301,"ia":2.26},{"cnt":"EST","online":2.069,"ia":2.261},{"cnt":"CZE","online":2.138,"ia":2.267},{"cnt":"MDA","online":2.318,"ia":2.272},{"cnt":"HRV","online":2.27,"ia":2.284},{"cnt":"SVK","online":2.336,"ia":2.298},{"cnt":"LTU","online":2.316,"ia":2.302},{"cnt":"ROU","online":2.344,"ia":2.303},{"cnt":"MNG","online":2.316,"ia":2.308},{"cnt":"ISL","online":2.89,"ia":2.31},{"cnt":"TUR","online":2.446,"ia":2.32},{"cnt":"CHE","online":2.279,"ia":2.325},{"cnt":"MKD","online":2.302,"ia":2.328},{"cnt":"NOR","online":2.818,"ia":2.33},{"cnt":"ARM","online":2.229,"ia":2.337},{"cnt":"BRN","online":2.322,"ia":2.341},{"cnt":"MAC","online":2.277,"ia":2.353},{"cnt":"KSV","online":2.376,"ia":2.359},{"cnt":"LBN","online":2.329,"ia":2.37},{"cnt":"AZE","online":2.35,"ia":2.372},{"cnt":"QUA","online":2.488,"ia":2.373},{"cnt":"ITA","online":2.319,"ia":2.38},{"cnt":"UZB","online":2.425,"ia":2.405},{"cnt":"KAZ","online":2.485,"ia":2.405},{"cnt":"LVA","online":2.325,"ia":2.409},{"cnt":"SAU","online":2.4,"ia":2.41},{"cnt":"SGP","online":2.59,"ia":2.541},{"cnt":"ALB","online":2.742,"ia":2.547},{"cnt":"ARE","online":2.646,"ia":2.645}],"n_paises":84,"mediana_online":2.287,"mediana_ia":2.152,"puesto_arg_online":41,"puesto_arg_ia":52,"brecha_mediana":0.119,"brecha_arg":0.184,"paises_brecha_positiva":64,"con_media_3_online":0,"con_media_3_ia":0},"escuela":{"n_escuelas":323,"r_entre_practicas":0.327,"r_cap_ia":0.111,"r_cap_online":-0.049,"escalera":[{"nivel":1,"ia":2.012,"online":2.276,"n":55},{"nivel":2,"ia":2.114,"online":2.315,"n":179},{"nivel":3,"ia":2.143,"online":2.263,"n":61},{"nivel":4,"ia":2.191,"online":2.243,"n":28}],"labels":["Ninguno o casi ninguno","Algunos","La mayoría","Todos o casi todos"],"al_menos_algunos":80.2,"nota_al_menos_algunos":"Ponderado por W_NRASCHBWT sobre las escuelas argentinas que respondieron el ítem."},"pba":{"n":1966,"escuelas":81,"online":{"v":2.29,"ee":0.037,"n":1070},"ia":{"v":2.123,"ee":0.056,"n":826},"config":{"v":36.243,"ee":1.99},"sector":{"conurbano":{"ciencias":55,"ia":0.18},"interior":{"ciencias":70,"ia":0.1}}},"cobertura":{"responden":6261,"no_responden":4831,"cpro_responden":440.6,"cpro_no_responden":346.2},"cpro":[{"nivel":1,"v":416.2,"ee":5.5,"n":2313},{"nivel":2,"v":447.8,"ee":6.4,"n":1603},{"nivel":3,"v":460.5,"ee":6.2,"n":1353},{"nivel":4,"v":468.3,"ee":7.2,"n":992}],"uso_desempeno":{"labels":["Nunca o casi nunca","1–2 veces al año","1–2 veces al mes","1–2 veces por semana","Todos los días"],"niveles":[{"k":1,"SCIE":{"v":394.3,"ee":5.3,"n":674},"MATH":{"v":366.1,"ee":4.8,"n":674},"READ":{"v":389.1,"ee":5.7,"n":674},"CPRO":{"v":388.1,"ee":7.2,"n":674},"n":674},{"k":2,"SCIE":{"v":373.8,"ee":5.5,"n":757},"MATH":{"v":350.1,"ee":4.5,"n":757},"READ":{"v":369.8,"ee":5.6,"n":757},"CPRO":{"v":371.2,"ee":7.4,"n":757},"n":757},{"k":3,"SCIE":{"v":407.4,"ee":4.8,"n":1431},"MATH":{"v":382.9,"ee":4.0,"n":1431},"READ":{"v":400.5,"ee":4.4,"n":1431},"CPRO":{"v":410.9,"ee":5.8,"n":1431},"n":1431},{"k":4,"SCIE":{"v":422.8,"ee":4.2,"n":2442},"MATH":{"v":391.1,"ee":3.7,"n":2442},"READ":{"v":417.4,"ee":4.0,"n":2442},"CPRO":{"v":424.7,"ee":5.2,"n":2442},"n":2442},{"k":5,"SCIE":{"v":421.5,"ee":4.2,"n":2647},"MATH":{"v":391.4,"ee":3.6,"n":2647},"READ":{"v":415.4,"ee":3.4,"n":2647},"CPRO":{"v":426.4,"ee":5.4,"n":2647},"n":2647}],"coef":{"SCIE":{"bruto":10.1,"neto":6.2,"escs":30.9,"n":7618},"MATH":{"bruto":8.6,"neto":4.8,"escs":30.1,"n":7618},"READ":{"bruto":9.8,"neto":6.3,"escs":27.9,"n":7618},"CPRO":{"bruto":12.5,"neto":7.8,"escs":39.8,"n":7618}}},"uso_por_cuartil":[{"q":1,"pct":56.0},{"q":2,"pct":59.7},{"q":3,"pct":66.0},{"q":4,"pct":72.6}],"finalidades":[{"var":"ST438Q01DA","nombre":"Resumir un texto","SCIE":-0.6,"MATH":1.6,"READ":0.8,"CPRO":1.1,"semanal":40.6,"por_cuartil":[33.1,38.4,44.1,49.5]},{"var":"ST438Q02DA","nombre":"Investigar un tema nuevo","SCIE":7.2,"MATH":4.1,"READ":9.6,"CPRO":6.6,"semanal":41.0,"por_cuartil":[33.3,39.1,41.5,51.6]},{"var":"ST438Q03DA","nombre":"Redactar borradores","SCIE":-6.9,"MATH":-4.6,"READ":-10.1,"CPRO":-5.3,"semanal":32.1,"por_cuartil":[26.5,29.9,33.4,40.2]},{"var":"ST438Q04DA","nombre":"Aprender algo","SCIE":5.8,"MATH":3.7,"READ":5.0,"CPRO":5.1,"semanal":51.8,"por_cuartil":[45.3,49.5,53.7,60.8]}],"finalidades_n":7191,"finalidades_escs":30.2,"interaccion":{"celdas":[{"uso":"Uso semanal o más","prac":"Práctica baja","v":433.7,"ee":4.6,"n":2110},{"uso":"Uso semanal o más","prac":"Práctica alta","v":452.7,"ee":4.3,"n":1826},{"uso":"Uso menos frecuente","prac":"Práctica baja","v":419.4,"ee":5.2,"n":1566},{"uso":"Uso menos frecuente","prac":"Práctica alta","v":431.2,"ee":8.0,"n":405}],"SCIE":{"uso":3.9,"prac":2.6,"inter":1.41,"escs":30.1,"n":5907},"MATH":{"uso":2.8,"prac":1.4,"inter":1.12,"escs":29.5,"n":5907},"READ":{"uso":4.8,"prac":1.1,"inter":3.43,"escs":26.9,"n":5907},"CPRO":{"uso":2.6,"prac":12.0,"inter":-0.96,"escs":35.9,"n":5907}},"nunca_por_cuartil":[{"q":1,"online":22.1,"online_ee":1.6,"ia":46.2,"ia_ee":2.1,"rezago_rel":15.5},{"q":2,"online":20.7,"online_ee":1.6,"ia":42.0,"ia_ee":1.8,"rezago_rel":11.5},{"q":3,"online":20.0,"online_ee":1.4,"ia":37.9,"ia_ee":1.5,"rezago_rel":6.8},{"q":4,"online":20.2,"online_ee":1.3,"ia":31.3,"ia_ee":1.8,"rezago_rel":0.1}],"test":{"pba":{"online":{"pct":[21.8,40.2,25.0,12.9],"acum":[21.8,62.1,87.1,100.0],"n":1070},"ia":{"pct":[39.2,24.4,21.4,15.0],"acum":[39.2,63.6,85.0,100.0],"n":826},"uso":{"pct":[10.1,9.7,18.3,30.1,31.8]}},"arg":{"online":{"pct":[20.5,41.5,25.8,12.1],"acum":[20.5,62.1,87.9,100.0],"n":7581},"ia":{"pct":[39.3,25.3,20.5,14.9],"acum":[39.3,64.6,85.1,100.0],"n":6261}},"opciones":["Nunca o casi nunca","A veces","Seguido","Muy seguido"],"opciones_uso":["Nunca o casi nunca","Una o dos veces al año","Una o dos veces al mes","Una o dos veces por semana","Todos los días o casi"]}};</script>
+<script>
+(function(){
+"use strict";
+var D = window.__D;
+var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var $ = function(s,r){return (r||document).querySelector(s)};
+var $$ = function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+var fmt = function(v,d){ d=d==null?2:d; return v.toFixed(d).replace('.',','); };
+var SVGNS='http://www.w3.org/2000/svg';
+function el(t,a){var e=document.createElementNS(SVGNS,t);for(var k in a)e.setAttribute(k,a[k]);return e}
+function dark(node){ return !!(node && node.closest('.band-dark')); }
+function C(node,which){ // color de serie según fondo
+  var d=dark(node);
+  if(which==='on') return d?'#9B6FD6':'#7A4FBF';
+  return d?'#00D5D8':'#008C9A';
+}
+
+/* ---------- 1. reveal: observer + segunda vía por scroll ---------- */
+var revealed=false;
+function showAll(){ $$('.rv,.wipe,.act,.sl-n').forEach(function(n){n.classList.add('in')}); revealed=true; }
+function initReveal(){
+  var nodes=$$('.rv,.wipe,.act,.sl-n');
+  if(RM||!('IntersectionObserver' in window)){ showAll(); return; }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{rootMargin:'0px 0px -8% 0px',threshold:.01});
+  nodes.forEach(function(n){io.observe(n)});
+  // segunda vía: un observer solo es un punto único de falla
+  function sweep(){
+    var h=innerHeight;
+    nodes.forEach(function(n){
+      if(n.classList.contains('in'))return;
+      var r=n.getBoundingClientRect();
+      if(r.top < h*0.94 && r.bottom > -40) n.classList.add('in');
+    });
+  }
+  addEventListener('scroll',sweep,{passive:true});
+  addEventListener('resize',sweep,{passive:true});
+  setTimeout(sweep,120); setTimeout(sweep,900);
+}
+
+/* ---------- 2. progreso + nav ---------- */
+function initProg(){
+  var bar=$('#prog'), links=$$('.nav-links a'), secs=links.map(function(a){return $(a.getAttribute('href'))});
+  function up(){
+    var max=document.documentElement.scrollHeight-innerHeight;
+    bar.style.width=(max>0?(scrollY/max*100):0)+'%';
+    var cur=-1;
+    secs.forEach(function(s,i){ if(s && s.getBoundingClientRect().top<=140) cur=i; });
+    links.forEach(function(a,i){ a.classList.toggle('on',i===cur); });
+  }
+  addEventListener('scroll',up,{passive:true}); up();
+}
+
+/* ---------- 3. la trampa ---------- */
+function initTrampa(){
+  var fake=$('#fake'); if(!fake) return;
+  var placa=document.getElementById('trampa'), marcado=false;
+  function marcar(){ if(marcado) return true; marcado=true; fake.classList.add('marked'); return false; }
+  if(placa) placa.__gate=marcar;         // el primer intento de avanzar subraya las tres frases
+  if(RM && placa){ marcar(); }
+  // en la placa de la revelación, el texto falso se atenúa
+  document.addEventListener('placa',function(e){
+    if(e.detail.id==='reveal'){ marcar(); fake.classList.add('dim'); }
+  });
+}
+
+/* ---------- 4. distribución (acto 1) ---------- */
+function initDist(){
+  var host=$('#dist'); if(!host)return;
+  var labs=['Nunca o casi nunca','A veces','Seguido','Muy seguido'];
+  var on=D.arg.online.dist, ia=D.arg.ia.dist;
+  var max=Math.max.apply(null,on.concat(ia));
+  labs.forEach(function(L,i){
+    var row=document.createElement('div'); row.className='drow';
+    row.innerHTML='<div class="dlab">'+L+'</div><div class="dbars">'+
+      '<div class="db db-on"><span class="db-f" data-w="'+(on[i]/max*100)+'" style="--d:'+(i*.07)+'s"></span>'+
+        '<span class="db-v num">'+fmt(on[i],1)+' %</span></div>'+
+      '<div class="db db-ia"><span class="db-f" data-w="'+(ia[i]/max*100)+'" style="--d:'+(i*.07+.04)+'s"></span>'+
+        '<span class="db-v num">'+fmt(ia[i],1)+' %</span></div></div>';
+    host.appendChild(row);
+  });
+  grow(host);
+}
+function grow(host){
+  function go(){ $$('.db-f,.pbar i',host).forEach(function(b){ b.style.width=b.dataset.w+'%'; }); }
+  if(RM){ go(); return; }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){go();io.disconnect()} }) },{threshold:.15});
+  io.observe(host);
+  addEventListener('scroll',function(){ if(host.getBoundingClientRect().top<innerHeight*0.85) go(); },{passive:true});
+}
+
+/* ---------- 5. tira internacional (acto 2) ---------- */
+function initStrip(){
+  var host=$('#strip'); if(!host)return;
+  var P=D.intl.paises, W=1000, H=290, PT=26, PB=40, PL=6, PR=6;
+  var lo=1.40, hi=3.12;
+  var y=function(v){ return PT+(hi-v)/(hi-lo)*(H-PT-PB); };
+  var x=function(i){ return PL+i/(P.length-1)*(W-PL-PR); };
+  var s=el('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'Frecuencia media de cada práctica de aula en '+P.length+' países'});
+  var cOn=C(host,'on'), cIa=C(host,'ia'), ink=dark(host)?'#6f8287':'#94a3b8', ink2=dark(host)?'#B7B2AA':'#64748b';
+  [2.0,2.5,3.0].forEach(function(g){
+    s.appendChild(el('line',{x1:PL,x2:W-PR,y1:y(g),y2:y(g),stroke:dark(host)?'rgba(255,255,255,.08)':'#e2e8f0','stroke-width':1}));
+    var t=el('text',{x:PL,y:y(g)-6,fill:ink,'font-size':13,'font-family':'Barlow, sans-serif'}); t.textContent=fmt(g,1); s.appendChild(t);
+  });
+  // línea «seguido»
+  var L=el('line',{x1:PL,x2:W-PR,y1:y(3),y2:y(3),stroke:dark(host)?'#B7B2AA':'#1a2a2e','stroke-width':2});
+  s.appendChild(L);
+  var lt=el('text',{x:W-PR,y:y(3)-10,fill:ink2,'font-size':14,'font-weight':600,'text-anchor':'end','font-family':'Barlow, sans-serif'});
+  lt.textContent='«Seguido», ningún país llega, en ninguna de las dos'; s.appendChild(lt);
+  var gOn=el('g',{}), gIa=el('g',{});
+  P.forEach(function(p,i){
+    var a=el('circle',{cx:x(i),cy:y(p.online),r:3.4,fill:cOn,opacity:.85}); gOn.appendChild(a);
+    var b=el('circle',{cx:x(i),cy:y(p.ia),r:3.4,fill:cIa}); gIa.appendChild(b);
+    if(p.cnt==='ARG'){
+      s.appendChild(el('line',{x1:x(i),x2:x(i),y1:PT-4,y2:H-PB+6,stroke:ink,'stroke-width':1,'stroke-dasharray':'3 3'}));
+      var tx=el('text',{x:x(i),y:H-PB+22,fill:dark(host)?'#F3EFE7':'#1a2a2e','font-size':15,'font-weight':700,
+        'text-anchor':i>P.length*0.75?'end':'middle','font-family':'Barlow Condensed, sans-serif','letter-spacing':'.06em'});
+      tx.textContent='ARGENTINA'; s.appendChild(tx);
+    }
+  });
+  s.appendChild(gOn); s.appendChild(gIa);
+  var ax=el('text',{x:W/2,y:H-6,fill:ink,'font-size':13,'text-anchor':'middle','font-family':'Barlow, sans-serif'});
+  ax.textContent=P.length+' países, ordenados por la práctica de inteligencia artificial'; s.appendChild(ax);
+  host.appendChild(s);
+  if(!RM){
+    [gOn,gIa].forEach(function(g,k){
+      [].slice.call(g.childNodes).forEach(function(c,i){
+        c.style.opacity=0; c.style.transform='translateY(10px)';
+        c.style.transition='opacity .5s ease '+(i*.008+k*.25)+'s, transform .5s ease '+(i*.008+k*.25)+'s';
+      });
+    });
+    var fire=function(){ [].slice.call(gOn.childNodes).concat([].slice.call(gIa.childNodes))
+      .forEach(function(c){c.style.opacity='';c.style.transform=''}); };
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){fire();io.disconnect()}})},{threshold:.2});
+    io.observe(host);
+    addEventListener('scroll',function(){ if(host.getBoundingClientRect().top<innerHeight*0.8) fire(); },{passive:true});
+  }
+}
+window.__initA = {initReveal:initReveal,initProg:initProg,initTrampa:initTrampa,initDist:initDist,initStrip:initStrip,
+  el:el,C:C,dark:dark,fmt:fmt,$:$,$$:$$,RM:RM,grow:grow};
+})();
+
+(function(){
+"use strict";
+var A=window.__initA;
+var $=A.$, $$=A.$$, RM=A.RM;
+var deck, slides=[], i=0;
+
+function ancho(){ return deck.clientWidth; }
+function ir(n,inst){
+  n=Math.max(0,Math.min(slides.length-1,n));
+  // una placa puede retener el avance una vez, para terminar de mostrar algo
+  if(n>i && slides[i] && typeof slides[i].__gate==='function' && slides[i].__gate()===false) return;
+  if(inst) deck.style.scrollBehavior='auto';
+  deck.scrollLeft = n*ancho();
+  if(inst) requestAnimationFrame(function(){ deck.style.scrollBehavior=''; });
+  i=n; pintar();
+}
+function pintar(){
+  var s=slides[i];
+  document.body.classList.toggle('on-dark', s.classList.contains('band-dark'));
+  var bn=$('#barN'); if(bn) bn.innerHTML='<b>'+String(i+1).padStart(2,'0')+'</b> / '+slides.length;
+  $$('#barDots button').forEach(function(b,k){ b.classList.toggle('on',k===i); });
+  var p=$('#prog'); if(p) p.style.width=((i)/(slides.length-1)*100)+'%';
+  var pv=$('#bPrev'), nx=$('#bNext');
+  if(pv) pv.disabled=(i===0); if(nx) nx.disabled=(i===slides.length-1);
+  $$('.edgeL').forEach(function(e){e.disabled=(i===0)});
+  $$('.edgeR').forEach(function(e){e.disabled=(i===slides.length-1)});
+  $$('.nav-links a').forEach(function(a){
+    a.classList.toggle('on', a.getAttribute('href')==='#'+s.id);
+  });
+  // revelar lo de la placa actual
+  $$('.rv,.sl-n',s).forEach(function(n){ n.classList.add('in'); });
+  var ev=new CustomEvent('placa',{detail:{id:s.id,idx:i}}); document.dispatchEvent(ev);
+}
+
+/* la rueda: primero termina la placa hacia abajo, después pasa de página */
+function initRueda(){
+  var bloqueado=false;
+  deck.addEventListener('wheel',function(e){
+    var s=slides[i];
+    var puedeAbajo = s.scrollHeight - s.clientHeight > 4;
+    var abajoDeTodo = s.scrollTop + s.clientHeight >= s.scrollHeight - 4;
+    var arribaDeTodo = s.scrollTop <= 4;
+    var dy=e.deltaY, dx=e.deltaX;
+    if(Math.abs(dx)>Math.abs(dy)) return;            // gesto horizontal: lo maneja el navegador
+    if(dy>0 && puedeAbajo && !abajoDeTodo) return;   // seguir bajando dentro de la placa
+    if(dy<0 && puedeAbajo && !arribaDeTodo) return;  // seguir subiendo
+    e.preventDefault();
+    if(bloqueado || Math.abs(dy)<6) return;
+    bloqueado=true; setTimeout(function(){bloqueado=false}, RM?120:620);
+    var n = dy>0 ? i+1 : i-1;
+    if(n<0||n>=slides.length){ bloqueado=false; return; }
+    ir(n);
+    var d=slides[n]; if(dy<0) d.scrollTop=d.scrollHeight;  // al volver, entrar por el final
+    else d.scrollTop=0;
+  },{passive:false});
+}
+function initTeclado(){
+  addEventListener('keydown',function(e){
+    if(/input|textarea|select/i.test((e.target.tagName||''))) return;
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){ e.preventDefault(); ir(i+1); }
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); ir(i-1); }
+    else if(e.key==='Home'){ e.preventDefault(); ir(0); }
+    else if(e.key==='End'){ e.preventDefault(); ir(slides.length-1); }
+  });
+}
+function initBarra(){
+  var dots=$('#barDots');
+  slides.forEach(function(s,k){
+    var b=document.createElement('button'); b.type='button';
+    b.setAttribute('aria-label','Placa '+(k+1)+(s.dataset.t?': '+s.dataset.t:''));
+    if(s.dataset.t) b.title=(k+1)+' · '+s.dataset.t;
+    b.addEventListener('click',function(){ir(k)});
+    dots.appendChild(b);
+  });
+  $('#bPrev').addEventListener('click',function(){ir(i-1)});
+  $('#bNext').addEventListener('click',function(){ir(i+1)});
+  $$('.edgeL').forEach(function(e){e.addEventListener('click',function(){ir(i-1)})});
+  $$('.edgeR').forEach(function(e){e.addEventListener('click',function(){ir(i+1)})});
+  $$('.nav-links a, a[data-goto]').forEach(function(a){
+    a.addEventListener('click',function(ev){
+      var id=(a.getAttribute('data-goto')||a.getAttribute('href')||'').replace('#','');
+      var n=slides.findIndex(function(s){return s.id===id});
+      if(n>=0){ ev.preventDefault(); ir(n); }
+    });
+  });
+}
+function initScrollSync(){
+  var t;
+  deck.addEventListener('scroll',function(){
+    clearTimeout(t);
+    t=setTimeout(function(){
+      var n=Math.round(deck.scrollLeft/ancho());
+      if(n!==i && n>=0 && n<slides.length){ i=n; pintar(); }
+    },90);
+  },{passive:true});
+  addEventListener('resize',function(){ ir(i,true); });
+}
+function boot(){
+  deck=$('#deck'); if(!deck) return;
+  slides=$$('.slide',deck);
+  initBarra(); initRueda(); initTeclado(); initScrollSync();
+  // arrancar en la placa del hash, si hay
+  var h=location.hash.replace('#','');
+  var n=h?slides.findIndex(function(s){return s.id===h}):0;
+  ir(n>0?n:0,true);
+}
+window.__deck={boot:function(){try{boot()}catch(e){console.error('[deck]',e)}},
+               ir:function(n){ir(n)}, actual:function(){return i}};
+})();
+
+(function(){
+"use strict";
+var A=window.__initA, D=window.__D;
+var $=A.$, $$=A.$$, el=A.el, C=A.C, dark=A.dark, fmt=A.fmt, RM=A.RM;
+function svg(host,W,H,lab){ var s=el('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':lab});
+  host.appendChild(s); return s; }
+function txt(s,x,y,t,o){ o=o||{}; var e=el('text',{x:x,y:y,fill:o.fill||'#64748b',
+  'font-size':o.fs||14,'text-anchor':o.an||'middle','font-family':o.ff||'Barlow, sans-serif',
+  'font-weight':o.fw||400}); e.textContent=t; s.appendChild(e); return e; }
+function whenVisible(host,fn){
+  if(RM){ fn(); return; }
+  var done=false, go=function(){ if(done)return; done=true; fn(); };
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)go()})},{threshold:.2});
+  io.observe(host);
+  addEventListener('scroll',function(){ if(host.getBoundingClientRect().top<innerHeight*0.85) go(); },{passive:true});
+  setTimeout(go,5000);
+}
+
+/* ---- 03 · desempeño por intensidad de uso ---- */
+function vizUso(){
+  var host=$('#vizUso'); if(!host)return;
+  var NR=host.clientWidth<560, K=NR?1.85:1;
+  var U=D.uso_desempeno, N=U.niveles, W=620,H=NR?600:400,
+      PL=NR?80:46, PR=NR?40:26, PT=NR?52:26, PB=NR?170:104;
+  var lo=340, hi=450;
+  var X=function(i){return PL+i/4*(W-PL-PR)}, Y=function(v){return PT+(hi-v)/(hi-lo)*(H-PT-PB)};
+  var s=svg(host,W,H,'Desempeño en ciencias según intensidad de uso de inteligencia artificial');
+  var c=C(host,'ia'), ink='#94a3b8', ink2='#1a2a2e';
+  for(var g=350;g<=450;g+=25){
+    s.appendChild(el('line',{x1:PL,x2:W-PR,y1:Y(g),y2:Y(g),stroke:'#e6e4dd','stroke-width':1}));
+    txt(s,PL-8,Y(g)+4*K,g,{an:'end',fs:11*K,fill:ink});
+  }
+  var d=''; N.forEach(function(q,i){ d+=(i?'L':'M')+X(i)+' '+Y(q.SCIE.v); });
+  var p=el('path',{fill:'none',stroke:c,'stroke-width':3.2*K,'stroke-linecap':'round',d:d}); s.appendChild(p);
+  N.forEach(function(q,i){
+    s.appendChild(el('line',{x1:X(i),x2:X(i),y1:Y(q.SCIE.v-1.96*q.SCIE.ee),y2:Y(q.SCIE.v+1.96*q.SCIE.ee),
+      stroke:c,'stroke-width':1.6*K,opacity:.55}));
+    s.appendChild(el('circle',{cx:X(i),cy:Y(q.SCIE.v),r:6.5*K,fill:c,stroke:'#F3EFE7','stroke-width':2*K}));
+    var anv=i===0?'start':(i===4?'end':'middle');
+    txt(s,X(i)+(i===0?6:(i===4?-2:0)),Y(q.SCIE.v)-(i===1?26*K:16*K),fmt(q.SCIE.v,1),
+      {fs:15*K,fw:700,fill:ink2,an:anv,ff:'Barlow Condensed, sans-serif'});
+    var w=U.labels[i].split(' ');
+    var l1=w.slice(0,2).join(' '), l2=w.slice(2).join(' ');
+    var an=i===0?'start':(i===4?'end':'middle'), xx=X(i)+(i===0?-4:(i===4?4:0));
+    txt(s,xx,H-PB+24*K,l1,{fs:10.5*K,an:an,fill:ink});
+    if(l2) txt(s,xx,H-PB+38*K,l2,{fs:10.5*K,an:an,fill:ink});
+  });
+  txt(s,W/2,H-16*K,'frecuencia de uso de IA para tareas escolares',{fs:(NR?14:11),fill:ink});
+  txt(s,PL-(NR?64:0),PT-14*K,'puntaje en ciencias',{fs:12*K,an:'start',fill:ink});
+  // el punto más bajo, anotado
+  var lowI=1;
+  s.appendChild(el('circle',{cx:X(lowI),cy:Y(N[lowI].SCIE.v),r:11*K,fill:'none',stroke:'#C1462F','stroke-width':2*K}));
+  txt(s,X(lowI)+18*K,Y(N[lowI].SCIE.v)+26*K,'el grupo más bajo',{fs:12*K,an:'start',fill:'#C1462F',fw:600});
+  if(!RM){ var len=p.getTotalLength?p.getTotalLength():800;
+    p.style.strokeDasharray=len; p.style.strokeDashoffset=len;
+    p.style.transition='stroke-dashoffset 1.2s cubic-bezier(.22,1,.36,1)';
+    whenVisible(host,function(){p.style.strokeDashoffset=0}); }
+}
+
+/* ---- 04 · las cuatro finalidades (barras divergentes) ---- */
+function vizFin(){
+  var host=$('#vizFin'); if(!host)return;
+  var NR=host.clientWidth<560, K=NR?1.8:1;
+  var F=D.finalidades, W=620,H=NR?540:330,
+      PL=NR?272:246, PR=NR?34:48, PT=NR?70:44, PB=NR?90:56;
+  var mx=12, X0=PL+(W-PL-PR)*0.42;
+  var sc=function(v){ return v/mx*(W-PL-PR)*0.42; };
+  var s=svg(host,W,H,'Relación de cada finalidad de uso con el desempeño en lectura');
+  var pos=C(host,'ia'), neg='#C1462F', ink='#8a9b9f', crema='#F3EFE7';
+  var bh=34*K, gap=14*K;
+  s.appendChild(el('line',{x1:X0,x2:X0,y1:PT-8,y2:H-PB+4,stroke:'rgba(255,255,255,.22)','stroke-width':1}));
+  txt(s,X0,PT-16*K,'0',{fs:12*K,fill:ink});
+  txt(s,PL,PT-16*K,'peor',{fs:12*K,fill:ink,an:'start'});
+  txt(s,W-PR,PT-16*K,'mejor',{fs:12*K,fill:ink,an:'end'});
+  var ord=F.slice().sort(function(a,b){return b.READ-a.READ});
+  ord.forEach(function(f,i){
+    var y=PT+i*(bh+gap), v=f.READ, wpx=Math.abs(sc(v));
+    txt(s,PL-14,y+bh/2+5*K,f.nombre,{an:'end',fs:14*K,fill:crema,fw:500});
+    var r=el('rect',{x:v>=0?X0:X0-wpx,y:y,width:0,height:bh,rx:3,fill:v>=0?pos:neg});
+    r.dataset.w=wpx; r.dataset.x=(v>=0?X0:X0-wpx);
+    s.appendChild(r);
+    var dentro = wpx>52*K;            // barra larga: la cifra va adentro y no pisa la etiqueta
+    var tx = v>=0 ? (dentro? X0+wpx-10*K : X0+wpx+10*K) : (dentro? X0-wpx+10*K : X0-wpx-10*K);
+    var an = v>=0 ? (dentro?'end':'start') : (dentro?'start':'end');
+    var t=txt(s,tx,y+bh/2+6,(v>=0?'+':'−')+fmt(Math.abs(v),1),
+      {an:an,fs:17*K,fw:700,fill:dentro?(v>=0?'#0e1c20':'#fff'):crema,ff:'Barlow Condensed, sans-serif'});
+    if(!RM){ r.style.transition='width .8s cubic-bezier(.22,1,.36,1) '+(i*.11)+'s, x .8s cubic-bezier(.22,1,.36,1) '+(i*.11)+'s';
+      t.style.opacity=0; t.style.transition='opacity .4s ease '+(i*.11+.5)+'s'; }
+    else { r.setAttribute('width',wpx); r.setAttribute('x',r.dataset.x); }
+  });
+  txt(s,W/2,H-16*K,'puntos de lectura por escalón de uso, neto del nivel socioeconómico',{fs:(NR?16:12),fill:ink});
+  whenVisible(host,function(){
+    $$('rect',s).forEach(function(r){ if(r.dataset.w!=null){
+      r.setAttribute('width',r.dataset.w); r.setAttribute('x',r.dataset.x); } });
+    $$('text',s).forEach(function(t){ t.style.opacity=1; });
+  });
+}
+
+/* ---- 07 · nunca lo hizo, por cuartil ---- */
+function vizNunca(){
+  var host=$('#vizNunca'); if(!host)return;
+  var N=D.nunca_por_cuartil, W=1000,H=340, PL=74,PR=70,PT=34,PB=76;
+  var hi=52;
+  var X=function(i){return PL+i/3*(W-PL-PR)}, Y=function(v){return PT+(hi-v)/hi*(H-PT-PB)};
+  var s=svg(host,W,H,'Porcentaje que nunca hizo cada actividad, por cuartil socioeconómico');
+  var cOn=C(host,'on'), cIa=C(host,'ia'), ink='#94a3b8', ink2='#1a2a2e';
+  for(var g=0;g<=50;g+=10){
+    s.appendChild(el('line',{x1:PL,x2:W-PR,y1:Y(g),y2:Y(g),stroke:'#e6e4dd','stroke-width':1}));
+    txt(s,PL-10,Y(g)+4,g+' %',{an:'end',fs:13,fill:ink});
+  }
+  [['online',cOn],['ia',cIa]].forEach(function(p,k){
+    var key=p[0], col=p[1], d='';
+    N.forEach(function(q,i){ d+=(i?'L':'M')+X(i)+' '+Y(q[key]); });
+    var path=el('path',{fill:'none',stroke:col,'stroke-width':3.4,'stroke-linecap':'round',d:d});
+    s.appendChild(path);
+    N.forEach(function(q,i){
+      s.appendChild(el('circle',{cx:X(i),cy:Y(q[key]),r:7,fill:col,stroke:'#F3EFE7','stroke-width':2.4}));
+      var an=i===0?'start':(i===3?'end':'middle');
+      txt(s,X(i)+(i===0?12:(i===3?-12:0)),Y(q[key])+(key==='ia'?-17:24),fmt(q[key],1)+' %',
+        {an:an,fs:16,fw:700,fill:ink2,ff:'Barlow Condensed, sans-serif'});
+    });
+    if(!RM){ var L=path.getTotalLength?path.getTotalLength():900;
+      path.style.strokeDasharray=L; path.style.strokeDashoffset=L;
+      path.style.transition='stroke-dashoffset 1.1s cubic-bezier(.22,1,.36,1) '+(k*.35)+'s'; }
+  });
+  ['Q1 · más pobre','Q2','Q3','Q4 · más rico'].forEach(function(L,i){
+    txt(s,X(i)+(i===0?-4:(i===3?4:0)),H-PB+30,L,{fs:14,fill:ink,an:i===0?'start':(i===3?'end':'middle')});
+  });
+  txt(s,W/2,H-14,'cuartil del índice socioeconómico',{fs:12,fill:ink});
+  whenVisible(host,function(){ $$('path',s).forEach(function(p){p.style.strokeDashoffset=0}) });
+}
+
+/* ---- 07 · el aula: dos barras, una sola idea ---- */
+function vizAula(){
+  var host=$('#vizAula'); if(!host)return;
+  var cel=D.interaccion.celdas;
+  var alta=cel.filter(function(c){return c.uso==='Uso semanal o más'&&c.prac==='Práctica alta'})[0];
+  var baja=cel.filter(function(c){return c.uso==='Uso semanal o más'&&c.prac==='Práctica baja'})[0];
+  var NR=host.clientWidth<560, K=NR?1.6:1;
+  var W=560,H=NR?470:400, PL=26,PR=26, PT=NR?86:74, PB=NR?118:104;
+  var lo=400, hi=470;
+  var s=svg(host,W,H,'Puntaje en ciencias según si la escuela les hace chequear la IA');
+  var cIa=C(host,'ia'), cOn=C(host,'on'), ink='#8a9b9f', crema='#F3EFE7';
+  var bw=(W-PL-PR-62)/2;
+  var Y=function(v){return PT+(hi-v)/(hi-lo)*(H-PT-PB)};
+  txt(s,W/2,PT-44*K,'Chicos que usan IA todas las semanas',{fs:14*K,fill:ink});
+  [[baja,'La escuela NO se lo\nhace chequear',cOn,0],[alta,'La escuela SÍ se lo\nhace chequear',cIa,1]]
+    .forEach(function(p,k){
+    var c=p[0], x=PL+k*(bw+62), y=Y(c.v), h=H-PB-y;
+    var r=el('rect',{x:x,y:H-PB,width:bw,height:0,rx:4,fill:p[2]}); s.appendChild(r);
+    txt(s,x+bw/2,y-16*K,fmt(c.v,1),{fs:32*K,fw:900,fill:crema,ff:'Barlow Condensed, sans-serif'});
+    p[1].split('\n').forEach(function(t,j){
+      txt(s,x+bw/2,H-PB+26*K+j*17*K,t,{fs:13*K,fill:k?crema:ink,fw:k?600:400});
+    });
+    if(!RM){ r.style.transition='height .85s cubic-bezier(.22,1,.36,1) '+(k*.18)+'s, y .85s cubic-bezier(.22,1,.36,1) '+(k*.18)+'s'; }
+    setTimeout(function(){ r.setAttribute('height',h); r.setAttribute('y',y); },40);
+  });
+  // el salto, anotado entre las dos barras
+  var yA=Y(alta.v), yB=Y(baja.v), xm=PL+bw+31;
+  s.appendChild(el('line',{x1:xm,x2:xm,y1:yA,y2:yB,stroke:cIa,'stroke-width':2}));
+  s.appendChild(el('line',{x1:xm-9,x2:xm+9,y1:yA,y2:yA,stroke:cIa,'stroke-width':2}));
+  s.appendChild(el('line',{x1:xm-9,x2:xm+9,y1:yB,y2:yB,stroke:cIa,'stroke-width':2}));
+  s.appendChild(el('rect',{x:xm-21,y:(yA+yB)/2-14,width:42,height:27,rx:3,fill:'#0e1c20'}));
+  txt(s,xm,(yA+yB)/2+6*K,'+'+fmt(alta.v-baja.v,0),
+    {fs:20*K,fw:900,fill:cIa,ff:'Barlow Condensed, sans-serif'});
+  txt(s,W/2,H-10,'puntaje medio en ciencias',{fs:11.5*K,fill:ink});
+}
+window.__viz={vizUso:vizUso,vizFin:vizFin,vizNunca:vizNunca,vizAula:vizAula,whenVisible:whenVisible,svg:svg,txt:txt};
+})();
+
+(function(){
+"use strict";
+var A=window.__initA, D=window.__D, V=window.__viz;
+var $=A.$, $$=A.$$, el=A.el, C=A.C, fmt=A.fmt, RM=A.RM;
+var T=D.test, ans={};
+
+/* ---- 01 · test con gráfico que aparece al responder ---- */
+function initQuiz(){
+  var host=$('#quiz'), viz=$('#quizViz'); if(!host||!viz)return;
+  $$('.qz-o',host).forEach(function(box){
+    (box.dataset.opts==='uso'?T.opciones_uso:T.opciones).forEach(function(o,k){
+      var b=document.createElement('button'); b.type='button'; b.textContent=o; b.dataset.v=k+1;
+      box.appendChild(b);
+    });
+  });
+  host.addEventListener('click',function(e){
+    var b=e.target.closest('.qz-o button'); if(!b)return;
+    var card=b.closest('.qz'), box=b.closest('.qz-o');
+    $$('button',box).forEach(function(x){x.classList.remove('on')});
+    b.classList.add('on'); ans[card.dataset.q]=+b.dataset.v;
+    pintar();
+  });
+  function bloque(titulo, dist, mine, col, texto){
+    var d=document.createElement('div'); d.className='qv';
+    var barras=dist.map(function(p,k){
+      return '<i data-w="'+p+'" style="background:'+(k+1===mine?col:'rgba(100,116,139,.22)')+'"'+
+        (k+1===mine?' class="me"':'')+'><span>vos</span></i>';
+    }).join('');
+    d.innerHTML='<div class="qv-h">'+titulo+'</div><div class="qv-bar">'+barras+'</div>'+
+      '<div class="qv-t">'+texto+'</div>';
+    return d;
+  }
+  function pintar(){
+    viz.innerHTML='';
+    var cIa=C(viz,'ia'), cOn=C(viz,'on');
+    if(!ans.uso && !ans.online && !ans.ia){
+      var e=document.createElement('div'); e.className='qv-empty';
+      e.textContent='Cada respuesta que marques va a aparecer acá, sobre lo que contestaron los chicos de la provincia.';
+      viz.appendChild(e); return;
+    }
+    if(ans.uso){
+      var up=T.pba.uso.pct, sem=up[3]+up[4];
+      viz.appendChild(bloque('Cuánto la usás', up, ans.uso, '#5B6B80',
+        '<b>'+fmt(up[ans.uso-1],1)+' %</b> de los chicos bonaerenses contestó lo mismo que vos. '+
+        (ans.uso>=4 ? 'Estás entre los que la usan al menos una vez por semana, que son el <b>'+
+          fmt(sem,1)+' %</b>.' : 'El <b>'+fmt(sem,1)+' %</b> la usa una vez por semana o más.')));
+    }
+    [['online','Chequear internet, en clase',cOn],['ia','Chequear un chatbot, en clase',cIa]]
+      .forEach(function(p){
+      var k=p[0]; if(!ans[k])return;
+      var d=T.pba[k], mine=ans[k], nunca=d.pct[0];
+      var frase;
+      if(mine===1) frase='Sos parte del grupo más grande: <b>'+fmt(nunca,1)+' %</b> de la provincia '+
+        'nunca lo hizo en todo el año.';
+      else frase='<b>'+fmt(d.pct[mine-1],1)+' %</b> contestó lo mismo que vos. En la provincia, '+
+        '<b>'+fmt(nunca,1)+' %</b> nunca lo hizo ni una vez.';
+      viz.appendChild(bloque(p[1], d.pct, mine, p[2], frase));
+    });
+    if(ans.online && ans.ia){
+      var dif=T.pba.ia.pct[0]-T.pba.online.pct[0];
+      var f=document.createElement('div'); f.className='qv';
+      f.innerHTML='<div class="qv-h">Las dos preguntas juntas</div><div class="qv-t">'+
+        'Es el mismo ítem con distinta tecnología. En la provincia, <b>'+fmt(T.pba.online.pct[0],1)+
+        ' %</b> nunca chequeó información de internet en clase y <b>'+fmt(T.pba.ia.pct[0],1)+
+        ' %</b> nunca chequeó un chatbot: <b>'+fmt(dif,1)+' puntos</b> de diferencia. '+
+        'Lo que sigue explica de dónde sale esa diferencia y a quién le toca.</div>';
+      viz.appendChild(f);
+    }
+    setTimeout(function(){ $$('.qv-bar i',viz).forEach(function(s){s.style.width=s.dataset.w+'%'}) },60);
+  }
+  pintar();
+}
+
+/* ---- 05 · adiviná ---- */
+function initGuess(){
+  var g=$('#gz'); if(!g)return;
+  var v=$('#gzV'), real=D.nunca_por_cuartil[0].ia/10, revelado=false;
+  g.addEventListener('input',function(){ v.textContent=g.value; dibujar(+g.value); });
+  $('#gzGo').addEventListener('click',function(){
+    revelado=true; g.disabled=true; this.disabled=true; this.textContent='Listo';
+    dibujar(+g.value);
+  });
+  function dibujar(mine){
+    var host=$('#vizAdiv'); if(!host)return;
+    host.innerHTML='';
+    var N=D.nunca_por_cuartil;
+    var NR=host.clientWidth<560, K=NR?1.55:1;
+    var W=580, PL=NR?250:212, PR=NR?90:84, PT=44*K, PB=26*K;
+    var bh=40*K, gap=26*K, H=PT+3*bh+2*gap+PB;
+    var hi=60, bw=W-PL-PR;
+    var cIa=C(host,'ia'), cOn=C(host,'on'), ink='#8a9b9f', crema='#F3EFE7';
+    var s=V.svg(host,W,H,'Porcentaje que nunca chequeó, por grupo');
+    var filas=[
+      {l:['Los chicos','más pobres'], v:N[0].ia, c:cIa},
+      {l:['Los chicos','más ricos'],  v:N[3].ia, c:cIa},
+      {l:['Con internet,','los dos grupos'], v:(N[0].online+N[3].online)/2, c:cOn}
+    ];
+    if(revelado){
+      filas.forEach(function(f,k){
+        var y=PT+k*(bh+gap), w=f.v/hi*bw;
+        f.l.forEach(function(t,j){
+          V.txt(s,PL-16,y+bh/2+(j*15*K-3*K),t,{an:'end',fs:13*K,fill:crema,fw:500});
+        });
+        var r=el('rect',{x:PL,y:y,width:0,height:bh,rx:3,fill:f.c}); s.appendChild(r);
+        V.txt(s,PL+w+12*K,y+bh/2+6*K,fmt(f.v,1)+' %',
+          {an:'start',fs:19*K,fw:900,fill:crema,ff:'Barlow Condensed, sans-serif'});
+        setTimeout(function(){ r.style.transition='width .8s cubic-bezier(.22,1,.36,1) '+(k*.15)+'s';
+          r.setAttribute('width',w); },30);
+      });
+    } else {
+      V.txt(s,W/2,H/2,'Movés el control y después ves la respuesta',{fs:14*K,fill:ink});
+    }
+    var mx=PL+(mine*10)/hi*bw;
+    s.appendChild(el('line',{x1:mx,x2:mx,y1:PT-20*K,y2:H-PB+6,stroke:crema,'stroke-width':2,
+      'stroke-dasharray':'5 5',opacity:revelado?.7:1}));
+    V.txt(s,Math.min(mx,W-50),PT-27*K,'vos: '+mine+' de 10',
+      {an:mx>W-110?'end':'middle',fs:13*K,fw:700,fill:crema});
+    if(revelado){
+      var d=Math.abs(mine-real);
+      var msg = d<0.6 ? '<b>Le acertaste.</b> Casi cinco de cada diez chicos del cuartil más pobre nunca lo hicieron.'
+              : (mine<real ? '<b>Son casi cinco de cada diez</b> entre los chicos más pobres. Está por encima de lo que casi todos imaginan.'
+                           : '<b>Es menos de lo que dijiste</b>, y aun así casi la mitad de los chicos más pobres.');
+      var p=document.createElement('p'); p.className='sl-b'; p.style.marginTop='14px';
+      p.innerHTML=msg+' Con internet, en cambio, el reparto es parejo: dos de cada diez en los dos grupos.';
+      host.appendChild(p);
+    }
+  }
+  document.addEventListener('placa',function(e){ if(e.detail.id==='adivina') dibujar(+g.value); });
+  dibujar(+g.value);
+}
+window.__initC={initQuiz:initQuiz,initGuess:initGuess};
+})();
+
+(function(){
+"use strict";
+var A=window.__initA, B=window.__initB, C3=window.__initC, V=window.__viz, D=window.__D;
+var $=A.$, $$=A.$$, el=A.el, fmt=A.fmt, RM=A.RM, Col=A.C, dark=A.dark;
+
+/* paneles provincia */
+function initPan(){
+  var a=$('#panA'), b=$('#panB'); if(!a||!b)return;
+  var S=D.pba.sector;
+  function panel(host,rows,max,unit,dec){
+    rows.forEach(function(r,i){
+      var d=document.createElement('div'); d.className='prow';
+      d.innerHTML='<div class="plab">'+r.l+'</div><div class="pbar">'+
+        '<i data-w="'+(r.v/max*100)+'" style="background:'+r.c+'; --d:'+(i*.12)+'s"></i>'+
+        '<b class="num">'+fmt(r.v,dec)+unit+'</b></div>';
+      host.appendChild(d);
+    });
+  }
+  var cOn=Col(a,'on'), cIa=Col(a,'ia');
+  panel(a,[{l:'Conurbano',v:S.conurbano.ciencias,c:cOn},{l:'Interior',v:S.interior.ciencias,c:cOn}],100,' pts',0);
+  panel(b,[{l:'Conurbano',v:S.conurbano.ia,c:cIa},{l:'Interior',v:S.interior.ia,c:cIa}],3,'',2);
+  A.grow(a.closest('.pan'));
+}
+/* escalera capacitación */
+function initStair(){
+  var host=$('#vizStair'); if(!host)return;
+  var E=D.escuela, S=E.escalera, W=560,H=380, PL=58,PR=58,PT=30,PB=96;
+  var lo=1.95, hi=2.36;
+  var X=function(i){return PL+i/3*(W-PL-PR)}, Y=function(v){return PT+(hi-v)/(hi-lo)*(H-PT-PB)};
+  var s=V.svg(host,W,H,'Media escolar de cada práctica según capacitación docente declarada');
+  var cOn=Col(host,'on'), cIa=Col(host,'ia'), ink='#8a9b9f', crema='#F3EFE7';
+  [2.0,2.1,2.2,2.3].forEach(function(g){
+    s.appendChild(el('line',{x1:PL,x2:W-PR,y1:Y(g),y2:Y(g),stroke:'rgba(255,255,255,.08)','stroke-width':1}));
+    V.txt(s,PL-10,Y(g)+4,fmt(g,1),{an:'end',fs:12,fill:ink});
+  });
+  [['online',cOn],['ia',cIa]].forEach(function(p,k){
+    var key=p[0], col=p[1], d='';
+    S.forEach(function(q,i){ d+=(i?'L':'M')+X(i)+' '+Y(q[key]); });
+    var path=el('path',{fill:'none',stroke:col,'stroke-width':3,'stroke-linecap':'round',d:d});
+    s.appendChild(path);
+    S.forEach(function(q,i){
+      s.appendChild(el('circle',{cx:X(i),cy:Y(q[key]),r:5.5,fill:col,stroke:'#0e1c20','stroke-width':2}));
+      var an=i===0?'start':(i===3?'end':'middle');
+      V.txt(s,X(i)+(i===0?9:(i===3?-9:0)),Y(q[key])+(key==='online'?-13:22),fmt(q[key]),
+        {an:an,fs:13,fw:700,fill:crema,ff:'Barlow Condensed, sans-serif'});
+    });
+    if(!RM){ var L=path.getTotalLength?path.getTotalLength():600;
+      path.style.strokeDasharray=L; path.style.strokeDashoffset=L;
+      path.style.transition='stroke-dashoffset 1s cubic-bezier(.22,1,.36,1) '+(k*.3)+'s'; }
+  });
+  E.labels.forEach(function(L,i){
+    var w=L.split(' '), l1=w.slice(0,2).join(' '), l2=w.slice(2).join(' ');
+    var an=i===0?'start':(i===3?'end':'middle'), xx=X(i)+(i===0?-6:(i===3?6:0));
+    V.txt(s,xx,H-PB+24,l1,{fs:12,an:an,fill:ink});
+    if(l2) V.txt(s,xx,H-PB+39,l2,{fs:12,an:an,fill:ink});
+    V.txt(s,xx,H-PB+(l2?55:40),S[i].n+' esc.',{fs:11,an:an,fill:ink});
+  });
+  V.txt(s,W/2,H-32,'docentes capacitados, según el director',{fs:12,fill:ink});
+  [[cOn,'Evaluar internet',0],[cIa,'Evaluar IA',250]].forEach(function(L){
+    s.appendChild(el('rect',{x:PL+L[2],y:H-14,width:11,height:11,rx:2,fill:L[0]}));
+    V.txt(s,PL+L[2]+17,H-4,L[1],{fs:12,an:'start',fill:ink});
+  });
+  V.whenVisible(host,function(){ $$('path',s).forEach(function(p){p.style.strokeDashoffset=0}) });
+}
+/* tira internacional, versión placa */
+function initIntl(){
+  var host=$('#vizIntl'); if(!host)return;
+  var P=D.intl.paises, W=1000,H=300, PT=30, PB=48, PL=8, PR=8;
+  var lo=1.40, hi=3.14;
+  var Y=function(v){return PT+(hi-v)/(hi-lo)*(H-PT-PB)}, X=function(i){return PL+i/(P.length-1)*(W-PL-PR)};
+  var s=V.svg(host,W,H,'Las dos prácticas en '+P.length+' países');
+  var cOn=Col(host,'on'), cIa=Col(host,'ia'), ink='#94a3b8';
+  [2.0,2.5].forEach(function(g){
+    s.appendChild(el('line',{x1:PL,x2:W-PR,y1:Y(g),y2:Y(g),stroke:'#e6e4dd','stroke-width':1}));
+    V.txt(s,PL+2,Y(g)-6,fmt(g,1),{an:'start',fs:13,fill:ink});
+  });
+  s.appendChild(el('line',{x1:PL,x2:W-PR,y1:Y(3),y2:Y(3),stroke:'#1a2a2e','stroke-width':2}));
+  V.txt(s,W-PR,Y(3)-10,'«Seguido», ningún país llega, en ninguna de las dos',{an:'end',fs:14,fw:600,fill:'#334155'});
+  var gA=el('g',{}), gB=el('g',{});
+  P.forEach(function(p,i){
+    gA.appendChild(el('circle',{cx:X(i),cy:Y(p.online),r:3.4,fill:cOn,opacity:.85}));
+    gB.appendChild(el('circle',{cx:X(i),cy:Y(p.ia),r:3.4,fill:cIa}));
+    if(p.cnt==='ARG'){
+      s.appendChild(el('line',{x1:X(i),x2:X(i),y1:PT-4,y2:H-PB+4,stroke:ink,'stroke-width':1,'stroke-dasharray':'3 3'}));
+      V.txt(s,X(i),H-PB+20,'ARGENTINA',{fs:15,fw:700,fill:'#1a2a2e',ff:'Barlow Condensed, sans-serif'});
+    }
+  });
+  s.appendChild(gA); s.appendChild(gB);
+  V.txt(s,W/2,H-8,P.length+' países, ordenados por la práctica de inteligencia artificial',{fs:12,fill:ink});
+  if(!RM){
+    [gA,gB].forEach(function(g,k){ [].slice.call(g.childNodes).forEach(function(c,i){
+      c.style.opacity=0; c.style.transition='opacity .45s ease '+(i*.007+k*.28)+'s'; }); });
+    V.whenVisible(host,function(){ [].slice.call(gA.childNodes).concat([].slice.call(gB.childNodes))
+      .forEach(function(c){c.style.opacity=''}); });
+  }
+}
+
+function boot(){
+  var t=[['quiz',C3.initQuiz],['guess',C3.initGuess],
+         ['uso',V.vizUso],['fin',V.vizFin],['nunca',V.vizNunca],['aula',V.vizAula],
+         ['intl',initIntl],['pan',initPan],['stair',initStair],
+         ['trampa',A.initTrampa]];
+  t.forEach(function(p){ try{ p[1](); }catch(e){ console.error('['+p[0]+']',e); } });
+  try{ window.__deck.boot(); }catch(e){ console.error('[deck]',e); }
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
+// red de seguridad: si algo falló, nada queda invisible
+setTimeout(function(){ $$('.rv,.sl-n').forEach(function(n){n.classList.add('in')}); }, 4500);
+})();
+
+</script>
+</body>
+</html>

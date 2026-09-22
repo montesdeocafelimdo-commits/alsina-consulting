@@ -4,6 +4,25 @@
    la interfaz solo renderiza entradas con status:'published'. */
 window.ALSINA_PUBLICATIONS = [
   {
+    id: 'que-pasa-con-la-ia-en-las-escuelas',
+    slug: 'que-pasa-con-la-ia-en-las-escuelas',
+    title: '¿Qué pasa con la IA en las escuelas?',
+    summary: 'PISA 2025 midió por primera vez qué hacen los chicos con la inteligencia artificial y qué hace la escuela con eso. No es cuánto la usan: es para qué.',
+    format: 'report',
+    primaryTopic: 'state-public-management',
+    secondaryTags: ['educación', 'PISA 2025', 'inteligencia artificial'],
+    accessType: 'free',
+    requiredPlan: null,
+    author: null,
+    publishedAt: '2026-09-22',
+    period: null,
+    frequency: null,
+    coverImage: null,
+    url: '/que-pasa-con-la-ia-en-las-escuelas.html',
+    featured: false,
+    status: 'published',
+  },
+  {
     id: 'obra-nacional-pba-2027',
     slug: 'obra-nacional-pba-2027',
     title: 'El mapa de la obra nacional en Buenos Aires',
