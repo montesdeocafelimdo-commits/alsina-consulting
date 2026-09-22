@@ -122,7 +122,8 @@ h1 em{color:var(--tq2); font-style:normal}
 .byline{display:flex; align-items:center; gap:12px; margin-top:28px}
 .byline-mark{width:38px; height:38px; border-radius:50%; flex-shrink:0; background:var(--g2);
   border:2px solid var(--tq); display:flex; align-items:center; justify-content:center;
-  font-family:var(--disp); font-weight:900; font-size:1.05rem; color:var(--tq)}
+  font-family:var(--disp); font-weight:900; font-size:1.05rem; color:var(--tq); overflow:hidden}
+.byline-mark img{width:100%; height:100%; object-fit:cover; border-radius:50%}
 .byline-name{font-family:var(--disp); font-weight:800; font-size:1rem; letter-spacing:.02em;
   text-transform:uppercase; color:var(--ink)}
 .byline-role{font-size:.78rem; color:var(--ink4)}
@@ -516,9 +517,9 @@ h1{font-size:clamp(40px,7.4vw,86px)}
     <div class="open-nota rv" style="--d:.18s">Respondieron 11.092 estudiantes argentinos de quince
       años en 412 escuelas; 1.966 de ellos en 81 escuelas bonaerenses.
       Son quince placas y te vamos a pedir que contestes tres preguntas.</div>
-    <div class="byline rv" style="--d:.24s"><div class="byline-mark">A</div>
-      <div><div class="byline-name">Equipo Alsina</div>
-      <div class="byline-role">Con Felipe Montes de Oca · Trabajo Final de Maestría, CIAS</div></div></div>
+    <div class="byline rv" style="--d:.24s"><div class="byline-mark"><img src="/assets/img/autores/felipe-montes-de-oca.jpg" alt="Felipe Montes de Oca" width="38" height="38" loading="lazy"></div>
+      <div><div class="byline-name">Felipe Montes de Oca</div>
+      <div class="byline-role">Equipo Alsina · Trabajo Final de Maestría, CIAS</div></div></div>
     <div class="open-meta rv" style="--d:.3s">Septiembre de 2026</div>
     <a class="cue rv" href="#trampa" data-goto="trampa" style="--d:.34s"><span></span> Empezar</a>
   </div></div></section>

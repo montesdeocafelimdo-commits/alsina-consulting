@@ -13,7 +13,7 @@ window.ALSINA_PUBLICATIONS = [
     secondaryTags: ['educación', 'PISA 2025', 'inteligencia artificial'],
     accessType: 'free',
     requiredPlan: null,
-    author: null,
+    author: ['Felipe Montes de Oca'],
     publishedAt: '2026-09-22',
     period: null,
     frequency: null,
