@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0e1c20">
-<title>72 obras para una provincia — El mapa de la obra nacional en Buenos Aires · Alsina Consulting</title>
+<title>El mapa de la obra nacional en Buenos Aires — Alsina Consulting</title>
 <meta name="description" content="El proyecto de Presupuesto 2027 presupuesta 72 obras del Estado nacional en territorio bonaerense, por $321.084 millones. Mapa interactivo, municipio por municipio.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://alsinaar.com/obra-nacional-pba-2027.html">
-<meta property="og:title" content="72 obras para una provincia — El mapa de la obra nacional en Buenos Aires">
+<meta property="og:title" content="El mapa de la obra nacional en Buenos Aires">
 <meta property="og:description" content="El proyecto de Presupuesto 2027 presupuesta 72 obras del Estado nacional en territorio bonaerense, por $321.084 millones. Mapa interactivo, municipio por municipio.">
 <meta property="og:image" content="https://alsinaar.com/assets/og/og-default.jpg">
 <meta property="og:image:width" content="1200">
@@ -77,18 +77,22 @@ section{padding-block:clamp(64px,9vw,128px)}
   color:var(--act-c);margin-bottom:14px;display:flex;align-items:center;gap:12px}
 .act::before{content:"";width:0;height:2px;background:currentColor;flex:none;transition:width .6s var(--ease) .1s}
 .act.in::before,html:not(.anim) .act::before{width:26px}
-h2.title{font-family:var(--disp);font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1.04;
+h2.title{font-family:var(--disp);font-size:clamp(32px,4.6vw,50px);font-weight:900;line-height:1.04;
   text-transform:uppercase;color:var(--txt);text-wrap:balance;max-width:24ch}
 h2.title em{color:var(--turq);font-style:normal}
 .band-paper h2.title em{color:var(--azul-leg)}
-h3.sub{font-family:var(--disp);font-size:1.15rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;color:var(--txt);margin-top:8px}
-.lead{font-size:1.06rem;color:var(--txt2);line-height:1.72;margin-top:16px;max-width:64ch}
-p.body{margin-top:14px;max-width:64ch;color:var(--txt3);line-height:1.76;font-size:.98rem}
+h3.sub{font-family:var(--disp);font-size:1.3rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;color:var(--txt);margin-top:8px}
+.lead{font-size:1.18rem;color:var(--txt2);line-height:1.68;margin-top:18px;max-width:64ch}
+p.body{margin-top:15px;max-width:66ch;color:var(--txt3);line-height:1.72;font-size:1.08rem}
 strong{font-weight:700;color:var(--txt)}
 em.mark{color:var(--turq);font-style:normal;font-weight:700}
 .band-paper em.mark{color:var(--azul-leg)}
-.src{font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-top:18px;line-height:1.6;max-width:78ch}
-.hand{font-size:1.1rem;line-height:1.66;color:var(--txt);max-width:54ch;margin-top:32px;
+.hl{background:rgba(0,213,216,.18);padding:.05em .28em;border-radius:3px;font-weight:700;color:var(--txt);box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.band-paper .hl{background:rgba(20,105,145,.14)}
+u.ul,span.ul{text-decoration:underline;text-decoration-color:var(--turq);text-decoration-thickness:2px;text-underline-offset:3px;font-weight:700;color:var(--txt)}
+.band-paper u.ul,.band-paper span.ul{text-decoration-color:var(--azul-leg)}
+.src{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-top:18px;line-height:1.6;max-width:78ch}
+.hand{font-size:1.22rem;line-height:1.62;color:var(--txt);max-width:54ch;margin-top:32px;
   padding-left:20px;border-left:3px solid var(--turq);font-weight:500}
 .band-paper .hand{border-left-color:var(--azul-leg)}
 .num{font-variant-numeric:tabular-nums}
@@ -111,9 +115,9 @@ em.mark{color:var(--turq);font-style:normal;font-weight:700}
 /* hero */
 .hero{min-height:calc(86svh - 52px);display:flex;align-items:center;padding-block:clamp(48px,7vw,80px)}
 .hero-tag{font-family:var(--disp);font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--azul);font-weight:800}
-.hero h1{font-family:var(--disp);font-size:clamp(40px,7vw,80px);font-weight:900;line-height:.98;
-  text-transform:uppercase;color:#F3EFE7;margin-top:16px;letter-spacing:-.01em;max-width:14ch}
-.hero-sub{font-size:clamp(1.05rem,1.6vw,1.24rem);color:#E9E4DB;line-height:1.66;margin-top:26px;max-width:56ch}
+.hero h1{font-family:var(--disp);font-size:clamp(36px,5.6vw,68px);font-weight:900;line-height:1.02;
+  text-transform:uppercase;color:#F3EFE7;margin-top:16px;letter-spacing:-.01em;max-width:17ch}
+.hero-sub{font-size:clamp(1.05rem,1.6vw,1.2rem);color:#E9E4DB;line-height:1.5;margin-top:20px;max-width:56ch;font-family:var(--mono)}
 .hero-stats{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:30px}
 .hero-stat{display:flex;flex-direction:column}
 .hero-stat b{font-family:var(--disp);font-weight:900;font-size:clamp(22px,3vw,30px);color:var(--turq);line-height:1}
@@ -138,7 +142,7 @@ em.mark{color:var(--turq);font-style:normal;font-weight:700}
 .share-btn svg{width:14px;height:14px}
 
 /* generic tables */
-.stat-table{width:100%;border-collapse:collapse;margin-top:20px;font-size:.92rem}
+.stat-table{width:100%;border-collapse:collapse;margin-top:20px;font-size:1.02rem}
 .stat-table th,.stat-table td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line)}
 .stat-table th{font-family:var(--disp);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.68rem;color:var(--txt2)}
 .stat-table td.n{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono)}
@@ -164,19 +168,22 @@ details.acc + details.acc{margin-top:0;border-top:1px solid var(--line)}
 .treemap-block .tb-val{font-family:var(--mono);font-size:.78rem;margin-top:4px;opacity:.92}
 .treemap-block .tb-desc{font-size:.72rem;margin-top:6px;opacity:.85;max-width:32ch;line-height:1.4}
 
-/* concentracion area blocks */
-.conc-row{display:flex;flex-wrap:wrap;gap:3px;margin-top:28px;align-items:stretch}
-.conc-block{border-radius:6px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;
-  min-height:150px;flex-grow:1;min-width:110px;color:#fff;cursor:default}
-.conc-block .cb-rank{font-family:var(--disp);font-weight:900;font-size:1.3rem;opacity:.85}
-.conc-block .cb-name{font-family:var(--disp);font-weight:700;font-size:.78rem;text-transform:uppercase;line-height:1.25;margin-top:6px}
-.conc-block .cb-val{font-family:var(--mono);font-size:.86rem;margin-top:10px}
-.conc-block.resto{background:var(--card)!important;color:var(--txt)!important}
-.conc-block.resto .cb-val{color:var(--txt2)}
+/* concentracion: donut */
+.donut-row{display:flex;gap:clamp(28px,5vw,56px);flex-wrap:wrap;align-items:center;margin-top:32px}
+#concDonut{width:min(300px,80vw);height:min(300px,80vw);flex:none}
+.donut-seg{transition:opacity .2s}
+.donut-seg:hover{opacity:.82}
+.donut-center-pct{font-family:var(--disp);font-weight:900;fill:var(--turq)}
+.donut-center-lbl{font-family:var(--mono);fill:#9E9992}
+.donut-legend{display:flex;flex-direction:column;gap:2px;flex:1;min-width:260px}
+.donut-legend-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(243,239,231,.1)}
+.donut-legend-item .dl-swatch{width:13px;height:13px;border-radius:3px;flex:none}
+.donut-legend-item .dl-name{font-size:.9rem;color:#E9E4DB;flex:1;line-height:1.35}
+.donut-legend-item .dl-val{font-family:var(--mono);font-size:.82rem;color:#F3EFE7;white-space:nowrap;padding-left:12px}
 
 /* timeline (plurianualidad) */
 .tl-list{margin-top:28px;display:flex;flex-direction:column;gap:26px}
-.tl-item .tl-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.9rem;color:var(--txt);margin-bottom:8px}
+.tl-item .tl-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:1rem;color:var(--txt);margin-bottom:8px}
 .tl-item .tl-head b{font-weight:700}
 .tl-bar{display:flex;height:26px;border-radius:4px;overflow:hidden;background:var(--track)}
 .tl-seg{height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.62rem;color:rgba(255,255,255,.9);
@@ -217,25 +224,25 @@ details.acc + details.acc{margin-top:0;border-top:1px solid var(--line)}
   text-transform:uppercase;cursor:pointer;transition:background .2s}
 .sl-toggle:hover,.sl-toggle.active{background:rgba(224,82,82,.28)}
 .sl-item{padding:9px 0;border-bottom:1px solid rgba(243,239,231,.09)}
-.sl-item .sl-name{font-size:.76rem;color:#F3EFE7;line-height:1.4}
+.sl-item .sl-name{font-size:.86rem;color:#F3EFE7;line-height:1.42}
 .sl-item .sl-amt{font-family:var(--mono);font-size:.7rem;color:var(--turq);margin-top:3px}
-.map-legend{display:flex;flex-wrap:wrap;gap:14px 22px;margin-top:16px;font-size:.7rem;color:#E9E4DB}
+.map-legend{display:flex;flex-wrap:wrap;gap:14px 22px;margin-top:16px;font-size:.78rem;color:#E9E4DB}
 .leg-item{display:flex;align-items:center;gap:8px}
 .leg-dot{width:11px;height:11px;border-radius:50%;flex:none}
 .leg-line{width:20px;height:3px;flex:none;border-radius:2px}
-.map-note{font-size:.7rem;color:#9E9992;margin-top:10px;max-width:70ch;line-height:1.55}
+.map-note{font-size:.78rem;color:#9E9992;margin-top:10px;max-width:70ch;line-height:1.58}
 .map-search{margin-top:8px}
 .map-search label{display:block;font-family:var(--disp);font-size:.95rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;color:#F3EFE7;margin-bottom:10px}
 .map-search input{width:100%;max-width:460px;background:rgba(243,239,231,.07);border:1.5px solid rgba(243,239,231,.22);
   border-radius:6px;color:#F3EFE7;padding:13px 16px;font-family:inherit;font-size:1rem;outline:none}
 .map-search input:focus{border-color:var(--azul)}
-.ficha{margin-top:14px;background:rgba(243,239,231,.045);border-radius:8px;padding:14px 16px;font-size:.85rem;color:#E9E4DB;display:none}
+.ficha{margin-top:14px;background:rgba(243,239,231,.06);border-radius:8px;padding:16px 18px;font-size:.96rem;color:#E9E4DB;display:none}
 .ficha.show{display:block}
 .ficha b{color:#F3EFE7}
 .ficha-share{margin-top:10px;font-size:.68rem;color:var(--turq);cursor:pointer;display:inline-block;font-family:var(--mono)}
 .roca-box{margin-top:28px;background:var(--grafito2);border-radius:8px;padding:20px 22px}
 .roca-box h4{font-family:var(--disp);font-size:.98rem;font-weight:800;text-transform:uppercase;color:#F3EFE7}
-.roca-box p{margin-top:8px;font-size:.86rem;color:#E9E4DB;line-height:1.6;max-width:70ch}
+.roca-box p{margin-top:8px;font-size:.98rem;color:#E9E4DB;line-height:1.65;max-width:70ch}
 .roca-toggle{display:flex;gap:8px;margin-top:16px}
 .roca-btn{background:rgba(243,239,231,.06);border:1px solid rgba(243,239,231,.2);color:#E9E4DB;border-radius:5px;
   padding:8px 14px;font-family:var(--disp);font-weight:700;font-size:.7rem;letter-spacing:.03em;text-transform:uppercase;cursor:pointer}
@@ -255,7 +262,7 @@ details.acc + details.acc{margin-top:0;border-top:1px solid var(--line)}
 /* filterable table */
 .obras-table-wrap{margin-top:32px}
 .table-scroll{margin-top:12px;overflow-x:auto;max-height:400px;overflow-y:auto;border:1px solid rgba(243,239,231,.1);border-radius:8px}
-table.obras-table{width:100%;border-collapse:collapse;font-size:.76rem;min-width:640px}
+table.obras-table{width:100%;border-collapse:collapse;font-size:.84rem;min-width:640px}
 table.obras-table th{position:sticky;top:0;background:var(--grafito2);text-align:left;padding:9px 12px;font-family:var(--disp);
   font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:.64rem;color:#E9E4DB;border-bottom:1px solid rgba(243,239,231,.15)}
 table.obras-table td{padding:8px 12px;border-bottom:1px solid rgba(243,239,231,.06);color:#E9E4DB}
@@ -272,19 +279,25 @@ table.obras-table tr:hover td{background:rgba(243,239,231,.04)}
 .callout-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
 @media(max-width:700px){.callout-grid{grid-template-columns:1fr}}
 .callout{background:var(--card);border-radius:8px;padding:14px 16px}
-.callout h4{font-family:var(--disp);font-size:.82rem;font-weight:800;text-transform:uppercase;color:var(--act-c)}
-.callout p{margin-top:6px;font-size:.8rem;color:var(--txt3);line-height:1.55}
+.callout h4{font-family:var(--disp);font-size:.9rem;font-weight:800;text-transform:uppercase;color:var(--act-c)}
+.callout p{margin-top:6px;font-size:.9rem;color:var(--txt3);line-height:1.58}
 
 /* scatter (provincias) */
 .scatter-wrap{margin-top:28px}
 #provScatter{width:100%;height:auto;display:block}
-.scat-dot{cursor:pointer}
-.scat-dot.pba{fill:var(--turq)}
-.scat-dot:not(.pba){fill:rgba(233,228,219,.35)}
-.scat-label{font-family:var(--mono);font-size:9px;fill:#9E9992}
-.scat-label.pba{fill:#F3EFE7;font-weight:700;font-size:11px}
-.scat-axis{stroke:rgba(243,239,231,.15);stroke-width:1}
-.scat-axis-label{font-family:var(--mono);font-size:10px;fill:#9E9992}
+.scat-dot{cursor:pointer;stroke:rgba(8,17,20,.5);stroke-width:1;transition:opacity .2s,stroke .2s}
+.scat-dot.pba{fill:var(--turq);stroke:#F3EFE7;stroke-width:1.5}
+.scat-dot:not(.pba){fill:rgba(0,146,158,.4)}
+.scat-dot:hover{stroke:var(--turq);stroke-width:2}
+.scat-label{font-family:var(--disp);font-weight:700;font-size:12px;fill:#B7B2AA;text-transform:uppercase;letter-spacing:.02em}
+.scat-label.pba{fill:#F3EFE7;font-weight:900;font-size:15px}
+.scat-axis{stroke:rgba(243,239,231,.14);stroke-width:1}
+.scat-grid{stroke:rgba(243,239,231,.07);stroke-width:1;stroke-dasharray:2 5}
+.scat-axis-label{font-family:var(--mono);font-size:11px;fill:#9E9992}
+.scat-ref-line{stroke:var(--rojo);stroke-width:1.3;stroke-dasharray:4 4;opacity:.75}
+.scat-ref-label{font-family:var(--mono);font-size:11px;fill:var(--rojo)}
+circle.scat-size-legend{fill:none;stroke:#9E9992;stroke-width:1}
+.scat-size-legend-label{font-family:var(--mono);font-size:10px;fill:#9E9992}
 
 /* cierre */
 .cierre-cta{margin-top:32px;display:inline-flex;align-items:center;gap:10px;background:var(--azul);color:#fff;
@@ -298,7 +311,7 @@ table.obras-table tr:hover td{background:rgba(243,239,231,.04)}
 footer.foot{background:var(--grafito2);border-top:1px solid rgba(243,239,231,.08)}
 footer.foot h5{font-family:var(--disp);font-size:.84rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#F3EFE7;margin-top:22px}
 footer.foot h5:first-child{margin-top:0}
-footer.foot p,footer.foot li{font-size:.8rem;color:#E9E4DB;line-height:1.66;margin-top:8px}
+footer.foot p,footer.foot li{font-size:.92rem;color:#E9E4DB;line-height:1.68;margin-top:8px}
 footer.foot ul{padding-left:18px;margin-top:8px}
 footer.foot table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.76rem}
 footer.foot table th,footer.foot table td{text-align:left;padding:7px 10px;border-bottom:1px solid rgba(243,239,231,.08);color:#E9E4DB}
@@ -329,8 +342,8 @@ footer.foot details.acc summary{color:#F3EFE7}
 <header class="hero band-dark" id="top">
   <div class="wrap">
     <div class="hero-tag">Informe interactivo · Presupuesto nacional 2027</div>
-    <h1>72 obras para una provincia</h1>
-    <p class="hero-sub">El proyecto de Presupuesto 2027 presupuesta 72 obras del Estado nacional en territorio bonaerense, por $321.084 millones. Están mapeadas, municipio por municipio — empezá por el tuyo.</p>
+    <h1>El mapa de la obra nacional en Buenos Aires</h1>
+    <p class="hero-sub">Datos extraídos del Proyecto de Ley de Presupuesto Nacional 2027 (Oficina Nacional de Presupuesto).</p>
     <div class="hero-stats">
       <div class="hero-stat"><b>72</b><span>obras nacionales presupuestadas en la Provincia para 2027</span></div>
       <div class="hero-stat"><b>$321.084 M</b><span>de inversión real directa proyectada</span></div>
@@ -344,7 +357,7 @@ footer.foot details.acc summary{color:#F3EFE7}
         <div class="hero-meta">Proyecto presentado el 15/09/2026 · Fuente: Oficina Nacional de Presupuesto</div>
       </div>
     </div>
-    <div class="share-row" data-share-text="72 obras para una provincia: el mapa de la obra nacional en Buenos Aires para 2027 — Alsina" role="group" aria-label="Compartir este informe">
+    <div class="share-row" data-share-text="El mapa de la obra nacional en Buenos Aires para 2027 — Alsina" role="group" aria-label="Compartir este informe">
       <a class="share-btn" data-share="x" href="#" target="_blank" rel="noopener" aria-label="Compartir en X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23 22h-6.9l-5.4-6.9L4.8 22H2l8.1-9.3L1 2h7l4.9 6.3z"/></svg></a>
       <a class="share-btn" data-share="wa" href="#" target="_blank" rel="noopener" aria-label="Compartir en WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.2-.6.9-.8 1.1-.1.2-.3.2-.5.1-1.3-.6-2.4-1.4-3.3-2.6-.2-.3-.1-.5.1-.7.2-.2.4-.5.6-.7.1-.2.1-.4 0-.6-.1-.2-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4-.2 0-.4 0-.6 0-.2 0-.5.1-.7.3-.5.5-.8 1.1-.8 1.9 0 1.9 1.4 3.7 1.6 4 .2.3 2.2 3.3 5.2 4.4 2.5.9 2.5.6 2.9.6.4 0 1.6-.6 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.1-.2-.2-.4-.3zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg></a>
       <button class="share-btn" data-share="copy" aria-label="Copiar enlace"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
@@ -354,7 +367,7 @@ footer.foot details.acc summary{color:#F3EFE7}
 
 <section class="band-dark" id="mapa">
   <div class="wrap">
-    <p class="map-intro rv" style="font-size:1.05rem;color:#E9E4DB;line-height:1.7">Esto es lo que el proyecto de Presupuesto 2027 prevé construir en la provincia de Buenos Aires: 72 obras del Estado nacional, con su monto, organismo ejecutor y ubicación cuando el presupuesto la declara. <strong style="color:#F3EFE7">Buscá tu municipio.</strong></p>
+    <p class="map-intro rv" style="font-size:1.05rem;color:#E9E4DB;line-height:1.7">Esto es lo que el proyecto de Presupuesto 2027 prevé construir en la provincia de Buenos Aires: <strong style="color:#F3EFE7">72 obras</strong> del Estado nacional, con su monto, organismo ejecutor y ubicación cuando el presupuesto la declara. <u class="ul" style="color:#F3EFE7;text-decoration-color:var(--turq)">Buscá tu municipio.</u></p>
 
     <div class="map-search rv">
       <label for="municipioSearch">Buscá tu municipio</label>
@@ -379,7 +392,7 @@ footer.foot details.acc summary{color:#F3EFE7}
 
     <div class="roca-box rv">
       <h4>El ramal Roca: un problema de clasificación</h4>
-      <p>La Mejora Integral del Ferrocarril General Roca, ramal Constitución–La Plata, es la obra más grande de todo el presupuesto 2027: $125.942 millones. Corre entre la Ciudad y La Plata, atravesando Avellaneda, Quilmes, Berazategui y Florencio Varela — pero el anexo geográfico la clasifica como interprovincial, no bonaerense.</p>
+      <p>La Mejora Integral del Ferrocarril General Roca, ramal Constitución–La Plata, es <strong style="color:#F3EFE7">la obra más grande de todo el presupuesto 2027: $125.942 millones</strong>. Corre entre la Ciudad y La Plata, atravesando Avellaneda, Quilmes, Berazategui y Florencio Varela — pero el anexo geográfico la clasifica como interprovincial, no bonaerense.</p>
       <div class="roca-toggle">
         <button class="roca-btn active" data-roca="oficial" type="button">Clasificación oficial</button>
         <button class="roca-btn" data-roca="territorial" type="button">Criterio territorial alternativo</button>
@@ -405,10 +418,10 @@ footer.foot details.acc summary{color:#F3EFE7}
   <div class="wrap">
     <div class="act rv">Qué se construye</div>
     <h2 class="title rv">Más de la mitad son <em>activos que el Estado opera para sí</em></h2>
-    <p class="lead rv">Las 72 obras no son un bloque homogéneo. Agrupadas por el tipo de activo que producen —no por a quién parecen estar destinadas—, la composición del gasto queda así:</p>
+    <p class="lead rv">Las 72 obras <strong>no son un bloque homogéneo</strong>. Agrupadas por el tipo de activo que producen —no por a quién parecen estar destinadas—, la composición del gasto queda así:</p>
     <div class="treemap rv" id="taxoTreemap" role="img" aria-label="Composición de las 72 obras nacionales en la Provincia por tipo de activo"></div>
     <p class="body rv section-gap">Los activos estratégicos nacionales —reactores y laboratorios de la CNEA, defensa, el sistema penitenciario federal— concentran el 51,5% del total: son infraestructura que el Estado nacional construye y opera para sí mismo, esté donde esté emplazada. La infraestructura territorial —vialidad, ferrocarril, saneamiento, vivienda— es el 47,7% restante y es, en general, la que el municipio y sus vecinos usan directamente. Infraestructura social federal (edificios de justicia y salud) y equipamiento operativo (aviación, geología, logística) juntas no llegan al 1%.</p>
-    <p class="body rv">Treinta y tres de los 135 municipios bonaerenses concentran las 72 obras. Los 102 restantes no tienen comprometida, para 2027, ni una sola obra nacional.</p>
+    <p class="body rv">Treinta y tres de los 135 municipios bonaerenses concentran las 72 obras. <span class="hl">Los 102 restantes no tienen comprometida, para 2027, ni una sola obra nacional.</span></p>
     <p class="src">Fuente: Planilla Nº12, Proyecto de Ley de Presupuesto 2027 (ONP) · Millones de pesos corrientes.</p>
   </div>
 </section>
@@ -417,9 +430,12 @@ footer.foot details.acc summary{color:#F3EFE7}
   <div class="wrap">
     <div class="act rv">Concentración</div>
     <h2 class="title rv">Cuatro obras concentran <em>más de la mitad</em></h2>
-    <p class="lead rv">De los $321.084 millones, cuatro proyectos se llevan el 56,2%. El resto —68 obras— se reparte el 43,8% restante.</p>
-    <div class="conc-row rv" id="concBlocks" role="img" aria-label="Las cuatro obras más grandes y el resto de las 72 obras, en bloques proporcionales al monto"></div>
-    <p class="body rv section-gap">Un reactor, una cárcel federal, cuatro helicópteros y una autopista. Tres de los cuatro son activos estratégicos del Estado nacional emplazados en territorio bonaerense: se construyen <strong>en</strong> la Provincia, pero no se deciden, no se gestionan ni se operan desde ningún municipio. En el otro extremo: una sola obra de vivienda en toda la provincia ($2.713 millones, Marcos Paz) y una sola de saneamiento ($6.899 millones, Lanús) — entre las dos, apenas el 3% del total.</p>
+    <p class="lead rv">De los $321.084 millones, <span class="hl">cuatro proyectos se llevan el 56,2%</span>. El resto —68 obras— se reparte el 43,8% restante.</p>
+    <div class="donut-row rv">
+      <svg id="concDonut" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gráfico de anillo: las cuatro obras más grandes concentran el 56,2% del monto total, el resto de las 68 obras se reparte el 43,8%"></svg>
+      <div class="donut-legend" id="concLegend"></div>
+    </div>
+    <p class="body rv section-gap">Un reactor, una cárcel federal, cuatro helicópteros y una autopista. Tres de los cuatro son <u class="ul">activos estratégicos del Estado nacional</u> emplazados en territorio bonaerense: se construyen <strong>en</strong> la Provincia, pero no se deciden, no se gestionan ni se operan desde ningún municipio. En el otro extremo: una sola obra de vivienda en toda la provincia ($2.713 millones, Marcos Paz) y una sola de saneamiento ($6.899 millones, Lanús) — entre las dos, <span class="hl">apenas el 3% del total</span>.</p>
     <p class="src">Fuente: Planilla Nº12, Proyecto de Ley de Presupuesto 2027 (ONP) · Millones de pesos corrientes.</p>
   </div>
 </section>
@@ -428,7 +444,7 @@ footer.foot details.acc summary{color:#F3EFE7}
   <div class="wrap">
     <div class="act rv">Plurianualidad</div>
     <h2 class="title rv">Ocho obras se extienden <em>más allá de 2027</em></h2>
-    <p class="lead rv">La Planilla Anexa 11 lista las obras cuyo costo excede el ejercicio y publica su cronograma hasta 2029 y más allá. Ocho obras bonaerenses aparecen ahí. El crédito previsto para 2027 es apenas una porción del costo total del proyecto: el resto queda para 2028, 2029 y años posteriores.</p>
+    <p class="lead rv">La Planilla Anexa 11 lista las obras cuyo costo excede el ejercicio y publica su cronograma hasta 2029 y más allá. Ocho obras bonaerenses aparecen ahí. <strong>El crédito previsto para 2027 es apenas una porción del costo total del proyecto</strong>: el resto queda para 2028, 2029 y años posteriores.</p>
     <div class="tl-list rv" id="tlList"></div>
     <div class="tl-legend rv"><span><i style="background:var(--azul)"></i>2027</span><span><i style="background:var(--gris)"></i>2028</span><span><i style="background:rgba(91,107,128,.65)"></i>2029</span><span><i style="background:rgba(91,107,128,.35)"></i>resto</span></div>
     <p class="body rv section-gap">El caso de mayor escala es Mercedes: la travesía urbana de Ruta 5 tiene un costo total de $74.997 millones, y el proyecto 2027 prevé $2.503 millones para ese ejercicio — el resto está distribuido entre 2028, 2029 y un "resto" de $43.509 millones sin año asignado. No es una irregularidad: así funciona la plurianualidad. Pero una obra puede figurar "en el presupuesto" con una porción muy pequeña de su costo total asignada al año en curso, y esa diferencia no se ve en la tabla de montos anuales que circula.</p>
@@ -461,9 +477,9 @@ footer.foot details.acc summary{color:#F3EFE7}
   <div class="wrap">
     <div class="act rv">Buenos Aires en el país</div>
     <h2 class="title rv">Concentra la mayor inversión, <em>pero queda 15ª por habitante</em></h2>
-    <p class="lead rv">Buenos Aires encabeza el total de obra nacional entre las 24 jurisdicciones: 72 obras por $321.084 millones, el 24,4% de toda la inversión en obras del país. Pero cuando ese monto se divide por población, la lectura cambia por completo.</p>
+    <p class="lead rv">Buenos Aires <u class="ul">encabeza el total</u> de obra nacional entre las 24 jurisdicciones: 72 obras por $321.084 millones, el 24,4% de toda la inversión en obras del país. Pero cuando ese monto <strong>se divide por población, la lectura cambia por completo</strong>.</p>
     <div class="scatter-wrap rv">
-      <svg id="provScatter" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gráfico de dispersión: población contra obra nacional por habitante, 24 provincias. El eje horizontal es población en escala logarítmica; el eje vertical, pesos de obra por habitante."></svg>
+      <svg id="provScatter" viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gráfico de burbujas: población contra obra nacional por habitante, 24 provincias. El eje horizontal es población en escala logarítmica; el eje vertical, pesos de obra por habitante; el tamaño de cada burbuja es el monto total de obra."></svg>
     </div>
     <p class="body rv section-gap">Catorce jurisdicciones reciben más obra por habitante que Buenos Aires. Santa Cruz, $291.677 por habitante: dieciséis veces más. El promedio de las 22 provincias sin contar Buenos Aires ni CABA —ponderado por población— es $27.234 por habitante; Buenos Aires recibe un tercio menos. La razón no es una decisión contra la Provincia: la obra pública nacional se reparte por proyecto, no por población, y un reactor o una represa en una provincia chica dispara el número per cápita. Buenos Aires no tiene una obra singular de esa escala en 2027: tiene setenta y dos obras medianas.</p>
     <details class="acc rv">
@@ -483,14 +499,14 @@ footer.foot details.acc summary{color:#F3EFE7}
   <div class="wrap">
     <div class="act rv">Cierre</div>
     <h2 class="title rv">El presupuesto habla <em>en provincias; el territorio, en municipios</em></h2>
-    <p class="body rv" style="max-width:60ch;font-size:1.02rem">El proyecto de Presupuesto 2027 llega desagregado por provincia. El territorio se gobierna por municipio. Entre esas dos escalas hay un trabajo que hoy no hace nadie: traducir 72 líneas de una planilla nacional en 135 respuestas concretas, una por partido.</p>
+    <p class="body rv" style="max-width:60ch;font-size:1.02rem">El proyecto de Presupuesto 2027 llega desagregado <strong>por provincia</strong>. El territorio se gobierna <strong>por municipio</strong>. Entre esas dos escalas hay un trabajo que hoy no hace nadie: traducir 72 líneas de una planilla nacional en <span class="hl">135 respuestas concretas, una por partido</span>.</p>
     <p class="hand rv">Esta base ya responde, para cualquier municipio bonaerense, qué obra nacional tiene comprometida en 2027, con monto, organismo y fuente de financiamiento. Para la mayoría, la respuesta es: ninguna.</p>
     <p class="body rv" style="max-width:60ch">Eso es lo que vamos a seguir haciendo: obra por obra y partida por partida, durante todo el tratamiento en el Congreso.</p>
     <div class="rv">
       <button class="cierre-cta" id="cierreCta" type="button">Buscá tu municipio</button>
       <a class="cierre-cta ghost" href="#mapa">Explorá las 72 obras</a>
     </div>
-    <div class="share-row rv" data-share-text="72 obras para una provincia: el mapa de la obra nacional en Buenos Aires para 2027 — Alsina" role="group" aria-label="Compartir este informe">
+    <div class="share-row rv" data-share-text="El mapa de la obra nacional en Buenos Aires para 2027 — Alsina" role="group" aria-label="Compartir este informe">
       <a class="share-btn" data-share="x" href="#" target="_blank" rel="noopener" aria-label="Compartir en X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23 22h-6.9l-5.4-6.9L4.8 22H2l8.1-9.3L1 2h7l4.9 6.3z"/></svg></a>
       <a class="share-btn" data-share="wa" href="#" target="_blank" rel="noopener" aria-label="Compartir en WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.2-.6.9-.8 1.1-.1.2-.3.2-.5.1-1.3-.6-2.4-1.4-3.3-2.6-.2-.3-.1-.5.1-.7.2-.2.4-.5.6-.7.1-.2.1-.4 0-.6-.1-.2-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4-.2 0-.4 0-.6 0-.2 0-.5.1-.7.3-.5.5-.8 1.1-.8 1.9 0 1.9 1.4 3.7 1.6 4 .2.3 2.2 3.3 5.2 4.4 2.5.9 2.5.6 2.9.6.4 0 1.6-.6 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.1-.2-.2-.4-.3zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg></a>
       <button class="share-btn" data-share="copy" aria-label="Copiar enlace"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
@@ -647,9 +663,10 @@ document.getElementById('cierreCta').addEventListener('click', goToSearch);
   watchOnce(el, () => el.querySelectorAll('.treemap-block').forEach(b => b.style.flexGrow = b.dataset.grow));
 })();
 
-/* ===== concentración: area blocks ===== */
+/* ===== concentración: donut ===== */
 (function(){
-  const el = document.getElementById('concBlocks');
+  const svg = document.getElementById('concDonut');
+  const legend = document.getElementById('concLegend');
   const TAXO_MAP = {
     'Vialidad urbana metropolitana': 'territorial', 'Vialidad nacional': 'territorial',
     'Vialidad · mantenimiento por distrito': 'territorial', 'Ferrocarril': 'territorial',
@@ -658,20 +675,34 @@ document.getElementById('cierreCta').addEventListener('click', goToSearch);
     'Salud': 'social', 'Justicia federal': 'social',
     'Aviación civil': 'equipamiento', 'Geología y minería': 'equipamiento', 'Logística ANSES': 'equipamiento',
   };
-  let html = '';
-  DATA.top4.forEach((o,i) => {
-    const color = `var(--t-${TAXO_MAP[o.categoria] || 'equipamiento'})`;
-    html += `<div class="conc-block" data-grow="${o.monto}" style="flex-grow:0.01;background:${color}">
-      <div class="cb-rank">${i+1}</div>
-      <div><div class="cb-name">${o.obra.length > 40 ? o.obra.slice(0,37)+'…' : o.obra}</div><div class="cb-val">$${nf(o.monto)} M</div></div>
-    </div>`;
+  const segments = DATA.top4.map((o,i) => ({
+    label: `${i+1}. ${o.obra}`, val: o.monto, color: `var(--t-${TAXO_MAP[o.categoria] || 'equipamiento'})`,
+  }));
+  segments.push({ label: `Las demás ${DATA.restoCount} obras`, val: DATA.restoMonto, color: 'rgba(243,239,231,.16)' });
+
+  const cx = 120, cy = 120, r = 92, sw = 34;
+  const circ = 2 * Math.PI * r;
+  const total = segments.reduce((s,x)=>s+x.val,0);
+  let offset = 0;
+  let svgHtml = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="rgba(243,239,231,.06)" stroke-width="${sw}"/>`;
+  segments.forEach((s,i) => {
+    const frac = s.val / total;
+    const len = frac * circ;
+    svgHtml += `<circle class="donut-seg" cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${s.color}" stroke-width="${sw}"
+      stroke-dasharray="${len} ${circ-len}" stroke-dashoffset="${-offset}" transform="rotate(-90 ${cx} ${cy})" data-len="${len}">
+      <title>${s.label}: $${nf(s.val)} M (${nf1(frac*100)}%)</title>
+    </circle>`;
+    offset += len;
   });
-  html += `<div class="conc-block resto" data-grow="${DATA.restoMonto}" style="flex-grow:0.01">
-    <div class="cb-rank" style="opacity:.4">+${DATA.restoCount}</div>
-    <div><div class="cb-name">Las demás ${DATA.restoCount} obras</div><div class="cb-val">$${nf(DATA.restoMonto)} M</div></div>
-  </div>`;
-  el.innerHTML = html;
-  watchOnce(el, () => el.querySelectorAll('.conc-block').forEach(b => b.style.flexGrow = b.dataset.grow));
+  svgHtml += `<text x="${cx}" y="${cy-6}" text-anchor="middle" class="donut-center-pct" font-size="34">56,2%</text>`;
+  svgHtml += `<text x="${cx}" y="${cy+18}" text-anchor="middle" class="donut-center-lbl" font-size="11">en 4 de 72 obras</text>`;
+  svg.innerHTML = svgHtml;
+
+  legend.innerHTML = segments.map(s => `<div class="donut-legend-item">
+    <span class="dl-swatch" style="background:${s.color}"></span>
+    <span class="dl-name">${s.label}</span>
+    <span class="dl-val">$${nf(s.val)} M</span>
+  </div>`).join('');
 })();
 
 /* ===== plurianualidad: timelines ===== */
@@ -911,46 +942,88 @@ let sinlocMode = false;
   render('oficial');
 })();
 
-/* ===== provincias: scatter ===== */
+/* ===== provincias: bubble chart ===== */
 (function(){
   const svg = document.getElementById('provScatter');
-  const W = 900, H = 520, M = { l: 70, r: 30, t: 20, b: 56 };
+  const W = 900, H = 560, M = { l: 74, r: 40, t: 30, b: 64 };
   const plotW = W - M.l - M.r, plotH = H - M.t - M.b;
   const provs = DATA.provincias;
   const xs = provs.map(p => Math.log10(p.poblacion));
-  const ys = provs.map(p => p.obraPorHabitante);
-  const xMin = Math.min(...xs), xMax = Math.max(...xs);
-  const yMax = Math.max(...ys) * 1.08;
+  const xMin = Math.min(...xs) - 0.08, xMax = Math.max(...xs) + 0.05;
+  const yMax = Math.max(...provs.map(p => p.obraPorHabitante)) * 1.1;
+  const maxObras = Math.max(...provs.map(p => p.obrasMillones));
   const X = v => M.l + (Math.log10(v) - xMin) / (xMax - xMin) * plotW;
   const Y = v => M.t + plotH - (v / yMax) * plotH;
+  const R = v => 5 + 21 * Math.sqrt(v / maxObras);
 
   let html = '';
-  // axes
+  // background grid
+  [50000,100000,150000,200000,250000].forEach(v => {
+    if (v > yMax) return;
+    html += `<line class="scat-grid" x1="${M.l}" y1="${Y(v)}" x2="${M.l+plotW}" y2="${Y(v)}"/>`;
+    html += `<text class="scat-axis-label" x="${M.l-12}" y="${Y(v)+4}" text-anchor="end">$${nf(v)}</text>`;
+  });
+  [2e5, 1e6, 5e6, 1.7e7].forEach(v => {
+    const x = X(v);
+    if (x < M.l || x > M.l+plotW) return;
+    html += `<line class="scat-grid" x1="${x}" y1="${M.t}" x2="${x}" y2="${M.t+plotH}"/>`;
+    html += `<text class="scat-axis-label" x="${x}" y="${M.t+plotH+22}" text-anchor="middle">${v>=1e6? nf1(v/1e6)+' M hab.':nf(v/1e3)+' mil hab.'}</text>`;
+  });
   html += `<line class="scat-axis" x1="${M.l}" y1="${M.t+plotH}" x2="${M.l+plotW}" y2="${M.t+plotH}"/>`;
   html += `<line class="scat-axis" x1="${M.l}" y1="${M.t}" x2="${M.l}" y2="${M.t+plotH}"/>`;
-  [1e5, 1e6, 1e7].forEach(v => {
-    const x = X(v);
-    html += `<line class="scat-axis" x1="${x}" y1="${M.t}" x2="${x}" y2="${M.t+plotH}" stroke-dasharray="2 4"/>`;
-    html += `<text class="scat-axis-label" x="${x}" y="${M.t+plotH+18}" text-anchor="middle">${v>=1e6? (v/1e6)+' M hab.':(v/1e3)+' mil hab.'}</text>`;
-  });
-  [50000,150000,250000].forEach(v => {
-    const y = Y(v);
-    html += `<text class="scat-axis-label" x="${M.l-10}" y="${y+3}" text-anchor="end">$${nf(v)}</text>`;
-  });
-  html += `<text class="scat-axis-label" x="${M.l+plotW/2}" y="${H-8}" text-anchor="middle">Población (escala logarítmica) →</text>`;
-  html += `<text class="scat-axis-label" transform="translate(16,${M.t+plotH/2}) rotate(-90)" text-anchor="middle">Obra por habitante ($) →</text>`;
 
-  provs.forEach(p => {
+  // reference line: weighted average excl. PBA/CABA
+  const refY = Y(DATA.avgSinPBACABA);
+  html += `<line class="scat-ref-line" x1="${M.l}" y1="${refY}" x2="${M.l+plotW}" y2="${refY}"/>`;
+  html += `<text class="scat-ref-label" x="${M.l+8}" y="${refY-8}" text-anchor="start">Promedio ponderado sin PBA/CABA: $${nf(DATA.avgSinPBACABA)}</text>`;
+
+  html += `<text class="scat-axis-label" x="${M.l+plotW/2}" y="${H-16}" text-anchor="middle" font-size="12">Población (escala logarítmica) →</text>`;
+  html += `<text class="scat-axis-label" transform="translate(22,${M.t+plotH/2}) rotate(-90)" text-anchor="middle" font-size="12">Obra nacional por habitante ($) →</text>`;
+
+  // bubbles, biggest first so small ones stay clickable on top
+  const sorted = provs.slice().sort((a,b) => b.obrasMillones - a.obrasMillones);
+  sorted.forEach(p => {
     const isPba = p.provincia === 'Buenos Aires';
-    const x = X(p.poblacion), y = Y(p.obraPorHabitante);
-    const r = isPba ? 9 : 5;
-    html += `<circle class="scat-dot${isPba?' pba':''}" cx="${x}" cy="${y}" r="${r}"><title>${p.provincia}: $${nf(p.obraPorHabitante)} por habitante, $${nf(p.obrasMillones)} M totales</title></circle>`;
-    if (isPba) {
-      const flip = x > W - 110;
-      html += `<text class="scat-label pba" x="${flip ? x-13 : x+13}" y="${y-10}" text-anchor="${flip?'end':'start'}">Buenos Aires</text>`;
-    }
+    const x = X(p.poblacion), y = Y(p.obraPorHabitante), r = R(p.obrasMillones);
+    html += `<circle class="scat-dot${isPba?' pba':''}" data-name="${p.provincia}" data-hab="${nf(p.obraPorHabitante)}" data-tot="${nf(p.obrasMillones)}" data-n="${p.obrasCant}" cx="${x}" cy="${y}" r="${r}" tabindex="0"></circle>`;
   });
+  const pba = provs.find(p => p.provincia === 'Buenos Aires');
+  const sc = provs.find(p => p.provincia === 'Santa Cruz');
+  [ {p: pba, cls:'pba'}, {p: sc, cls:''} ].forEach(({p,cls}) => {
+    if (!p) return;
+    const x = X(p.poblacion), y = Y(p.obraPorHabitante), r = R(p.obrasMillones);
+    const flip = x > W - 130;
+    html += `<text class="scat-label ${cls}" x="${flip ? x-r-8 : x+r+8}" y="${y+4}" text-anchor="${flip?'end':'start'}">${p.provincia}</text>`;
+  });
+
+  // bubble-size legend
+  const lx = M.l + plotW - 90, ly = M.t + 16;
+  [ {v: maxObras, r: R(maxObras)}, {v: maxObras*0.15, r: R(maxObras*0.15)} ].forEach((s,i) => {
+    const cy2 = ly + 26 + (i===0?0:R(maxObras)*2-6);
+    html += `<circle class="scat-size-legend" cx="${lx}" cy="${cy2 - s.r}" r="${s.r}"/>`;
+  });
+  html += `<text class="scat-axis-label" x="${lx}" y="${ly}" text-anchor="middle">Tamaño = obra total ($M)</text>`;
+
   svg.innerHTML = html;
+
+  // custom tooltip
+  const tt = document.getElementById('tt');
+  function pos(e){
+    const pad = 16; let x = e.clientX+pad, y = e.clientY+pad;
+    if (x+280>window.innerWidth) x = e.clientX-280-pad;
+    if (y+120>window.innerHeight) y = e.clientY-120;
+    tt.style.left = Math.max(8,x)+'px'; tt.style.top = Math.max(8,y)+'px';
+  }
+  svg.querySelectorAll('.scat-dot').forEach(dot => {
+    const show = e => {
+      tt.innerHTML = `<b>${dot.dataset.name}</b><div class="tt-row">$${dot.dataset.hab} por habitante</div><div class="tt-row">$${dot.dataset.tot} M totales · ${dot.dataset.n} obras</div>`;
+      tt.hidden = false; pos(e);
+    };
+    dot.addEventListener('mousemove', show);
+    dot.addEventListener('focus', show);
+    dot.addEventListener('mouseleave', () => tt.hidden = true);
+    dot.addEventListener('blur', () => tt.hidden = true);
+  });
 })();
 
 /* ===== provincias table ===== */

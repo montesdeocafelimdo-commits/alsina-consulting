@@ -6,7 +6,7 @@ window.ALSINA_PUBLICATIONS = [
   {
     id: 'obra-nacional-pba-2027',
     slug: 'obra-nacional-pba-2027',
-    title: '72 obras para una provincia',
+    title: 'El mapa de la obra nacional en Buenos Aires',
     summary: 'El proyecto de Presupuesto 2027 presupuesta 72 obras del Estado nacional en territorio bonaerense, por $321.084 millones. Mapa interactivo, municipio por municipio.',
     format: 'report',
     primaryTopic: 'municipalities-territory',
