@@ -4,7 +4,8 @@
     { "source": "/quienes-somos", "destination": "/quienes-somos.html" }
   ],
   "redirects": [
-    { "source": "/que-es-alsina.html", "destination": "/quienes-somos", "permanent": true }
+    { "source": "/que-es-alsina.html", "destination": "/quienes-somos", "permanent": true },
+    { "source": "/paga-no-construye.html", "destination": "/obra-nacional-pba-2027.html", "permanent": true }
   ],
   "headers": [
     {

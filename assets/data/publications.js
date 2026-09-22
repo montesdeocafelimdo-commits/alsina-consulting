@@ -4,12 +4,12 @@
    la interfaz solo renderiza entradas con status:'published'. */
 window.ALSINA_PUBLICATIONS = [
   {
-    id: 'paga-no-construye',
-    slug: 'paga-no-construye',
-    title: 'Paga, no construye',
-    summary: 'De cada 100 pesos que el Estado nacional gasta en la provincia de Buenos Aires en 2027, 68 centavos son obra. Mapa interactivo de las 72 obras nacionales geolocalizadas y los 135 municipios.',
+    id: 'obra-nacional-pba-2027',
+    slug: 'obra-nacional-pba-2027',
+    title: '72 obras para una provincia',
+    summary: 'El proyecto de Presupuesto 2027 presupuesta 72 obras del Estado nacional en territorio bonaerense, por $321.084 millones. Mapa interactivo, municipio por municipio.',
     format: 'report',
-    primaryTopic: 'public-finance',
+    primaryTopic: 'municipalities-territory',
     secondaryTags: ['presupuesto 2027', 'obra pública', 'municipios'],
     accessType: 'free',
     requiredPlan: null,
@@ -18,7 +18,7 @@ window.ALSINA_PUBLICATIONS = [
     period: '2027',
     frequency: null,
     coverImage: null,
-    url: '/paga-no-construye.html',
+    url: '/obra-nacional-pba-2027.html',
     featured: false,
     status: 'published',
   },
