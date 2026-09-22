@@ -1137,7 +1137,7 @@ function vizFin(){
   var host=$('#vizFin'); if(!host)return;
   var NR=host.clientWidth<560, K=NR?1.8:1;
   var F=D.finalidades, W=620,H=NR?540:330,
-      PL=NR?272:246, PR=NR?34:48, PT=NR?70:44, PB=NR?90:56;
+      PL=NR?320:246, PR=NR?34:48, PT=NR?70:44, PB=NR?90:56;
   var mx=12, X0=PL+(W-PL-PR)*0.42;
   var sc=function(v){ return v/mx*(W-PL-PR)*0.42; };
   var s=svg(host,W,H,'Relación de cada finalidad de uso con el desempeño en lectura');
