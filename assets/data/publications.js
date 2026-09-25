@@ -4,6 +4,25 @@
    la interfaz solo renderiza entradas con status:'published'. */
 window.ALSINA_PUBLICATIONS = [
   {
+    id: 'zona-fria',
+    slug: 'zona-fria',
+    title: 'Zonas frías: 93 municipios “AFUERA”',
+    summary: 'El Senado devolvió la zona fría al criterio de 2002. La Provincia pierde el subsidio automático de gas en 93 municipios. Con mapa de los 135 partidos.',
+    format: 'note',
+    primaryTopic: 'municipalities-territory',
+    secondaryTags: ['tarifas', 'gas', 'zona fría'],
+    accessType: 'free',
+    requiredPlan: null,
+    author: null,
+    publishedAt: '2026-09-24',
+    period: null,
+    frequency: null,
+    coverImage: '/assets/img/informes/zona-fria.jpg',
+    url: '/zona-fria.html',
+    featured: false,
+    status: 'published',
+  },
+  {
     id: 'que-pasa-con-la-ia-en-las-escuelas',
     slug: 'que-pasa-con-la-ia-en-las-escuelas',
     title: '¿Qué pasa con la IA en las escuelas?',
