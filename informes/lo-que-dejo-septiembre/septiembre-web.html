@@ -1,0 +1,1125 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta property="og:title" content="Lo que dejó septiembre">
+<meta property="og:description" content="Dos elecciones para entender una provincia y ¿leer el 2027? Informe interactivo de Alsina sobre la elección bonaerense del 7 de septiembre de 2025.">
+<meta property="og:type" content="article">
+<title>Lo que dejó septiembre</title>
+<meta name="description" content="Dos elecciones para entender una provincia y ¿leer el 2027? Informe interactivo de Alsina sobre la elección bonaerense del 7 de septiembre de 2025.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>/* Layout: columna editorial de 64ch con figuras que se abren a 1120px; bandas crema (archivo público) y grafito (tablero). Capítulo 7 = carril horizontal fijado al scroll en escritorio. */
+:root{
+  --grafito:#0E1C20; --grafito2:#152830; --grafito3:#1d343c;
+  --navy:#14294D; --tinta:#16233F; --tinta2:#33405a;
+  --crema:#F3EFE7; --crema2:#E9E4DB; --papel:#FBF9F5;
+  --tq:#00D5D8; --tq-legible:#0b8f99; --azul:#2196C9; --azul-l:#146B91;
+  --gris:#5B6B80; --gris2:#8b97a8; --linea:rgba(22,35,63,.14); --linea2:rgba(22,35,63,.07);
+  --rojo:#E05252; --verde:#2BB673;
+  /* paleta partidaria (validada sobre crema: CVD ΔE≥9,4 · visión normal ≥15 · contraste ≥3:1) */
+  --fp:#2a78d6; --lla:#7b2fa0; --sh:#e86aa6; --fit:#c0392b; --jxc:#e0a100; --otros:#9aa1ab; --bl:#c9c3b8;
+  --disp:'Barlow Condensed','Arial Narrow',system-ui,sans-serif;
+  --body:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --wrap:1120px; --col:66ch; --ease:cubic-bezier(.22,1,.36,1);
+  --navh:52px;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--crema);color:var(--tinta);font-family:var(--body);font-size:18px;line-height:1.68;
+  -webkit-font-smoothing:antialiased;overflow-x:clip}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.num{font-variant-numeric:tabular-nums}
+strong{font-weight:700;color:var(--tinta)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-inline:20px}
+button{font:inherit}
+:focus-visible{outline:2px solid var(--azul);outline-offset:3px}
+
+/* ---------- nav + reloj de 49 días ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;padding-top:env(safe-area-inset-top,0px);
+  background:rgba(14,28,32,.97);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.07)}
+.nav-in{max-width:var(--wrap);margin:0 auto;height:var(--navh);padding-inline:20px;display:flex;align-items:center;gap:18px}
+.brand{font-family:var(--disp);font-weight:900;font-size:1.05rem;letter-spacing:.16em;color:var(--crema);text-decoration:none;flex:none}
+.brand i{font-style:normal;color:var(--tq)}
+.nav-links{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;flex:1 1 auto;min-width:0}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-family:var(--disp);font-weight:700;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(243,239,231,.55);text-decoration:none;white-space:nowrap;transition:color .25s}
+.nav-links a:hover,.nav-links a.on{color:var(--tq)}
+.clock{flex:none;display:flex;align-items:baseline;gap:8px;font-family:var(--disp);color:var(--crema);white-space:nowrap}
+.clock b{font-weight:900;font-size:1.25rem;color:var(--tq);min-width:2ch;text-align:right}
+.clock span{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,239,231,.6)}
+@media(max-width:820px){.nav-links{display:none}.nav-in{justify-content:space-between}}
+.days{position:absolute;left:0;right:0;bottom:-3px;height:3px;background:rgba(255,255,255,.06)}
+.days i{display:block;height:100%;width:0;background:var(--tq);transition:width .2s linear}
+.days.past i{background:var(--crema)}
+
+/* ---------- reveal ---------- */
+html.anim .rv{opacity:0;transform:translateY(18px)}
+html.anim .rv.in{opacity:1;transform:none;transition:opacity .8s var(--ease) var(--d,0s),transform .8s var(--ease) var(--d,0s)}
+@media (prefers-reduced-motion:reduce){html.anim .rv{opacity:1!important;transform:none!important}
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+/* ---------- portada ---------- */
+.hero{background:var(--grafito);color:var(--crema);padding-top:calc(var(--navh) + env(safe-area-inset-top,0px) + clamp(40px,7vw,84px));
+  padding-bottom:clamp(48px,7vw,90px);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(0,213,216,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,213,216,.05) 1px,transparent 1px);
+  background-size:44px 44px;mask-image:linear-gradient(180deg,#000 0%,transparent 85%)}
+.hero .wrap{position:relative}
+.tag{font-family:var(--disp);font-weight:800;font-size:.76rem;letter-spacing:.22em;text-transform:uppercase;color:var(--tq);
+  display:flex;align-items:center;gap:12px}
+.tag::before{content:"";width:26px;height:2px;background:currentColor}
+h1{font-family:var(--disp);font-weight:900;text-transform:uppercase;line-height:.93;letter-spacing:-.005em;
+  font-size:clamp(44px,8.6vw,108px);margin:18px 0 0;max-width:15ch;text-wrap:balance}
+h1 em{font-style:normal;color:var(--tq)}
+.hero-lede{font-size:clamp(1.05rem,1.9vw,1.3rem);line-height:1.55;color:#cfd7d9;max-width:56ch;margin:26px 0 0;font-weight:500}
+.hero-lede strong{color:var(--crema)}
+.byline{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:28px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);
+  font-family:var(--disp);font-weight:700;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,239,231,.6)}
+.byline b{color:var(--crema);font-weight:800}
+
+/* dos fotos */
+.fotos{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:clamp(12px,2.4vw,28px);margin-top:clamp(36px,5vw,56px);align-items:stretch}
+@media(max-width:760px){.fotos{grid-template-columns:1fr}.fotos .gap49{flex-direction:row!important;padding:4px 0}.fotos .gap49 i{width:auto!important;height:2px!important;flex:1}}
+.foto{background:var(--papel);color:var(--tinta);border-radius:3px;padding:18px 20px 16px;position:relative;
+  box-shadow:0 18px 40px rgba(0,0,0,.28)}
+.foto:nth-child(1){transform:rotate(-.6deg)} .foto:nth-child(3){transform:rotate(.5deg)}
+@media(max-width:760px){.foto:nth-child(n){transform:none}}
+.foto-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:1px dashed var(--linea);padding-bottom:10px;margin-bottom:14px}
+.foto-d{font-family:var(--disp);font-weight:900;font-size:1.9rem;line-height:1;text-transform:uppercase}
+.foto-c{font-family:var(--mono);font-size:.68rem;color:var(--gris);text-align:right;line-height:1.4}
+.frow{display:grid;grid-template-columns:96px 1fr 58px;gap:10px;align-items:center;margin-bottom:9px}
+.frow .lab{font-family:var(--disp);font-weight:800;font-size:.86rem;text-transform:uppercase;letter-spacing:.02em}
+.frow .trk{height:22px;background:var(--linea2);border-radius:0 3px 3px 0;position:relative;overflow:hidden}
+.frow .trk i{position:absolute;inset:0 auto 0 0;width:var(--w);border-radius:0 3px 3px 0;transform-origin:left;transform:scaleX(1);transition:transform 1.2s var(--ease) var(--d,0s)}
+html.anim .foto:not(.in) .trk i{transform:scaleX(0)}
+.frow .v{font-family:var(--disp);font-weight:900;font-size:1.15rem;text-align:right}
+.foto-m{display:flex;align-items:baseline;gap:10px;margin-top:12px;padding-top:10px;border-top:1px solid var(--linea)}
+.foto-m b{font-family:var(--disp);font-weight:900;font-size:2.4rem;line-height:1}
+.foto-m span{font-size:.8rem;color:var(--gris);line-height:1.35}
+.foto-p{font-family:var(--mono);font-size:.7rem;color:var(--gris);margin-top:8px}
+.gap49{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--tq);font-family:var(--disp)}
+.gap49 i{display:block;width:2px;flex:1;min-height:30px;background:repeating-linear-gradient(180deg,var(--tq) 0 5px,transparent 5px 10px)}
+.gap49 b{font-weight:900;font-size:2.4rem;line-height:.9}
+.gap49 span{font-weight:800;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase}
+.cue{display:inline-flex;align-items:center;gap:10px;margin-top:34px;color:rgba(243,239,231,.6);text-decoration:none;
+  font-family:var(--disp);font-weight:800;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase}
+.cue i{display:block;width:1px;height:26px;background:currentColor;animation:drop 1.8s var(--ease) infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- prosa ---------- */
+.intro{background:var(--crema);padding-block:clamp(48px,6vw,80px)}
+.prose{max-width:var(--col)}
+.prose p{margin:0 0 1.05em;color:var(--tinta2)}
+.prose p strong{color:var(--tinta)}
+.prose p.punch{font-family:var(--disp);font-weight:900;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.02;text-transform:uppercase;color:var(--tinta);margin:1.1em 0}
+.dark .prose p{color:#c6d0d3}
+.dark .prose p strong,.dark .prose p.punch{color:var(--crema)}
+.drop::first-letter{font-family:var(--disp);font-weight:900;float:left;font-size:4.1em;line-height:.82;margin:.06em .1em 0 0;color:var(--tinta)}
+
+/* ---------- capítulos ---------- */
+.chap{padding-block:clamp(60px,8vw,110px);position:relative}
+.chap.soft{background:var(--papel)}
+.chap.c2{background:var(--crema2)}
+.chap.dark{background:var(--grafito);color:var(--crema)}
+.chap-h{display:grid;grid-template-columns:auto 1fr;gap:clamp(14px,3vw,34px);align-items:end;margin-bottom:clamp(28px,4vw,46px);
+  padding-bottom:20px;border-bottom:2px solid var(--tinta)}
+.dark .chap-h{border-color:rgba(243,239,231,.4)}
+.chap-n{font-family:var(--disp);font-weight:900;font-size:clamp(84px,14vw,170px);line-height:.74;letter-spacing:-.03em;
+  color:transparent;-webkit-text-stroke:2px var(--tinta)}
+.dark .chap-n{-webkit-text-stroke-color:var(--tq)}
+.chap-k{font-family:var(--disp);font-weight:800;font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;color:var(--azul-l);margin-bottom:10px}
+.dark .chap-k{color:var(--tq)}
+.chap h2{font-family:var(--disp);font-weight:900;text-transform:uppercase;line-height:.98;font-size:clamp(32px,5.4vw,64px);margin:0;max-width:17ch;text-wrap:balance}
+.chap-date{font-family:var(--mono);font-size:.72rem;color:var(--gris);margin-top:12px}
+.dark .chap-date{color:#86979b}
+@media(max-width:560px){.chap-h{grid-template-columns:1fr;gap:6px}.chap-n{font-size:72px}}
+
+/* ---------- figuras ---------- */
+.fig{margin:clamp(34px,5vw,58px) 0;max-width:var(--wrap)}
+.fig.narrow{max-width:760px}
+.fig-k{font-family:var(--disp);font-weight:800;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-l);margin-bottom:8px;display:flex;gap:10px;align-items:center}
+.fig-k::before{content:"";width:10px;height:10px;background:var(--tq);border-radius:2px;flex:none}
+.dark .fig-k{color:var(--tq)}
+.fig-t{font-family:var(--disp);font-weight:900;text-transform:uppercase;font-size:clamp(1.45rem,2.9vw,2.1rem);line-height:1.04;margin:0 0 8px;max-width:28ch;text-wrap:balance}
+.fig-s{font-size:.95rem;color:var(--gris);line-height:1.55;margin:0 0 20px;max-width:70ch}
+.dark .fig-s{color:#9fb0b4}
+.fig-src{font-size:.72rem;color:var(--gris2);line-height:1.5;margin-top:16px;max-width:90ch}
+.dark .fig-src{color:#738488}
+.panel{background:var(--papel);border:1px solid var(--linea);border-radius:4px;padding:clamp(16px,2.6vw,28px);color:var(--tinta)}
+.dark .panel{border-color:transparent}
+.panel .fig-s{color:var(--gris)}
+.scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.8rem;color:var(--gris);margin-top:12px}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:12px;height:12px;border-radius:2px;display:inline-block}
+.sw-fp{background:var(--fp)}.sw-lla{background:var(--lla)}.sw-sh{background:var(--sh)}.sw-fit{background:var(--fit)}.sw-otros{background:var(--otros)}.sw-jxc{background:var(--jxc)}
+.sw-bl{background:repeating-linear-gradient(45deg,var(--bl) 0 3px,transparent 3px 6px);border:1px solid var(--bl)}
+.hatch{background:repeating-linear-gradient(45deg,currentColor 0 2px,transparent 2px 6px)}
+
+/* segmentado */
+.seg{display:inline-flex;border:1px solid var(--linea);border-radius:4px;overflow:hidden;background:var(--papel);margin-bottom:18px}
+.seg button{border:0;background:transparent;cursor:pointer;padding:9px 15px;font-family:var(--disp);font-weight:800;font-size:.78rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--gris);transition:background .25s,color .25s}
+.seg button[aria-pressed="true"]{background:var(--tinta);color:var(--crema)}
+.seg button:hover:not([aria-pressed="true"]){color:var(--tinta)}
+.btn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:1px solid var(--tinta);background:var(--tinta);color:var(--crema);
+  padding:11px 18px;border-radius:3px;font-family:var(--disp);font-weight:800;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;transition:all .22s}
+.btn:hover{background:var(--navy)}
+.btn.ghost{background:transparent;color:var(--tinta)}
+.btn.ghost:hover{background:var(--tinta);color:var(--crema)}
+.dark .btn.tq{background:var(--tq);border-color:var(--tq);color:var(--grafito)}
+
+/* tooltip */
+.tt{position:fixed;z-index:90;pointer-events:none;background:var(--grafito);color:var(--crema);border:1px solid rgba(0,213,216,.35);
+  border-radius:4px;padding:9px 12px;font-size:.78rem;line-height:1.5;max-width:270px;box-shadow:0 10px 28px rgba(0,0,0,.3)}
+.tt b{font-family:var(--disp);font-size:1rem;letter-spacing:.02em}
+.tt .r{display:flex;justify-content:space-between;gap:14px}
+.tt .r i{font-style:normal;display:inline-flex;align-items:center;gap:6px}
+.tt .r i::before{content:"";width:9px;height:9px;border-radius:2px;background:var(--c)}
+
+/* ---------- componentes de datos (comunes) ---------- */
+.hb{display:grid;gap:9px}
+.hb-r{display:grid;grid-template-columns:minmax(90px,170px) 1fr;gap:12px;align-items:center}
+.hb-l{font-family:var(--disp);font-weight:700;font-size:.86rem;text-transform:uppercase;letter-spacing:.03em;text-align:right;line-height:1.1;color:var(--tinta)}
+.hb-t{position:relative;height:22px;display:flex;align-items:center}
+.hb-t i{display:block;height:100%;border-radius:0 3px 3px 0;transform-origin:left;transition:transform 1s var(--ease) var(--d,0s)}
+html.anim .fig:not(.in) .hb-t i,html.anim .fig:not(.in) .grow{transform:scaleX(0)}
+.grow{transform-origin:left;transition:transform 1s var(--ease) var(--d,0s)}
+.hb-v{font-family:var(--disp);font-weight:800;font-size:.95rem;margin-left:8px;white-space:nowrap;color:var(--tinta)}
+@media(max-width:560px){.hb-r{grid-template-columns:96px 1fr;gap:8px}.hb-l{font-size:.74rem}}
+.refline{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--tinta);z-index:2}
+.refline b{position:absolute;top:-20px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--disp);font-size:.68rem;
+  font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta);background:var(--papel);padding:0 5px}
+
+.bign{font-family:var(--disp);font-weight:900;line-height:.86;font-size:clamp(4rem,12vw,8.4rem);letter-spacing:-.02em;color:var(--tinta)}
+.bign small{font-size:.36em;letter-spacing:0}
+.bign-t{font-size:1rem;color:var(--gris);max-width:34ch;line-height:1.5;margin-top:10px}
+.dark .bign{color:var(--tq)} .dark .bign-t{color:#9fb0b4}
+.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:center}
+.duo.l{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+@media(max-width:820px){.duo,.duo.l{grid-template-columns:1fr}}
+
+/* 1 · línea de antecedentes */
+.tl{position:relative;padding:34px 0 8px}
+.tl-axis{position:absolute;left:0;right:0;top:56px;height:2px;background:var(--linea)}
+.tl-axis i{position:absolute;inset:0;background:var(--tinta);transform-origin:left;transition:transform 1.6s var(--ease)}
+html.anim .fig:not(.in) .tl-axis i{transform:scaleX(0)}
+.tl-pts{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.tl-p{padding-top:40px;position:relative}
+.tl-p::before{content:"";position:absolute;top:15px;left:0;width:14px;height:14px;border-radius:50%;background:var(--papel);border:3px solid var(--tinta)}
+.tl-p.hi::before{background:var(--tq);border-color:var(--tinta);width:18px;height:18px;top:13px}
+.tl-y{font-family:var(--disp);font-weight:900;font-size:1.8rem;line-height:1}
+.tl-p.hi .tl-y{color:var(--azul-l)}
+.tl-d{font-size:.84rem;line-height:1.45;color:var(--gris);margin-top:6px}
+@media(max-width:700px){.tl-pts{grid-template-columns:1fr;gap:0}.tl-axis{left:6px;right:auto;top:30px;bottom:10px;width:2px;height:auto}
+  .tl-axis i{transform-origin:top}html.anim .fig:not(.in) .tl-axis i{transform:scaleY(0)}.tl-p{padding:0 0 18px 34px}.tl-p::before{top:6px;left:0}.tl-p.hi::before{top:4px;left:-2px}}
+
+/* 1 · boletas */
+.boletas{display:grid;gap:22px}
+.bol-row{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:center}
+@media(max-width:560px){.bol-row{grid-template-columns:1fr;gap:6px}}
+.bol-y{font-family:var(--disp);font-weight:900;font-size:1.6rem;line-height:1}
+.bol-y small{display:block;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin-top:3px}
+.bol{display:flex;height:118px;gap:0;max-width:100%}
+.cuerpo{flex:0 0 auto;width:min(84px,11.5vw);background:var(--papel);border:1.5px solid var(--tinta);border-right-style:dashed;padding:8px 6px;
+  display:flex;flex-direction:column;gap:6px;transform-origin:left;transition:transform .7s var(--ease) var(--d,0s),opacity .5s var(--d,0s)}
+.cuerpo:last-child{border-right-style:solid}
+.cuerpo i{display:block;height:5px;background:var(--linea);border-radius:2px}
+.cuerpo i:first-child{height:16px;background:var(--crema2)}
+.cuerpo span{font-family:var(--disp);font-weight:800;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gris);line-height:1.1;margin-top:auto}
+.bol.y25 .cuerpo{width:min(150px,30vw)}
+.bol.y25 .cuerpo i:first-child{background:var(--tq);opacity:.55}
+html.anim .fig:not(.in) .cuerpo{transform:scaleX(.2);opacity:0}
+
+/* 1 · mesas */
+.mesas{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(18px,3vw,40px);align-items:center}
+@media(max-width:820px){.mesas{grid-template-columns:1fr}}
+.mesas-cv{position:relative;background:var(--grafito);border-radius:4px;overflow:hidden;aspect-ratio:16/10;max-width:100%}
+.mesas-cv canvas{width:100%;height:100%;display:block}
+.sello{position:absolute;right:7%;bottom:12%;transform:rotate(-12deg) scale(1.6);opacity:0;border:3px solid var(--tq);color:var(--tq);
+  font-family:var(--disp);font-weight:900;text-transform:uppercase;letter-spacing:.12em;padding:8px 14px;line-height:1.05;font-size:clamp(.9rem,2vw,1.3rem);
+  text-align:center;transition:opacity .35s,transform .5s cubic-bezier(.3,1.6,.5,1)}
+.sello small{display:block;font-size:.55em;letter-spacing:.18em;font-weight:700}
+.sello.on{opacity:.95;transform:rotate(-12deg) scale(1)}
+.cnt{display:grid;gap:18px}
+.cnt div b{display:block;font-family:var(--disp);font-weight:900;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1;color:var(--tinta)}
+.cnt div span{font-size:.86rem;color:var(--gris)}
+
+/* 1 · dos niveles */
+.niv{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2px;background:var(--linea);border:1px solid var(--linea);border-radius:4px;overflow:hidden}
+@media(max-width:700px){.niv{grid-template-columns:1fr}}
+.niv > div{background:var(--papel);padding:clamp(18px,3vw,28px)}
+.niv-k{font-family:var(--disp);font-weight:800;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
+.niv-n{font-family:var(--disp);font-weight:900;font-size:clamp(2.6rem,6vw,4rem);line-height:1;margin:6px 0}
+.niv-g{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 10px}
+.niv-g i{width:34px;height:34px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-style:normal;
+  font-family:var(--disp);font-weight:800;font-size:.8rem;color:#fff;transition:transform .5s var(--ease) var(--d,0s),opacity .5s var(--d,0s)}
+html.anim .fig:not(.in) .niv-g i{transform:scale(.4);opacity:0}
+.niv-g.big i{width:58px;height:58px;font-size:1rem}
+.niv-t{font-size:.9rem;color:var(--gris);line-height:1.5}
+
+/* buscador municipal */
+.busc{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(18px,3vw,36px)}
+@media(max-width:820px){.busc{grid-template-columns:1fr}}
+.busc input{width:100%;font:inherit;font-size:1.05rem;padding:13px 15px;border:1.5px solid var(--tinta);border-radius:3px;background:var(--papel);color:var(--tinta)}
+.busc-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;max-height:220px;overflow:auto}
+.busc-list button{border:1px solid var(--linea);background:transparent;border-radius:99px;padding:5px 11px;font-size:.8rem;cursor:pointer;color:var(--tinta2)}
+.busc-list button.on,.busc-list button:hover{border-color:var(--tinta);background:var(--tinta);color:var(--crema)}
+.ficha{background:var(--papel);border:1.5px solid var(--tinta);border-radius:3px;font-family:var(--mono);font-size:.8rem;overflow:hidden}
+.ficha-h{display:flex;justify-content:space-between;gap:10px;padding:12px 16px;border-bottom:2px solid var(--tinta);align-items:baseline}
+.ficha-h b{font-family:var(--disp);font-size:1.5rem;font-weight:900;text-transform:uppercase;line-height:1}
+.ficha-b{padding:14px 16px;display:grid;gap:10px}
+.ficha-r{display:grid;grid-template-columns:30px 1fr auto;gap:10px;align-items:center}
+.ficha-r .pos{font-family:var(--disp);font-weight:900;font-size:1.2rem}
+.ficha-r .bar{height:16px;border-radius:0 2px 2px 0;transform-origin:left;transition:transform .7s var(--ease)}
+.ficha-r .nm{font-size:.74rem;color:var(--gris);margin-bottom:3px}
+.ficha-f{display:flex;flex-wrap:wrap;gap:6px 18px;padding:10px 16px;border-top:1px solid var(--linea);color:var(--gris);font-size:.72rem}
+.chip{display:inline-block;padding:2px 9px;border-radius:99px;font-family:var(--disp);font-weight:800;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.pend{margin-top:14px;padding:11px 14px;border-left:3px solid var(--tq);background:rgba(0,213,216,.08);font-size:.82rem;color:var(--tinta2);line-height:1.5}
+
+/* 2 · cartograma */
+.carto{position:relative;width:100%;aspect-ratio:16/9;max-height:560px}
+.carto svg{width:100%;height:100%;display:block;overflow:visible}
+.carto rect{transition:fill .7s var(--ease),opacity .4s}
+.carto text{pointer-events:none}
+@media(max-width:560px){.carto{aspect-ratio:4/5}}
+
+/* 2 · dumbbell */
+.dmb svg{width:100%;height:auto;display:block;overflow:visible}
+
+/* 2 · apilada */
+.stk{display:grid;gap:10px}
+.stk-r{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center}
+@media(max-width:560px){.stk-r{grid-template-columns:70px 1fr;gap:8px}}
+.stk-l{font-family:var(--disp);font-weight:800;font-size:.86rem;text-transform:uppercase;text-align:right}
+.stk-b{display:flex;height:30px;gap:2px}
+.stk-b i{display:flex;align-items:center;justify-content:center;font-style:normal;font-family:var(--disp);font-weight:800;font-size:.74rem;color:#fff;
+  min-width:0;overflow:hidden;white-space:nowrap;transform-origin:left;transition:transform .9s var(--ease) var(--d,0s)}
+.stk-b i.hl{outline:2.5px solid var(--tinta);outline-offset:-2.5px}
+html.anim .fig:not(.in) .stk-b i{transform:scaleX(0)}
+
+/* 2 · serie histórica */
+.hist{display:grid;grid-template-columns:96px repeat(6,minmax(64px,1fr));gap:3px;min-width:560px}
+.hist .h{font-family:var(--disp);font-weight:900;font-size:1.05rem;text-align:center;padding:4px 0 8px}
+.hist .s{font-family:var(--disp);font-weight:800;font-size:.82rem;text-transform:uppercase;display:flex;align-items:center;justify-content:flex-end;padding-right:8px}
+.hist .c{height:48px;border-radius:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;color:#fff;
+  font-family:var(--disp);transition:opacity .45s var(--d,0s),transform .45s var(--ease) var(--d,0s)}
+.hist .c b{font-weight:900;font-size:.95rem}
+.hist .c span{font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.9}
+.hist .c.jxc{color:var(--tinta)}
+html.anim .fig:not(.in) .hist .c{opacity:0;transform:translateY(8px)}
+
+/* 2 · balance de intendencias */
+.bal{display:grid;gap:12px}
+.bal-r{display:grid;grid-template-columns:130px minmax(0,1fr) 58px;gap:12px;align-items:center}
+@media(max-width:560px){.bal-r{grid-template-columns:80px minmax(0,1fr) 40px;gap:8px}}
+.bal-l{font-family:var(--disp);font-weight:800;font-size:.86rem;text-transform:uppercase;text-align:right;line-height:1.1}
+.bal-b{display:flex;gap:2px;height:26px;align-items:stretch}
+.bal-b i{display:block;transform-origin:left;transition:transform .9s var(--ease) var(--d,0s);border-radius:1px}
+html.anim .fig:not(.in) .bal-b i{transform:scaleX(0)}
+.bal-b i.lost{color:var(--c);background:repeating-linear-gradient(135deg,var(--c) 0 2px,transparent 2px 6px);border:1.5px solid var(--c);opacity:.75}
+.bal-b i.gain{background:var(--c);opacity:.5}
+.bal-v{font-family:var(--disp);font-weight:900;font-size:1.15rem}
+.bal-v small{font-size:.7rem;color:var(--gris);font-weight:700;margin-left:3px}
+
+/* 2 · márgenes + acta */
+.marg{position:relative;height:150px;margin:10px 0 0}
+.marg svg{width:100%;height:100%;overflow:visible}
+.acta{font-family:var(--mono);font-size:.8rem;border:1.5px solid var(--tinta);background:#fff;max-width:620px;border-radius:2px;color:var(--tinta)}
+.acta-h{padding:10px 14px;border-bottom:1.5px solid var(--tinta);font-weight:600;line-height:1.5}
+.acta-m{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1.5px solid var(--tinta)}
+.acta-m div{padding:7px 14px;border-right:1px solid var(--linea)} .acta-m div:last-child{border-right:0}
+@media(max-width:560px){.acta-m{grid-template-columns:1fr}.acta-m div{border-right:0;border-bottom:1px solid var(--linea)}}
+.acta table{width:100%;border-collapse:collapse}
+.acta th{text-align:left;font-weight:600;background:var(--crema2);padding:7px 14px;font-size:.72rem}
+.acta th:not(:first-child),.acta td:not(:first-child){text-align:right}
+.acta td{padding:7px 14px;border-top:1px solid var(--linea)}
+.acta tr.hl td{background:rgba(0,213,216,.12)}
+.acta-f{padding:10px 14px;border-top:1.5px solid var(--tinta);display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.acta-f b{font-family:var(--disp);font-size:2.2rem;font-weight:900;line-height:1;color:var(--azul-l)}
+
+/* 3 · podio */
+.podio{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(8px,2vw,20px);align-items:end;min-height:320px}
+.pod-c{display:flex;flex-direction:column;align-items:center;gap:10px}
+.pod-dots{display:grid;grid-template-columns:repeat(6,1fr);gap:3px;width:100%;max-width:150px;direction:rtl}
+.pod-dots i{aspect-ratio:1;border-radius:50%;background:var(--tq);transition:transform .5s cubic-bezier(.3,1.5,.5,1) var(--d,0s),opacity .3s var(--d,0s)}
+html.anim .fig:not(.in) .pod-dots i{transform:translateY(-220px);opacity:0}
+.pod-base{width:100%;background:var(--crema);color:var(--tinta);text-align:center;font-family:var(--disp);border-radius:3px 3px 0 0;padding:10px 4px}
+.pod-base b{display:block;font-weight:900;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1}
+.pod-base span{font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+.pod-c.p1 .pod-base{height:120px} .pod-c.p2 .pod-base{height:86px} .pod-c.p3 .pod-base{height:62px} .pod-c.p4 .pod-base{height:46px}
+.pod-c.p3 .pod-dots i,.pod-c.p4 .pod-dots i{background:var(--rojo)}
+.pod-c.p2 .pod-dots i{background:#7fe3e5}
+.pod-n{font-size:.72rem;color:#9fb0b4;text-align:center;line-height:1.3;min-height:2.6em}
+.sq32{display:flex;flex-wrap:wrap;gap:4px;max-width:420px}
+.sq32 i{width:26px;height:26px;border-radius:3px;transition:transform .45s var(--ease) var(--d,0s),opacity .4s var(--d,0s)}
+html.anim .fig:not(.in) .sq32 i{transform:scale(0);opacity:0}
+
+/* 3 · ganador vs gobierna */
+.gg{display:grid;gap:5px;min-width:520px}
+.gg-r{display:grid;grid-template-columns:150px 22px minmax(0,1fr) 120px;gap:10px;align-items:center;font-size:.84rem}
+.gg-r .nm{font-family:var(--disp);font-weight:700;font-size:.9rem;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gg-r .gov{width:14px;height:14px;border-radius:50%;border:3px solid var(--c);justify-self:center}
+.gg-r .bar{display:flex;height:18px;gap:2px}
+.gg-r .bar i{display:block;height:100%;transform-origin:left;transition:transform .8s var(--ease) var(--d,0s)}
+html.anim .fig:not(.in) .gg-r .bar i{transform:scaleX(0)}
+.gg-r .res{font-family:var(--disp);font-weight:800;font-size:.86rem;white-space:nowrap}
+.gg-r.flip .nm{color:var(--rojo)}
+.gg-h{font-family:var(--disp);font-weight:800;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+
+/* 3 · Pinamar */
+.pina{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(16px,3vw,34px);align-items:center}
+@media(max-width:700px){.pina{grid-template-columns:1fr}}
+.uno{font-family:var(--disp);font-weight:900;font-size:clamp(7rem,20vw,12rem);line-height:.8;color:var(--tinta);position:relative;display:inline-block}
+.uno small{display:block;font-size:.12em;letter-spacing:.2em;text-transform:uppercase;color:var(--gris);margin-top:10px}
+
+/* 3 · libro de actas */
+.libro{font-family:var(--mono);font-size:.84rem;background:#fff;border:1.5px solid var(--tinta);border-radius:2px;color:var(--tinta);
+  background-image:repeating-linear-gradient(180deg,transparent 0 37px,rgba(20,107,145,.16) 37px 38px);max-width:760px}
+.libro-h{padding:12px 16px;border-bottom:2px solid var(--rojo);font-weight:600;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--papel)}
+.libro-r{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;height:38px;align-items:center;padding:0 16px;position:relative}
+.libro-r .nm{font-weight:600;position:relative;display:inline-block;white-space:nowrap}
+.libro-r .nm::after{content:"";position:absolute;left:-3px;right:-3px;top:52%;height:2px;background:var(--rojo);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease) var(--d,0s)}
+.libro-r.x .nm::after{transform:scaleX(1)}
+.libro-r .dt{font-size:.74rem;color:var(--gris);text-align:right}
+
+/* 4 · contador */
+.c23{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(18px,4vw,48px);align-items:center}
+@media(max-width:700px){.c23{grid-template-columns:1fr}}
+.c23-n{font-family:var(--disp);font-weight:900;font-size:clamp(7rem,18vw,11rem);line-height:.8;color:var(--lla);font-variant-numeric:tabular-nums}
+.c23-rows{display:grid;gap:14px}
+.c23-r .k{font-family:var(--disp);font-weight:800;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin-bottom:6px}
+.c23-sq{display:flex;flex-wrap:wrap;gap:4px;min-height:24px}
+.c23-sq i{width:22px;height:22px;border-radius:3px;background:var(--lla);transition:transform .4s var(--ease) var(--d,0s),opacity .3s var(--d,0s)}
+.c23-sq i.n{background:transparent;border:2px solid var(--lla);background-image:repeating-linear-gradient(45deg,var(--lla) 0 2px,transparent 2px 5px)}
+.c23-sq.zero{border:1.5px dashed var(--linea);border-radius:3px;padding:6px 10px;font-size:.84rem;color:var(--gris);align-items:center}
+html.anim .fig:not(.in) .c23-sq i{transform:scale(0);opacity:0}
+
+/* 4 · podios sin violeta */
+.mini-pods{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.mp{border-top:2px solid var(--tinta);padding-top:10px}
+.mp b{font-family:var(--disp);font-weight:900;font-size:1rem;text-transform:uppercase;display:block;margin-bottom:8px}
+.mp-p{display:flex;align-items:flex-end;gap:3px;height:58px}
+.mp-p i{flex:1;border-radius:2px 2px 0 0;background:var(--otros);display:flex;align-items:flex-start;justify-content:center;font-style:normal;
+  font-family:var(--disp);font-weight:900;font-size:.75rem;color:#fff;padding-top:3px}
+.mp-p i:nth-child(1){height:72%} .mp-p i:nth-child(2){height:100%} .mp-p i:nth-child(3){height:52%}
+.mp-x{font-size:.72rem;color:var(--gris);margin-top:6px;display:flex;align-items:center;gap:6px}
+.mp-x::before{content:"";width:12px;height:12px;border:2px dashed var(--lla);border-radius:2px}
+.ramallo{display:flex;align-items:flex-end;gap:6px;height:210px;max-width:520px}
+.ramallo > div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.ramallo .blk{width:100%;border-radius:3px 3px 0 0;display:flex;align-items:flex-start;justify-content:center;color:#fff;font-family:var(--disp);font-weight:900;font-size:1.6rem;padding-top:6px;
+  transform-origin:bottom;transition:transform .8s var(--ease) var(--d,0s)}
+html.anim .fig:not(.in) .ramallo .blk{transform:scaleY(0)}
+.ramallo .who{font-family:var(--disp);font-weight:800;font-size:.8rem;text-transform:uppercase;text-align:center;margin-top:8px;line-height:1.1}
+.ramallo .blk.out{background:transparent!important;border:2px dashed var(--lla);color:var(--lla)}
+
+/* 5 · boleta que se corta */
+.corte{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(18px,3vw,40px);align-items:center}
+@media(max-width:820px){.corte{grid-template-columns:1fr}}
+.bol2{display:flex;max-width:440px;filter:drop-shadow(0 14px 30px rgba(0,0,0,.35));user-select:none}
+.b2c{flex:1;background:var(--papel);color:var(--tinta);padding:14px 14px 16px;min-height:270px;display:flex;flex-direction:column;gap:9px;transition:transform .9s var(--ease),opacity .6s}
+.b2c.l{border-right:2px dashed var(--gris);border-radius:3px 0 0 3px}
+.b2c.r{border-radius:0 3px 3px 0}
+.b2c .k{font-family:var(--disp);font-weight:800;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+.b2c .t{font-family:var(--disp);font-weight:900;font-size:1.05rem;text-transform:uppercase;line-height:1.05}
+.b2c .ph{height:44px;border-radius:2px;background:var(--crema2)}
+.b2c i{display:block;height:6px;border-radius:2px;background:var(--linea)}
+.b2c .lst{margin-top:auto;font-family:var(--mono);font-size:.68rem;color:var(--gris)}
+.bol2.cut .b2c.l{transform:translate(-18px,26px) rotate(-6deg);opacity:.22}
+.bol2.cut .b2c.r{transform:translate(10px,-6px) rotate(2deg)}
+.blanco-cap{margin-top:18px;font-size:.92rem;color:#9fb0b4;max-width:46ch;min-height:3em}
+.blanco-cap b{color:var(--crema);font-family:var(--disp);font-size:1.25rem}
+.picto6{display:flex;gap:10px;margin:8px 0 6px}
+.picto6 svg{width:clamp(34px,7vw,50px);height:auto}
+
+/* 6 · adiviná */
+.guess{display:grid;gap:14px;max-width:620px}
+.gz-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.gz-v{font-family:var(--disp);font-weight:900;font-size:3.6rem;line-height:1;min-width:4.4ch;color:var(--tinta)}
+.gz-s{flex:1 1 260px;min-width:0}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;background:var(--linea);border-radius:99px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--tinta);cursor:grab;border:4px solid var(--papel);box-shadow:0 0 0 1.5px var(--tinta)}
+input[type=range]::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--tinta);cursor:grab;border:4px solid var(--papel)}
+.gz-ticks{display:flex;justify-content:space-between;font-size:.72rem;color:var(--gris);margin-top:6px}
+.gz-out{display:none;margin-top:4px}
+.gz-out.show{display:block}
+.gz-scale{position:relative;height:64px;margin-top:22px}
+.gz-scale .ax{position:absolute;left:0;right:0;top:30px;height:2px;background:var(--linea)}
+.gz-scale .mk{position:absolute;top:8px;transform:translateX(-50%);text-align:center;font-family:var(--disp);font-weight:800;font-size:.8rem;white-space:nowrap;transition:left .9s var(--ease)}
+.gz-scale .mk::after{content:"";display:block;width:14px;height:14px;border-radius:50%;margin:4px auto 0;background:var(--c)}
+
+/* 6 · tira de participación */
+.strip{position:relative;height:190px;margin-top:8px}
+.strip svg{width:100%;height:100%;overflow:visible}
+
+/* 6 · universos */
+.univ{display:grid;gap:16px}
+.univ-r{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;align-items:center}
+@media(max-width:560px){.univ-r{grid-template-columns:76px minmax(0,1fr)}}
+.univ-l{font-family:var(--disp);font-weight:800;font-size:.86rem;text-transform:uppercase;text-align:right;line-height:1.1}
+.univ-t{position:relative;height:40px;background:var(--linea2);border-radius:0 3px 3px 0}
+.univ-t i{position:absolute;left:0;top:0;bottom:0;border-radius:0 3px 3px 0;transition:width .9s var(--ease),background .5s}
+.univ-t b{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--disp);font-weight:900;font-size:1.15rem;color:#fff;left:12px}
+.gapbar{display:flex;align-items:baseline;gap:14px;margin-top:18px;flex-wrap:wrap}
+.gapbar b{font-family:var(--disp);font-weight:900;font-size:clamp(2.6rem,6vw,4rem);line-height:1;color:var(--azul-l);font-variant-numeric:tabular-nums}
+.gapbar span{font-size:.92rem;color:var(--gris);max-width:40ch}
+
+/* 6 · extranjeros */
+.ext{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(18px,3vw,40px)}
+@media(max-width:820px){.ext{grid-template-columns:1fr}}
+.share{display:flex;height:46px;gap:2px;margin:8px 0}
+.share i{display:flex;align-items:center;justify-content:center;font-style:normal;font-family:var(--disp);font-weight:900;color:#fff;font-size:.9rem;transform-origin:left;transition:transform 1s var(--ease) var(--d,0s)}
+html.anim .fig:not(.in) .share i{transform:scaleX(0)}
+
+/* ---------- capítulo 7 · carril horizontal ---------- */
+.hz{position:relative;background:var(--grafito);color:var(--crema)}
+.hz-head{padding-block:clamp(60px,8vw,110px) 10px}
+.hz-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.hz-track{display:flex;height:100%;will-change:transform}
+.hz-p{flex:0 0 100vw;width:100vw;height:100%;padding:calc(var(--navh) + 30px) 0 66px;display:flex;align-items:center}
+.hz-p > .wrap{width:100%}
+.hz-g{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(24px,4vw,56px);align-items:center}
+.hz-g .prose p{font-size:clamp(.92rem,1.15vw,1.02rem);line-height:1.62}
+.hz-n{font-family:var(--disp);font-weight:800;font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--tq);margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.hz-n::before{content:"";width:26px;height:2px;background:currentColor}
+.hz-t{font-family:var(--disp);font-weight:900;text-transform:uppercase;font-size:clamp(1.6rem,2.8vw,2.4rem);line-height:1;margin:0 0 16px;max-width:20ch}
+.hz-bar{position:absolute;left:0;right:0;bottom:0;height:54px;display:flex;align-items:center;gap:16px;padding:0 20px env(safe-area-inset-bottom,0px);
+  border-top:1px solid rgba(255,255,255,.08);background:rgba(14,28,32,.94);z-index:3}
+.hz-dots{display:flex;gap:6px;flex:1}
+.hz-dots i{width:26px;height:5px;border-radius:99px;background:rgba(243,239,231,.22);transition:background .25s,transform .25s}
+.hz-dots i.on{background:var(--tq);transform:scaleY(1.6)}
+.hz-lab{font-family:var(--disp);font-weight:800;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:#9fb0b4;white-space:nowrap}
+.hz-lab b{color:var(--tq);font-size:1rem}
+.hz-viz{min-width:0}
+.hz-viz .panel{padding:clamp(14px,2vw,24px)}
+/* modo apilado (mobile / reduced motion) */
+.hz.stack .hz-pin{position:static;height:auto;overflow:visible}
+.hz.stack .hz-track{display:block;transform:none!important}
+.hz.stack .hz-p{width:auto;height:auto;padding:30px 0 50px;display:block}
+.hz.stack .hz-g{grid-template-columns:1fr}
+.hz.stack .hz-bar{display:none}
+.hz.stack .hz-g .prose p{font-size:1rem}
+
+.slope svg,.arrows svg,.casc svg,.mags svg,.j21 svg{width:100%;height:auto;display:block;overflow:visible}
+.difft{width:100%;border-collapse:collapse;font-size:.84rem}
+.difft th{font-family:var(--disp);font-weight:900;font-size:1.05rem;text-transform:uppercase;text-align:left;padding:6px 10px;border-bottom:2px solid var(--tinta)}
+.difft td{padding:9px 10px;border-bottom:1px solid var(--linea);vertical-align:top;line-height:1.35}
+.difft td:first-child{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:.78rem;letter-spacing:.06em;color:var(--gris);width:26%}
+.difft tr{transition:opacity .4s var(--d,0s),transform .4s var(--ease) var(--d,0s)}
+html.anim .hz-p:not(.in) .difft tbody tr{opacity:0;transform:translateX(12px)}
+.switch{display:inline-flex;align-items:center;gap:12px;cursor:pointer;border:0;background:transparent;padding:0;color:var(--tinta);font-family:var(--disp);font-weight:800;
+  font-size:.86rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.switch i{width:46px;height:26px;border-radius:99px;background:var(--linea);position:relative;transition:background .3s}
+.switch i::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .3s var(--ease)}
+.switch[aria-pressed="true"] i{background:var(--sh)}
+.switch[aria-pressed="true"] i::after{transform:translateX(20px)}
+
+/* 8 · tablero */
+.tab27{display:grid;gap:0;border:1px solid rgba(243,239,231,.18);border-radius:4px;overflow:hidden}
+.t27{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;padding:14px 18px;border-bottom:1px solid rgba(243,239,231,.1);cursor:pointer;background:transparent;border-left:0;border-right:0;border-top:0;color:var(--crema);text-align:left}
+.t27:last-child{border-bottom:0}
+.t27:hover{background:rgba(0,213,216,.05)}
+.t27 .q{font-size:1rem;line-height:1.4}
+.t27 .q small{display:block;font-family:var(--disp);font-weight:800;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:#738488;margin-bottom:2px}
+.t27 .st{font-family:var(--disp);font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:99px;
+  border:1px dashed rgba(243,239,231,.4);color:#9fb0b4;white-space:nowrap}
+.t27[aria-expanded="true"] .st{border-style:solid;border-color:var(--tq);color:var(--tq)}
+.t27 .ans{grid-column:1/-1;font-size:.88rem;color:#9fb0b4;line-height:1.55;display:none}
+.t27[aria-expanded="true"] .ans{display:block}
+.t27 .ans b{color:var(--crema)}
+
+.final-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.cta{display:inline-flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:800;font-size:.86rem;letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;background:var(--tq);color:var(--grafito);padding:14px 22px;border-radius:3px}
+.cta.ghost{background:transparent;color:var(--tq);border:1px solid rgba(0,213,216,.5)}
+.foot{background:#071114;color:#7d8d91;padding-block:44px;font-size:.8rem;line-height:1.7}
+.foot h5{font-family:var(--disp);font-weight:800;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--crema);margin:0 0 10px}
+.foot ul{margin:0;padding-left:18px}
+.foot a{color:var(--tq)}
+.foot-g{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:30px}
+@media(max-width:760px){.foot-g{grid-template-columns:1fr}}
+.hb-t i{flex:none}
+.pod-dots{display:flex!important;flex-wrap:wrap-reverse;direction:ltr!important;justify-content:center}
+.pod-dots i{width:calc((100% - 27px)/10);flex:none}
+.libro-r .nm{justify-self:start}
+#nivSec i{width:44px;height:44px}
+.hz .prose p{color:#c6d0d3}
+.hz .prose p strong,.hz .prose p.punch{color:var(--crema)}
+.bol{width:100%}
+.bol .cuerpo{flex:1 1 0;min-width:0;max-width:84px}
+.bol.y25 .cuerpo{max-width:150px}
+@media(max-width:560px){.bal-v small{display:none}}
+.mini-pods{display:flex!important;flex-wrap:wrap;gap:10px}
+.mchip{display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border:2px dashed var(--lla);border-radius:4px;font-family:var(--disp);font-weight:800;font-size:1rem;text-transform:uppercase;color:var(--tinta);background:var(--papel)}
+.mchip i{font-style:normal;font-size:.68rem;letter-spacing:.12em;color:var(--lla);border-left:1px solid var(--linea);padding-left:10px}
+.casc-r{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:10px;padding-top:10px;border-top:1px solid var(--linea);min-height:52px}
+.casc-r div{display:flex;flex-direction:column}
+.casc-r b{font-family:var(--disp);font-weight:900;font-size:1.4rem;line-height:1;color:var(--tinta)}
+.casc-r span{font-size:.74rem;color:var(--gris)}
+.mapa135{margin-bottom:26px}
+.map-g{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(14px,3vw,30px);align-items:start}
+@media(max-width:820px){.map-g{grid-template-columns:1fr}}
+.map-main svg,#mapIns svg{width:100%;height:auto;display:block}
+.map-ins{background:var(--papel);border:1px solid var(--linea);border-radius:4px;padding:12px}
+.byline .autores{display:flex;flex-wrap:wrap;gap:10px 18px;width:100%}
+.byline .autor{display:inline-flex;align-items:center;gap:9px;color:var(--crema);font-weight:700}
+.byline .autor img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid rgba(0,213,216,.4);flex-shrink:0}
+.prox{list-style:none;margin:34px 0 0;padding:0;max-width:820px;border-top:1px solid rgba(243,239,231,.18)}
+.prox li{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:baseline;padding:16px 0;border-bottom:1px solid rgba(243,239,231,.18);
+  font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:clamp(1.05rem,2.4vw,1.45rem);line-height:1.1;color:var(--crema)}
+.prox li span{color:var(--tq);font-weight:900}
+.prox li em{font-style:normal;font-size:.68rem;letter-spacing:.2em;color:rgba(243,239,231,.55)}
+@media (max-width:520px){.prox li{grid-template-columns:40px 1fr}.prox li em{grid-column:2}}
+</style>
+<script>document.documentElement.classList.add('anim');setTimeout(function(){if(!window.__alsinaOK)document.documentElement.classList.remove('anim');},5000);</script>
+</head>
+<body>
+<div class="tt" id="tt" hidden></div>
+
+<nav class="nav" aria-label="Capítulos">
+  <div class="nav-in">
+    <a class="brand" href="#top">ALSIN<i>A</i></a>
+    <div class="nav-links">
+      <a href="#c1">La elección</a><a href="#c2">El mapa</a><a href="#proximamente">Próximamente</a>
+    </div>
+    <div class="clock" aria-live="off"><span>Día</span><b id="clkD" class="num">0</b><span id="clkF">7 sep 2025</span></div>
+  </div>
+  <div class="days" id="days"><i></i></div>
+</nav>
+
+<!-- ============ PORTADA ============ -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="tag rv">Informe · Elecciones bonaerenses 2025 · Serie 2027</div>
+    <h1 class="rv" style="--d:.06s">Dos elecciones para entender una provincia <em>y ¿leer el 2027?</em></h1>
+    <p class="hero-lede rv" style="--d:.12s">El “primer desdoblamiento” de la historia bonaerense dejó mucho más que un resultado: un antecedente operativo, una demostración del peso territorial y dos mapas electorales muy distintos con apenas 49 días de diferencia.</p>
+
+    <div class="fotos" id="fotos">
+      <div class="foto rv" style="--d:.2s" data-foto="sep"></div>
+      <div class="gap49 rv" style="--d:.3s"><i></i><b>49</b><span>días</span><i></i></div>
+      <div class="foto rv" style="--d:.38s" data-foto="oct"></div>
+    </div>
+
+    <div class="byline rv" style="--d:.44s"><span class="autores"><span class="autor"><img src="/assets/img/autores/gaston-corti.jpg" alt="Gastón Corti" width="34" height="34" loading="lazy">Gastón Corti</span><span class="autor"><img src="/assets/img/autores/pablo-rodriguez.jpg" alt="Pablo Rodríguez" width="34" height="34" loading="lazy">Pablo Rodríguez</span><span class="autor"><img src="/assets/img/autores/luz-landivar.jpg" alt="Luz Landívar" width="34" height="34" loading="lazy">Luz Landívar</span></span><span>Equipo Alsina · Octubre de 2026</span><span>Capítulos 1 y 2 · lectura de 7 minutos</span></div>
+    <a class="cue rv" href="#intro" style="--d:.5s"><i></i>Arrancar el día 0</a>
+  </div>
+</header>
+
+<section class="intro" id="intro">
+  <div class="wrap">
+    <div class="prose">
+      <p class="drop">El 2025 nos dejó, en la provincia de Buenos Aires, dos elecciones con postales muy diferentes. En septiembre, en los comicios provinciales y municipales, Fuerza Patria ganó por más de 13 puntos y se impuso en seis de las ocho secciones electorales. La Libertad Avanza obtuvo 2.755.097 votos y encabezó las dos secciones restantes. El 26 de octubre, menos de dos meses después, en la elección de diputados nacionales, LLA llegaría a 3.605.127 votos: sumaría 850.030 votos y terminaría en primer lugar por poco más de medio punto.</p>
+      <p>Entre una elección y otra cambiaron los cargos en juego, la participación, los padrones, los candidatos y la forma de votar. Pero también quedó expuesto algo que puede ser importante para pensar el año próximo: en la provincia de Buenos Aires conviven distintas lógicas electorales que no siempre se comportan de la misma manera.</p>
+      <p>A poco más de un año de aquella experiencia, queremos buscar evidencia concreta para pensar las discusiones que van a atravesar el 2027.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAPÍTULO 1 ============ -->
+<section class="chap soft" id="c1" data-day="1">
+  <div class="wrap">
+    <header class="chap-h rv"><div class="chap-n">01</div><div><div class="chap-k">Capítulo 1</div><h2>Una elección que todavía no terminó de explicarse</h2></div></header>
+    <div class="prose"><p>Podemos decir con precisión que el 7 de septiembre de 2025 la provincia de Buenos Aires votó por primera vez, desde el regreso de la democracia, sus elecciones legislativas provinciales separadas de las nacionales. Un comicio organizado exclusivamente por y para la provincia.</p><p>Para encontrar casos similares hay que remontarse, con cierta cautela, a 2003, cuando la PBA eligió en una fecha distinta de la elección presidencial sus cargos provinciales, locales y la renovación de las 35 bancas de diputados nacionales. Pero, por esto último, el comicio fue igualmente organizado por la Justicia Federal. Más atrás en el tiempo aparecen las experiencias de elecciones exclusivamente provinciales, como el plebiscito de reforma constitucional de 1990 o las elecciones desdobladas con una semana de diferencia en 1948.</p></div>
+
+    <figure class="fig rv" id="v-tl">
+      <div class="fig-k">Antecedentes</div>
+      <h3 class="fig-t">Hay que ir muy atrás para encontrar algo parecido</h3>
+      <div class="tl"><div class="tl-axis"><i></i></div>
+        <div class="tl-pts">
+          <div class="tl-p"><div class="tl-y">1948</div><div class="tl-d">Elecciones desdobladas con una semana de diferencia.</div></div>
+          <div class="tl-p"><div class="tl-y">1990</div><div class="tl-d">Plebiscito de reforma constitucional, exclusivamente provincial.</div></div>
+          <div class="tl-p"><div class="tl-y">2003</div><div class="tl-d">Fecha distinta de la presidencial, pero con diputados nacionales: la organizó la Justicia Federal.</div></div>
+          <div class="tl-p"><div class="tl-y">2023</div><div class="tl-d">Una sola boleta de ocho cuerpos, de Presidente a concejales.</div></div>
+          <div class="tl-p hi"><div class="tl-y">2025</div><div class="tl-d"><strong>7 de septiembre.</strong> Primera elección legislativa provincial separada de la nacional desde 1983.</div></div>
+        </div></div>
+      <figcaption class="fig-src">Fuente: Alsina, a partir del texto de este informe.</figcaption>
+    </figure>
+
+    <div class="prose"><p>Son pocos los antecedentes. Por eso, lo sucedido en septiembre de 2025 representa un caso de referencia y una experiencia particular digna de analizar.</p><p>Los bonaerenses eligieron, entonces, senadores y diputados provinciales por sección electoral y concejales en los 135 municipios. La boleta tuvo dos cuerpos: uno para la elección seccional y otro para la elección local. Un gran contraste con 2023, donde la boleta nacional y bonaerense, en una única papeleta, llegó a reunir <strong>ocho cuerpos</strong>, desde Presidente hasta las categorías municipales.</p></div>
+
+    <figure class="fig rv narrow" id="v-boleta">
+      <div class="fig-k">La boleta</div>
+      <h3 class="fig-t">De ocho cuerpos a dos</h3>
+      <div class="boletas">
+        <div class="bol-row"><div class="bol-y">2023<small>Nacional + provincial</small></div><div class="bol" id="bol23"></div></div>
+        <div class="bol-row"><div class="bol-y">2025<small>Sólo provincial</small></div><div class="bol y25" id="bol25"></div></div>
+      </div>
+      <figcaption class="fig-src">Esquema ilustrativo: cada rectángulo es un cuerpo de la boleta partidaria. 2023: desde Presidente hasta las categorías municipales. 2025: legisladores por sección y concejales.</figcaption>
+    </figure>
+
+    <div class="prose"><p>Pero el desdoblamiento implicaba bastante más que imprimir una boleta más corta. La provincia debió organizar, por fuera de la elección nacional, un proceso electoral de una magnitud enorme: <strong>más de 14 millones de electores, 41.189 mesas en 6.934 establecimientos de votación</strong>.</p></div>
+
+    <figure class="fig rv" id="v-mesas">
+      <div class="fig-k">La escala</div>
+      <h3 class="fig-t">41.189 mesas, una elección propia</h3>
+      <div class="mesas">
+        <div class="mesas-cv"><canvas id="cvMesas" aria-label="Trama de 41.189 puntos, uno por mesa de votación, que se completa."></canvas>
+          <div class="sello" id="sello">Elección válida<small>Junta Electoral PBA</small></div></div>
+        <div class="cnt">
+          <div><b class="num" data-count="14376592">14.376.592</b><span>electores habilitados, argentinos y extranjeros</span></div>
+          <div><b class="num" data-count="41189">41.189</b><span>mesas, procesadas en el escrutinio definitivo</span></div>
+          <div><b class="num" data-count="6934">6.934</b><span>establecimientos de votación</span></div>
+        </div>
+      </div>
+      <figcaption class="fig-src">Cada punto es una mesa. Fuente: Junta Electoral de la Provincia de Buenos Aires, escrutinio definitivo del 7 de septiembre de 2025.</figcaption>
+    </figure>
+
+    <div class="prose"><p>Antes de la elección, la capacidad operativa de la Provincia para organizar por sí misma un proceso de semejante escala formaba parte de las incertidumbres asociadas al desdoblamiento. <strong>Después del 7 de septiembre, existe un antecedente cercano y exitoso.</strong></p><p>Las 41.189 mesas funcionaron y fueron posteriormente procesadas en el escrutinio definitivo. La Junta Electoral declaró la validez de la elección y aprobó las actas correspondientes a electores argentinos y extranjeros.</p><p>Esto no significa que una futura elección desdoblada no pueda presentar dificultades, ni que organizarla sea indiferente en términos de recursos y logística. Significa que <strong>la capacidad de la Provincia para llevar adelante una elección propia de esta magnitud dejó de ser solamente una hipótesis.</strong></p><p>Pero la viabilidad de una elección desdoblada no se mide únicamente por su funcionamiento operativo. Septiembre puso en juego un conjunto de preguntas que van desde cómo se comporta y participa el electorado cuando es convocado a votar sin cargos nacionales ni ejecutivos en juego, hasta qué ocurre cuando la competencia provincial y municipal se separa de la nacional.</p><p>La elección también puede analizarse en dos niveles: el resultado general y lo que ocurrió en cada uno de los 135 municipios.</p><p>El resultado general fue claro. Fuerza Patria obtuvo el 47,35% de los votos en la elección seccional, frente al 33,78% de La Libertad Avanza. Ganó seis de las ocho secciones, mientras que LLA se impuso en la Quinta y la Sexta.</p><p>Pero cuando observamos la disputa por los Concejos Deliberantes, el mapa fue bastante más fragmentado. En 102 de los 135 municipios ganó el oficialismo local. Es decir, <strong>tres de cada cuatro intendentes lograron que su fuerza se impusiera en la elección de concejales.</strong></p></div>
+
+    <figure class="fig rv" id="v-niveles">
+      <div class="fig-k">Dos niveles</div>
+      <h3 class="fig-t">La misma elección, dos lecturas</h3>
+      <div class="niv">
+        <div><div class="niv-k">Elección seccional · 8 secciones</div><div class="niv-n">6 de 8</div>
+          <div class="niv-g big" id="nivSec"></div>
+          <div class="niv-t">secciones ganó Fuerza Patria, con el 47,35 % provincial. La Libertad Avanza se impuso en la Quinta y la Sexta.</div></div>
+        <div><div class="niv-k">Concejos Deliberantes · 135 municipios</div><div class="niv-n">3 de cada 4</div>
+          <div class="niv-g big" id="nivMun"></div>
+          <div class="niv-t">intendentes lograron que su fuerza ganara la elección local: 102 de 135, sin importar el color.</div></div>
+      </div>
+      <figcaption class="fig-src">Fuente: Junta Electoral PBA, escrutinio definitivo 2025. Elaboración Alsina.</figcaption>
+    </figure>
+
+    <div class="prose"><p>La elección del 7S nos invita a realizar doble click y preguntarnos <strong>¿qué pasó en cada municipio?</strong></p></div>
+
+    <figure class="fig rv" id="v-busc">
+      <div class="fig-k">Doble click</div>
+      <h3 class="fig-t">Buscá un municipio</h3>
+      <div class="mapa135" id="mapa135" hidden>
+        <div class="seg" role="group" aria-label="Capa del mapa"><button type="button" id="mGan" aria-pressed="true">Ganador en concejales</button><button type="button" id="mRet" aria-pressed="false">¿Retuvo el oficialismo?</button></div>
+        <div class="map-g"><div class="map-main" id="mapMain"></div><div class="map-ins"><div class="fig-k">Conurbano ampliado</div><div id="mapIns"></div></div></div>
+        <div class="legend" id="mapLeg"></div>
+      </div>
+      <div class="busc">
+        <div>
+          <label for="qMun" class="fig-s" style="display:block;margin-bottom:8px">Escribí el nombre del distrito o elegí uno de la lista.</label>
+          <input id="qMun" type="search" autocomplete="off" placeholder="La Matanza, Tandil, Pilar…">
+          <div class="busc-list" id="lMun"></div>
+          <div class="pend" id="busc-pend">Vista previa con los distritos que detalla el informe base. La versión publicada en alsinaar.com se conecta a la base de los 135 municipios del Monitor 135.</div>
+        </div>
+        <div id="fMun"></div>
+      </div>
+      <figcaption class="fig-src">Categoría concejales. Fuente: Junta Electoral PBA, escrutinio definitivo 2025. Elaboración Alsina.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ CAPÍTULO 2 ============ -->
+<section class="chap" id="c2">
+  <div class="wrap">
+    <header class="chap-h rv"><div class="chap-n">02</div><div><div class="chap-k">Capítulo 2</div><h2>La Provincia no votó como una sola provincia</h2></div></header>
+    <div class="prose"><p>Los resultados de septiembre muestran una provincia con diferencias territoriales muy marcadas. Fuerza Patria ganó en seis secciones, pero no lo hizo de la misma manera en todas. En la Tercera Sección obtuvo el 54% y en la Primera el 47,6%. En cambio, en la Sexta LLA ganó con el 41,87%, frente al 34,17% de Fuerza Patria. En la Quinta también se impuso LLA.</p></div>
+
+    <figure class="fig rv" id="v-carto">
+      <div class="fig-k">Cartograma · tamaño = electores</div>
+      <h3 class="fig-t">Un promedio que no describe a ninguna sección</h3>
+      <p class="fig-s">Cada rectángulo es una sección electoral, dibujada en proporción a su padrón. Pasá de la foto provincial a la sección por sección.</p>
+      <div class="seg" role="group" aria-label="Vista del cartograma"><button id="cProm" aria-pressed="false">Promedio provincial</button><button id="cSecc" aria-pressed="true">Sección por sección</button></div>
+      <div class="carto" id="carto"></div>
+      <div class="legend"><span><i class="sw-fp"></i>Fuerza Patria</span><span><i class="sw-lla"></i>La Libertad Avanza</span><span>Intensidad = ventaja del ganador</span></div>
+      <figcaption class="fig-src">Porcentajes sobre votos positivos, categoría seccional. Fuente: Junta Electoral PBA, escrutinio definitivo 2025. Elaboración Alsina.</figcaption>
+    </figure>
+
+    <div class="prose"><p>La diferencia entre la Primera y la Tercera ayuda a ver por qué el promedio provincial dice poco por sí solo. En la Primera, Fuerza Patria obtuvo 47,57% y LLA 36,90%, una distancia de <strong>10,67 puntos</strong>. En la Tercera, FP llegó al 54,02% y LLA quedó en 28,55%: la brecha se amplió a <strong>25,47 puntos</strong>. Dos secciones contiguas y decisivas en volumen electoral produjeron competencias de intensidad muy distinta.</p></div>
+
+    <figure class="fig rv" id="v-dmb">
+      <div class="fig-k">Dos secciones contiguas</div>
+      <h3 class="fig-t">La misma fuerza, una brecha más del doble</h3>
+      <div class="panel"><div class="dmb" id="dmb"></div></div>
+      <div class="duo" style="margin-top:22px">
+        <div><div class="fig-k">La Tercera, en tres elecciones</div>
+          <p class="fig-s" style="margin-bottom:10px">Votos de los candidatos peronistas en la sección. 2025 superó la legislativa de 2021 y quedó cerca de la ejecutiva de 2023.</p></div>
+        <div class="hb" id="hbTercera"></div>
+      </div>
+      <figcaption class="fig-src">Fuente: Junta Electoral PBA, resultados 2021, 2023 y 2025 por sección. Elaboración Alsina.</figcaption>
+    </figure>
+
+    <div class="prose"><p>La heterogeneidad también apareció fuera del conurbano. En la Segunda, Fuerza Patria ganó con 35,48%, LLA obtuvo 29,84% y HECHOS alcanzó <strong>24,04%</strong>: casi uno de cada cuatro votos positivos fue a una tercera fuerza con fuerte anclaje territorial. En la Cuarta, SOMOS BA llegó al <strong>19,94%</strong>. Y en la Sexta, LLA ganó con <strong>41,87%</strong>, frente al 34,17% de Fuerza Patria.</p></div>
+
+    <figure class="fig rv" id="v-stk">
+      <div class="fig-k">Composición del voto</div>
+      <h3 class="fig-t">En el interior apareció una tercera fuerza</h3>
+      <div class="stk" id="stk"></div>
+      <div class="legend"><span><i class="sw-fp"></i>Fuerza Patria</span><span><i class="sw-lla"></i>La Libertad Avanza</span><span><i class="sw-sh"></i>SOMOS BA / HECHOS</span><span><i class="sw-fit"></i>FIT</span><span><i class="sw-otros"></i>Otras listas</span></div>
+      <div class="duo l" style="margin-top:30px">
+        <div><div class="fig-k">HECHOS en la Segunda</div>
+          <div class="bign num" style="font-size:clamp(3.4rem,9vw,5.6rem);color:var(--sh)">45,9<small>%</small></div>
+          <div class="bign-t">de los 91.622 votos de HECHOS en la sección salieron de San Nicolás, que reúne cerca del 20 % del padrón seccional.</div></div>
+        <div><div class="share" id="shHechos"></div>
+          <div class="legend"><span><i class="sw-sh"></i>San Nicolás · 42.063</span><span><i class="sw-otros"></i>Resto de la Segunda · 49.559</span></div></div>
+      </div>
+      <figcaption class="fig-src">Porcentajes sobre votos positivos. SOMOS BA y HECHOS compitieron en secciones distintas; en la Segunda la columna corresponde a HECHOS. Fuente: Junta Electoral PBA, escrutinio definitivo 2025. Elaboración Alsina.</figcaption>
+    </figure>
+
+    <div class="prose"><p>Más que un único mapa provincial, septiembre mostró distintos tipos de competencia: una disputa predominantemente bipolar en buena parte del conurbano; secciones del interior con terceras fuerzas relevantes; y municipios donde la competencia local se apartó todavía más de la oferta seccional. Esa diversidad es central para cualquier lectura de 2027.</p><p class="punch">La geografía importa.</p></div>
+
+    <figure class="fig rv" id="v-hist">
+      <div class="fig-k">Serie 2015–2025</div>
+      <h3 class="fig-t">Quién ganó cada sección, elección por elección</h3>
+      <p class="fig-s">Septiembre de 2025 repitió el mapa de 2023 con una excepción: la Quinta. La Sexta ya había votado distinto en 2023.</p>
+      <div class="panel scrollx"><div class="hist" id="hist"></div></div>
+      <div class="legend"><span><i class="sw-fp"></i>Peronismo (FPV, Unidad Ciudadana, FdT, UxP, FP)</span><span><i class="sw-jxc"></i>Cambiemos / Juntos / JxC</span><span><i class="sw-lla"></i>La Libertad Avanza</span></div>
+      <figcaption class="fig-src">Porcentaje de la fuerza ganadora en cada sección. Fuente: resultados oficiales por sección electoral, 2015–2025. Elaboración Alsina.</figcaption>
+    </figure>
+
+    <div class="prose"><p>La elección bonaerense sigue teniendo territorios donde las fuerzas políticas cuentan con estructuras municipales consolidadas y otros donde la competencia es mucho más abierta. Eso también aparece cuando se mira el resultado de los intendentes.</p><p>Fuerza Patria conservó 75 de las 82 intendencias que gobernaba. La Libertad Avanza retuvo 9 de sus 12. SOMOS BA, en cambio, ganó 11 de los 30 municipios que gobernaba.</p></div>
+
+    <figure class="fig rv" id="v-bal">
+      <div class="fig-k">Balance de intendencias</div>
+      <h3 class="fig-t">Quién retuvo, quién perdió y quién ganó afuera</h3>
+      <p class="fig-s">Para cada fuerza: municipios que gobernaba y retuvo, los que perdió y los que ganó donde no era oficialismo. Elección de concejales.</p>
+      <div class="bal" id="bal"></div>
+      <div class="legend"><span><i style="background:var(--tinta)"></i>Retuvo</span><span><i style="border:1.5px solid var(--tinta);background:repeating-linear-gradient(135deg,var(--tinta) 0 2px,transparent 2px 6px)"></i>Perdió</span><span><i style="background:var(--tinta);opacity:.5"></i>Ganó siendo oposición</span></div>
+      <figcaption class="fig-src">"Otras locales" agrupa Nuevos Aires, Acción Ciudadana, Movimiento para la Victoria, Acción por Villarino, Primero San Miguel, Todos por Saavedra, Nueva Necochea, POTENCIA y Baradero 400 Años. Fuente: Junta Electoral PBA, escrutinio definitivo 2025. Elaboración Alsina.</figcaption>
+    </figure>
+
+    <div class="prose"><p>Pero Fuerza Patria no solamente retuvo municipios. También <strong>ganó en 17 distritos donde no era oficialismo</strong>. Entre ellos, Arrecifes, Lobos y Zárate, que estaban gobernados por LLA; Pergamino, gobernado por HECHOS; y otros 13 municipios en manos de SOMOS BA.</p><p>En algunos casos, la diferencia fue mínima. En Tandil, por ejemplo, fue de apenas 0,36 puntos; en Tigre, 1,88; y en Maipú, 1,37. El mapa municipal, entonces, cuenta una historia bastante más ajustada que la que aparece cuando solamente miramos el resultado provincial.</p></div>
+
+    <figure class="fig rv" id="v-marg">
+      <div class="fig-k">Cuando FP ganó donde no gobernaba</div>
+      <h3 class="fig-t">De 252 votos a 15 puntos</h3>
+      <div class="panel"><div class="marg" id="marg"></div></div>
+      <div style="margin-top:26px" class="acta" id="acta">
+        <div class="acta-h">DISTRITO: 111 - TANDIL<br>SECCIÓN: QUINTA</div>
+        <div class="acta-m"><div>Cargo: Concejal</div><div>Cantidad: 10</div><div>Cociente: 7.028,3</div></div>
+        <table><thead><tr><th>Lista</th><th>Votos</th><th>%</th></tr></thead><tbody>
+          <tr class="hl"><td>2200 - ALIANZA FUERZA PATRIA</td><td class="num">24.773</td><td class="num">35,25</td></tr>
+          <tr class="hl"><td>2206 - ALIANZA LA LIBERTAD AVANZA</td><td class="num">24.521</td><td class="num">34,89</td></tr>
+          <tr><td>2204 - ALIANZA SOMOS BUENOS AIRES</td><td class="num">9.997</td><td class="num">14,22</td></tr>
+          <tr><td>91 - ESP. ABIERTO PARA EL DES. Y LA INT. SOCIAL</td><td class="num">7.080</td><td class="num">10,07</td></tr>
+        </tbody></table>
+        <div class="acta-f"><span>Diferencia entre la primera y la segunda lista</span><b class="num" data-count="252">252</b><span>votos · 0,36 puntos</span></div>
+      </div>
+      <figcaption class="fig-src">Arriba, diferencia entre Fuerza Patria y el segundo en distritos que no gobernaba. Abajo, extracto del acta de escrutinio definitivo de Tandil. Fuente: Junta Electoral PBA. Elaboración Alsina.</figcaption>
+    </figure>
+
+    <div class="prose"><p>Si el mapa provincial mostró realidades muy distintas, la elección abrió una segunda pregunta: <strong>¿cuánto de esas diferencias estuvo asociado al peso de los gobiernos y las estructuras locales?</strong></p></div>
+  </div>
+</section>
+
+<!-- ============ PRÓXIMAMENTE ============ -->
+<section class="chap dark" id="proximamente">
+  <div class="wrap">
+    <header class="chap-h rv"><div class="chap-n">03</div><div><div class="chap-k">Próximamente</div><h2>El informe sigue</h2></div></header>
+    <div class="prose"><p style="color:inherit">Los próximos capítulos de <em>Lo que dejó septiembre</em> se publican en las próximas entregas de la serie.</p></div>
+    <ol class="prox rv">
+      <li><span>03</span>El intendente todavía pesa<em>Próximamente</em></li>
+      <li><span>04</span>LLA encontró territorio<em>Próximamente</em></li>
+      <li><span>05</span>Cuando la boleta también habla<em>Próximamente</em></li>
+      <li><span>06</span>Una participación que también cuenta una historia<em>Próximamente</em></li>
+      <li><span>07</span>Cuarenta y nueve días después<em>Próximamente</em></li>
+      <li><span>08</span>Lo que septiembre dejó para 2027<em>Próximamente</em></li>
+    </ol>
+    <div class="final-cta"><a class="cta" href="https://alsinaar.com/municipios-data-hub.html" target="_blank" rel="noopener">Abrí el Monitor 135</a><a class="cta ghost" href="https://alsinaar.com" target="_blank" rel="noopener">Recibí la próxima entrega</a></div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-g">
+    <div><h5>Fuentes</h5><ul>
+      <li>Junta Electoral de la Provincia de Buenos Aires: escrutinio definitivo de las elecciones provinciales y municipales del 7 de septiembre de 2025, actas de electores argentinos y extranjeros.</li>
+      <li>Justicia Nacional Electoral: escrutinio definitivo de diputados nacionales en la provincia de Buenos Aires, 26 de octubre de 2025.</li>
+      <li>Resultados oficiales por sección electoral, 2015–2023.</li>
+      <li>Bases propias del equipo Alsina y Monitor 135.</li></ul></div>
+    <div><h5>Alsina</h5><p style="margin:0">Análisis · Estrategia · Impacto.<br>Gastón Corti, Pablo Rodríguez y Luz Landívar · Equipo Alsina · Octubre de 2026 · <a href="https://alsinaar.com" target="_blank" rel="noopener">alsinaar.com</a></p>
+      <p style="margin:12px 0 0">Porcentajes sobre votos positivos salvo indicación. Formato numérico argentino.</p></div>
+  </div>
+</footer>
+
+<!-- ALSINA · versión web (capítulos 1 y 2). Derivada del informe aprobado (sha256 18d425e0…780ff); los capítulos 3 a 8 quedan para próximas entregas. Datos de los 135 municipios en los dos archivos de al lado. -->
+<script src="septiembre-datos.js"></script>
+<script src="septiembre-geo.js"></script>
+<script>(function(){
+'use strict';
+/* ================= utilidades ================= */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const NS='http://www.w3.org/2000/svg';
+function S(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs||{})e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function E(tag,cls,html,parent){const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;if(parent)parent.appendChild(e);return e;}
+const fmt=n=>Math.round(n).toLocaleString('es-AR');
+const pc=(x,d=2)=>Number(x).toLocaleString('es-AR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function boxW(box,min=320,max=900){return Math.max(min,Math.min(max,(box&&box.clientWidth)||max));}
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const FD="'Barlow Condensed','Arial Narrow',sans-serif",FB="Barlow,system-ui,sans-serif";
+const COL={fp:'var(--fp)',lla:'var(--lla)',sh:'var(--sh)',fit:'var(--fit)',jxc:'var(--jxc)',otros:'var(--otros)',bl:'var(--bl)',loc:'var(--otros)',somos:'var(--sh)',hechos:'var(--sh)'};
+const NAME={fp:'Fuerza Patria',lla:'La Libertad Avanza',sh:'SOMOS BA / HECHOS',somos:'SOMOS BA',hechos:'HECHOS',fit:'FIT',otros:'Otras listas',loc:'Fuerza local'};
+const SHORT={fp:'FP',lla:'LLA',somos:'SOMOS',hechos:'HECHOS',fit:'FIT',loc:'Local',sh:'S/H'};
+function countUp(el,to,dur=1400,f=fmt,from=0){if(RM){el.textContent=f(to);return;}const t0=performance.now();
+  (function step(t){const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);el.textContent=f(from+(to-from)*e);if(k<1)requestAnimationFrame(step);})(t0);}
+
+/* tooltip */
+const tt=$('#tt');
+function tip(html,ev){tt.innerHTML=html;tt.hidden=false;const p=ev.touches?ev.touches[0]:ev;const w=tt.offsetWidth,h=tt.offsetHeight;
+  let x=p.clientX+14,y=p.clientY+14;if(x+w>innerWidth-8)x=p.clientX-w-14;if(y+h>innerHeight-8)y=p.clientY-h-14;tt.style.left=Math.max(8,x)+'px';tt.style.top=Math.max(8,y)+'px';}
+function untip(){tt.hidden=true;}
+function bindTip(node,fn){node.addEventListener('mousemove',e=>tip(fn(),e));node.addEventListener('mouseleave',untip);
+  node.addEventListener('touchstart',e=>{tip(fn(),e);},{passive:true});}
+addEventListener('scroll',untip,{passive:true});
+const trow=(k,v)=>`<div class="r"><i style="--c:${COL[k]||k}">${NAME[k]||k}</i><span>${v}</span></div>`;
+
+/* ================= datos ================= */
+const SECC=[
+ {n:1,name:'Primera',el:5131861,vot:3074968,part:59.92,pos:2854069,fp:47.57,lla:36.90,sh:4.22,fit:4.21,bl:7.18,blv:220889},
+ {n:2,name:'Segunda',el:661721,vot:424165,part:64.10,pos:381087,fp:35.48,lla:29.84,sh:24.04,fit:1.85,bl:10.16,blv:43078,shk:'HECHOS'},
+ {n:3,name:'Tercera',el:5101177,vot:3138920,part:61.53,pos:3021418,fp:54.02,lla:28.55,sh:2.82,fit:5.66,bl:3.74,blv:117502},
+ {n:4,name:'Cuarta',el:547677,vot:344602,part:62.92,pos:315703,fp:40.34,lla:30.34,sh:19.91,fit:1.26,bl:8.39,blv:28899,shk:'SOMOS BA'},
+ {n:5,name:'Quinta',el:1336787,vot:801079,part:59.93,pos:671019,fp:37.55,lla:42.12,sh:10.93,fit:2.53,bl:16.24,blv:130060},
+ {n:6,name:'Sexta',el:672483,vot:406064,part:60.38,pos:363216,fp:34.17,lla:41.87,sh:11.31,fit:3.08,bl:10.55,blv:42848},
+ {n:7,name:'Séptima',el:285047,vot:175859,part:61.69,pos:154585,fp:38.27,lla:32.94,sh:15.15,fit:2.48,bl:12.10,blv:21274},
+ {n:8,name:'Octava',el:639839,vot:409131,part:63.94,pos:393945,fp:44.16,lla:36.59,sh:5.26,fit:5.54,bl:3.71,blv:15186}];
+SECC.forEach(s=>{s.otros=Math.max(0,+(100-s.fp-s.lla-s.sh-s.fit).toFixed(2));s.win=s.fp>s.lla?'fp':'lla';s.mg=Math.abs(s.fp-s.lla);});
+const ORD=['','Primera','Segunda','Tercera','Cuarta','Quinta','Sexta','Séptima','Octava'];
+
+const MUN=[ // 19 distritos de mayor padrón + Tandil (informe base)
+ ['La Matanza',3,'fp',1200368,8.35,[['fp',52.86],['lla',28.91],['FIT',7.77]]],
+ ['La Plata',8,'fp',639839,4.45,[['fp',43.65],['lla',36.25],['FIT',5.85]]],
+ ['General Pueyrredón',5,'lla',596177,4.15,[['lla',38.14],['fp',20.42],['Acción Marplatense',19.09]]],
+ ['Lomas de Zamora',3,'fp',585956,4.08,[['fp',56.41],['lla',27.67],['FIT',4.84]]],
+ ['Quilmes',3,'fp',525087,3.65,[['fp',48.42],['lla',31.32],['FIT',6.26]]],
+ ['Almirante Brown',3,'fp',491268,3.42,[['fp',54.17],['lla',28.37],['FIT',5.77]]],
+ ['Merlo',1,'fp',464736,3.23,[['fp',44.18],['lla',29.20],['Agrupación Crecer Merlo',6.95]]],
+ ['General San Martín',1,'fp',435909,3.03,[['fp',52.33],['lla',36.15],['FIT',3.58]]],
+ ['Moreno',1,'fp',419320,2.92,[['fp',54.30],['lla',29.89],['FIT',4.44]]],
+ ['Lanús',3,'fp',403721,2.81,[['fp',49.36],['lla',32.15],['FIT',6.15]]],
+ ['Florencio Varela',3,'fp',370008,2.57,[['fp',56.09],['lla',23.83],['FIT',6.12]]],
+ ['Tigre',1,'somos',363425,2.53,[['fp',34.50],['lla',32.74],['somos',18.01]]],
+ ['Avellaneda',3,'fp',325434,2.26,[['fp',64.42],['lla',26.65],['FIT',3.03]]],
+ ['Pilar',1,'fp',320932,2.23,[['fp',60.47],['lla',29.13],['Nuevos Aires',2.75]]],
+ ['Tres de Febrero',1,'lla',314443,2.19,[['lla',45.64],['fp',41.29],['FIT',5.03]]],
+ ['Malvinas Argentinas',1,'fp',298548,2.08,[['fp',68.08],['lla',22.86],['FIT',2.46]]],
+ ['Morón',1,'fp',296279,2.06,[['fp',43.94],['lla',39.27],['FIT',5.86]]],
+ ['Berazategui',3,'fp',294824,2.05,[['fp',64.32],['lla',25.34],['FIT',3.22]]],
+ ['San Isidro',1,'lla',291011,2.02,[['lla',48.78],['fp',23.93],['Acción Vecinal SI es distinto',15.21]]],
+ ['Tandil',5,'somos',null,null,[['fp',35.25],['lla',34.89],['somos',14.22]]]
+].map(r=>({name:r[0],sec:r[1],gov:r[2],el:r[3],pp:r[4],res:r[5].map(([k,v])=>({k:COL[k]?k:'otros',label:COL[k]?NAME[k]:k,v}))}));
+
+/* ================= sistema de entrada ================= */
+const ENTER={};
+const CH=[];function chart(key,draw){const c={key,draw,go:draw(),done:false};CH.push(c);const prev=ENTER[key];ENTER[key]=el=>{if(prev)prev(el);c.done=true;if(c.go)c.go();};return c;}
+const seen=new WeakSet();
+function enter(el){if(seen.has(el))return;seen.add(el);el.classList.add('in');const f=ENTER[el.id]||(el.dataset.enter&&ENTER[el.dataset.enter]);if(f)try{f(el)}catch(e){console.error(e)}}
+const watch=$$('.rv,.fig,.foto');
+let io=null;
+if('IntersectionObserver' in window){io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){enter(e.target);io.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});watch.forEach(w=>io.observe(w));}
+function sweep(){const vh=innerHeight,vw=innerWidth;watch.forEach(w=>{if(seen.has(w))return;const r=w.getBoundingClientRect();if(r.top<vh*.92&&r.bottom>0&&r.left<vw&&r.right>0)enter(w);});}
+let swT=0;addEventListener('scroll',()=>{if(swT)return;swT=setTimeout(()=>{swT=0;sweep();},180);},{passive:true});
+if(!io)watch.forEach(enter);
+
+/* ================= portada: dos fotos ================= */
+function foto(el){const k=el.dataset.foto;const sep=k==='sep';
+  const rows=sep?[['fp',47.35],['lla',33.78]]:[['lla',41.45],['fp',40.92]];
+  el.innerHTML=`<div class="foto-h"><div class="foto-d">${sep?'7 SEP':'26 OCT'}</div><div class="foto-c">${sep?'Elección provincial<br>categoría seccional':'Elección nacional<br>diputados'}</div></div>`+
+   rows.map(([p,v],i)=>`<div class="frow"><div class="lab" style="color:${COL[p]}">${SHORT[p]}</div><div class="trk"><i style="--w:${v/55*100}%;--d:${.25+i*.15}s;background:${COL[p]}"></i></div><div class="v num">${pc(v)}</div></div>`).join('')+
+   `<div class="foto-m"><b class="num" style="color:${COL[rows[0][0]]}">+${pc(rows[0][1]-rows[1][1])}</b><span>puntos de ventaja de ${NAME[rows[0][0]]}</span></div>`+
+   `<div class="foto-p">Participación ${sep?'61,04':'67,52'} % del padrón</div>`;}
+$$('[data-foto]').forEach(foto);
+
+/* ================= capítulo 1 ================= */
+(function(){const b23=$('#bol23'),b25=$('#bol25');
+  for(let i=0;i<8;i++){const c=E('div','cuerpo','<i></i><i></i><i style="width:70%"></i><i style="width:55%"></i>'+(i===0?'<span>Presidente</span>':i===7?'<span>Concejales</span>':''),b23);c.style.setProperty('--d',(i*.07)+'s');}
+  ['Legisladores provinciales','Concejales'].forEach((t,i)=>{const c=E('div','cuerpo',`<i></i><i></i><i style="width:70%"></i><i style="width:55%"></i><span>${t}</span>`,b25);c.style.setProperty('--d',(.6+i*.12)+'s');});
+})();
+
+/* mesas */
+const MESAS=41189;
+let mesasDone=false;
+function drawMesas(progress){const cv=$('#cvMesas');if(!cv)return;const r=cv.getBoundingClientRect();const dpr=Math.min(2,devicePixelRatio||1);
+  const W=Math.max(10,Math.round(r.width*dpr)),H=Math.max(10,Math.round(r.height*dpr));if(cv.width!==W||cv.height!==H){cv.width=W;cv.height=H;}
+  const ctx=cv.getContext('2d');ctx.clearRect(0,0,W,H);const cols=Math.ceil(Math.sqrt(MESAS*W/H)),rows=Math.ceil(MESAS/cols);
+  const cw=W/cols,ch=H/rows,s=Math.max(1,Math.min(cw,ch)*.62);const n=Math.floor(MESAS*progress);
+  ctx.fillStyle='rgba(243,239,231,.08)';
+  for(let i=n;i<MESAS;i+=1){const x=(i%cols)*cw,y=Math.floor(i/cols)*ch;ctx.fillRect(x,y,s,s);}
+  ctx.fillStyle='#00D5D8';
+  for(let i=0;i<n;i++){const x=(i%cols)*cw,y=Math.floor(i/cols)*ch;ctx.fillRect(x,y,s,s);}}
+ENTER['v-mesas']=el=>{$$('[data-count]',el).forEach(b=>countUp(b,+b.dataset.count,1800));
+  if(RM){drawMesas(1);$('#sello').classList.add('on');mesasDone=true;return;}
+  const t0=performance.now(),D=2400;(function f(t){const k=Math.min(1,(t-t0)/D);drawMesas(k*k*(3-2*k));if(k<1)requestAnimationFrame(f);else{mesasDone=true;$('#sello').classList.add('on');}})(t0);};
+drawMesas(0);
+addEventListener('resize',()=>drawMesas(mesasDone?1:0));
+
+/* dos niveles */
+(function(){const a=$('#nivSec');SECC.forEach((s,i)=>{const q=E('i',null,s.n,a);q.style.background=COL[s.win];q.style.setProperty('--d',(i*.08)+'s');q.title=`${s.name}: ganó ${NAME[s.win]}`;});
+  const b=$('#nivMun');for(let i=0;i<4;i++){const q=E('i',null,'',b);q.style.setProperty('--d',(.3+i*.1)+'s');if(i<3)q.style.background='var(--tinta)';else{q.style.border='2px dashed var(--tinta)';}}})();
+
+/* buscador */
+const BUSC={};const norm=t=>String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/^partido de /,'').replace(/\s+/g,' ').trim();
+(function(){const list=$('#lMun'),inp=$('#qMun'),out=$('#fMun');
+  const EXT=window.ALSINA_135; // contrato: ver prompt para VS Code
+  const DATA=Array.isArray(EXT)&&EXT.length?EXT.map(m=>({name:m.municipio,sec:m.seccion,gov:m.oficialismo,el:m.electores,pp:m.electores?m.electores/14376592*100:null,
+     res:(m.resultados||[]).slice(0,3).map(r=>({k:COL[r.fuerza]?r.fuerza:'otros',label:r.nombre||NAME[r.fuerza]||r.fuerza,v:r.pct})),part:m.participacion,blanco:m.blanco_seccional})):MUN;
+  if(DATA!==MUN)$('#busc-pend').hidden=true;
+  let cur=DATA[0];
+  function ficha(m){const w=m.res[0],won=(w.k===m.gov)||(m.gov==='somos'&&w.k==='somos');
+    out.innerHTML=`<div class="ficha"><div class="ficha-h"><b>${m.name}</b><span>${ORD[m.sec]||''} sección</span></div>
+     <div class="ficha-b">${m.res.map((r,i)=>`<div><div class="nm">${r.label}</div><div class="ficha-r"><span class="pos">${i+1}º</span><span class="bar" style="background:${COL[r.k]};width:${r.v/70*100}%"></span><span class="num">${pc(r.v)} %</span></div></div>`).join('')}</div>
+     <div class="ficha-f"><span>Gobierna: <span class="chip" style="background:${COL[m.gov]||COL.otros}">${SHORT[m.gov]||m.gov}</span></span>
+       <span>${won?'El oficialismo retuvo el Concejo':'El oficialismo perdió la elección local'}</span>
+       ${m.el?`<span class="num">${fmt(m.el)} electores · ${pc(m.pp)} % de la PBA</span>`:''}
+       <span>Diferencia 1º–2º: <b class="num">${pc(m.res[0].v-m.res[1].v)}</b> pts</span></div></div>`;
+    $$('button',list).forEach(b=>b.classList.toggle('on',b.textContent===m.name));}
+  function render(q){list.innerHTML='';const n=q.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+    DATA.filter(m=>m.name.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().includes(n)).forEach(m=>{const b=E('button',m===cur?'on':'',m.name,list);b.type='button';b.onclick=()=>{cur=m;ficha(m);};});}
+  inp.addEventListener('input',()=>{render(inp.value);const f=$('button',list);if(f&&inp.value){cur=DATA.find(m=>m.name===f.textContent);ficha(cur);}});
+  render('');ficha(cur);
+  BUSC.data=DATA;BUSC.select=n=>{const m=DATA.find(x=>norm(x.name)===norm(n));if(m){cur=m;ficha(m);render(inp.value);}};})();
+
+/* ================= capítulo 2 ================= */
+/* cartograma: treemap squarified */
+function squarify(items,x,y,w,h){const out=[];let rest=items.slice();const total=rest.reduce((a,b)=>a+b.v,0);const scale=w*h/total;rest=rest.map(r=>({...r,a:r.v*scale}));
+  function worst(row,side){const s=row.reduce((a,b)=>a+b.a,0),mx=Math.max(...row.map(r=>r.a)),mn=Math.min(...row.map(r=>r.a));return Math.max(side*side*mx/(s*s),(s*s)/(side*side*mn));}
+  while(rest.length){const side=Math.min(w,h);let row=[rest[0]],i=1;while(i<rest.length&&worst(row.concat(rest[i]),side)<=worst(row,side)){row.push(rest[i]);i++;}
+    const s=row.reduce((a,b)=>a+b.a,0);if(w>=h){const cw=s/h;let cy=y;row.forEach(r=>{const rh=r.a/cw;out.push({...r,x,y:cy,w:cw,h:rh});cy+=rh;});x+=cw;w-=cw;}
+    else{const rh=s/w;let cx=x;row.forEach(r=>{const rw=r.a/rh;out.push({...r,x:cx,y,w:rw,h:rh});cx+=rw;});y+=rh;h-=rh;}rest=rest.slice(i);}
+  return out;}
+let cartoMode='prom';
+function drawCarto(){const box=$('#carto');const W=boxW(box,300,1120),H=W<560?Math.round(W*1.25):Math.min(600,Math.round(W*.56));box.innerHTML='';
+  const svg=S('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Cartograma de las ocho secciones electorales'},box);
+  const items=SECC.map(s=>({...s,v:s.el})).sort((a,b)=>b.v-a.v);const R=squarify(items,0,0,W,H);
+  R.forEach(r=>{const g=S('g',{},svg);const prom=cartoMode==='prom';
+    const op=prom?.82:Math.min(1,.42+r.mg/30);
+    const rect=S('rect',{x:r.x+2,y:r.y+2,width:Math.max(0,r.w-4),height:Math.max(0,r.h-4),rx:3,fill:prom?css('--fp'):css(r.win==='fp'?'--fp':'--lla'),'fill-opacity':op},g);
+    const big=r.w>150&&r.h>110,fs=big?26:r.w>100?17:13;
+    const t1=S('text',{x:r.x+14,y:r.y+14+fs,fill:'#fff','font-family':FD,'font-weight':900,'font-size':fs},g);t1.textContent=r.name.toUpperCase();
+    if(r.h>70&&r.w>80){const t2=S('text',{x:r.x+14,y:r.y+18+fs*2.1,fill:'#fff','font-family':FD,'font-weight':800,'font-size':fs*.78},g);
+      t2.textContent=prom?(r.w>170?'FP 47,35 · LLA 33,78':'FP 47,35'):`${SHORT[r.win]} ${pc(r[r.win])} · +${pc(r.mg)}`;}
+    if(big){const t3=S('text',{x:r.x+14,y:r.y+r.h-16,fill:'rgba(255,255,255,.85)','font-family':FB,'font-size':15},g);t3.textContent=fmt(r.el)+' electores';}
+    bindTip(g,()=>`<b>${r.name} sección</b><div style="color:#9fb0b4;margin-bottom:4px">${fmt(r.el)} electores · participación ${pc(r.part)} %</div>`+
+      trow('fp',pc(r.fp)+' %')+trow('lla',pc(r.lla)+' %')+trow('sh',pc(r.sh)+' %'+(r.shk?' ('+r.shk+')':''))+trow('fit',pc(r.fit)+' %'));});}
+function setCarto(m){cartoMode=m;$('#cProm').setAttribute('aria-pressed',m==='prom');$('#cSecc').setAttribute('aria-pressed',m==='secc');drawCarto();}
+$('#cProm').onclick=()=>setCarto('prom');$('#cSecc').onclick=()=>setCarto('secc');
+drawCarto();$('#cProm').setAttribute('aria-pressed','true');$('#cSecc').setAttribute('aria-pressed','false');
+ENTER['v-carto']=()=>setTimeout(()=>{if(cartoMode==='prom')setCarto('secc');},1400);
+let rzT;addEventListener('resize',()=>{clearTimeout(rzT);rzT=setTimeout(()=>{drawCarto();},200);});
+
+/* dumbbell genérico */
+function dumbbell(box,rows,{min=0,max=60,lab=180,gapLab=true,unit=' pts'}={}){box.innerHTML='';const W=boxW(box,300,760),rh=58,H=rows.length*rh+34;const nar=W<520;if(nar)lab=Math.min(lab,104);const fsz=nar?13:17;
+  const svg=S('svg',{viewBox:`0 0 ${W} ${H}`},box);const x=v=>lab+(v-min)/(max-min)*(W-lab-(gapLab?(nar?62:80):20));
+  for(let t=min;t<=max;t+=(nar&&max-min>40?20:10)){S('line',{x1:x(t),x2:x(t),y1:6,y2:H-26,stroke:css('--linea'),'stroke-width':1},svg);const tx=S('text',{x:x(t),y:H-8,'text-anchor':'middle','font-size':13,fill:css('--gris'),'font-family':FB},svg);tx.textContent=t+' %';}
+  rows.forEach((r,i)=>{const y=20+i*rh;const g=S('g',{class:'dmb-row'},svg);
+    const tl=S('text',{x:lab-14,y:y+5,'text-anchor':'end','font-family':FD,'font-weight':800,'font-size':fsz,fill:css('--tinta')},g);tl.textContent=r.name.toUpperCase();
+    const ln=S('line',{x1:x(r.b),x2:x(r.a),y1:y,y2:y,stroke:css('--tinta'),'stroke-width':3,'stroke-opacity':.25},g);
+    const c1=S('circle',{cx:x(r.b),cy:y,r:9,fill:css('--'+r.bk),stroke:'#fff','stroke-width':2},g);
+    const c2=S('circle',{cx:x(r.a),cy:y,r:9,fill:css('--'+r.ak),stroke:'#fff','stroke-width':2},g);
+    const v1=S('text',{x:x(r.b),y:y-15,'text-anchor':'middle','font-family':FD,'font-weight':800,'font-size':14,fill:css('--tinta')},g);v1.textContent=pc(r.b);
+    const v2=S('text',{x:x(r.a),y:y-15,'text-anchor':'middle','font-family':FD,'font-weight':800,'font-size':14,fill:css('--tinta')},g);v2.textContent=pc(r.a);
+    if(gapLab){const gl=S('text',{x:x(r.a)+14,y:y+6,'font-family':FD,'font-weight':900,'font-size':nar?15:19,fill:css('--azul-l')},g);gl.textContent=pc(r.a-r.b)+unit;}
+    if(!RM){[c1,c2,v1,v2,ln].forEach(n=>{n.style.transition='transform 1s cubic-bezier(.22,1,.36,1) '+(i*.12)+'s, opacity .6s '+(i*.12)+'s';});
+      const mid=(x(r.a)+x(r.b))/2;c1.style.transform=`translateX(${mid-x(r.b)}px)`;c2.style.transform=`translateX(${mid-x(r.a)}px)`;v1.style.opacity=v2.style.opacity=0;ln.style.opacity=0;
+      r._go=()=>{[c1,c2].forEach(c=>c.style.transform='none');v1.style.opacity=v2.style.opacity=1;ln.style.opacity=1;};}});
+  return ()=>rows.forEach(r=>r._go&&r._go());}
+chart('v-dmb',()=>dumbbell($('#dmb'),[{name:'Primera',a:47.57,b:36.90,ak:'fp',bk:'lla'},{name:'Tercera',a:54.02,b:28.55,ak:'fp',bk:'lla'}],{min:20,max:60,lab:130}));
+
+/* barras horizontales genéricas */
+function hbars(box,rows,{max,fmtv=v=>pc(v)+' %',ref=null,refLab='',reserve=120}={}){box.innerHTML='';max=max||Math.max(...rows.map(r=>r.v))*1.08;
+  rows.forEach((r,i)=>{const row=E('div','hb-r','',box);E('div','hb-l',r.label,row);const t=E('div','hb-t','',row);
+    const b=E('i','',null,t);b.style.width=`calc((100% - ${reserve}px) * ${r.v/max})`;b.style.background=r.c||'var(--tinta)';b.style.setProperty('--d',(i*.08)+'s');if(r.hatch){b.style.background=`repeating-linear-gradient(45deg,${r.c} 0 3px,transparent 3px 7px)`;b.style.border=`1.5px solid ${r.c}`;}
+    E('span','hb-v num',r.txt||fmtv(r.v),t);
+    if(r.tip)bindTip(row,()=>r.tip);});
+  if(ref!=null){$$('.hb-t',box).forEach((t,i)=>{const ln=E('div','refline',i===0?`<b>${refLab}</b>`:'',t);ln.style.left=`calc((100% - ${reserve}px) * ${ref/max} - 1px)`;});}}
+hbars($('#hbTercera'),[{label:'2021 · legislativa',v:1481960,c:'var(--fp)',txt:'1.481.960 · 45,67 %'},{label:'2023 · ejecutiva',v:1770941,c:'var(--fp)',txt:'1.770.941 · 51,54 %'},{label:'2025 · legislativa',v:1632123,c:'var(--fp)',txt:'1.632.123 · 54,02 %'}],{max:1800000,reserve:150});
+
+/* apilada por sección */
+(function(){const box=$('#stk');SECC.forEach((s,i)=>{const r=E('div','stk-r','',box);E('div','stk-l',s.name,r);const b=E('div','stk-b','',r);
+  [['fp',s.fp],['lla',s.lla],['sh',s.sh],['fit',s.fit],['otros',s.otros]].forEach(([k,v],j)=>{const seg=E('i',(k==='sh'&&(s.n===2||s.n===4))?'hl':'',v>=6?pc(v,1):'',b);
+    seg.style.flex=`0 0 calc(${v}% - 2px)`;seg.style.background=COL[k];seg.style.setProperty('--d',(i*.06+j*.08)+'s');if(k==='otros')seg.style.color='var(--tinta)';
+    bindTip(seg,()=>`<b>${s.name}</b>`+trow(k,pc(v)+' %'+(k==='sh'&&s.shk?' · '+s.shk:'')));});});
+  const sh=$('#shHechos');[['sh',42063,'45,9 %'],['otros',49559,'54,1 %']].forEach(([k,v,t],i)=>{const q=E('i','',t,sh);q.style.flex=`0 0 calc(${v/91622*100}% - 2px)`;q.style.background=COL[k];q.style.setProperty('--d',(i*.2)+'s');});})();
+
+/* serie histórica */
+(function(){const H=[[2015,[['fp','FPV',34.89],['jxc','Cambiemos',39.70],['fp','FPV',42.25],['jxc','Cambiemos',42.34],['jxc','Cambiemos',46.41],['jxc','Cambiemos',47.31],['jxc','Cambiemos',43.10],['jxc','Cambiemos',42.31]]],
+ [2017,[['jxc','Cambiemos',41.44],['jxc','Cambiemos',49.76],['fp','Unidad Ciud.',44.10],['jxc','Cambiemos',50.43],['jxc','Cambiemos',52.12],['jxc','Cambiemos',53.42],['jxc','Cambiemos',51.44],['jxc','Cambiemos',48.38]]],
+ [2019,[['fp','FdT',51.94],['fp','FdT',46.50],['fp','FdT',59.68],['jxc','JxC',46.34],['jxc','JxC',48.07],['jxc','JxC',51.03],['jxc','JxC',50.15],['jxc','JxC',45.02]]],
+ [2021,[['jxc','Juntos',39.20],['jxc','Juntos',52.04],['fp','FdT',45.67],['jxc','Juntos',50.06],['jxc','Juntos',51.10],['jxc','Juntos',52.19],['jxc','Juntos',51.04],['jxc','Juntos',46.12]]],
+ [2023,[['fp','UxP',44.36],['fp','UxP',37.35],['fp','UxP',51.54],['fp','UxP',37.66],['fp','UxP',35.40],['jxc','JxC',33.14],['fp','UxP',35.44],['fp','UxP',40.34]]],
+ [2025,[['fp','FP',47.57],['fp','FP',35.48],['fp','FP',54.02],['fp','FP',40.34],['lla','LLA',42.12],['lla','LLA',41.87],['fp','FP',38.27],['fp','FP',44.16]]]];
+ const g=$('#hist');E('div','h','',g);H.forEach(([y])=>E('div','h',y,g));
+ for(let s=0;s<8;s++){E('div','s',ORD[s+1],g);H.forEach(([y,c],j)=>{const [k,n,v]=c[s];const cell=E('div','c '+k,`<b>${pc(v)}</b><span>${n}</span>`,g);cell.style.background=COL[k];cell.style.setProperty('--d',(j*.18+s*.03)+'s');
+   if(y===2025&&k==='lla')cell.style.outline='3px solid var(--tinta)';bindTip(cell,()=>`<b>${ORD[s+1]} · ${y}</b><div>Ganó ${n} con ${pc(v)} %</div>`);});}})();
+
+/* balance de intendencias */
+(function(){const R=[['Fuerza Patria','fp',82,75,7,17],['La Libertad Avanza','lla',12,9,3,14],['SOMOS BA','sh',30,11,19,0],['HECHOS','sh',3,2,1,0],['Otras locales','otros',8,5,3,2]];
+ const box=$('#bal');R.forEach(([n,k,gob,ret,lost,gain],i)=>{const r=E('div','bal-r','',box);E('div','bal-l',n,r);const b=E('div','bal-b','',r);b.style.setProperty('--c',COL[k]);
+  [['',ret],['lost',lost],['gain',gain]].forEach(([cl,v],j)=>{if(!v)return;const q=E('i',cl,null,b);q.style.flex=`0 0 calc(${v}% - 2px)`;q.style.setProperty('--c',COL[k]);if(!cl)q.style.background=COL[k];q.style.setProperty('--d',(i*.1+j*.25)+'s');
+    bindTip(q,()=>`<b>${n}</b><div>${cl===''?'Retuvo':cl==='lost'?'Perdió':'Ganó siendo oposición'}: ${v} ${v===1?'municipio':'municipios'}</div><div style="color:#9fb0b4">Gobernaba ${gob} · ganó ${ret+gain}</div>`);});
+  E('div','bal-v num',`${ret+gain}<small>de 135</small>`,r);});})();
+
+/* márgenes */
+function drawMarg(){const box=$('#marg');box.innerHTML='';const W=boxW(box,300,1000),H=150;const svg=S('svg',{viewBox:`0 0 ${W} ${H}`},box);const tstep=W<520?4:2;const x=v=>30+v/16*(W-60);const y0=112;
+  S('line',{x1:x(0),x2:x(16),y1:y0,y2:y0,stroke:css('--tinta'),'stroke-width':2},svg);
+  for(let t=0;t<=16;t+=tstep){S('line',{x1:x(t),x2:x(t),y1:y0,y2:y0+6,stroke:css('--tinta')},svg);const tx=S('text',{x:x(t),y:y0+24,'text-anchor':'middle','font-size':13,fill:css('--gris'),'font-family':FB},svg);tx.textContent=t+' pts';}
+  const P=[['Tandil',0.36,22],['Maipú',1.37,50],['Tigre',1.88,78],['Rauch',11.51,50],['Chivilcoy',13.79,22],['Arrecifes',15,78]];
+  P.forEach(([n,v,ly],i)=>{const g=S('g',{},svg);S('line',{x1:x(v),x2:x(v),y1:ly+6,y2:y0,stroke:css('--fp'),'stroke-width':1.2,'stroke-dasharray':'3 3'},g);
+    S('circle',{cx:x(v),cy:y0,r:8,fill:css('--fp'),stroke:'#fff','stroke-width':2},g);
+    const lx=Math.min(W-90,Math.max(4,x(v)+(v<3?6:-4)));const t=S('text',{x:x(v)+(v>8?-6:6),y:ly,'text-anchor':v>8?'end':'start','font-family':FD,'font-weight':800,'font-size':W<520?14:17,fill:css('--tinta')},g);
+    t.textContent=`${n.toUpperCase()} ${pc(v)}`;if(!RM){g.style.opacity=0;g.style.transition=`opacity .5s ${i*.15}s`;g.dataset.fade=1;}});
+  return ()=>$$('[data-fade]',box).forEach(g=>g.style.opacity=1);}
+ENTER['v-marg']=el=>{const b=$('[data-count]',el);if(b)countUp(b,252,1500);};chart('v-marg',drawMarg);
+
+/* ================= reloj de 49 días, nav, scroll ================= */
+const clkD=$('#clkD'),clkF=$('#clkF'),days=$('#days'),daysI=$('#days i');const links=$$('.nav-links a');const secs=links.map(a=>$(a.getAttribute('href')));
+function fecha(d){const n=7+d;return n<=30?`${n} sep 2025`:`${n-30} oct 2025`;}
+let lastDay=-1;
+function onScroll(){const y=scrollY,vh=innerHeight;const c7=$('#proximamente').offsetTop,c8=c7;
+  let d=Math.max(0,Math.min(49,Math.round((y+vh*.35)/Math.max(1,c7)*49)));const post=y+vh*.35>c8;
+  if(post){clkD.textContent='→';clkF.textContent='rumbo a 2027';days.classList.add('past');daysI.style.width='100%';lastDay=-2;}
+  else if(d!==lastDay){lastDay=d;clkD.textContent=d;clkF.textContent=fecha(d);days.classList.remove('past');daysI.style.width=(d/49*100)+'%';}
+  let cur=-1;secs.forEach((s,i)=>{if(s&&s.getBoundingClientRect().top<vh*.4)cur=i;});links.forEach((a,i)=>a.classList.toggle('on',i===cur));}
+addEventListener('scroll',onScroll,{passive:true});
+let rzT2;addEventListener('resize',()=>{clearTimeout(rzT2);rzT2=setTimeout(()=>{onScroll();drawMesas(mesasDone?1:0);
+  CH.forEach(c=>{c.go=c.draw();if(c.done&&c.go)c.go();});},220);});
+onScroll();sweep();
+/* entrada directa de las fotos de la portada */
+$$('#fotos .foto').forEach(f=>setTimeout(()=>enter(f),350));
+
+/* ================= base de 135 municipios (la inyecta la publicación) ================= */
+(function(){const B=window.ALSINA_135;if(!Array.isArray(B)||!B.length)return;
+  const D=B.map(m=>({...m,res:(m.resultados||[]).map(r=>({k:COL[r.fuerza]?r.fuerza:'otros',label:r.nombre||NAME[r.fuerza]||r.fuerza,v:+r.pct}))}));
+  const byN=new Map(D.map(m=>[norm(m.municipio),m]));
+  const won=m=>m.res[0]&&(m.res[0].k===m.oficialismo);
+  const lab=r=>r?r.label:'—';
+
+  /* mapa */
+  const G=window.ALSINA_GEO;
+  if(G&&Array.isArray(G.features)&&G.features.length){
+    const wrap=$('#mapa135');wrap.hidden=false;let layer='gan';
+    const nameOf=f=>{const p=f.properties||{};return p.municipio||p.nombre||p.nam||p.NAM||p.name||'';};
+    const miss=G.features.filter(f=>!byN.get(norm(nameOf(f)))).map(nameOf);
+    if(miss.length)console.warn('ALSINA_GEO sin dato en ALSINA_135:',miss);
+    const rings=f=>{const g=f.geometry;if(!g)return[];return g.type==='Polygon'?g.coordinates:g.type==='MultiPolygon'?g.coordinates.flat():[];};
+    function bbox(fs){let a=[180,90,-180,-90];fs.forEach(f=>rings(f).forEach(r=>r.forEach(([x,y])=>{a=[Math.min(a[0],x),Math.min(a[1],y),Math.max(a[2],x),Math.max(a[3],y)];})));return a;}
+    const GBA=[-59.15,-35.05,-58.1,-34.25];
+    const inGBA=f=>{const b=bbox([f]);return b[0]>GBA[0]&&b[2]<GBA[2]&&b[1]>GBA[1]&&b[3]<GBA[3];};
+    function draw(box,fs,bb,W){box.innerHTML='';const k=Math.cos(((bb[1]+bb[3])/2)*Math.PI/180);const sx=(bb[2]-bb[0])*k,sy=bb[3]-bb[1];const H=Math.round(W*sy/sx);
+      const svg=S('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Mapa de los municipios bonaerenses'},box);
+      const px=([x,y])=>[((x-bb[0])*k/sx*W).toFixed(1),((bb[3]-y)/sy*H).toFixed(1)];
+      fs.forEach(f=>{const m=byN.get(norm(nameOf(f)));const d=rings(f).map(r=>'M'+r.map(px).join('L')+'Z').join('');
+        const p=S('path',{d,stroke:'#F3EFE7','stroke-width':.8,'stroke-linejoin':'round'},svg);p.style.cursor=m?'pointer':'default';
+        if(!m){p.setAttribute('fill','#d8d2c7');return;}
+        const mg=m.res[1]?m.res[0].v-m.res[1].v:20;
+        if(layer==='gan'){p.setAttribute('fill',css('--'+(['fp','lla','fit'].includes(m.res[0].k)?m.res[0].k:(m.res[0].k==='somos'||m.res[0].k==='hechos')?'sh':'otros')));p.setAttribute('fill-opacity',Math.min(1,.4+mg/30).toFixed(2));}
+        else if(won(m)){p.setAttribute('fill',css('--tinta'));p.setAttribute('fill-opacity',.78);}
+        else{p.setAttribute('fill','#fff');p.setAttribute('stroke',css('--rojo'));p.setAttribute('stroke-width',1.4);p.setAttribute('stroke-dasharray','3 2');}
+        bindTip(p,()=>`<b>${m.municipio}</b><div style="color:#9fb0b4">${ORD[m.seccion]||''} sección · gobierna ${NAME[m.oficialismo]||m.oficialismo}</div>`+m.res.slice(0,3).map(r=>`<div class="r"><i style="--c:${COL[r.k]}">${r.label}</i><span>${pc(r.v)} %</span></div>`).join(''));
+        p.addEventListener('click',()=>{BUSC.select&&BUSC.select(m.municipio);});});}
+    function render(){const all=G.features;const W1=boxW($('#mapMain'),280,640);draw($('#mapMain'),all,bbox(all),W1);
+      const g=all.filter(inGBA);if(g.length){$('.map-ins').hidden=false;draw($('#mapIns'),g,bbox(g),boxW($('#mapIns'),240,420));}else $('.map-ins').hidden=true;
+      $('#mGan').setAttribute('aria-pressed',layer==='gan');$('#mRet').setAttribute('aria-pressed',layer==='ret');
+      const n=D.filter(won).length;
+      $('#mapLeg').innerHTML=layer==='gan'?'<span><i class="sw-fp"></i>Fuerza Patria</span><span><i class="sw-lla"></i>La Libertad Avanza</span><span><i class="sw-sh"></i>SOMOS BA / HECHOS</span><span><i class="sw-otros"></i>Fuerzas locales</span><span>Intensidad = ventaja del ganador · tocá un municipio para ver su ficha</span>'
+        :`<span><i style="background:var(--tinta)"></i>El oficialismo retuvo · ${n}</span><span><i style="background:#fff;border:1.5px dashed var(--rojo)"></i>Perdió · ${D.length-n}</span>`;}
+    $('#mGan').onclick=()=>{layer='gan';render();};$('#mRet').onclick=()=>{layer='ret';render();};
+    render();let t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(render,250);});
+  }
+
+})();
+window.__alsinaOK=true;
+})();
+</script>
+</body>
+</html>
