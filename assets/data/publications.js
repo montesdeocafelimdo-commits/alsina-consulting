@@ -4,6 +4,25 @@
    la interfaz solo renderiza entradas con status:'published'. */
 window.ALSINA_PUBLICATIONS = [
   {
+    id: 'lo-que-dejo-septiembre',
+    slug: 'lo-que-dejo-septiembre',
+    title: 'Lo que dejó septiembre',
+    summary: 'Dos elecciones para entender una provincia. El primer desdoblamiento bonaerense y una Provincia que no votó como una sola provincia. Capítulos 1 y 2, con mapa y buscador de los 135 municipios.',
+    format: 'report',
+    primaryTopic: 'politics-elections',
+    secondaryTags: ['elecciones 2025', 'desdoblamiento', '2027'],
+    accessType: 'free',
+    requiredPlan: null,
+    author: ['Gastón Corti', 'Pablo Rodríguez', 'Luz Landívar'],
+    publishedAt: '2026-10-05',
+    period: '2025',
+    frequency: null,
+    coverImage: '/assets/img/informes/lo-que-dejo-septiembre.jpg',
+    url: '/informes/lo-que-dejo-septiembre/septiembre-web.html',
+    featured: true,
+    status: 'published',
+  },
+  {
     id: 'zona-fria',
     slug: 'zona-fria',
     title: 'Zonas frías: 93 municipios “AFUERA”',

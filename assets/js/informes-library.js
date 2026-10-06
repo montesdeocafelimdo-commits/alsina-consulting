@@ -52,7 +52,7 @@
   function cardHTML(pub, featured) {
     const badge = accessBadge(pub);
     const dateText = dateOrPeriod(pub);
-    const authorText = pub.author && pub.author.length ? pub.author.join(' y ') : null;
+    const authorText = pub.author && pub.author.length ? pub.author.slice(0, -1).join(', ') + (pub.author.length > 1 ? ' y ' : '') + pub.author[pub.author.length - 1] : null;
     const alt = ALT_OVERRIDES[pub.id] || `Portada del informe: ${pub.title}`;
     const cover = pub.coverImage
       ? `<div class="nota-card-cover"><img src="${pub.coverImage}" alt="${alt}" loading="${featured ? 'eager' : 'lazy'}" width="${featured ? 1200 : 1050}" height="${featured ? 900 : 787}"></div>`

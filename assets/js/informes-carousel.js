@@ -2,6 +2,11 @@
    Vainilla JS: scroll nativo + scroll-snap, sin librerías.
    Editar este array para agregar/quitar informes de la vitrina. */
 const INFORMES = [
+  { id: 'lo-que-dejo-septiembre', cat: ['destacados', 'institucional'],
+    titulo: 'Lo que dejó septiembre',
+    subtitulo: 'Dos elecciones para entender una provincia. Capítulos 1 y 2: la elección y el mapa de los 135 municipios.',
+    img: '/assets/img/informes/lo-que-dejo-septiembre.jpg',
+    href: '/informes/lo-que-dejo-septiembre/septiembre-web.html' },
   { id: 'fin-de-una-era', cat: ['destacados', 'institucional'],
     titulo: 'El fin de una era',
     subtitulo: '80 de 135 intendentes no podrán competir en 2027. Mapa interactivo de reelección y signo político.',
