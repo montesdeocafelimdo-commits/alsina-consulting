@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Los municipios siguen perdiendo recursos — Alsina Consulting</title>
+<meta name="description" content="En pesos, las transferencias de la Provincia a los municipios crecieron 31%. Descontada la inflación, 105 de los 135 municipios perdieron recursos reales en enero-agosto 2026.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://alsinaar.com/transferencias-municipios-ago-2026.html">
+<meta property="og:title" content="Los municipios siguen perdiendo recursos — Alsina Consulting">
+<meta property="og:description" content="En pesos, las transferencias de la Provincia a los municipios crecieron 31%. Descontada la inflación, 105 de los 135 municipios perdieron recursos reales en enero-agosto 2026.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1c20">
+<link rel="canonical" href="https://alsinaar.com/transferencias-municipios-ago-2026.html">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="stylesheet" href="/assets/css/alsina.css">
+<script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script src="/assets/js/analytics.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+/* Hero en mundo oscuro (grafito) con el "espejismo nominal"; cuerpo editorial en crema técnico. Rojo = caída, verde = mejora, turquesa = señal/selección. */
+:root{
+  --bg:#F3EFE7; --bg2:#E9E4DB; --card:#FBF8F2; --ink:#16233F; --navy:#14294D; --muted:#5B6B80;
+  --label:#146B91; --signal:#00B8BB; --neg:#C8423F; --pos:#1F8F59; --rule:#D6CFC2;
+  --bneg:#E05252; --bpos:#2BB673; --empty:#DCD6CB;
+  --g0:#0E1C20; --g1:#152830; --gink:#E9F0F1; --gmuted:#8FA3AD; --gsig:#00D5D8; --grule:#25424B;
+  --f-d:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --f-b:"Barlow","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F1D22; --bg2:#152830; --card:#132429; --ink:#E6EDEF; --navy:#F0F4F5; --muted:#97A8B2;
+  --label:#00D5D8; --signal:#00D5D8; --neg:#FF7D75; --pos:#52D394; --rule:#28434C; --empty:#22383F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1D22; --bg2:#152830; --card:#132429; --ink:#E6EDEF; --navy:#F0F4F5; --muted:#97A8B2;
+  --label:#00D5D8; --signal:#00D5D8; --neg:#FF7D75; --pos:#52D394; --rule:#28434C; --empty:#22383F; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{overflow-x:clip}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-b);font-size:18px;line-height:1.55;margin:0;overflow-x:clip;-webkit-font-smoothing:antialiased}
+.wrap{max-width:880px;margin:0 auto;padding-inline:20px}
+.num{font-variant-numeric:tabular-nums}
+p{margin:0 0 1em;max-width:64ch}
+.neg-t{color:var(--neg)} .pos-t{color:var(--pos)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+
+/* ---------- HERO ---------- */
+.hero{background:var(--g0);color:var(--gink);position:relative;overflow:hidden;padding-block:56px 48px}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--grule) 1px,transparent 1px),linear-gradient(90deg,var(--grule) 1px,transparent 1px);background-size:44px 44px;opacity:.35;mask-image:linear-gradient(180deg,#000 0,transparent 85%);-webkit-mask-image:linear-gradient(180deg,#000 0,transparent 85%)}
+.hero .wrap{position:relative}
+.kicker{font-family:var(--f-d);font-weight:700;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--gsig);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.kicker i{width:22px;height:2px;background:var(--gsig);display:block}
+h1{font-family:var(--f-d);font-weight:900;text-transform:uppercase;font-size:clamp(46px,9.5vw,96px);line-height:.88;margin:18px 0 18px;letter-spacing:-.01em;text-wrap:balance;color:#fff}
+.hero .sub{font-family:var(--f-d);font-weight:600;font-size:clamp(22px,3.8vw,32px);line-height:1.12;margin:0;max-width:none;color:var(--gink);text-wrap:balance}
+.hero .sub b{color:#FF6B63;font-weight:800}
+.hero .meta{font-size:14px;color:var(--gmuted);margin-top:14px}
+
+/* espejismo */
+.mirage{margin-top:44px;border-top:1px solid var(--grule);padding-top:26px}
+.mirage h2{font-family:var(--f-d);font-weight:700;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--gmuted);margin:0 0 18px}
+.mrow{display:grid;margin-bottom:22px!important;grid-template-columns:180px minmax(0,1fr);gap:4px 18px;align-items:center;margin-bottom:14px}
+.mrow .lab{font-family:var(--f-d);font-weight:600;font-size:16px;line-height:1.15;color:var(--gmuted)}
+.mrow .lab b{display:block;color:var(--gink);font-weight:700;font-size:18px}
+.mtrack{position:relative;height:42px}
+.mbar{position:absolute;left:0;top:0;bottom:0;display:flex;align-items:center;justify-content:flex-end;padding-right:12px;font-family:var(--f-d);font-weight:800;font-size:22px;white-space:nowrap;border-radius:1px}
+.mbar.base{background:#3A5560;color:var(--gink)}
+.mbar.nom{background:transparent;border:2px dashed #6F8A94;color:var(--gink)}
+.mbar.real{background:#E05252;color:#fff}
+.mref{position:absolute;top:-8px;bottom:-8px;border-left:2px solid var(--gsig);left:0}
+.mref span{position:absolute;bottom:-20px;left:6px;font-family:var(--f-d);font-size:12px;letter-spacing:.1em;color:var(--gsig);white-space:nowrap;text-transform:uppercase;font-weight:700}
+.mtag{font-family:var(--f-d);font-weight:800;font-size:18px;margin-left:6px}
+.mnote{font-size:15px;color:var(--gmuted);margin-top:18px;max-width:62ch}
+.mnote strong{color:var(--gink)}
+@media (max-width:620px){.mrow{grid-template-columns:1fr}.mbar{font-size:18px}}
+@media (prefers-reduced-motion:no-preference){
+  .mbar{animation:grow 1.1s cubic-bezier(.2,.7,.2,1) both;transform-origin:left}
+  .mbar.nom{animation-delay:.35s}.mbar.real{animation-delay:.9s}
+}
+
+/* ---------- TABLERO ---------- */
+.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:-1px;border-bottom:2px solid var(--navy);background:var(--bg)}
+.cell{padding:18px 14px 16px;border-right:1px solid var(--rule);min-width:0}
+.cell:last-child{border-right:0}
+.cell .k{font-family:var(--f-d);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--label)}
+.cell .v{font-family:var(--f-d);font-weight:900;font-size:clamp(28px,3.6vw,38px);line-height:1;margin-top:6px}
+.cell .v.name{font-size:clamp(22px,2.8vw,28px);font-weight:800;color:var(--navy)}
+.cell .d{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.35}
+.cell:nth-child(3n){border-right:0}.cell:nth-child(-n+3){border-bottom:1px solid var(--rule)}
+@media (max-width:480px){.board{grid-template-columns:repeat(2,minmax(0,1fr))}.cell{border-right:1px solid var(--rule)!important;border-bottom:1px solid var(--rule)}.cell:nth-child(2n){border-right:0!important}}
+
+/* ---------- SECCIONES DEL TEXTO ---------- */
+section{padding-block:8px}
+.lead{font-size:21px;line-height:1.5;margin-top:40px}
+.eyebrow{font-family:var(--f-d);font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--label);margin:72px 0 0;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:18px;height:2px;background:var(--signal)}
+h2.t{font-family:var(--f-d);font-weight:800;text-transform:uppercase;font-size:clamp(30px,5vw,44px);line-height:.95;margin:8px 0 14px;color:var(--navy);text-wrap:balance}
+.src{font-size:13px;color:var(--muted);margin-top:10px;max-width:none}
+mark{background:none;color:inherit;box-shadow:inset 0 -.36em 0 color-mix(in srgb,var(--signal) 32%,transparent)}
+
+/* mes a mes */
+.chartbox{margin-top:18px}
+svg.ch{width:100%;height:auto;display:block;overflow:visible}
+svg.ch text{font-family:var(--f-d);fill:var(--ink)}
+svg.ch .axis{stroke:var(--ink);stroke-width:1.2}
+svg.ch .lbl{font-size:15px;font-weight:700;letter-spacing:.06em;fill:var(--muted)}
+svg.ch .val{font-size:18px;font-weight:800}
+svg.ch .in{font-size:14px;font-weight:700;fill:#fff}
+svg.ch .cap{font-size:13px;font-weight:700;letter-spacing:.12em;fill:var(--muted)}
+svg.ch .grid{stroke:var(--rule);stroke-dasharray:2 4}
+.callout{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:22px}
+.callout div{border-top:2px solid var(--navy);padding-top:10px;font-size:15px;line-height:1.4;min-width:0}
+.callout b{display:block;font-family:var(--f-d);font-size:26px;font-weight:900;line-height:1.05;margin-bottom:4px}
+@media (max-width:620px){.callout{grid-template-columns:1fr;gap:14px}}
+
+/* los 135 */
+.lab135{background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:20px;margin-top:20px}
+.months{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.months button{border:1px solid var(--rule);background:transparent;padding:6px 10px;font-family:var(--f-d);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border-radius:2px;color:var(--muted);min-width:46px}
+.months button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--bg)}
+.months .play{margin-left:auto;border-color:var(--signal);color:var(--ink)}
+.status{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin:18px 0 12px}
+.status .big{font-family:var(--f-d);font-weight:900;font-size:56px;line-height:.9;color:var(--neg)}
+.status .big small{font-size:22px;color:var(--muted);font-weight:700}
+.status .txt{font-size:15px;color:var(--muted);flex:1 1 220px;min-width:0}
+.status .txt b{color:var(--ink)}
+.split135{height:10px;display:flex;border-radius:1px;overflow:hidden;margin-bottom:18px}
+.split135 .w{background:var(--bpos);transition:flex-basis .5s}
+.split135 .l{background:var(--bneg);transition:flex-basis .5s}
+.secrows{display:grid;gap:8px}
+.srow{display:grid;grid-template-columns:78px minmax(0,1fr);gap:12px;align-items:center}
+.srow .sn{font-family:var(--f-d);font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cells{display:flex;flex-wrap:wrap;gap:3px}
+.c{width:17px;height:17px;border:0;padding:0;border-radius:2px;cursor:pointer;background:var(--empty);transition:background-color .45s,transform .15s}
+.c:hover{transform:scale(1.25)}
+.c.sel{outline:2px solid var(--ink);outline-offset:1px}
+@media (max-width:480px){.c{width:13px;height:13px}.srow{grid-template-columns:58px minmax(0,1fr)}.status .big{font-size:44px}}
+.ficha{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 24px;align-items:end;border-top:1px solid var(--rule);margin-top:18px;padding-top:16px}
+.ficha .fn{font-family:var(--f-d);font-weight:800;font-size:28px;line-height:1;color:var(--navy)}
+.ficha .fs{font-size:14px;color:var(--muted);margin-top:4px}
+.ficha .fv{display:flex;gap:22px}
+.ficha .fv div{font-size:12px;font-family:var(--f-d);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ficha .fv b{display:block;font-size:30px;letter-spacing:0;font-weight:900;line-height:1}
+.spark{grid-column:1/-1;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;height:92px;align-items:stretch}
+.spark div{position:relative;font-family:var(--f-d);font-size:12px;font-weight:700;color:var(--muted);text-align:center}
+.spark div::after{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px solid var(--rule)}
+.spark i{position:absolute;left:18%;right:18%;border-radius:1px;transition:all .4s}
+.spark span{position:absolute;bottom:-16px;left:0;right:0}
+.search{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.search input{flex:1 1 220px;min-width:0;font:inherit;font-size:16px;padding:9px 12px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);border-radius:2px}
+.hint{font-size:13px;color:var(--muted);margin-top:8px}
+@media (max-width:560px){.ficha{grid-template-columns:1fr}}
+
+/* extremos */
+.toggle{display:inline-flex;border:1px solid var(--navy);border-radius:2px;margin-top:6px}
+.toggle button{border:0;background:transparent;padding:7px 16px;font-family:var(--f-d);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:15px;cursor:pointer;color:var(--navy)}
+.toggle button[aria-pressed="true"]{background:var(--navy);color:var(--bg)}
+.duel{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:18px}
+.duel .col{min-width:0;padding-inline:0 14px}
+.duel .col+.col{padding-inline:14px 0;border-left:2px solid var(--ink)}
+.duel h3{font-family:var(--f-d);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px}
+.duel .col:first-child h3{text-align:right;color:var(--neg)} .duel .col+.col h3{color:var(--pos)}
+.r{display:grid;align-items:center;gap:8px;height:30px;font-size:15px}
+.col:first-child .r{grid-template-columns:minmax(0,1fr) 54px minmax(0,1.1fr)}
+.col+.col .r{grid-template-columns:minmax(0,1.1fr) 54px minmax(0,1fr)}
+.r .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.col:first-child .r .nm{text-align:right}
+.r .v{font-family:var(--f-d);font-weight:800;font-size:17px}
+.col:first-child .r .v{text-align:right}
+.r .tr{height:14px;position:relative}
+.r .b{position:absolute;top:0;bottom:0;transition:width .6s cubic-bezier(.2,.7,.2,1)}
+.col:first-child .r .b{right:0;background:var(--bneg)}
+.col+.col .r .b{left:0;background:var(--bpos)}
+.col:first-child .r{grid-template-areas:"nm v tr"}
+.col:first-child .r .nm{order:1}.col:first-child .r .v{order:2}.col:first-child .r .tr{order:3}
+.col+.col .r .tr{order:1}.col+.col .r .v{order:2}.col+.col .r .nm{order:3}
+@media (max-width:640px){
+  .duel{grid-template-columns:1fr}.duel .col,.duel .col+.col{padding:0;border-left:0}
+  .duel .col+.col{margin-top:22px}
+  .duel .col:first-child h3{text-align:left}
+  .col:first-child .r,.col+.col .r{grid-template-columns:minmax(0,1fr) 90px 54px}
+  .col:first-child .r .nm,.col+.col .r .nm{order:1;text-align:left}.col:first-child .r .tr,.col+.col .r .tr{order:2}.col:first-child .r .v,.col+.col .r .v{order:3;text-align:right}
+  .col:first-child .r .b{right:auto;left:0}
+}
+.note{background:var(--bg2);padding:14px 16px;font-size:15px;margin-top:20px;max-width:none;border-left:3px solid var(--signal)}
+
+/* secciones */
+.secs{margin-top:20px;border-top:2px solid var(--navy)}
+.sx{display:grid;grid-template-columns:96px minmax(0,1fr) 64px 70px 130px;gap:14px;align-items:center;border-bottom:1px solid var(--rule);padding-block:8px}
+.sx.h{font-family:var(--f-d);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-block:8px 6px}
+.sx .n{font-family:var(--f-d);font-weight:800;font-size:19px;text-transform:uppercase;color:var(--navy)}
+.sx .tr{display:flex;align-items:center;gap:8px;min-width:0}
+.sx .b{background:var(--bneg);border-radius:1px;flex:none}
+.sx .bv{font-family:var(--f-d);font-weight:800;font-size:18px;color:var(--neg);white-space:nowrap}
+.sx .p,.sx .a{font-family:var(--f-d);font-weight:700;font-size:17px;text-align:right}
+.sx .p{color:var(--muted)}
+.wl{display:flex;align-items:center;gap:8px;font-family:var(--f-d);font-weight:700;font-size:15px}
+.wl .bar{flex:1;height:8px;display:flex;border-radius:1px;overflow:hidden;background:var(--bneg)}
+.wl .bar i{background:var(--bpos)}
+@media (max-width:640px){
+  .sx{grid-template-columns:80px minmax(0,1fr) 58px;row-gap:4px}
+  .sx .a,.sx .wl{grid-column:2/-1}
+  .sx .a{text-align:left;font-size:15px}
+  .sx .a::before{content:"Agosto ";color:var(--muted);font-weight:600}
+  .sx.h .a,.sx.h .wl{display:none}
+}
+
+/* cierre */
+.close{background:var(--g0);color:var(--gink);margin-top:80px;padding-block:56px}
+.close p{font-family:var(--f-d);font-weight:800;font-size:clamp(28px,4.6vw,44px);line-height:1.05;text-transform:uppercase;max-width:none;text-wrap:balance;color:#fff;margin:0}
+.close p em{font-style:normal;color:#FF6B63}
+.close .k2{font-family:var(--f-d);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:13px;color:var(--gsig);margin-bottom:14px}
+.method{font-size:14px;color:var(--muted);padding-block:36px 64px}
+.method h4{font-family:var(--f-d);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:13px;margin:0 0 8px;color:var(--label)}
+.method ul{margin:0;padding-left:18px;max-width:72ch}
+.method li{margin-bottom:5px}
+.sign{margin-top:26px;font-family:var(--f-d);font-weight:900;letter-spacing:.22em;text-transform:uppercase;font-size:16px;color:var(--navy)}
+
+/* animaciones ligadas al scroll: el estado de reposo es siempre el final */
+@keyframes grow{from{transform:scaleX(0)}}
+@keyframes up{from{transform:scaleY(0)}}
+@keyframes rise{from{opacity:.15;translate:0 18px}}
+@media (prefers-reduced-motion:no-preference){
+  @supports (animation-timeline:view()){
+    .reveal{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 45%}
+    svg.ch rect.m{transform-box:fill-box;transform-origin:var(--o,bottom);animation:up linear both;animation-timeline:view();animation-range:entry 10% cover 35%}
+    .sx .b{transform-origin:left;animation:grow linear both;animation-timeline:view();animation-range:entry 20% cover 40%}
+  }
+}
+
+/* ---------- NAV, COMPARTIR Y FOOTER DEL SITIO ---------- */
+.site-nav{position:sticky;top:0;z-index:50;background:var(--g0);border-bottom:1px solid var(--grule)}
+.site-nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--gink)}
+.nav-logo svg{width:24px;height:24px}
+.nav-brand{font-family:var(--f-d);font-weight:900;font-size:20px;letter-spacing:.2em}
+.nav-back{color:var(--gsig);border:1px solid color-mix(in srgb,var(--gsig) 40%,transparent);padding:6px 14px;font-family:var(--f-d);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.nav-back:hover{background:color-mix(in srgb,var(--gsig) 10%,transparent)}
+.share-row{display:flex;gap:8px;margin-top:18px}
+.share-btn{width:34px;height:34px;border-radius:50%;border:1px solid rgba(233,240,241,.22);background:transparent;color:var(--gmuted);display:grid;place-items:center;cursor:pointer;transition:all .2s;text-decoration:none}
+.share-btn:hover{border-color:var(--gsig);color:var(--gsig)}
+.share-btn svg{width:15px;height:15px}
+.site-foot{background:var(--g0);color:var(--gmuted);border-top:1px solid var(--grule);padding-block:36px 28px;font-size:14px;line-height:1.6}
+.site-foot .fb{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-family:var(--f-d);font-weight:900;letter-spacing:.2em;color:var(--gink);font-size:18px}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" id="mainNav">
+ <div class="wrap">
+  <a href="index.html" class="nav-logo"><svg viewBox="0 0 30 30" fill="none" aria-hidden="true"><path d="M15 2L2 28H8L15 14L22 28H28L15 2Z" fill="#00D5D8"/><path d="M10 22H20" stroke="#071114" stroke-width="2"/></svg><span class="nav-brand">ALSINA</span></a>
+  <a href="informes.html" class="nav-back">← Informes</a>
+ </div>
+</nav>
+
+<main>
+
+<div class="hero">
+ <div class="wrap">
+  <div class="kicker"><i></i><span>Finanzas municipales · Transferencias enero-agosto 2026</span></div>
+  <h1>Los municipios siguen perdiendo recursos</h1>
+  <p class="sub"><b>105 municipios</b> perdieron recursos reales respecto al 2025</p>
+  <div class="meta">Alsina · Octubre 2026 · 135 municipios de la Provincia de Buenos Aires</div>
+
+  <div class="share-row" data-share-text="Los municipios siguen perdiendo recursos — Alsina" role="group" aria-label="Compartir esta nota">
+   <a class="share-btn" data-share="x" href="#" target="_blank" rel="noopener" aria-label="Compartir en X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23 22h-6.9l-5.4-6.9L4.8 22H2l8.1-9.3L1 2h7l4.9 6.3z"/></svg></a>
+   <a class="share-btn" data-share="wa" href="#" target="_blank" rel="noopener" aria-label="Compartir en WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.2-.6.9-.8 1.1-.1.2-.3.2-.5.1-1.3-.6-2.4-1.4-3.3-2.6-.2-.3-.1-.5.1-.7.2-.2.4-.5.6-.7.1-.2.1-.4 0-.6-.1-.2-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4-.2 0-.4 0-.6 0-.2 0-.5.1-.7.3-.5.5-.8 1.1-.8 1.9 0 1.9 1.4 3.7 1.6 4 .2.3 2.2 3.3 5.2 4.4 2.5.9 2.5.6 2.9.6.4 0 1.6-.6 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.1-.2-.2-.4-.3zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg></a>
+   <button class="share-btn" data-share="copy" aria-label="Copiar enlace"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
+  </div>
+
+  <div class="mirage" aria-label="Transferencias acumuladas enero-agosto">
+   <h2>El espejismo del 31%</h2>
+   <div class="mrow"><div class="lab"><b>2025</b>ene-ago</div>
+     <div class="mtrack"><div class="mbar base" style="width:76.3%">$2,94 billones</div></div></div>
+   <div class="mrow"><div class="lab"><b>2026 en pesos</b>lo que dice el recibo</div>
+     <div class="mtrack"><div class="mbar nom" style="width:100%">$3,86 billones <span class="mtag">+31%</span></div></div></div>
+   <div class="mrow"><div class="lab"><b>2026 real</b>a precios de 2025</div>
+     <div class="mtrack"><div class="mref" style="left:76.3%"><span>nivel 2025</span></div><div class="mbar real" style="width:75.1%">$2,90 billones <span class="mtag">−1,54%</span></div></div></div>
+   <p class="mnote">Con una inflación interanual de alrededor de 33%, el aumento nominal se evapora. A precios de 2025, los municipios recibieron <strong>$45.410 millones menos</strong> que en los mismos ocho meses del año pasado.</p>
+  </div>
+ </div>
+</div>
+
+<div class="wrap">
+ <div class="board" aria-label="Síntesis">
+  <div class="cell"><div class="k">Acumulado ene-ago</div><div class="v neg-t num">−1,54%</div><div class="d">30 ganaron · 105 perdieron</div></div>
+  <div class="cell"><div class="k">Agosto</div><div class="v neg-t num">−0,30%</div><div class="d">54 ganaron · 81 perdieron</div></div>
+  <div class="cell"><div class="k">Mejor acumulado</div><div class="v name">Chacabuco</div><div class="d pos-t">+12,3% real</div></div>
+  <div class="cell"><div class="k">Peor acumulado</div><div class="v name">San Isidro</div><div class="d neg-t">−6,9% real</div></div>
+  <div class="cell"><div class="k">Mejor en agosto</div><div class="v name">Chacabuco</div><div class="d"><span class="pos-t">+14,1%</span> · Cuarta</div></div>
+  <div class="cell"><div class="k">Peor en agosto</div><div class="v name">San Fernando</div><div class="d"><span class="neg-t">−11,2%</span> · Primera</div></div>
+ </div>
+
+ <p class="lead">En pesos, las transferencias de la Provincia a los municipios crecieron 31%. Descontada la inflación, <mark>cayeron para casi 8 de cada 10</mark>. El total baja apenas 1,54%, pero el ajuste no se concentró en unos pocos distritos: se repartió entre 105 de los 135 presupuestos municipales.</p>
+
+ <section class="reveal">
+  <div class="eyebrow">Mes a mes</div>
+  <h2 class="t">Un año en serrucho</h2>
+  <p>Cada mes de 2026 contra el mismo mes de 2025. Seis de ocho quedaron abajo. Abril y julio fueron los únicos meses en verde, y no alcanzaron para compensar marzo y mayo.</p>
+  <div class="chartbox"><svg class="ch" id="mvar" viewBox="0 0 800 330" role="img" aria-label="Variación real mensual del total transferido"></svg></div>
+  <div class="chartbox"><svg class="ch" id="mcnt" viewBox="0 0 800 250" role="img" aria-label="Municipios que ganaron y perdieron cada mes"></svg></div>
+  <div class="callout">
+   <div><b class="neg-t">130 de 135</b>municipios perdieron en marzo, el peor mes del año (−8,2%).</div>
+   <div><b class="pos-t">134 de 135</b>ganaron en abril. Fue el único mes con una mejora generalizada (+9,3%).</div>
+   <div><b class="neg-t">81 de 135</b>siguen abajo en agosto, aunque el total casi empata (−0,3%).</div>
+  </div>
+ </section>
+
+ <section class="reveal">
+  <div class="eyebrow">Los 135, uno por uno</div>
+  <h2 class="t">Mové el mes y mirá cómo cambia la Provincia</h2>
+  <p>Cada cuadrado es un municipio, agrupado por sección electoral. El color marca si recibió más o menos que en el mismo período de 2025 en términos reales, y la intensidad, cuánto. Tocá un cuadrado o buscá tu municipio.</p>
+  <div class="lab135">
+   <div class="months" id="months" role="group" aria-label="Período"></div>
+   <div class="status"><div class="big num" id="sbig">105<small> / 135</small></div><div class="txt" id="stxt"></div></div>
+   <div class="split135"><div class="w" id="sw"></div><div class="l" id="sl"></div></div>
+   <div class="secrows" id="grid"></div>
+   <div class="search"><input id="q" type="search" list="dl" placeholder="Buscá tu municipio" aria-label="Buscar municipio" autocomplete="off"><datalist id="dl"></datalist></div>
+   <div class="ficha" id="ficha"></div>
+  </div>
+ </section>
+
+ <section class="reveal">
+  <div class="eyebrow">Los extremos</div>
+  <h2 class="t">Diez arriba, diez abajo</h2>
+  <p>En el acumulado, la punta de abajo la ocupan distritos del Conurbano norte como San Isidro, Vicente López y General San Martín, junto con Pinamar y General Madariaga en la costa. Arriba aparece un bloque claro: Campana, Exaltación de la Cruz, Capitán Sarmiento, Escobar, General Rodríguez y Marcos Paz.</p>
+  <div class="toggle" role="group" aria-label="Período del ranking">
+   <button id="tA" aria-pressed="true">Acumulado ene-ago</button><button id="tG" aria-pressed="false">Agosto</button>
+  </div>
+  <div class="duel">
+   <div class="col"><h3>Los que peor les fue</h3><div id="worst"></div></div>
+   <div class="col"><h3>Los que mejor les fue</h3><div id="best"></div></div>
+  </div>
+  <p class="src" id="rtot">Total provincial: −1,54%</p>
+  <p class="note">Chacabuco (+12,3% acumulado) es un caso particular: su coeficiente de distribución aumentó alrededor de 15% respecto de 2025.</p>
+ </section>
+
+ <section class="reveal">
+  <div class="eyebrow">Por sección electoral</div>
+  <h2 class="t">Ocho secciones, ocho caídas</h2>
+  <p>Ninguna sección termina el acumulado en positivo. La Quinta y la Primera, que juntas reciben el 44% de lo transferido, son las que más pierden. En agosto el cuadro mejora: cuatro secciones ya quedan levemente arriba. El grosor de cada barra es proporcional al peso de la sección en el total.</p>
+  <div class="secs" id="secs"></div>
+ </section>
+</div>
+
+<div class="close">
+ <div class="wrap">
+  <div class="k2">Lo que dejan ocho meses</div>
+  <p>El número nominal crece, el real se achica y el ajuste no se anuncia. <em>Se reparte en 105 presupuestos municipales.</em></p>
+ </div>
+</div>
+
+<div class="wrap method">
+ <h4>Fuente y método</h4>
+ <ul>
+  <li>Datos: transferencias mensuales de la Provincia de Buenos Aires a los 135 municipios, enero a agosto de 2025 y 2026, en pesos corrientes.</li>
+  <li>Variación real: cada mes de 2026 se lleva a precios de 2025 dividiendo por (1 + inflación interanual de ese mes) y se compara con el mismo mes de 2025. Inflación interanual usada: entre 32,4% y 33,8%.</li>
+  <li>Acumulado: suma de los ocho meses deflactados sobre la suma de los ocho meses de 2025.</li>
+  <li>Peso de cada sección: participación en lo transferido en enero-agosto de 2025.</li>
+  <li>Elaboración: Alsina.</li>
+ </ul>
+ <div class="sign">Alsina</div>
+</div>
+
+</main>
+
+<footer class="site-foot">
+ <div class="wrap">
+  <div class="fb"><svg viewBox="0 0 30 30" fill="none" aria-hidden="true"><path d="M15 2L2 28H8L15 14L22 28H28L15 2Z" fill="#00D5D8"/><path d="M10 22H20" stroke="#071114" stroke-width="2"/></svg>ALSINA</div>
+  Análisis · Estrategia · Impacto<br>
+  Provincia de Buenos Aires · 135 municipios<br>
+  © 2026 Alsina Consulting
+ </div>
+</footer>
+
+<script>
+const M=[["Adolfo Alsina","Sexta",[1.036,0.25,-6.605,23.944,-7.942,1.705,9.529,4.226],2.946],["Adolfo Gonzales Chaves","Sexta",[1.378,-1.538,-8.741,26.395,-18.99,-5.594,1.648,-1.28],-1.654],["Alberti","Cuarta",[-4.916,-7.628,-13.353,24.681,-15.907,-2.594,4.669,-1.152],-2.558],["Almirante Brown","Tercera",[-0.628,2.389,-5.739,3.291,-6.385,-5.977,0.611,-0.428],-1.732],["Arrecifes","Segunda",[-0.385,-2.433,-8.887,21.997,-16.547,-5.379,-0.812,-1.192],-2.281],["Avellaneda","Tercera",[0.627,6.903,-2.575,2.019,-7.196,-6.77,-1.071,0.257],-1.297],["Ayacucho","Quinta",[-1.299,-2.908,-10.57,21.436,-18.597,-6.687,0.065,-2.878],-3.335],["Azul","Séptima",[-2.5,-4.94,-11.684,18.217,-17.105,-7.411,-2.237,-3.726],-4.416],["Bahía Blanca","Sexta",[-3.723,1.096,-7.156,3.632,-7.429,-5.489,1.248,-0.246],-2.335],["Balcarce","Quinta",[3.13,-1.81,-9.235,27.57,-17.625,-4.207,0.604,-0.818],-1.097],["Baradero","Segunda",[0.347,2.608,-5.074,16.689,-13.276,-5.566,0.196,-0.191],-1.013],["Benito Juárez","Sexta",[0.05,-3.792,-10.324,26.12,-13.371,-1.597,4.979,0.627],-0.173],["Berazategui","Tercera",[-1.746,0.752,-6.852,4.674,-4.317,-4.337,2.443,0.371],-1.14],["Berisso","Tercera",[-4.135,-2.971,-9.284,6.428,-2.837,-2.928,2.865,-0.049],-1.555],["Bolívar","Séptima",[-1.444,-1.705,-8.31,19.498,-7.545,-0.926,4.858,2.244],0.636],["Bragado","Cuarta",[-5.113,-5.905,-12.0,15.078,-8.422,-3.239,2.71,-1.115],-2.365],["Brandsen","Tercera",[-1.144,10.022,-0.557,15.203,-15.468,-5.797,-0.407,1.277],-0.434],["Campana","Primera",[6.89,9.293,-0.073,15.328,2.812,6.054,12.249,10.426],7.85],["Cañuelas","Tercera",[4.204,10.153,-0.358,8.525,-11.775,-5.792,-0.474,1.663],0.092],["Capitán Sarmiento","Segunda",[8.127,7.551,0.059,29.507,-6.482,4.04,9.006,8.671],7.066],["Carlos Casares","Cuarta",[-3.412,-5.648,-11.461,18.228,-8.749,-0.778,5.44,0.843],-0.888],["Carlos Tejedor","Cuarta",[-1.263,-3.51,-9.853,24.195,-15.916,-5.313,0.773,-2.451],-2.248],["Carmen de Areco","Segunda",[13.778,15.254,1.545,30.364,-24.152,-8.412,-3.408,1.146],0.979],["Castelli","Quinta",[-3.295,-4.117,-11.321,14.448,-11.35,-3.45,1.869,-1.898],-2.611],["Chacabuco","Cuarta",[9.939,7.236,0.121,34.055,3.879,12.899,17.606,14.147],12.266],["Chascomús","Quinta",[-4.838,-5.942,-12.563,13.251,-13.579,-6.287,-0.106,-3.418],-4.424],["Chivilcoy","Cuarta",[-5.121,-4.851,-11.351,12.983,-9.739,-4.701,2.784,-1.486],-2.801],["Colón","Segunda",[-0.942,-6.843,-11.211,23.404,-9.175,-0.777,4.764,0.509],-0.318],["Coronel Dorrego","Sexta",[-3.74,-6.608,-13.391,22.297,-9.658,-1.429,5.55,-0.867],-1.269],["Coronel Pringles","Sexta",[-2.811,-4.575,-11.048,17.2,-13.161,-5.207,2.336,-1.892],-2.709],["Coronel Rosales","Sexta",[-1.463,4.547,-4.344,2.095,-8.938,-7.105,-2.814,-1.045],-2.687],["Coronel Suárez","Sexta",[-3.961,-4.644,-11.23,17.58,-10.102,-2.824,4.122,-0.36],-1.629],["Daireaux","Sexta",[-3.622,-6.287,-12.036,23.617,-12.131,-2.886,3.494,-0.712],-1.695],["Dolores","Quinta",[0.231,-1.03,-6.977,17.005,0.987,3.986,10.467,5.434],3.774],["Ensenada","Tercera",[-0.138,4.535,-4.221,3.099,-6.596,-5.75,-0.993,-0.116],-1.487],["Escobar","Primera",[0.853,0.615,-6.007,11.257,1.15,1.903,7.601,4.396],2.788],["Esteban Echeverría","Tercera",[-0.458,1.511,-5.998,5.45,-3.871,-3.113,2.231,1.01],-0.438],["Exaltación de la Cruz","Segunda",[4.23,3.456,-3.214,22.249,2.97,7.867,13.895,9.386],7.579],["Ezeiza","Tercera",[-2.379,3.039,-5.729,-0.654,-11.774,-11.117,-5.151,-3.795],-5.076],["Florencio Varela","Tercera",[-0.407,3.17,-5.196,3.55,-6.033,-6.085,0.337,-0.159],-1.495],["Florentino Ameghino","Cuarta",[-5.099,-7.664,-14.379,17.335,-17.863,-7.04,-0.754,-4.699],-5.485],["General Alvarado","Quinta",[2.796,2.453,-6.33,20.088,-9.422,0.126,6.174,3.249],2.057],["General Alvear","Séptima",[-1.444,-2.079,-9.772,17.144,-15.167,-6.589,0.42,-2.073],-2.878],["General Arenales","Cuarta",[-4.028,-4.916,-11.413,30.119,-17.367,-4.393,2.774,-1.295],-1.998],["General Belgrano","Quinta",[-3.236,-5.949,-10.652,16.87,-11.616,-3.06,4.232,-1.742],-2.109],["General Guido","Quinta",[3.611,3.318,-5.394,34.533,-23.202,-6.569,4.286,-1.127],-0.276],["General La Madrid","Sexta",[-2.936,-4.079,-10.818,20.325,-11.556,-3.388,3.505,-0.814],-1.531],["General Las Heras","Primera",[-1.446,1.138,-7.012,13.843,-10.402,-4.399,2.007,-0.321],-1.097],["General Lavalle","Quinta",[1.66,3.279,-4.215,16.704,-11.528,-3.964,2.87,0.714],0.247],["General Madariaga","Quinta",[-4.755,-4.508,-11.229,10.127,-14.145,-8.872,-2.482,-4.11],-5.252],["General Paz","Quinta",[-2.381,-3.006,-9.012,17.049,-4.064,0.159,7.307,2.125],0.952],["General Pinto","Cuarta",[-3.116,-4.505,-11.796,23.684,-13.771,-3.723,1.873,-1.196],-2.015],["General Pueyrredon","Quinta",[-1.048,3.21,-6.085,1.169,-11.235,-6.579,-1.307,-0.101],-3.033],["General Rodríguez","Primera",[7.119,12.595,2.109,8.356,-3.953,-1.931,2.83,5.433],3.634],["General San Martín","Primera",[-8.279,-7.222,-13.321,2.385,-5.653,-6.295,0.918,-3.318],-5.017],["General Viamonte","Cuarta",[-7.072,-8.529,-14.471,17.253,-13.074,-4.638,2.483,-3.114],-4.174],["General Villegas","Cuarta",[4.878,-0.09,-7.238,35.983,-16.527,-0.188,3.714,2.341],1.86],["Guaminí","Sexta",[-0.013,-0.965,-8.053,20.298,-9.547,-1.111,4.204,1.952],0.557],["Hipólito Yrigoyen","Cuarta",[-5.431,-7.373,-13.437,20.073,-16.438,-5.03,1.135,-1.673],-3.948],["Hurlingham","Primera",[-4.294,-2.058,-9.02,3.568,-4.809,-5.014,1.893,-0.912],-2.543],["Ituzaingó","Primera",[-1.639,1.247,-6.663,2.324,-6.424,-5.108,0.263,-0.383],-2.126],["José C. Paz","Primera",[-3.417,-2.626,-9.209,5.616,-3.115,-3.043,2.632,-0.095],-1.601],["Junín","Cuarta",[4.341,6.333,-3.96,13.021,-16.083,-7.678,-2.268,-0.415],-1.626],["La Costa","Quinta",[-7.303,-7.756,-14.622,7.129,1.669,-1.832,8.49,-0.136],-1.718],["La Matanza","Tercera",[-3.067,0.898,-7.008,2.124,-6.643,-7.04,-0.711,-1.49],-2.952],["La Plata","Octava",[-1.044,2.049,-5.765,5.052,-4.261,-3.746,3.425,1.289],-0.406],["Lanús","Tercera",[-1.143,1.364,-6.421,3.744,-5.338,-4.516,2.301,0.174],-1.278],["Laprida","Sexta",[2.307,0.454,-6.216,23.22,-7.974,0.096,7.401,3.44],2.532],["Las Flores","Quinta",[1.981,1.861,-6.525,22.363,-16.223,-5.076,0.535,-0.124],-0.854],["Leandro N. Alem","Cuarta",[-2.974,-8.662,-14.408,15.715,-14.837,-6.958,-1.381,-4.259],-5.006],["Lezama","Quinta",[-4.434,-4.797,-11.078,19.058,-13.497,-5.263,1.482,-2.844],-3.006],["Lincoln","Cuarta",[-1.255,-3.261,-10.925,21.909,-15.5,-4.54,0.664,-1.456],-2.315],["Lobería","Quinta",[7.212,2.612,-6.594,42.885,-23.704,-3.643,1.369,0.598],0.908],["Lobos","Tercera",[6.902,13.505,0.969,13.613,-16.898,-7.971,-2.635,0.262],-0.279],["Lomas de Zamora","Tercera",[-0.584,1.318,-6.157,5.525,-3.349,-3.145,3.851,1.296],-0.158],["Luján","Primera",[-6.554,-4.441,-11.286,5.491,-7.84,-6.012,1.278,-2.08],-3.919],["Magdalena","Tercera",[-2.299,-0.476,-6.845,15.602,-8.526,-2.165,5.061,0.619],-0.082],["Maipú","Quinta",[-6.752,-8.793,-14.695,14.079,-13.184,-6.708,0.536,-4.409],-5.207],["Malvinas Argentinas","Primera",[-8.661,-9.435,-14.691,5.942,-2.074,-3.306,4.493,-1.774],-3.624],["Mar Chiquita","Quinta",[-2.74,-3.96,-10.156,14.857,-5.417,-0.8,6.071,1.187],-0.186],["Marcos Paz","Primera",[3.363,4.673,-2.945,11.628,-0.948,0.734,6.567,4.699],3.425],["Mercedes","Primera",[-4.431,-3.945,-10.296,10.639,-6.177,-2.412,3.537,-0.057],-1.667],["Merlo","Primera",[-3.308,-1.366,-8.392,4.338,-4.522,-4.952,1.837,-0.606],-2.102],["Monte","Quinta",[7.345,9.702,-1.979,27.562,-21.251,-7.487,-2.034,0.364],0.035],["Monte Hermoso","Sexta",[-8.653,-9.168,-15.024,5.863,-2.343,-1.944,3.74,-1.383],-3.544],["Moreno","Primera",[1.274,5.025,-3.603,4.03,-5.102,-4.97,1.225,1.259],-0.279],["Morón","Primera",[-4.201,-0.568,-8.197,0.369,-8.488,-7.448,-0.98,-2.247],-4.046],["Navarro","Primera",[-2.75,-2.966,-9.815,15.09,-14.361,-6.323,0.991,-2.35],-3.156],["Necochea","Quinta",[1.065,3.061,-6.087,13.859,-8.24,-4.604,4.341,1.317],0.375],["9 de Julio","Cuarta",[2.991,5.663,-4.274,23.197,-19.594,-7.119,0.631,-0.12],-0.919],["Olavarría","Séptima",[-1.272,-0.547,-7.876,14.218,-10.56,-4.755,2.51,-0.164],-1.298],["Patagones","Sexta",[-0.455,0.055,-6.975,13.884,-8.216,-2.639,4.779,1.272],0.018],["Pehuajó","Cuarta",[-5.513,-7.127,-13.042,15.997,-11.986,-4.479,2.449,-1.889],-3.405],["Pellegrini","Sexta",[2.364,-0.882,-6.108,25.707,-13.449,-1.609,4.354,1.292],0.882],["Pergamino","Segunda",[7.48,8.042,-1.824,26.067,-20.989,-7.973,-2.78,-0.061],-0.344],["Pila","Quinta",[-2.337,-4.04,-9.819,20.472,-20.172,-9.501,-1.502,-4.54],-4.663],["Pilar","Primera",[-3.951,-3.019,-9.382,6.679,-1.999,-2.54,4.962,0.481],-1.008],["Pinamar","Quinta",[-10.962,-10.602,-17.213,1.74,-6.421,-5.79,1.083,-4.405],-6.484],["Presidente Perón","Primera",[1.291,5.374,-3.281,4.161,-5.607,-4.82,-0.049,0.837],-0.478],["Puán","Sexta",[-5.381,-7.098,-12.412,15.098,-6.474,-1.641,6.261,-0.134],-1.574],["Punta Indio","Tercera",[-2.065,-2.567,-8.897,15.452,-5.851,-0.626,5.968,1.778],0.325],["Quilmes","Tercera",[-0.575,4.059,-4.428,2.733,-6.581,-5.787,0.553,0.175],-1.399],["Ramallo","Segunda",[0.712,4.617,-5.254,20.441,-19.319,-8.628,0.458,-0.668],-1.83],["Rauch","Quinta",[-0.071,-0.546,-7.409,21.335,-12.709,-2.962,3.739,1.003],-0.126],["Rivadavia","Cuarta",[-0.674,-4.053,-10.473,26.572,-16.35,-2.867,4.495,0.359],-1.013],["Rojas","Segunda",[4.629,-0.776,-8.307,40.656,-18.553,-2.665,2.546,0.846],1.203],["Roque Pérez","Séptima",[3.423,3.53,-4.933,23.27,-12.561,-2.735,4.508,2.938],1.609],["Saavedra","Sexta",[-7.492,-8.189,-13.747,11.605,-6.98,-3.56,3.249,-1.876],-3.409],["Saladillo","Séptima",[0.765,2.317,-6.213,16.29,-14.458,-6.106,2.362,-0.123],-1.154],["Salliqueló","Sexta",[-3.18,-3.569,-9.403,13.327,-4.074,-0.563,5.828,1.558],-0.02],["Salto","Segunda",[6.912,-0.935,-9.917,32.226,-21.776,-6.322,-2.251,-1.595],-1.585],["San Andrés de Giles","Segunda",[-4.912,-5.704,-11.798,15.2,-11.391,-4.707,1.183,-2.038],-3.228],["San Antonio de Areco","Segunda",[-3.506,-1.565,-7.955,15.551,-16.968,-7.174,-2.914,-2.59],-3.905],["San Cayetano","Quinta",[-3.99,-8.226,-13.804,23.717,-13.539,-3.843,2.631,-2.552],-2.856],["San Fernando","Primera",[-3.835,-2.237,-9.21,6.25,10.372,-1.799,4.817,-11.163],-0.891],["San Isidro","Primera",[-10.732,-12.71,-17.353,0.914,-6.001,-5.303,1.172,-5.539],-6.861],["San Miguel","Primera",[-1.775,-0.796,-7.452,8.481,0.476,-0.48,7.014,2.796],1.125],["San Nicolás","Segunda",[1.043,5.838,-3.067,7.242,-8.271,-4.12,0.758,1.301],-0.208],["San Pedro","Segunda",[-4.693,-4.013,-10.534,10.116,-10.268,-5.663,0.066,-2.432],-3.54],["San Vicente","Tercera",[2.856,8.794,-1.317,5.572,-9.294,-6.364,-1.72,0.305],-0.666],["Suipacha","Primera",[1.471,1.563,-5.598,21.069,-8.246,0.065,7.658,3.961],2.453],["Tandil","Quinta",[-5.267,-6.233,-13.464,13.311,-14.306,-6.204,0.143,-4.069],-4.745],["Tapalqué","Séptima",[1.202,0.244,-6.584,25.182,-12.512,-2.13,5.479,2.135],1.098],["Tigre","Primera",[-3.459,-1.661,-7.446,5.601,-2.088,-2.82,0.802,-2.933],-1.736],["Tordillo","Quinta",[-5.629,-3.901,-9.701,5.991,-12.126,-7.59,-3.725,-4.04],-5.24],["Tornquist","Sexta",[-2.549,-3.227,-10.189,16.652,-3.235,-0.44,8.68,2.066],0.919],["Trenque Lauquen","Cuarta",[-3.433,-5.81,-11.673,17.199,-11.068,-3.831,1.403,-1.255],-2.521],["Tres Arroyos","Sexta",[0.481,-2.185,-8.977,22.442,-14.69,-4.864,2.62,-0.363],-1.171],["Tres de Febrero","Primera",[-1.484,1.783,-6.198,2.233,-6.687,-5.919,0.54,-0.549],-2.136],["Tres Lomas","Sexta",[-2.629,-2.261,-9.383,16.614,-8.945,-2.578,4.504,0.561],-0.705],["25 de Mayo","Séptima",[-0.219,-1.758,-8.813,20.637,-16.453,-5.438,1.948,-0.966],-1.95],["Vicente López","Primera",[-9.869,-10.591,-15.797,3.041,-4.671,-4.204,1.838,-3.958],-5.447],["Villa Gesell","Quinta",[-8.564,-10.011,-15.632,5.011,-2.163,-1.895,4.459,-1.316],-3.685],["Villarino","Sexta",[-2.126,-0.177,-7.611,9.828,-10.571,-5.503,1.096,-1.02],-2.24],["Zárate","Segunda",[1.078,4.939,-3.673,7.341,-8.596,-6.26,0.597,0.337],-0.829]]; // [nombre, sección, [ene..ago %], acumulado %]
+const MES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago'];
+const MESL=['enero','febrero','marzo','abril','mayo','junio','julio','agosto'];
+const SECS=['Primera','Segunda','Tercera','Cuarta','Quinta','Sexta','Séptima','Octava'];
+const TOT=[-2.23,-1.02,-8.24,9.27,-7.29,-4.16,2.30,-0.30];
+const fmt=(v,d=1)=>{const r=Math.round(v*Math.pow(10,d))/Math.pow(10,d);return (r>0?'+':r<0?'−':'')+Math.abs(r).toFixed(d).replace('.',',')+'%'};
+const cls=v=>v<0?'neg-t':'pos-t';
+const $=id=>document.getElementById(id);
+
+// ---- mes a mes: variación
+(function(){
+  const W=800,top=34,bot=270,mx=10,mn=-10,y=v=>top+(mx-v)/(mx-mn)*(bot-top),y0=y(0),st=W/8,bw=st*.58;let s='';
+  [-5,5].forEach(g=>{s+=`<line class="grid" x1="0" x2="${W}" y1="${y(g)}" y2="${y(g)}"></line><text class="cap" x="${W}" y="${y(g)-5}" text-anchor="end">${g>0?'+':'−'}5%</text>`});
+  TOT.forEach((v,i)=>{const x=i*st+(st-bw)/2,yy=y(v),h=Math.abs(yy-y0);
+    s+=`<rect class="m" style="--o:${v<0?'top':'bottom'}" x="${x}" y="${Math.min(yy,y0)}" width="${bw}" height="${h}" fill="${v<0?'var(--bneg)':'var(--bpos)'}"></rect>`;
+    s+=`<text class="val" x="${x+bw/2}" y="${v<0?yy+21:yy-8}" text-anchor="middle">${fmt(v)}</text>`;
+    s+=`<text class="lbl" x="${x+bw/2}" y="${bot+40}" text-anchor="middle">${MES[i].toUpperCase()}</text>`});
+  s+=`<line class="axis" x1="0" x2="${W}" y1="${y0}" y2="${y0}"></line>`;
+  $('mvar').innerHTML=s;
+})();
+// ---- mes a mes: cuántos ganaron y perdieron
+(function(){
+  const W=800,st=W/8,bw=st*.58,top=30,h=180;let s=`<text class="cap" x="0" y="14">CUÁNTOS GANARON Y CUÁNTOS PERDIERON · DE 135</text>`;
+  s+=`<text class="cap" x="${W}" y="14" text-anchor="end"><tspan fill="var(--bpos)">■</tspan> GANARON  <tspan fill="var(--bneg)">■</tspan> PERDIERON</text>`;
+  for(let i=0;i<8;i++){const w=M.filter(m=>m[2][i]>0).length,l=135-w,x=i*st+(st-bw)/2,hw=w/135*h,hl=l/135*h;
+    s+=`<rect class="m" x="${x}" y="${top}" width="${bw}" height="${hl}" fill="var(--bneg)"></rect>`;
+    s+=`<rect class="m" x="${x}" y="${top+hl+2}" width="${bw}" height="${hw}" fill="var(--bpos)"></rect>`;
+    if(hl>20)s+=`<text class="in" x="${x+bw/2}" y="${top+16}" text-anchor="middle">${l}</text>`;else s+=`<text class="val" style="font-size:14px" x="${x+bw/2}" y="${top-4}" text-anchor="middle">${l}</text>`;
+    if(hw>20)s+=`<text class="in" x="${x+bw/2}" y="${top+hl+2+hw-6}" text-anchor="middle">${w}</text>`;else s+=`<text class="val" style="font-size:14px" x="${x+bw/2}" y="${top+h+20}" text-anchor="middle">${w}</text>`;
+    s+=`<text class="lbl" x="${x+bw/2}" y="${top+h+42}" text-anchor="middle">${MES[i].toUpperCase()}</text>`}
+  $('mcnt').innerHTML=s;
+})();
+
+// ---- los 135
+(function(){
+  const P=[...MES.map((m,i)=>({k:i,l:m})),{k:'a',l:'Acum.'}];
+  let cur='a',sel=null,timer=null;
+  const val=(m,k)=>k==='a'?m[3]:m[2][k];
+  const color=v=>{const t=Math.min(Math.abs(v)/12,1),p=Math.round(30+t*70);return `color-mix(in srgb,${v<0?'var(--bneg)':'var(--bpos)'} ${p}%,var(--empty))`};
+  // celdas, ordenadas por acumulado dentro de cada sección (posición fija)
+  let g='';const idx=[];
+  SECS.forEach(s=>{const ms=M.map((m,i)=>[m,i]).filter(x=>x[0][1]===s).sort((a,b)=>a[0][3]-b[0][3]);
+    g+=`<div class="srow"><div class="sn">${s}</div><div class="cells">${ms.map(([m,i])=>`<button class="c" data-i="${i}" aria-label="${m[0]}"></button>`).join('')}</div></div>`});
+  $('grid').innerHTML=g;
+  const cells=[...document.querySelectorAll('.c')];
+  $('dl').innerHTML=M.map(m=>`<option value="${m[0]}">`).join('');
+  $('months').innerHTML=P.map(p=>`<button data-k="${p.k}" aria-pressed="${p.k===cur}">${p.l}</button>`).join('')+`<button class="play" id="play">▶ Recorrer</button>`;
+  function paint(){
+    cells.forEach(c=>{const m=M[c.dataset.i],v=val(m,cur);c.style.backgroundColor=color(v);c.title=`${m[0]} (${m[1]}): ${fmt(v)}`});
+    const lost=M.filter(m=>val(m,cur)<0).length,won=135-lost;
+    $('sbig').innerHTML=`${lost}<small> / 135</small>`;
+    const tot=cur==='a'?-1.54:TOT[cur];
+    $('stxt').innerHTML=cur==='a'?`municipios <b>perdieron</b> en el acumulado enero-agosto. Ganaron ${won}. El total cayó <b class="${cls(tot)}">${fmt(tot,2)}</b>.`:`municipios <b>perdieron</b> en ${MESL[cur]} contra ${MESL[cur]} de 2025. Ganaron ${won}. El total varió <b class="${cls(tot)}">${fmt(tot)}</b>.`;
+    $('sw').style.flexBasis=(won/135*100)+'%';$('sl').style.flexBasis=(lost/135*100)+'%';
+    document.querySelectorAll('#months [data-k]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.k==String(cur))));
+  }
+  function ficha(i){
+    sel=i;cells.forEach(c=>c.classList.toggle('sel',+c.dataset.i===i));
+    const m=M[i];const mx=15;
+    $('ficha').innerHTML=`<div><div class="fn">${m[0]}</div><div class="fs">Sección ${m[1]}</div></div>
+      <div class="fv"><div>Acumulado<b class="${cls(m[3])}">${fmt(m[3])}</b></div><div>Agosto<b class="${cls(m[2][7])}">${fmt(m[2][7])}</b></div></div>
+      <div class="spark" aria-label="Variación real mes a mes">${m[2].map((v,k)=>{const h=Math.min(Math.abs(v),mx)/mx*50;return `<div title="${MESL[k]}: ${fmt(v)}"><i style="${v<0?'top':'bottom'}:50%;height:${h}%;background:${v<0?'var(--bneg)':'var(--bpos)'}"></i><span>${MES[k]}</span></div>`}).join('')}</div>`;
+  }
+  $('months').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+    if(b.id==='play'){if(timer){stop();return}let k=0;cur=0;paint();b.textContent='■ Detener';timer=setInterval(()=>{k++;if(k>8){stop();return}cur=k===8?'a':k;paint()},1100);return}
+    stop();cur=b.dataset.k==='a'?'a':+b.dataset.k;paint()});
+  function stop(){clearInterval(timer);timer=null;$('play').textContent='▶ Recorrer'}
+  $('grid').addEventListener('click',e=>{const c=e.target.closest('.c');if(c)ficha(+c.dataset.i)});
+  const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim();
+  $('q').addEventListener('input',e=>{const q=norm(e.target.value);if(q.length<3)return;
+    const i=M.findIndex(m=>norm(m[0])===q);const j=i>=0?i:M.findIndex(m=>norm(m[0]).startsWith(q));if(j>=0)ficha(j)});
+  paint();ficha(M.findIndex(m=>m[0]==='San Isidro'));
+})();
+
+// ---- extremos
+(function(){
+  function draw(mode){
+    const v=m=>mode==='a'?m[3]:m[2][7];
+    const s=[...M].sort((a,b)=>v(a)-v(b)),w=s.slice(0,10),b=s.slice(-10).reverse();
+    const mx=Math.max(Math.abs(v(s[0])),Math.abs(v(s[134])));
+    const row=m=>`<div class="r"><span class="nm">${m[0]}</span><span class="v ${cls(v(m))}">${fmt(v(m))}</span><span class="tr"><span class="b" data-w="${Math.abs(v(m))/mx*100}" style="width:0"></span></span></div>`;
+    $('worst').innerHTML=w.map(row).join('');$('best').innerHTML=b.map(row).join('');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.duel .b').forEach(e=>e.style.width=e.dataset.w+'%')));
+    $('rtot').textContent=mode==='a'?'Variación real acumulada enero-agosto. Total provincial: −1,54%.':'Variación real de agosto contra agosto de 2025. Total provincial: −0,30%.';
+    $('tA').setAttribute('aria-pressed',mode==='a');$('tG').setAttribute('aria-pressed',mode!=='a');
+  }
+  $('tA').onclick=()=>draw('a');$('tG').onclick=()=>draw('g');
+  draw('a');
+  setTimeout(()=>document.querySelectorAll('.duel .b').forEach(e=>{if(e.style.width==='0px'||e.style.width==='0')e.style.width=e.dataset.w+'%'}),600);
+})();
+
+// ---- secciones
+(function(){
+  const S=[['Quinta',12.1,-2.14,-0.77,7,20],['Primera',31.7,-1.83,-0.76,6,19],['Tercera',26.1,-1.64,-0.22,2,16],['Séptima',3.8,-1.47,-0.38,3,5],['Sexta',9.4,-1.15,0.11,6,16],['Cuarta',8.4,-0.86,0.31,2,17],['Segunda',5.3,-0.48,0.50,4,11],['Octava',3.2,-0.41,1.29,0,1]];
+  let h=`<div class="sx h"><span>Sección</span><span>Acumulado ene-ago</span><span style="text-align:right">Peso</span><span class="a" style="text-align:right">Agosto</span><span class="wl">Ganaron / perdieron</span></div>`;
+  S.forEach(s=>{const t=s[4]+s[5];
+    h+=`<div class="sx"><span class="n">${s[0]}</span><span class="tr"><span class="b" style="width:${Math.abs(s[2])/2.14*72}%;height:${Math.max(6,s[1]*1.25)}px"></span><span class="bv">${fmt(s[2],1)}</span></span><span class="p">${s[1].toFixed(1).replace('.',',')}%</span><span class="a ${cls(s[3])}">${fmt(s[3])}</span><span class="wl"><span class="bar"><i style="width:${s[4]/t*100}%"></i></span><span class="num">${s[4]}/${s[5]}</span></span></div>`});
+  $('secs').innerHTML=h;
+})();
+</script>
+<script src="/assets/js/share.js"></script>
+<script src="/assets/js/config.js"></script>
+</body>
+</html>

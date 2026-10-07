@@ -4,6 +4,25 @@
    la interfaz solo renderiza entradas con status:'published'. */
 window.ALSINA_PUBLICATIONS = [
   {
+    id: 'transferencias-municipios-ago-2026',
+    slug: 'transferencias-municipios-ago-2026',
+    title: 'Los municipios siguen perdiendo recursos',
+    summary: 'En pesos, las transferencias de la Provincia crecieron 31%. Descontada la inflación, 105 de los 135 municipios perdieron recursos reales en enero-agosto 2026. Con buscador de los 135.',
+    format: 'note',
+    primaryTopic: 'public-finance',
+    secondaryTags: ['transferencias', 'coparticipación', 'finanzas municipales'],
+    accessType: 'free',
+    requiredPlan: null,
+    author: null,
+    publishedAt: '2026-10-07',
+    period: 'ene-ago 2026',
+    frequency: null,
+    coverImage: null,
+    url: '/transferencias-municipios-ago-2026.html',
+    featured: false,
+    status: 'published',
+  },
+  {
     id: 'lo-que-dejo-septiembre',
     slug: 'lo-que-dejo-septiembre',
     title: 'Lo que dejó septiembre',
