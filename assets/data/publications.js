@@ -17,7 +17,7 @@ window.ALSINA_PUBLICATIONS = [
     publishedAt: '2026-10-07',
     period: 'ene-ago 2026',
     frequency: null,
-    coverImage: null,
+    coverImage: '/assets/img/informes/transferencias-municipios-ago-2026.jpg',
     url: '/transferencias-municipios-ago-2026.html',
     featured: false,
     status: 'published',
