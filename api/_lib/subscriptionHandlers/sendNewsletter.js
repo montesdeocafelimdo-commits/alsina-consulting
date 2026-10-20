@@ -119,8 +119,12 @@ async function getRecipients(supa) {
   } catch (err) {
     contactsError = err.message;
   }
+  // 2026-10-20: `contacts` no existe en producción (api/subscribe.js falla
+  // desde antes). Si la tabla no existe no hay a quién sumar, así que el
+  // envío no se frena; cualquier otro error sí lo frena.
+  const contactsTableMissing = /schema cache|does not exist/i.test(contactsError || '');
 
-  return { recipients, stats: { total: recipients.length, fromAccounts, fromContacts: recipients.length - fromAccounts, contactsTotal, skipped, contactsError } };
+  return { recipients, stats: { total: recipients.length, fromAccounts, fromContacts: recipients.length - fromAccounts, contactsTotal, skipped, contactsError, contactsTableMissing } };
 }
 
 const unsubscribeUrl = r => `https://www.alsinaar.com/api/subscriptions/unsubscribe?token=${r.accountId ? buildUnsubscribeToken(r.accountId) : buildEmailUnsubscribeToken(r.email)}`;
@@ -182,7 +186,7 @@ export default async function handler(req, res) {
 
   // Pedido explícito: llegar a todos los que dejaron su mail. Si contacts
   // falló, no se manda un envío parcial solo a las cuentas.
-  if (stats.contactsError) {
+  if (stats.contactsError && !stats.contactsTableMissing) {
     return res.status(500).json({ error: 'contacts_no_disponible', detail: stats.contactsError, note: 'No se envió nada: la lista de contactos sin cuenta no se pudo leer.' });
   }
 
