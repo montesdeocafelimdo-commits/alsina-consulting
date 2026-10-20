@@ -26,7 +26,7 @@ import { buildUnsubscribeToken } from '../unsubscribeToken.js';
 // api/subscribe.js) da error "table not found" en producción — no es la
 // fuente real de estos 108, y es un bug aparte sin resolver todavía.
 
-const NEWSLETTER_FILE = 'newsletter-monitor135-agosto-2026.html';
+const NEWSLETTER_FILE = 'newsletter-monitor135-octubre-2026.html';
 const UNSUB_PLACEHOLDER_HREF = 'mailto:newsletter@alsinaar.com?subject=Baja%20newsletter';
 const RESEND_BATCH_LIMIT = 100; // límite documentado de la API de Batch de Resend
 
@@ -152,7 +152,7 @@ export default async function handler(req, res) {
 
     // Outbox ANTES de mandar, igual que sendEmail() en api/_lib/email.js —
     // poder auditar incluso si el batch entero falla.
-    const outboxInserts = batch.map(r => ({ account_id: r.accountId, to_email: r.email, template_key: 'newsletter_2026_08', status: 'pending' }));
+    const outboxInserts = batch.map(r => ({ account_id: r.accountId, to_email: r.email, template_key: 'newsletter_2026_10', status: 'pending' }));
     const { data: outboxRows } = await supa.from('email_outbox').insert(outboxInserts).select('id, to_email');
     const outboxIdByEmail = new Map((outboxRows || []).map(o => [o.to_email, o.id]));
 
