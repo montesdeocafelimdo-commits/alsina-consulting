@@ -6,10 +6,13 @@ import { getSupabaseAdmin } from '../supabaseAdmin.js';
 // de armar el envío masivo hace falta saber exactamente a quién le
 // llegaría y en qué estado están sus filas.
 
+// Acepta NEWSLETTER_SEND_SECRET o CRON_SECRET, igual que sendNewsletter.js
+// (la lista de suscriptores se revisa antes de cada envío).
 function requireCronAuth(req, res) {
-  const secret = process.env.CRON_SECRET;
-  if (!secret) { res.status(503).json({ error: 'not_configured' }); return false; }
-  if ((req.headers['authorization'] || '') !== `Bearer ${secret}`) { res.status(401).json({ error: 'unauthorized' }); return false; }
+  const secrets = [process.env.NEWSLETTER_SEND_SECRET, process.env.CRON_SECRET].map(s => (s || '').trim()).filter(Boolean);
+  if (!secrets.length) { res.status(503).json({ error: 'not_configured' }); return false; }
+  const auth = (req.headers['authorization'] || '').trim();
+  if (!secrets.some(s => auth === `Bearer ${s}`)) { res.status(401).json({ error: 'unauthorized' }); return false; }
   return true;
 }
 
