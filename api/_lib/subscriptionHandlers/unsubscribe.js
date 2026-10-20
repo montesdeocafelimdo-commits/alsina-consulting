@@ -1,5 +1,5 @@
 import { getSupabaseAdmin } from '../supabaseAdmin.js';
-import { verifyUnsubscribeToken } from '../unsubscribeToken.js';
+import { verifyUnsubscribeToken, parseUnsubscribePayload } from '../unsubscribeToken.js';
 
 // ALSINA — baja del newsletter desde el link del mail, sin login (ver
 // api/_lib/unsubscribeToken.js para el diseño del token). Vive acá (no
@@ -30,13 +30,29 @@ function page(title, message) {
 export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).send('Method not allowed');
 
-  const accountId = verifyUnsubscribeToken(req.query?.token);
+  const target = parseUnsubscribePayload(verifyUnsubscribeToken(req.query?.token));
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  if (!accountId) {
+  if (!target) {
     return res.status(400).send(page('Link inválido', 'Este link de baja no es válido. Si querés darte de baja, escribinos a newsletter@alsinaar.com.'));
   }
 
   const supa = getSupabaseAdmin();
+
+  // Baja de alguien sin cuenta (contacts): queda en audit_logs como
+  // action='newsletter_unsubscribe' — sendNewsletter.js excluye esos mails.
+  // No hay columna de baja en contacts y no se puede migrar el remoto desde acá.
+  if (target.email) {
+    const { error } = await supa.from('audit_logs').insert({
+      actor_role: 'system', action: 'newsletter_unsubscribe', target_table: 'contacts', after: { email: target.email },
+    });
+    if (error) {
+      console.error('unsubscribe: error registrando baja de contacto:', error.message);
+      return res.status(500).send(page('Algo salió mal', 'No pudimos procesar la baja. Escribinos a newsletter@alsinaar.com y lo resolvemos a mano.'));
+    }
+    return res.status(200).send(page('Listo, te diste de baja', 'No vas a recibir más el newsletter de Alsina.'));
+  }
+
+  const accountId = target.accountId;
   const { error } = await supa.from('email_preferences').update({ editorial_opt_in: false }).eq('account_id', accountId);
 
   if (error) {

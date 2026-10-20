@@ -2,7 +2,7 @@ import { readFile } from 'fs/promises';
 import path from 'path';
 import { Resend } from 'resend';
 import { getSupabaseAdmin } from '../supabaseAdmin.js';
-import { buildUnsubscribeToken } from '../unsubscribeToken.js';
+import { buildUnsubscribeToken, buildEmailUnsubscribeToken } from '../unsubscribeToken.js';
 
 // ALSINA — primer envío real del newsletter por Resend (2026-09-04).
 // Gateado con CRON_SECRET (esto SÍ es una acción admin — a diferencia
@@ -19,12 +19,16 @@ import { buildUnsubscribeToken } from '../unsubscribeToken.js';
 //    revisar en la bandeja real antes del envío masivo) — no depende
 //    de `confirm` ni toca la lista de 108 destinatarios reales.
 //
-// "Suscripto al newsletter" = email_preferences.editorial_opt_in = true
-// (ver api/account.js, api/_lib/unsubscribeToken.js) — hoy son las 108
-// cuentas registradas (accounts=email_preferences=108, nadie se dio de
-// baja todavía). La tabla `contacts` (alta de newsletter sin cuenta, ver
-// api/subscribe.js) da error "table not found" en producción — no es la
-// fuente real de estos 108, y es un bug aparte sin resolver todavía.
+// Destinatarios (2026-10-20: "todas las personas que nos dejaron su mail
+// de alguna forma en la página"):
+//  1. Cuentas con email_preferences.editorial_opt_in = true (baja = false).
+//  2. Todos los mails de `contacts` — formulario de newsletter
+//     (api/subscribe.js) y desbloqueo de informes (api/unlock.js), estén o
+//     no confirmados — salvo que sean de una cuenta que se dio de baja o
+//     figuren en audit_logs con action='newsletter_unsubscribe' (baja de
+//     alguien sin cuenta, ver unsubscribe.js).
+// Si `contacts` falla, el dry-run lo informa en contactsError: revisarlo
+// antes del envío real, porque el envío sigue solo con las cuentas.
 
 const NEWSLETTER_FILE = 'newsletter-monitor135-octubre-2026.html';
 const UNSUB_PLACEHOLDER_HREF = 'mailto:newsletter@alsinaar.com?subject=Baja%20newsletter';
@@ -60,33 +64,66 @@ async function loadTemplate() {
   return { raw, subject };
 }
 
+// Trae todas las filas (PostgREST corta en 1000 por pedido).
+async function selectAll(supa, table, cols, filter = q => q) {
+  const out = [];
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await filter(supa.from(table).select(cols)).range(from, from + 999);
+    if (error) throw new Error(`${table}: ${error.message}`);
+    out.push(...data);
+    if (data.length < 1000) return out;
+  }
+}
+
+const normEmail = e => String(e || '').trim().toLowerCase();
+const looksLikeEmail = e => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+
 async function getRecipients(supa) {
-  const { data: prefs, error: prefsError } = await supa
-    .from('email_preferences').select('account_id').eq('editorial_opt_in', true);
-  if (prefsError) throw new Error(`email_preferences: ${prefsError.message}`);
-  const accountIds = (prefs || []).map(p => p.account_id).filter(Boolean);
-  if (!accountIds.length) return [];
+  const prefs = await selectAll(supa, 'email_preferences', 'account_id, editorial_opt_in');
+  const accounts = await selectAll(supa, 'accounts', 'id, owner_profile_id');
+  const profiles = await selectAll(supa, 'profiles', 'id, email');
 
-  const { data: accounts, error: accountsError } = await supa
-    .from('accounts').select('id, owner_profile_id').in('id', accountIds);
-  if (accountsError) throw new Error(`accounts: ${accountsError.message}`);
+  const optIn = new Set(prefs.filter(p => p.editorial_opt_in).map(p => p.account_id));
+  const optedOut = new Set(prefs.filter(p => !p.editorial_opt_in).map(p => p.account_id));
+  const emailByProfileId = new Map(profiles.map(p => [p.id, normEmail(p.email)]));
 
-  const profileIds = accounts.map(a => a.owner_profile_id).filter(Boolean);
-  const { data: profiles, error: profilesError } = await supa
-    .from('profiles').select('id, email').in('id', profileIds);
-  if (profilesError) throw new Error(`profiles: ${profilesError.message}`);
-
-  const emailByProfileId = new Map(profiles.map(p => [p.id, p.email]));
   const recipients = [];
-  const seenEmails = new Set(); // por si dos cuentas comparten owner_profile_id (no debería, pero no se asume)
+  const seen = new Set();
+  const blocked = new Set(); // mails de cuentas que se dieron de baja
   for (const acc of accounts) {
     const email = emailByProfileId.get(acc.owner_profile_id);
-    if (!email || seenEmails.has(email.toLowerCase())) continue;
-    seenEmails.add(email.toLowerCase());
-    recipients.push({ accountId: acc.id, email });
+    if (!email) continue;
+    if (optedOut.has(acc.id)) { blocked.add(email); continue; }
+    if (!optIn.has(acc.id) || seen.has(email)) continue;
+    seen.add(email);
+    recipients.push({ accountId: acc.id, email, source: 'cuenta' });
   }
-  return recipients;
+  const fromAccounts = recipients.length;
+
+  let contactsError = null, contactsTotal = 0;
+  const skipped = { bajaCuenta: 0, bajaContacto: 0, mailInvalido: 0, duplicado: 0 };
+  try {
+    const unsubs = await selectAll(supa, 'audit_logs', 'after', q => q.eq('action', 'newsletter_unsubscribe'));
+    const unsubEmails = new Set(unsubs.map(u => normEmail(u.after?.email)));
+    const contacts = await selectAll(supa, 'contacts', 'email, source, confirmed');
+    contactsTotal = contacts.length;
+    for (const c of contacts) {
+      const email = normEmail(c.email);
+      if (!looksLikeEmail(email)) { skipped.mailInvalido++; continue; }
+      if (blocked.has(email)) { skipped.bajaCuenta++; continue; }
+      if (unsubEmails.has(email)) { skipped.bajaContacto++; continue; }
+      if (seen.has(email)) { skipped.duplicado++; continue; }
+      seen.add(email);
+      recipients.push({ accountId: null, email, source: c.source || 'contacts' });
+    }
+  } catch (err) {
+    contactsError = err.message;
+  }
+
+  return { recipients, stats: { total: recipients.length, fromAccounts, fromContacts: recipients.length - fromAccounts, contactsTotal, skipped, contactsError } };
 }
+
+const unsubscribeUrl = r => `https://www.alsinaar.com/api/subscriptions/unsubscribe?token=${r.accountId ? buildUnsubscribeToken(r.accountId) : buildEmailUnsubscribeToken(r.email)}`;
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'method_not_allowed' });
@@ -119,9 +156,9 @@ export default async function handler(req, res) {
     return res.status(200).json({ status: 'test_sent', to: testEmail, resendId: data?.id, subject: template.subject });
   }
 
-  let recipients;
+  let recipients, stats;
   try {
-    recipients = await getRecipients(supa);
+    ({ recipients, stats } = await getRecipients(supa));
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
@@ -130,17 +167,23 @@ export default async function handler(req, res) {
 
   if (!isRealSend) {
     // ── dry-run: arma todo, no manda nada ──
-    const sample = recipients.slice(0, Number(sampleSize) || 3).map(r => ({
-      email: r.email,
-      unsubscribeUrl: `https://www.alsinaar.com/api/subscriptions/unsubscribe?token=${buildUnsubscribeToken(r.accountId)}`,
-    }));
+    const n = Number(sampleSize) || 3;
+    const sample = [...recipients.filter(r => r.accountId).slice(0, n), ...recipients.filter(r => !r.accountId).slice(0, n)]
+      .map(r => ({ email: r.email, origen: r.source, unsubscribeUrl: unsubscribeUrl(r) }));
     return res.status(200).json({
       status: 'dry_run',
       subject: template.subject,
       recipientCount: recipients.length,
+      stats,
       sample,
       note: 'No se envió nada. Para el envío real: POST con {"confirm":"ENVIAR_A_TODOS"}. Para una prueba a una sola dirección: POST con {"testEmail":"vos@mail.com"} (no depende de confirm).',
     });
+  }
+
+  // Pedido explícito: llegar a todos los que dejaron su mail. Si contacts
+  // falló, no se manda un envío parcial solo a las cuentas.
+  if (stats.contactsError) {
+    return res.status(500).json({ error: 'contacts_no_disponible', detail: stats.contactsError, note: 'No se envió nada: la lista de contactos sin cuenta no se pudo leer.' });
   }
 
   // ── envío real a todos ──
@@ -154,32 +197,27 @@ export default async function handler(req, res) {
       reply_to: 'newsletter@alsinaar.com',
       to: r.email,
       subject: template.subject,
-      html: template.raw.replace(UNSUB_PLACEHOLDER_HREF, `https://www.alsinaar.com/api/subscriptions/unsubscribe?token=${buildUnsubscribeToken(r.accountId)}`),
+      html: template.raw.replace(UNSUB_PLACEHOLDER_HREF, unsubscribeUrl(r)),
     }));
 
     // Outbox ANTES de mandar, igual que sendEmail() en api/_lib/email.js —
-    // poder auditar incluso si el batch entero falla.
+    // poder auditar incluso si el batch entero falla. account_id es null
+    // para los contactos sin cuenta.
     const outboxInserts = batch.map(r => ({ account_id: r.accountId, to_email: r.email, template_key: 'newsletter_2026_10', status: 'pending' }));
-    const { data: outboxRows } = await supa.from('email_outbox').insert(outboxInserts).select('id, to_email');
-    const outboxIdByEmail = new Map((outboxRows || []).map(o => [o.to_email, o.id]));
+    const { data: outboxRows } = await supa.from('email_outbox').insert(outboxInserts).select('id');
+    const outboxIds = (outboxRows || []).map(o => o.id);
 
     const { data, error } = await resend.batch.send(payload);
 
     if (error) {
-      for (const r of batch) {
-        const id = outboxIdByEmail.get(r.email);
-        if (id) await supa.from('email_outbox').update({ status: 'failed', last_error: error.message, attempts: 1 }).eq('id', id);
-      }
+      if (outboxIds.length) await supa.from('email_outbox').update({ status: 'failed', last_error: error.message, attempts: 1 }).in('id', outboxIds);
       results.push({ batchSize: batch.length, status: 'failed', error: error.message });
       continue;
     }
 
-    for (const r of batch) {
-      const id = outboxIdByEmail.get(r.email);
-      if (id) await supa.from('email_outbox').update({ status: 'sent', sent_at: new Date().toISOString() }).eq('id', id);
-    }
+    if (outboxIds.length) await supa.from('email_outbox').update({ status: 'sent', sent_at: new Date().toISOString() }).in('id', outboxIds);
     results.push({ batchSize: batch.length, status: 'sent', resendIds: (data?.data || []).map(d => d.id) });
   }
 
-  return res.status(200).json({ status: 'sent', subject: template.subject, recipientCount: recipients.length, batches: results });
+  return res.status(200).json({ status: 'sent', subject: template.subject, recipientCount: recipients.length, stats, batches: results });
 }

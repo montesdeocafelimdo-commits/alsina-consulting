@@ -27,7 +27,28 @@ export function buildUnsubscribeToken(accountId) {
   return `${accountId}.${sig}`;
 }
 
-/** @returns {string|null} el accountId si el token es válido, null si no. */
+// Para quien dejó su mail sin crear cuenta (tabla contacts: formulario de
+// newsletter o desbloqueo de informes, 2026-10-20). El payload es
+// "e:" + email en base64url — sin puntos, así el split('.') de abajo sigue
+// funcionando. verifyUnsubscribeToken devuelve el payload tal cual; ver
+// parseUnsubscribePayload.
+export function buildEmailUnsubscribeToken(email) {
+  const payload = 'e:' + Buffer.from(String(email).trim().toLowerCase()).toString('base64url');
+  const sig = crypto.createHmac('sha256', secret()).update(payload).digest('hex').slice(0, 32);
+  return `${payload}.${sig}`;
+}
+
+/** @returns {{accountId:string}|{email:string}|null} */
+export function parseUnsubscribePayload(payload) {
+  if (!payload) return null;
+  if (payload.startsWith('e:')) {
+    const email = Buffer.from(payload.slice(2), 'base64url').toString('utf8');
+    return email.includes('@') ? { email } : null;
+  }
+  return { accountId: payload };
+}
+
+/** @returns {string|null} el accountId (o el payload "e:…") si el token es válido, null si no. */
 export function verifyUnsubscribeToken(token) {
   if (!token || typeof token !== 'string' || !token.includes('.')) return null;
   const [accountId, sig] = token.split('.');
