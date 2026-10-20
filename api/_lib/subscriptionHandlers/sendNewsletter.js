@@ -35,9 +35,11 @@ const RESEND_BATCH_LIMIT = 100; // límite documentado de la API de Batch de Res
 // a leer; rotarlo rompería los links de baja ya enviados (unsubscribeToken
 // firma con él), así que el envío tiene su propia clave.
 function requireCronAuth(req, res) {
-  const secrets = [process.env.NEWSLETTER_SEND_SECRET, process.env.CRON_SECRET].filter(Boolean);
+  // trim: `openssl rand -hex 32 | pbcopy` copia la clave con un salto de
+  // línea al final, y pegada así en Vercel queda como parte del valor.
+  const secrets = [process.env.NEWSLETTER_SEND_SECRET, process.env.CRON_SECRET].map(s => (s || '').trim()).filter(Boolean);
   if (!secrets.length) { res.status(503).json({ error: 'not_configured' }); return false; }
-  const auth = req.headers['authorization'] || '';
+  const auth = (req.headers['authorization'] || '').trim();
   if (!secrets.some(s => auth === `Bearer ${s}`)) { res.status(401).json({ error: 'unauthorized' }); return false; }
   return true;
 }
