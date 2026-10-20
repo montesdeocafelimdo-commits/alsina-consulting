@@ -30,10 +30,15 @@ const NEWSLETTER_FILE = 'newsletter-monitor135-octubre-2026.html';
 const UNSUB_PLACEHOLDER_HREF = 'mailto:newsletter@alsinaar.com?subject=Baja%20newsletter';
 const RESEND_BATCH_LIMIT = 100; // límite documentado de la API de Batch de Resend
 
+// Acepta NEWSLETTER_SEND_SECRET (clave propia del envío, 2026-10-20) o
+// CRON_SECRET. CRON_SECRET es tipo Secret en Vercel y no se puede volver
+// a leer; rotarlo rompería los links de baja ya enviados (unsubscribeToken
+// firma con él), así que el envío tiene su propia clave.
 function requireCronAuth(req, res) {
-  const secret = process.env.CRON_SECRET;
-  if (!secret) { res.status(503).json({ error: 'not_configured' }); return false; }
-  if ((req.headers['authorization'] || '') !== `Bearer ${secret}`) { res.status(401).json({ error: 'unauthorized' }); return false; }
+  const secrets = [process.env.NEWSLETTER_SEND_SECRET, process.env.CRON_SECRET].filter(Boolean);
+  if (!secrets.length) { res.status(503).json({ error: 'not_configured' }); return false; }
+  const auth = req.headers['authorization'] || '';
+  if (!secrets.some(s => auth === `Bearer ${s}`)) { res.status(401).json({ error: 'unauthorized' }); return false; }
   return true;
 }
 
