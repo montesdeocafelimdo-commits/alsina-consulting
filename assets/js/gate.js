@@ -10,13 +10,23 @@
     return !!localStorage.getItem(GIVEN_KEY);
   }
 
-  async function postSubscribe(email) {
-    const r = await fetch('/api/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
+  // Suscribirse = crear la cuenta gratis (assets/js/signup.js, 2026-10-23).
+  // Antes posteaba a /api/subscribe, que escribe en una tabla `contacts`
+  // que no existe en producción: cada alta fallaba.
+  function loadSignup() {
+    if (window.AlsinaSignup) return Promise.resolve(window.AlsinaSignup);
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = '/assets/js/signup.js';
+      s.onload = () => resolve(window.AlsinaSignup);
+      s.onerror = reject;
+      document.head.appendChild(s);
     });
-    return r.json();
+  }
+
+  async function createAccount(email, location) {
+    const signup = await loadSignup();
+    await signup.createAccount(email, location);
   }
 
   // ── SOFT GATE — modal no bloqueante (Monitor 135, Mapa Político) ──
@@ -40,7 +50,7 @@
       modal.innerHTML = `
         <button type="button" class="alsina-soft-gate-close" aria-label="Cerrar">&times;</button>
         <div class="alsina-soft-gate-title">Seguí explorando gratis</div>
-        <p class="alsina-soft-gate-sub">Dejá tu mail y no perdés el acceso — sumate a la Señal Alsina de paso.</p>
+        <p class="alsina-soft-gate-sub">Creá tu cuenta gratis con tu mail: seguís explorando y recibís el newsletter de Alsina.</p>
         <form class="alsina-soft-gate-form">
           <input type="email" class="alsina-soft-gate-input" placeholder="tu@mail.com" required>
           <button type="submit" class="btn alsina-soft-gate-btn">Seguir →</button>
@@ -68,16 +78,10 @@
         status.className = 'alsina-soft-gate-status';
         status.textContent = '';
         try {
-          const data = await postSubscribe(email);
-          if (data.status === 'ok' || data.status === 'already_subscribed') {
-            localStorage.setItem(GIVEN_KEY, '1');
-            if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('newsletter_signup', { location: 'modal' });
-            status.className = 'alsina-soft-gate-status ok';
-            status.textContent = '¡Listo! Gracias.';
-            setTimeout(dismiss, 1400);
-          } else {
-            throw new Error(data.error || 'Error');
-          }
+          await createAccount(email, 'modal');
+          status.className = 'alsina-soft-gate-status ok';
+          status.textContent = '¡Listo! Revisá tu mail y hacé clic en el link para activar tu cuenta.';
+          setTimeout(dismiss, 4000);
         } catch (err) {
           status.className = 'alsina-soft-gate-status err';
           status.textContent = 'Algo salió mal. Intentá de nuevo.';
@@ -149,14 +153,8 @@
           btn.textContent = 'Enviando…';
           status.textContent = '';
           try {
-            const data = await postSubscribe(email);
-            if (data.status === 'ok' || data.status === 'already_subscribed') {
-              localStorage.setItem(GIVEN_KEY, '1');
-              if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('newsletter_signup', { location: 'modal' });
-              unlock(gate);
-            } else {
-              throw new Error(data.error || 'Error');
-            }
+            await createAccount(email, 'scroll_gate');
+            unlock(gate);
           } catch (err) {
             status.className = 'alsina-scroll-gate-status err';
             status.textContent = 'Algo salió mal. Intentá de nuevo.';

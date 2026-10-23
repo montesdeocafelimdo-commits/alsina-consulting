@@ -2,10 +2,22 @@
    Aparece al scrollear pasado el hero. Nunca se muestra si el
    visitante ya dejó el mail (misma señal que assets/js/gate.js).
    Al hacer click se expande en un capture inline (no navega), para
-   poder trackear newsletter_signup con location:'sticky'. */
+   poder trackear el alta con location:'sticky'. Desde 2026-10-23 el
+   mail crea la cuenta gratis (assets/js/signup.js). */
 (function () {
   const GIVEN_KEY = 'alsina_email_given';
   if (localStorage.getItem(GIVEN_KEY)) return;
+
+  function loadSignup() {
+    if (window.AlsinaSignup) return Promise.resolve(window.AlsinaSignup);
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = '/assets/js/signup.js';
+      s.onload = () => resolve(window.AlsinaSignup);
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
 
   function init() {
     const hero = document.querySelector('.hero') || document.body.firstElementChild;
@@ -40,20 +52,11 @@
         submitBtn.disabled = true;
         submitBtn.textContent = '...';
         try {
-          const r = await fetch('/api/subscribe', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email }),
-          });
-          const data = await r.json();
-          if (data.status === 'ok' || data.status === 'already_subscribed') {
-            localStorage.setItem(GIVEN_KEY, '1');
-            if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('newsletter_signup', { location: 'sticky' });
-            status.textContent = '¡Listo! Gracias.';
-            setTimeout(() => btn.remove(), 1400);
-          } else {
-            throw new Error(data.error || 'Error');
-          }
+          // Suscribirse = crear la cuenta gratis (ver assets/js/signup.js).
+          const signup = await loadSignup();
+          await signup.createAccount(email, 'sticky');
+          status.textContent = '¡Listo! Revisá tu mail y activá tu cuenta.';
+          setTimeout(() => btn.remove(), 4000);
         } catch (err) {
           status.textContent = 'Algo salió mal. Intentá de nuevo.';
           submitBtn.disabled = false;
