@@ -4,6 +4,25 @@
    la interfaz solo renderiza entradas con status:'published'. */
 window.ALSINA_PUBLICATIONS = [
   {
+    id: 'datos-presupuesto-pba',
+    slug: 'datos-presupuesto-pba',
+    title: 'Datos del Presupuesto PBA',
+    summary: 'Los presupuestos bonaerenses 2016–2027 en un tablero: gasto, organismos, recursos, deuda y obra por partido',
+    format: 'report',
+    primaryTopic: 'public-finance',
+    secondaryTags: ['presupuesto', 'gasto público', 'deuda'],
+    accessType: 'free',
+    requiredPlan: null,
+    author: null,
+    publishedAt: '2026-11-06',
+    period: '2016–2027',
+    frequency: null,
+    coverImage: null,
+    url: '/presupuesto-pba/datos',
+    featured: false,
+    status: 'published',
+  },
+  {
     id: 'transferencias-municipios-ago-2026',
     slug: 'transferencias-municipios-ago-2026',
     title: 'Los municipios siguen perdiendo recursos',
