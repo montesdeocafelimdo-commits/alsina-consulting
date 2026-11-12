@@ -2,6 +2,11 @@
    Vainilla JS: scroll nativo + scroll-snap, sin librerías.
    Editar este array para agregar/quitar informes de la vitrina. */
 const INFORMES = [
+  { id: 'presupuesto-pba-2027', cat: ['destacados', 'economico'],
+    titulo: 'Presupuesto PBA 2027: el análisis',
+    subtitulo: 'Gasto, impuestos, deuda y municipios en el proyecto 2027, comparado con los presupuestos desde 2016 y con la Ciudad y la Nación.',
+    img: '/assets/img/informes/presupuesto-pba-2027.jpg',
+    href: '/presupuesto-pba' },
   { id: 'lo-que-dejo-septiembre', cat: ['destacados', 'institucional'],
     titulo: 'Lo que dejó septiembre',
     subtitulo: 'Dos elecciones para entender una provincia. Capítulos 1 y 2: la elección y el mapa de los 135 municipios.',
