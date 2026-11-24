@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta · Campaña territorial San Isidro · Alsina</title>
+<meta name="description" content="Propuesta para la campaña territorial de San Isidro. Acceso restringido.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Propuesta · Campaña territorial San Isidro · Alsina">
+<meta property="og:description" content="Diagnóstico mesa a mesa, segmentos, gestión y fichas para la campaña territorial 2027">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0e1c20">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="stylesheet" href="/assets/css/alsina.css">
+<script defer data-domain="alsinaar.com" src="https://plausible.io/js/script.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script src="/assets/js/analytics.js"></script>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--grafito);color:var(--crema);font-family:'Barlow',sans-serif;min-height:100vh;display:flex;flex-direction:column;}
+a{color:inherit;}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+nav{padding:16px 24px;border-bottom:1px solid rgba(0,213,216,.1);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;width:fit-content;}
+.nav-logo svg{width:28px;height:28px;}
+.nav-word{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.05rem;letter-spacing:.18em;color:var(--crema);}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 24px;}
+.lock-card{
+  width:100%;max-width:420px;background:var(--grafito2);border:1px solid rgba(0,213,216,.25);
+  border-radius:10px;padding:36px 32px;text-align:center;
+}
+.lock-icon{width:32px;height:32px;color:var(--turquesa);margin:0 auto 16px;}
+.lock-card h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;font-size:1.4rem;color:var(--crema);margin-bottom:8px;}
+.lock-card .meta{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--turquesa);margin-bottom:18px;}
+.lock-card p{font-size:.85rem;color:rgba(243,239,231,.6);line-height:1.6;margin-bottom:22px;}
+.lock-form{display:flex;flex-direction:column;gap:10px;}
+.lock-form input{
+  background:rgba(255,255,255,.07);border:1.5px solid rgba(243,239,231,.2);border-radius:4px;
+  color:var(--crema);padding:12px 14px;font-family:inherit;font-size:.9rem;outline:none;
+}
+.lock-form input:focus{border-color:var(--turquesa);}
+.lock-note{font-size:.7rem;color:rgba(158,153,146,.4);margin-top:14px;}
+footer{padding:20px 24px;border-top:1px solid rgba(0,213,216,.08);text-align:center;font-size:.72rem;color:rgba(183,178,170,.5);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="3" y="3" width="58" height="58" rx="4" fill="none" stroke="#2196c9" stroke-width="2.5"/>
+      <text x="32" y="47" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="40" font-weight="700" fill="#14294d">A</text>
+      <rect x="13" y="28" width="38" height="6" fill="#4db8e0" transform="rotate(-28 32 31)"/>
+    </svg>
+    <span class="nav-word">ALSINA</span>
+  </a>
+</nav>
+
+<main>
+  <div class="lock-card">
+    <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    <div class="meta">Propuesta · Campaña territorial 2027</div>
+    <h1>San Isidro</h1>
+    <p>Esta propuesta es de acceso restringido. Ingresá la clave que te compartimos.</p>
+    <form class="lock-form" id="lockForm">
+      <input type="password" id="lockKey" placeholder="Clave de acceso" required autofocus>
+      <button type="submit" class="btn" id="lockBtn">Ver la propuesta →</button>
+    </form>
+    <div class="lock-status" id="lockStatus" style="font-size:.78rem;color:var(--rojo);margin-top:10px;min-height:16px;"></div>
+    <p class="lock-note">¿No tenés tu clave? Escribinos a <a href="mailto:newsletter@alsinaar.com" style="color:var(--turquesa);">newsletter@alsinaar.com</a></p>
+  </div>
+</main>
+
+<footer>© 2026 ALSINA · alsinaar.com</footer>
+
+<script>
+document.getElementById('lockForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const key = document.getElementById('lockKey').value.trim();
+  const btn = document.getElementById('lockBtn');
+  const status = document.getElementById('lockStatus');
+  btn.disabled = true;
+  btn.textContent = 'Verificando…';
+  status.textContent = '';
+  try {
+    const r = await fetch('/api/informe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: 'san-isidro', key }),
+    });
+    const html = await r.text();
+    if (r.ok) {
+      if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('propuesta_abierta', { slug: 'san-isidro' });
+      document.open();
+      document.write(html);
+      document.close();
+    } else {
+      status.textContent = 'Clave incorrecta. Intentá de nuevo.';
+      btn.disabled = false;
+      btn.textContent = 'Ver la propuesta →';
+    }
+  } catch (err) {
+    status.textContent = 'Error de conexión. Intentá de nuevo.';
+    btn.disabled = false;
+    btn.textContent = 'Ver la propuesta →';
+  }
+});
+</script>
+</body>
+</html>

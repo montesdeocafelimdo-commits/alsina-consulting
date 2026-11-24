@@ -1,4 +1,4 @@
-import { createHash, timingSafeEqual } from 'crypto';
+import { createHash, timingSafeEqual, scryptSync, createDecipheriv } from 'crypto';
 import { readFile } from 'fs/promises';
 import path from 'path';
 
@@ -6,6 +6,8 @@ import path from 'path';
 // Agregar un cliente nuevo: sumar una fila acá + la env var correspondiente.
 // noAuth:true = sin clave — sólo queda "no listado" (nada linkea a la URL,
 // noindex en el <head> y en la respuesta). Usar solo si te lo piden así a propósito.
+// encrypted:true = el archivo está cifrado con la clave misma (scripts/cifrar-informe.mjs):
+// no necesita env var y se puede commitear aunque el repo sea público.
 const INFORMES = {
   olavarria: {
     file: 'private/informes/olavarria.html',
@@ -15,6 +17,10 @@ const INFORMES = {
     file: 'private/informes/exaltacion-de-la-cruz.html',
     hashEnv: 'INFORME_KEY_HASH_EXALTACION',
     noAuth: true,
+  },
+  'san-isidro': {
+    file: 'private/propuestas/san-isidro.enc.json',
+    encrypted: true,
   },
 };
 
@@ -27,6 +33,21 @@ function safeEqual(a, b) {
   const bufB = Buffer.from(b, 'hex');
   if (bufA.length !== bufB.length) return false;
   return timingSafeEqual(bufA, bufB);
+}
+
+// Devuelve el HTML o null si la clave no lo descifra (GCM falla con clave incorrecta).
+function decrypt(raw, key) {
+  const enc = JSON.parse(raw);
+  const k = scryptSync(key, Buffer.from(enc.salt, 'base64'), 32, {
+    N: enc.N, r: enc.r, p: enc.p, maxmem: 64 * 1024 * 1024,
+  });
+  const decipher = createDecipheriv('aes-256-gcm', k, Buffer.from(enc.iv, 'base64'));
+  decipher.setAuthTag(Buffer.from(enc.tag, 'base64'));
+  try {
+    return Buffer.concat([decipher.update(Buffer.from(enc.data, 'base64')), decipher.final()]).toString('utf8');
+  } catch {
+    return null;
+  }
 }
 
 function denied(res, status) {
@@ -51,6 +72,22 @@ export default async function handler(req, res) {
   const informe = typeof slug === 'string' ? INFORMES[slug] : null;
 
   if (!informe) return denied(res, 401);
+
+  if (informe.encrypted) {
+    if (!key) return denied(res, 401);
+    let html;
+    try {
+      html = decrypt(await readFile(path.join(process.cwd(), informe.file), 'utf8'), key.trim());
+    } catch (err) {
+      console.error('Error leyendo informe cifrado:', err);
+      return res.status(500).send('Error interno al cargar el informe.');
+    }
+    if (!html) return denied(res, 401);
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('X-Robots-Tag', 'noindex');
+    res.setHeader('Cache-Control', 'no-store');
+    return res.status(200).send(html);
+  }
 
   if (!informe.noAuth) {
     if (!key) return denied(res, 401);

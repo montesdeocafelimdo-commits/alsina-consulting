@@ -4,5 +4,6 @@ Disallow: /api/
 Disallow: /private/
 Disallow: /informes/olavarria.html
 Disallow: /informes/exaltacion-de-la-cruz.html
+Disallow: /propuestas/
 
 Sitemap: https://alsinaar.com/sitemap.xml
