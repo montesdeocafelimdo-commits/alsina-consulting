@@ -20,7 +20,7 @@
   }
 
   function init() {
-    const hero = document.querySelector('.hero') || document.body.firstElementChild;
+    const hero = document.querySelector('.hero') || document.querySelector('.hero2') || document.body.firstElementChild;
     const threshold = hero ? hero.offsetHeight * 0.9 : 400;
 
     const btn = document.createElement('button');

@@ -30,6 +30,43 @@ nav.sitio ul{display:flex;gap:24px;list-style:none;margin:0;padding:0}
 nav.sitio ul a{color:#94A3B8;text-decoration:none;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
 nav.sitio ul a:hover{color:#00D5D8}
 @media(max-width:768px){nav.sitio ul{display:none}}
+/* botón de suscripción: copia de alsina.css (la nota no carga esa hoja) */
+.alsina-sticky-cta{
+  position:fixed;z-index:1800;
+  right:20px;bottom:20px;
+  background:#2196c9;color:#fff;border:none;border-radius:6px;
+  padding:13px 22px;font-family:'Barlow',sans-serif;font-weight:700;font-size:.85rem;
+  letter-spacing:.02em;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  opacity:0;transform:translateY(16px);pointer-events:none;
+  transition:opacity .3s,transform .3s;
+}
+.alsina-sticky-cta.show{ opacity:1;transform:translateY(0);pointer-events:all; }
+.alsina-sticky-cta:hover{ background:#1c7ea8; }
+.alsina-sticky-cta.expanded{
+  background:#152830;border:1px solid rgba(0,213,216,.3);
+  padding:14px;cursor:default;box-shadow:0 14px 34px rgba(0,0,0,.4);
+}
+.alsina-sticky-cta-form{ display:flex;gap:6px; }
+.alsina-sticky-cta-input{
+  background:rgba(255,255,255,.08);border:1.5px solid rgba(243,239,231,.25);border-radius:4px;
+  color:#fff;padding:9px 11px;font-family:'Barlow',sans-serif;font-size:.82rem;outline:none;width:190px;
+}
+.alsina-sticky-cta-input::placeholder{ color:rgba(255,255,255,.4); }
+.alsina-sticky-cta-input:focus{ border-color:#2196c9; }
+.alsina-sticky-cta-submit{
+  flex-shrink:0;background:#2196c9;color:#fff;border:none;border-radius:4px;
+  padding:0 14px;font-weight:700;font-size:.78rem;cursor:pointer;
+}
+.alsina-sticky-cta-status{ font-size:.7rem;margin-top:6px;color:#4db8e0; }
+@media(max-width:640px){
+  .alsina-sticky-cta{
+    left:0;right:0;bottom:0;border-radius:0;width:100%;justify-content:center;
+    padding:15px 20px;
+  }
+  .alsina-sticky-cta.expanded{ padding:14px 16px; }
+  .alsina-sticky-cta-input{ width:auto;flex:1; }
+}
 </style>
 <!-- /Alsina -->
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -339,4 +376,5 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;const step=t
 const on=e=>{e.classList.add('on');e.querySelectorAll('[data-to]').forEach(count)};
 if('IntersectionObserver'in window){const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){on(x.target);io.unobserve(x.target)}}),{rootMargin:'0px 0px -8% 0px'});els.forEach(e=>io.observe(e))}
 setTimeout(()=>els.forEach(on),2500);}</script>
+<!-- Alsina: botón de suscripción --><script src="/assets/js/sticky-cta.js"></script><!-- /Alsina -->
 </body></html>

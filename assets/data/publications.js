@@ -45,7 +45,7 @@ window.ALSINA_PUBLICATIONS = [
     id: 'deuda-reclamo-nacion-2027',
     slug: 'deuda-reclamo-nacion-2027',
     title: 'Cuánto le reclama la Provincia a Nación y cuánto tiene que pagar en 2027',
-    summary: 'La Provincia reclama $20,7 billones a Nación y en 2027 vence la cuota más grande de su deuda. Chequeamos los $6,2 billones que dejaron de llegar: elegí la base y mirá cómo cambia el número.',
+    summary: 'La Provincia reclama $20,7 billones a Nación y en 2027 tiene los vencimientos de deuda más altos de su perfil. Chequeamos los $6,2 billones que dejaron de llegar: elegí la base y mirá cómo cambia el número.',
     format: 'note',
     primaryTopic: 'public-finance',
     secondaryTags: ['deuda', 'coparticipación', 'presupuesto', 'Ley de Financiamiento'],

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cuánto le reclama la Provincia a Nación y cuánto tiene que pagar en 2027 · Alsina</title>
-<meta name="description" content="La Provincia reclama $20,7 billones a Nación y en 2027 enfrenta la cuota más grande de su deuda. Chequeamos los $6,2 billones que Nación dejó de mandar.">
+<meta name="description" content="La Provincia reclama $20,7 billones a Nación y en 2027 enfrenta los vencimientos de deuda más altos de su perfil. Chequeamos los $6,2 billones que Nación dejó de mandar.">
 <!-- Alsina: bloque común del sitio (meta, analytics y nav). La página no depende de esto. -->
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://alsinaar.com/deuda-reclamo-nacion-2027.html">
 <meta property="og:title" content="Cuánto le reclama la Provincia a Nación y cuánto tiene que pagar en 2027 · Alsina">
-<meta property="og:description" content="La Provincia reclama $20,7 billones a Nación y en 2027 enfrenta la cuota más grande de su deuda. Chequeamos los $6,2 billones que Nación dejó de mandar.">
+<meta property="og:description" content="La Provincia reclama $20,7 billones a Nación y en 2027 enfrenta los vencimientos de deuda más altos de su perfil. Chequeamos los $6,2 billones que Nación dejó de mandar.">
 <meta property="og:image" content="https://alsinaar.com/assets/img/informes/deuda-reclamo-nacion-2027.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="900">
@@ -30,6 +30,43 @@ nav.sitio ul{display:flex;gap:24px;list-style:none;margin:0;padding:0}
 nav.sitio ul a{color:#94A3B8;text-decoration:none;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
 nav.sitio ul a:hover{color:#00D5D8}
 @media(max-width:768px){nav.sitio ul{display:none}}
+/* botón de suscripción: copia de alsina.css (la nota no carga esa hoja) */
+.alsina-sticky-cta{
+  position:fixed;z-index:1800;
+  right:20px;bottom:20px;
+  background:#2196c9;color:#fff;border:none;border-radius:6px;
+  padding:13px 22px;font-family:'Barlow',sans-serif;font-weight:700;font-size:.85rem;
+  letter-spacing:.02em;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  opacity:0;transform:translateY(16px);pointer-events:none;
+  transition:opacity .3s,transform .3s;
+}
+.alsina-sticky-cta.show{ opacity:1;transform:translateY(0);pointer-events:all; }
+.alsina-sticky-cta:hover{ background:#1c7ea8; }
+.alsina-sticky-cta.expanded{
+  background:#152830;border:1px solid rgba(0,213,216,.3);
+  padding:14px;cursor:default;box-shadow:0 14px 34px rgba(0,0,0,.4);
+}
+.alsina-sticky-cta-form{ display:flex;gap:6px; }
+.alsina-sticky-cta-input{
+  background:rgba(255,255,255,.08);border:1.5px solid rgba(243,239,231,.25);border-radius:4px;
+  color:#fff;padding:9px 11px;font-family:'Barlow',sans-serif;font-size:.82rem;outline:none;width:190px;
+}
+.alsina-sticky-cta-input::placeholder{ color:rgba(255,255,255,.4); }
+.alsina-sticky-cta-input:focus{ border-color:#2196c9; }
+.alsina-sticky-cta-submit{
+  flex-shrink:0;background:#2196c9;color:#fff;border:none;border-radius:4px;
+  padding:0 14px;font-weight:700;font-size:.78rem;cursor:pointer;
+}
+.alsina-sticky-cta-status{ font-size:.7rem;margin-top:6px;color:#4db8e0; }
+@media(max-width:640px){
+  .alsina-sticky-cta{
+    left:0;right:0;bottom:0;border-radius:0;width:100%;justify-content:center;
+    padding:15px 20px;
+  }
+  .alsina-sticky-cta.expanded{ padding:14px 16px; }
+  .alsina-sticky-cta-input{ width:auto;flex:1; }
+}
 </style>
 <!-- /Alsina -->
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -278,11 +315,11 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accion);outline
 <div class="panel"><div class="eyebrow">Transferencias nacionales a la Provincia · proyección de cierre 2026 contra Presupuesto 2027</div>
 <svg class="ch" viewBox="0 0 720 90" role="img"><text class="lab" x="0" y="49.0">Transferencias nacionales</text><line x1="328.9" x2="612.7" y1="44.0" y2="44.0" stroke="#cfc6b6" stroke-width="5"/><circle cx="328.9" cy="44.0" r="8" fill="var(--gris)"/><circle cx="612.7" cy="44.0" r="10" fill="var(--legible)"/><text class="note" x="328.9" y="30.0" text-anchor="middle">$2,12 bill. (2026)</text><text class="val" x="612.7" y="28.0" text-anchor="middle">$4,10 bill. (+93,4%)</text></svg>
 <div class="src"><span>Incluye la previsión del Fondo de Recupero. Fuente: Mensaje del Proyecto de Presupuesto 2027, Cuadro N° 6, y arts. 1 y 2.</span><b>Elaboración Alsina</b></div></div>
-<div class="reading"><span class="n">$58,65 bill.</span><p>Es el gasto total del proyecto 2027: +36,3% contra la ley 2026 y +26,1% contra lo que la Provincia estima gastar este año ($46,52 billones). Con la pauta nacional de 18%, crece cerca de 7% real contra el cierre 2026; con la inflación que espera el mercado (REM, 21,9%), cerca de 3,5%.</p></div>
+<div class="reading"><span class="n">$58,65 bill.</span><p>Es el gasto total del proyecto 2027: +36,3% contra la ley 2026 y +26,1% contra lo que la Provincia estima gastar este año ($46,52 billones). Con la pauta nacional de 18%, crece cerca de 7% real contra el cierre 2026; con la inflación que espera el mercado (REM, 21,9%), cerca de 3,4%.</p></div>
 <div class="reading"><span class="n">−$205.029 M</span><p>Es el déficit primario que proyecta el Presupuesto 2027, aun contando esas transferencias: 0,05% del producto bonaerense. El financiero, con intereses, llega a −$2,15 billones.</p></div>
 </section>
 
-<section class="ch rv"><div class="ch-head"><div><div class="eyebrow">06 · La deuda</div><h2>Se debe menos, <em>pero 2027 es la cuota más grande</em></h2></div>
+<section class="ch rv"><div class="ch-head"><div><div class="eyebrow">06 · La deuda</div><h2>Se debe menos, <em>pero 2027 es el año con más vencimientos</em></h2></div>
 <p>Al 30 de junio, la Provincia debía USD 12.112 millones ($17,95 billones): 5,3% del producto bonaerense y 45,5% de sus recursos de un año. El 73,6% está en dólares. Según la presentación oficial, la deuda era 9% del producto en 2019. El problema de 2027 no es el tamaño de la deuda: es el calendario. Ojo con dos números distintos: el perfil de abajo muestra $3,07 billones para la deuda ya emitida, al dólar de junio. El Presupuesto 2027, al dólar de la pauta, prevé $1,96 billones en servicios de la deuda (intereses y gastos) y $3,33 billones de amortizaciones.</p></div>
 <div class="panel"><div class="eyebrow">Servicios de la deuda por año · capital e intereses · billones de pesos · tocá cada año</div><div class="venc"><div class="vread"><span id="vy">2027</span><b id="vv">$3,07 bill.</b><p id="vt">El año más alto del perfil: unos USD 2.070 millones de la deuda ya emitida.</p></div><div class="vbars"><button type="button" class="vb" data-y="Jul–dic 26" data-v="1.68" aria-pressed="false" aria-label="Jul–dic 26: 1,68 billones"><i class="gwv" style="height:52.5%"></i><span>2S 26</span></button><button type="button" class="vb hot" data-y="2027" data-v="3.07" aria-pressed="true" aria-label="2027: 3,07 billones"><i class="gwv" style="height:95.9%"></i><span>2027</span></button><button type="button" class="vb" data-y="2028" data-v="2.89" aria-pressed="false" aria-label="2028: 2,89 billones"><i class="gwv" style="height:90.3%"></i><span>2028</span></button><button type="button" class="vb" data-y="2029" data-v="2.17" aria-pressed="false" aria-label="2029: 2,17 billones"><i class="gwv" style="height:67.8%"></i><span>2029</span></button><button type="button" class="vb" data-y="2030" data-v="2.16" aria-pressed="false" aria-label="2030: 2,16 billones"><i class="gwv" style="height:67.5%"></i><span>2030</span></button><button type="button" class="vb" data-y="2031" data-v="1.74" aria-pressed="false" aria-label="2031: 1,74 billones"><i class="gwv" style="height:54.4%"></i><span>2031</span></button><button type="button" class="vb" data-y="2032" data-v="1.68" aria-pressed="false" aria-label="2032: 1,68 billones"><i class="gwv" style="height:52.5%"></i><span>2032</span></button><button type="button" class="vb" data-y="2033" data-v="1.63" aria-pressed="false" aria-label="2033: 1,63 billones"><i class="gwv" style="height:50.9%"></i><span>2033</span></button><button type="button" class="vb" data-y="2034" data-v="1.57" aria-pressed="false" aria-label="2034: 1,57 billones"><i class="gwv" style="height:49.1%"></i><span>2034</span></button><button type="button" class="vb" data-y="2035" data-v="1.53" aria-pressed="false" aria-label="2035: 1,53 billones"><i class="gwv" style="height:47.8%"></i><span>2035</span></button><button type="button" class="vb" data-y="2036" data-v="1.48" aria-pressed="false" aria-label="2036: 1,48 billones"><i class="gwv" style="height:46.2%"></i><span>2036</span></button><button type="button" class="vb" data-y="2037" data-v="1.43" aria-pressed="false" aria-label="2037: 1,43 billones"><i class="gwv" style="height:44.7%"></i><span>2037</span></button><button type="button" class="vb" data-y="2038" data-v="0.2" aria-pressed="false" aria-label="2038: 0,20 billones"><i class="gwv" style="height:6.2%"></i><span>2038</span></button><button type="button" class="vb" data-y="2039" data-v="0.16" aria-pressed="false" aria-label="2039: 0,16 billones"><i class="gwv" style="height:5.0%"></i><span>2039</span></button><button type="button" class="vb" data-y="2040" data-v="0.16" aria-pressed="false" aria-label="2040: 0,16 billones"><i class="gwv" style="height:5.0%"></i><span>2040</span></button><button type="button" class="vb" data-y="2041" data-v="0.15" aria-pressed="false" aria-label="2041: 0,15 billones"><i class="gwv" style="height:4.7%"></i><span>2041</span></button></div></div>
 <div class="src"><span>Perfil de la deuda en circulación al 30/6/2026, a tipo de cambio de esa fecha ($1.482); no incluye la deuda que se emita después. Desde 2038 quedan solo organismos multilaterales. Fuente: DP de Deuda y Crédito Público, Informe de Deuda PBA al 30/6/2026.</span><b>Elaboración Alsina</b></div></div>
@@ -334,4 +371,5 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;const step=t
 const on=e=>{e.classList.add('on');e.querySelectorAll('[data-to]').forEach(count)};
 if('IntersectionObserver'in window){const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){on(x.target);io.unobserve(x.target)}}),{rootMargin:'0px 0px -8% 0px'});els.forEach(e=>io.observe(e))}
 setTimeout(()=>els.forEach(on),2500);}</script>
+<!-- Alsina: botón de suscripción --><script src="/assets/js/sticky-cta.js"></script><!-- /Alsina -->
 </body></html>
