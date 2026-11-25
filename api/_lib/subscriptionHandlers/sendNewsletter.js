@@ -30,7 +30,7 @@ import { buildUnsubscribeToken, buildEmailUnsubscribeToken } from '../unsubscrib
 // Si `contacts` falla, el dry-run lo informa en contactsError: revisarlo
 // antes del envío real, porque el envío sigue solo con las cuentas.
 
-const NEWSLETTER_FILE = 'newsletter-monitor135-octubre-2026.html';
+const NEWSLETTER_FILE = 'newsletter-monitor135-noviembre-2026.html';
 const UNSUB_PLACEHOLDER_HREF = 'mailto:newsletter@alsinaar.com?subject=Baja%20newsletter';
 const RESEND_BATCH_LIMIT = 100; // límite documentado de la API de Batch de Resend
 
@@ -207,7 +207,7 @@ export default async function handler(req, res) {
     // Outbox ANTES de mandar, igual que sendEmail() en api/_lib/email.js —
     // poder auditar incluso si el batch entero falla. account_id es null
     // para los contactos sin cuenta.
-    const outboxInserts = batch.map(r => ({ account_id: r.accountId, to_email: r.email, template_key: 'newsletter_2026_10', status: 'pending' }));
+    const outboxInserts = batch.map(r => ({ account_id: r.accountId, to_email: r.email, template_key: 'newsletter_2026_11', status: 'pending' }));
     const { data: outboxRows } = await supa.from('email_outbox').insert(outboxInserts).select('id');
     const outboxIds = (outboxRows || []).map(o => o.id);
 
