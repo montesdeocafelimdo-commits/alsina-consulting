@@ -84,7 +84,7 @@
           setTimeout(dismiss, 4000);
         } catch (err) {
           status.className = 'alsina-soft-gate-status err';
-          status.textContent = 'Algo salió mal. Intentá de nuevo.';
+          status.textContent = (err && err.userMessage) || 'Algo salió mal. Intentá de nuevo.';
           btn.disabled = false;
           btn.textContent = 'Seguir →';
         }
@@ -157,7 +157,7 @@
             unlock(gate);
           } catch (err) {
             status.className = 'alsina-scroll-gate-status err';
-            status.textContent = 'Algo salió mal. Intentá de nuevo.';
+            status.textContent = (err && err.userMessage) || 'Algo salió mal. Intentá de nuevo.';
             btn.disabled = false;
             btn.textContent = 'Seguir leyendo →';
           }

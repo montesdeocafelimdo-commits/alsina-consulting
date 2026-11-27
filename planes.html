@@ -664,7 +664,7 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
         if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('signup_completed', { plan: 'concejal', location: 'planes' });
       } catch (err) {
         concejalStatus.className = 'plan-form-status err';
-        concejalStatus.textContent = 'No pudimos enviar el mail. Probá de nuevo en un momento.';
+        concejalStatus.textContent = (err && err.userMessage) || 'No pudimos enviar el mail. Probá de nuevo en un momento.';
         btn.disabled = false;
       }
     });
@@ -709,7 +709,7 @@ footer{padding:40px 48px;background:var(--grafito2);margin-top:60px;}
           if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('direct_paid_signup', { plan: targetPlan });
         } catch (err) {
           statusEl.className = 'plan-form-status err';
-          statusEl.textContent = 'No pudimos enviar el mail. Probá de nuevo en un momento.';
+          statusEl.textContent = (err && err.userMessage) || 'No pudimos enviar el mail. Probá de nuevo en un momento.';
           formBtn.disabled = false;
         }
       });

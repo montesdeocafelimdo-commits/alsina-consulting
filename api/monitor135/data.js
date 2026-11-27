@@ -1,7 +1,7 @@
 import { readFile } from 'fs/promises';
 import path from 'path';
 import { getAuthenticatedAccount } from '../_lib/auth.js';
-import { getEntitlements, hasCapability, getResourceAccessLevel } from '../_lib/capabilities.js';
+import { getResourceAccessLevel } from '../_lib/capabilities.js';
 
 // ALSINA — Monitor 135, dataset protegido (AD-19, FASE 5).
 // Reemplaza a los archivos estáticos /assets/data/monitor135-*.json —
@@ -126,11 +126,10 @@ export default async function handler(req, res) {
     ? 'educacion'
     : (requestedDataset && DATASETS[requestedDataset]) ? requestedDataset : 'municipios';
 
-  const account = await getAuthenticatedAccount(req); // null si es visitante
-
   // ── datasets gateados por su propio recurso (no por Monitor 135) ──
   const resourceSlug = RESOURCE_GATED_DATASETS[datasetKey];
   if (resourceSlug) {
+    const account = await getAuthenticatedAccount(req); // null si es visitante
     const level = await getResourceAccessLevel(account?.accountId || null, resourceSlug);
     if (level !== 'full') {
       return res.status(200).json({ access: { level: 'none', requiresPlan: 'gobernador' }, data: null });
@@ -146,24 +145,11 @@ export default async function handler(req, res) {
     return res.status(200).json({ access: { level: 'full', requiresPlan: null }, data: gatedDataset });
   }
 
-  const entitlements = await getEntitlements(account?.accountId || null);
-  const hasBasic = hasCapability(entitlements, 'monitor_basic_view', 'basic');
-  const hasFull = hasCapability(entitlements, 'monitor_full_view', 'basic');
-  const hasExport = hasCapability(entitlements, 'monitor_data_export', 'basic');
-
-  if (!hasBasic) {
-    // Visitante sin cuenta o cuenta sin ninguna capacidad de Monitor —
-    // adelanto, no el dataset (AD-19: "ve un adelanto y CTA a Concejal").
-    return res.status(200).json({
-      access: { level: 'none', requiresPlan: 'concejal' },
-      meta: null,
-      municipios: {},
-    });
-  }
-
-  if (req.query?.export === 'true' && !hasExport) {
-    return res.status(403).json({ error: 'requiere_plan_gobernador', capability: 'monitor_data_export' });
-  }
+  // 2026-11-27: Monitor 135 abierto para cualquiera, con o sin cuenta
+  // (pedido mientras se rehace el sitio). Siempre se devuelve el dataset
+  // completo, sin consultar planes ni la base: si Supabase se pausa, el
+  // Monitor sigue andando. El recorte basic/full de arriba queda sin uso.
+  const hasFull = true;
 
   let dataset;
   try {
@@ -180,7 +166,7 @@ export default async function handler(req, res) {
     municipiosOut[key] = hasFull ? entry : redact(entry);
   }
 
-  res.setHeader('Cache-Control', 'private, max-age=0, no-store');
+  res.setHeader('Cache-Control', 'public, max-age=300');
   return res.status(200).json({
     access: { level: hasFull ? 'full' : 'basic', requiresPlan: hasFull ? null : 'intendente' },
     meta: dataset.meta || null,

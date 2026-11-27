@@ -193,7 +193,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
         status.textContent = '¡Listo! Revisá tu mail y hacé clic en el link.';
       } catch (err) {
         status.className = 'action-status err';
-        status.textContent = 'No pudimos enviar el mail. Probá de nuevo.';
+        status.textContent = (err && err.userMessage) || 'No pudimos enviar el mail. Probá de nuevo.';
         btn.disabled = false;
       }
     });

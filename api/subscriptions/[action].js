@@ -28,6 +28,7 @@ import unsubscribe from '../_lib/subscriptionHandlers/unsubscribe.js';
 import sendNewsletter from '../_lib/subscriptionHandlers/sendNewsletter.js';
 import resendDomain from '../_lib/subscriptionHandlers/resendDomain.js';
 import resendEmail from '../_lib/subscriptionHandlers/resendEmail.js';
+import signupError from '../_lib/subscriptionHandlers/signupError.js';
 
 // ALSINA — un solo archivo de ruta dinámica para /api/subscriptions/*.
 //
@@ -74,6 +75,8 @@ const ACTIONS = {
   'send-newsletter': sendNewsletter,
   'resend-domain': resendDomain,
   'resend-email': resendEmail,
+  // Público: registro de errores del alta (ver signupError.js).
+  'signup-error': signupError,
 };
 
 export default async function handler(req, res) {

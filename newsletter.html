@@ -688,7 +688,7 @@ async function handleConcejalSignup(e, formId) {
     emailEl.value = '';
   } catch (err) {
     statusEl.className = 'form-status err';
-    statusEl.textContent = 'Algo salió mal. Intentá de nuevo en un momento.';
+    statusEl.textContent = (err && err.userMessage) || 'Algo salió mal. Intentá de nuevo en un momento.';
   } finally {
     btnEl.disabled = false;
     btnEl.textContent = originalLabel;

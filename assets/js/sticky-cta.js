@@ -58,7 +58,7 @@
           status.textContent = '¡Listo! Revisá tu mail y activá tu cuenta.';
           setTimeout(() => btn.remove(), 4000);
         } catch (err) {
-          status.textContent = 'Algo salió mal. Intentá de nuevo.';
+          status.textContent = (err && err.userMessage) || 'Algo salió mal. Intentá de nuevo.';
           submitBtn.disabled = false;
           submitBtn.textContent = 'Enviar';
         }

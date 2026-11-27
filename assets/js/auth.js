@@ -21,7 +21,50 @@
         auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
       });
     })();
+    // Si falló la carga (CDN caído, config que no llegó), no dejar la
+    // promesa rechazada cacheada: el próximo intento vuelve a probar.
+    clientPromise.catch(() => { clientPromise = null; });
     return clientPromise;
+  }
+
+  // 2026-11-27: antes todo error del alta mostraba "Algo salió mal" y no
+  // quedaba registro del motivo (caso real: alguien no se pudo suscribir y
+  // no hubo forma de saber por qué). Ahora cada error trae un mensaje
+  // concreto en err.userMessage y se reporta a Plausible (signup_failed) y
+  // a los logs de Vercel (/api/subscriptions/signup-error, solo el dominio
+  // del mail, nunca la dirección completa).
+  function describeSignupError(err) {
+    const code = (err && err.code) || '';
+    const status = err && err.status;
+    const msg = String((err && err.message) || '');
+    const wait = msg.match(/after (\d+) seconds?/i);
+    if (wait) return `Ya te mandamos un mail hace instantes. Revisá tu casilla (también spam) o esperá ${wait[1]} segundos y probá de nuevo.`;
+    if (code === 'over_email_send_rate_limit' || status === 429) return 'Estamos recibiendo muchas altas en este momento. Probá de nuevo en unos minutos; si sigue, escribinos a info@alsinaar.com.';
+    if (code === 'email_address_invalid' || code === 'validation_failed' || (/invalid/i.test(msg) && /email/i.test(msg))) return 'Revisá que el mail esté bien escrito.';
+    if (!status || status >= 500) return 'No pudimos conectarnos con el servidor. Probá de nuevo en unos minutos; si sigue, escribinos a info@alsinaar.com.';
+    return 'No pudimos completar el alta. Probá de nuevo; si sigue, escribinos a info@alsinaar.com.';
+  }
+
+  function reportSignupError(err, email) {
+    const info = {
+      code: (err && err.code) || null,
+      status: (err && typeof err.status === 'number') ? err.status : null,
+      name: (err && err.name) || null,
+      message: String((err && err.message) || err || '').slice(0, 300),
+      domain: String(email || '').split('@')[1] || null,
+      page: window.location.pathname,
+    };
+    try {
+      if (window.AlsinaAnalytics) window.AlsinaAnalytics.trackEvent('signup_failed', { code: info.code || info.name || 'desconocido' });
+    } catch (_) {}
+    try {
+      fetch('/api/subscriptions/signup-error', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(info),
+        keepalive: true,
+      }).catch(() => {});
+    } catch (_) {}
   }
 
   // Alta = login: un solo email, un solo botón, en todos lados del sitio.
@@ -30,13 +73,20 @@
   // Lo usa planes.html para volver a sí misma y retomar un checkout que
   // quedó pendiente de crear la cuenta (alta directa a un plan pago).
   async function signInWithMagicLink(email, redirectPath) {
-    const supa = await getClient();
-    const redirectTo = `${window.location.origin}${redirectPath || '/cuenta.html'}`;
-    const { error } = await supa.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: redirectTo },
-    });
-    if (error) throw error;
+    try {
+      const supa = await getClient();
+      const redirectTo = `${window.location.origin}${redirectPath || '/cuenta.html'}`;
+      const { error } = await supa.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: redirectTo },
+      });
+      if (error) throw error;
+    } catch (err) {
+      const e = err instanceof Error ? err : new Error(String(err));
+      reportSignupError(e, email);
+      e.userMessage = describeSignupError(e);
+      throw e;
+    }
     return { status: 'ok' };
   }
 
